@@ -1,4 +1,11 @@
 
+
+add example of option parameter
+add example of returning a row, a column, a range
+
+bug1: too large input matrix
+bug2: too many functions in AutoOpen
+
 add contributors in documentation
 
 activate cvs mailing list

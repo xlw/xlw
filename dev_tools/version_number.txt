@@ -7,8 +7,8 @@ zz is the minor-minor number
 l  can be a,b,f for alpha, beta, final respectively
 n  is an ordinal number
 
-e.g. R000300a2 stands for Release 0.3.1a2
-e.g. R000300f0 stands for Release 0.3.1f0
+e.g. R010100f0 stands for Release 1.1.0f0
+e.g. R010101a0 stands for Release 1.1.1a0
 
 The current version number is 1.1.1a0 - 010101a0
 This version number is in:
