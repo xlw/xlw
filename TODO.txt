@@ -1,11 +1,11 @@
 
+activate cvs automated mailing
 make http://www.ifrance.com/xlw/ a link to xlw.sf.net
 sf link and logo
-add notice of sf project
-add doc formats
-update links (sf and download)
-update documentation
-remove Borland warning
+add notice of sf project in documentation
+add multiple doc formats
+update documentation including changes (see NEWS.txt)
+remove Borland warnings
 test: compile borland
 rename test into example
 use hpp instead of h
