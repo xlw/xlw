@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
@@ -22,8 +23,6 @@
 
 #include <xlw/XlfRef.h>
 #include <xlw/XlfOper.h>
-#include <xlw/XlfException.h>
-#include <xlw/macros.h>
 #include <iostream>
 
 // Stop header precompilation
@@ -50,3 +49,4 @@ XlfOper XlfRef::operator()(WORD r, BYTE c) const
 	res.Set(XlfRef(rowbegin_ + r, colbegin_ + c, sheetId_));
 	return res;
 }
+

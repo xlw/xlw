@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
@@ -22,8 +23,6 @@
 
 #include <xlw/XlfCmdDesc.h>
 #include <xlw/XlfOper.h>
-#include <xlw/XlfException.h>
-#include <xlw/macros.h>
 #include <xlw/defines.h>
 #include <iostream>
 

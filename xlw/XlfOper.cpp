@@ -1182,6 +1182,3 @@ int XlfOper::ThrowOnError(int xlret) const
   return xlret;
 
 }
-
-
-

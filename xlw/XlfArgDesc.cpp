@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  
@@ -21,7 +22,6 @@
 // $Id$
 
 #include <xlw/XlfArgDesc.h>
-#include <xlw/macros.h>
 #include <xlw/defines.h>
 #include <iostream>
 
@@ -94,3 +94,4 @@ char XlfArgDesc::GetType() const
 {
   return type_;
 }
+
