@@ -24,6 +24,7 @@
 #include <xlw/XlfAbstractCmdDesc.h>
 #include <xlw/XlfExcel.h>
 #include <iostream>
+#include <stdexcept>
 
 // Stop header precompilation
 #ifdef _MSC_VER
