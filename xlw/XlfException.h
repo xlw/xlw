@@ -45,7 +45,11 @@ they will be catched differently by the wrapper.
 These exceptions don't necessarly correspond to errors, see
 for example XlfExceptionUncalculated.
 */
-class EXCEL32_API XlfException: public std::exception
+#ifdef __MINGW32__
+class EXCEL32_API XlfException
+#else
+class EXCEL32_API XlfException : public std::exception
+#endif
 {
 public:
   //! Message string ctor.
