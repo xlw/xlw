@@ -25,7 +25,6 @@
 // $Id$
 
 #include <xlw/XlfException.h>
-#include <xlw/XlfExcel.h>
 
 #if defined(_MSC_VER)
 #pragma once

@@ -29,7 +29,7 @@
 #include <xlw/XlfOper.h>
 #include <xlw/XlfException.h>
 #include <xlw/XlfRef.h>
-#include <xlw/macros.h>
+#include <stdexcept>
 #include <xlw/defines.h>
 #include <cassert>
 #include <iostream>
