@@ -1,9 +1,7 @@
 
-
-update documentation including changes (see NEWS.txt)
+add contributors in documentation
 
 activate cvs mailing list
-
 
 add advanced example
 un-frame documentation if framed
