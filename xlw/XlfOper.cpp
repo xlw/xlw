@@ -359,7 +359,7 @@ int XlfOper::ConvertToString(char *& s) const throw()
 
   if (lpxloper_->xltype & xltypeStr)
   {
-    size_t n = lpxloper_->val.str[0];
+    size_t n = (BYTE)lpxloper_->val.str[0];
     s = XlfExcel::Instance().GetMemory(n + 1);
     memcpy(s, lpxloper_->val.str + 1, n);
     s[n] = 0;
@@ -574,14 +574,14 @@ XlfOper& XlfOper::Set(size_t i, XlfOper& val)
 }
 
 /*!
-Throws an exception if the argument is anything other than xlretSuccess.
- 
-Events that require an immediate return to excel (uncalculated cell, abort,
-stack overflow and invalid OPER (potential memory exhaustion)) throw an
-XlfException.
- 
-Other events throw std::runtime_error.
-*/
+ * Throws an exception if the argument is anything other than xlretSuccess.
+ *
+ * Events that require an immediate return to excel (uncalculated cell, abort,
+ * stack overflow and invalid OPER (potential memory exhaustion)) throw an
+ * XlfException.
+ * 
+ * Other events throw std::runtime_error.
+ */
 int XlfOper::ThrowOnError(int xlret) const
 {
   if (xlret == xlretSuccess)
