@@ -96,10 +96,13 @@ public:
 
   //! Converts to a double. 
   double AsDouble() const;
+  //! Attempts conversion to double and returns Excel4 error code. 
+  int ConvertToDouble(double&) const throw();
+
   //! Converts to a std::vector<double>. 
   std::vector<double> AsDoubleVector() const;
   //! Attempts conversion to double and returns Excel4 error code. 
-  int ConvertToDouble(double&) const throw();
+  int ConvertToDoubleVector(std::vector<double>&) const;
 
   //! Converts to a short.
   short AsShort() const;
