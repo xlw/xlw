@@ -20,7 +20,7 @@ TEX_OPTS = --pool-size=1000000
 
 # Primary target:
 # all docs
-all:: tex-files pdf-figures
+all:: tex-files
     cd latex
     $(PDFLATEX) $(TEX_OPTS) refman
     $(MAKEINDEX) refman.idx
@@ -44,7 +44,7 @@ html-online::
     copy images\*.png html
 
 # PDF documentation
-pdf:: tex-files pdf-figures
+pdf:: tex-files
     cd latex
     $(PDFLATEX) $(TEX_OPTS) refman
     $(MAKEINDEX) refman.idx
@@ -65,12 +65,6 @@ tex-files:: html
     cd latex
     cd ..
 
-# some uncharted combination of dot and epstopdf leads to cropped pdf figures.
-# removing the %%BoundingBox line and rerunning epstopdf fixes them.
-pdf-figures:: html
-    cd latex
-    FOR /F %i IN ('dir /B a0*.eps') DO @( copy %i %i.bak > NUL & sed -e "/%%BoundingBox/d" %i.bak > %i &  epstopdf %i 2> NUL & copy %i.bak %i > NUL & del %i.bak)
-    cd ..
 
 # Clean up
 clean::
