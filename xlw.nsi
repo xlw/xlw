@@ -67,8 +67,8 @@ SectionIn 1 2 3
 
     SetOutPath $INSTDIR\lib\Win32\VisualStudio
     File "lib\Win32\VisualStudio\xlw.lib"
-    SetOutPath $INSTDIR\lib\Win32\Borland
-    File "lib\Win32\Borland\xlw.lib"
+    #SetOutPath $INSTDIR\lib\Win32\Borland
+    #File "lib\Win32\Borland\xlw.lib"
 
     WriteRegStr HKEY_LOCAL_MACHINE \
                 "Software\Microsoft\Windows\CurrentVersion\Uninstall\XLW" \
@@ -138,9 +138,9 @@ SectionIn 1 2
   File /r "xlwExample\xll\Win32\VisualStudio\*.txt"
   File /r "xlwExample\xll\Win32\VisualStudio\*.xll"
 
-  SetOutPath  $INSTDIR\xlwExample\xll\Win32\Borland
-  File /r "xlwExample\xll\Win32\Borland\*.txt"
-  File /r "xlwExample\xll\Win32\Borland\*.xll"
+  #SetOutPath  $INSTDIR\xlwExample\xll\Win32\Borland
+  #File /r "xlwExample\xll\Win32\Borland\*.txt"
+  #File /r "xlwExample\xll\Win32\Borland\*.xll"
 
   IfFileExists $SMPROGRAMS\QuantLib 0 NoSourceShortCuts
     CreateShortCut "$SMPROGRAMS\XLW\Demo XLL workspace.lnk" \
