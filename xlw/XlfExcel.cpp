@@ -111,16 +111,16 @@ If msg is 0, the status bar is cleared.
 void XlfExcel::SendMessage(const char *msg)
 {
   if (msg)
-    Call(xlcMessage,0,2,XlfOper(true),XlfOper(msg));
+    Call(xlcMessage, 0, 2, (LPXLOPER)XlfOper(true), (LPXLOPER)XlfOper(msg));
   else
-    Call(xlcMessage,0,1,XlfOper(false));
+    Call(xlcMessage, 0, 1, (LPXLOPER)XlfOper(false));
   return;
 }
 
 bool XlfExcel::IsEscPressed() const
 {
   XlfOper ret;
-  Call(xlAbort,ret,1,XlfOper(false));
+  Call(xlAbort, ret, 1, (LPXLOPER)XlfOper(false));
   return ret.AsBool();
 }
 
