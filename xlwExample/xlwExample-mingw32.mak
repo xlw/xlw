@@ -45,7 +45,7 @@ endif
 endif
 
 ifndef TARGET
-TARGET=xlwExample.dll
+TARGET=xll/Win32/Mingw32/xlwExample.xll
 endif
 
 .PHONY: all
