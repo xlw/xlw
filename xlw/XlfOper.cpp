@@ -112,58 +112,108 @@ void XlfOper::FreeAuxiliaryMemory() const
 /*!
 \param type is an integer indicating the target type we want to coerce to.
 \param result is the XLOPER where to store the output.
+
+\todo Optimize xlType to avoid consuming the buffer.
 */
-void XlfOper::Coerce(short type, XlfOper& result) const
+int XlfOper::Coerce(short type, XlfOper& result) const
 {
-  int err = XlfExcel::Instance().Call(xlCoerce, (LPXLOPER)result, 2, (LPXLOPER)lpxloper_, (LPXLOPER)XlfOper(type));
-  if (err != xlretSuccess)
-    ERR_THROW(XlfExceptionCoerce);
+  XlfOper xlType(type);
+  int xlret = XlfExcel::Instance().Call(xlCoerce, (LPXLOPER)result, 2, (LPXLOPER)lpxloper_, (LPXLOPER)xlType);
+  return xlret;
 }
 
 double XlfOper::AsDouble() const
 {
-  if (lpxloper_->xltype != xltypeInt && lpxloper_->xltype != xltypeNum)
+	double d;
+	int xlret = ConvertToDouble(d);
+	XlfExcel::Instance().ThrowOnCriticalError(xlret);
+	return d;
+};
+
+int XlfOper::ConvertToDouble(double& d) const throw()
+{
+  int xlret;
+  if (lpxloper_->xltype == xltypeInt)
+  {
+	  d = lpxloper_->val.w;
+      xlret=xlretSuccess;
+  }
+  else if (lpxloper_->xltype == xltypeNum)
+  {
+	  d = lpxloper_->val.num;
+      xlret=xlretSuccess;
+  }
+  else
   {
     // Allocates tmp on the stack to avoid filling the internal buffer.
     XLOPER tmp;
     // Creates a XlfOper based on tmp.
     XlfOper cast(&tmp,false);
     // Coerces to numeric type.
-    Coerce(xltypeNum,cast);
-    // Returns the value.
-    return cast.AsDouble();
+    xlret = Coerce(xltypeNum,cast);
+	if (xlret == xlretSuccess)
+	    xlret = cast.ConvertToDouble(d);
   }
-  if (lpxloper_->xltype == xltypeInt)
-    return double(lpxloper_->val.w);
-  return double(lpxloper_->val.num);
+  return xlret;
 };
 
 short XlfOper::AsShort() const
 {
-  if (lpxloper_->xltype != xltypeInt && lpxloper_->xltype != xltypeNum)
-  {
-    // see AsDouble
-    XLOPER tmp;
-    XlfOper cast(&tmp,false);
-    Coerce(xltypeInt,cast);
-    return cast.AsShort();
-  }
-  if (lpxloper_->xltype == xltypeNum)
-    return short(lpxloper_->val.num);
-  return short(lpxloper_->val.w);
+	short s;
+	int xlret = ConvertToShort(s);
+	XlfExcel::Instance().ThrowOnCriticalError(xlret);
+	return s;
 };
+
+int XlfOper::ConvertToShort(short& s) const throw()
+{
+  int xlret;
+  if (lpxloper_->xltype == xltypeNum)
+  {
+	  s = lpxloper_->val.num;
+      xlret=xlretSuccess;
+  }
+  else
+  {
+    // Allocates tmp on the stack to avoid filling the internal buffer.
+    XLOPER tmp;
+    // Creates a XlfOper based on tmp.
+    XlfOper cast(&tmp,false);
+    // Coerces to numeric type.
+    xlret = Coerce(xltypeNum,cast);
+	if (xlret == xlretSuccess)
+	    xlret = cast.ConvertToShort(s);
+  }
+  return xlret;
+};
+
 
 bool XlfOper::AsBool() const
 {
-  if (lpxloper_->xltype != xltypeBool)
+	bool b;
+	int xlret = ConvertToBool(b);
+	XlfExcel::Instance().ThrowOnCriticalError(xlret);
+	return b;
+};
+
+int XlfOper::ConvertToBool(bool& b) const throw()
+{
+  int xlret;
+  if (lpxloper_->xltype == xltypeBool)
   {
-    // see AsDouble
+	  b = (lpxloper_->val.boolean != 0);
+	  xlret = xlretSuccess;
+  }
+  else
+  {
+    // see ConvertToDouble
     XLOPER tmp;
     XlfOper cast(&tmp,false);
-    Coerce(xltypeBool,cast);
-    return cast.AsBool();
+    xlret = Coerce(xltypeBool,cast);
+	if (xlret == xlretSuccess)
+		xlret = cast.ConvertToBool(b);
   }
-  return bool(lpxloper_->val.boolean != 0);
+  return xlret;
 };
 
 /*!
@@ -174,38 +224,68 @@ a char string is the slowest cast of all.
 */
 char * XlfOper::AsString() const
 {
-  if (lpxloper_->xltype != xltypeStr)
-  {
-    // see AsDouble
-    XLOPER tmp;
-    XlfOper cast(&tmp,true);
-    Coerce(xltypeStr,cast);
-    char *res = cast.AsString();
-    return res;
-  }
-  size_t n = lpxloper_->val.str[0];
-  char *res = XlfExcel::Instance().GetMemory(n + 1);
-  memcpy(res, lpxloper_->val.str + 1, n);
-  res[n] = 0;
-  return res;
+	char * s;
+	int xlret = ConvertToString(s);
+	XlfExcel::Instance().ThrowOnCriticalError(xlret);
+	return s;
 };
 
-XlfRef XlfOper::AsRef() const
+int XlfOper::ConvertToString(char *& s) const throw()
 {
-  if (lpxloper_->xltype != xltypeSRef)
+  int xlret;
+  if (lpxloper_->xltype == xltypeStr)
+  {
+    size_t n = lpxloper_->val.str[0];
+    s = XlfExcel::Instance().GetMemory(n + 1);
+    memcpy(s, lpxloper_->val.str + 1, n);
+    s[n] = 0;
+	xlret = xlretSuccess;
+  }
+  else
   {
     // see AsDouble
     XLOPER tmp;
     XlfOper cast(&tmp,false);
-    Coerce(xltypeSRef,cast);
-    return cast.AsRef();
+    xlret = Coerce(xltypeStr,cast);
+	if (xlret == xlretSuccess)
+	    xlret = cast.ConvertToString(s);
+	// The memory for the string is allocated on Excel area
+	// FreeAuxiliaryMemory lets Excel know that we no longer need it.
+	cast.FreeAuxiliaryMemory();
   }
-  return XlfRef(lpxloper_->val.sref.ref.rwFirst,  // top
+  return xlret;
+}
+
+XlfRef XlfOper::AsRef() const
+{
+	XlfRef r;
+	int xlret = ConvertToRef(r);
+	XlfExcel::Instance().ThrowOnCriticalError(xlret);
+	return r;
+}
+
+int XlfOper::ConvertToRef(XlfRef& r) const throw()
+{
+  int xlret;
+  if (lpxloper_->xltype == xltypeSRef)
+  {
+    r = XlfRef (lpxloper_->val.sref.ref.rwFirst,  // top
                 lpxloper_->val.sref.ref.colFirst, // left
                 lpxloper_->val.sref.ref.rwLast,   // bottom
                 lpxloper_->val.sref.ref.colLast); // right
+	xlret = xlretSuccess;
+  }
+  else
+  {
+    // see AsDouble
+    XLOPER tmp;
+    XlfOper cast(&tmp,false);
+    xlret = Coerce(xltypeStr,cast);
+	if (xlret == xlretSuccess)
+	    xlret = cast.ConvertToRef(r);
+  }
+  return xlret;
 }
-
 
 XlfOper& XlfOper::Set(LPXLOPER lpxloper)
 {
