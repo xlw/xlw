@@ -1,13 +1,13 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
-
+ 
  This file is part of xlw, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
-
+ 
  xlw is free software: you can redistribute it and/or modify it under the
  terms of the xlw license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
-
+ 
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -17,6 +17,12 @@
 // $Id$
 
 #include <xlw/xlw.h>
+#include <iostream>
+#include <vector>
+#include "Win32StreamBuf.h"
+
+Win32StreamBuf debuggerStreamBuf;
+std::streambuf * oldStreamBuf;
 
 extern "C"
 {
@@ -64,35 +70,24 @@ extern "C"
     // Excel will calculate this cell and call again our function.
     // Thus we copy first all the data to avoid to partially compute the
     // average for nothing since one of the cell might be uncalculated.
-    double * temp = 0;
-    // Allocate a buffer where to copy the values.
-    temp = new double[popSize];
-    try
-    {
-      for (i = 0; i < n; ++i)
-        for (j = 0; j < m; ++j)
-        {
-          // copy all values.
-          temp[i*m+j] = target(i,j).AsDouble();
-        }
-      // All cells are copied. We do the actual work.
-      for (i = 0; i < popSize; ++i)
+    std::vector<double> temp(popSize);
+    for (i = 0; i < n; ++i)
+      for (j = 0; j < m; ++j)
       {
-        // sums the values.
-        averageTmp += temp[i];
-        // sums the squared values.
-        varianceTmp += temp[i] * temp[i];
+        // copy all values.
+        int ret = target(i,j).ConvertToDouble(temp[i*m+j]);
+        // if an error occurs return immediately.
+        if (ret != xlretSuccess)
+          return 0;
       }
-    }
-    // Tidy up buffer if something wrong occurs.
-    catch(...)
+    // All cells are copied. We do the actual work.
+    for (i = 0; i < popSize; ++i)
     {
-      // should be safe.
-      delete[] temp;
-      throw;
+      // sums the values.
+      averageTmp += temp[i];
+      // sums the squared values.
+      varianceTmp += temp[i] * temp[i];
     }
-    // Tidy up buffer if nothing wrong occurs.
-    delete[] temp;
     // Initialization of the resultArray.
     double resultArray[2];
     // compute average.
@@ -108,6 +103,9 @@ extern "C"
 
   long EXCEL_EXPORT xlAutoOpen()
   {
+    oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
+    std::cerr << __HERE__ << "std::cerr redirected to MSVC debugger" << std::endl;
+
     // Displays a message in the status bar.
     XlfExcel::Instance().SendMessage("Registering library...");
 
@@ -145,6 +143,15 @@ extern "C"
 
     // Clears the status bar.
     XlfExcel::Instance().SendMessage();
+    return 1;
+  }
+
+  long EXCEL_EXPORT xlAutoClose()
+  {
+		std::cerr << __HERE__ << "Releasing ressources" << std::endl;
+		// true in argument to free ALL the memory that have been allocated.
+		XlfExcel::Instance().FreeMemory(true);
+    std::cerr.rdbuf(oldStreamBuf);
     return 1;
   }
 
