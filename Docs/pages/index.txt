@@ -1,5 +1,5 @@
 /*!
-\page index Excel32 C++ Wrapper (XLW)
+\mainpage Excel32 C++ Wrapper (XLW)
 
 \author <a href=mailto:xlw@ifrance.com>Jérôme Lecomte</a>(\ref copyright)
 
@@ -29,5 +29,12 @@ certainly has reached a stage where it can be usefull. If you have
 any comment, you can email to xlw-users@list.sourceforge.net
 Suggestions, improvements and critics to the software
 and/or the documentation are heartily welcome.
+
+\htmlonly
+If you are interested in knowing more about the C++ wrapper, you can browse
+the the documentation by clicking on <a href="pages.html">Related Pages</a>.
+\endhtmlonly
+
+
 
 */

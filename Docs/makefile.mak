@@ -20,7 +20,7 @@ TEX_OPTS = --pool-size=1000000
 
 # Primary target:
 # all docs
-all:: html
+all:: tex-files
     cd latex
     $(PDFLATEX) $(TEX_OPTS) refman
     $(MAKEINDEX) refman.idx
@@ -44,7 +44,7 @@ html-online::
     copy images\*.png html
 
 # PDF documentation
-pdf::
+pdf:: tex-files
     cd latex
     $(PDFLATEX) $(TEX_OPTS) refman
     $(MAKEINDEX) refman.idx
@@ -52,7 +52,7 @@ pdf::
     cd ..
 
 # PostScript documentation
-ps:: html
+ps:: tex-files
     cd latex
     $(LATEX) $(TEX_OPTS) refman
     $(MAKEINDEX) refman.idx
@@ -61,7 +61,7 @@ ps:: html
     cd ..
 
 # Correct LaTeX files to get the right layout
-tex-files::
+tex-files:: html
     copy userman.tex latex
     cd latex
     ren refman.tex oldrefman.tex
@@ -73,7 +73,7 @@ tex-files::
            -e "/include{faq}/d" \
            -e "/include{gettingstarted}/d" \
            -e "/include{history}/d" \
-           -e "/include{index}/d" \
+           -e "/include{main}/d" \
            -e "/include{install}/d" \
            -e "/include{knownbugs}/d" \
            -e "/include{copyright}/d" \
