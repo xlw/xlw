@@ -1,12 +1,17 @@
-// Copyright (c) 1998-2002
-// Jerome Lecomte
-// 
-// Permission to use, copy, modify, distribute and sell this software
-// and its documentation for any purpose is hereby granted without fee,
-// provided that the above copyright notice appear in all copies and
-// that both that copyright notice and this permission notice appear
-// in supporting documentation. This software is freely provided "as is" 
-// without express or implied warranty.
+/*
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 
 // $Id$
 
@@ -48,13 +53,13 @@ use your own error handling mechanism.
 
 //! Converts a data stream to a 0-terminated string and passes it the LOG macro.
 /*!
-\param message Whatever type (or serie of types) that has a stream 
+\param message Whatever type (or serie of types) that has a stream
 operator defined. For instance, you could use it like
 \code double f=0.0;
 ERR_LOG("Here the value of f is \"" << f << "\"");
 \endcode
 
-\warning The buffer has a limited size set to 1024 bytes. 
+\warning The buffer has a limited size set to 1024 bytes.
 The line might be troncated if it is too long.
 
 The enclosing
@@ -79,7 +84,7 @@ if (...)
 //! Wrapper for catch keyword.
 #define ERR_CATCH catch
 //! Wrapper for throw keyword without argument.
-/*! 
+/*!
 You might use it to forward an exception further up in the call stack
 after it's been catched by a catch block.
 */
@@ -89,7 +94,7 @@ after it's been catched by a catch block.
 //! Wrapper for a catch of all exceptions.
 #define ERR_CATCH_ALL catch (...)
 //! Wrapper for the throw of an exception with message.
-/*! Adds the name of the exception thrown and calls ERR_LOG() macro 
+/*! Adds the name of the exception thrown and calls ERR_LOG() macro
     with the message.
 	\sa ERR_LOG()
 */
@@ -113,7 +118,7 @@ after it's been catched by a catch block.
 //! Wrapper for throw of an exception without message.
 #define ERR_THROW(exception) { throw exception(); }
 //! Wrapper for assertion test.
-/*! 
+/*!
 Checks if \e condition is \c true. If not, calls ERR_THROW_MSG() with
 \e exception and \e message as arguments.
 These assertions are \e not \e removed for \e release versions.
@@ -131,7 +136,7 @@ These assertions are \e not \e removed for \e release versions.
 #define ERR_LOGW(message) { ERR_LOG("WARNING : " << message); }
 
 //! Wrapper for warning test.
-/*! 
+/*!
 Checks if \e condition is \c true. If not, calls ERR_LOGW() with
 \e message as arguments.
 These assertions \b still \b hold for \e release versions.

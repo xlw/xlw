@@ -1,12 +1,17 @@
-// Copyright (c) 1998-2002
-// Jerome Lecomte
-// 
-// Permission to use, copy, modify, distribute and sell this software
-// and its documentation for any purpose is hereby granted without fee,
-// provided that the above copyright notice appear in all copies and
-// that both that copyright notice and this permission notice appear
-// in supporting documentation. This software is freely provided "as is" 
-// without express or implied warranty.
+/*
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 
 /*!
 \file XlfRef.inl
@@ -34,51 +39,51 @@ INLINE XlfRef::XlfRef(WORD row, BYTE col)
 {}
 
 INLINE WORD XlfRef::GetRowBegin() const
-{ 
-  return rowbegin_; 
+{
+  return rowbegin_;
 }
 
 INLINE WORD XlfRef::GetRowEnd() const
-{ 
-  return rowend_; 
+{
+  return rowend_;
 }
 
 INLINE BYTE XlfRef::GetColBegin() const
-{ 
-  return colbegin_; 
+{
+  return colbegin_;
 }
 
 INLINE BYTE XlfRef::GetColEnd() const
 {
-  return colend_; 
+  return colend_;
 }
 
 INLINE BYTE XlfRef::GetNbCols() const
-{ 
-  return colend_-colbegin_; 
+{
+  return colend_-colbegin_;
 }
 
 INLINE WORD XlfRef::GetNbRows() const
-{ 
-  return rowend_-rowbegin_; 
+{
+  return rowend_-rowbegin_;
 }
 
 INLINE void XlfRef::SetRowBegin(WORD rowbegin)
-{ 
-  rowbegin_ = rowbegin; 
+{
+  rowbegin_ = rowbegin;
 }
 
 INLINE void XlfRef::SetRowEnd(WORD rowend)
-{ 
-  rowend_ = rowend; 
+{
+  rowend_ = rowend;
 }
 
 INLINE void XlfRef::SetColBegin(BYTE colbegin)
-{ 
-  colbegin_ = colbegin; 
+{
+  colbegin_ = colbegin;
 }
 
 INLINE void XlfRef::SetColEnd(BYTE colend)
-{ 
-  colend_ = colend; 
+{
+  colend_ = colend;
 }

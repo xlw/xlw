@@ -1,15 +1,15 @@
-/*! 
+/*!
 \file xlcall32.h
 \brief Header file shipped with Excel 97
 
 Declares the functions exported by the file \c xlcall32.dll
-shipped with Excel as well. Micorsoft is supposed to maintain
-backward compatibility with this API in the future versions 
+shipped with Excel as well. Microsoft is supposed to maintain
+backward compatibility with this API in the future versions
 of Ms Excel.
 
-This file is documented here for information only if you want 
+This file is documented here for information only if you want
 to extend the wrapper with new functionalities. But this does
-not really constitute a part of the wrapper but rather the 
+not really constitute a part of the wrapper but rather the
 basis of it.
 */
 
@@ -41,12 +41,12 @@ extern "C" {
 #endif	/*! __cplusplus */
 
 /*!
-* XLREF structure 
+* XLREF structure
 *
 * Describes a single rectangular reference
 */
 
-typedef struct xlref 
+typedef struct xlref
 {
     WORD rwFirst;       /*!< \brief first row. */
     WORD rwLast;       /*!< \brief last row. */
@@ -59,11 +59,11 @@ typedef struct xlref
 * XLMREF structure
 *
 * Describes multiple rectangular references.
-* This is a variable size structure, default 
+* This is a variable size structure, default
 * size is 1 reference.
 */
 
-typedef struct xlmref 
+typedef struct xlmref
 {
     //! Nb of XLREF.
     WORD count;
@@ -74,14 +74,14 @@ typedef struct xlmref
 
 
 /*!
-* XLOPER structure 
+* XLOPER structure
 *
 * Excel's fundamental data type: can hold data
 * of any type. Use "R" as the argument type in the
 * REGISTER function.
 */
 
-typedef struct xloper 
+typedef struct xloper
 {
     union
     {
@@ -171,7 +171,7 @@ typedef struct xloper
 #define xlerrNA      42
 
 
-/*! 
+/*!
 * Flow data types
 *
 * Used for val.flow.xlflow field of XLOPER structure

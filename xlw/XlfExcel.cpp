@@ -1,12 +1,17 @@
-// Copyright (c) 1998-2002
-// Jerome Lecomte
-// 
-// Permission to use, copy, modify, distribute and sell this software
-// and its documentation for any purpose is hereby granted without fee,
-// provided that the above copyright notice appear in all copies and
-// that both that copyright notice and this permission notice appear
-// in supporting documentation. This software is freely provided "as is" 
-// without express or implied warranty.
+/*
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 
 /*!
 \file XlfExcel.cpp
@@ -59,29 +64,29 @@ struct XlfExcelImpl
 
 /* Displays a message box */
 void XlfExcel::EarlyLog(const char *msg)
-{ 
-  MsgBox(msg); 
+{
+  MsgBox(msg);
 };
 
 bool XlfExcel::IsInitialized()
-{ 
-  return this_ != 0; 
+{
+  return this_ != 0;
 }
 
 ofstream *XlfExcel::GetLogFileHandle()
-{ 
-  return impl_->hlogf_; 
+{
+  return impl_->hlogf_;
 }
 
 /*!
 \return Occupation of the buffer as a number between 0 and 1.
 
-You might want to increase the size of the buffer with the 
+You might want to increase the size of the buffer with the
 method XlfExcel::AllocateBuffer.
 */
 double XlfExcel::GetBufferOccupation() const
-{ 
-  return offset_/(double)bufsz_; 
+{
+  return offset_/(double)bufsz_;
 }
 
 //! Destroys the XlfExcel singleton.
@@ -90,7 +95,7 @@ A static instance of XlfExcelDestroyer
 in the dtor of XlfExcel makes sure XlfExcel dtor is called before the
 end of the program.
 
-Note that it does not help you if some function tries to access the 
+Note that it does not help you if some function tries to access the
 XlfExcelDestroyer after its dtor was called. It is howver very unlikely.
 If it ever happened a new instance of XlfExcel would be created.
 */
@@ -98,7 +103,7 @@ class XlfExcelDestroyer
 {
 public:
   //! Dtor.
-  /*! 
+  /*!
   Deletes the pointer returned by XlfExcel::Instance().
   */
   ~XlfExcelDestroyer()
@@ -125,10 +130,10 @@ XlfExcel& XlfExcel::Instance()
 		this_->InitLibrary();
 		this_->InitLog();
 	}
-	return *this_; 
+	return *this_;
 }
 
-/*! 
+/*!
 If not title is specified, the message is assumed to be an error log
 */
 void XlfExcel::MsgBox(const char *errmsg, const char *title)
@@ -142,7 +147,7 @@ void XlfExcel::MsgBox(const char *errmsg, const char *title)
 			NULL,
 			err,
 			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-			(LPTSTR) &lpMsgBuf,    
+			(LPTSTR) &lpMsgBuf,
 			0,
 			NULL);
 		// Process any inserts in lpMsgBuf.
@@ -219,7 +224,7 @@ void XlfExcel::AllocateBuffer(size_t buffersize)
 	return;
 }
 
-/*! 
+/*!
 The name of the log file is the same than the xll with a \c .log
 extension instead of the \c .xll.
 The file is located in the directory refered by the TEMP environment
@@ -236,7 +241,7 @@ void XlfExcel::InitLog()
 		root = getenv("TMP");
 	if (root.empty())
 		root = name.substr(0, name.rfind('\\'));
-	
+
 	std::string base = name.substr(name.rfind('\\') + 1);
 	base = base.substr(0, base.rfind('.'));
 	if (root[root.length()-1]!='\\')
@@ -281,7 +286,7 @@ int cdecl XlfExcel::Call(int xlfn, LPXLOPER pxResult, int count, ...) const
 	va_list argList;
 	LPXLOPER *plpx = alloca(count*sizeof(LPXLOPER));
 #endif
-	
+
 #ifdef _ALPHA_
 	/* Fetch all of the LPXLOPERS and copy them into plpx.
 	* plpx is alloca'ed and will automatically be freed when the function
@@ -292,7 +297,7 @@ int cdecl XlfExcel::Call(int xlfn, LPXLOPER pxResult, int count, ...) const
 		plpx[i] = va_arg(argList, LPXLOPER);
 	va_end(argList);
 #endif
-	
+
 #ifdef _ALPHA_
 	return Callv(xlfn, pxResult, count, plpx);
 #else

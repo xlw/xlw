@@ -1,12 +1,17 @@
-// Copyright (c) 1998-2002
-// Jerome Lecomte
-// 
-// Permission to use, copy, modify, distribute and sell this software
-// and its documentation for any purpose is hereby granted without fee,
-// provided that the above copyright notice appear in all copies and
-// that both that copyright notice and this permission notice appear
-// in supporting documentation. This software is freely provided "as is" 
-// without express or implied warranty.
+/*
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 
 #ifndef INC_XlfOper_H
 #define INC_XlfOper_H
@@ -34,14 +39,14 @@ class XlfRef;
 
 //! Wrapper around a pointer to the XLOPER Excel data structure.
 /*!
-This class eases the work of marchalling and unmarshalling data to 
+This class eases the work of marchalling and unmarshalling data to
 the Excel XLOPER format (including memory).
 
 XlfOper holds a pointer to a XLOPER.
 
-\warning It is important \e not to add any data member to this class 
-because the library heavily relies on the fact that LPXLOPER and 
-XlfOper have the same size. It allows the library to interpret any 
+\warning It is important \e not to add any data member to this class
+because the library heavily relies on the fact that LPXLOPER and
+XlfOper have the same size. It allows the library to interpret any
 LPXLOPER sent by Excel as a XlfOper.
 */
 class EXCEL32_API XlfOper
@@ -68,9 +73,9 @@ public:
   template <class FwdIt>
   XlfOper(WORD rows, BYTE cols, FwdIt start)
 #ifdef PORT_PARTIAL_MEMBER_TEMPLATE
-  { 
-    Allocate(); 
-    Set(rows,cols,start); 
+  {
+    Allocate();
+    Set(rows,cols,start);
   }
 #else
 ;
@@ -120,7 +125,7 @@ public:
   operator LPXLOPER();
 #ifndef PORT_NO_MEMBER_TEMPLATE
   //! Set to an array
-  /*! 
+  /*!
   \param r number of rows in the array
   \param c number of columns in the array
   \param it iterator pointing to the begining of a container
@@ -153,7 +158,7 @@ private:
 
   //! Reserves memory in XLL buffer (garbage collected).
   void Allocate();
-  
+
   //! Anticipates deallocation if possible.
   void Deallocate();
 };

@@ -1,12 +1,17 @@
-// Copyright (c) 1998-2002
-// Jerome Lecomte
-//
-// Permission to use, copy, modify, distribute and sell this software
-// and its documentation for any purpose is hereby granted without fee,
-// provided that the above copyright notice appear in all copies and
-// that both that copyright notice and this permission notice appear
-// in supporting documentation. This software is freely provided "as is"
-// without express or implied warranty.
+/*
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 
 /*!
 \file XlfOper.cpp
@@ -39,7 +44,7 @@ This bit is currently unused by Microsoft Excel. We set it
 to indicate that the LPXLOPER (passed by Excel) holds some extra
 memory to be freed.
 
-This bit is controled in ~XlfOper to know if the DLL should release 
+This bit is controled in ~XlfOper to know if the DLL should release
 auxiliary memory or not by a call to FreeAuxiliaryMemory.
 */
 int xlbitCallFreeAuxMem = 0x8000;
@@ -61,7 +66,7 @@ XlfOper::XlfOper(LPXLOPER lpxloper, bool isExcelData): lpxloper_(lpxloper)
 Calls Deallocate() to free the XLOPER allocated by the XLL. XLOPER allocated
 by Excel remain under Excel responsability.
 
-Calls FreeAuxiliaryMemory if the XLOPER is owned by Excel and maintains heap 
+Calls FreeAuxiliaryMemory if the XLOPER is owned by Excel and maintains heap
 allocated data. If it is not owned by Excel, the data is assumed to be deleted
 elsewhere in the XLL.
 */
@@ -78,15 +83,15 @@ XlfOper::~XlfOper()
 }
 
 /*!
-Allocates 16 bits (size of a XLOPER) on the temporary buffer 
+Allocates 16 bits (size of a XLOPER) on the temporary buffer
 stored by XlfExcel with a call to XlfExcel::GetMemory().
- 
+
 \bug Each XlfOper allocation causes a call to Allocate which in turn
-reserve the necessary number of bytes in the internal buffer. The 
-problem is that even temporary XlfOper used inside the xll function use 
-this internal buffer. This buffer is not freed before the next call to 
+reserve the necessary number of bytes in the internal buffer. The
+problem is that even temporary XlfOper used inside the xll function use
+this internal buffer. This buffer is not freed before the next call to
 the xll to ensure Excel can use the data before they are freed. This
-causes a bottleneck if the function uses many temporary XlfOper (see 
+causes a bottleneck if the function uses many temporary XlfOper (see
 Deallocate()).
 */
 void XlfOper::Allocate()
@@ -163,9 +168,9 @@ bool XlfOper::AsBool() const
 };
 
 /*!
-For character strings, the XLL allocates 
-the memory on its own buffer. This buffer is automatically freed 
-when a function of the XLL is called again. Note that coerce to 
+For character strings, the XLL allocates
+the memory on its own buffer. This buffer is automatically freed
+when a function of the XLL is called again. Note that coerce to
 a char string is the slowest cast of all.
 */
 char * XlfOper::AsString() const

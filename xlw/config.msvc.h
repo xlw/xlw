@@ -1,21 +1,18 @@
 
 /*
  Copyright (c) 2002 Ferdinando Ametrano
- Copyright (c) 1998-2002 Jerome Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
 
- This file is part of XLW, a free-software/open-source Excel32 C++ Wrapper
- http://xlw.sourceforge.net/
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
 
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
- license along with this program; if not, please email
- ferdinando@ametrano.net
- The license is also available online at
- http://xlw.sourceforge.net/download.html
+ license along with this program; if not, please email xlw-users@lists.sf.net
 
  This program is distributed in the hope that it will be useful, but WITHOUT
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- FITNESS FOR A PARTICULAR PURPOSE.  See the license for more details.
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
 // $Id$

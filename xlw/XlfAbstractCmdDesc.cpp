@@ -1,12 +1,17 @@
-// Copyright (c) 1998-2002
-// Jerome Lecomte
-// 
-// Permission to use, copy, modify, distribute and sell this software
-// and its documentation for any purpose is hereby granted without fee,
-// provided that the above copyright notice appear in all copies and
-// that both that copyright notice and this permission notice appear
-// in supporting documentation. This software is freely provided "as is" 
-// without express or implied warranty.
+/*
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 
 /*!
 \file XlfAbstractCmdDesc.cpp
@@ -45,8 +50,8 @@ XlfAbstractCmdDesc::~XlfAbstractCmdDesc()
 
 /*!
 Performs the parts of the Registration that are common to a registration
-of all the subclasses of XlfAbstractCmdDesc. It then calls the pure 
-virtual method DoRegister for the subclass dependant parts of the 
+of all the subclasses of XlfAbstractCmdDesc. It then calls the pure
+virtual method DoRegister for the subclass dependant parts of the
 algorithm.
 */
 void XlfAbstractCmdDesc::Register() const
@@ -59,8 +64,8 @@ void XlfAbstractCmdDesc::Register() const
 }
 
 void XlfAbstractCmdDesc::Unregister()
-{ 
-  return; 
+{
+  return;
 }
 
 void XlfAbstractCmdDesc::SetName(const std::string& name)

@@ -1,12 +1,17 @@
-// Copyright (c) 1998-2002
-// Jerome Lecomte
-// 
-// Permission to use, copy, modify, distribute and sell this software
-// and its documentation for any purpose is hereby granted without fee,
-// provided that the above copyright notice appear in all copies and
-// that both that copyright notice and this permission notice appear
-// in supporting documentation. This software is freely provided "as is" 
-// without express or implied warranty.
+/*
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 
 /*!
 \file XlfFuncDesc.cpp
@@ -40,8 +45,8 @@ struct XlfFuncDescImpl
 
 /*!
 \param name
-\param alias 
-\param comment The first 3 argument are directly passed to 
+\param alias
+\param comment The first 3 argument are directly passed to
 XlfAbstractCmdDesc::XlfAbstractCmdDesc.
 \param category Category in which the function should appear
 in Excel function wizard.
@@ -78,7 +83,7 @@ int XlfFuncDesc::DoRegister(const std::string& dllName) const
 	size_t nbargs = arguments.size();
 	std::string args("R");
 	std::string argnames;
-	
+
 	XlfArgDescList::const_iterator it = arguments.begin();
 	while (it != arguments.end())
 	{

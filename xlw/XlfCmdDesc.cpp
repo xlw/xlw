@@ -1,12 +1,17 @@
-// Copyright (c) 1998-2002
-// Jerome Lecomte
-// 
-// Permission to use, copy, modify, distribute and sell this software
-// and its documentation for any purpose is hereby granted without fee,
-// provided that the above copyright notice appear in all copies and
-// that both that copyright notice and this permission notice appear
-// in supporting documentation. This software is freely provided "as is" 
-// without express or implied warranty.
+/*
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 
 /*!
 \file XlfCmdDesc.cpp
@@ -40,8 +45,8 @@ XlfCmdDesc::~XlfCmdDesc()
 {}
 
 bool XlfCmdDesc::IsAddedToMenuBar()
-{ 
-  return !menu_.empty(); 
+{
+  return !menu_.empty();
 }
 
 int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
@@ -49,10 +54,10 @@ int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
 	XLOPER xMenu;
 	LPXLOPER pxMenu;
 	LPXLOPER px;
-	
+
 	menu_ = menu;
 	text_ = text;
-	
+
 	// This is a small trick to allocate an array 5 XlfOper
 	// One must first allocate the array with XLOPER
 //	px = pxMenu = (LPXLOPER)new XLOPER[5];
@@ -65,12 +70,12 @@ int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
 	XlfOper(px++, false).Set("");
 	XlfOper(px++, false).Set(GetComment().c_str());
 	XlfOper(px++, false).Set("");
-	
+
 	xMenu.xltype = xltypeMulti;
 	xMenu.val.array.lparray = pxMenu;
 	xMenu.val.array.rows = 1;
 	xMenu.val.array.columns = 5;
-	
+
 	int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)&xMenu);
 	ERR_CHECKW(err == xlretSuccess,"Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed");
 	delete[] pxMenu;
