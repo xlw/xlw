@@ -146,7 +146,7 @@ extern "C"
 
     // Registers the first function xlCirc.
     // Variable description of type R (default).
-    XlfArgDesc diameter("diameter","Diameter of the circle");
+    XlfArgDesc diameter("Diameter","Diameter of the circle");
     // xlCirc function description function as Circ.
     XlfFuncDesc circ("xlCirc","Circ","Computes the circumference of a circle","xlw Example");
     // Set the diameter argument definition for circ.
@@ -156,8 +156,8 @@ extern "C"
 
     // Registers the second function xlConcat.
     // Argument descriptions.
-    XlfArgDesc str1("string1","First string");
-    XlfArgDesc str2("string2","Second string");
+    XlfArgDesc str1("String1","First string");
+    XlfArgDesc str2("String2","Second string");
     // xlConcat function description as concat.
     XlfFuncDesc concat("xlConcat","Concat","Concatenate two strings in one","xlw Example");
     // Set the arguments for the function. Note how you create a XlfArgDescList from
