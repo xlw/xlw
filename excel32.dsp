@@ -19,6 +19,8 @@ CFG=excel32 - Win32 Debug
 !MESSAGE 
 !MESSAGE "excel32 - Win32 Release" (based on "Win32 (x86) Static Library")
 !MESSAGE "excel32 - Win32 Debug" (based on "Win32 (x86) Static Library")
+!MESSAGE "excel32 - Win32 OnTheEdgeDebug" (based on "Win32 (x86) Static Library")
+!MESSAGE "excel32 - Win32 OnTheEdgeRelease" (based on "Win32 (x86) Static Library")
 !MESSAGE 
 
 # Begin Project
@@ -37,11 +39,11 @@ RSC=rc.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "Release"
-# PROP Intermediate_Dir "Release"
+# PROP Output_Dir "build\Release"
+# PROP Intermediate_Dir "build\Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I ".." /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I ".\\" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "EXCEL32_NOIMPORTEXPORT" /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -49,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32.lib"
 
 !ELSEIF  "$(CFG)" == "excel32 - Win32 Debug"
 
@@ -60,11 +62,11 @@ LIB32=link.exe -lib
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "Debug"
-# PROP Intermediate_Dir "Debug"
+# PROP Output_Dir "build\Debug"
+# PROP Intermediate_Dir "build\Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\\" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "EXCEL32_NOIMPORTEXPORT" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -72,7 +74,53 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32_d.lib"
+
+!ELSEIF  "$(CFG)" == "excel32 - Win32 OnTheEdgeDebug"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "excel32___Win32_OnTheEdgeDebug"
+# PROP BASE Intermediate_Dir "excel32___Win32_OnTheEdgeDebug"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir "build\OnTheEdgeDebug"
+# PROP Intermediate_Dir "build\OnTheEdgeDebug"
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\\" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "EXCEL32_NOIMPORTEXPORT" /YX /FD /GZ /c
+# ADD BASE RSC /l 0x409 /d "_DEBUG"
+# ADD RSC /l 0x409 /d "_DEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LIB32=link.exe -lib
+# ADD BASE LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32_d.lib"
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32_d.lib"
+
+!ELSEIF  "$(CFG)" == "excel32 - Win32 OnTheEdgeRelease"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir "excel32___Win32_OnTheEdgeRelease"
+# PROP BASE Intermediate_Dir "excel32___Win32_OnTheEdgeRelease"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir "build\OnTheEdgeRelease"
+# PROP Intermediate_Dir "build\OnTheEdgeRelease"
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I ".\\" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "EXCEL32_NOIMPORTEXPORT" /YX /FD /c
+# ADD BASE RSC /l 0x409 /d "NDEBUG"
+# ADD RSC /l 0x409 /d "NDEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LIB32=link.exe -lib
+# ADD BASE LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32.lib"
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32.lib"
 
 !ENDIF 
 
@@ -80,72 +128,82 @@ LIB32=link.exe -lib
 
 # Name "excel32 - Win32 Release"
 # Name "excel32 - Win32 Debug"
+# Name "excel32 - Win32 OnTheEdgeDebug"
+# Name "excel32 - Win32 OnTheEdgeRelease"
 # Begin Group "Include"
 
 # PROP Default_Filter ".h"
 # Begin Source File
 
-SOURCE=.\ERR_Macros.h
+SOURCE=.\xlw\config.bcc.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\excel32.h
+SOURCE=.\xlw\config.msvc.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\EXCEL32_API.h
+SOURCE=.\xlw\ERR_Macros.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\macros.h
+SOURCE=.\xlw\excel32.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\port.h
+SOURCE=.\xlw\EXCEL32_API.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\pragmas.h
+SOURCE=.\xlw\macros.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\xlcall32.h
+SOURCE=.\xlw\port.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfAbstractCmdDesc.h
+SOURCE=.\xlw\pragmas.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfArgDesc.h
+SOURCE=.\xlw\xlcall32.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfArgDescList.h
+SOURCE=.\xlw\XlfAbstractCmdDesc.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfCmdDesc.h
+SOURCE=.\xlw\XlfArgDesc.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfExcel.h
+SOURCE=.\xlw\XlfArgDescList.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfException.h
+SOURCE=.\xlw\XlfCmdDesc.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfFuncDesc.h
+SOURCE=.\xlw\XlfExcel.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfOper.h
+SOURCE=.\xlw\XlfException.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfRef.h
+SOURCE=.\xlw\XlfFuncDesc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\xlw\XlfOper.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\xlw\XlfRef.h
 # End Source File
 # End Group
 # Begin Group "Source"
@@ -153,39 +211,43 @@ SOURCE=.\XlfRef.h
 # PROP Default_Filter ".cpp"
 # Begin Source File
 
-SOURCE=.\XlfAbstractCmdDesc.cpp
+SOURCE=.\xlw\excel32.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfArgDesc.cpp
+SOURCE=.\xlw\XlfAbstractCmdDesc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfArgDescList.cpp
+SOURCE=.\xlw\XlfArgDesc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfCmdDesc.cpp
+SOURCE=.\xlw\XlfArgDescList.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfExcel.cpp
+SOURCE=.\xlw\XlfCmdDesc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfException.cpp
+SOURCE=.\xlw\XlfExcel.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfFuncDesc.cpp
+SOURCE=.\xlw\XlfException.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfOper.cpp
+SOURCE=.\xlw\XlfFuncDesc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfRef.cpp
+SOURCE=.\xlw\XlfOper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\xlw\XlfRef.cpp
 # End Source File
 # End Group
 # Begin Group "Inline"
@@ -193,23 +255,23 @@ SOURCE=.\XlfRef.cpp
 # PROP Default_Filter ".inl"
 # Begin Source File
 
-SOURCE=.\XlfAbstractCmdDesc.inl
+SOURCE=.\xlw\XlfAbstractCmdDesc.inl
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfExcel.inl
+SOURCE=.\xlw\XlfExcel.inl
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfException.inl
+SOURCE=.\xlw\XlfException.inl
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfOper.inl
+SOURCE=.\xlw\XlfOper.inl
 # End Source File
 # Begin Source File
 
-SOURCE=.\XlfRef.inl
+SOURCE=.\xlw\XlfRef.inl
 # End Source File
 # End Group
 # Begin Group "doc"
@@ -217,47 +279,36 @@ SOURCE=.\XlfRef.inl
 # PROP Default_Filter ".txt"
 # Begin Source File
 
-SOURCE=.\bibliography.txt
+SOURCE=.\Docs\pages\bibliography.txt
 # End Source File
 # Begin Source File
 
-SOURCE=.\download.txt
+SOURCE=.\Docs\pages\download.txt
 # End Source File
 # Begin Source File
 
-SOURCE=.\excel32.txt
+SOURCE=.\Docs\pages\excel32.txt
 # End Source File
 # Begin Source File
 
-SOURCE=.\faq.txt
+SOURCE=.\Docs\pages\faq.txt
 # End Source File
 # Begin Source File
 
-SOURCE=.\gettingStarted.txt
+SOURCE=.\Docs\pages\gettingStarted.txt
 # End Source File
 # Begin Source File
 
-SOURCE=.\knownbugs.txt
+SOURCE=.\Docs\pages\knownbugs.txt
 # End Source File
 # Begin Source File
 
-SOURCE=.\misc.txt
+SOURCE=.\Docs\pages\misc.txt
 # End Source File
 # End Group
 # Begin Source File
 
-SOURCE=.\doxygen.cfg
-
-!IF  "$(CFG)" == "excel32 - Win32 Release"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "excel32 - Win32 Debug"
-
-# PROP Exclude_From_Build 1
-
-!ENDIF 
-
+SOURCE=.\Docs\xlw.doxy
 # End Source File
 # End Target
 # End Project
