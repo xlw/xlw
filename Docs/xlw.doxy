@@ -3,58 +3,40 @@
 #---------------------------------------------------------------------------
 # General configuration options
 #---------------------------------------------------------------------------
-
 PROJECT_NAME          = "Excel32 C++ Wrapper"
 PROJECT_NUMBER        = 1.1.0a1-cvs
 OUTPUT_DIRECTORY      =
 OUTPUT_LANGUAGE       = English
-
-# The DISABLE_INDEX tag can be used to turn on/off the condensed index at
-# top of each HTML page. The value NO (the default) enables the index and
-# the value YES disables it.
-
-DISABLE_INDEX         = NO
-
 EXTRACT_ALL           = NO
 EXTRACT_PRIVATE       = YES
+EXTRACT_STATIC        = NO
+EXTRACT_LOCAL_CLASSES = NO
 HIDE_UNDOC_MEMBERS    = NO
 HIDE_UNDOC_CLASSES    = NO
 BRIEF_MEMBER_DESC     = YES
 REPEAT_BRIEF          = YES
 ALWAYS_DETAILED_SEC   = NO
+INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES       = NO
 STRIP_FROM_PATH       =
 INTERNAL_DOCS         = NO
-CLASS_DIAGRAMS        = YES
-SOURCE_BROWSER        = NO
-INLINE_SOURCES        = NO
-STRIP_CODE_COMMENTS   = YES
-CASE_SENSE_NAMES      = NO
-
-# from quantlib
+STRIP_CODE_COMMENTS    = YES
+CASE_SENSE_NAMES       = NO
 SHORT_NAMES            = YES
 HIDE_SCOPE_NAMES       = YES
-
 VERBATIM_HEADERS      = YES
 SHOW_INCLUDE_FILES    = YES
 JAVADOC_AUTOBRIEF     = YES
 INHERIT_DOCS          = YES
 INLINE_INFO           = YES
 SORT_MEMBER_DOCS      = YES
-
-#from quantlib
 DISTRIBUTE_GROUP_DOC   = NO
-
 TAB_SIZE              = 4
-
-#FROM QUANTLIB
 GENERATE_TODOLIST      = YES
 GENERATE_TESTLIST      = YES
 GENERATE_BUGLIST       = YES
 ALIASES                = "fullpath=\par Full path:"
 ENABLED_SECTIONS      =
-
-# from QuantLib
 MAX_INITIALIZER_LINES  = 30
 OPTIMIZE_OUTPUT_FOR_C  = NO
 SHOW_USED_FILES        = YES
@@ -75,19 +57,25 @@ FILE_PATTERNS         = *.h \
                         *.inl \
                         *.cpp \
                         *.txt
-RECURSIVE             = NO
-EXCLUDE               = xlcall32.h
+RECURSIVE             = YES
+EXCLUDE               = ../xlw/xlcall32.h \
+                        ../xlw/config.bcc.hpp \
+                        ../xlw/config.msvc.hpp \
+EXCLUDE_SYMLINKS      = NO
 EXCLUDE_PATTERNS      =
-
-# from QuantLib
 EXAMPLE_PATH          = ../test
-EXAMPLE_PATTERNS      =
-
+EXAMPLE_PATTERNS      = *.cpp
+EXAMPLE_RECURSIVE     = NO
 IMAGE_PATH            =
 INPUT_FILTER          =
-
-# from QuantLib
-FILTER_SOURCE_FILES    = NO
+FILTER_SOURCE_FILES   = NO
+#---------------------------------------------------------------------------
+# configuration options related to source browsing
+#---------------------------------------------------------------------------
+SOURCE_BROWSER        = NO
+INLINE_SOURCES        = NO
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
 #---------------------------------------------------------------------------
 # configuration options related to the alphabetical class index
 #---------------------------------------------------------------------------
@@ -99,13 +87,12 @@ IGNORE_PREFIX         = Xlf
 #---------------------------------------------------------------------------
 GENERATE_HTML         = YES
 HTML_OUTPUT           = html
+HTML_FILE_EXTENSION   = .html
 HTML_HEADER           =
 HTML_FOOTER           = xlwfooter.html
 HTML_STYLESHEET       =
 HTML_ALIGN_MEMBERS    = NO
 GENERATE_HTMLHELP     = YES
-
-# from QuantLib
 GENERATE_CHI           = NO
 BINARY_TOC             = NO
 TOC_EXPAND             = NO
@@ -123,10 +110,7 @@ PAPER_TYPE            = a4wide
 EXTRA_PACKAGES        =
 LATEX_HEADER          =
 PDF_HYPERLINKS        = YES
-
-#from ql
-USE_PDFLATEX           = YES
-
+USE_PDFLATEX          = YES
 LATEX_BATCHMODE       = NO
 #---------------------------------------------------------------------------
 # configuration options related to the RTF output
@@ -135,66 +119,63 @@ GENERATE_RTF          = NO
 RTF_OUTPUT            = rtf
 COMPACT_RTF           = NO
 RTF_HYPERLINKS        = NO
-
-#from quantlib
-RTF_STYLESHEET_FILE    =
-RTF_EXTENSIONS_FILE    =
+RTF_STYLESHEET_FILE   =
+RTF_EXTENSIONS_FILE   =
 #---------------------------------------------------------------------------
 # configuration options related to the man page output
 #---------------------------------------------------------------------------
 GENERATE_MAN          = NO
 MAN_OUTPUT            = man
 MAN_EXTENSION         = .3
-MAN_LINKS              = YES
+MAN_LINKS             = YES
 #---------------------------------------------------------------------------
 # configuration options related to the XML output
 #---------------------------------------------------------------------------
 GENERATE_XML           = NO
 #---------------------------------------------------------------------------
+# configuration options for the AutoGen Definitions output
+#---------------------------------------------------------------------------
+GENERATE_AUTOGEN_DEF   = NO
+#---------------------------------------------------------------------------
 # Configuration options related to the preprocessor
 #---------------------------------------------------------------------------
 ENABLE_PREPROCESSING  = YES
 MACRO_EXPANSION       = YES
-
-# from ql
 EXPAND_ONLY_PREDEF    = NO
 SEARCH_INCLUDES       = YES
 INCLUDE_PATH          =
-
-# ql ne ha molti di piu'
+INCLUDE_FILE_PATTERNS =
 PREDEFINED            = _MSC_VER=0x1200 \
                         DOXYGEN
-
-# ql
-EXPAND_AS_DEFINED      =
-SKIP_FUNCTION_MACROS   = YES
+EXPAND_AS_DEFINED     =
+SKIP_FUNCTION_MACROS  = YES
 #---------------------------------------------------------------------------
 # Configuration::addtions related to external references
 #---------------------------------------------------------------------------
 TAGFILES              =
 GENERATE_TAGFILE      =
 ALLEXTERNALS          = NO
+EXTERNAL_GROUPS       = YES
 PERL_PATH             = /usr/bin/perl
 #---------------------------------------------------------------------------
 # Configuration options related to the dot tool
 #---------------------------------------------------------------------------
+CLASS_DIAGRAMS        = YES
 HAVE_DOT              = YES
 CLASS_GRAPH           = YES
 COLLABORATION_GRAPH   = YES
-
-# ql
-TEMPLATE_RELATIONS     = NO
+TEMPLATE_RELATIONS    = NO
+HIDE_UNDOC_RELATIONS  = NO
 INCLUDE_GRAPH         = YES
+INCLUDED_BY_GRAPH     = YES
 GRAPHICAL_HIERARCHY   = YES
+DOT_IMAGE_FORMAT      = gif
 DOT_PATH              =
-
-# from ql
-DOTFILE_DIRS           =
-MAX_DOT_GRAPH_WIDTH    = 800
-MAX_DOT_GRAPH_HEIGHT   = 600
-GENERATE_LEGEND        = YES
-DOT_CLEANUP            = YES
-
+DOTFILE_DIRS          =
+MAX_DOT_GRAPH_WIDTH   = 800
+MAX_DOT_GRAPH_HEIGHT  = 600
+GENERATE_LEGEND       = YES
+DOT_CLEANUP           = YES
 #---------------------------------------------------------------------------
 # Configuration::addtions related to the search engine
 #---------------------------------------------------------------------------
