@@ -28,7 +28,7 @@
 #define PORT_IMPORT_SYMBOL __declspec(dllimport)
 //! Exports symbol if exist, for shared library.
 #define PORT_EXPORT_SYMBOL __declspec(dllexport)
-
+#define PORT_USE_OLD_C_HEADERS
 
 #endif
 
