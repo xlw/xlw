@@ -127,7 +127,11 @@ SectionIn 1 2
   File /r "xlwExample\*.dsw"
   File /r "xlwExample\*.mak"
   File /r "xlwExample\*.xls"
+  File /r "xlwExample\xll\*.txt"
+  File /r "xlwExample\xll\Win32\*.txt"
+  File /r "xlwExample\xll\Win32\VisualStudio\*.txt"
   File /r "xlwExample\xll\Win32\VisualStudio\*.xll"
+  File /r "xlwExample\xll\Win32\Borland\*.txt"
   File /r "xlwExample\xll\Win32\Borland\*.xll"
 
   IfFileExists $SMPROGRAMS\QuantLib 0 NoSourceShortCuts
