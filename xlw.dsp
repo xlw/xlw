@@ -193,6 +193,10 @@ SOURCE=.\xlw\config.msvc.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\xlw\defines.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\xlw\EXCEL32_API.h
 # End Source File
 # Begin Source File
