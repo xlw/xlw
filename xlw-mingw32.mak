@@ -3,32 +3,32 @@
 ifndef CFG
 CFG=xlw - Win32 Debug
 endif
-CC=i386-mingw32msvc-gcc
+CC=gcc
 CFLAGS=
-CXX=i386-mingw32msvc-g++
+CXX=g++
 CXXFLAGS=$(CFLAGS)
-RC=i386-mingw32msvc-windres -O COFF
+RC=windres -O COFF
 ifeq "$(CFG)"  "xlw - Win32 Release"
 CFLAGS+=-W -fexceptions -O2 -I. -DNDEBUG -DWIN32 -D_MBCS -D_LIB
-AR=i386-mingw32msvc-ar
+AR=ar
 TARGET=lib/Win32/Mingw32/libxlw.a
 ARFLAGS=rus
 else
 ifeq "$(CFG)"  "xlw - Win32 Debug"
 CFLAGS+=-W -fexceptions -g -O0 -I. -DXLW_DEBUG -D_DEBUG -DWIN32 -D_MBCS -D_LIB
-AR=i386-mingw32msvc-ar
+AR=ar
 TARGET=lib/Win32/Mingw32/libxlwd.a
 ARFLAGS=rus
 else
 ifeq "$(CFG)"  "xlw - Win32 OnTheEdgeDebug"
 CFLAGS+=-W -fexceptions -g -O0 -I. -DXLW_DEBUG -D_DEBUG -DWIN32 -D_MBCS -D_LIB
-AR=i386-mingw32msvc-ar
+AR=ar
 TARGET=lib/Win32/Mingw32/libxlwd.a
 ARFLAGS=rus
 else
 ifeq "$(CFG)"  "xlw - Win32 OnTheEdgeRelease"
 CFLAGS+=-W -fexceptions -O2 -I. -DNDEBUG -DWIN32 -D_MBCS -D_LIB
-AR=i386-mingw32msvc-ar
+AR=ar
 TARGET=lib/Win32/Mingw32/libxlw.a
 ARFLAGS=rus
 endif
