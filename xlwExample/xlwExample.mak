@@ -40,6 +40,8 @@ ALL : ".\xll\Win32\VisualStudio\xlwExample.xll" "$(OUTDIR)\xlwExample.bsc"
 
 CLEAN :
 	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(INTDIR)\Win32StreamBuf.obj"
+	-@erase "$(INTDIR)\Win32StreamBuf.sbr"
 	-@erase "$(INTDIR)\xlwExample.obj"
 	-@erase "$(INTDIR)\xlwExample.sbr"
 	-@erase "$(OUTDIR)\xlwExample.bsc"
@@ -89,6 +91,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
 BSC32_SBRS= \
+	"$(INTDIR)\Win32StreamBuf.sbr" \
 	"$(INTDIR)\xlwExample.sbr"
 
 "$(OUTDIR)\xlwExample.bsc" : "$(OUTDIR)" $(BSC32_SBRS)
@@ -99,6 +102,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\xlwExample.pdb" /machine:I386 /out:"xll\Win32\VisualStudio\xlwExample.xll" /implib:"$(OUTDIR)\xlwExample.lib" /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
+	"$(INTDIR)\Win32StreamBuf.obj" \
 	"$(INTDIR)\xlwExample.obj"
 
 ".\xll\Win32\VisualStudio\xlwExample.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
@@ -120,6 +124,8 @@ ALL : ".\xll\Win32\VisualStudio\xlwExampled.xll" "$(OUTDIR)\xlwExample.bsc"
 CLEAN :
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\Win32StreamBuf.obj"
+	-@erase "$(INTDIR)\Win32StreamBuf.sbr"
 	-@erase "$(INTDIR)\xlwExample.obj"
 	-@erase "$(INTDIR)\xlwExample.sbr"
 	-@erase "$(OUTDIR)\xlwExample.bsc"
@@ -171,6 +177,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
 BSC32_SBRS= \
+	"$(INTDIR)\Win32StreamBuf.sbr" \
 	"$(INTDIR)\xlwExample.sbr"
 
 "$(OUTDIR)\xlwExample.bsc" : "$(OUTDIR)" $(BSC32_SBRS)
@@ -181,6 +188,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\xlwExampled.pdb" /debug /machine:I386 /out:"xll\Win32\VisualStudio\xlwExampled.xll" /implib:"$(OUTDIR)\xlwExampled.lib" /pdbtype:sept /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
+	"$(INTDIR)\Win32StreamBuf.obj" \
 	"$(INTDIR)\xlwExample.obj"
 
 ".\xll\Win32\VisualStudio\xlwExampled.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
@@ -202,6 +210,8 @@ ALL : ".\xll\Win32\VisualStudio\xlwExampled.xll" "$(OUTDIR)\xlwExample.bsc"
 CLEAN :
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\Win32StreamBuf.obj"
+	-@erase "$(INTDIR)\Win32StreamBuf.sbr"
 	-@erase "$(INTDIR)\xlwExample.obj"
 	-@erase "$(INTDIR)\xlwExample.sbr"
 	-@erase "$(OUTDIR)\xlwExample.bsc"
@@ -253,6 +263,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
 BSC32_SBRS= \
+	"$(INTDIR)\Win32StreamBuf.sbr" \
 	"$(INTDIR)\xlwExample.sbr"
 
 "$(OUTDIR)\xlwExample.bsc" : "$(OUTDIR)" $(BSC32_SBRS)
@@ -263,6 +274,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\xlwExampled.pdb" /debug /machine:I386 /out:"xll\Win32\VisualStudio\xlwExampled.xll" /implib:"$(OUTDIR)\xlwExampled.lib" /pdbtype:sept /libpath:"..\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
+	"$(INTDIR)\Win32StreamBuf.obj" \
 	"$(INTDIR)\xlwExample.obj"
 
 ".\xll\Win32\VisualStudio\xlwExampled.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
@@ -283,6 +295,8 @@ ALL : ".\xll\Win32\VisualStudio\xlwExample.xll" "$(OUTDIR)\xlwExample.bsc"
 
 CLEAN :
 	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(INTDIR)\Win32StreamBuf.obj"
+	-@erase "$(INTDIR)\Win32StreamBuf.sbr"
 	-@erase "$(INTDIR)\xlwExample.obj"
 	-@erase "$(INTDIR)\xlwExample.sbr"
 	-@erase "$(OUTDIR)\xlwExample.bsc"
@@ -332,6 +346,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
 BSC32_SBRS= \
+	"$(INTDIR)\Win32StreamBuf.sbr" \
 	"$(INTDIR)\xlwExample.sbr"
 
 "$(OUTDIR)\xlwExample.bsc" : "$(OUTDIR)" $(BSC32_SBRS)
@@ -342,6 +357,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\xlwExample.pdb" /machine:I386 /out:".\xll\Win32\VisualStudio\xlwExample.xll" /implib:"$(OUTDIR)\xlwExample.lib" /libpath:"..\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
+	"$(INTDIR)\Win32StreamBuf.obj" \
 	"$(INTDIR)\xlwExample.obj"
 
 ".\xll\Win32\VisualStudio\xlwExample.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
@@ -362,6 +378,11 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "xlwExample - Win32 Release" || "$(CFG)" == "xlwExample - Win32 Debug" || "$(CFG)" == "xlwExample - Win32 OnTheEdgeDebug" || "$(CFG)" == "xlwExample - Win32 OnTheEdgeRelease"
+SOURCE=.\Win32StreamBuf.cpp
+
+"$(INTDIR)\Win32StreamBuf.obj"	"$(INTDIR)\Win32StreamBuf.sbr" : $(SOURCE) "$(INTDIR)"
+
+
 SOURCE=.\xlwExample.cpp
 
 "$(INTDIR)\xlwExample.obj"	"$(INTDIR)\xlwExample.sbr" : $(SOURCE) "$(INTDIR)"
