@@ -27,15 +27,14 @@ BCC_LIBS        = $(MAKEDIR)\..\lib
 #    -w-8026 -w-8027 -w-8012 -w-8057 \
 CC_OPTS = -vi- \
     -I$(XLW_INCLUDE_DIR) \
-    -I$(BCC_INCLUDE) \
-    -DXLW_NOIMPORTEXPORT
+    -I$(BCC_INCLUDE)
 !ifdef DEBUG
 CC_OPTS = $(CC_OPTS) -v -DXLW_DEBUG
 !endif
 
 # Primary target:
 xlwExample$(_D).xll: xlwExample.cpp
-    bcc32  -DXLW_NOIMPORTEXPORT $(CC_OPTS) -L$(XLW_LIB_DIR) -L$(BCC_LIBS) -tWD -oxlwExample$(_D).obj -exll\Win32\Borland\xlwExample$(_D).xll xlwExample.cpp xlw$(_D).lib
+    bcc32 $(CC_OPTS) -L$(XLW_LIB_DIR) -L$(BCC_LIBS) -tWD -oxlwExample$(_D).obj -exll\Win32\Borland\xlwExample$(_D).xll xlwExample.cpp xlw$(_D).lib
 
 # Clean up
 clean::

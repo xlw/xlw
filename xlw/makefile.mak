@@ -38,8 +38,7 @@ TLIB      = tlib
 CC_OPTS        = -vi- -q -c -tWM \
     -w-8008 -w-8017 \
     -I$(INCLUDE_DIR) \
-    -I$(BCC_INCLUDE) \
-    -DXLW_NOIMPORTEXPORT
+    -I$(BCC_INCLUDE)
 !ifdef DEBUG
 CC_OPTS = $(CC_OPTS) -v -DXLW_DEBUG
 !endif
