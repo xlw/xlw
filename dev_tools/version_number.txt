@@ -13,6 +13,7 @@ e.g. R000300f0 stands for Release 0.3.1f0
 The current version number is 1.1.0a1 - 010100a1
 This version number is in:
     xlw/dev_tools/version_number.txt,
+    xlw/dev_tools/srcdist.bat,
     xlw/xlw.nsi,
     xlw/Docs/xlw.doxy,
     xlw/xlw/EXCEL32_API.h
