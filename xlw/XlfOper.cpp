@@ -53,8 +53,7 @@ Shallow copy of a pointer to XLOPER.
 Excel or by the XLL (default is true).
 */
 XlfOper::XlfOper(LPXLOPER lpxloper): lpxloper_(lpxloper)
-{
-}
+{}
 
 /*!
 Calls Deallocate() to free the XLOPER allocated by the XLL. XLOPER allocated
@@ -69,20 +68,19 @@ XlfOper::~XlfOper()
   if (! lpxloper_)
     return;
 
-	int type = lpxloper_->xltype;
+  int type = lpxloper_->xltype;
 
-	bool canHaveAuxMem = ( 
-		type & xltypeStr || 
-		type & xltypeRef || 
-		type & xltypeMulti ||
-		type & xltypeBigData);
+  bool canHaveAuxMem = (type & xltypeStr ||
+                        type & xltypeRef ||
+                        type & xltypeMulti ||
+                        type & xltypeBigData);
 
-	if (canHaveAuxMem && (type & xlbitFreeAuxMem))
-	{
-    FreeAuxiliaryMemory();
-    // and switch back the bit as it was originally
+  if (canHaveAuxMem && (type & xlbitFreeAuxMem))
+  {
+    // switch back the bit as it was originally
     lpxloper_->xltype &= ~xlbitFreeAuxMem;
-	}
+    FreeAuxiliaryMemory();
+  }
   Deallocate();
   return;
 }
@@ -189,12 +187,12 @@ std::vector<double> XlfOper::AsDoubleVector(DoubleVectorConvPolicy policy) const
 
 /*!
 Converts the data in the range in a vector of double according to the specified policy.
-
+ 
 \pre All values in the range should be convertible to a double.
-
+ 
 \return xlretFailed if the policy is UniDimensional and the range is not uni dimensional
 and xlretSuccess otherwise or whatever error occurs during coercing the data to double.
-
+ 
 \sa DoubleVectorConvPolicy
 */
 int XlfOper::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolicy policy) const
@@ -210,7 +208,7 @@ int XlfOper::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolic
 
   bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
   if (policy == UniDimensional && ! isUniDimRange)
-		// not a vector we return a failure
+    // not a vector we return a failure
     return xlretFailed;
 
   size_t n = nbRows*nbCols;
@@ -221,10 +219,10 @@ int XlfOper::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolic
     for (size_t j = 0; j < nbCols; ++j)
     {
       if (policy == RowMajor)
-				// C-like dense matrix storage
+        // C-like dense matrix storage
         xlret = ref(i,j).ConvertToDouble(v[i*nbCols+j]);
-			else
-				// Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
+      else
+        // Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
         xlret = ref(i,j).ConvertToDouble(v[j*nbRows+i]);
       if (xlret != xlretSuccess)
         return xlret;
@@ -512,34 +510,34 @@ XlfOper& XlfOper::SetError(WORD error)
 
 /*!
 Throws an exception if the argument is anything other than xlretSuccess.
-
+ 
 Events that require an immediate return to excel (uncalculated cell, abort,
 stack overflow and invalid OPER (potential memory exhaustion)) throw an
 XlfException.
-
+ 
 Other events throw std::runtime_error.
 */
 int XlfOper::ThrowOnError(int xlret) const
 {
-	if (xlret == xlretSuccess)
-		return xlret;
+  if (xlret == xlretSuccess)
+    return xlret;
 
   if (xlret & xlretUncalced)
-	  throw XlfExceptionUncalculated();
+    throw XlfExceptionUncalculated();
   if (xlret & xlretAbort)
-	  throw XlfExceptionAbort();
+    throw XlfExceptionAbort();
   if (xlret & xlretStackOvfl)
-	  throw XlfExceptionStackOverflow();
+    throw XlfExceptionStackOverflow();
   if (xlret & xlretInvXloper)
-	  throw XlfException("invalid OPER structure (memory could be exhausted)");
-	if (xlret & xlretFailed)
-		throw std::runtime_error("command failed");
-	if (xlret & xlretInvCount)
-		throw std::runtime_error("invalid number of argument");
-	if (xlret & xlretInvXlfn)
-		throw std::runtime_error("invalid function number");
-	// should never get there.
-	assert(0);
+    throw XlfException("invalid OPER structure (memory could be exhausted)");
+  if (xlret & xlretFailed)
+    throw std::runtime_error("command failed");
+  if (xlret & xlretInvCount)
+    throw std::runtime_error("invalid number of argument");
+  if (xlret & xlretInvXlfn)
+    throw std::runtime_error("invalid function number");
+  // should never get there.
+  assert(0);
   return xlret;
 }
 
