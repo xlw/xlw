@@ -10,7 +10,7 @@ n  is an ordinal number
 e.g. R000300a2 stands for Release 0.3.1a2
 e.g. R000300f0 stands for Release 0.3.1f0
 
-The current version number is 1.1.0a2 - 010100a2
+The current version number is 1.1.1a0 - 010101a0
 This version number is in:
     xlw/xlw.nsi,
     xlw/Docs/xlw.doxy,

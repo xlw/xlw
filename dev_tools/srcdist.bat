@@ -48,7 +48,7 @@ del oldEXCEL32_API.h
 cd ..\..\
 
 rem VERSIONNUMBER should be read in the checked out files
-set VERSIONNUMBER=1.1.0a2
+set VERSIONNUMBER=1.1.1a0
 ren %2 %2-%VERSIONNUMBER%%RELEASESUFFIX%
 zip -q -r %2-%VERSIONNUMBER%%RELEASESUFFIX%-src.zip %2-%VERSIONNUMBER%%RELEASESUFFIX%
 
