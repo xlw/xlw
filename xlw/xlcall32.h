@@ -18,7 +18,9 @@ basis of it.
 #ifndef INC_excel32_H
 #define INC_excel32_H
 
-#define STRICT
+#ifndef STRICT
+#define STRICT 1
+#endif
 #include "windows.h"
 
 /*
