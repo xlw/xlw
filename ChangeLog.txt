@@ -1,0 +1,184 @@
+2002-02-20 16:51  nando
+
+	* Docs/: makefile.mak (1.5), xlw.doxy (1.5): upgraded t doxygen
+	1.2.14
+
+2002-02-18 14:23  nando
+
+	* test/main.cpp (1.5), xlw/macros.h (1.3): added default catch
+	(...) {} Temporary removed try/catch from xlAutoOpen()
+
+2002-02-12 19:46  nando
+
+	* excel32.dsp (1.4), excel32.mak (1.4), Docs/makefile.mak (1.4),
+	test/test.mak (1.5): changed _d into d (degub version of the
+	library)
+
+2002-02-12 10:40  nando
+
+	* TODO.txt (1.11), Docs/pages/projects.txt (1.1), xlw/config.msvc.h
+	(1.4): changed _d into d (degub version of the library)
+
+2002-02-11 13:10  nando
+
+	* makefile.mak (1.3), Docs/makefile.mak (1.3), test/makefile.mak
+	(1.4), xlw/makefile.mak (1.3): trying to make it work with Borland
+
+2002-01-31 21:43  nando
+
+	* NEWS.TXT (1.5), TODO.txt (1.10), xlw.nsi (1.4), test/makefile.mak
+	(1.3): added PDF and WinHelp documentation
+
+2002-01-31 02:07  nando
+
+	* TODO.txt (1.9), Docs/makefile.mak (1.2), Docs/xlw.doxy (1.4),
+	Docs/xlwfooter.html (1.1), Docs/xlwfooteronline.html (1.1),
+	Docs/pages/excel32.txt (1.2), xlw/XlfCmdDesc.cpp (1.3),
+	xlw/XlfCmdDesc.h (1.3), xlw/XlfExcel.cpp (1.3), xlw/XlfOper.cpp
+	(1.3): pruned redundant header inclusions
+
+2002-01-31 00:55  nando
+
+	* NEWS.TXT (1.4), TODO.txt (1.8), Docs/pages/knownbugs.txt (1.2),
+	test/main.cpp (1.4), test/makefile.mak (1.2), test/test.dsp (1.4),
+	test/test.mak (1.4): borland test compiles
+
+2002-01-29 23:53  nando
+
+	* TODO.txt (1.7), excel32.dsp (1.3), excel32.mak (1.3),
+	test/test.dsp (1.3), test/test.mak (1.3), test/test.xls (1.3):
+	project restructuring
+
+2002-01-29 23:08  nando
+
+	* xlw/: config.bcc.h (1.2), config.msvc.h (1.3): project
+	restructuring
+
+2002-01-29 23:03  nando
+
+	* History.txt (1.2), TODO.txt (1.6), xlw.nsi (1.3): project
+	restructuring
+
+2002-01-29 22:50  nando
+
+	* TODO.txt (1.5), Docs/xlw.doxy (1.3), Docs/pages/download.txt
+	(1.2): project restructuring
+
+2002-01-29 22:17  nando
+
+	* NEWS.TXT (1.3), TODO.txt (1.4), Docs/xlw.doxy (1.2): project
+	restructuring
+
+2002-01-29 22:14  nando
+
+	* NEWS.TXT (1.2), README.TXT (1.2), TODO.txt (1.3), excel32.mak
+	(1.2), makefile.mak (1.2), test/main.cpp (1.3), test/test.mak
+	(1.2), xlw/ERR_Macros.h (1.2), xlw/EXCEL32_API.h (1.2),
+	xlw/XlfAbstractCmdDesc.cpp (1.2), xlw/XlfAbstractCmdDesc.h (1.2),
+	xlw/XlfArgDesc.cpp (1.2), xlw/XlfArgDesc.h (1.2),
+	xlw/XlfArgDescList.cpp (1.2), xlw/XlfArgDescList.h (1.2),
+	xlw/XlfCmdDesc.cpp (1.2), xlw/XlfCmdDesc.h (1.2), xlw/XlfExcel.cpp
+	(1.2), xlw/XlfExcel.h (1.2), xlw/XlfExcel.inl (1.2),
+	xlw/XlfException.cpp (1.2), xlw/XlfException.h (1.2),
+	xlw/XlfException.inl (1.2), xlw/XlfFuncDesc.cpp (1.2),
+	xlw/XlfFuncDesc.h (1.2), xlw/XlfOper.cpp (1.2), xlw/XlfOper.h
+	(1.2), xlw/XlfOper.inl (1.2), xlw/XlfRef.cpp (1.2), xlw/XlfRef.h
+	(1.2), xlw/XlfRef.inl (1.2), xlw/config.msvc.h (1.2),
+	xlw/excel32.cpp (1.2), xlw/excel32.h (1.2), xlw/macros.h (1.2),
+	xlw/makefile.mak (1.2), xlw/port.h (1.2), xlw/pragmas.h (1.2):
+	project restructuring
+
+2002-01-29 21:47  nando
+
+	* NEWS.TXT (1.1), TODO.txt (1.2), xlw.nsi (1.2): project
+	restructuring
+
+2002-01-29 21:33  nando
+
+	* excel32.dsp (1.2), Docs/makefile.mak (1.1), Docs/xlw.doxy (1.1),
+	Docs/images/sfnetlogo.png (1.1), Docs/pages/bibliography.txt (1.1),
+	Docs/pages/download.txt (1.1), Docs/pages/excel32.txt (1.1),
+	Docs/pages/faq.txt (1.1), Docs/pages/gettingStarted.txt (1.1),
+	Docs/pages/knownbugs.txt (1.1), Docs/pages/misc.txt (1.1),
+	test/main.cpp (1.2), test/makefile.mak (1.1), test/test.dsp (1.2),
+	test/test.dsw (1.1), test/test.mak (1.1), test/test.xls (1.2),
+	xlw/ERR_Macros.h (1.1), xlw/EXCEL32_API.h (1.1),
+	xlw/XlfAbstractCmdDesc.cpp (1.1), xlw/XlfAbstractCmdDesc.h (1.1),
+	xlw/XlfAbstractCmdDesc.inl (1.1), xlw/XlfArgDesc.cpp (1.1),
+	xlw/XlfArgDesc.h (1.1), xlw/XlfArgDescList.cpp (1.1),
+	xlw/XlfArgDescList.h (1.1), xlw/XlfCmdDesc.cpp (1.1),
+	xlw/XlfCmdDesc.h (1.1), xlw/XlfExcel.cpp (1.1), xlw/XlfExcel.h
+	(1.1), xlw/XlfExcel.inl (1.1), xlw/XlfException.cpp (1.1),
+	xlw/XlfException.h (1.1), xlw/XlfException.inl (1.1),
+	xlw/XlfFuncDesc.cpp (1.1), xlw/XlfFuncDesc.h (1.1), xlw/XlfOper.cpp
+	(1.1), xlw/XlfOper.h (1.1), xlw/XlfOper.inl (1.1), xlw/XlfRef.cpp
+	(1.1), xlw/XlfRef.h (1.1), xlw/XlfRef.inl (1.1), xlw/config.bcc.h
+	(1.1), xlw/config.msvc.h (1.1), xlw/excel32.cpp (1.1),
+	xlw/excel32.h (1.1), xlw/macros.h (1.1), xlw/makefile.mak (1.1),
+	xlw/port.h (1.1), xlw/pragmas.h (1.1), xlw/xlcall32.h (1.1):
+	project restructuring
+
+2002-01-29 21:29  nando
+
+	* Authors.txt (1.1), ChangeLog.txt (1.1), Contributors.txt (1.1),
+	History.txt (1.1), LICENSE.TXT (1.1), README.TXT (1.1), TODO.txt
+	(1.1), excel32.mak (1.1), makefile.mak (1.1), xlw.nsi (1.1):
+	project restructuring
+
+2002-01-29 21:25  nando
+
+	* ERR_Macros.h (1.2), EXCEL32_API.h (1.2), XlfAbstractCmdDesc.cpp
+	(1.2), XlfAbstractCmdDesc.h (1.2), XlfAbstractCmdDesc.inl (1.2),
+	XlfArgDesc.cpp (1.2), XlfArgDesc.h (1.2), XlfArgDescList.cpp (1.2),
+	XlfArgDescList.h (1.2), XlfCmdDesc.cpp (1.2), XlfCmdDesc.h (1.2),
+	XlfExcel.cpp (1.2), XlfExcel.h (1.2), XlfExcel.inl (1.2),
+	XlfException.cpp (1.2), XlfException.h (1.2), XlfException.inl
+	(1.2), XlfFuncDesc.cpp (1.2), XlfFuncDesc.h (1.2), XlfOper.cpp
+	(1.2), XlfOper.h (1.2), XlfOper.inl (1.2), XlfRef.cpp (1.2),
+	XlfRef.h (1.2), XlfRef.inl (1.2), bibliography.txt (1.2),
+	download.txt (1.2), doxygen.cfg (1.2), excel32.cpp (1.2), excel32.h
+	(1.2), excel32.txt (1.2), faq.txt (1.2), gettingStarted.txt (1.2),
+	knownbugs.txt (1.2), macros.h (1.2), main.cpp (1.2), misc.txt
+	(1.2), port.h (1.2), pragmas.h (1.2), xlcall32.h (1.2): project
+	restructuring
+
+2002-01-29 21:17  nando
+
+	* bibliography.txt (1.1), download.txt (1.1), ERR_Macros.h (1.1),
+	doxygen.cfg (1.1), excel32.cpp (1.1), excel32.dsp (1.1),
+	excel32.dsw (1.1), excel32.h (1.1), excel32.txt (1.1),
+	EXCEL32_API.h (1.1), faq.txt (1.1), gettingStarted.txt (1.1),
+	knownbugs.txt (1.1), macros.h (1.1), main.cpp (1.1), misc.txt
+	(1.1), port.h (1.1), pragmas.h (1.1), xlcall32.h (1.1),
+	XlfAbstractCmdDesc.cpp (1.1), XlfAbstractCmdDesc.h (1.1),
+	XlfAbstractCmdDesc.inl (1.1), XlfArgDesc.cpp (1.1), XlfArgDesc.h
+	(1.1), XlfArgDescList.cpp (1.1), XlfArgDescList.h (1.1),
+	XlfCmdDesc.cpp (1.1), XlfCmdDesc.h (1.1), XlfExcel.cpp (1.1),
+	XlfExcel.h (1.1), XlfExcel.inl (1.1), XlfException.cpp (1.1),
+	XlfException.h (1.1), XlfException.inl (1.1), XlfFuncDesc.cpp
+	(1.1), XlfFuncDesc.h (1.1), XlfOper.cpp (1.1), XlfOper.h (1.1),
+	XlfOper.inl (1.1), XlfRef.cpp (1.1), XlfRef.h (1.1), XlfRef.inl
+	(1.1), test/main.cpp (1.1), test/test.dsp (1.1), test/test.xls
+	(1.1): Initial revision
+
+2002-01-29 21:17  nando
+
+	* bibliography.txt (1.1.1.1), download.txt (1.1.1.1), ERR_Macros.h
+	(1.1.1.1), doxygen.cfg (1.1.1.1), excel32.cpp (1.1.1.1),
+	excel32.dsp (1.1.1.1), excel32.dsw (1.1.1.1), excel32.h (1.1.1.1),
+	excel32.txt (1.1.1.1), EXCEL32_API.h (1.1.1.1), faq.txt (1.1.1.1),
+	gettingStarted.txt (1.1.1.1), knownbugs.txt (1.1.1.1), macros.h
+	(1.1.1.1), main.cpp (1.1.1.1), misc.txt (1.1.1.1), port.h
+	(1.1.1.1), pragmas.h (1.1.1.1), xlcall32.h (1.1.1.1),
+	XlfAbstractCmdDesc.cpp (1.1.1.1), XlfAbstractCmdDesc.h (1.1.1.1),
+	XlfAbstractCmdDesc.inl (1.1.1.1), XlfArgDesc.cpp (1.1.1.1),
+	XlfArgDesc.h (1.1.1.1), XlfArgDescList.cpp (1.1.1.1),
+	XlfArgDescList.h (1.1.1.1), XlfCmdDesc.cpp (1.1.1.1), XlfCmdDesc.h
+	(1.1.1.1), XlfExcel.cpp (1.1.1.1), XlfExcel.h (1.1.1.1),
+	XlfExcel.inl (1.1.1.1), XlfException.cpp (1.1.1.1), XlfException.h
+	(1.1.1.1), XlfException.inl (1.1.1.1), XlfFuncDesc.cpp (1.1.1.1),
+	XlfFuncDesc.h (1.1.1.1), XlfOper.cpp (1.1.1.1), XlfOper.h
+	(1.1.1.1), XlfOper.inl (1.1.1.1), XlfRef.cpp (1.1.1.1), XlfRef.h
+	(1.1.1.1), XlfRef.inl (1.1.1.1), test/main.cpp (1.1.1.1),
+	test/test.dsp (1.1.1.1), test/test.xls (1.1.1.1): start
+
