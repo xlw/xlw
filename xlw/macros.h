@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004, 2004 Jérôme Lecomte
 
@@ -29,13 +30,6 @@
 #if defined(_MSC_VER)
 #pragma once
 #endif
-
-//! Export flag.
-/*!
-Export macro that tells the compiler that the function is to be exported.
-*/
-#define EXCEL_EXPORT __declspec(dllexport)
-
 
 //! Initialization macro
 /*!
@@ -84,8 +78,5 @@ interface to recompile.
 
 */
 
-#define XLW__HERE__ __FILE__ "(" _MAKESTRING(__LINE__) "): "
-#define _MAKESTRING(a) __MAKESTRING(a)
-#define __MAKESTRING(a) #a
-
 #endif
+
