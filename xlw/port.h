@@ -24,7 +24,7 @@ This file is part of a broader framework, some of the macros defined here
 are not used in excel32 framework.
 */
 
-// $Id $
+// $Id$
 
 #include <xlw/pragmas.h>
 
