@@ -147,6 +147,18 @@ LINK32=link.exe
 # Name "xlwExample - Win32 OnTheEdgeRelease"
 # Begin Source File
 
+SOURCE=.\Win32StreamBuf.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Win32StreamBuf.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Win32StreamBuf.inl
+# End Source File
+# Begin Source File
+
 SOURCE=.\xlwExample.cpp
 # End Source File
 # End Target
