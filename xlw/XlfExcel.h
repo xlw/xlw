@@ -56,11 +56,7 @@ public:
   //! Gets XLL name
   std::string GetName() const;
   //! Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel)
-#ifdef __MINGW32__
   int __cdecl Call(int xlfn, LPXLOPER pxResult, int count, ...) const;
-#else
-  int cdecl Call(int xlfn, LPXLOPER pxResult, int count, ...) const;
-#endif
   //! Same as above but with an argument array instead of the variable length argument list
   int Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
 
