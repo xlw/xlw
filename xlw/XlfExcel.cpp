@@ -274,7 +274,11 @@ std::string XlfExcel::GetName() const
 	return xName.AsString();
 }
 
+#ifdef __MINGW32__
+int __cdecl XlfExcel::Call(int xlfn, LPXLOPER pxResult, int count, ...) const
+#else
 int cdecl XlfExcel::Call(int xlfn, LPXLOPER pxResult, int count, ...) const
+#endif
 {
 #ifdef _ALPHA_
 /*
