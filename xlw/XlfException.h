@@ -57,7 +57,7 @@ public:
   //! std::exception interface
   const char* what () const throw ();
   //! the automatically generated destructor would not have the throw specifier.
-  ~XlfException () throw ();
+  ~XlfException () throw () {}
 private:
     std::string what_;
 };
