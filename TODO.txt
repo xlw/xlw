@@ -1,5 +1,7 @@
 
 add multiple doc formats
+un-frame documentation if framed
+create a non-doc website
 update documentation including changes (see NEWS.txt)
 remove Borland warnings
 

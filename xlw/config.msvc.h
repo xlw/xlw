@@ -28,7 +28,7 @@
 /*** libraries to be linked***/
 
 #ifdef _DEBUG
-    #pragma comment(lib,"excel32_d.lib")
+    #pragma comment(lib,"excel32d.lib")
 #else
     #pragma comment(lib,"excel32.lib")
 #endif
