@@ -33,7 +33,7 @@
 #define XLW_HEX_VERSION 0x010203a0
 
 //! version string
-#ifdef XLW_DEBUG
+#ifndef NDEBUG
     #define XLW_VERSION "1.2.3a0-cvs-debug"
 #else
     #define XLW_VERSION "1.2.3a0-cvs"
