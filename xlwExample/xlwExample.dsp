@@ -109,6 +109,19 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"Debug/xlwExample.xll" /pdbtype:sept /libpath:"$(XLW_DIR)\Debug"
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"xll\Win32\VisualStudio\xlwExampled.xll" /pdbtype:sept /libpath:"..\lib\Win32\VisualStudio"
+# Begin Custom Build
+IntDir=.\build\OnTheEdgeDebug
+TargetPath=.\xll\Win32\VisualStudio\xlwExampled.xll
+TargetName=xlwExampled
+InputPath=.\xll\Win32\VisualStudio\xlwExampled.xll
+SOURCE="$(InputPath)"
+
+"$(BIN)\$(TargetName).xll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	echo on 
+	copy $(TargetPath) $(BIN)\. 
+	copy $(IntDir)\$(TargetName).pdb $(BIN)\. 
+	
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xlwExample - Win32 OnTheEdgeRelease"
 
