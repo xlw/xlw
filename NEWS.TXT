@@ -4,11 +4,12 @@
   This way any project based on xlw can add "$(XLW_DIR)" to the "Additional
   include directory" list and add "$(XLW_DIR)\lib\Win32\VisualStudio\" to the
   "Additional library path" list.
+- renamed library as xlw.lib
 - moved sources under xlw folder, and switched to <xlw/xxx.h> inclusion
   style (library suggested standards, at least by GNU)
 - added LICENSE.TXT, NEWS.TXT, AUTHORS.TXT, CONTRIBUTORS.TXT, HISTORY.TXT,
   ChangeLog.TXT, and README.TXT files in the project root
-- moved test file exlExample.cpp under exlExample folder
+- moved test file xlwExample.cpp under xlwExample folder
 - added config.msvc.h to handle all the MS VC defines. Now as long as you
   include <xlw/xlw.h>, you won't have to explicitly link your
   application to xlw.lib. This is automatically done by xlw.h using

@@ -1,15 +1,12 @@
 
-rename test as Example
-activate cvs mailing list
-source distribution
+
 update documentation including changes (see NEWS.txt)
-add multiple doc formats
+
+activate cvs mailing list
 
 
 add advanced example
 un-frame documentation if framed
-add Borland support
-rename excel32*.* to xlw*.*
-project name
+fix Borland support
 add the know bugs to sf bug tracker
 pragma.h into config.msvc.h ?
