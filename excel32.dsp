@@ -74,7 +74,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32_d.lib"
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32d.lib"
 
 !ELSEIF  "$(CFG)" == "excel32 - Win32 OnTheEdgeDebug"
 
@@ -97,7 +97,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32_d.lib"
-# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32_d.lib"
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32d.lib"
 
 !ELSEIF  "$(CFG)" == "excel32 - Win32 OnTheEdgeRelease"
 

@@ -15,7 +15,8 @@ MAKEINDEX = makeindex
 DVIPS     = dvips
 
 # Options
-TEX_OPTS = --quiet --pool-size=1000000
+#TEX_OPTS = --quiet --pool-size=1000000
+TEX_OPTS = --pool-size=1000000
 
 # Primary target:
 # all docs
