@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
@@ -29,3 +30,4 @@
 INLINE XlfException::XlfException(const std::string& what) : what_(what) {}
 
 INLINE const char* XlfException::what() const throw () { return what_.c_str(); }
+

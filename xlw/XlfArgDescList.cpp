@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
@@ -75,3 +76,4 @@ XlfArgDescList operator+(const XlfArgDesc& lhs, const XlfArgDesc& rhs)
 {
   return XlfArgDescList(lhs)+rhs;
 }
+

@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  
@@ -269,3 +270,4 @@ XlfOper& XlfOper::Set<FwdIt>(WORD r, BYTE c, FwdIt it);
 #endif
 
 #endif
+

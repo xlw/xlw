@@ -1,3 +1,4 @@
+
 /*!
 \file xlcall32.h
 \brief Header file shipped with Excel 97
@@ -999,3 +1000,4 @@ extern int (__stdcall *XLCallVer)(void);
 #endif	/*! __cplusplus */
 
 #endif
+

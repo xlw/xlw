@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
@@ -76,3 +77,4 @@ private:
 EXCEL32_API XlfArgDescList operator+(const XlfArgDesc&, const XlfArgDesc&);
 
 #endif
+

@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
@@ -114,3 +115,4 @@ are not used in excel32 framework.
 #endif
 
 #endif
+

@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
@@ -178,3 +179,4 @@ buffer by temporary XLOPER allocated by the XLL.
 */
 INLINE void XlfOper::Deallocate()
 {}
+
