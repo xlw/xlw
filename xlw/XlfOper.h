@@ -178,8 +178,10 @@ public:
 #ifdef PORT_PARTIAL_MEMBER_TEMPLATE
   {
     Set(r,c);
-    for (size_t i = 0; i < size_t(r*c); ++i, ++it)
-	  Set(i,XlfOper(*it));
+    for (size_t i = 0; i < size_t(r*c); ++i, ++it) {
+      XlfOper temp(*it);
+	  Set(i, temp);
+    }
     return *this;
   }
 #else
