@@ -18,7 +18,7 @@
     Caption "XLW Light - Setup"
     #do not change the name below
     OutFile "..\XLW-${VER_NUMBER}-light-inst.exe"
-    ComponentText "This will install XLW ${VER_NUMBER} Light on your computer.$\n A more complete version including documentation, examples, source code, etc. can be downloaded from http://www.ifrance.com/xlw/"
+    ComponentText "This will install XLW ${VER_NUMBER} Light on your computer.$\n A more complete version including documentation, examples, source code, etc. can be downloaded from http://xlw.sf.net"
 !else
     Name "XLW"
     Caption "XLW - Setup"
@@ -158,7 +158,7 @@ SectionIn 1 2 3
   SetOutPath $SMPROGRAMS\XLW
 
   WriteINIStr "$SMPROGRAMS\XLW\XLW Home Page.url" \
-              "InternetShortcut" "URL" "http://www.ifrance.com/xlw/"
+              "InternetShortcut" "URL" "http://xlw.sf.net"
 
   CreateShortCut "$SMPROGRAMS\XLW\XLW Directory.lnk" \
                  "$INSTDIR"

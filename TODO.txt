@@ -1,4 +1,5 @@
 
+make http://www.ifrance.com/xlw/ a link to xlw.sf.net
 sf link and logo
 add notice of sf project
 add doc formats
