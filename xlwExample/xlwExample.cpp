@@ -18,6 +18,7 @@
 
 #include <xlw/xlw.h>
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include "Win32StreamBuf.h"
 
@@ -95,7 +96,16 @@ extern "C"
     if (XlfExcel::Instance().IsCalledByFuncWiz())
       return XlfOper(true);
 
-    return XlfOper(false);
+    XlfOper res;
+    XlfExcel::Instance().Call(xlfCaller,res,0);
+    XlfRef ref=res.AsRef();
+
+    std::ostringstream ostr;
+    char colChar='A'+ref.GetColBegin();
+    ostr << colChar << ref.GetRowBegin() + 1 << std::ends;
+    std::string address=ostr.str();
+
+    return XlfOper(address.c_str());
 
     EXCEL_END;
   }
@@ -141,7 +151,7 @@ extern "C"
     stats.Register();
 
     // Registers the fourth function xlIsInWiz.
-    XlfFuncDesc isInWiz("xlIsInWiz","IsInWiz","returns true if the function is called from the function wizard. false otherwise","xlw Example");
+    XlfFuncDesc isInWiz("xlIsInWiz","IsInWiz","returns true if the function is called from the function wizard, and the address of the caller otherwise","xlw Example");
     isInWiz.Register();
 
     // Clears the status bar.
