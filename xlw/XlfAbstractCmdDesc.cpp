@@ -58,7 +58,7 @@ void XlfAbstractCmdDesc::Register() const
     throw std::runtime_error("Could not get library name");
   int err = DoRegister(dllName);
   if (err != xlretSuccess)
-    std::cerr << __HERE__ << "Error " << err << " while registering " << GetAlias().c_str() << std::endl;
+    std::cerr << "Error " << err << " while registering " << GetAlias().c_str() << std::endl;
   return;
 }
 

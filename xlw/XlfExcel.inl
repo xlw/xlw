@@ -63,7 +63,7 @@ INLINE void XlfExcel::PushNewBuffer(size_t size)
   freeList_.push_front(newBuffer);
   offset_=0;
 #if !defined(NDEBUG)
-	std::cerr << __HERE__ << "xlw is allocating a new buffer of " << size << " bytes" << std::endl;
+	std::cerr << "xlw is allocating a new buffer of " << size << " bytes" << std::endl;
 #endif
   return;
 }

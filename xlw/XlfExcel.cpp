@@ -162,7 +162,7 @@ std::string XlfExcel::GetName() const
   XlfOper xName;
   int err = Call(xlGetName, (LPXLOPER)xName, 0);
   if (err != xlretSuccess)
-    std::cerr << __HERE__ << "Could not get DLL name" << std::endl;
+    std::cerr << XLW__HERE__ << "Could not get DLL name" << std::endl;
   else
     ret=xName.AsString();
   return ret;
@@ -219,14 +219,14 @@ int XlfExcel::Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) c
     if (!pxdata[i])
     {
       if (xlfn & xlCommand)
-        std::cerr << __HERE__ << "xlCommand | " << (xlfn & 0x0FFF) << std::endl;
+        std::cerr << XLW__HERE__ << "xlCommand | " << (xlfn & 0x0FFF) << std::endl;
       if (xlfn & xlSpecial)
-        std::cerr << __HERE__ << "xlSpecial | " << (xlfn & 0x0FFF) << std::endl;
+        std::cerr << "xlSpecial | " << (xlfn & 0x0FFF) << std::endl;
       if (xlfn & xlIntl)
-        std::cerr << __HERE__ << "xlIntl | " << (xlfn & 0x0FFF) << std::endl;
+        std::cerr << "xlIntl | " << (xlfn & 0x0FFF) << std::endl;
       if (xlfn & xlPrompt)
-        std::cerr << __HERE__ << "xlPrompt | " << (xlfn & 0x0FFF) << std::endl;
-      std::cerr << __HERE__ << "0 pointer passed as argument #" << i << std::endl;
+        std::cerr << "xlPrompt | " << (xlfn & 0x0FFF) << std::endl;
+      std::cerr << "0 pointer passed as argument #" << i << std::endl;
     }
 #endif
   int xlret = Excel4v(xlfn, pxResult, count, pxdata);

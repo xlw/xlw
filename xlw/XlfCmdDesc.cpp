@@ -74,7 +74,7 @@ int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
 
 	int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)&xMenu);
 	if (err != xlretSuccess)
-    std::cerr << __HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
+    std::cerr << XLW__HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
 	delete[] pxMenu;
 	return err;
 }
@@ -83,13 +83,13 @@ int XlfCmdDesc::Check(bool ERR_CHECK) const
 {
 	if (menu_.empty())
 	{
-    std::cerr << __HERE__ << "No menu specified for the command \"" << GetName().c_str() << "\"" << std::endl;
+    std::cerr << XLW__HERE__ << "No menu specified for the command \"" << GetName().c_str() << "\"" << std::endl;
 		return xlretFailed;
 	}
 	int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)XlfOper(text_.c_str()), (LPXLOPER)XlfOper(ERR_CHECK));
 	if (err != xlretSuccess)
 	{
-    std::cerr << __HERE__ << "Registration of " << GetAlias().c_str() << " failed" << std::endl;
+    std::cerr << XLW__HERE__ << "Registration of " << GetAlias().c_str() << " failed" << std::endl;
 		return err;
 	}
 	return xlretSuccess;
@@ -104,7 +104,7 @@ int XlfCmdDesc::DoRegister() const
 	const std::string& dllname = XlfExcel::Instance().GetName();
 	if (dllname.empty())
 	{
-    std::cerr << __HERE__ << "Library name is not initialized" << std::endl;
+    std::cerr << XLW__HERE__ << "Library name is not initialized" << std::endl;
 		return xlretFailed;
 	}
 //	ERR_LOG("Registering command \"" << alias_.c_str() << "\" from \"" << name_.c_str() << "\" in \"" << dllname.c_str() << "\"");

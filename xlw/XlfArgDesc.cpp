@@ -32,7 +32,7 @@
 void XlfArgDesc::CheckNameLength()
 {
   if (name_.length() >= 19)
-    std::cerr << __HERE__ << "Argument name \"" << name_.c_str()
+    std::cerr << XLW__HERE__ << "Argument name \"" << name_.c_str()
     << "\" may be too long to fit the in the function wizard" << std::endl;
 };
 

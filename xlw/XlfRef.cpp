@@ -43,7 +43,7 @@ XlfOper XlfRef::operator()(WORD r, BYTE c) const
 #if !defined(NDEBUG)
 	if (rowbegin_ + r > rowend_ || colbegin_ + c > colend_)
   {
-    std::cerr << __HERE__ << "XlfRef access out of range" << std::endl;
+    std::cerr << "XlfRef access out of range" << std::endl;
   }
 #endif
 	XlfOper res;

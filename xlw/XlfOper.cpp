@@ -114,7 +114,7 @@ void XlfOper::FreeAuxiliaryMemory() const
 {
   int err = XlfExcel::Instance().XlfExcel::Instance().Call(xlFree, NULL, 1, (LPXLOPER)lpxloper_);
   if (err != xlretSuccess)
-    std::cerr << __HERE__ << "Call to xlFree failed" << std::endl;
+    std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
   return;
 }
 
@@ -510,7 +510,7 @@ XlfOper& XlfOper::Set(const char *value)
     lpxloper_->xltype = xltypeStr;
     int n = strlen(value);
     if (n >= 256)
-      std::cerr << __HERE__ << "String too long is truncated" << std::endl;
+      std::cerr << XLW__HERE__ << "String too long is truncated" << std::endl;
     // One byte more for NULL terminal char (allow use of strcpy)
     // and one for the std::string size (convention used by Excel)
     LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 2));
