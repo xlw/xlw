@@ -136,8 +136,7 @@ extern "C"
   long EXCEL_EXPORT xlAutoClose()
   {
 		std::cerr << __HERE__ << "Releasing ressources" << std::endl;
-		// true in argument to free ALL the memory that have been allocated.
-		XlfExcel::Instance().FreeMemory(true);
+		delete &XlfExcel::Instance();
     std::cerr.rdbuf(oldStreamBuf);
     return 1;
   }
