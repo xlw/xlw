@@ -17,7 +17,7 @@ OUTPUT_DIR     = ..\lib\Win32\Borland
 
 # Object files
 CORE_OBJS = \
-    excel32.obj$(_D) \
+    xlw.obj$(_D) \
     XlfAbstractCmdDesc.obj$(_D) \
     XlfArgDesc.obj$(_D) \
     XlfArgDescList.obj$(_D) \
@@ -61,9 +61,9 @@ TLIB_OPTS    = /P64
 
 # Primary target:
 # XLW library
-$(OUTPUT_DIR)\excel32$(_D).lib:: $(CORE_OBJS)
-    if exist $(OUTPUT_DIR)\excel32$(_D).lib del $(OUTPUT_DIR)\excel32$(_D).lib
-    $(TLIB) $(TLIB_OPTS) $(OUTPUT_DIR)\excel32$(_D).lib /a $(CORE_OBJS)
+$(OUTPUT_DIR)\xlw$(_D).lib:: $(CORE_OBJS)
+    if exist $(OUTPUT_DIR)\xlw$(_D).lib del $(OUTPUT_DIR)\xlw$(_D).lib
+    $(TLIB) $(TLIB_OPTS) $(OUTPUT_DIR)\xlw$(_D).lib /a $(CORE_OBJS)
 
 
 
