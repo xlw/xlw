@@ -24,12 +24,13 @@
 
 /*** libraries to be linked***/
 
-#ifdef _DEBUG
-    #pragma comment(lib,"xlwd.lib")
+#ifdef XLW_AUTOLINK
+#ifndef NDEBUG
+#pragma comment(lib,"xlwd.lib")
 #else
-    #pragma comment(lib,"xlw.lib")
+#pragma comment(lib,"xlw.lib")
 #endif
-
+#endif // XLW_AUTOLINK
 
 //! Partial support of member templates (if defined inline).
 #define PORT_PARTIAL_MEMBER_TEMPLATE
