@@ -1,4 +1,5 @@
 
+activate cvs mailing list
 source distribution
 update documentation including changes (see NEWS.txt)
 add multiple doc formats

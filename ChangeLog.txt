@@ -1,3 +1,68 @@
+2002-03-14 08:49  nando
+
+	* TODO.txt (1.13): updated
+
+2002-03-14 08:36  nando
+
+	* NEWS.TXT (1.7), README.TXT (1.3), xlw.nsi (1.7): updated
+
+2002-03-14 08:28  nando
+
+	* xlw.nsi (1.6): bug fixed
+
+2002-03-14 08:18  nando
+
+	* test/: test.dsp (1.5), test.mak (1.7): updated
+
+2002-03-14 08:12  nando
+
+	* TODO.txt (1.12), test/test.mak (1.6): updated
+
+2002-03-14 08:05  nando
+
+	* xlw/: XlfOper.h (1.4), excel32.h (1.4): pruned redundant
+	inclusions
+
+2002-03-14 07:51  nando
+
+	* test/main.cpp (1.6): new license
+
+2002-03-13 17:45  nando
+
+	* xlw.nsi (1.5): borland removed (for the time being)
+
+2002-03-12 13:05  nando
+
+	* NEWS.TXT (1.6), Docs/xlw.doxy (1.6), Docs/pages/download.txt
+	(1.4), Docs/pages/excel32.txt (1.4): added developers' tools
+
+2002-03-12 12:17  nando
+
+	* Docs/pages/excel32.txt (1.3): typo fixed
+
+2002-03-12 09:15  nando
+
+	* LICENSE.TXT (1.2), Docs/pages/download.txt (1.3),
+	xlw/ERR_Macros.h (1.3), xlw/EXCEL32_API.h (1.3),
+	xlw/XlfAbstractCmdDesc.cpp (1.3), xlw/XlfAbstractCmdDesc.h (1.3),
+	xlw/XlfAbstractCmdDesc.inl (1.2), xlw/XlfArgDesc.cpp (1.3),
+	xlw/XlfArgDesc.h (1.3), xlw/XlfArgDescList.cpp (1.3),
+	xlw/XlfArgDescList.h (1.3), xlw/XlfCmdDesc.cpp (1.4),
+	xlw/XlfCmdDesc.h (1.4), xlw/XlfExcel.cpp (1.4), xlw/XlfExcel.h
+	(1.3), xlw/XlfExcel.inl (1.3), xlw/XlfException.cpp (1.3),
+	xlw/XlfException.h (1.3), xlw/XlfException.inl (1.3),
+	xlw/XlfFuncDesc.cpp (1.3), xlw/XlfFuncDesc.h (1.3), xlw/XlfOper.cpp
+	(1.4), xlw/XlfOper.h (1.3), xlw/XlfOper.inl (1.3), xlw/XlfRef.cpp
+	(1.3), xlw/XlfRef.h (1.3), xlw/XlfRef.inl (1.3), xlw/config.bcc.h
+	(1.3), xlw/config.msvc.h (1.5), xlw/excel32.cpp (1.3),
+	xlw/excel32.h (1.3), xlw/macros.h (1.4), xlw/port.h (1.3),
+	xlw/pragmas.h (1.3), xlw/xlcall32.h (1.2): switched to verbatim BSD
+	license
+
+2002-03-05 17:32  nando
+
+	* ChangeLog.txt (1.3): updated
+
 2002-03-05 16:11  nando
 
 	* ChangeLog.txt (1.2): updated
