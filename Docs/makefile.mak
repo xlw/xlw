@@ -21,7 +21,7 @@ TEX_OPTS = --quiet --pool-size=1000000
 
 # Primary target:
 # all docs
-all:: winhelp tex-files
+all:: tex-files
     cd latex
     $(PDFLATEX) $(TEX_OPTS) refman
     $(MAKEINDEX) refman.idx
