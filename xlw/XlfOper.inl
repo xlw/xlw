@@ -39,34 +39,78 @@ INLINE XlfOper::XlfOper(const XlfOper& oper)
   *this = oper;
 };
 
+/*!
+See XlfOper::Set(double)
+*/
 INLINE XlfOper::XlfOper(double value)
 {
   Allocate();
   Set(value);
 }
 
+/*!
+See XlfOper::Set(short)
+*/
 INLINE XlfOper::XlfOper(short value)
 {
   Allocate();
   Set(value);
 }
 
+/*!
+See XlfOper::Set(bool)
+*/
 INLINE XlfOper::XlfOper(bool value)
 {
   Allocate();
   Set(value);
 }
 
+/*!
+See XlfOper::Set(const char *)
+*/
 INLINE XlfOper::XlfOper(const char *value)
 {
   Allocate();
   Set(value);
 }
 
+/*!
+See XlfOper::Set(const XlfRef&)
+
+\sa XlfRef
+*/
 INLINE XlfOper::XlfOper(const XlfRef& range)
 {
   Allocate();
   Set(range);
+}
+
+/*!
+Unlike other XlfOper, the return value is not allocated on the internal
+buffer to avoid allocating more memory. Instead it is allocated on a
+shared static XLOPER.
+
+\arg error One of the values listed bellow and defined in xlcall32.h
+
+\code
+#define xlerrNull    0    // No info
+#define xlerrDiv0    7		// Division by 0
+#define xlerrValue   15		// Bad value
+#define xlerrRef     23		// Bad reference
+#define xlerrName    29		// Bad name
+#define xlerrNum     36		// Bad number
+#define xlerrNA      42		// Not available
+\endcode
+
+\sa XlfOper::SetError(WORD)
+*/
+INLINE XlfOper XlfOper::Error(WORD xlerr)
+{
+	static XLOPER oper;
+	XlfOper ret(&oper);
+	ret.SetError(xlerr);
+	return ret;
 }
 
 INLINE XlfOper& XlfOper::operator=(const XlfOper& rhs)

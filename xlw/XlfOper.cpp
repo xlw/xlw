@@ -37,16 +37,6 @@
 #endif
 
 /*!
-This bit is currently unused by Microsoft Excel. We set it
-to indicate that the LPXLOPER (passed by Excel) holds some extra
-memory to be freed.
- 
-This bit is controled in ~XlfOper to know if the DLL should release
-auxiliary memory or not by a call to FreeAuxiliaryMemory.
-*/
-int xlbitCallFreeAuxMem = 0x8000;
-
-/*!
 Shallow copy of a pointer to XLOPER.
 \param lpxloper Pointer to XLOPER.
 \param isExcelData Flags that tells if the auxiliary data is allocated by
@@ -54,38 +44,25 @@ Excel or by the XLL (default is true).
 */
 XlfOper::XlfOper(LPXLOPER lpxloper, bool isExcelData): lpxloper_(lpxloper)
 {
-  if (lpxloper_ == 0)
-    return;
-
-  int type = lpxloper_->xltype;
-  bool isAuxType = (type == xltypeStr || type == xltypeRef ||
-                    type == xltypeMulti || type == xltypeBigData);
-  if (isExcelData && isAuxType)
-  {
-    lpxloper_->xltype&=xlbitCallFreeAuxMem;
-  }
-  return;
 }
 
 /*!
 Calls Deallocate() to free the XLOPER allocated by the XLL. XLOPER allocated
 by Excel remain under Excel responsability.
  
-Calls FreeAuxiliaryMemory if the XLOPER is owned by Excel and maintains heap
-allocated data. If it is not owned by Excel, the data is assumed to be deleted
-elsewhere in the XLL.
+Calls FreeAuxiliaryMemory if the XLOPER is owned by MS Excel (not XlfExcel) 
+and maintains heap allocated data.
 */
 XlfOper::~XlfOper()
 {
   if (! lpxloper_)
     return;
 
-  if (lpxloper_->xltype & xlbitCallFreeAuxMem)
-  {
+	if ( (lpxloper_->xltype == xltypeStr && ! XlfExcel::Instance().IsInBuffer(lpxloper_->val.str))
+		|| (lpxloper_->xltype == xltypeRef && ! XlfExcel::Instance().IsInBuffer(reinterpret_cast<char *>(lpxloper_->val.mref.lpmref)))
+		|| (lpxloper_->xltype == xltypeMulti && ! XlfExcel::Instance().IsInBuffer(reinterpret_cast<char *>(lpxloper_->val.array.lparray)))
+		|| (lpxloper_->xltype == xltypeBigData && ! XlfExcel::Instance().IsInBuffer(reinterpret_cast<char *>(lpxloper_->val.bigdata.h.lpbData))))
     FreeAuxiliaryMemory();
-    // and switch back the bit as it was originally
-    lpxloper_->xltype&=xlbitCallFreeAuxMem;
-  }
   Deallocate();
   return;
 }
@@ -143,7 +120,7 @@ double XlfOper::AsDouble() const
 {
   double d;
   int xlret = ConvertToDouble(d);
-  XlfExcel::Instance().ThrowOnCriticalError(xlret);
+  ThrowOnError(xlret);
   return d;
 };
 
@@ -186,7 +163,7 @@ std::vector<double> XlfOper::AsDoubleVector(DoubleVectorConvPolicy policy) const
 {
   std::vector<double> v;
   int xlret = ConvertToDoubleVector(v, policy);
-  XlfExcel::Instance().ThrowOnCriticalError(xlret);
+  ThrowOnError(xlret);
   return v;
 }
 
@@ -244,7 +221,7 @@ short XlfOper::AsShort() const
 {
   short s;
   int xlret = ConvertToShort(s);
-  XlfExcel::Instance().ThrowOnCriticalError(xlret);
+  ThrowOnError(xlret);
   return s;
 };
 
@@ -282,7 +259,7 @@ bool XlfOper::AsBool() const
 {
   bool b;
   int xlret = ConvertToBool(b);
-  XlfExcel::Instance().ThrowOnCriticalError(xlret);
+  ThrowOnError(xlret);
   return b;
 };
 
@@ -323,7 +300,7 @@ char * XlfOper::AsString() const
 {
   char * s;
   int xlret = ConvertToString(s);
-  XlfExcel::Instance().ThrowOnCriticalError(xlret);
+  ThrowOnError(xlret);
   return s;
 };
 
@@ -364,7 +341,7 @@ XlfRef XlfOper::AsRef() const
 {
   XlfRef r;
   int xlret = ConvertToRef(r);
-  XlfExcel::Instance().ThrowOnCriticalError(xlret);
+  ThrowOnError(xlret);
   return r;
 }
 
@@ -500,6 +477,9 @@ XlfOper& XlfOper::Set(const char *value)
   return *this;
 }
 
+/*!
+\sa XlfOper::Error(WORD)
+*/
 XlfOper& XlfOper::SetError(WORD error)
 {
   if (lpxloper_)
@@ -508,5 +488,38 @@ XlfOper& XlfOper::SetError(WORD error)
     lpxloper_->val.err = error;
   }
   return *this;
+}
+
+/*!
+Throws an exception if the argument is anything other than xlretSuccess.
+
+Events that require an immediate return to excel (uncalculated cell, abort,
+stack overflow and invalid OPER (potential memory exhaustion)) throw an
+XlfException.
+
+Other events throw std::runtime_error.
+*/
+int XlfOper::ThrowOnError(int xlret) const
+{
+	if (xlret == xlretSuccess)
+		return xlret;
+
+  if (xlret & xlretUncalced)
+	  throw XlfExceptionUncalculated();
+  if (xlret & xlretAbort)
+	  throw XlfExceptionAbort();
+  if (xlret & xlretStackOvfl)
+	  throw XlfExceptionStackOverflow();
+  if (xlret & xlretInvXloper)
+	  throw XlfException("invalid OPER structure (memory could be exhausted)");
+	if (xlret & xlretFailed)
+		throw std::runtime_error("command failed");
+	if (xlret & xlretInvCount)
+		throw std::runtime_error("invalid number of argument");
+	if (xlret & xlretInvXlfn)
+		throw std::runtime_error("invalid function number");
+	// should never get there.
+	assert(0);
+  return xlret;
 }
 

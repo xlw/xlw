@@ -82,6 +82,8 @@ public:
   ;
 #endif
 #endif
+	//! Constructs an Excel error.
+	static XlfOper Error(WORD);
   //! Dtor
   ~XlfOper();
   //! Free auxiliary memory associated with the XLOPER
@@ -203,6 +205,9 @@ private:
 
   //! Anticipates deallocation if possible.
   void Deallocate();
+
+  //! Throws an exception when critical errors occur.
+  int ThrowOnError(int) const;
 };
 
 #ifdef PORT_NO_MEMBER_TEMPLATE
