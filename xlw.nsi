@@ -127,10 +127,18 @@ SectionIn 1 2
   File /r "xlwExample\*.dsw"
   File /r "xlwExample\*.mak"
   File /r "xlwExample\*.xls"
+
+  SetOutPath  $INSTDIR\xlwExample\xll
   File /r "xlwExample\xll\*.txt"
+
+  SetOutPath  $INSTDIR\xlwExample\xll\Win32
   File /r "xlwExample\xll\Win32\*.txt"
+
+  SetOutPath  $INSTDIR\xlwExample\xll\Win32\VisualStudio
   File /r "xlwExample\xll\Win32\VisualStudio\*.txt"
   File /r "xlwExample\xll\Win32\VisualStudio\*.xll"
+
+  SetOutPath  $INSTDIR\xlwExample\xll\Win32\Borland
   File /r "xlwExample\xll\Win32\Borland\*.txt"
   File /r "xlwExample\xll\Win32\Borland\*.xll"
 
