@@ -189,11 +189,19 @@ SOURCE=.\xlw\config.bcc.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\xlw\config.mgw.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\xlw\config.msvc.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\xlw\defines.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\xlw\ERR_Macros.h
 # End Source File
 # Begin Source File
 
@@ -259,10 +267,6 @@ SOURCE=.\xlw\xlw.h
 # Begin Group "Source"
 
 # PROP Default_Filter ".cpp"
-# Begin Source File
-
-SOURCE=.\xlw\excel32.cpp
-# End Source File
 # Begin Source File
 
 SOURCE=.\xlw\XlfAbstractCmdDesc.cpp

@@ -44,8 +44,6 @@ ALL : ".\lib\xlw-vc6-mt-s-1_2_3.lib" "$(OUTDIR)\xlw.bsc"
 
 
 CLEAN :
-	-@erase "$(INTDIR)\excel32.obj"
-	-@erase "$(INTDIR)\excel32.sbr"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\XlfAbstractCmdDesc.obj"
 	-@erase "$(INTDIR)\XlfAbstractCmdDesc.sbr"
@@ -75,7 +73,6 @@ CPP_PROJ=/nologo /MT /W3 /GR /GX /O2 /I ".\\" /D "NDEBUG" /D "WIN32" /D "_MBCS" 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlw.bsc" 
 BSC32_SBRS= \
-	"$(INTDIR)\excel32.sbr" \
 	"$(INTDIR)\XlfAbstractCmdDesc.sbr" \
 	"$(INTDIR)\XlfArgDesc.sbr" \
 	"$(INTDIR)\XlfArgDescList.sbr" \
@@ -94,7 +91,6 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"lib\xlw-vc6-mt-s-1_2_3.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\excel32.obj" \
 	"$(INTDIR)\XlfAbstractCmdDesc.obj" \
 	"$(INTDIR)\XlfArgDesc.obj" \
 	"$(INTDIR)\XlfArgDescList.obj" \
@@ -122,8 +118,6 @@ ALL : ".\lib\xlw-vc6-mt-sgd-1_2_3.lib" "$(OUTDIR)\xlw.bsc"
 
 
 CLEAN :
-	-@erase "$(INTDIR)\excel32.obj"
-	-@erase "$(INTDIR)\excel32.sbr"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(INTDIR)\XlfAbstractCmdDesc.obj"
@@ -154,7 +148,6 @@ CPP_PROJ=/nologo /MTd /W3 /Gm /GR /GX /ZI /Od /I ".\\" /D "_LIB" /D "_DEBUG" /D 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlw.bsc" 
 BSC32_SBRS= \
-	"$(INTDIR)\excel32.sbr" \
 	"$(INTDIR)\XlfAbstractCmdDesc.sbr" \
 	"$(INTDIR)\XlfArgDesc.sbr" \
 	"$(INTDIR)\XlfArgDescList.sbr" \
@@ -173,7 +166,6 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"lib\xlw-vc6-mt-sgd-1_2_3.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\excel32.obj" \
 	"$(INTDIR)\XlfAbstractCmdDesc.obj" \
 	"$(INTDIR)\XlfArgDesc.obj" \
 	"$(INTDIR)\XlfArgDescList.obj" \
@@ -201,8 +193,6 @@ ALL : ".\lib\xlw-vc6-mt-1_2_3.lib" "$(OUTDIR)\xlw.bsc"
 
 
 CLEAN :
-	-@erase "$(INTDIR)\excel32.obj"
-	-@erase "$(INTDIR)\excel32.sbr"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\XlfAbstractCmdDesc.obj"
 	-@erase "$(INTDIR)\XlfAbstractCmdDesc.sbr"
@@ -232,7 +222,6 @@ CPP_PROJ=/nologo /MD /W3 /GR /GX /O2 /I ".\\" /D "NDEBUG" /D "WIN32" /D "_MBCS" 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlw.bsc" 
 BSC32_SBRS= \
-	"$(INTDIR)\excel32.sbr" \
 	"$(INTDIR)\XlfAbstractCmdDesc.sbr" \
 	"$(INTDIR)\XlfArgDesc.sbr" \
 	"$(INTDIR)\XlfArgDescList.sbr" \
@@ -251,7 +240,6 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"lib\xlw-vc6-mt-1_2_3.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\excel32.obj" \
 	"$(INTDIR)\XlfAbstractCmdDesc.obj" \
 	"$(INTDIR)\XlfArgDesc.obj" \
 	"$(INTDIR)\XlfArgDescList.obj" \
@@ -279,8 +267,6 @@ ALL : ".\lib\xlw-vc6-mt-gd-1_2_3.lib" "$(OUTDIR)\xlw.bsc"
 
 
 CLEAN :
-	-@erase "$(INTDIR)\excel32.obj"
-	-@erase "$(INTDIR)\excel32.sbr"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(INTDIR)\XlfAbstractCmdDesc.obj"
@@ -311,7 +297,6 @@ CPP_PROJ=/nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I ".\\" /D "_LIB" /D "_DEBUG" /D 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlw.bsc" 
 BSC32_SBRS= \
-	"$(INTDIR)\excel32.sbr" \
 	"$(INTDIR)\XlfAbstractCmdDesc.sbr" \
 	"$(INTDIR)\XlfArgDesc.sbr" \
 	"$(INTDIR)\XlfArgDescList.sbr" \
@@ -330,7 +315,6 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"lib\xlw-vc6-mt-gd-1_2_3.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\excel32.obj" \
 	"$(INTDIR)\XlfAbstractCmdDesc.obj" \
 	"$(INTDIR)\XlfArgDesc.obj" \
 	"$(INTDIR)\XlfArgDescList.obj" \
@@ -358,8 +342,6 @@ ALL : ".\lib\xlw-vc6-s-1_2_3.lib" "$(OUTDIR)\xlw.bsc"
 
 
 CLEAN :
-	-@erase "$(INTDIR)\excel32.obj"
-	-@erase "$(INTDIR)\excel32.sbr"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\XlfAbstractCmdDesc.obj"
 	-@erase "$(INTDIR)\XlfAbstractCmdDesc.sbr"
@@ -389,7 +371,6 @@ CPP_PROJ=/nologo /ML /W3 /GR /GX /O2 /I ".\\" /D "NDEBUG" /D "WIN32" /D "_MBCS" 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlw.bsc" 
 BSC32_SBRS= \
-	"$(INTDIR)\excel32.sbr" \
 	"$(INTDIR)\XlfAbstractCmdDesc.sbr" \
 	"$(INTDIR)\XlfArgDesc.sbr" \
 	"$(INTDIR)\XlfArgDescList.sbr" \
@@ -408,7 +389,6 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"lib\xlw-vc6-s-1_2_3.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\excel32.obj" \
 	"$(INTDIR)\XlfAbstractCmdDesc.obj" \
 	"$(INTDIR)\XlfArgDesc.obj" \
 	"$(INTDIR)\XlfArgDescList.obj" \
@@ -436,8 +416,6 @@ ALL : ".\lib\xlw-vc6-sgd-1_2_3.lib" "$(OUTDIR)\xlw.bsc"
 
 
 CLEAN :
-	-@erase "$(INTDIR)\excel32.obj"
-	-@erase "$(INTDIR)\excel32.sbr"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(INTDIR)\XlfAbstractCmdDesc.obj"
@@ -468,7 +446,6 @@ CPP_PROJ=/nologo /MLd /W3 /Gm /GR /GX /ZI /Od /I ".\\" /D "_LIB" /D "_DEBUG" /D 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlw.bsc" 
 BSC32_SBRS= \
-	"$(INTDIR)\excel32.sbr" \
 	"$(INTDIR)\XlfAbstractCmdDesc.sbr" \
 	"$(INTDIR)\XlfArgDesc.sbr" \
 	"$(INTDIR)\XlfArgDescList.sbr" \
@@ -487,7 +464,6 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"lib\xlw-vc6-sgd-1_2_3.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\excel32.obj" \
 	"$(INTDIR)\XlfAbstractCmdDesc.obj" \
 	"$(INTDIR)\XlfArgDesc.obj" \
 	"$(INTDIR)\XlfArgDescList.obj" \
@@ -546,12 +522,6 @@ LIB32_OBJS= \
 
 
 !IF "$(CFG)" == "xlw - Win32 Release" || "$(CFG)" == "xlw - Win32 Debug" || "$(CFG)" == "xlw - Win32 Release MTDLL" || "$(CFG)" == "xlw - Win32 Debug MTDLL" || "$(CFG)" == "xlw - Win32 Release SingleThread" || "$(CFG)" == "xlw - Win32 Debug SingleThread"
-SOURCE=.\xlw\excel32.cpp
-
-"$(INTDIR)\excel32.obj"	"$(INTDIR)\excel32.sbr" : $(SOURCE) "$(INTDIR)"
-	$(CPP) $(CPP_PROJ) $(SOURCE)
-
-
 SOURCE=.\xlw\XlfAbstractCmdDesc.cpp
 
 "$(INTDIR)\XlfAbstractCmdDesc.obj"	"$(INTDIR)\XlfAbstractCmdDesc.sbr" : $(SOURCE) "$(INTDIR)"
