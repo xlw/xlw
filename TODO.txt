@@ -5,6 +5,7 @@ remove Borland warning
 test: compile borland
 more format docs
 update links (sf and download)
+update documentation
 use hpp instead of h
 BSD License
 rename test into example

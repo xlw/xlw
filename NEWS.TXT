@@ -11,7 +11,7 @@
   __dlldecl(*) when creating a static library with Multithreaded DLL
   run-time libraries
 - added two VC++ build configurations: OnTheEdgeRelease and OnTheEdgeDebug
-- added CVS $Id$ tag
+- added CVS Id tag
 - error handling polished in accord to C++ standard
 - modified EXCEL32_API.h
 - purged port.h of unnecessary defines
