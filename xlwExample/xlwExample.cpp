@@ -88,6 +88,18 @@ extern "C"
     EXCEL_END;
   }
 
+  LPXLOPER EXCEL_EXPORT xlIsInWiz()
+  {
+    EXCEL_BEGIN;
+    
+    if (XlfExcel::Instance().IsCalledByFuncWiz())
+      return XlfOper(true);
+
+    return XlfOper(false);
+
+    EXCEL_END;
+  }
+
   long EXCEL_EXPORT xlAutoOpen()
   {
     oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
@@ -127,6 +139,10 @@ extern "C"
     stats.SetArguments(pop);
     // Registers the stats function.
     stats.Register();
+
+    // Registers the fourth function xlIsInWiz.
+    XlfFuncDesc isInWiz("xlIsInWiz","IsInWiz","returns true if the function is called from the function wizard. false otherwise","xlw Example");
+    isInWiz.Register();
 
     // Clears the status bar.
     XlfExcel::Instance().SendMessage();
