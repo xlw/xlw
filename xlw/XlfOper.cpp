@@ -70,12 +70,14 @@ XlfOper::~XlfOper()
 
   int type = lpxloper_->xltype;
 
-  bool canHaveAuxMem = (type & xltypeStr ||
-                        type & xltypeRef ||
-                        type & xltypeMulti ||
-                        type & xltypeBigData);
-
-  if (canHaveAuxMem && (type & xlbitFreeAuxMem))
+//  Only the types bellow can be flagged xlFreeAuxMem, thus the test is 
+//  actually redundant: we don't need to re-check the type of the oper.
+//  
+//  bool canHaveAuxMem = (type & xltypeStr ||
+//                        type & xltypeRef ||
+//                        type & xltypeMulti ||
+//                        type & xltypeBigData);
+  if (type & xlbitFreeAuxMem)
   {
     // switch back the bit as it was originally
     lpxloper_->xltype &= ~xlbitFreeAuxMem;

@@ -225,7 +225,10 @@ int cdecl XlfExcel::Call(int xlfn, LPXLOPER pxResult, int count, ...) const
 If one (or more) cells refered as argument is(are) uncalculated, the framework
 throw an exception and return immediately to Excel.
  
-If \c pxResult is not 0, flags it for deletion with XlfOper::xlbitCallFreeAuxMem.
+If \c pxResult is not 0 and has auxilliary memory, flags it for deletion 
+with XlfOper::xlbitCallFreeAuxMem.
+ 
+\sa XlfOper::~XlfOper
 */
 int XlfExcel::Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const
 {
@@ -249,12 +252,12 @@ int XlfExcel::Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) c
   {
     int type = pxResult->xltype;
 
-    bool canHaveAuxMem = (type & xltypeStr ||
-                          type & xltypeRef ||
-                          type & xltypeMulti ||
-                          type & xltypeBigData);
-
-    pxResult->xltype |= XlfOper::xlbitFreeAuxMem;
+    bool hasAuxMem = (type & xltypeStr ||
+                      type & xltypeRef ||
+                      type & xltypeMulti ||
+                      type & xltypeBigData);
+    if (hasAuxMem)
+      pxResult->xltype |= XlfOper::xlbitFreeAuxMem;
   }
   return xlret;
 }

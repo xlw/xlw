@@ -209,10 +209,10 @@ private:
   //! Throws an exception when critical errors occur.
   int ThrowOnError(int) const;
 
-	//! Internally used to flag XLOPER returned by Excel.
-	static int xlbitFreeAuxMem;
+  //! Internally used to flag XLOPER returned by Excel.
+  static int xlbitFreeAuxMem;
 
-	friend XlfExcel;
+  friend XlfExcel;
 };
 
 #ifdef PORT_NO_MEMBER_TEMPLATE

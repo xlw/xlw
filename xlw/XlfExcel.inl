@@ -97,23 +97,3 @@ INLINE LPSTR XlfExcel::GetMemory(size_t bytes)
   // should never get to this point...
   return 0;
 }
-
-/*!
-\arg ptr Address to check.
-\return true if the address is between the start and the end of one 
-of the allocated buffer.
-*/
-INLINE bool XlfExcel::IsInBuffer(char * ptr) const
-{	
-	BufferList::const_iterator it = freeList_.begin();
-	BufferList::const_iterator end = freeList_.end();
-
-	while (it != end)
-	{
-		const XlfBuffer& buffer = *it;
-		if (buffer.start <= ptr && ptr < buffer.start+buffer.size)
-			return true;
-		++it;
-	}
-	return false;
-}

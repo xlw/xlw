@@ -39,9 +39,6 @@ PORT_USING(std::ofstream);
 #pragma once
 #endif
 
-//! Detroys the XlfExcel class when the module is terminated.
-class XlfExcelDestroyer;
-
 //! Interface between excel and the framework.
 /*!
 Implemented as a singleton (see \ref DP). You can't access the
@@ -57,10 +54,6 @@ public:
   static void MsgBox(const char *, const char *title = 0);
   //! Dtor.
   ~XlfExcel();
-  //! Sends a message in Excel status bar
-  void SendMessage(const char * msg=0);
-  //! Was the Esc key pressed ?
-  bool IsEscPressed() const;
   //! Allocates memory in the framework temporary buffer
   LPSTR GetMemory(size_t bytes);
   //! Frees temporary memory used by the XLL
@@ -77,8 +70,13 @@ public:
 #endif
   //! Same as above but with an argument array instead of the variable length argument list
   int Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
-  //! Checks if a particular address is owned by the framework
-  bool IsInBuffer(char *) const;
+
+  // Wrapped functions that are often needed and/or painful to code
+
+  //! Sends a message in Excel status bar.
+  void SendMessage(const char * msg=0);
+  //! Was the Esc key pressed ?
+  bool IsEscPressed() const;
 
 private:
   //! Static pointer to the unique instance of XlfExcel object.
