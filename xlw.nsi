@@ -10,7 +10,7 @@
 # $Id$
 
 
-!define VER_NUMBER "1.1.1a0-cvs"
+!define VER_NUMBER "1.2.0"
 
 # HEADER CONFIGURATION COMMANDS
 !ifdef LIGHT
@@ -127,6 +127,8 @@ SectionIn 1 2
   File /r "xlwExample\*.dsw"
   File /r "xlwExample\*.mak"
   File /r "xlwExample\*.xls"
+	File /r "xlwExample\*.h"
+	File /r "xlwExample\*.inl"
 
   SetOutPath  $INSTDIR\xlwExample\xll
   File /r "xlwExample\xll\*.txt"

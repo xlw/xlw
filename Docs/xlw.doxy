@@ -1,11 +1,11 @@
-# Doxyfile 1.2.14
+# Doxyfile 1.2.16
 
 #---------------------------------------------------------------------------
 # General configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = "XLW"
-PROJECT_NUMBER         = 1.1.1a0-cvs
-OUTPUT_DIRECTORY       =
+PROJECT_NAME           = XLW
+PROJECT_NUMBER         = 1.2
+OUTPUT_DIRECTORY       = 
 OUTPUT_LANGUAGE        = English
 EXTRACT_ALL            = NO
 EXTRACT_PRIVATE        = YES
@@ -18,7 +18,7 @@ REPEAT_BRIEF           = YES
 ALWAYS_DETAILED_SEC    = NO
 INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES        = NO
-STRIP_FROM_PATH        =
+STRIP_FROM_PATH        = 
 INTERNAL_DOCS          = NO
 STRIP_CODE_COMMENTS    = YES
 CASE_SENSE_NAMES       = NO
@@ -27,6 +27,7 @@ HIDE_SCOPE_NAMES       = YES
 VERBATIM_HEADERS       = YES
 SHOW_INCLUDE_FILES     = YES
 JAVADOC_AUTOBRIEF      = YES
+DETAILS_AT_TOP         = NO
 INHERIT_DOCS           = YES
 INLINE_INFO            = YES
 SORT_MEMBER_DOCS       = YES
@@ -36,9 +37,10 @@ GENERATE_TODOLIST      = YES
 GENERATE_TESTLIST      = YES
 GENERATE_BUGLIST       = YES
 ALIASES                = "fullpath=\par Full path:"
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 MAX_INITIALIZER_LINES  = 30
 OPTIMIZE_OUTPUT_FOR_C  = NO
+OPTIMIZE_OUTPUT_JAVA   = NO
 SHOW_USED_FILES        = YES
 #---------------------------------------------------------------------------
 # configuration options related to warning and progress messages
@@ -60,14 +62,14 @@ FILE_PATTERNS          = *.h \
 RECURSIVE              = YES
 EXCLUDE                = ../xlw/xlcall32.h \
                          ../xlw/config.bcc.hpp \
-                         ../xlw/config.msvc.hpp \
+                         ../xlw/config.msvc.hpp
 EXCLUDE_SYMLINKS       = NO
-EXCLUDE_PATTERNS       =
+EXCLUDE_PATTERNS       = 
 EXAMPLE_PATH           = ../xlwExample
 EXAMPLE_PATTERNS       = *.cpp
 EXAMPLE_RECURSIVE      = NO
-IMAGE_PATH             =
-INPUT_FILTER           =
+IMAGE_PATH             = 
+INPUT_FILTER           = 
 FILTER_SOURCE_FILES    = NO
 #---------------------------------------------------------------------------
 # configuration options related to source browsing
@@ -88,9 +90,9 @@ IGNORE_PREFIX          = Xlf
 GENERATE_HTML          = YES
 HTML_OUTPUT            = html
 HTML_FILE_EXTENSION    = .html
-HTML_HEADER            =
+HTML_HEADER            = 
 HTML_FOOTER            = xlwfooter.html
-HTML_STYLESHEET        =
+HTML_STYLESHEET        = 
 HTML_ALIGN_MEMBERS     = NO
 GENERATE_HTMLHELP      = YES
 GENERATE_CHI           = NO
@@ -105,9 +107,11 @@ TREEVIEW_WIDTH         = 250
 #---------------------------------------------------------------------------
 GENERATE_LATEX         = YES
 LATEX_OUTPUT           = latex
-COMPACT_LATEX          = NO
+LATEX_CMD_NAME         = latex
+MAKEINDEX_CMD_NAME     = makeindex
+COMPACT_LATEX          = YES
 PAPER_TYPE             = a4wide
-EXTRA_PACKAGES         =
+EXTRA_PACKAGES         = 
 LATEX_HEADER           = xlwheader.tex
 PDF_HYPERLINKS         = YES
 USE_PDFLATEX           = YES
@@ -119,8 +123,8 @@ GENERATE_RTF           = NO
 RTF_OUTPUT             = rtf
 COMPACT_RTF            = NO
 RTF_HYPERLINKS         = NO
-RTF_STYLESHEET_FILE    =
-RTF_EXTENSIONS_FILE    =
+RTF_STYLESHEET_FILE    = 
+RTF_EXTENSIONS_FILE    = 
 #---------------------------------------------------------------------------
 # configuration options related to the man page output
 #---------------------------------------------------------------------------
@@ -131,58 +135,58 @@ MAN_LINKS              = YES
 #---------------------------------------------------------------------------
 # configuration options related to the XML output
 #---------------------------------------------------------------------------
-GENERATE_XML           = NO
+GENERATE_XML           = YES
 #---------------------------------------------------------------------------
 # configuration options for the AutoGen Definitions output
 #---------------------------------------------------------------------------
 GENERATE_AUTOGEN_DEF   = NO
 #---------------------------------------------------------------------------
-# Configuration options related to the preprocessor
+# Configuration options related to the preprocessor   
 #---------------------------------------------------------------------------
 ENABLE_PREPROCESSING   = YES
 MACRO_EXPANSION        = YES
 EXPAND_ONLY_PREDEF     = NO
 SEARCH_INCLUDES        = YES
-INCLUDE_PATH           =
-INCLUDE_FILE_PATTERNS  =
+INCLUDE_PATH           = 
+INCLUDE_FILE_PATTERNS  = 
 PREDEFINED             = _MSC_VER=0x1200 \
                          DOXYGEN
-EXPAND_AS_DEFINED      =
+EXPAND_AS_DEFINED      = 
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------
-# Configuration::addtions related to external references
+# Configuration::addtions related to external references   
 #---------------------------------------------------------------------------
-TAGFILES               =
-GENERATE_TAGFILE       =
+TAGFILES               = 
+GENERATE_TAGFILE       = 
 ALLEXTERNALS           = NO
 EXTERNAL_GROUPS        = YES
 PERL_PATH              = /usr/bin/perl
 #---------------------------------------------------------------------------
-# Configuration options related to the dot tool
+# Configuration options related to the dot tool   
 #---------------------------------------------------------------------------
 CLASS_DIAGRAMS         = YES
+HIDE_UNDOC_RELATIONS   = NO
 HAVE_DOT               = YES
 CLASS_GRAPH            = YES
 COLLABORATION_GRAPH    = YES
 TEMPLATE_RELATIONS     = NO
-HIDE_UNDOC_RELATIONS   = NO
 INCLUDE_GRAPH          = YES
 INCLUDED_BY_GRAPH      = YES
 GRAPHICAL_HIERARCHY    = YES
 DOT_IMAGE_FORMAT       = gif
-DOT_PATH               =
-DOTFILE_DIRS           =
+DOT_PATH               = 
+DOTFILE_DIRS           = 
 MAX_DOT_GRAPH_WIDTH    = 800
 MAX_DOT_GRAPH_HEIGHT   = 600
 GENERATE_LEGEND        = YES
 DOT_CLEANUP            = YES
 #---------------------------------------------------------------------------
-# Configuration::addtions related to the search engine
+# Configuration::addtions related to the search engine   
 #---------------------------------------------------------------------------
 SEARCHENGINE           = NO
 CGI_NAME               = search.cgi
-CGI_URL                =
-DOC_URL                =
-DOC_ABSPATH            =
+CGI_URL                = 
+DOC_URL                = 
+DOC_ABSPATH            = 
 BIN_ABSPATH            = /usr/local/bin/
-EXT_DOC_PATHS          =
+EXT_DOC_PATHS          = 
