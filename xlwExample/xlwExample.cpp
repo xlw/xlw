@@ -89,23 +89,49 @@ extern "C"
     EXCEL_END;
   }
 
+  /*! 
+   * Demonstrates how to detect that the function is called by
+   * the function wizard, and how to retrieve the coordinates
+   * of the caller cell
+   */
   LPXLOPER EXCEL_EXPORT xlIsInWiz()
   {
     EXCEL_BEGIN;
 
+	// Checks if called from the function wizard
     if (XlfExcel::Instance().IsCalledByFuncWiz())
       return XlfOper(true);
 
+	// Gets reference of the called cell
     XlfOper res;
     XlfExcel::Instance().Call(xlfCaller,res,0);
     XlfRef ref=res.AsRef();
 
+	// Returns the reference in A1 format
     std::ostringstream ostr;
     char colChar='A'+ref.GetColBegin();
     ostr << colChar << ref.GetRowBegin() + 1 << std::ends;
     std::string address=ostr.str();
 
     return XlfOper(address.c_str());
+
+    EXCEL_END;
+  }
+
+  /*!
+   * Registered as volatile to demonstrate how functions can be 
+   * recalculated automatically even if none of the arguments 
+   * have cahnged.
+   *
+   * \return the number of time the function has been called.
+   */
+  LPXLOPER EXCEL_EXPORT xlNbCalls()
+  {
+    EXCEL_BEGIN;
+
+	static short nbCalls = 0;
+	++nbCalls;
+    return XlfOper(nbCalls);
 
     EXCEL_END;
   }
@@ -154,6 +180,10 @@ extern "C"
     XlfFuncDesc isInWiz("xlIsInWiz","IsInWiz","returns true if the function is called from the function wizard, and the address of the caller otherwise","xlw Example");
     isInWiz.Register();
 
+	// Registers the fifth function xlNumberOfCall as volatile (unconditionally recalculated)
+    XlfFuncDesc nbCalls("xlNbCalls","NbCalls","returns the number of time the function has been calculated since the xll was loaded (volatile)","xlw Example",XlfFuncDesc::Volatile);
+    nbCalls.Register();
+	
     // Clears the status bar.
     XlfExcel::Instance().SendMessage();
     return 1;

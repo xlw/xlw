@@ -39,9 +39,13 @@ any spreadsheet as well as in the function wizard.
 class EXCEL32_API XlfFuncDesc: public XlfAbstractCmdDesc
 {
 public:
+  //! Policy to reclalculate cells
+  enum RecalcPolicy { NotVolatile, Volatile } ;
+
   //! Ctor
   XlfFuncDesc(const std::string& name, const std::string& alias,
-              const std::string& comment, const std::string& category);
+              const std::string& comment, const std::string& category,
+			  RecalcPolicy recalcPolicy = NotVolatile);
   //! Dtor.
   ~XlfFuncDesc();
 
