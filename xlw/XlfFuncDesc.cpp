@@ -53,7 +53,6 @@ struct XlfFuncDescImpl
 XlfAbstractCmdDesc::XlfAbstractCmdDesc.
 \param category Category in which the function should appear.
 \param recalcPolicy Policy to recalculate the cell.
-in Excel function wizard.
 */
 XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias, 
 						 const std::string& comment, const std::string& category,
