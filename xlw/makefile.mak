@@ -6,7 +6,7 @@
 
 # Debug version
 !ifdef DEBUG
-    _D = _d
+    _D = d
 !endif
 
 # Directories
