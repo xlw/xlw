@@ -1,6 +1,6 @@
 
 /*
- Copyright (c) 2002 José Fonseca
+ Copyright (c) 2002, 2003 José Fonseca
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/

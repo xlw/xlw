@@ -1,6 +1,6 @@
 
 /*
- Copyright (c) 2002 Ferdinando Ametrano
+ Copyright (c) 2002, 2003 Ferdinando Ametrano
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
