@@ -38,10 +38,6 @@
 #include <xlw/XlfExcel.inl>
 #endif
 
-#if !defined(PORT_USE_OLD_IO_HEADERS)
-PORT_USING_NAMESPACE(std);
-#endif
-
 extern "C" {
     //! Main API function to Excel.
     int (__cdecl *Excel4)(int xlfn, LPXLOPER operRes, int count,...);
@@ -62,31 +58,9 @@ struct XlfExcelImpl
   ofstream * hlogf_;
 };
 
-/* Displays a message box */
-void XlfExcel::EarlyLog(const char *msg)
-{
-  MsgBox(msg);
-};
-
 bool XlfExcel::IsInitialized()
 {
   return this_ != 0;
-}
-
-ofstream *XlfExcel::GetLogFileHandle()
-{
-  return impl_->hlogf_;
-}
-
-/*!
-\return Occupation of the buffer as a number between 0 and 1.
-
-You might want to increase the size of the buffer with the
-method XlfExcel::AllocateBuffer.
-*/
-double XlfExcel::GetBufferOccupation() const
-{
-  return offset_/(double)bufsz_;
 }
 
 //! Destroys the XlfExcel singleton.
@@ -128,7 +102,6 @@ XlfExcel& XlfExcel::Instance()
 		// intialize library first because log displays
 		// XLL name in header of log window
 		this_->InitLibrary();
-		this_->InitLog();
 	}
 	return *this_;
 }
@@ -181,72 +154,17 @@ bool XlfExcel::IsEscPressed() const
 	return ret.AsBool();
 }
 
-void XlfExcel::Log(const char *str)
-{
-  ofstream * log = GetLogFileHandle();
-	if (log)
-		(*log) << str << endl << flush;
-	else
-		XlfExcel::EarlyLog(str);
-	return;
-}
-
-XlfExcel::XlfExcel(): impl_(0), offset_(0), buffer_(0)
+XlfExcel::XlfExcel(): impl_(0), offset_(0)
 {
   impl_ = new XlfExcelImpl();
-	AllocateBuffer();
 	return;
 }
 
 XlfExcel::~XlfExcel()
 {
-  ofstream * log = GetLogFileHandle();
-  if (log)
-  {
-  	(*log) << endl << endl << "-- Log file ended gracefully --" << endl;
-  	log->close();
-  	delete log;
-  }
-	delete[] buffer_;
+  FreeMemory(true);
   delete impl_;
   this_ = 0;
-	return;
-}
-
-void XlfExcel::AllocateBuffer(size_t buffersize)
-{
-	FreeMemory();
-	bufsz_ = buffersize;
-	if (buffer_)
-		delete[] buffer_;
-	buffer_ = new char[bufsz_];
-	ERR_CHECKX(buffer_ != 0, std::runtime_error,"Could not allocate buffer");
-	return;
-}
-
-/*!
-The name of the log file is the same than the xll with a \c .log
-extension instead of the \c .xll.
-The file is located in the directory refered by the TEMP environment
-variable if it exists else TMP environment variable if it exists else
-in the xll directory.
-*/
-void XlfExcel::InitLog()
-{
-	std::string name = GetName();
-	std::string root;
-	if (getenv("TEMP"))
-		root = getenv("TEMP");
-	if (root.empty() && getenv("TMP"))
-		root = getenv("TMP");
-	if (root.empty())
-		root = name.substr(0, name.rfind('\\'));
-
-	std::string base = name.substr(name.rfind('\\') + 1);
-	base = base.substr(0, base.rfind('.'));
-	if (root[root.length()-1]!='\\')
-		root+="\\";
-	impl_->hlogf_ = new ofstream((root + base+".log").c_str());
 	return;
 }
 
@@ -257,21 +175,28 @@ and link it to the XLL.
 void XlfExcel::InitLibrary()
 {
   HINSTANCE handle = LoadLibrary("XLCALL32.DLL");
-	ERR_CHECKX(handle != 0, std::runtime_error,"Could not load library XLCALL32.DLL");
+	if (handle == 0) 
+    throw std::runtime_error("Could not load library XLCALL32.DLL");
 	Excel4 = (int (__cdecl *)(int, struct xloper *, int, ...))GetProcAddress(handle,"Excel4");
-	ERR_CHECKX(Excel4 != 0, std::runtime_error,"Could not get address of Excel4 callback");
+	if (Excel4 == 0)
+    throw std::runtime_error("Could not get address of Excel4 callback");
 	Excel4v = (int (__stdcall *)(int, struct xloper *, int, struct xloper *[]))GetProcAddress(handle,"Excel4v");
-	ERR_CHECKX(Excel4v != 0, std::runtime_error,"Could not get address of Excel4v callback");
+	if (Excel4v == 0)
+    throw std::runtime_error("Could not get address of Excel4v callback");
   impl_->handle_ = handle;
 	return;
 }
 
 std::string XlfExcel::GetName() const
 {
+  std::string ret;
 	XlfOper xName;
   int err = Call(xlGetName, (LPXLOPER)xName, 0);
-	ERR_CHECKX(err == xlretSuccess, std::runtime_error,"Could not get DLL name");
-	return xName.AsString();
+	if (err != xlretSuccess)
+    std::cerr << __HERE__ << "Could not get DLL name" << std::endl;
+  else
+    ret=xName.AsString();
+  return ret;
 }
 
 #ifdef __MINGW32__
@@ -320,14 +245,14 @@ int XlfExcel::Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) c
 		if (!pxdata[i])
 		{
 			if (xlfn & xlCommand)
-				ERR_LOG("xlCommand | " << (xlfn & 0x0FFF));
+        std::cerr << __HERE__ << "xlCommand | " << (xlfn & 0x0FFF) << std::endl;
 			if (xlfn & xlSpecial)
-				ERR_LOG("xlSpecial | " << (xlfn & 0x0FFF));
+        std::cerr << __HERE__ << "xlSpecial | " << (xlfn & 0x0FFF) << std::endl;
 			if (xlfn & xlIntl)
-				ERR_LOG("xlIntl | " << (xlfn & 0x0FFF));
+				std::cerr << __HERE__ << "xlIntl | " << (xlfn & 0x0FFF) << std::endl;
 			if (xlfn & xlPrompt)
-				ERR_LOG("xlPrompt | " << (xlfn & 0x0FFF));
-			ERR_THROW_MSG(XlfException,"0 pointer for argument " << i);
+				std::cerr << __HERE__ << "xlPrompt | " << (xlfn & 0x0FFF) << std::endl;
+			std::cerr << __HERE__ << "0 pointer passed as argument #" << i << std::endl;
 		}
 #endif
 	int xlret = Excel4v(xlfn, pxResult, count, pxdata);
@@ -341,13 +266,13 @@ to return to Excel immediately. These are xlretUncalced, xlretAbort, and xlretSt
 int XlfExcel::ThrowOnCriticalError(int xlret) const
 {
   if (xlret & xlretUncalced)
-	ERR_THROW(XlfExceptionUncalculated);
+	  throw XlfExceptionUncalculated();
   if (xlret & xlretAbort)
-	ERR_THROW(XlfExceptionAbort)
+	  throw XlfExceptionAbort();
   if (xlret & xlretStackOvfl)
-	ERR_THROW_MSG(std::runtime_error,"Stack Overflow");
+	  throw std::runtime_error("Stack Overflow");
   if (xlret & xlretInvXloper)
-	ERR_THROW_MSG(std::runtime_error,"Invalid Xloper");
+	  throw std::runtime_error("Invalid Xloper (memory could be exhausted)");
   return xlret;
 }
 

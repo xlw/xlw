@@ -30,6 +30,7 @@
 #include <fstream.h>
 #else
 #include <fstream>
+#include <list>
 PORT_USING(std::ofstream);
 #endif
 #include <xlw/xlcall32.h>
@@ -38,12 +39,14 @@ PORT_USING(std::ofstream);
 #pragma once
 #endif
 
-#if defined(DEBUG_HEADERS)
-#pragma DEBUG_HEADERS
-#endif
-
 //! Detroys the XlfExcel class when the module is terminated.
 class XlfExcelDestroyer;
+
+struct XlfBuffer 
+{
+  size_t size;
+  char * start;
+};
 
 //! Interface between excel and the framework.
 /*!
@@ -65,11 +68,9 @@ public:
   //! Was the Esc key pressed ?
   bool IsEscPressed() const;
   //! Allocates memory in the framework temporary buffer
-  LPSTR GetMemory(int bytes);
-  //! Frees all temporary memory used by the XLL
-  void FreeMemory();
-  //! Gets a pointer to the log file
-  ofstream *GetLogFileHandle();
+  LPSTR GetMemory(size_t bytes);
+  //! Frees temporary memory used by the XLL
+  void FreeMemory(bool finished=false);
   //! Gets XLL name
   std::string GetName() const;
   //! Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel)
@@ -80,26 +81,19 @@ public:
 #endif
   //! Same as above but with an argument array instead of the variable length argument list
   int Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
-  //! Gets buffer occupation as an integer between 0 and 100.
-  double GetBufferOccupation() const;
-  //! (Re)Allocates the buffer (destructive)
-  void AllocateBuffer(size_t buffersize = 65536);
   //! Throws an exception when critical errors occur.
   int ThrowOnCriticalError(int) const;
 
 private:
-  friend void ExcelLog(const char *str);
   //! Friendship for XlfExcelDestroyer allows it to call XlfExcel dtor.
   friend XlfExcelDestroyer;
 
   //! Static pointer to the unique instance of XlfExcel object.
   static XlfExcel *this_;
   //! Internal memory buffer holding memory to be referenced by Excel (excluded from the pimpl to allow inlining).
-  char *buffer_;
-  //! Size of the buffer (excluded from the pimpl to allow inlining).
-  size_t bufsz_;
+  std::list<XlfBuffer> freeList_;
   //! Pointer to next free aera (excluded from the pimpl to allow inlining).
-  int offset_;
+  size_t offset_;
   //! Pointer to internal implementation (pimpl idiom, see \ref HS).
   struct XlfExcelImpl * impl_;
 
@@ -109,16 +103,12 @@ private:
   XlfExcel(const XlfExcel&);
   //! Assignment otor is not defined.
   XlfExcel& operator=(const XlfExcel&);
-  //! Initialize the C++ framework.
-  void InitLibrary();
-  //! Initialize log file.
-  void InitLog();
-  //! Log a string to the screen, to the file, or both.
-  void Log(const char *str);
-  //! Display a message box when the logging facilities are not initialized yet
-  void EarlyLog(const char *msg);
   //! Dtor is called by XlfExcelDestroyer when module is terminated.
   ~XlfExcel();
+  //! Initialize the C++ framework.
+  void InitLibrary();
+  //! Creates a new static buffer and add it to the free list.
+  void PushNewBuffer(size_t);
 };
 
 #ifdef NDEBUG
