@@ -58,18 +58,18 @@ to excel.
 Catch exception in C function calls
 Catching rules are as follow :
 - try first to catch excel exception that need the framework to return to excel
-asap (namely coerce, uncalculated cell, and abort). If catched, returns #NULL!.
-- catch all other kind of exception. Return #VALUE! error if possible otherwise
-returns #NULL!.
+asap (namely coerce, uncalculated cell, and abort). If catched, returns 0 that
+Excel will translate to #NULL!.
+- catch all other kind of exception. Return #VALUE! error.
 
 You could easily add your own exception here. Note that it causes all your
-interface to recompile though.
+interface to recompile.
 */
 #define EXCEL_END \
 } catch (XlfException&) { \
 	return 0; \
 } catch (...) { \
-	return XlfException::Value(); \
+	return XlfOper::Error(xlerrValue); \
 }
 
 /* as example:
@@ -79,7 +79,7 @@ interface to recompile though.
 } catch (yourException&) { \
 	exceptionHandling; \
 } catch (...) { \
-	return XlfException::Value(); \
+	return XlfOper::Error(xlerrValue); \
 }
 
 */

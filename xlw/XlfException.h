@@ -37,14 +37,16 @@
 
 class EXCEL32_API XlfOper;
 
-//! Excel interface exceptions
+//! Excel emergency exceptions
 /*!
-It is important to distinguish exception thrown by the Excel
-framework from the exception linked to other routines because
-they will be catched differently by the wrapper.
+It is important to distinguish exception thrown as XlfException
+from others because they will be caught differently by the wrapper.
+See EXCEL_END.
 
-These exceptions don't necessarly correspond to errors, see
+\warning These exceptions don't necessarly correspond to errors, see
 for example XlfExceptionUncalculated.
+
+\sa ThrowOnError
 */
 class EXCEL32_API XlfException : public std::exception
 {
@@ -53,20 +55,7 @@ public:
   XlfException(const std::string& what = "");
   //! std::exception interface
   const char* what() const throw ();
-  //! Generate a Null error, hold by the returned XlfOper.
-  static XlfOper Null();
-  //! Generate a Divison by 0 error, hold by the returned XlfOper.
-  static XlfOper Div0();
-  //! Generate a Value error, hold by the returned XlfOper.
-  static XlfOper Value();
-  //! Generate a Reference error, hold by the returned XlfOper.
-  static XlfOper Ref();
-  //! Generate a Bad name error, hold by the returned XlfOper.
-  static XlfOper Name();
-  //! Generate a Number expected or wrong number format error, hold by the returned XlfOper.
-  static XlfOper Num();
-  //! Generate a Not available error, hold by the returned XlfOper.
-  static XlfOper NA();
+
 private:
     std::string what_;
 };
@@ -79,6 +68,9 @@ When it occurs, the framework should return immediately
 to excel to let it calculate the cell. Excel will then
 call again the function immediately after the argument
 was re-calculated.
+
+No message is passed to XlfException to speed up return
+to MS Excel.
 */
 class EXCEL32_API XlfExceptionUncalculated: public XlfException
 {};
@@ -88,22 +80,17 @@ class EXCEL32_API XlfExceptionUncalculated: public XlfException
 Usually thrown by the user after XlfExcel::IsEscPressed had return true.
 */
 class EXCEL32_API XlfExceptionAbort: public XlfException
-{};
+{
+public:
+  XlfExceptionAbort(): XlfException("abort") {}
+};
 
-//! Coerce to some other data type needed.
-/*!
-Occurs when the data can't be manipulated as such (a string for example)
-and needs to be converted (coerced) to some other type (double for example).
-*/
-class EXCEL32_API XlfExceptionCoerce: public XlfException
-{};
-
-//! Internal memory buffer is full.
-/*!
-This exception is thrown whenever the internal buffer is full.
-*/
-class EXCEL32_API XlfExceptionBufferFull: public XlfException
-{};
+//! Stack overflow.
+class EXCEL32_API XlfExceptionStackOverflow: public XlfException
+{
+public:
+  XlfExceptionStackOverflow(): XlfException("stack overflow") {}
+};
 
 #ifdef NDEBUG
 #include <xlw/XlfException.inl>
