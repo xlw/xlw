@@ -1,6 +1,6 @@
 2002-03-14 08:49  nando
 
-	* TODO.txt (1.13): updated
+	* TODO.txt (1.13), ChangeLog.txt (1.4): updated
 
 2002-03-14 08:36  nando
 
