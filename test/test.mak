@@ -32,21 +32,10 @@ NULL=nul
 OUTDIR=.\build\Release
 INTDIR=.\build\Release
 
-!IF "$(RECURSE)" == "0" 
-
 ALL : ".\xll\Win32\VisualStudio\Release\test.xll"
 
-!ELSE 
 
-ALL : "excel32 - Win32 Release" ".\xll\Win32\VisualStudio\Release\test.xll"
-
-!ENDIF 
-
-!IF "$(RECURSE)" == "1" 
-CLEAN :"excel32 - Win32 ReleaseCLEAN" 
-!ELSE 
 CLEAN :
-!ENDIF 
 	-@erase "$(INTDIR)\main.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(OUTDIR)\test.exp"
@@ -99,8 +88,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\test.pdb" /machine:I386 /out:"xll\Win32\VisualStudio\Release/test.xll" /implib:"$(OUTDIR)\test.lib" /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
-	"$(INTDIR)\main.obj" \
-	"..\lib\Win32\VisualStudio\excel32.lib"
+	"$(INTDIR)\main.obj"
 
 ".\xll\Win32\VisualStudio\Release\test.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -112,21 +100,10 @@ LINK32_OBJS= \
 OUTDIR=.\build\Debug
 INTDIR=.\build\Debug
 
-!IF "$(RECURSE)" == "0" 
-
 ALL : ".\xll\Win32\VisualStudio\Debug\test.xll"
 
-!ELSE 
 
-ALL : "excel32 - Win32 Debug" ".\xll\Win32\VisualStudio\Debug\test.xll"
-
-!ENDIF 
-
-!IF "$(RECURSE)" == "1" 
-CLEAN :"excel32 - Win32 DebugCLEAN" 
-!ELSE 
 CLEAN :
-!ENDIF 
 	-@erase "$(INTDIR)\main.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
@@ -182,8 +159,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\test.pdb" /debug /machine:I386 /out:"xll\Win32\VisualStudio\Debug/test.xll" /implib:"$(OUTDIR)\test.lib" /pdbtype:sept /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
-	"$(INTDIR)\main.obj" \
-	"..\lib\Win32\VisualStudio\excel32d.lib"
+	"$(INTDIR)\main.obj"
 
 ".\xll\Win32\VisualStudio\Debug\test.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -195,21 +171,10 @@ LINK32_OBJS= \
 OUTDIR=.\build\OnTheEdgeDebug
 INTDIR=.\build\OnTheEdgeDebug
 
-!IF "$(RECURSE)" == "0" 
-
 ALL : ".\xll\Win32\VisualStudio\Debug\test.xll"
 
-!ELSE 
 
-ALL : "excel32 - Win32 OnTheEdgeDebug" ".\xll\Win32\VisualStudio\Debug\test.xll"
-
-!ENDIF 
-
-!IF "$(RECURSE)" == "1" 
-CLEAN :"excel32 - Win32 OnTheEdgeDebugCLEAN" 
-!ELSE 
 CLEAN :
-!ENDIF 
 	-@erase "$(INTDIR)\main.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
@@ -265,8 +230,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\test.pdb" /debug /machine:I386 /out:"xll\Win32\VisualStudio\Debug\test.xll" /implib:"$(OUTDIR)\test.lib" /pdbtype:sept /libpath:"..\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
-	"$(INTDIR)\main.obj" \
-	"..\lib\Win32\VisualStudio\excel32d.lib"
+	"$(INTDIR)\main.obj"
 
 ".\xll\Win32\VisualStudio\Debug\test.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -278,21 +242,10 @@ LINK32_OBJS= \
 OUTDIR=.\build\OnTheEdgeRelease
 INTDIR=.\build\OnTheEdgeRelease
 
-!IF "$(RECURSE)" == "0" 
-
 ALL : ".\xll\Win32\VisualStudio\Release\test.xll"
 
-!ELSE 
 
-ALL : "excel32 - Win32 OnTheEdgeRelease" ".\xll\Win32\VisualStudio\Release\test.xll"
-
-!ENDIF 
-
-!IF "$(RECURSE)" == "1" 
-CLEAN :"excel32 - Win32 OnTheEdgeReleaseCLEAN" 
-!ELSE 
 CLEAN :
-!ENDIF 
 	-@erase "$(INTDIR)\main.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(OUTDIR)\test.exp"
@@ -345,8 +298,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\test.pdb" /machine:I386 /out:"xll\Win32\VisualStudio\Release\test.xll" /implib:"$(OUTDIR)\test.lib" /libpath:"..\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
-	"$(INTDIR)\main.obj" \
-	"..\lib\Win32\VisualStudio\excel32.lib"
+	"$(INTDIR)\main.obj"
 
 ".\xll\Win32\VisualStudio\Release\test.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -366,57 +318,6 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "test - Win32 Release" || "$(CFG)" == "test - Win32 Debug" || "$(CFG)" == "test - Win32 OnTheEdgeDebug" || "$(CFG)" == "test - Win32 OnTheEdgeRelease"
-
-!IF  "$(CFG)" == "test - Win32 Release"
-
-"excel32 - Win32 Release" : 
-   cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\excel32.mak CFG="excel32 - Win32 Release" 
-   cd ".\test"
-
-"excel32 - Win32 ReleaseCLEAN" : 
-   cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\excel32.mak CFG="excel32 - Win32 Release" RECURSE=1 CLEAN 
-   cd ".\test"
-
-!ELSEIF  "$(CFG)" == "test - Win32 Debug"
-
-"excel32 - Win32 Debug" : 
-   cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\excel32.mak CFG="excel32 - Win32 Debug" 
-   cd ".\test"
-
-"excel32 - Win32 DebugCLEAN" : 
-   cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\excel32.mak CFG="excel32 - Win32 Debug" RECURSE=1 CLEAN 
-   cd ".\test"
-
-!ELSEIF  "$(CFG)" == "test - Win32 OnTheEdgeDebug"
-
-"excel32 - Win32 OnTheEdgeDebug" : 
-   cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\excel32.mak CFG="excel32 - Win32 OnTheEdgeDebug" 
-   cd ".\test"
-
-"excel32 - Win32 OnTheEdgeDebugCLEAN" : 
-   cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\excel32.mak CFG="excel32 - Win32 OnTheEdgeDebug" RECURSE=1 CLEAN 
-   cd ".\test"
-
-!ELSEIF  "$(CFG)" == "test - Win32 OnTheEdgeRelease"
-
-"excel32 - Win32 OnTheEdgeRelease" : 
-   cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\excel32.mak CFG="excel32 - Win32 OnTheEdgeRelease" 
-   cd ".\test"
-
-"excel32 - Win32 OnTheEdgeReleaseCLEAN" : 
-   cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\excel32.mak CFG="excel32 - Win32 OnTheEdgeRelease" RECURSE=1 CLEAN 
-   cd ".\test"
-
-!ENDIF 
-
 SOURCE=.\main.cpp
 
 "$(INTDIR)\main.obj" : $(SOURCE) "$(INTDIR)"

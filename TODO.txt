@@ -1,18 +1,15 @@
 
-add multiple doc formats
-un-frame documentation if framed
-create a non-doc website
+source distribution
 update documentation including changes (see NEWS.txt)
-remove Borland warnings
+add multiple doc formats
 
+
+add advanced example
+un-frame documentation if framed
+add Borland support
 rename excel32*.* to xlw*.*
 project name
-
 make http://www.ifrance.com/xlw/ a link to xlw.sf.net
 rename test into example
-use hpp instead of h
-BSD License
-
 add the know bugs to sf bug tracker
-it crashes if I insert black scholes with the function wizard
 pragma.h into config.msvc.h ?
