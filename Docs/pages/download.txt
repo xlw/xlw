@@ -3,7 +3,7 @@
     \subsection where XLW releases
     Source code, documentation, library, etc. of current and previous
     %XLW releases can be downloaded from
-    http://xlw.sf.net/download.html
+	http://sourceforge.net/project/showfiles.php?group_id=45222
 
     \subsection cvs Current CVS snapshot
     Instructions for anonymous CVS access are available at

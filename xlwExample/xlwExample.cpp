@@ -67,8 +67,8 @@ extern "C"
     // average for nothing since one of the cell might be uncalculated.
     std::vector<double> temp = xlTargetRange.AsDoubleVector(XlfOper::RowMajor);
 
-		// All cells are copied. We do the actual work.
-		size_t popSize = temp.size();
+    // All cells are copied. We do the actual work.
+    size_t popSize = temp.size();
     for (size_t i = 0; i < popSize; ++i)
     {
       // sums the values.
@@ -92,7 +92,7 @@ extern "C"
   LPXLOPER EXCEL_EXPORT xlIsInWiz()
   {
     EXCEL_BEGIN;
-    
+
     if (XlfExcel::Instance().IsCalledByFuncWiz())
       return XlfOper(true);
 
@@ -161,8 +161,8 @@ extern "C"
 
   long EXCEL_EXPORT xlAutoClose()
   {
-		std::cerr << __HERE__ << "Releasing ressources" << std::endl;
-		delete &XlfExcel::Instance();
+    std::cerr << __HERE__ << "Releasing ressources" << std::endl;
+    delete &XlfExcel::Instance();
     std::cerr.rdbuf(oldStreamBuf);
     return 1;
   }

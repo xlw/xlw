@@ -52,11 +52,11 @@ XlfExcel *XlfExcel::this_ = 0;
 struct XlfExcelImpl
 {
   //! Ctor.
-  XlfExcelImpl(ofstream * hlogf = 0): hlogf_(hlogf) {}
+  XlfExcelImpl(std::ofstream * hlogf = 0): hlogf_(hlogf) {}
   //! Handle to the DLL module.
   HINSTANCE handle_;
   //! Pointer to log file, currently not used.
-  ofstream * hlogf_;
+  std::ofstream * hlogf_;
 };
 
 //! Destroys the XlfExcel singleton.

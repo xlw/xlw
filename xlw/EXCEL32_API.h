@@ -30,7 +30,7 @@
 */
 
 //! version hexadecimal number
-#define XLW_HEX_VERSION 0x010200a0
+#define XLW_HEX_VERSION 0x010200f0
 
 //! version string
 #ifdef XLW_DEBUG
@@ -47,6 +47,7 @@
     #pragma DEBUG_HEADERS
 #endif
 
+//! Place holder for import/export declaration
 #if defined (_DLL) && defined(XLW_IMPORTEXPORT)
     #ifdef EXCEL32_EXPORTS
         #define EXCEL32_API PORT_EXPORT_SYMBOL

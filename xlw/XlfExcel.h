@@ -31,7 +31,6 @@
 #else
 #include <fstream>
 #include <list>
-PORT_USING(std::ofstream);
 #endif
 #include <xlw/xlcall32.h>
 
@@ -90,7 +89,7 @@ private:
 	XLL local variables as it would be freed before MSExcel could get 
 	the data.
 
-  Therefore the framework C library that comes with \ref SLSDK97 "Excel 
+  Therefore the framework C library that comes with \ref XLSDK97 "Excel 
 	97 developer's kit" suggests to use a static area where the XlfOper
   are stored (see XlfExcel::GetMemory) and still available to
   Excel when we exit the XLL routine. This array is then reset

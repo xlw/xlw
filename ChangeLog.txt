@@ -1,3 +1,47 @@
+2002-07-09  jlecomte
+	* xlw/EXCEL32_API.h:
+	* xlw/XlfExcel.cpp:
+	* xlw/XlfExcel.h:
+	* xlw/XlfOper.cpp:
+		Removed PORT_USING(std) in header. Various documentation fixes
+
+	* Docs/images/doxygen.png:
+		Fixed file corruption due to ascii manipulation
+
+	* xlw/ERR_Macros.h:
+		obsolete
+
+	* Docs/xlwfooter.html:
+		better proportions
+
+	* xlwExample/xlwExample.cpp:
+		Reformatted code so it looks nicer in the doc
+
+	* Docs/pages/download.txt:
+	* Docs/pages/gettingStarted.txt:
+	* Docs/pages/history.txt:
+	* Docs/pages/install.txt:
+		Updated doc for new download link, new features and updated
+		xlwExample.cpp
+
+2002-07-08  jlecomte
+	* Docs/images/doxygen.png:
+		Added doxygen logo
+
+	* Docs/images/doxygen.png:
+		previous version was corrupted when I checked it in as ascii
+
+	* Docs/pages/history.txt:
+	* Docs/pages/history.txt:
+		Updated
+
+	* Docs/images/doxygen.png:
+	* Docs/xlwfooter.html:
+		Merged last minute changes that were made to HEAD
+
+	* Docs/xlwfooter.html:
+		Now points to images directory. Refences new doxygen.png
+
 2002-07-07  jlecomte
 	* xlwExample/xlwExample.dsp:
 		Copies xll and debug information to the $BIN directory (assumed
@@ -6,6 +50,15 @@
 	* xlw.dsw:
 		Dependency flag helps in OnTheEdge build and does not hurt for
 		other builds
+
+	* ChangeLog.txt:
+	* Docs/xlw.doxy:
+	* History.txt:
+	* NEWS.TXT:
+	* dev_tools/version_number.txt:
+	* xlw.nsi:
+	* xlw/EXCEL32_API.h:
+		Update for release 1.2.0a
 
 2002-06-30  jlecomte
 	* xlw/XlfOper.cpp:

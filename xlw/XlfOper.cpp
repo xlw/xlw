@@ -49,7 +49,6 @@ int XlfOper::xlbitFreeAuxMem = 0x8000;
 /*!
 Shallow copy of a pointer to XLOPER.
 \param lpxloper Pointer to XLOPER.
-\param isExcelData Flags that tells if the auxiliary data is allocated by
 Excel or by the XLL (default is true).
 */
 XlfOper::XlfOper(LPXLOPER lpxloper): lpxloper_(lpxloper)
@@ -122,8 +121,6 @@ void XlfOper::FreeAuxiliaryMemory() const
 /*!
 \param type is an integer indicating the target type we want to coerce to.
 \param result is the XLOPER where to store the output.
- 
-\todo Optimize xlType to avoid consuming the buffer.
 */
 int XlfOper::Coerce(short type, XlfOper& result) const
 {

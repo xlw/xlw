@@ -1,7 +1,7 @@
 
 /*! \page history Version history
 
-    <strong>Release 1.2 - May xxth, 2002</strong>
+    <strong>Release 1.2 - July 8th, 2002</strong>
     - Buffer is not fixed in size anymore but extend as needed by the functions
       registered in Excel. Growing policy is still subject to change but it
       should not impact user interface.
@@ -15,8 +15,8 @@
     - (BUGFIX) XlfRef correctly handles ranges in a different worksheet than
       the active one.
     - Added new method IsCalledByFuncWiz.
-		- XlfExcel singleton does not destroy itself anymore (or did it ever ...).
-			It is recomended to implement xlAutoClose as shown in xlwExample.
+	- XlfExcel singleton does not destroy itself anymore (or did it ever ...).
+	  It is recomended to implement xlAutoClose as shown in xlwExample.
 
     <strong>Release 1.1 - April 11th, 2002</strong>
     - added nsi file for Win32 installer generation. The installer also set the

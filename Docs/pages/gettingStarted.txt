@@ -1,4 +1,6 @@
-/*! \page gettingstarted Getting started
+/*! 
+\page gettingstarted Getting started
+
 You will find in the example project the file xlwExample.cpp. Let us look
 at the code it contains. It will give you a good idea of the way
 you are supposed to use the package.
@@ -46,7 +48,7 @@ two strings as argument and returns their conacatenation.
 
 \until }
 
-The last function is a little longer. It shows how to deal with range
+This function is a little longer. It shows how to deal with range
 references and return numeric arrays. It takes a range reference and
 computes the average and the variance of the population and returns it
 in a (1x2) array.
@@ -54,22 +56,44 @@ in a (1x2) array.
 \until EXCEL_END
 \until }
 
+Some function can take a long time to compute and one might not want
+to give the the user interface provided by the function wizard. In
+order for your function to know if it is being called from the function
+wizard, one can call XlfExcel::IsCalledByFuncWiz as shown bellow. This
+last function also demonstrates how to call a regular excel routine like
+xlfCall (see the file xlcall32.h for an exhaustive list) using xlw 
+classes. Here the function will return the coordinates of the calling
+cell.
+
+\until EXCEL_END
+\until }
+
 Once your functions are written, you should export (with EXCEL_EXPORT)
 a function called \c xlAutoOpen that registers to Excel the
-function(s) you want to call from Microsoft Excel as shown bellow.
+function(s) you want to call from Microsoft Excel as shown bellow. Note
+that the class Win32StreamBuf is graciously donnated as part of the xlw
+distribution you can choose to ignore it and replace it with your own
+logging mechanism.
 
 If Microsoft Excel can locate \c xlAutoOpen, it automatically calls
 it when the DLL (or XLL) is loaded.
 
 \until }
 
-And close the extern "C" block.
+Also when the xll is not needed anymore, Excel call xlAutoClose where
+we can add some ressource deallocation.
+
+\until }
+
+Finally we close the extern "C" block.
 
 \until }
 
 Compile and link the dll in multi-threaded mode and load the dll from
 the file menu of Microsoft Excel or by putting it in the start directory.
 You might eventually rename your dll as xll to make the type of the file
-more explicit. A demo Excel spreadsheet that uses the functions is enclosed
-with the project.
+more explicit. A demo Excel spreadsheet that uses the functions described
+above is enclosed with the project.
+
+Enjoy !
 */
