@@ -34,9 +34,9 @@
 
 //! version string
 #ifdef XLW_DEBUG
-    #define XLW_VERSION "1.1.0a1-cvs-debug"
+    #define XLW_VERSION "1.1.0a2-cvs-debug"
 #else
-    #define XLW_VERSION "1.1.0a1-cvs"
+    #define XLW_VERSION "1.1.0a2-cvs"
 #endif
 
 //! global trace level (may be superseded locally by a greater value)
