@@ -20,9 +20,6 @@
       #pragma comment(lib,"xlw.lib")
   #endif
 - Visual Studio setting changed from Multithread to Multithread DLL
-- defined XLW_NOIMPORTEXPORT in order to avoid classes being exported as
-  __dlldecl(*) when creating a static library with Multithreaded DLL
-  run-time libraries
 - added two VC++ build configurations. The "Win32 OnTheEdgeRelease" and
   "Win32 OnTheEdgeDebug" configurations are equivalent to "Win32 Release"
   and "Win32 Debug" respectively, except that they do not use the installed
