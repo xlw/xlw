@@ -5,7 +5,7 @@
 #---------------------------------------------------------------------------
 
 PROJECT_NAME          = "Excel32 C++ Wrapper"
-PROJECT_NUMBER        = 1.1
+PROJECT_NUMBER        = 1.1.0a1-cvs
 OUTPUT_DIRECTORY      =
 OUTPUT_LANGUAGE       = English
 

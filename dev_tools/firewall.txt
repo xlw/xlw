@@ -1,0 +1,8 @@
+
+ssh port: 22
+cvs.xlw.sf.net aka cvs.xlw.sourceforge.net aka 216.136.171.202
+upload.sf.net aka upload.sourceforge.net aka 216.136.171.195
+shell.sf.net aka shell.sourceforge.net aka 216.136.171.203
+
+cvs port: 2401
+xlw.sf.net aka xlw.sourceforge.net aka 216.136.171.204

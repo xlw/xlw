@@ -22,13 +22,13 @@ long as you retain the \ref copyright "copyright notice".
 
 The excel32 C++ wrapper package development is hosted on SourceForge at
 http://sf.net/projects/xlw
-I used early versions of this package for years. The version 1.0 was tested
+Early versions of this package have been used for years. The version 1.0 was tested
 under Windows 9X/NT with Visual C++ 6.0 and Excel 97 \ref sr1 "SR-1 & SR-2"
 with minor problems (see \ref knownbugs) The package is not perfect but
-certainly has reached a stage where it can be extremely usefull. If you have
+certainly has reached a stage where it can be usefull. If you have
 any comment, you can email to xlw-users@list.sourceforge.net
-I heartily welcome all suggestions, improvements and critics to the software
-and/or the documentation.
+Suggestions, improvements and critics to the software
+and/or the documentation are heartily welcome.
 
 If you are interested in knowing more about the C++ wrapper, you can browse
 the the documentation by clicking on <a href="pages.html">Related Pages</a>.

@@ -35,8 +35,7 @@
 - error handling polished in accord to C++ standard
 - modified EXCEL32_API.h
 - purged port.h of unnecessary defines
-- introduced XLW_HEX_VERSION and XLW_VERSION (0x010100a1 and 1.1.0a1
-  respectively for the time being)
+- introduced XLW_HEX_VERSION and XLW_VERSION
 - added config.bcc.h for Borland CPP defines
 - compiled xlw under borland
 - the library debug version is called excel32_d.lib (Python convention)

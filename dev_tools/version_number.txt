@@ -1,0 +1,19 @@
+
+The convention for the names of the CVS branches is Rxxyyzzln where:
+R stand for Release
+xx is the major number
+yy is the minor number
+zz is the minor-minor number
+l  can be a,b,f for alpha, beta, final respectively
+n  is an ordinal number
+
+e.g. R000300a2 stands for Release 0.3.1a2
+e.g. R000300f0 stands for Release 0.3.1f0
+
+The current version number is 1.1a1 - 010100a1
+This version number is in:
+    xlw/dev_tools/version_number.txt,
+    xlw/xlw.nsi,
+    xlw/Docs/xlw.doxy,
+    xlw/xlw/EXCEL32_API.h
+
