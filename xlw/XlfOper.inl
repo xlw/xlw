@@ -135,9 +135,12 @@ INLINE bool XlfOper::IsError() const
   return lpxloper_->xltype == xltypeErr;
 }
 
-INLINE int XlfOper::AsInt() const
+/*!
+Forwards to XlfOper::AsDouble.
+*/
+INLINE int XlfOper::AsInt(int * pxlret) const
 {
-  return static_cast<int>(AsDouble());
+  return static_cast<int>(AsDouble(pxlret));
 }
 
 INLINE LPXLOPER XlfOper::GetLPXLOPER() const

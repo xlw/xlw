@@ -133,14 +133,20 @@ int XlfOper::Coerce(short type, XlfOper& result) const
 }
 
 /*!
-\bug Use it at your own risks, there seems to be issue with exceptions
-Prefer XlfOper::ConvertToDouble.
+Attempts to convert the implict object to a double. If pxlret is not null
+the method won't throw and the Excel return code will be returned in this
+variable.
+
+\sa XlfOper::ConvertToDouble.
 */
-double XlfOper::AsDouble() const
+double XlfOper::AsDouble(int * pxlret) const
 {
   double d;
   int xlret = ConvertToDouble(d);
-  ThrowOnError(xlret);
+  if (pxlret)
+    *pxlret=xlret;
+  else
+    ThrowOnError(xlret);
   return d;
 };
 
@@ -176,14 +182,20 @@ int XlfOper::ConvertToDouble(double& d) const throw()
 };
 
 /*!
-\bug Use it at your own risks, there seems to be issue with exceptions
-Prefer XlfOper::ConvertToDoubleVector.
+Attempts to convert the implict object to a vector of double. If pxlret is 
+not null the method won't throw and the Excel return code will be returned 
+in this variable.
+
+\sa XlfOper::ConvertToDoubleVector.
 */
-std::vector<double> XlfOper::AsDoubleVector(DoubleVectorConvPolicy policy) const
+std::vector<double> XlfOper::AsDoubleVector(DoubleVectorConvPolicy policy, int * pxlret) const
 {
   std::vector<double> v;
   int xlret = ConvertToDoubleVector(v, policy);
-  ThrowOnError(xlret);
+  if (pxlret)
+    *pxlret=xlret;
+  else
+    ThrowOnError(xlret);
   return v;
 }
 
@@ -234,14 +246,20 @@ int XlfOper::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolic
 };
 
 /*!
-\bug Use it at your own risks, there seems to be issue with exceptions
-Prefer XlfOper::ConvertToShort.
+Attempts to convert the implict object to a short. If pxlret is not null
+the method won't throw and the Excel return code will be returned in this
+variable.
+
+\sa XlfOper::ConvertToShort.
 */
-short XlfOper::AsShort() const
+short XlfOper::AsShort(int * pxlret) const
 {
   short s;
   int xlret = ConvertToShort(s);
-  ThrowOnError(xlret);
+  if (pxlret)
+    *pxlret=xlret;
+  else
+    ThrowOnError(xlret);
   return s;
 };
 
@@ -272,14 +290,20 @@ int XlfOper::ConvertToShort(short& s) const throw()
 };
 
 /*!
-\bug Use it at your own risks, there seems to be issue with exceptions
-Prefer XlfOper::ConvertToBool.
+Attempts to convert the implict object to a bool. If pxlret is not null
+the method won't throw and the Excel return code will be returned in this
+variable.
+
+\sa XlfOper::ConvertToBool.
 */
-bool XlfOper::AsBool() const
+bool XlfOper::AsBool(int * pxlret) const
 {
   bool b;
   int xlret = ConvertToBool(b);
-  ThrowOnError(xlret);
+  if (pxlret)
+    *pxlret=xlret;
+  else
+    ThrowOnError(xlret);
   return b;
 };
 
@@ -308,19 +332,24 @@ int XlfOper::ConvertToBool(bool& b) const throw()
 };
 
 /*!
-For character strings, the XLL allocates
-the memory on its own buffer. This buffer is automatically freed
-when a function of the XLL is called again. Note that coerce to
+Attempts to convert the implict object to a char string. If pxlret is not 
+null the method won't throw and the Excel return code will be returned in 
+this variable.
+
+\sa XlfOper::ConvertToString.
+
+The XLL allocates the memory on its own buffer. This buffer is automatically 
+freed when a function of the XLL is called again. Note that coerce to
 a char string is the slowest cast of all.
- 
-\bug Use it at your own risks, there seems to be issue with exceptions.
-Prefer XlfOper::ConvertToString.
 */
-char * XlfOper::AsString() const
+char * XlfOper::AsString(int * pxlret) const
 {
   char * s;
   int xlret = ConvertToString(s);
-  ThrowOnError(xlret);
+  if (pxlret)
+    *pxlret=xlret;
+  else
+    ThrowOnError(xlret);
   return s;
 };
 
@@ -354,14 +383,20 @@ int XlfOper::ConvertToString(char *& s) const throw()
 }
 
 /*!
-\bug Use it at your own risks, there seems to be issue with exceptions
-Prefer XlfOper::ConvertToRef.
+Attempts to convert the implict object to an XlfRef. If pxlret is not null
+the method won't throw and the Excel return code will be returned in this
+variable.
+
+\sa XlfOper::ConvertToRef.
 */
-XlfRef XlfOper::AsRef() const
+XlfRef XlfOper::AsRef(int * pxlret) const
 {
   XlfRef r;
   int xlret = ConvertToRef(r);
-  ThrowOnError(xlret);
+  if (pxlret)
+    *pxlret=xlret;
+  else
+    ThrowOnError(xlret);
   return r;
 }
 

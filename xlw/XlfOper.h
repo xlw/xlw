@@ -97,9 +97,7 @@ public:
   bool IsError() const;
 
   //! Converts to a double.
-  double AsDouble() const;
-  //! Attempts conversion to double and returns Excel4 error code.
-  int ConvertToDouble(double&) const throw();
+  double AsDouble(int * pxlret = 0) const;
 
   //! Lets the user choose how to convert a range in a vector<double>
   /*!
@@ -119,34 +117,22 @@ public:
   };
 
   //! Converts to a std::vector<double>.
-  std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional) const;
-  //! Attempts conversion to double and returns Excel4 error code.
-  int ConvertToDoubleVector(std::vector<double>&, DoubleVectorConvPolicy policy = UniDimensional) const;
+  std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
 
   //! Converts to a short.
-  short AsShort() const;
-  //! Attempts conversion to short and returns Excel4 error code.
-  int ConvertToShort(short&) const throw();
+  short AsShort(int * pxlret = 0) const;
 
   //! Converts to a bool.
-  bool AsBool() const;
-  //! Attempts conversion to bool and returns Excel4 error code.
-  int ConvertToBool(bool&) const throw();
+  bool AsBool(int * pxlret = 0) const;
 
   //! Converts to an int.
-  int AsInt() const;
-  //! Attempts conversion to int and returns Excel4 error code.
-  int ConvertToInt(int&) const throw();
+  int AsInt(int * pxlret = 0) const;
 
   //! Converts to a char *.
-  char * AsString() const;
-  //! Attempts conversion to string and returns Excel4 error code.
-  int ConvertToString(char *&) const throw();
+  char * AsString(int * pxlret = 0) const;
 
   //! Converts to a XlfReg.
-  XlfRef AsRef() const;
-  //! Attempts conversion to XlRef and returns Excel4 error code.
-  int ConvertToRef(XlfRef&) const throw();
+  XlfRef AsRef(int * pxlret = 0) const;
 
   //! Gets the internal LPXLOPER.
   LPXLOPER GetLPXLOPER() const;
@@ -208,9 +194,24 @@ private:
 
   //! Throws an exception when critical errors occur.
   int ThrowOnError(int) const;
-
+  
   //! Internally used to flag XLOPER returned by Excel.
   static int xlbitFreeAuxMem;
+
+  //! Attempts conversion to double and returns Excel4 error code.
+  int ConvertToDoubleVector(std::vector<double>&, DoubleVectorConvPolicy policy = UniDimensional) const;
+  //! Attempts conversion to double and returns Excel4 error code.
+  int ConvertToDouble(double&) const throw();
+  //! Attempts conversion to short and returns Excel4 error code.
+  int ConvertToShort(short&) const throw();
+  //! Attempts conversion to bool and returns Excel4 error code.
+  int ConvertToBool(bool&) const throw();
+  //! Attempts conversion to int and returns Excel4 error code.
+  int ConvertToInt(int&) const throw();
+  //! Attempts conversion to string and returns Excel4 error code.
+  int ConvertToString(char *&) const throw();
+  //! Attempts conversion to XlRef and returns Excel4 error code.
+  int ConvertToRef(XlfRef&) const throw();
 
   friend XlfExcel;
 };
