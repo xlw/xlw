@@ -182,49 +182,56 @@ int XlfOper::ConvertToDouble(double& d) const throw()
 \bug Use it at your own risks, there seems to be issue with exceptions
 Prefer XlfOper::ConvertToDoubleVector.
 */
-std::vector<double> XlfOper::AsDoubleVector() const
+std::vector<double> XlfOper::AsDoubleVector(DoubleVectorConvPolicy policy) const
 {
   std::vector<double> v;
-  int xlret = ConvertToDoubleVector(v);
+  int xlret = ConvertToDoubleVector(v, policy);
   XlfExcel::Instance().ThrowOnCriticalError(xlret);
   return v;
 }
 
-int XlfOper::ConvertToDoubleVector(std::vector<double>& v) const
-{
-  XlfRef r;
+/*!
+Converts the data in the range in a vector of double according to the specified policy.
 
-  int xlret = ConvertToRef(r);
+\pre All values in the range should be convertible to a double.
+
+\return xlretFailed if the policy is UniDimensional and the range is not uni dimensional
+and xlretSuccess otherwise or whatever error occurs during coercing the data to double.
+
+\sa DoubleVectorConvPolicy
+*/
+int XlfOper::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolicy policy) const
+{
+  XlfRef ref;
+
+  int xlret = ConvertToRef(ref);
   if (xlret != xlretSuccess)
     return xlret;
 
-  size_t n, i;
-  if (r.GetNbCols()==1)
-  {
-    n = r.GetNbRows();
-    v.resize(n);
-    for (i = 0; i < n; ++i)
-    {
-      xlret = r(i,0).ConvertToDouble(v[i]);
-      if (xlret != xlretSuccess)
-        return xlret;
-    }
-  }
-  else if (r.GetNbRows()==1)
-  {
-    n = r.GetNbCols();
-    v.resize(n);
-    for (i = 0; i < n; ++i)
-    {
-      xlret = r(0,i).ConvertToDouble(v[i]);
-      if (xlret != xlretSuccess)
-        return xlret;
-    }
-  }
-  else
-  {
-    std::cerr << __HERE__ << "Not a vector" << std::endl;
+  size_t nbRows = ref.GetNbRows();
+  size_t nbCols = ref.GetNbCols();
+
+  bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
+  if (policy == UniDimensional && ! isUniDimRange)
+		// not a vector we return a failure
     return xlretFailed;
+
+  size_t n = nbRows*nbCols;
+  v.resize(n);
+
+  for (size_t i = 0; i < nbRows; ++i)
+  {
+    for (size_t j = 0; j < nbCols; ++j)
+    {
+      if (policy == RowMajor)
+				// C-like dense matrix storage
+        xlret = ref(i,j).ConvertToDouble(v[i*nbCols+j]);
+			else
+				// Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
+        xlret = ref(i,j).ConvertToDouble(v[j*nbRows+i]);
+      if (xlret != xlretSuccess)
+        return xlret;
+    }
   }
   return xlret;
 };

@@ -1,13 +1,13 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
-
+ 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
-
+ 
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
-
+ 
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -42,9 +42,9 @@ class XlfRef;
 /*!
 This class eases the work of marchalling and unmarshalling data to
 the Excel XLOPER format (including memory).
-
+ 
 XlfOper holds a pointer to a XLOPER.
-
+ 
 \warning It is important \e not to add any data member to this class
 because the library heavily relies on the fact that LPXLOPER and
 XlfOper have the same size. It allows the library to interpret any
@@ -79,7 +79,7 @@ public:
     Set(rows,cols,start);
   }
 #else
-;
+  ;
 #endif
 #endif
   //! Dtor
@@ -94,15 +94,32 @@ public:
   //! Is the data an error ?
   bool IsError() const;
 
-  //! Converts to a double. 
+  //! Converts to a double.
   double AsDouble() const;
-  //! Attempts conversion to double and returns Excel4 error code. 
+  //! Attempts conversion to double and returns Excel4 error code.
   int ConvertToDouble(double&) const throw();
 
-  //! Converts to a std::vector<double>. 
-  std::vector<double> AsDoubleVector() const;
-  //! Attempts conversion to double and returns Excel4 error code. 
-  int ConvertToDoubleVector(std::vector<double>&) const;
+  //! Lets the user choose how to convert a range in a vector<double>
+	/*!
+	 * Default policy is UniDimensional. The 2 others are typically to facilitate conversion
+	 * to matrix classes.
+	 *
+	 * \sa ConvertToDoubleVector, AsDoubleVector.
+	 */
+  enum DoubleVectorConvPolicy
+  {
+		/*! Generates an error if the range is not uni dimensional (one row or one column). */
+    UniDimensional, 
+		/*! Flattens the range in a C-like way (rows are continuous). */
+    RowMajor, 
+		/*! Flattens the range in a Fortran-like way (columns are continuous). */
+    ColumnMajor 
+  };
+
+  //! Converts to a std::vector<double>.
+  std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional) const;
+  //! Attempts conversion to double and returns Excel4 error code.
+  int ConvertToDoubleVector(std::vector<double>&, DoubleVectorConvPolicy policy = UniDimensional) const;
 
   //! Converts to a short.
   short AsShort() const;
@@ -197,14 +214,14 @@ is provided in order to replace the template method Set(WORD,BYTE,FwdIt).
 template <class FwdIt>
 XlfOper& XlfOperSet(XlfOper& oper, WORD rows, BYTE cols, FwdIt it)
 {
-LPXLOPER lpxloper=oper;
-lpxloper->xltype = xltypeMulti;
-lpxloper->val.array.rows = rows;
-lpxloper->val.array.columns = cols;
-lpxloper->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(rows*cols*sizeof(XLOPER));
-for (size_t i = 0; i < rows*cols; ++i, ++it)
-lpxloper->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
-return oper;
+  LPXLOPER lpxloper=oper;
+  lpxloper->xltype = xltypeMulti;
+  lpxloper->val.array.rows = rows;
+  lpxloper->val.array.columns = cols;
+  lpxloper->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(rows*cols*sizeof(XLOPER));
+  for (size_t i = 0; i < rows*cols; ++i, ++it)
+    lpxloper->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
+  return oper;
 }
 #else
 #ifndef PORT_PARTIAL_MEMBER_TEMPLATE
