@@ -17,7 +17,7 @@ OUTPUT_DIR     = ..\lib\Win32\Borland
 
 # Object files
 CORE_OBJS = \
-    excel32.obj$(_D) \
+    xlw.obj$(_D) \
     XlfAbstractCmdDesc.obj$(_D) \
     XlfArgDesc.obj$(_D) \
     XlfArgDescList.obj$(_D) \
