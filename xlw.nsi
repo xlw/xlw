@@ -129,7 +129,7 @@ SectionIn 1 2
 
   IfFileExists $SMPROGRAMS\QuantLib 0 NoSourceShortCuts
     CreateShortCut "$SMPROGRAMS\XLW\Demo XLL workspace.lnk" \
-                 "$INSTDIR\test\excel32.dsw"
+                 "$INSTDIR\test\test.dsw"
     CreateShortCut "$SMPROGRAMS\XLW\Demo spreadsheet.lnk" \
                  "$INSTDIR\test\test.xls"
   NoSourceShortCuts:
