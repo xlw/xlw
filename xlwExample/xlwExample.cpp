@@ -54,13 +54,7 @@ extern "C"
   LPXLOPER EXCEL_EXPORT xlStats(XlfOper xlTargetRange)
   {
     EXCEL_BEGIN;
-    XlfRef target = xlTargetRange.AsRef();
-    // Initialization of the counter variables.
-    size_t i,j;
-    // Size of the range referenced.
-    size_t n = target.GetNbRows();
-    size_t m = target.GetNbCols();
-    size_t popSize = n*m;
+
     // Temporary variables.
     double averageTmp = 0.0;
     double varianceTmp = 0.0;
@@ -70,18 +64,11 @@ extern "C"
     // Excel will calculate this cell and call again our function.
     // Thus we copy first all the data to avoid to partially compute the
     // average for nothing since one of the cell might be uncalculated.
-    std::vector<double> temp(popSize);
-    for (i = 0; i < n; ++i)
-      for (j = 0; j < m; ++j)
-      {
-        // copy all values.
-        int ret = target(i,j).ConvertToDouble(temp[i*m+j]);
-        // if an error occurs return immediately.
-        if (ret != xlretSuccess)
-          return 0;
-      }
-    // All cells are copied. We do the actual work.
-    for (i = 0; i < popSize; ++i)
+    std::vector<double> temp = xlTargetRange.AsDoubleVector(XlfOper::RowMajor);
+
+		// All cells are copied. We do the actual work.
+		size_t popSize = temp.size();
+    for (size_t i = 0; i < popSize; ++i)
     {
       // sums the values.
       averageTmp += temp[i];
