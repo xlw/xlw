@@ -5,6 +5,7 @@ purge warnings
 check for tab
 first update of news and history (also python and ruby)
 first ChangeLog update
+set version number (do not forget trailing f0!!!)
 branch out of the trunk
 update version number on the trunk
 update xlw-site repository (nextrelease, download, etc.)
