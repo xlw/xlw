@@ -67,6 +67,15 @@ INLINE XlfOper::XlfOper(bool value)
 }
 
 /*!
+See XlfOper::Set(const std::string&)
+*/
+INLINE XlfOper::XlfOper(const std::string& value)
+{
+  Allocate();
+  Set(value);
+}
+
+/*!
 See XlfOper::Set(const char *)
 */
 INLINE XlfOper::XlfOper(const char *value)
@@ -84,6 +93,14 @@ INLINE XlfOper::XlfOper(const XlfRef& range)
 {
   Allocate();
   Set(range);
+}
+
+/*!
+Provided for convenience. Forwards to XlfOper::Set(const char *)
+*/
+INLINE XlfOper& XlfOper::Set(const std::string& val)
+{
+	return Set(val.c_str());
 }
 
 /*!

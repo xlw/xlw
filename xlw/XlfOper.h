@@ -24,9 +24,10 @@
 // $Id$
 
 #include <xlw/EXCEL32_API.h>
+#include <vector>
+#include <string>
 #include <xlw/xlcall32.h>
 #include <xlw/XlfExcel.h>
-#include <vector>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -67,6 +68,8 @@ public:
   XlfOper(bool value);
   //! 0 terminated chararcter string ctor.
   XlfOper(const char *value);
+  //! std::string ctor.
+  XlfOper(const std::string& str);
   //! XlfRef ctor.
   XlfOper(const XlfRef& range);
 #ifndef PORT_NO_MEMBER_TEMPLATE
@@ -139,14 +142,16 @@ public:
 
   //! Set the underlying XLOPER * to lpxloper
   XlfOper& Set(LPXLOPER lpxloper);
-  //! Set to a a double
+  //! Set to a double
   XlfOper& Set(double value);
-  //! Set to a a short
+  //! Set to a short
   XlfOper& Set(short value);
-  //! Set to a a boolean
+  //! Set to a boolean
   XlfOper& Set(bool value);
-  //! Set to a a zero-terminated character string
+  //! Set to a zero-terminated character string
   XlfOper& Set(const char *value);
+  //! Set to a standard string
+  XlfOper& Set(const std::string& value);
   //! Set to a range
   XlfOper& Set(const XlfRef& range);
   //! Set to an error value
