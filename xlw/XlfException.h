@@ -55,8 +55,9 @@ public:
   //! Message string ctor.
   XlfException(const std::string& what = "");
   //! std::exception interface
-  const char* what() const throw ();
-
+  const char* what () const throw ();
+  //! the automatically generated destructor would not have the throw specifier.
+  ~XlfException () throw ();
 private:
     std::string what_;
 };
