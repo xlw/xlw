@@ -1,3 +1,112 @@
+2002-04-15 16:26  nando
+
+	* README.TXT (1.4): dummy commit
+
+2002-04-15 14:29  nando
+
+	* xlwExample/xlwExample.xls (1.2): typo fixed
+
+2002-04-15 06:40  nando
+
+	* lib/README.txt (1.2), lib/dummy.txt (1.1), lib/Win32/README.txt
+	(1.2), lib/Win32/dummy.txt (1.1), lib/Win32/Borland/dummy.txt
+	(1.2), lib/Win32/Mingw32/dummy.txt (1.1),
+	lib/Win32/VisualStudio/README.txt (1.2),
+	lib/Win32/VisualStudio/dummy.txt (1.1),
+	xlwExample/xlwExample-mingw32.mak (1.3), xlwExample/xll/dummy.txt
+	(1.2), xlwExample/xll/Win32/dummy.txt (1.2),
+	xlwExample/xll/Win32/Borland/dummy.txt (1.2),
+	xlwExample/xll/Win32/VisualStudio/dummy.txt (1.2): José Fonseca
+	fixes for MINGW32
+
+2002-04-14 00:41  nando
+
+	* xlw/XlfException.h (1.5): José Fonseca fixes for MINGW32
+
+2002-04-14 00:37  nando
+
+	* Makefile (1.3), Makefile-mingw32.mak (1.1): José Fonseca fixes
+	for MINGW32
+
+2002-04-14 00:25  nando
+
+	* xlw-mingw32.mak (1.2), xlwExample/xlwExample-mingw32.mak (1.2):
+	Jose Fonseca fixes for MINGW32
+
+2002-04-14 00:23  nando
+
+	* Makefile (1.2), xlw-mingw32.mak (1.1),
+	xlwExample/xlwExample-mingw32.mak (1.1): Jose Fonseca fixes for
+	MINGW32\nthe config.mgw.h file is still missing
+
+2002-04-14 00:11  nando
+
+	* xlw/config.mgw.h (1.1), Makefile (1.1): Jose Fonseca fixes for
+	MINGW32\nthe config.mgw.h file is still missing
+
+2002-04-13 23:55  nando
+
+	* Contributors.txt (1.2), TODO.txt (1.17): adding José Fonseca to
+	the contributors list
+
+2002-04-13 23:54  nando
+
+	* xlw/port.h (1.4): Jose Fonseca fixes for MINGW32\nthe
+	config.mgw.h file is still missing
+
+2002-04-13 23:53  nando
+
+	* xlw/XlfException.h (1.4): Jose Fonseca fixes for MINGW32
+
+2002-04-13 23:47  nando
+
+	* xlw/: XlfCmdDesc.cpp (1.5), XlfOper.cpp (1.5): pruned redundant
+	inclusions
+
+2002-04-13 23:41  nando
+
+	* xlw/XlfOper.h (1.5): José Fonseca fixes for MINGW32
+
+2002-04-13 23:40  nando
+
+	* xlw/: XlfExcel.cpp (1.5), XlfExcel.h (1.4): Jose Fonseca fixes
+	for MINGW32
+
+2002-04-11 11:39  nando
+
+	* dev_tools/releaseprocess.txt (1.2): fixed version number
+
+2002-04-11 11:34  nando
+
+	* dev_tools/version_number.txt (1.4.2.2), xlw/EXCEL32_API.h
+	(1.7.2.2): fixed version number
+
+2002-04-11 09:48  nando
+
+	* dev_tools/: releaseprocess.txt (1.1), srcdist.bat (1.5): updated
+	for new release
+
+2002-04-11 08:36  nando
+
+	* History.txt (1.3), NEWS.TXT (1.10), xlw.nsi (1.19):
+	R010100-branch-merge1 merged into trunk
+
+2002-04-11 07:52  nando
+
+	* ChangeLog.txt (1.7.2.1): updated
+
+2002-04-11 07:45  nando
+
+	* History.txt (1.2.4.1): history updated
+
+2002-04-11 07:04  nando
+
+	* NEWS.TXT (1.9.4.1): updated old item
+
+2002-04-09 09:17  nando
+
+	* ChangeLog.txt (1.8): updated
+
 2002-04-08 10:42  nando
 
 	* xlw.nsi (1.18), Docs/xlw.doxy (1.12), dev_tools/srcdist.bat
