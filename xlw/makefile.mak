@@ -39,7 +39,8 @@ TLIB      = tlib
 CC_OPTS        = -vi- -q -c -tWM \
     -w-8008 -w-8017 \
     -I$(INCLUDE_DIR) \
-    -I$(BCC_INCLUDE)
+    -I$(BCC_INCLUDE) \
+    -DEXCEL32_NOIMPORTEXPORT
 !ifdef DEBUG
 CC_OPTS = $(CC_OPTS) -v -DQL_DEBUG
 !endif

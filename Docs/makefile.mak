@@ -4,7 +4,7 @@
 # $Id $
 
 .autodepend
-.silent
+#.silent
 
 # Tools to be used
 SED       = sed
