@@ -100,8 +100,7 @@ class EXCEL32_API XlfExceptionCoerce: public XlfException
 
 //! Internal memory buffer is full.
 /*!
-This exception is thrown by XlfExcel::GetMemory whenever the internal
-buffer is full.
+This exception is thrown whenever the internal buffer is full.
 */
 class EXCEL32_API XlfExceptionBufferFull: public XlfException
 {};
