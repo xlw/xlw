@@ -8,13 +8,15 @@
     - Logging method in XlfExcel have been phased out. All error information
       now sent to cerr stream. Users can redirect cerr to the console of their
       choice as demonstrated in xlwExample.
-    - New methods ConvertToXXX() should not throw exception but return an error
-      code instead. AsXXX() methods still throw exceptions.
-    - New AsDoubleVector() and ConvertToDoubleVector() return the value in the
-      range in a vector<double>.
+    - Methods AsXXX() now takes a pointer to an integer which defaults to 0.
+		  If an error occurs in the API call, the integer is set to the error code
+      returned by Excel. If the pointer is 0, an exception is thrown. 
+    - New AsDoubleVector() return the value in the range in a vector<double>.
     - (BUGFIX) XlfRef correctly handles ranges in a different worksheet than
       the active one.
-
+    - Added new method IsCalledByFuncWiz.
+		- XlfExcel singleton does not destroy itself anymore (or did it ever ...).
+			It is recomended to implement xlAutoClose as shown in xlwExample.
 
     <strong>Release 1.1 - April 11th, 2002</strong>
     - added nsi file for Win32 installer generation. The installer also set the
