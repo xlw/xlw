@@ -30,29 +30,6 @@
     #pragma comment(lib,"xlw.lib")
 #endif
 
-#ifdef _MT
-    #ifndef _DLL
-        #ifdef _DEBUG
-            #error Set 'Debug Multithreaded DLL' under C/C++ | Code Generation
-        #else
-            #error Set 'Multithreaded DLL' under C/C++ | Code Generation
-        #endif
-    #endif
-#else
-    #ifdef _DEBUG
-        #error Set 'Debug Multithreaded DLL' under C/C++ | Code Generation
-    #else
-        #error Set 'Multithreaded DLL' under C/C++ | Code Generation
-    #endif
-#endif
-
-/*
-#ifndef _CPPRTTI
-    #error Check the 'C/C++ | C++ Language | Use RTTI' option
-#endif
-
-*/
-
 
 //! Partial support of member templates (if defined inline).
 #define PORT_PARTIAL_MEMBER_TEMPLATE
