@@ -22,25 +22,30 @@
 
 #include <xlw/XlfRef.h>
 #include <xlw/XlfOper.h>
-#include <xlw/ERR_Macros.h>
 #include <xlw/XlfException.h>
+#include <xlw/macros.h>
+#include <iostream>
 
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop
 #endif
 
-#if !defined(PORT_USE_OLD_IO_HEADERS)
-PORT_USING_NAMESPACE(std);
-#endif
-
 #ifndef NDEBUG
 #include <xlw/XlfRef.inl>
 #endif
 
+/*!
+\note In debug build, generates a message if the request is in the range.
+*/
 XlfOper XlfRef::operator()(WORD r, BYTE c) const
 {
-	ERR_CHECKX(rowbegin_ + r<rowend_ && colbegin_ + c<colend_, XlfException,"access out of range");
+#if !defined(NDEBUG)
+	if (rowbegin_ + r > rowend_ || colbegin_ + c > colend_)
+  {
+    std::cerr << __HERE__ << "XlfRef access out of range" << std::endl;
+  }
+#endif
 	XlfOper res;
 	res.Set(XlfRef(rowbegin_ + r, colbegin_ + c, sheetId_));
 	return res;

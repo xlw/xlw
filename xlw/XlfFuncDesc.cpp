@@ -23,7 +23,6 @@
 #include <xlw/XlfFuncDesc.h>
 #include <xlw/XlfArgDescList.h>
 #include <xlw/XlfExcel.h>
-#include <xlw/ERR_Macros.h>
 #include <xlw/XlfException.h>
 #include <xlw/XlfOper.h>
 

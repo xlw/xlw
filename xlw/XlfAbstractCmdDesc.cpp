@@ -1,13 +1,13 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
-
+ 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
-
+ 
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
-
+ 
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -22,16 +22,13 @@
 
 #include <xlw/XlfAbstractCmdDesc.h>
 #include <xlw/XlfExcel.h>
-#include <xlw/ERR_Macros.h>
 #include <xlw/XlfException.h>
+#include <xlw/macros.h>
+#include <iostream>
 
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop
-#endif
-
-#if !defined(PORT_USE_OLD_IO_HEADERS)
-PORT_USING_NAMESPACE(std);
 #endif
 
 /*!
@@ -40,8 +37,8 @@ PORT_USING_NAMESPACE(std);
 \param comment Help string associated with the comment
 */
 XlfAbstractCmdDesc::XlfAbstractCmdDesc(const std::string& name,
-                                              const std::string& alias,
-                                              const std::string& comment)
+                                       const std::string& alias,
+                                       const std::string& comment)
     :name_(name), alias_(alias), comment_(comment)
 {}
 
@@ -56,10 +53,12 @@ algorithm.
 */
 void XlfAbstractCmdDesc::Register() const
 {
-	std::string dllName = XlfExcel::Instance().GetName();
-	ERR_CHECKX2(!dllName.empty(), XlfException,"Library name is not initialized")
+  std::string dllName = XlfExcel::Instance().GetName();
+  if (dllName.empty())
+    throw std::runtime_error("Could not get library name");
   int err = DoRegister(dllName);
-	ERR_CHECKW(err == xlretSuccess,"error " << err << " while registering " << GetAlias().c_str());
+  if (err != xlretSuccess)
+    std::cerr << __HERE__ << "Error " << err << " while registering " << GetAlias().c_str() << std::endl;
   return;
 }
 

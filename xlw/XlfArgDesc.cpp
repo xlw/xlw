@@ -1,13 +1,13 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
-
+ 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
-
+ 
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
-
+ 
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -21,20 +21,19 @@
 // $Id$
 
 #include <xlw/XlfArgDesc.h>
-#include <xlw/ERR_Macros.h>
+#include <xlw/macros.h>
+#include <iostream>
 
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop
 #endif
 
-#if !defined(PORT_USE_OLD_IO_HEADERS)
-PORT_USING_NAMESPACE(std);
-#endif
-
 void XlfArgDesc::CheckNameLength()
 {
-  ERR_CHECKW2(name_.length() < 19, "argument name \"" << name_.c_str() << "\" may be too long to fit the in the function wizard");
+  if (name_.length() >= 19)
+    std::cerr << __HERE__ << "Argument name \"" << name_.c_str()
+    << "\" may be too long to fit the in the function wizard" << std::endl;
 };
 
 XlfArgDesc::XlfArgDesc()
@@ -49,8 +48,8 @@ Note that B stands for double or date, I for 16 bits integer, J for
 32 bits integer. I rarely use the other types.
 */
 XlfArgDesc::XlfArgDesc(const std::string& name,
-                                const std::string& comment,
-                                char type)
+                       const std::string& comment,
+                       char type)
     : name_(name), comment_(comment), type_(type)
 {
   CheckNameLength();
