@@ -68,6 +68,8 @@ private:
   char type_;
   //! Controls the name is valid to be used properly by the function wizzard.
   void CheckNameLength();
+  //! Controls that the comment associated to the argument ends is not truncated.
+  void CheckDescEnd();
 };
 
 #endif
