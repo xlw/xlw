@@ -17,13 +17,13 @@
     Name "XLW Light"
     Caption "XLW Light - Setup"
     #do not change the name below
-    OutFile "..\XLW-${VER_NUMBER}-light-inst.exe"
+    OutFile "..\xlw-${VER_NUMBER}-light-inst.exe"
     ComponentText "This will install XLW ${VER_NUMBER} Light on your computer.$\n A more complete version including documentation, examples, source code, etc. can be downloaded from http://xlw.sf.net"
 !else
     Name "XLW"
     Caption "XLW - Setup"
     #do not change the name below
-    OutFile "..\XLW-${VER_NUMBER}-full-inst.exe"
+    OutFile "..\xlw-${VER_NUMBER}-full-inst.exe"
 
     InstType "Full (w/ Source Code)"
     InstType Typical
