@@ -24,15 +24,11 @@
 \brief Includes all the include files of the package.
 */
 
-// Microsoft Excel 4.0 API
-#include <xlw/xlcall32.h>
 // Package files
 #include <xlw/macros.h>
-#include <xlw/XlfArgDesc.h>
 #include <xlw/XlfArgDescList.h>
 #include <xlw/XlfCmdDesc.h>
 #include <xlw/XlfOper.h>
-#include <xlw/XlfExcel.h>
 #include <xlw/XlfFuncDesc.h>
 #include <xlw/XlfOper.h>
 #include <xlw/XlfRef.h>

@@ -25,7 +25,6 @@
 
 #include <xlw/EXCEL32_API.h>
 #include <xlw/xlcall32.h>
-#include <windows.h>
 
 #if defined(_MSC_VER)
 #pragma once
