@@ -61,11 +61,11 @@ int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
 	// and then assign the XLOPER to XlfOper specifying false
 	// to tell the Framework that the data is not owned by
 	// Excel and that it should not call xlFree when destroyed
-	XlfOper(px++, false).Set(text_.c_str());
-	XlfOper(px++, false).Set(GetAlias().c_str());
-	XlfOper(px++, false).Set("");
-	XlfOper(px++, false).Set(GetComment().c_str());
-	XlfOper(px++, false).Set("");
+	XlfOper(px++).Set(text_.c_str());
+	XlfOper(px++).Set(GetAlias().c_str());
+	XlfOper(px++).Set("");
+	XlfOper(px++).Set(GetComment().c_str());
+	XlfOper(px++).Set("");
 
 	xMenu.xltype = xltypeMulti;
 	xMenu.val.array.lparray = pxMenu;

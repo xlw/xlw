@@ -58,7 +58,7 @@ public:
   //! Copy ctor.
   XlfOper(const XlfOper& oper);
   //! XLOPER * ctor.
-  XlfOper(LPXLOPER lpxloper, bool isExcelData = true);
+  XlfOper(LPXLOPER lpxloper);
   //! double ctor.
   XlfOper(double value);
   //! short ctor.

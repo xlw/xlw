@@ -42,7 +42,7 @@ Shallow copy of a pointer to XLOPER.
 \param isExcelData Flags that tells if the auxiliary data is allocated by
 Excel or by the XLL (default is true).
 */
-XlfOper::XlfOper(LPXLOPER lpxloper, bool isExcelData): lpxloper_(lpxloper)
+XlfOper::XlfOper(LPXLOPER lpxloper): lpxloper_(lpxloper)
 {
 }
 
@@ -146,7 +146,7 @@ int XlfOper::ConvertToDouble(double& d) const throw()
     // Allocates tmp on the stack to avoid filling the internal buffer.
     XLOPER tmp;
     // Creates a XlfOper based on tmp.
-    XlfOper cast(&tmp,false);
+    XlfOper cast(&tmp);
     // Coerces to numeric type.
     xlret = Coerce(xltypeNum,cast);
     if (xlret == xlretSuccess)
@@ -242,7 +242,7 @@ int XlfOper::ConvertToShort(short& s) const throw()
     // Allocates tmp on the stack to avoid filling the internal buffer.
     XLOPER tmp;
     // Creates a XlfOper based on tmp.
-    XlfOper cast(&tmp,false);
+    XlfOper cast(&tmp);
     // Coerces to numeric type.
     xlret = Coerce(xltypeNum,cast);
     if (xlret == xlretSuccess)
@@ -279,7 +279,7 @@ int XlfOper::ConvertToBool(bool& b) const throw()
   {
     // see ConvertToDouble
     XLOPER tmp;
-    XlfOper cast(&tmp,false);
+    XlfOper cast(&tmp);
     xlret = Coerce(xltypeBool,cast);
     if (xlret == xlretSuccess)
       xlret = cast.ConvertToBool(b);
@@ -325,7 +325,7 @@ int XlfOper::ConvertToString(char *& s) const throw()
     XLOPER tmp;
     // Second argument true marks XlfOper so that xlFree is called on the
     // MS Excel allocated memory (the string) when XlfOper goes out of scope.
-    XlfOper cast(&tmp,true);
+    XlfOper cast(&tmp);
     xlret = Coerce(xltypeStr,cast);
     if (xlret == xlretSuccess)
       xlret = cast.ConvertToString(s);
@@ -369,7 +369,7 @@ int XlfOper::ConvertToRef(XlfRef& r) const throw()
     // Second argument true marks XlfOper so that xlFree is called on the
     // MS Excel allocated memory (the reference array) when XlfOper goes
     // out of scope.
-    XlfOper cast(&tmp,true);
+    XlfOper cast(&tmp);
     xlret = Coerce(xltypeRef,cast);
     if (xlret == xlretSuccess)
       xlret = cast.ConvertToRef(r);
