@@ -5,7 +5,7 @@ This is the list of projects using the Excel32 Wrapper C++ package:
 
 - <a href="http://quantlib.org">QuantLib-Excel</a>
 
-If you're using Excel32 Wrapper C++ you might
-<a href="xlw-users@lists.sourceforge.net">let us know</a>.
+Quite a short list, isn't it? ;-) If you're using Excel32 Wrapper C++ you
+might <a href="xlw-users@lists.sourceforge.net">let us know</a>.
 
 */

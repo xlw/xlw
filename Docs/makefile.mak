@@ -44,7 +44,7 @@ html-online::
     copy images\*.png html
 
 # PDF documentation
-pdf:: html
+pdf::
     cd latex
     $(PDFLATEX) $(TEX_OPTS) refman
     $(MAKEINDEX) refman.idx
@@ -58,6 +58,33 @@ ps:: html
     $(MAKEINDEX) refman.idx
     $(LATEX) $(TEX_OPTS) refman
     $(DVIPS) refman
+    cd ..
+
+# Correct LaTeX files to get the right layout
+tex-files::
+    copy userman.tex latex
+    cd latex
+    ren refman.tex oldrefman.tex
+    $(SED) -e "/Page Index/d" \
+           -e "/input{pages}/d" \
+           -e "/Page Documentation/d" \
+           -e "/input{bibliography}/d" \
+           -e "/include{download}/d" \
+           -e "/include{faq}/d" \
+           -e "/include{gettingstarted}/d" \
+           -e "/include{history}/d" \
+           -e "/include{index}/d" \
+           -e "/include{install}/d" \
+           -e "/include{knownbugs}/d" \
+           -e "/include{copyright}/d" \
+           -e "/include{misc}/d" \
+           -e "/include{platforms}/d" \
+           -e "/include{projects}/d" \
+           -e "/include{todo}/d" \
+           -e "/include{usage}/d" \
+           -e "s/ple Documentation}/ple Documentation}\\\\label{exchap}/" \
+           oldrefman.tex > refman.tex
+    del oldrefman.tex
     cd ..
 
 # Clean up

@@ -1,0 +1,16 @@
+
+/*! \page install Installation
+
+    \subsection win32 Win32
+    Binary installers are available at <br>
+    http://xlw.sf.net/download.html
+
+    Visual C++ 6.0 projects files and Borland C++ makefiles are supplied in case
+    one wants to rebuild the library.
+
+    The free Borland C++ compiler is available at <br>
+    http://www.borland.com/bcppbuilder/freecompiler/
+
+
+*/
+

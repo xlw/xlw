@@ -1,0 +1,9 @@
+
+/*! \page history Version history
+
+    <strong>Release 1.1 - March XXth, 2002</strong>
+
+    <strong>Release 1.0 - May, 2000</strong>
+    Initial release by Jérôme Lecomte (xlw@ifrance.com)
+
+*/

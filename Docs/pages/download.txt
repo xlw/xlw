@@ -1,8 +1,17 @@
-/*!
-\page download Download Area
+/*! \page download Where to get XLW
 
-The library is available for download free of charge and with all the source
-code (provided you mention the \ref copyright "copyright" notice) from
-http://sourceforge.net/project/showfiles.php?group_id=45222
+    \subsection where XLW releases
+    Source code, documentation, library, etc. of current and previous
+    %XLW releases can be downloaded from
+    http://xlw.sf.net/download.html
+
+    \subsection cvs Current CVS snapshot
+    Instructions for anonymous CVS access are available at
+    http://xlw.sf.net/cvs.html
+
+    Access to the CVS repository is intended mainly for developers and
+    is not recommended to end users which should download the
+    latest stable release instead.
 
 */
+
