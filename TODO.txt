@@ -1,7 +1,6 @@
 
 
 add example of option parameter
-add example of returning a row, a column, a range
 where is the mopdule name ??
 error message available on request
 XlfOper.asVector
