@@ -25,9 +25,9 @@
 /*** libraries to be linked***/
 
 #ifdef _DEBUG
-    #pragma comment(lib,"excel32d.lib")
+    #pragma comment(lib,"xlwd.lib")
 #else
-    #pragma comment(lib,"excel32.lib")
+    #pragma comment(lib,"xlw.lib")
 #endif
 
 #ifdef _MT
