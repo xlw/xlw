@@ -221,7 +221,7 @@ private:
   //! Attempts conversion to XlRef and returns Excel4 error code.
   int ConvertToRef(XlfRef&) const throw();
 
-  friend XlfExcel;
+  friend class XlfExcel;
 };
 
 #ifdef PORT_NO_MEMBER_TEMPLATE
