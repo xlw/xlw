@@ -1,5 +1,5 @@
 /*!
-\mainpage Excel32 C++ Wrapper (XLW)
+\page index Excel32 C++ Wrapper (XLW)
 
 \author <a href=mailto:xlw@ifrance.com>Jérôme Lecomte</a>(\ref copyright)
 
