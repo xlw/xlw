@@ -1,9 +1,26 @@
 
+2002-05-XX Release 1.2.0
+    - Buffer is not fixed in size anymore but extend as needed by the functions
+      registered in Excel. Growing policy is still subject to change but it
+      should not impact user interface.
+    - Logging method in XlfExcel have been phased out. All error information
+      now sent to cerr stream. Users can redirect cerr to the console of their
+      choice as demonstrated in xlwExample.
+    - New methods ConvertToXXX() should not throw exception but return an error
+      code instead. AsXXX() methods still throw exceptions.
+    - New AsDoubleVector() and ConvertToDoubleVector() return the value in the
+      range in a vector<double>.
+    - (BUGFIX) XlfRef correctly handles ranges in a different worksheet than
+      the active one.
+
+
+2002-04-11 Release 1.1.0
+Changes since Release 1.0.0:
 - added nsi file for Win32 installer generation. The installer also set the
   environment variable XLW_DIR pointing to your xlw installation folder.
   This way any project based on xlw can add "$(XLW_DIR)" to the "Additional
-  include directory" list and add "$(XLW_DIR)\lib\Win32\VisualStudio\" to the
-  "Additional library path" list.
+  include directory" list and add "$(XLW_DIR)\lib\Win32\VisualStudio\" to
+  the "Additional library path" list.
 - renamed library as xlw.lib
 - moved sources under xlw folder, and switched to <xlw/xxx.h> inclusion
   style (library suggested standards, at least by GNU)
