@@ -100,7 +100,7 @@ extern "C"
 
   long EXCEL_EXPORT xlAutoOpen()
   {
-    EXCEL_BEGIN;
+//    EXCEL_BEGIN;
 
     // Displays a message in the status bar.
     XlfExcel::Instance().SendMessage("Registering library...");
@@ -143,7 +143,7 @@ extern "C"
     XlfExcel::Instance().SendMessage();
     return 1;
 
-    EXCEL_END;
+//    EXCEL_END;
   }
 
 }

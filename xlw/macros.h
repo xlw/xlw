@@ -60,16 +60,23 @@ returns #NULL!.
 You could easily add your own exception here. Note that it causes all your
 interface to recompile though.
 */
-#define EXCEL_END } catch (XlfException&) \
-{ return 0; } 
-/*
-catch (... your base exception here ...) \
-{ \
-   try \
-   { \
-     return XlfException::Value(); \
-   } \
- }
+#define EXCEL_END \
+} catch (XlfException&) { \
+	return 0; \
+} catch (...) { \
+	return XlfException::Value(); \
+}
+
+/* as example:
+#define EXCEL_END \
+} catch (XlfException&) { \
+	return 0; \
+} catch (yourException&) { \
+	exceptionHandling; \
+} catch (...) { \
+	return XlfException::Value(); \
+}
+
 */
 
 #endif
