@@ -1,5 +1,5 @@
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003 Jérôme Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
