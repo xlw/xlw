@@ -1,12 +1,12 @@
 
-remove undue copyright
-restore doc original format
-remove Borland warning
-test: compile borland
-more format docs
+sf link and logo
+add notice of sf project
+add doc formats
 update links (sf and download)
 update documentation
+remove Borland warning
+test: compile borland
+rename test into example
 use hpp instead of h
 BSD License
-rename test into example
 gcc autoconfiscation

@@ -2,18 +2,15 @@
 \page download Download Area
 
 The library is available for download free of charge and with all the source
-code (provided you mention the \ref copyright "copyright" notice) under the 
-following links:
+code (provided you mention the \ref copyright "copyright" notice) from
+http://sourceforge.net/project/showfiles.php?group_id=45222
 
-- <A href=source.zip>Source</A> ~60K (note that the documentation can be regenerated 
-with <a href=http://www.stack.nl/~dimitri/doxygen/index.html>Doxygen</A>).
-- <A href=html.zip>Documentation</A> ~125K.
 
-\subsection copyright Copyright (c) 1998-2001 Jérôme Lecomte
+\subsection copyright Copyright (c) 1998-2002 Jérôme Lecomte
 Permission to use, copy, modify, distribute and sell this software
 and its documentation for any purpose is hereby granted without fee,
 provided that the above copyright notice appear in all copies and
 that both that copyright notice and this permission notice appear
-in supporting documentation. This software is freely provided "as is" 
+in supporting documentation. This software is freely provided "as is"
 without express or implied warranty.
 */
