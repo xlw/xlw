@@ -43,6 +43,8 @@ are not used in excel32 framework.
 #elif defined(_MSC_VER) && (_MSC_VER >= 1200)
     #include <xlw/config.msvc.h>
 // Dynamically created by configure
+#elif defined(__MINGW32__)
+    #include <xlw/config.mgw.h>
 #elif defined(HAVE_CONFIG_H)
     #error Unsupported compiler - please contact the XLW team
 // other compiler not supported
