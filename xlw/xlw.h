@@ -1,4 +1,3 @@
-
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003 Jérôme Lecomte
 
@@ -36,6 +35,5 @@
 #ifdef PORT_PRAGMA_ONCE
 #pragma once
 #endif
-
 
 #endif
