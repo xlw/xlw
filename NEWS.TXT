@@ -47,5 +47,3 @@
 - updated to doxygen 1.2.11.1
 - all *.txt documentation pages moved under Docs folder
 - added CVS Id tag to all files
-
-http://longre.free.fr/pages/prog/api-c.htm

@@ -5,7 +5,7 @@
 # $Id$
 
 .autodepend
-#.silent
+.silent
 
 # Debug version
 !ifdef DEBUG

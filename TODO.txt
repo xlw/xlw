@@ -12,3 +12,5 @@ use hpp instead of h
 BSD License
 
 add the know bugs to sf bug tracker
+it crashes if I insert black scholes with the function wizard
+pragma.h into config.msvc.h ?
