@@ -69,13 +69,13 @@ XlfOper::~XlfOper()
 
   int type = lpxloper_->xltype;
 
-//  Only the types bellow can be flagged xlFreeAuxMem, thus the test is 
-//  actually redundant: we don't need to re-check the type of the oper.
-//  
-//  bool canHaveAuxMem = (type & xltypeStr ||
-//                        type & xltypeRef ||
-//                        type & xltypeMulti ||
-//                        type & xltypeBigData);
+  //  Only the types bellow can be flagged xlFreeAuxMem, thus the test is
+  //  actually redundant: we don't need to re-check the type of the oper.
+  //
+  //  bool canHaveAuxMem = (type & xltypeStr ||
+  //                        type & xltypeRef ||
+  //                        type & xltypeMulti ||
+  //                        type & xltypeBigData);
   if (type & xlbitFreeAuxMem)
   {
     // switch back the bit as it was originally
@@ -133,7 +133,7 @@ int XlfOper::Coerce(short type, XlfOper& result) const
 Attempts to convert the implict object to a double. If pxlret is not null
 the method won't throw and the Excel return code will be returned in this
 variable.
-
+ 
 \sa XlfOper::ConvertToDouble.
 */
 double XlfOper::AsDouble(int * pxlret) const
@@ -182,7 +182,7 @@ int XlfOper::ConvertToDouble(double& d) const throw()
 Attempts to convert the implict object to a vector of double. If pxlret is 
 not null the method won't throw and the Excel return code will be returned 
 in this variable.
-
+ 
 \sa XlfOper::ConvertToDoubleVector.
 */
 std::vector<double> XlfOper::AsDoubleVector(DoubleVectorConvPolicy policy, int * pxlret) const
@@ -246,7 +246,7 @@ int XlfOper::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolic
 Attempts to convert the implict object to a short. If pxlret is not null
 the method won't throw and the Excel return code will be returned in this
 variable.
-
+ 
 \sa XlfOper::ConvertToShort.
 */
 short XlfOper::AsShort(int * pxlret) const
@@ -290,7 +290,7 @@ int XlfOper::ConvertToShort(short& s) const throw()
 Attempts to convert the implict object to a bool. If pxlret is not null
 the method won't throw and the Excel return code will be returned in this
 variable.
-
+ 
 \sa XlfOper::ConvertToBool.
 */
 bool XlfOper::AsBool(int * pxlret) const
@@ -332,9 +332,9 @@ int XlfOper::ConvertToBool(bool& b) const throw()
 Attempts to convert the implict object to a char string. If pxlret is not 
 null the method won't throw and the Excel return code will be returned in 
 this variable.
-
+ 
 \sa XlfOper::ConvertToString.
-
+ 
 The XLL allocates the memory on its own buffer. This buffer is automatically 
 freed when a function of the XLL is called again. Note that coerce to
 a char string is the slowest cast of all.
@@ -383,7 +383,7 @@ int XlfOper::ConvertToString(char *& s) const throw()
 Attempts to convert the implict object to an XlfRef. If pxlret is not null
 the method won't throw and the Excel return code will be returned in this
 variable.
-
+ 
 \sa XlfOper::ConvertToRef.
 */
 XlfRef XlfOper::AsRef(int * pxlret) const
@@ -497,33 +497,40 @@ XlfOper& XlfOper::Set(const XlfRef& range)
 }
 
 /*!
-If no memory can be allocated on xlw internal buffer, the XlfOper is set
-to an invalid state and the string is not copied.
- 
-\note String longer than 255 characters are truncated. A warning
-is issued in debug mode.
-*/
+ * If no memory can be allocated on xlw internal buffer, the XlfOper is set
+ * to an invalid state and the string is not copied.
+ */
 XlfOper& XlfOper::Set(const char *value)
 {
+  static const size_t maxLength = 255;
   if (lpxloper_)
   {
     lpxloper_->xltype = xltypeStr;
+    /*! computes the size of the string excluding terminal null character. */
     int n = strlen(value);
-    if (n >= 256)
+    /*! if the string is longer than 254 characters, truncates it to 254 */
+    if (n > maxLength)
+    {
       std::cerr << XLW__HERE__ << "String too long is truncated" << std::endl;
-    // One byte more for NULL terminal char (allow use of strcpy)
-    // and one for the std::string size (convention used by Excel)
-    LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 2));
+      n = maxLength;
+    }
+    /*! Allocates the number of characters + 2 bytes on the buffer. The first
+     *  character is used to store the size of the string in front (Excel and 
+     *  Pascal convention) while the second is used for the null character at
+     *  the end.
+     */
+    char * str = reinterpret_cast<char *>(XlfExcel::Instance().GetMemory(n + 2));
     if (str == 0)
     {
       lpxloper_=0;
     }
     else
     {
-      strcpy(str + 1, value);
-      // the number of character include the final \0 or not ?
-      lpxloper_->val.str = str;
-      lpxloper_->val.str[0] = (BYTE)(n + 1);
+      // copies the null character as well.
+      //strncpy takes care of padding with null characters.
+      strncpy(str + 1, value, n + 1);
+      lpxloper_->val.str = (LPSTR)(str);
+      lpxloper_->val.str[0] = (BYTE)(n);
     }
   }
   return *this;
@@ -547,11 +554,11 @@ XlfOper& XlfOper::SetError(WORD error)
  */
 XlfOper& XlfOper::Set(WORD r, BYTE c)
 {
-    lpxloper_->xltype = xltypeMulti;
-    lpxloper_->val.array.rows = r;
-    lpxloper_->val.array.columns = c;
-    lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
-	return *this;
+  lpxloper_->xltype = xltypeMulti;
+  lpxloper_->val.array.rows = r;
+  lpxloper_->val.array.columns = c;
+  lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
+  return *this;
 }
 
 /*!
@@ -560,10 +567,10 @@ XlfOper& XlfOper::Set(WORD r, BYTE c)
  */
 XlfOper& XlfOper::Set(size_t i, XlfOper& val)
 {
-	assert(lpxloper_->xltype == xltypeMulti);
-	assert(i < lpxloper_->val.array.rows * lpxloper_->val.array.columns);
-	lpxloper_->val.array.lparray[i] = *(LPXLOPER)val;
-	return *this;
+  assert(lpxloper_->xltype == xltypeMulti);
+  assert(i < lpxloper_->val.array.rows * lpxloper_->val.array.columns);
+  lpxloper_->val.array.lparray[i] = *(LPXLOPER)val;
+  return *this;
 }
 
 /*!
