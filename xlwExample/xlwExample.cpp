@@ -1,11 +1,11 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
 
- This file is part of XLW, a free-software/open-source C++ wrapper of the
+ This file is part of xlw, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
 
- XLW is free software: you can redistribute it and/or modify it under the
- terms of the XLW license.  You should have received a copy of the
+ xlw is free software: you can redistribute it and/or modify it under the
+ terms of the xlw license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
 
  This program is distributed in the hope that it will be useful, but WITHOUT
@@ -117,7 +117,7 @@ extern "C"
     // Variable description of type R (default).
     XlfArgDesc diameter("diameter","Diameter of the circle");
     // xlCirc function description function as Circ.
-    XlfFuncDesc circ("xlCirc","Circ","Computes the circumference of a circle","MyXLL");
+    XlfFuncDesc circ("xlCirc","Circ","Computes the circumference of a circle","xlw Example");
     // Set the diameter argument definition for circ.
     circ.SetArguments(diameter);
     // Registers the function circ.
@@ -129,7 +129,7 @@ extern "C"
     XlfArgDesc str1("string1","First string");
     XlfArgDesc str2("string2","Second string");
     // xlConcat function description as concat.
-    XlfFuncDesc concat("xlConcat","Concat","Concatenate two strings in one","MyXLL");
+    XlfFuncDesc concat("xlConcat","Concat","Concatenate two strings in one","xlw Example");
     // Set the arguments for the function. Note how you create a XlfArgDescList from
     // two or more XlfArgDesc (operator+). You can not push the XlfArgDesc one by one.
     concat.SetArguments(str1+str2);
@@ -141,7 +141,7 @@ extern "C"
     // Argument descriptions.
     XlfArgDesc pop("Population","Target range containing the population");
     // xlStats Function description
-    XlfFuncDesc stats("xlStats","Stats","returns a (1x2) range containing the average and the variance of a numeric population","MyXLL");
+    XlfFuncDesc stats("xlStats","Stats","returns a (1x2) range containing the average and the variance of a numeric population","xlw Example");
     // Sets the arguments for the function.
     stats.SetArguments(pop);
     // Registers the stats function.
