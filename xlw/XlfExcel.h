@@ -80,10 +80,12 @@ public:
 #endif
   //! Same as above but with an argument array instead of the variable length argument list
   int Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
-  //! Gets buffer occupation as an integer between 0 and 100
+  //! Gets buffer occupation as an integer between 0 and 100.
   double GetBufferOccupation() const;
   //! (Re)Allocates the buffer (destructive)
-  void AllocateBuffer(size_t buffersize = 8192);
+  void AllocateBuffer(size_t buffersize = 65536);
+  //! Throws an exception when critical errors occur.
+  int ThrowOnCriticalError(int) const;
 
 private:
   friend void ExcelLog(const char *str);

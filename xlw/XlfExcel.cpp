@@ -330,13 +330,22 @@ int XlfExcel::Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) c
 			ERR_THROW_MSG(XlfException,"0 pointer for argument " << i);
 		}
 #endif
-		int err = Excel4v(xlfn, pxResult, count, pxdata);
-		if (err & xlretUncalced)
-			ERR_THROW(XlfExceptionUncalculated);
-		if (err & xlretAbort)
-			ERR_THROW(XlfExceptionAbort)
-		if (err & xlretStackOvfl)
-			ERR_THROW_MSG(std::runtime_error,"Stack Overflow");
-		return err;
+	int xlret = Excel4v(xlfn, pxResult, count, pxdata);
+	return xlret;
+}
+
+/*!
+Currently errors that are considered critical are those that the require the XLL
+to return to Excel immediately. These are xlretUncalced, xlretAbort, and xlretStackOvfl.
+*/
+int XlfExcel::ThrowOnCriticalError(int xlret) const
+{
+  if (xlret & xlretUncalced)
+	ERR_THROW(XlfExceptionUncalculated);
+  if (xlret & xlretAbort)
+	ERR_THROW(XlfExceptionAbort)
+  if (xlret & xlretStackOvfl)
+	ERR_THROW_MSG(std::runtime_error,"Stack Overflow");
+  return xlret;
 }
 
