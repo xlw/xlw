@@ -26,9 +26,8 @@
 // $Id$
 
 #include <xlw/EXCEL32_API.h>
-#include <string>
-#include <list>
 #include <xlw/xlcall32.h>
+#include <list>
 
 #if defined(_MSC_VER)
 #pragma once

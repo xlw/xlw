@@ -24,8 +24,7 @@
 
 // $Id$
 
-#include <xlw/EXCEL32_API.h>
-#include <string>
+#include <xlw/XlfOper.h>
 #include <exception>
 
 #if defined(_MSC_VER)

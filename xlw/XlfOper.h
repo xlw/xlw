@@ -24,11 +24,8 @@
 
 // $Id$
 
-#include <xlw/EXCEL32_API.h>
-#include <vector>
-#include <string>
-#include <xlw/xlcall32.h>
 #include <xlw/XlfExcel.h>
+#include <vector>
 
 #if defined(_MSC_VER)
 #pragma once
