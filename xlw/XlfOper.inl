@@ -95,6 +95,13 @@ INLINE XlfOper::XlfOper(const XlfRef& range)
   Set(range);
 }
 
+/*! See XlfOper::Set(rows,cols) */
+INLINE XlfOper::XlfOper(WORD rows,BYTE cols)
+{
+  Allocate();
+  Set(rows,cols);
+}
+
 /*!
 Provided for convenience. Forwards to XlfOper::Set(const char *)
 */

@@ -542,6 +542,30 @@ XlfOper& XlfOper::SetError(WORD error)
   return *this;
 }
 
+/*! Sets up the XlfOper to receive an array of data.
+ *  Use Set(WORD,BYTE,const XlfOper&) to fill the array
+ */
+XlfOper& XlfOper::Set(WORD r, BYTE c)
+{
+    lpxloper_->xltype = xltypeMulti;
+    lpxloper_->val.array.rows = r;
+    lpxloper_->val.array.columns = c;
+    lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
+	return *this;
+}
+
+/*!
+ *  \warning: Only use on XlfOper initialized with XlfOper::Set(WORD,BYTE) 
+ *  or XlfOper(WORD,BYTE)
+ */
+XlfOper& XlfOper::Set(size_t i, XlfOper& val)
+{
+	assert(lpxloper_->xltype == xltypeMulti);
+	assert(i < lpxloper_->val.array.rows * lpxloper_->val.array.columns);
+	lpxloper_->val.array.lparray[i] = *(LPXLOPER)val;
+	return *this;
+}
+
 /*!
 Throws an exception if the argument is anything other than xlretSuccess.
  

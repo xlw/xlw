@@ -73,6 +73,8 @@ public:
   //! XlfRef ctor.
   XlfOper(const XlfRef& range);
 #ifndef PORT_NO_MEMBER_TEMPLATE
+  //! Container ctor (no data)
+  XlfOper(WORD rows, BYTE cols);
   //! Container ctor.
   template <class FwdIt>
   XlfOper(WORD rows, BYTE cols, FwdIt start)
@@ -121,19 +123,14 @@ public:
 
   //! Converts to a std::vector<double>.
   std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
-
   //! Converts to a short.
   short AsShort(int * pxlret = 0) const;
-
   //! Converts to a bool.
   bool AsBool(int * pxlret = 0) const;
-
   //! Converts to an int.
   int AsInt(int * pxlret = 0) const;
-
   //! Converts to a char *.
   char * AsString(int * pxlret = 0) const;
-
   //! Converts to a XlfReg.
   XlfRef AsRef(int * pxlret = 0) const;
 
@@ -158,9 +155,17 @@ public:
   XlfOper& SetError(WORD error);
   //! Cast to XLOPER *
   operator LPXLOPER();
+  //! Sets to an array (unfilled version)
+  XlfOper& Set(WORD r, BYTE c);
+  //! Fills the array
+  XlfOper& Set(size_t i, XlfOper& val);
 #ifndef PORT_NO_MEMBER_TEMPLATE
-  //! Set to an array
+  //! Set to an array (filled version)
   /*!
+  This version requires all the element of the container to be of the
+  same type. Use the unfilled version together with 
+  Set(size_t i,const XlfOper&) to generate heterogenous arrays.
+
   \param r number of rows in the array
   \param c number of columns in the array
   \param it iterator pointing to the begining of a container
@@ -171,12 +176,9 @@ public:
   XlfOper& Set(WORD r, BYTE c, FwdIt it)
 #ifdef PORT_PARTIAL_MEMBER_TEMPLATE
   {
-    lpxloper_->xltype = xltypeMulti;
-    lpxloper_->val.array.rows = r;
-    lpxloper_->val.array.columns = c;
-    lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
+    Set(r,c);
     for (size_t i = 0; i < size_t(r*c); ++i, ++it)
-      lpxloper_->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
+	  Set(i,XlfOper(*it));
     return *this;
   }
 #else
@@ -199,7 +201,7 @@ private:
 
   //! Throws an exception when critical errors occur.
   int ThrowOnError(int) const;
-  
+
   //! Internally used to flag XLOPER returned by Excel.
   static int xlbitFreeAuxMem;
 
