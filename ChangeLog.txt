@@ -1,3 +1,7 @@
+2002-03-05 16:11  nando
+
+	* ChangeLog.txt (1.2): updated
+
 2002-02-20 16:51  nando
 
 	* Docs/: makefile.mak (1.5), xlw.doxy (1.5): upgraded t doxygen
