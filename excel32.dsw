@@ -7,10 +7,6 @@ Project: "excel32"=".\excel32.dsp" - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/excel32", HTCAAAAA
-    .
-    end source code control
 }}}
 
 Package=<4>
@@ -19,21 +15,14 @@ Package=<4>
 
 ###############################################################################
 
-Project: "test"=".\test\test.dsp" - Package Owner=<4>
+Project: "xlwExample"=".\xlwExample\xlwExample.dsp" - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/excel32/test", JTCAAAAA
-    .\test
-    end source code control
 }}}
 
 Package=<4>
 {{{
-    Begin Project Dependency
-    Project_Dep_Name excel32
-    End Project Dependency
 }}}
 
 ###############################################################################
@@ -42,10 +31,6 @@ Global:
 
 Package=<5>
 {{{
-    begin source code control
-    "$/excel32", HTCAAAAA
-    .
-    end source code control
 }}}
 
 Package=<3>

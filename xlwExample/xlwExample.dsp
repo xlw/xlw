@@ -1,37 +1,37 @@
-# Microsoft Developer Studio Project File - Name="test" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="xlwExample" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Dynamic-Link Library" 0x0102
 
-CFG=test - Win32 OnTheEdgeDebug
+CFG=xlwExample - Win32 OnTheEdgeDebug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE 
-!MESSAGE NMAKE /f "test.mak".
-!MESSAGE 
+!MESSAGE
+!MESSAGE NMAKE /f "xlwExample.mak".
+!MESSAGE
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE 
-!MESSAGE NMAKE /f "test.mak" CFG="test - Win32 OnTheEdgeDebug"
-!MESSAGE 
+!MESSAGE
+!MESSAGE NMAKE /f "xlwExample.mak" CFG="xlwExample - Win32 OnTheEdgeDebug"
+!MESSAGE
 !MESSAGE Possible choices for configuration are:
-!MESSAGE 
-!MESSAGE "test - Win32 Release" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "test - Win32 Debug" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "test - Win32 OnTheEdgeDebug" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "test - Win32 OnTheEdgeRelease" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE 
+!MESSAGE
+!MESSAGE "xlwExample - Win32 Release" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "xlwExample - Win32 Debug" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "xlwExample - Win32 OnTheEdgeDebug" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "xlwExample - Win32 OnTheEdgeRelease" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""$/afl/excel32/test", IXAAAAAA"
+# PROP Scc_ProjName ""$/afl/excel32/xlwExample", IXAAAAAA"
 # PROP Scc_LocalPath "."
 CPP=cl.exe
 MTL=midl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "test - Win32 Release"
+!IF  "$(CFG)" == "xlwExample - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -55,9 +55,9 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"xll\Win32\VisualStudio\Release\test.xll" /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"xll\Win32\VisualStudio\Release\xlwExample.xll" /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio"
 
-!ELSEIF  "$(CFG)" == "test - Win32 Debug"
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -81,9 +81,9 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"xll\Win32\VisualStudio\Debug\test.xll" /pdbtype:sept /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"xll\Win32\VisualStudio\Debug\xlwExample.xll" /pdbtype:sept /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio"
 
-!ELSEIF  "$(CFG)" == "test - Win32 OnTheEdgeDebug"
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 OnTheEdgeDebug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -107,10 +107,10 @@ BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"Debug/test.xll" /pdbtype:sept /libpath:"$(XLW_DIR)\Debug"
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"xll\Win32\VisualStudio\Debug\test.xll" /pdbtype:sept /libpath:"..\lib\Win32\VisualStudio"
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"Debug/xlwExample.xll" /pdbtype:sept /libpath:"$(XLW_DIR)\Debug"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"xll\Win32\VisualStudio\Debug\xlwExample.xll" /pdbtype:sept /libpath:"..\lib\Win32\VisualStudio"
 
-!ELSEIF  "$(CFG)" == "test - Win32 OnTheEdgeRelease"
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 OnTheEdgeRelease"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -134,20 +134,20 @@ BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"Release/test.xll" /libpath:"$(XLW_DIR)\Release"
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"xll\Win32\VisualStudio\Release\test.xll" /libpath:"..\lib\Win32\VisualStudio"
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"Release/xlwExample.xll" /libpath:"$(XLW_DIR)\Release"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"xll\Win32\VisualStudio\Release\xlwExample.xll" /libpath:"..\lib\Win32\VisualStudio"
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
-# Name "test - Win32 Release"
-# Name "test - Win32 Debug"
-# Name "test - Win32 OnTheEdgeDebug"
-# Name "test - Win32 OnTheEdgeRelease"
+# Name "xlwExample - Win32 Release"
+# Name "xlwExample - Win32 Debug"
+# Name "xlwExample - Win32 OnTheEdgeDebug"
+# Name "xlwExample - Win32 OnTheEdgeRelease"
 # Begin Source File
 
-SOURCE=.\main.cpp
+SOURCE=.\xlwExample.cpp
 # End Source File
 # End Target
 # End Project

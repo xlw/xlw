@@ -1,6 +1,6 @@
 
 #
-# makefile for main.cpp under Borland C++
+# makefile for xlwExample.cpp under Borland C++
 #
 # $Id$
 
@@ -34,8 +34,8 @@ CC_OPTS = $(CC_OPTS) -v -DXLW_DEBUG
 !endif
 
 # Primary target:
-test$(_D).xll: main.cpp
-    bcc32  -DEXCEL32_NOIMPORTEXPORT $(CC_OPTS) -L$(XLW_LIB_DIR) -L$(BCC_LIBS) -tWD -otest$(_D).obj -exll\Win32\Borland\test$(_D).xll main.cpp excel32$(_D).lib
+xlwExample$(_D).xll: xlwExample.cpp
+    bcc32  -DEXCEL32_NOIMPORTEXPORT $(CC_OPTS) -L$(XLW_LIB_DIR) -L$(BCC_LIBS) -tWD -oxlwExample$(_D).obj -exll\Win32\Borland\xlwExample$(_D).xll xlwExample.cpp excel32$(_D).lib
 
 # Clean up
 clean::

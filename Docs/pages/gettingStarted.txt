@@ -1,12 +1,12 @@
 /*! \page gettingstarted Getting started
-You will find in the example project the file main.cpp. Let us look
+You will find in the example project the file xlwExample.cpp. Let us look
 at the code it contains. It will give you a good idea of the way
 you are supposed to use the package.
 
 Don't forget to start by including the following
 header.
 
-\dontinclude main.cpp
+\dontinclude xlwExample.cpp
 \skip include
 \until include
 

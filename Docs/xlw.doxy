@@ -63,7 +63,7 @@ EXCLUDE               = ../xlw/xlcall32.h \
                         ../xlw/config.msvc.hpp \
 EXCLUDE_SYMLINKS      = NO
 EXCLUDE_PATTERNS      =
-EXAMPLE_PATH          = ../test
+EXAMPLE_PATH          = ../xlwExample
 EXAMPLE_PATTERNS      = *.cpp
 EXAMPLE_RECURSIVE     = NO
 IMAGE_PATH            =

@@ -11,7 +11,5 @@ un-frame documentation if framed
 add Borland support
 rename excel32*.* to xlw*.*
 project name
-make http://www.ifrance.com/xlw/ a link to xlw.sf.net
-rename test into example
 add the know bugs to sf bug tracker
 pragma.h into config.msvc.h ?

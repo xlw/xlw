@@ -22,7 +22,7 @@ long as you retain the \ref copyright "copyright notice".
 
 The excel32 C++ wrapper package development is hosted on SourceForge at
 http://xlw.sf.net
-Early versions of this package have been used for years. The version 1.0 was tested
+Early versions of this package have been used for years and tested
 under Windows 9X/NT with Visual C++ 6.0 and Excel 97 \ref sr1 "SR-1 & SR-2"
 with minor problems (see \ref knownbugs) The package is not perfect but
 certainly has reached a stage where it can be usefull. If you have

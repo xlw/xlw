@@ -120,19 +120,19 @@ SectionEnd
 
 Section "Examples"
 SectionIn 1 2
-  SetOutPath  $INSTDIR\test
-  File /r "test\*.cpp"
-  File /r "test\*.dsp"
-  File /r "test\*.dsw"
-  File /r "test\*.mak"
-  File /r "test\*.xls"
-  File /r "test\xll\Win32\VisualStudio\Release\*.xll"
+  SetOutPath  $INSTDIR\xlwExample
+  File /r "xlwExample\*.cpp"
+  File /r "xlwExample\*.dsp"
+  File /r "xlwExample\*.dsw"
+  File /r "xlwExample\*.mak"
+  File /r "xlwExample\*.xls"
+  File /r "xlwExample\xll\Win32\VisualStudio\Release\*.xll"
 
   IfFileExists $SMPROGRAMS\QuantLib 0 NoSourceShortCuts
     CreateShortCut "$SMPROGRAMS\XLW\Demo XLL workspace.lnk" \
-                 "$INSTDIR\test\test.dsw"
+                 "$INSTDIR\xlwExample\xlwExample.dsw"
     CreateShortCut "$SMPROGRAMS\XLW\Demo spreadsheet.lnk" \
-                 "$INSTDIR\test\test.xls"
+                 "$INSTDIR\xlwExample\xlwExample.xls"
   NoSourceShortCuts:
 SectionEnd
 
@@ -190,7 +190,7 @@ Section "Uninstall"
     DeleteRegValue HKEY_CURRENT_USER  "Environment" "XLW_DIR"
     Delete "$SMPROGRAMS\XLW\*.*"
     RMDir "$SMPROGRAMS\XLW"
-    RMDir /r "$INSTDIR\test"
+    RMDir /r "$INSTDIR\xlwExample"
     RMDir /r "$INSTDIR\Docs\html"
     RMDir /r "$INSTDIR\lib"
     RMDir /r "$INSTDIR\xlw"

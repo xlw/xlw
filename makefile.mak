@@ -17,7 +17,7 @@
 xlw::
     cd xlw
     $(MAKE)
-    cd ..\test
+    cd ..\xlwExample
     $(MAKE) -DXLW_DIR=".."
     cd ..
 
@@ -67,7 +67,7 @@ docs-ps:
 clean::
     cd xlw
     $(MAKE) clean
-    cd ..\test
+    cd ..\xlwExample
     $(MAKE) clean
     cd ..\Docs
     $(MAKE) clean
