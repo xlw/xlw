@@ -1,0 +1,27 @@
+
+- added LICENSE.TXT file
+- added nsi file
+- moved test file main.cpp under test folder
+- test uses XLW_DIR
+- added OnTheEdgeRelease and Debug
+- added NEWS.TXT file
+- the debug version is excel32_d.lib
+- added config.msvc.h (no more need to link excel32.lib)
+- test do not link excel32.lib anymore
+- modified EXCEL32_API.h
+- introduced XLW_HEX_VERSION and XLW_VERSION
+- defined EXCEL32_NOIMPORTEXPORT in order to avoid classes being exported as
+  __dlldecl(*) when creating a static library with Multithreaded DLL
+  run-time libraries
+- all *.txt documentation pages moved under Docs folder
+- doxygen.cfg renamed as xlw.doxy, moved under Docs folder, and modified in
+  order to account for the Docs folder
+- updated to doxygen 1.2.11.1
+- Visual Studio setting changed from Multithread to Multithread DLL
+- added CVS $Id$ tag
+- purged port.h of unnecessary defines
+- define STRICT
+- error handling polish in accord to C++ standard
+- sources moved under xlw folder
+- use <xlw/xxx.h> inclusion
+- now compiles under borland
