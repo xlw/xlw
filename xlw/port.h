@@ -34,22 +34,13 @@ are not used in excel32 framework.
 #endif
 
 
-// Borland C++ 5.5
-#if   defined(__BORLANDC__)
+#if   defined(__BORLANDC__)      // Borland C++ 5.5
     #include <xlw/config.bcc.h>
-// Metrowerks CodeWarrior
-#elif defined(__MWERKS__)
-    #error Unsupported compiler - please contact the XLW team
-// Microsoft Visual C++ 6.0 and above
-#elif defined(_MSC_VER) && (_MSC_VER >= 1200)
+#elif defined(_MSC_VER)          // Microsoft Visual C++
     #include <xlw/config.msvc.h>
-// Dynamically created by configure
-#elif defined(__MINGW32__)
+#elif defined(__MINGW32__)       // Minimalistic GNU for Windows
     #include <xlw/config.mgw.h>
-#elif defined(HAVE_CONFIG_H)
-    #error Unsupported compiler - please contact the XLW team
-// other compiler not supported
-#else
+#else                            // other compiler not supported
     #error Unsupported compiler - please contact the XLW team
 #endif
 
