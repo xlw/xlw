@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  
@@ -25,8 +26,6 @@
 #else
 #define INLINE
 #endif
-#include <xlw/XlfException.h>
-#include <xlw/macros.h>
 #include <iostream>
 
 /*!
@@ -97,3 +96,4 @@ INLINE LPSTR XlfExcel::GetMemory(size_t bytes)
   // should never get to this point...
   return 0;
 }
+
