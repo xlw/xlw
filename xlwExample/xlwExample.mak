@@ -1,22 +1,24 @@
 # Microsoft Developer Studio Generated NMAKE File, Based on xlwExample.dsp
 !IF "$(CFG)" == ""
-CFG=xlwExample - Win32 OnTheEdgeDebug
-!MESSAGE No configuration specified. Defaulting to xlwExample - Win32 OnTheEdgeDebug.
+CFG=xlwExample - Win32 Debug SingleThread
+!MESSAGE No configuration specified. Defaulting to xlwExample - Win32 Debug SingleThread.
 !ENDIF 
 
-!IF "$(CFG)" != "xlwExample - Win32 Release" && "$(CFG)" != "xlwExample - Win32 Debug" && "$(CFG)" != "xlwExample - Win32 OnTheEdgeDebug" && "$(CFG)" != "xlwExample - Win32 OnTheEdgeRelease"
+!IF "$(CFG)" != "xlwExample - Win32 Release" && "$(CFG)" != "xlwExample - Win32 Debug" && "$(CFG)" != "xlwExample - Win32 Debug MTDLL" && "$(CFG)" != "xlwExample - Win32 Release MTDLL" && "$(CFG)" != "xlwExample - Win32 Release SingleThread" && "$(CFG)" != "xlwExample - Win32 Debug SingleThread"
 !MESSAGE Invalid configuration "$(CFG)" specified.
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "xlwExample.mak" CFG="xlwExample - Win32 OnTheEdgeDebug"
+!MESSAGE NMAKE /f "xlwExample.mak" CFG="xlwExample - Win32 Debug SingleThread"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
 !MESSAGE "xlwExample - Win32 Release" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "xlwExample - Win32 Debug" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "xlwExample - Win32 OnTheEdgeDebug" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "xlwExample - Win32 OnTheEdgeRelease" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "xlwExample - Win32 Debug MTDLL" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "xlwExample - Win32 Release MTDLL" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "xlwExample - Win32 Release SingleThread" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "xlwExample - Win32 Debug SingleThread" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE 
 !ERROR An invalid configuration is specified.
 !ENDIF 
@@ -41,11 +43,11 @@ OutDir=.\build\Release
 
 !IF "$(RECURSE)" == "0" 
 
-ALL : ".\xll\Win32\VisualStudio\xlwExample.xll" "$(OUTDIR)\xlwExample.bsc"
+ALL : ".\xll\xlwExample-vc6-mt-s.xll" "$(OUTDIR)\xlwExample.bsc"
 
 !ELSE 
 
-ALL : "xlw - Win32 Release" ".\xll\Win32\VisualStudio\xlwExample.xll" "$(OUTDIR)\xlwExample.bsc"
+ALL : "xlw - Win32 Release" ".\xll\xlwExample-vc6-mt-s.xll" "$(OUTDIR)\xlwExample.bsc"
 
 !ENDIF 
 
@@ -59,15 +61,15 @@ CLEAN :
 	-@erase "$(INTDIR)\Win32StreamBuf.sbr"
 	-@erase "$(INTDIR)\xlwExample.obj"
 	-@erase "$(INTDIR)\xlwExample.sbr"
+	-@erase "$(OUTDIR)\xlwExample-vc6-mt-s.exp"
+	-@erase "$(OUTDIR)\xlwExample-vc6-mt-s.lib"
 	-@erase "$(OUTDIR)\xlwExample.bsc"
-	-@erase "$(OUTDIR)\xlwExample.exp"
-	-@erase "$(OUTDIR)\xlwExample.lib"
-	-@erase ".\xll\Win32\VisualStudio\xlwExample.xll"
+	-@erase ".\xll\xlwExample-vc6-mt-s.xll"
 
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MT /W3 /GX /O2 /I "$(XLW_DIR)" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MT /W3 /GR /GX /O2 /I ".." /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "WIN32" /D "_MBCS" /D "XLW_AUTOLINK" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
@@ -81,13 +83,13 @@ BSC32_SBRS= \
 <<
 
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\xlwExample.pdb" /machine:I386 /out:"xll\Win32\VisualStudio\xlwExample.xll" /implib:"$(OUTDIR)\xlwExample.lib" /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\xlwExample-vc6-mt-s.pdb" /machine:I386 /out:"xll\xlwExample-vc6-mt-s.xll" /implib:"$(OUTDIR)\xlwExample-vc6-mt-s.lib" /libpath:"..\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
 	"$(INTDIR)\Win32StreamBuf.obj" \
 	"$(INTDIR)\xlwExample.obj" \
-	"..\lib\Win32\VisualStudio\xlw.lib"
+	"..\lib\xlw-vc6-mt-s-1_2_3.lib"
 
-".\xll\Win32\VisualStudio\xlwExample.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+".\xll\xlwExample-vc6-mt-s.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(LINK32_OBJS)
 <<
@@ -102,11 +104,11 @@ OutDir=.\build\Debug
 
 !IF "$(RECURSE)" == "0" 
 
-ALL : ".\xll\Win32\VisualStudio\xlwExampled.xll" "$(OUTDIR)\xlwExample.bsc"
+ALL : ".\xll\xlwExampled-vc6-mt-sgd.xll" "$(OUTDIR)\xlwExample.bsc"
 
 !ELSE 
 
-ALL : "xlw - Win32 Debug" ".\xll\Win32\VisualStudio\xlwExampled.xll" "$(OUTDIR)\xlwExample.bsc"
+ALL : "xlw - Win32 Debug" ".\xll\xlwExampled-vc6-mt-sgd.xll" "$(OUTDIR)\xlwExample.bsc"
 
 !ENDIF 
 
@@ -122,17 +124,17 @@ CLEAN :
 	-@erase "$(INTDIR)\xlwExample.obj"
 	-@erase "$(INTDIR)\xlwExample.sbr"
 	-@erase "$(OUTDIR)\xlwExample.bsc"
-	-@erase "$(OUTDIR)\xlwExampled.exp"
-	-@erase "$(OUTDIR)\xlwExampled.lib"
-	-@erase "$(OUTDIR)\xlwExampled.pdb"
-	-@erase ".\xll\Win32\VisualStudio\xlwExampled.ilk"
-	-@erase ".\xll\Win32\VisualStudio\xlwExampled.xll"
+	-@erase "$(OUTDIR)\xlwExampled-vc6-mt-sgd.exp"
+	-@erase "$(OUTDIR)\xlwExampled-vc6-mt-sgd.lib"
+	-@erase "$(OUTDIR)\xlwExampled-vc6-mt-sgd.pdb"
+	-@erase ".\xll\xlwExampled-vc6-mt-sgd.ilk"
+	-@erase ".\xll\xlwExampled-vc6-mt-sgd.xll"
 
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MTd /W3 /Gm /GX /ZI /Od /I "$(XLW_DIR)" /D "XLW_DEBUG" /D "_DEBUG" /D "TEST_EXPORTS" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
-MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
+CPP_PROJ=/nologo /MTd /W3 /Gm /GR /GX /ZI /Od /I ".." /D "_WINDOWS" /D "_USRDLL" /D "WIN32" /D "_MBCS" /D "XLW_AUTOLINK" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+MTL_PROJ=/nologo /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
 BSC32_SBRS= \
@@ -145,37 +147,37 @@ BSC32_SBRS= \
 <<
 
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\xlwExampled.pdb" /debug /machine:I386 /out:"xll\Win32\VisualStudio\xlwExampled.xll" /implib:"$(OUTDIR)\xlwExampled.lib" /pdbtype:sept /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\xlwExampled-vc6-mt-sgd.pdb" /debug /machine:I386 /out:"xll\xlwExampled-vc6-mt-sgd.xll" /implib:"$(OUTDIR)\xlwExampled-vc6-mt-sgd.lib" /pdbtype:sept /libpath:"..\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
 	"$(INTDIR)\Win32StreamBuf.obj" \
 	"$(INTDIR)\xlwExample.obj" \
-	"..\lib\Win32\VisualStudio\xlwd.lib"
+	"..\lib\xlw-vc6-mt-sgd-1_2_3.lib"
 
-".\xll\Win32\VisualStudio\xlwExampled.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+".\xll\xlwExampled-vc6-mt-sgd.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(LINK32_OBJS)
 <<
 
-!ELSEIF  "$(CFG)" == "xlwExample - Win32 OnTheEdgeDebug"
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 Debug MTDLL"
 
-OUTDIR=.\build\OnTheEdgeDebug
-INTDIR=.\build\OnTheEdgeDebug
+OUTDIR=.\build\DebugMTDLL
+INTDIR=.\build\DebugMTDLL
 # Begin Custom Macros
-OutDir=.\build\OnTheEdgeDebug
+OutDir=.\build\DebugMTDLL
 # End Custom Macros
 
 !IF "$(RECURSE)" == "0" 
 
-ALL : ".\xll\Win32\VisualStudio\xlwExampled.xll" "$(OUTDIR)\xlwExample.bsc" "$(BIN)\xlwExampled.xll"
+ALL : ".\xll\xlwExampled-vc6-mt-gd.xll" "$(OUTDIR)\xlwExample.bsc"
 
 !ELSE 
 
-ALL : "xlw - Win32 OnTheEdgeDebug" ".\xll\Win32\VisualStudio\xlwExampled.xll" "$(OUTDIR)\xlwExample.bsc" "$(BIN)\xlwExampled.xll"
+ALL : "xlw - Win32 Debug MTDLL" ".\xll\xlwExampled-vc6-mt-gd.xll" "$(OUTDIR)\xlwExample.bsc"
 
 !ENDIF 
 
 !IF "$(RECURSE)" == "1" 
-CLEAN :"xlw - Win32 OnTheEdgeDebugCLEAN" 
+CLEAN :"xlw - Win32 Debug MTDLLCLEAN" 
 !ELSE 
 CLEAN :
 !ENDIF 
@@ -186,18 +188,17 @@ CLEAN :
 	-@erase "$(INTDIR)\xlwExample.obj"
 	-@erase "$(INTDIR)\xlwExample.sbr"
 	-@erase "$(OUTDIR)\xlwExample.bsc"
-	-@erase "$(OUTDIR)\xlwExampled.exp"
-	-@erase "$(OUTDIR)\xlwExampled.lib"
-	-@erase "$(OUTDIR)\xlwExampled.pdb"
-	-@erase ".\xll\Win32\VisualStudio\xlwExampled.ilk"
-	-@erase ".\xll\Win32\VisualStudio\xlwExampled.xll"
-	-@erase "$(BIN)\xlwExampled.xll"
+	-@erase "$(OUTDIR)\xlwExampled-vc6-mt-gd.exp"
+	-@erase "$(OUTDIR)\xlwExampled-vc6-mt-gd.lib"
+	-@erase "$(OUTDIR)\xlwExampled-vc6-mt-gd.pdb"
+	-@erase ".\xll\xlwExampled-vc6-mt-gd.ilk"
+	-@erase ".\xll\xlwExampled-vc6-mt-gd.xll"
 
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\\" /D "XLW_DEBUG" /D "_DEBUG" /D "TEST_EXPORTS" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
-MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
+CPP_PROJ=/nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I ".." /D "_WINDOWS" /D "_USRDLL" /D "WIN32" /D "_MBCS" /D "XLW_AUTOLINK" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+MTL_PROJ=/nologo /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
 BSC32_SBRS= \
@@ -210,52 +211,37 @@ BSC32_SBRS= \
 <<
 
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\xlwExampled.pdb" /debug /machine:I386 /out:"xll\Win32\VisualStudio\xlwExampled.xll" /implib:"$(OUTDIR)\xlwExampled.lib" /pdbtype:sept /libpath:"..\lib\Win32\VisualStudio" 
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\xlwExampled-vc6-mt-gd.pdb" /debug /machine:I386 /out:"xll\xlwExampled-vc6-mt-gd.xll" /implib:"$(OUTDIR)\xlwExampled-vc6-mt-gd.lib" /pdbtype:sept /libpath:"..\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
 	"$(INTDIR)\Win32StreamBuf.obj" \
 	"$(INTDIR)\xlwExample.obj" \
-	"..\lib\Win32\VisualStudio\xlwd.lib"
+	"..\lib\xlw-vc6-mt-gd-1_2_3.lib"
 
-".\xll\Win32\VisualStudio\xlwExampled.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+".\xll\xlwExampled-vc6-mt-gd.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(LINK32_OBJS)
 <<
 
-IntDir=.\build\OnTheEdgeDebug
-TargetPath=.\xll\Win32\VisualStudio\xlwExampled.xll
-TargetName=xlwExampled
-InputPath=.\xll\Win32\VisualStudio\xlwExampled.xll
-SOURCE="$(InputPath)"
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 Release MTDLL"
 
-"..\..\..\xlwExampled.xll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	<<tempfile.bat 
-	@echo off 
-	echo on 
-	copy $(TargetPath) $(BIN)\. 
-	copy $(IntDir)\$(TargetName).pdb $(BIN)\. 
-<< 
-	
-
-!ELSEIF  "$(CFG)" == "xlwExample - Win32 OnTheEdgeRelease"
-
-OUTDIR=.\build\OnTheEdgeRelease
-INTDIR=.\build\OnTheEdgeRelease
+OUTDIR=.\build\ReleaseMTDLL
+INTDIR=.\build\ReleaseMTDLL
 # Begin Custom Macros
-OutDir=.\build\OnTheEdgeRelease
+OutDir=.\build\ReleaseMTDLL
 # End Custom Macros
 
 !IF "$(RECURSE)" == "0" 
 
-ALL : ".\xll\Win32\VisualStudio\xlwExample.xll" "$(OUTDIR)\xlwExample.bsc"
+ALL : ".\xll\xlwExample-vc6-mt.xll" "$(OUTDIR)\xlwExample.bsc"
 
 !ELSE 
 
-ALL : "xlw - Win32 OnTheEdgeRelease" ".\xll\Win32\VisualStudio\xlwExample.xll" "$(OUTDIR)\xlwExample.bsc"
+ALL : "xlw - Win32 Release MTDLL" ".\xll\xlwExample-vc6-mt.xll" "$(OUTDIR)\xlwExample.bsc"
 
 !ENDIF 
 
 !IF "$(RECURSE)" == "1" 
-CLEAN :"xlw - Win32 OnTheEdgeReleaseCLEAN" 
+CLEAN :"xlw - Win32 Release MTDLLCLEAN" 
 !ELSE 
 CLEAN :
 !ENDIF 
@@ -264,15 +250,15 @@ CLEAN :
 	-@erase "$(INTDIR)\Win32StreamBuf.sbr"
 	-@erase "$(INTDIR)\xlwExample.obj"
 	-@erase "$(INTDIR)\xlwExample.sbr"
+	-@erase "$(OUTDIR)\xlwExample-vc6-mt.exp"
+	-@erase "$(OUTDIR)\xlwExample-vc6-mt.lib"
 	-@erase "$(OUTDIR)\xlwExample.bsc"
-	-@erase "$(OUTDIR)\xlwExample.exp"
-	-@erase "$(OUTDIR)\xlwExample.lib"
-	-@erase ".\xll\Win32\VisualStudio\xlwExample.xll"
+	-@erase ".\xll\xlwExample-vc6-mt.xll"
 
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MT /W3 /GX /O2 /I "..\\" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MD /W3 /GR /GX /O2 /I ".." /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "WIN32" /D "_MBCS" /D "XLW_AUTOLINK" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
@@ -286,13 +272,138 @@ BSC32_SBRS= \
 <<
 
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\xlwExample.pdb" /machine:I386 /out:".\xll\Win32\VisualStudio\xlwExample.xll" /implib:"$(OUTDIR)\xlwExample.lib" /libpath:"..\lib\Win32\VisualStudio" 
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\xlwExample-vc6-mt.pdb" /machine:I386 /out:"xll\xlwExample-vc6-mt.xll" /implib:"$(OUTDIR)\xlwExample-vc6-mt.lib" /libpath:"..\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
 	"$(INTDIR)\Win32StreamBuf.obj" \
 	"$(INTDIR)\xlwExample.obj" \
-	"..\lib\Win32\VisualStudio\xlw.lib"
+	"..\lib\xlw-vc6-mt-1_2_3.lib"
 
-".\xll\Win32\VisualStudio\xlwExample.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+".\xll\xlwExample-vc6-mt.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 Release SingleThread"
+
+OUTDIR=.\build\ReleaseSingleThread
+INTDIR=.\build\ReleaseSingleThread
+# Begin Custom Macros
+OutDir=.\build\ReleaseSingleThread
+# End Custom Macros
+
+!IF "$(RECURSE)" == "0" 
+
+ALL : ".\xll\xlwExample-vc6-s.xll" "$(OUTDIR)\xlwExample.bsc"
+
+!ELSE 
+
+ALL : "xlw - Win32 Release SingleThread" ".\xll\xlwExample-vc6-s.xll" "$(OUTDIR)\xlwExample.bsc"
+
+!ENDIF 
+
+!IF "$(RECURSE)" == "1" 
+CLEAN :"xlw - Win32 Release SingleThreadCLEAN" 
+!ELSE 
+CLEAN :
+!ENDIF 
+	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(INTDIR)\Win32StreamBuf.obj"
+	-@erase "$(INTDIR)\Win32StreamBuf.sbr"
+	-@erase "$(INTDIR)\xlwExample.obj"
+	-@erase "$(INTDIR)\xlwExample.sbr"
+	-@erase "$(OUTDIR)\xlwExample-vc6-s.exp"
+	-@erase "$(OUTDIR)\xlwExample-vc6-s.lib"
+	-@erase "$(OUTDIR)\xlwExample.bsc"
+	-@erase ".\xll\xlwExample-vc6-s.xll"
+
+"$(OUTDIR)" :
+    if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
+
+CPP_PROJ=/nologo /ML /W3 /GR /GX /O2 /I ".." /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "WIN32" /D "_MBCS" /D "XLW_AUTOLINK" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
+BSC32=bscmake.exe
+BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
+BSC32_SBRS= \
+	"$(INTDIR)\Win32StreamBuf.sbr" \
+	"$(INTDIR)\xlwExample.sbr"
+
+"$(OUTDIR)\xlwExample.bsc" : "$(OUTDIR)" $(BSC32_SBRS)
+    $(BSC32) @<<
+  $(BSC32_FLAGS) $(BSC32_SBRS)
+<<
+
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\xlwExample-vc6-s.pdb" /machine:I386 /out:"xll\xlwExample-vc6-s.xll" /implib:"$(OUTDIR)\xlwExample-vc6-s.lib" /libpath:"..\lib\Win32\VisualStudio" 
+LINK32_OBJS= \
+	"$(INTDIR)\Win32StreamBuf.obj" \
+	"$(INTDIR)\xlwExample.obj" \
+	"..\lib\xlw-vc6-s-1_2_3.lib"
+
+".\xll\xlwExample-vc6-s.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 Debug SingleThread"
+
+OUTDIR=.\build\DebugSingleThread
+INTDIR=.\build\DebugSingleThread
+# Begin Custom Macros
+OutDir=.\build\DebugSingleThread
+# End Custom Macros
+
+!IF "$(RECURSE)" == "0" 
+
+ALL : ".\xll\xlwExampled-vc6-sgd.xll" "$(OUTDIR)\xlwExample.bsc"
+
+!ELSE 
+
+ALL : "xlw - Win32 Debug SingleThread" ".\xll\xlwExampled-vc6-sgd.xll" "$(OUTDIR)\xlwExample.bsc"
+
+!ENDIF 
+
+!IF "$(RECURSE)" == "1" 
+CLEAN :"xlw - Win32 Debug SingleThreadCLEAN" 
+!ELSE 
+CLEAN :
+!ENDIF 
+	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\Win32StreamBuf.obj"
+	-@erase "$(INTDIR)\Win32StreamBuf.sbr"
+	-@erase "$(INTDIR)\xlwExample.obj"
+	-@erase "$(INTDIR)\xlwExample.sbr"
+	-@erase "$(OUTDIR)\xlwExample.bsc"
+	-@erase "$(OUTDIR)\xlwExampled-vc6-sgd.exp"
+	-@erase "$(OUTDIR)\xlwExampled-vc6-sgd.lib"
+	-@erase "$(OUTDIR)\xlwExampled-vc6-sgd.pdb"
+	-@erase ".\xll\xlwExampled-vc6-sgd.ilk"
+	-@erase ".\xll\xlwExampled-vc6-sgd.xll"
+
+"$(OUTDIR)" :
+    if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
+
+CPP_PROJ=/nologo /MLd /W3 /Gm /GR /GX /ZI /Od /I ".." /D "_WINDOWS" /D "_USRDLL" /D "WIN32" /D "_MBCS" /D "XLW_AUTOLINK" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\xlwExample.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+MTL_PROJ=/nologo /mktyplib203 /win32 
+BSC32=bscmake.exe
+BSC32_FLAGS=/nologo /o"$(OUTDIR)\xlwExample.bsc" 
+BSC32_SBRS= \
+	"$(INTDIR)\Win32StreamBuf.sbr" \
+	"$(INTDIR)\xlwExample.sbr"
+
+"$(OUTDIR)\xlwExample.bsc" : "$(OUTDIR)" $(BSC32_SBRS)
+    $(BSC32) @<<
+  $(BSC32_FLAGS) $(BSC32_SBRS)
+<<
+
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\xlwExampled-vc6-sgd.pdb" /debug /machine:I386 /out:"xll\xlwExampled-vc6-sgd.xll" /implib:"$(OUTDIR)\xlwExampled-vc6-sgd.lib" /pdbtype:sept /libpath:"..\lib\Win32\VisualStudio" 
+LINK32_OBJS= \
+	"$(INTDIR)\Win32StreamBuf.obj" \
+	"$(INTDIR)\xlwExample.obj" \
+	"..\lib\xlw-vc6-sgd-1_2_3.lib"
+
+".\xll\xlwExampled-vc6-sgd.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(LINK32_OBJS)
 <<
@@ -339,7 +450,7 @@ LINK32_OBJS= \
 !ENDIF 
 
 
-!IF "$(CFG)" == "xlwExample - Win32 Release" || "$(CFG)" == "xlwExample - Win32 Debug" || "$(CFG)" == "xlwExample - Win32 OnTheEdgeDebug" || "$(CFG)" == "xlwExample - Win32 OnTheEdgeRelease"
+!IF "$(CFG)" == "xlwExample - Win32 Release" || "$(CFG)" == "xlwExample - Win32 Debug" || "$(CFG)" == "xlwExample - Win32 Debug MTDLL" || "$(CFG)" == "xlwExample - Win32 Release MTDLL" || "$(CFG)" == "xlwExample - Win32 Release SingleThread" || "$(CFG)" == "xlwExample - Win32 Debug SingleThread"
 
 !IF  "$(CFG)" == "xlwExample - Win32 Release"
 
@@ -365,28 +476,52 @@ LINK32_OBJS= \
    $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 Debug" RECURSE=1 CLEAN 
    cd ".\xlwExample"
 
-!ELSEIF  "$(CFG)" == "xlwExample - Win32 OnTheEdgeDebug"
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 Debug MTDLL"
 
-"xlw - Win32 OnTheEdgeDebug" : 
+"xlw - Win32 Debug MTDLL" : 
    cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 OnTheEdgeDebug" 
+   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 Debug MTDLL" 
    cd ".\xlwExample"
 
-"xlw - Win32 OnTheEdgeDebugCLEAN" : 
+"xlw - Win32 Debug MTDLLCLEAN" : 
    cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 OnTheEdgeDebug" RECURSE=1 CLEAN 
+   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 Debug MTDLL" RECURSE=1 CLEAN 
    cd ".\xlwExample"
 
-!ELSEIF  "$(CFG)" == "xlwExample - Win32 OnTheEdgeRelease"
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 Release MTDLL"
 
-"xlw - Win32 OnTheEdgeRelease" : 
+"xlw - Win32 Release MTDLL" : 
    cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 OnTheEdgeRelease" 
+   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 Release MTDLL" 
    cd ".\xlwExample"
 
-"xlw - Win32 OnTheEdgeReleaseCLEAN" : 
+"xlw - Win32 Release MTDLLCLEAN" : 
    cd "\Projects\XLW"
-   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 OnTheEdgeRelease" RECURSE=1 CLEAN 
+   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 Release MTDLL" RECURSE=1 CLEAN 
+   cd ".\xlwExample"
+
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 Release SingleThread"
+
+"xlw - Win32 Release SingleThread" : 
+   cd "\Projects\XLW"
+   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 Release SingleThread" 
+   cd ".\xlwExample"
+
+"xlw - Win32 Release SingleThreadCLEAN" : 
+   cd "\Projects\XLW"
+   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 Release SingleThread" RECURSE=1 CLEAN 
+   cd ".\xlwExample"
+
+!ELSEIF  "$(CFG)" == "xlwExample - Win32 Debug SingleThread"
+
+"xlw - Win32 Debug SingleThread" : 
+   cd "\Projects\XLW"
+   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 Debug SingleThread" 
+   cd ".\xlwExample"
+
+"xlw - Win32 Debug SingleThreadCLEAN" : 
+   cd "\Projects\XLW"
+   $(MAKE) /$(MAKEFLAGS) /F .\xlw.mak CFG="xlw - Win32 Debug SingleThread" RECURSE=1 CLEAN 
    cd ".\xlwExample"
 
 !ENDIF 

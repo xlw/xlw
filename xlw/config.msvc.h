@@ -22,14 +22,61 @@
 
 #pragma once
 
+
+//
+// select toolset:
+//
+#if (_MSC_VER < 1200)
+#  error "unsupported Microsoft compiler"
+#elif (_MSC_VER == 1200)
+// move inside here configs specific to VC++ 6.0
+#  define XLW_LIB_TOOLSET "vc6"
+#elif (_MSC_VER == 1300)
+// move inside here configs specific to VC++ .Net
+#  define XLW_LIB_TOOLSET "vc7"
+#elif (_MSC_VER == 1310)
+// move inside here configs specific to VC++ .Net 2003
+#  define XLW_LIB_TOOLSET "vc71"
+#else
+#  define XLW_LIB_TOOLSET "vcxx"
+#endif
+
+
+
 /*** libraries to be linked***/
 
-#ifdef XLW_AUTOLINK
-#ifndef NDEBUG
-#pragma comment(lib,"xlwd.lib")
+
+//
+// select thread opt:
+//
+#ifdef _MT
+#  define XLW_LIB_THREAD_OPT "-mt"
 #else
-#pragma comment(lib,"xlw.lib")
+#  define XLW_LIB_THREAD_OPT
 #endif
+
+//
+// select linkage opt:
+//
+#ifdef _DLL
+#  if defined(_DEBUG)
+#    define XLW_LIB_RT_OPT "-gd"
+#  else
+#    define XLW_LIB_RT_OPT
+#  endif
+#else
+#  if defined(_DEBUG)
+#    define XLW_LIB_RT_OPT "-sgd"
+#  else
+#    define XLW_LIB_RT_OPT "-s"
+#  endif
+#endif
+
+#define XLW_LIB_NAME "xlw-" XLW_LIB_TOOLSET XLW_LIB_THREAD_OPT XLW_LIB_RT_OPT "-" XLW_LIB_VERSION ".lib"
+
+#ifdef XLW_AUTOLINK
+#   pragma comment(lib, XLW_LIB_NAME)
+//#   pragma message(XLW_LIB_NAME)
 #endif // XLW_AUTOLINK
 
 //! Partial support of member templates (if defined inline).

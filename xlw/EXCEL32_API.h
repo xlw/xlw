@@ -21,8 +21,6 @@
 \brief Defines the EXCEL32_API macro that flags exported classes of the framework.
 */
 
-#include <xlw/port.h>
-
 /*! \defgroup macros Global XLW macros
     Global definitions and quite a few macros which help porting the code to
     different compilers
@@ -31,6 +29,8 @@
 
 //! version hexadecimal number
 #define XLW_HEX_VERSION 0x010203a0
+//! version string for output lib name
+#define XLW_LIB_VERSION "1_2_3"
 
 //! version string
 #ifndef NDEBUG
@@ -57,6 +57,8 @@
 #else
     #define EXCEL32_API
 #endif
+
+#include <xlw/port.h>
 
 /*! @}  */
 
