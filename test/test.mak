@@ -36,7 +36,7 @@ RSC=rc.exe
 OUTDIR=.\build\Release
 INTDIR=.\build\Release
 
-ALL : ".\Release\test.xll"
+ALL : ".\xll\Win32\VisualStudio\Release\test.xll"
 
 
 CLEAN :
@@ -44,7 +44,7 @@ CLEAN :
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(OUTDIR)\test.exp"
 	-@erase "$(OUTDIR)\test.lib"
-	-@erase ".\Release\test.xll"
+	-@erase ".\xll\Win32\VisualStudio\Release\test.xll"
 
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
@@ -56,11 +56,11 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\test.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\test.pdb" /machine:I386 /out:"Release/test.xll" /implib:"$(OUTDIR)\test.lib" /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\test.pdb" /machine:I386 /out:"xll\Win32\VisualStudio\Release/test.xll" /implib:"$(OUTDIR)\test.lib" /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
 	"$(INTDIR)\main.obj"
 
-".\Release\test.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+".\xll\Win32\VisualStudio\Release\test.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(LINK32_OBJS)
 <<
@@ -70,7 +70,7 @@ LINK32_OBJS= \
 OUTDIR=.\build\Debug
 INTDIR=.\build\Debug
 
-ALL : ".\Debug\test.xll"
+ALL : ".\xll\Win32\VisualStudio\Debug\test.xll"
 
 
 CLEAN :
@@ -80,8 +80,8 @@ CLEAN :
 	-@erase "$(OUTDIR)\test.exp"
 	-@erase "$(OUTDIR)\test.lib"
 	-@erase "$(OUTDIR)\test.pdb"
-	-@erase ".\Debug\test.ilk"
-	-@erase ".\Debug\test.xll"
+	-@erase ".\xll\Win32\VisualStudio\Debug\test.ilk"
+	-@erase ".\xll\Win32\VisualStudio\Debug\test.xll"
 
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
@@ -93,11 +93,11 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\test.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\test.pdb" /debug /machine:I386 /out:"Debug/test.xll" /implib:"$(OUTDIR)\test.lib" /pdbtype:sept /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\test.pdb" /debug /machine:I386 /out:"xll\Win32\VisualStudio\Debug/test.xll" /implib:"$(OUTDIR)\test.lib" /pdbtype:sept /libpath:"$(XLW_DIR)\lib\Win32\VisualStudio" 
 LINK32_OBJS= \
 	"$(INTDIR)\main.obj"
 
-".\Debug\test.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+".\xll\Win32\VisualStudio\Debug\test.xll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(LINK32_OBJS)
 <<

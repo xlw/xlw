@@ -54,7 +54,7 @@ extern "C"
     // XlfExcel::Coerce method (internally called) will return to Excel
     // if one of the cell was invalidated and need to be recalculated.
     // Excel will calculate this cell and call again our function.
-    // Thus we copy first all the data to avoid to partially compute the 
+    // Thus we copy first all the data to avoid to partially compute the
     // average for nothing since one of the cell might be uncalculated.
     double * temp = 0;
     // Allocate a buffer where to copy the values.
@@ -125,14 +125,14 @@ extern "C"
     // Set the arguments for the function. Note how you create a XlfArgDescList from
     // two or more XlfArgDesc (operator+). You can not push the XlfArgDesc one by one.
     concat.SetArguments(str1+str2);
-    // Registers the concat function.    
+    // Registers the concat function.
     concat.Register();
 
 
     // Registers the third function xlStats.
     // Argument descriptions.
     XlfArgDesc pop("Population","Target range containing the population");
-    // xlStats Function description 
+    // xlStats Function description
     XlfFuncDesc stats("xlStats","Stats","returns a (1x2) range containing the average and the variance of a numeric population","MyXLL");
     // Sets the arguments for the function.
     stats.SetArguments(pop);

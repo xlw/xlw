@@ -1,27 +1,51 @@
 
+- added nsi file for Win32 installer generation. The installer also set the
+  environment variable XLW_DIR pointing to your xlw installation folder.
+  This way any project based on xlw can add "$(XLW_DIR)" to the "Additional
+  include directory" list and add "$(QL_DIR)\lib\Win32\VisualStudio\" to the
+  "Additional library path" list.
+- moved sources under xlw folder, and switched to <xlw/xxx.h> inclusion
+  style (library suggested standards, at least by GNU)
 - added LICENSE.TXT, NEWS.TXT, AUTHORS.TXT, CONTRIBUTORS.TXT, HISTORY.TXT,
-  ChangeLog.TXT, and README.TXT files
-- added nsi file for installer generation
+  ChangeLog.TXT, and README.TXT files in the project root
 - moved test file main.cpp under test folder
-- sources moved under xlw folder
-- use of <xlw/xxx.h> inclusion
-- added config.msvc.h (no more need to explicitly link excel32.lib)
+- added config.msvc.h to handle all the MS VC defines. Now as long as you
+  include <xlw/excel32.h>, you won't have to explicitly link your
+  application to excel32.lib. This is automatically done by excel32.h using
+  the pragma statement:
+  #ifdef _DEBUG
+      #pragma comment(lib,"excel32_d.lib")
+  #else
+      #pragma comment(lib,"excel32.lib")
+  #endif
 - Visual Studio setting changed from Multithread to Multithread DLL
 - defined EXCEL32_NOIMPORTEXPORT in order to avoid classes being exported as
   __dlldecl(*) when creating a static library with Multithreaded DLL
   run-time libraries
-- added two VC++ build configurations: OnTheEdgeRelease and OnTheEdgeDebug
-- added CVS Id tag
+- added two VC++ build configurations. The "Win32 OnTheEdgeRelease" and
+  "Win32 OnTheEdgeDebug" configurations are equivalent to "Win32 Release"
+  and "Win32 Debug" respectively, except that they do not use the installed
+  xlw libraries, but look for the *.h, *.inl, and *.lib xlw files in a
+  relative ..\xlw path. This is mainly for xlw developers, to allow them to
+  check the examples without having to install their unstable working
+  version of xlw.
+  The "OnTheEdge" approach may be adopted in projects using xlw, allowing
+  for a quick and easy way to check how the projects work with a new xlw
+  release without having to install it.
 - error handling polished in accord to C++ standard
 - modified EXCEL32_API.h
 - purged port.h of unnecessary defines
-- introduced XLW_HEX_VERSION and XLW_VERSION
-- added config.bcc.h
-- xlw compiles under borland
-- the debug version is called excel32_d.lib
+- introduced XLW_HEX_VERSION and XLW_VERSION (0x010100a1 and 1.1.0a1
+  respectively for the time being)
+- added config.bcc.h for Borland CPP defines
+- compiled xlw under borland
+- the library debug version is called excel32_d.lib (Python convention)
 - test uses XLW_DIR environment variable to detect xlw installation
 - test doesn't link excel32.lib anymore
 - doxygen.cfg renamed as xlw.doxy, moved under Docs folder, and modified in
   order to account for the Docs folder
 - updated to doxygen 1.2.11.1
 - all *.txt documentation pages moved under Docs folder
+- added CVS Id tag to all files
+
+http://longre.free.fr/pages/prog/api-c.htm

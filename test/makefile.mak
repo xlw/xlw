@@ -34,7 +34,7 @@ CC_OPTS = $(CC_OPTS) -v -DXLW_DEBUG
 
 # Primary target:
 test$(_D).xll: main.cpp
-    bcc32 $(CC_OPTS) -L$(XLW_LIB_DIR) -L$(BCC_LIBS) -otest$(_D).obj -etest$(_D).exe main.cpp excel32$(_D).lib
+    bcc32 $(CC_OPTS) -L$(XLW_LIB_DIR) -L$(BCC_LIBS) -tWD -otest$(_D).obj -exll\Win32\Borland\test$(_D).xll main.cpp excel32$(_D).lib
 
 # Clean up
 clean::
