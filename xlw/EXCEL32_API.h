@@ -30,7 +30,7 @@
 */
 
 //! version hexadecimal number
-#define XLW_HEX_VERSION 0x010100a1
+#define XLW_HEX_VERSION 0x010100a2
 
 //! version string
 #ifdef XLW_DEBUG
@@ -44,17 +44,17 @@
 
 
 #if defined(DEBUG_HEADERS)
-#pragma DEBUG_HEADERS
+    #pragma DEBUG_HEADERS
 #endif
 
 #if defined (_DLL) && !defined(XLW_NOIMPORTEXPORT)
-#ifdef EXCEL32_EXPORTS
-#define EXCEL32_API PORT_EXPORT_SYMBOL
+    #ifdef EXCEL32_EXPORTS
+        #define EXCEL32_API PORT_EXPORT_SYMBOL
+    #else
+        #define EXCEL32_API PORT_IMPORT_SYMBOL
+    #endif
 #else
-#define EXCEL32_API PORT_IMPORT_SYMBOL
-#endif
-#else
-#define EXCEL32_API
+    #define EXCEL32_API
 #endif
 
 /*! @}  */
