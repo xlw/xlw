@@ -1,6 +1,4 @@
 
-# $Id $
-
 .autodepend
 #.silent
 
@@ -35,7 +33,6 @@ TLIB      = tlib
 
 # Options
 CC_OPTS        = -vi- -q -c -tWM \
-    -w-8008 -w-8017 \
     -I$(INCLUDE_DIR) \
     -I$(BCC_INCLUDE)
 !ifdef DEBUG
@@ -58,15 +55,15 @@ TLIB_OPTS    = /P64
 
 # Primary target:
 # XLW library
-$(OUTPUT_DIR)\xlw-bcb-$(_D).lib:: $(CORE_OBJS)
-    if exist $(OUTPUT_DIR)\xlw-bcb-$(_D).lib del $(OUTPUT_DIR)\xlw-bcb-$(_D).lib
-    $(TLIB) $(TLIB_OPTS) $(OUTPUT_DIR)\xlw-bcb-$(_D).lib /a $(CORE_OBJS)
+$(OUTPUT_DIR)\xlw-bcb$(_D)-1_2_3.lib:: $(CORE_OBJS)
+    if exist "$(OUTPUT_DIR)\xlw-bcb$(_D)-1_2_3.lib" \
+         del "$(OUTPUT_DIR)\xlw-bcb$(_D)-1_2_3.lib"
+    $(TLIB) $(TLIB_OPTS) "$(OUTPUT_DIR)\xlw-bcb$(_D)-1_2_3.lib" /a $(CORE_OBJS)
 
 
 
 # Clean up
 clean::
-    if exist *.obj      del /q *.obj
-    if exist *.obj$(_D)    del /q *.obj
+    if exist *.obj                     del /q *.obj
+    if exist *.obj$(_D)                del /q *.obj
     if exist $(OUTPUT_DIR)\*-bcb*.lib  del /q $(OUTPUT_DIR)\*-bcb*.lib
-

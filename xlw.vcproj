@@ -342,10 +342,16 @@
 				RelativePath="xlw\config.bcc.h">
 			</File>
 			<File
+				RelativePath=".\xlw\config.mgw.h">
+			</File>
+			<File
 				RelativePath="xlw\config.msvc.h">
 			</File>
 			<File
 				RelativePath=".\xlw\defines.h">
+			</File>
+			<File
+				RelativePath=".\xlw\ERR_Macros.h">
 			</File>
 			<File
 				RelativePath="xlw\EXCEL32_API.h">

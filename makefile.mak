@@ -1,8 +1,5 @@
 
-# main makefile for XLW under Borland C++
-#
-# $Id $
-
+# makefile for XLW under Borland C++
 
 .autodepend
 #.silent
