@@ -26,6 +26,7 @@
 
 // Package files
 #include <xlw/macros.h>
+#include <xlw/defines.h>
 #include <xlw/XlfArgDescList.h>
 #include <xlw/XlfCmdDesc.h>
 #include <xlw/XlfOper.h>

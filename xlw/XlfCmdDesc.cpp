@@ -24,6 +24,7 @@
 #include <xlw/XlfOper.h>
 #include <xlw/XlfException.h>
 #include <xlw/macros.h>
+#include <xlw/defines.h>
 #include <iostream>
 
 // Stop header precompilation

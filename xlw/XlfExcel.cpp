@@ -28,6 +28,7 @@
 #endif
 #include <stdexcept>
 #include <xlw/XlfOper.h>
+#include <xlw/defines.h>
 
 // Stop header precompilation
 #ifdef _MSC_VER

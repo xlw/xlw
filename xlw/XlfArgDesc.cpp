@@ -22,6 +22,7 @@
 
 #include <xlw/XlfArgDesc.h>
 #include <xlw/macros.h>
+#include <xlw/defines.h>
 #include <iostream>
 
 // Stop header precompilation
