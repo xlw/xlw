@@ -1,0 +1,76 @@
+/*! \page gettingstarted Getting started
+You will find in the example project the file main.cpp. Let us look
+at the code it contains. It will give you a good idea of the way 
+you are supposed to use the package.
+
+Don't forget to link everything in multithreaded 
+(either DLL or static RT lib), and start by including the following 
+header.
+
+\dontinclude main.cpp
+\skip include
+\until include
+
+Enclose the interface function in a extern "C" block as you are going
+to expose \ref IsItCpp "only C functions" to Excel. This is linked to the
+C nature of the Excel API used by the framework. You might want to 
+consider using the more complicated \ref WhenCom "COM interface" if it 
+is too much of a problem for you. Note however that nothing prohibits you 
+to forward (as I normally do) the call to your C API towards an other 
+library written in C++.
+
+\until {
+
+Let us start with the function you integrate in Excel. You 
+should start by checking that these four recomendations hold for any
+C function to be registered into Excel: 
+- Flag the function with the preprocessor macro EXCEL_EXPORT 
+which currently evaluate to __declspec(dllexport). It tells the 
+linker to export the function. Excel won't see it if you fail to 
+do so.
+- Enclose the function body between the two macros EXCEL_BEGIN 
+and EXCEL_END. They hide a little memory management (see 
+XlfExcel::FreeMemory)and guard Excel against eventual exception 
+thrown by your function.
+- Declare all function arguments (passed by Excel) as XlfOper, 
+XlfConstOper, or one of the standard POD type of C (long, double, 
+char *...).
+- Prototype your function as returning an LPXLOPER.
+
+The following function takes the diameter of a circle as an argument 
+and compute the circumference of this circle.
+
+\until }
+
+Here is an other example of function to be registered. This one takes
+two strings as argument and returns their conacatenation.
+
+\until }
+
+The last function is a little longer. It shows how to deal with range 
+references and return numeric arrays. It takes a range reference and 
+computes the average and the variance of the population and returns it 
+in a (1x2) array.
+
+\until EXCEL_END
+\until }
+
+Once your functions are written, you should export (with EXCEL_EXPORT) 
+a function called \c xlAutoOpen that registers to Excel the 
+function(s) you want to call from Microsoft Excel as shown bellow. 
+
+If Microsoft Excel can locate \c xlAutoOpen, it automatically calls 
+it when the DLL (or XLL) is loaded.
+
+\until }
+
+And close the extern "C" block.
+
+\until }
+
+Compile and link the dll in multi-threaded mode and load the dll from
+the file menu of Microsoft Excel or by putting it in the start directory.
+You might eventually rename your dll as xll to make the type of the file 
+more explicit. A demo Excel spreadsheet that uses the functions is enclosed 
+with the project.
+*/

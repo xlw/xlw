@@ -1,0 +1,15 @@
+/*!
+\page knownbugs Known bugs and limitations.
+
+- The comment line of the last argument is sometimes cut by one or
+two characters at the end. The risk seem to grow if your function
+has many arguments.
+- It is not possible to unregister a function due to a bug in Microsoft
+Excel C API (according to \ref XLSDK97). In practice, it is rarely a 
+problem.
+- You can't pass character strings longer than 255 characters between
+Excel and your XLL.
+- References passed to the XLL are limited to 256 columns.
+
+See also the <a href="todo.html">Todo</a> list.
+*/

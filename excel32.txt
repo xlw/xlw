@@ -1,0 +1,33 @@
+/*!
+\mainpage Excel32 C++ Wrapper (XLW)
+
+\author <a href=mailto:xlw@ifrance.com>Jérôme Lecomte</a>(\ref copyright)
+
+Have you ever programmed an algorithm in C or C++ you needed to test 
+on a large number of values? Did you ever want to quickly calibrate
+the parameters of your estimation? Did you ever wish you could
+graph your output in no time and integrate your work in a word 
+document with even less effort?  If you do (or did), you might 
+consider spending five minutes browsing this site. 
+
+The excel32 C++ wrapper package wraps the C API described in \ref XLSDK97
+in a few classes that make API programming with Excel much, much simpler. 
+This simple (a few lines of code as demonstrated in the \ref gettingstarted
+section), yet powerfull interface will empower your C or C++ numerics by 
+embeding them in Excel (just like the built in functions); and let you 
+benefit from its powerfull functionalities, including graphs, solver, or 
+integration with the rest of the Microsoft office suite. These classes are 
+thoroughly documented and \ref download "downloadable" free of charge as 
+long as you retain the \ref copyright "copyright notice".
+
+I used early versions of this package for years. The version 1.0 was tested
+under Windows 9X/NT with Visual C++ 6.0 and Excel 97 \ref sr1 "SR-1 & SR-2" 
+with minor problems (see \ref knownbugs). The package is not perfect but 
+certainly has reached a stage where it can be extremely usefull. If you have 
+any comment, you can email to xlw@ifrance.com. I heartily welcome all 
+suggestions, improvements and critics to the software and/or the documentation.
+
+If you are interested in knowing more about the C++ wrapper, you can browse 
+the the documentation by clicking on <a href="pages.html">Related Pages</a> 
+on the upper right corner of this page.
+*/
