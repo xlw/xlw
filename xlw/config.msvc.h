@@ -1,7 +1,7 @@
 
 /*
  Copyright (c) 2002 Ferdinando Ametrano
- Copyright (c) 1998-2001 Jerome Lecomte
+ Copyright (c) 1998-2002 Jerome Lecomte
 
  This file is part of XLW, a free-software/open-source Excel32 C++ Wrapper
  http://xlw.sourceforge.net/

@@ -2,7 +2,7 @@
 # $Id $
 
 .autodepend
-#.silent
+.silent
 
 # Debug version
 !ifdef DEBUG
@@ -36,8 +36,8 @@ TLIB      = tlib
 !endif
 
 # Options
-#    -w-8008 -w-8017 \
 CC_OPTS        = -vi- -q -c -tWM \
+    -w-8008 -w-8017 \
     -I$(INCLUDE_DIR) \
     -I$(BCC_INCLUDE)
 !ifdef DEBUG

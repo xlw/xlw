@@ -70,7 +70,7 @@ WARN_LOGFILE           = docswarnings.txt
 # configuration options related to the input files
 #---------------------------------------------------------------------------
 INPUT                 = ./pages \
-                        ../
+                        ../xlw
 FILE_PATTERNS         = *.h \
                         *.inl \
                         *.cpp \
@@ -80,7 +80,7 @@ EXCLUDE               = xlcall32.h
 EXCLUDE_PATTERNS      =
 
 # from QuantLib
-EXAMPLE_PATH          = test
+EXAMPLE_PATH          = ../test
 EXAMPLE_PATTERNS      = *.cpp
 
 IMAGE_PATH            =
