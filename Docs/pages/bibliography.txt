@@ -1,16 +1,14 @@
 /*!
 \page bibliography Bibliography
 
-\section books Books
-
 \subsection DP Design Patterns
-Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides. 
-<I>Design patterns : Elements of reusable object-oriented design</I>, 
+Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides.
+<I>Design patterns : Elements of reusable object-oriented design</I>,
 Addison-Wesley, 1994. The book exists as a CD too.
 
 \subsection HS Exceptional C++
 Herb Sutter.
-<I>Exceptional C++</I>, 
+<I>Exceptional C++</I>,
 Addison-Wesley, 2000.
 
 \subsection Ec Effective C++ CD
@@ -18,18 +16,16 @@ Scott Meyers
 <I>Effective C++ CD</I>, Addison-Wesley, 1999
 
 \subsection SOUS3 The C++ Programming Language
-Bjarne Soustrup. 
-<I>The C++ Programming Language (3rd edition)</I>, 
+Bjarne Soustrup.
+<I>The C++ Programming Language (3rd edition)</I>,
 Addison-Wesley, 1998.
 
 \subsection XLSDK97 Microsoft Excel 97 Developer's Kit
 Baarns Consulting Group
 <I>Microsoft Excel 97 Developer's kit</I>,
-Microsoft Press, 1997. This book is 
-also available online under 
+Microsoft Press, 1997. This book is
+also available online under
 http://msdn.microsoft.com/library/officedev/office97/sfacb.htm
-
-\section sites Web sites
 
 \subsection CppFaqLite C++ FAQ-Lite
 Marshall Cline, <I>C++ Frequently Asked Question lite</I>,
