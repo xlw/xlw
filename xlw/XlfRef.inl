@@ -27,15 +27,15 @@
 #endif
 
 INLINE XlfRef::XlfRef()
-    :rowbegin_(0), rowend_(0), colbegin_(0), colend_(0)
+    :rowbegin_(0), rowend_(0), colbegin_(0), colend_(0), sheetId_(0)
 {}
 
-INLINE XlfRef::XlfRef(WORD top, BYTE left, WORD bottom, BYTE right)
-    :rowbegin_(top), rowend_(bottom + 1), colbegin_(left), colend_(right + 1)
+INLINE XlfRef::XlfRef(WORD top, BYTE left, WORD bottom, BYTE right, DWORD sheetId)
+    :rowbegin_(top), rowend_(bottom + 1), colbegin_(left), colend_(right + 1), sheetId_(sheetId)
 {}
 
-INLINE XlfRef::XlfRef(WORD row, BYTE col)
-    :rowbegin_(row), rowend_(row + 1), colbegin_(col), colend_(col + 1)
+INLINE XlfRef::XlfRef(WORD row, BYTE col, DWORD sheetId)
+    :rowbegin_(row), rowend_(row + 1), colbegin_(col), colend_(col + 1), sheetId_(sheetId)
 {}
 
 INLINE WORD XlfRef::GetRowBegin() const
@@ -56,6 +56,11 @@ INLINE BYTE XlfRef::GetColBegin() const
 INLINE BYTE XlfRef::GetColEnd() const
 {
   return colend_;
+}
+
+INLINE DWORD XlfRef::GetSheetId() const
+{
+  return sheetId_;
 }
 
 INLINE BYTE XlfRef::GetNbCols() const
@@ -86,4 +91,9 @@ INLINE void XlfRef::SetColBegin(BYTE colbegin)
 INLINE void XlfRef::SetColEnd(BYTE colend)
 {
   colend_ = colend;
+}
+
+INLINE void XlfRef::SetSheetId(DWORD sheetId)
+{
+  sheetId_ = sheetId;
 }

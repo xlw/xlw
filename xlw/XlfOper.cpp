@@ -245,13 +245,12 @@ int XlfOper::ConvertToString(char *& s) const throw()
   {
     // see AsDouble
     XLOPER tmp;
-    XlfOper cast(&tmp,false);
+	// Second argument true marks XlfOper so that xlFree is called on the
+	// MS Excel allocated memory (the string) when XlfOper goes out of scope.
+    XlfOper cast(&tmp,true);
     xlret = Coerce(xltypeStr,cast);
 	if (xlret == xlretSuccess)
 	    xlret = cast.ConvertToString(s);
-	// The memory for the string is allocated on Excel area
-	// FreeAuxiliaryMemory lets Excel know that we no longer need it.
-	cast.FreeAuxiliaryMemory();
   }
   return xlret;
 }
@@ -267,20 +266,25 @@ XlfRef XlfOper::AsRef() const
 int XlfOper::ConvertToRef(XlfRef& r) const throw()
 {
   int xlret;
-  if (lpxloper_->xltype == xltypeSRef)
+  if (lpxloper_->xltype == xltypeRef)
   {
-    r = XlfRef (lpxloper_->val.sref.ref.rwFirst,  // top
-                lpxloper_->val.sref.ref.colFirst, // left
-                lpxloper_->val.sref.ref.rwLast,   // bottom
-                lpxloper_->val.sref.ref.colLast); // right
+	const XLREF& ref=lpxloper_->val.mref.lpmref->reftbl[0];
+    r = XlfRef (ref.rwFirst,  // top
+                ref.colFirst, // left
+                ref.rwLast,   // bottom
+                ref.colLast,  // right
+				lpxloper_->val.mref.idSheet); // sheet id
 	xlret = xlretSuccess;
   }
   else
   {
     // see AsDouble
     XLOPER tmp;
-    XlfOper cast(&tmp,false);
-    xlret = Coerce(xltypeStr,cast);
+	// Second argument true marks XlfOper so that xlFree is called on the
+	// MS Excel allocated memory (the reference array) when XlfOper goes 
+	// out of scope.
+    XlfOper cast(&tmp,true);
+    xlret = Coerce(xltypeRef,cast);
 	if (xlret == xlretSuccess)
 	    xlret = cast.ConvertToRef(r);
   }
@@ -317,11 +321,15 @@ XlfOper& XlfOper::Set(bool value)
 
 XlfOper& XlfOper::Set(const XlfRef& range)
 {
-  lpxloper_->xltype = xltypeSRef;
-  lpxloper_->val.sref.ref.rwFirst = range.GetRowBegin();
-  lpxloper_->val.sref.ref.rwLast = range.GetRowEnd()-1;
-  lpxloper_->val.sref.ref.colFirst = range.GetColBegin();
-  lpxloper_->val.sref.ref.colLast = range.GetColEnd()-1;
+  lpxloper_->xltype = xltypeRef;
+  XLMREF * pmRef = reinterpret_cast<XLMREF *>(XlfExcel::Instance().GetMemory(sizeof(XLMREF)));
+  pmRef->count=1;
+  pmRef->reftbl[0].rwFirst = range.GetRowBegin();
+  pmRef->reftbl[0].rwLast = range.GetRowEnd()-1;
+  pmRef->reftbl[0].colFirst = range.GetColBegin();
+  pmRef->reftbl[0].colLast = range.GetColEnd()-1;
+  lpxloper_->val.mref.lpmref = pmRef;
+  lpxloper_->val.mref.idSheet = range.GetSheetId();
   return *this;
 }
 

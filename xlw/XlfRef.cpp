@@ -42,6 +42,6 @@ XlfOper XlfRef::operator()(WORD r, BYTE c) const
 {
 	ERR_CHECKX(rowbegin_ + r<rowend_ && colbegin_ + c<colend_, XlfException,"access out of range");
 	XlfOper res;
-	res.Set(XlfRef(rowbegin_ + r, colbegin_ + c));
+	res.Set(XlfRef(rowbegin_ + r, colbegin_ + c, sheetId_));
 	return res;
 }

@@ -56,29 +56,33 @@ public:
   //! Default ctor.
   XlfRef();
   //! Absolute reference ctor.
-  XlfRef(WORD top, BYTE left, WORD bottom, BYTE right);
+  XlfRef(WORD top, BYTE left, WORD bottom, BYTE right, DWORD sheetId = 0);
   //! Absolute reference ctor, to a single cell.
-  XlfRef(WORD row, BYTE col);
-  //! Get the first row of the range (0 based).
+  XlfRef(WORD row, BYTE col, DWORD sheetId = 0);
+  //! Gets the first row of the range (0 based).
   WORD GetRowBegin() const;
-  //! Get passed the last row of the range (0 based).
+  //! Gets passed the last row of the range (0 based).
   WORD GetRowEnd() const;
-  //! Get the first column of the range (0 based).
+  //! Gets the first column of the range (0 based).
   BYTE GetColBegin() const;
-  //! Get passed the last column of the range (0 based).
+  //! Gets passed the last column of the range (0 based).
   BYTE GetColEnd() const;
-  //! Get the number of columns.
+  //! Gets the number of columns.
   BYTE GetNbCols() const;
-  //! Get the number of rows.
+  //! Gets the number of rows.
   WORD GetNbRows() const;
-  //! Set the first row of the range.
+  //! Gets MS Excel sheet identifier of the range.
+  DWORD GetSheetId() const;
+  //! Sets the first row of the range.
   void SetRowBegin(WORD rowbegin);
-  //! Set passed the last row of the range.
+  //! Sets passed the last row of the range.
   void SetRowEnd(WORD rowend);
-  //! Set the first column of the range.
+  //! Sets the first column of the range.
   void SetColBegin(BYTE colbegin);
-  //! Set passed the last column of the range.
+  //! Sets passed the last column of the range.
   void SetColEnd(BYTE colend);
+  //! Sets MS Excel sheet identifier of the range.
+  void SetSheetId(DWORD);
   //! Access operator
   XlfOper operator()(WORD relativerow, BYTE relativecol) const;
 
@@ -91,6 +95,8 @@ private:
   BYTE colbegin_;
   //! Index of one past the right most column of the range reference.
   BYTE colend_;
+  //! Index of the sheet the reference is pointing to.
+  DWORD sheetId_;
 };
 
 #ifdef NDEBUG
