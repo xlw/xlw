@@ -26,6 +26,7 @@
 #include <xlw/EXCEL32_API.h>
 #include <xlw/xlcall32.h>
 #include <xlw/XlfExcel.h>
+#include <vector>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -95,6 +96,8 @@ public:
 
   //! Converts to a double. 
   double AsDouble() const;
+  //! Converts to a std::vector<double>. 
+  std::vector<double> AsDoubleVector() const;
   //! Attempts conversion to double and returns Excel4 error code. 
   int ConvertToDouble(double&) const throw();
 

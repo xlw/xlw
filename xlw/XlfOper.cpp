@@ -144,6 +144,32 @@ double XlfOper::AsDouble() const
 	return d;
 };
 
+std::vector<double> XlfOper::AsDoubleVector() const
+{
+	XlfRef r;
+	int xlret = ConvertToRef(r);
+	XlfExcel::Instance().ThrowOnCriticalError(xlret);
+
+    std::vector<double> result;
+    size_t n, i;
+    if (r.GetNbCols()==1) {
+        n = r.GetNbRows();
+        result = std::vector<double>(n);
+        for (i = 0; i < n; ++i) {
+            result[i] = r(i,0).AsDouble();
+        }
+    } else if (r.GetNbRows()==1) {
+        n = r.GetNbCols();
+        result = std::vector<double>(n);
+        for (i = 0; i < n; ++i) {
+            result[i] = r(0,i).AsDouble();
+        }
+    } else
+    	ERR_THROW_MSG(std::runtime_error,"not a vector");
+    
+    return result;
+};
+
 int XlfOper::ConvertToDouble(double& d) const throw()
 {
   int xlret;
