@@ -16,7 +16,6 @@
 // $Id$
 
 #include <xlw/XlfCmdDesc.h>
-#include <xlw/xlcall32.h>
 #include <xlw/XlfOper.h>
 #include <xlw/XlfExcel.h>
 #include <xlw/ERR_Macros.h>

@@ -18,7 +18,6 @@
 
 // $Id$
 
-#include <xlw/EXCEL32_API.h>
 #include <xlw/XlfAbstractCmdDesc.h>
 
 #if defined(_MSC_VER)

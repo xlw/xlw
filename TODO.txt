@@ -1,9 +1,10 @@
 
-sf link and logo
-add notice of sf project in documentation
 add multiple doc formats
 update documentation including changes (see NEWS.txt)
 remove Borland warnings
+
+rename excel32*.* to xlw*.*
+project name
 
 make http://www.ifrance.com/xlw/ a link to xlw.sf.net
 rename test into example
