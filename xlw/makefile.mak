@@ -2,7 +2,7 @@
 # $Id $
 
 .autodepend
-.silent
+#.silent
 
 # Debug version
 !ifdef DEBUG
@@ -12,12 +12,11 @@
 # Directories
 INCLUDE_DIR    = ..
 BCC_INCLUDE    = $(MAKEDIR)\..\include
-BCC_LIBS       = $(MAKEDIR)\..\lib
 OUTPUT_DIR     = ..\lib\Win32\Borland
 
 # Object files
 CORE_OBJS = \
-    xlw.obj$(_D) \
+    excel32.obj$(_D) \
     XlfAbstractCmdDesc.obj$(_D) \
     XlfArgDesc.obj$(_D) \
     XlfArgDescList.obj$(_D) \
@@ -42,7 +41,7 @@ CC_OPTS        = -vi- -q -c -tWM \
     -I$(BCC_INCLUDE) \
     -DXLW_NOIMPORTEXPORT
 !ifdef DEBUG
-CC_OPTS = $(CC_OPTS) -v -DQL_DEBUG
+CC_OPTS = $(CC_OPTS) -v -DXLW_DEBUG
 !endif
 !ifdef SAFE
 CC_OPTS = $(CC_OPTS) -DSAFE_CHECKS
@@ -56,7 +55,7 @@ TLIB_OPTS    = /P64
 # Generic rules
 .cpp.obj:
     $(CC) $(CC_OPTS) $<
-.cpp.obj_d:
+.cpp.obj$(_D):
     $(CC) $(CC_OPTS) -o$@ $<
 
 # Primary target:
@@ -70,6 +69,6 @@ $(OUTPUT_DIR)\xlw$(_D).lib:: $(CORE_OBJS)
 # Clean up
 clean::
     if exist *.obj      del /q *.obj
-    if exist *.obj_d    del /q *.obj
+    if exist *.obj$(_D)    del /q *.obj
     if exist $(OUTPUT_DIR)\*.lib  del /q $(OUTPUT_DIR)\*.lib
 
