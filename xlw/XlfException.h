@@ -25,6 +25,7 @@
 
 #include <xlw/EXCEL32_API.h>
 #include <string>
+#include <exception>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -45,11 +46,7 @@ they will be catched differently by the wrapper.
 These exceptions don't necessarly correspond to errors, see
 for example XlfExceptionUncalculated.
 */
-#ifdef __MINGW32__
-class EXCEL32_API XlfException
-#else
 class EXCEL32_API XlfException : public std::exception
-#endif
 {
 public:
   //! Message string ctor.
