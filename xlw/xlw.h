@@ -20,7 +20,7 @@
 #define INC_Excel32_H
 
 /*!
-\file excel32.h
+\file xlw.h
 \brief Includes all the include files of the package.
 */
 

@@ -47,7 +47,7 @@
 #pragma DEBUG_HEADERS
 #endif
 
-#if defined (_DLL) && !defined(EXCEL32_NOIMPORTEXPORT)
+#if defined (_DLL) && !defined(XLW_NOIMPORTEXPORT)
 #ifdef EXCEL32_EXPORTS
 #define EXCEL32_API PORT_EXPORT_SYMBOL
 #else

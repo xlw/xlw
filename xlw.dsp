@@ -1,36 +1,36 @@
-# Microsoft Developer Studio Project File - Name="excel32" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="xlw" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
-CFG=excel32 - Win32 Debug
+CFG=xlw - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "excel32.mak".
+!MESSAGE NMAKE /f "xlw.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "excel32.mak" CFG="excel32 - Win32 Debug"
+!MESSAGE NMAKE /f "xlw.mak" CFG="xlw - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "excel32 - Win32 Release" (based on "Win32 (x86) Static Library")
-!MESSAGE "excel32 - Win32 Debug" (based on "Win32 (x86) Static Library")
-!MESSAGE "excel32 - Win32 OnTheEdgeDebug" (based on "Win32 (x86) Static Library")
-!MESSAGE "excel32 - Win32 OnTheEdgeRelease" (based on "Win32 (x86) Static Library")
+!MESSAGE "xlw - Win32 Release" (based on "Win32 (x86) Static Library")
+!MESSAGE "xlw - Win32 Debug" (based on "Win32 (x86) Static Library")
+!MESSAGE "xlw - Win32 OnTheEdgeDebug" (based on "Win32 (x86) Static Library")
+!MESSAGE "xlw - Win32 OnTheEdgeRelease" (based on "Win32 (x86) Static Library")
 !MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""$/excel32", BXAAAAAA"
+# PROP Scc_ProjName ""$/xlw", BXAAAAAA"
 # PROP Scc_LocalPath "."
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "excel32 - Win32 Release"
+!IF  "$(CFG)" == "xlw - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "build\Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I ".\\" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "EXCEL32_NOIMPORTEXPORT" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I ".\\" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "XLW_NOIMPORTEXPORT" /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -51,14 +51,14 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32.lib"
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\xlw.lib"
 
-!ELSEIF  "$(CFG)" == "excel32 - Win32 Debug"
+!ELSEIF  "$(CFG)" == "xlw - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "excel32___Win32_Debug"
-# PROP BASE Intermediate_Dir "excel32___Win32_Debug"
+# PROP BASE Output_Dir "xlw___Win32_Debug"
+# PROP BASE Intermediate_Dir "xlw___Win32_Debug"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
@@ -66,7 +66,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "build\Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\\" /D "XLW_DEBUG" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "EXCEL32_NOIMPORTEXPORT" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\\" /D "XLW_DEBUG" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "XLW_NOIMPORTEXPORT" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -74,14 +74,14 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32d.lib"
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\xlwd.lib"
 
-!ELSEIF  "$(CFG)" == "excel32 - Win32 OnTheEdgeDebug"
+!ELSEIF  "$(CFG)" == "xlw - Win32 OnTheEdgeDebug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "excel32___Win32_OnTheEdgeDebug"
-# PROP BASE Intermediate_Dir "excel32___Win32_OnTheEdgeDebug"
+# PROP BASE Output_Dir "xlw___Win32_OnTheEdgeDebug"
+# PROP BASE Intermediate_Dir "xlw___Win32_OnTheEdgeDebug"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
@@ -89,22 +89,22 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "build\OnTheEdgeDebug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\\" /D "XLW_DEBUG" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "EXCEL32_NOIMPORTEXPORT" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\\" /D "XLW_DEBUG" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "XLW_NOIMPORTEXPORT" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
-# ADD BASE LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32_d.lib"
-# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32d.lib"
+# ADD BASE LIB32 /nologo /out:"lib\Win32\VisualStudio\xlw_d.lib"
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\xlwd.lib"
 
-!ELSEIF  "$(CFG)" == "excel32 - Win32 OnTheEdgeRelease"
+!ELSEIF  "$(CFG)" == "xlw - Win32 OnTheEdgeRelease"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
-# PROP BASE Output_Dir "excel32___Win32_OnTheEdgeRelease"
-# PROP BASE Intermediate_Dir "excel32___Win32_OnTheEdgeRelease"
+# PROP BASE Output_Dir "xlw___Win32_OnTheEdgeRelease"
+# PROP BASE Intermediate_Dir "xlw___Win32_OnTheEdgeRelease"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
@@ -112,24 +112,24 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "build\OnTheEdgeRelease"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I ".\\" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "EXCEL32_NOIMPORTEXPORT" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I ".\\" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "XLW_NOIMPORTEXPORT" /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
-# ADD BASE LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32.lib"
-# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\excel32.lib"
+# ADD BASE LIB32 /nologo /out:"lib\Win32\VisualStudio\xlw.lib"
+# ADD LIB32 /nologo /out:"lib\Win32\VisualStudio\xlw.lib"
 
 !ENDIF 
 
 # Begin Target
 
-# Name "excel32 - Win32 Release"
-# Name "excel32 - Win32 Debug"
-# Name "excel32 - Win32 OnTheEdgeDebug"
-# Name "excel32 - Win32 OnTheEdgeRelease"
+# Name "xlw - Win32 Release"
+# Name "xlw - Win32 Debug"
+# Name "xlw - Win32 OnTheEdgeDebug"
+# Name "xlw - Win32 OnTheEdgeRelease"
 # Begin Group "Include"
 
 # PROP Default_Filter ".h"
@@ -144,10 +144,6 @@ SOURCE=.\xlw\config.msvc.h
 # Begin Source File
 
 SOURCE=.\xlw\ERR_Macros.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\xlw\excel32.h
 # End Source File
 # Begin Source File
 
@@ -204,6 +200,10 @@ SOURCE=.\xlw\XlfOper.h
 # Begin Source File
 
 SOURCE=.\xlw\XlfRef.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\xlw\xlw.h
 # End Source File
 # End Group
 # Begin Group "Source"
@@ -283,11 +283,11 @@ SOURCE=.\Docs\pages\bibliography.txt
 # End Source File
 # Begin Source File
 
-SOURCE=.\Docs\pages\download.txt
+SOURCE=.\Docs\pages\copyright.txt
 # End Source File
 # Begin Source File
 
-SOURCE=.\Docs\pages\excel32.txt
+SOURCE=.\Docs\pages\download.txt
 # End Source File
 # Begin Source File
 
@@ -299,11 +299,35 @@ SOURCE=.\Docs\pages\gettingStarted.txt
 # End Source File
 # Begin Source File
 
+SOURCE=.\Docs\pages\history.txt
+# End Source File
+# Begin Source File
+
+SOURCE=.\Docs\pages\index.txt
+# End Source File
+# Begin Source File
+
+SOURCE=.\Docs\pages\install.txt
+# End Source File
+# Begin Source File
+
 SOURCE=.\Docs\pages\knownbugs.txt
 # End Source File
 # Begin Source File
 
 SOURCE=.\Docs\pages\misc.txt
+# End Source File
+# Begin Source File
+
+SOURCE=.\Docs\pages\platforms.txt
+# End Source File
+# Begin Source File
+
+SOURCE=.\Docs\pages\projects.txt
+# End Source File
+# Begin Source File
+
+SOURCE=.\Docs\pages\usage.txt
 # End Source File
 # End Group
 # Begin Source File

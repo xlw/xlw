@@ -66,8 +66,8 @@ SectionIn 1 2 3
     File /r "xlw\*.inl"
 
     SetOutPath $INSTDIR\lib\Win32\VisualStudio
-    File "lib\Win32\VisualStudio\excel32.lib"
-    File "lib\Win32\VisualStudio\excel32_d.lib"
+    File "lib\Win32\VisualStudio\xlw.lib"
+    File "lib\Win32\VisualStudio\xlw_d.lib"
 
     WriteRegStr HKEY_LOCAL_MACHINE \
                 "Software\Microsoft\Windows\CurrentVersion\Uninstall\XLW" \
@@ -103,16 +103,16 @@ SectionIn 1
   SetOutPath $INSTDIR
   File "ChangeLog.txt"
   File makefile.mak
-  File excel32.mak
-  File excel32.dsp
-  File excel32.dsw
+  File xlw.mak
+  File xlw.dsp
+  File xlw.dsw
   File xlw.nsi
 
   SetOutPath  $INSTDIR\xlw
   File /r "xlw\*.cpp"
 
   CreateShortCut "$SMPROGRAMS\XLW\XLW project workspace.lnk" \
-                 "$INSTDIR\excel32.dsw"
+                 "$INSTDIR\xlw.dsw"
 
 SectionEnd
 

@@ -8,18 +8,18 @@
   style (library suggested standards, at least by GNU)
 - added LICENSE.TXT, NEWS.TXT, AUTHORS.TXT, CONTRIBUTORS.TXT, HISTORY.TXT,
   ChangeLog.TXT, and README.TXT files in the project root
-- moved test file main.cpp under test folder
+- moved test file exlExample.cpp under exlExample folder
 - added config.msvc.h to handle all the MS VC defines. Now as long as you
-  include <xlw/excel32.h>, you won't have to explicitly link your
-  application to excel32.lib. This is automatically done by excel32.h using
+  include <xlw/xlw.h>, you won't have to explicitly link your
+  application to xlw.lib. This is automatically done by xlw.h using
   the pragma statement:
   #ifdef _DEBUG
-      #pragma comment(lib,"excel32_d.lib")
+      #pragma comment(lib,"xlwd.lib")
   #else
-      #pragma comment(lib,"excel32.lib")
+      #pragma comment(lib,"xlw.lib")
   #endif
 - Visual Studio setting changed from Multithread to Multithread DLL
-- defined EXCEL32_NOIMPORTEXPORT in order to avoid classes being exported as
+- defined XLW_NOIMPORTEXPORT in order to avoid classes being exported as
   __dlldecl(*) when creating a static library with Multithreaded DLL
   run-time libraries
 - added two VC++ build configurations. The "Win32 OnTheEdgeRelease" and
@@ -38,9 +38,9 @@
 - introduced XLW_HEX_VERSION and XLW_VERSION
 - added config.bcc.h for Borland CPP defines
 - compiled xlw under borland (it doesn't work yet)
-- the library debug version is called excel32d.lib
-- test uses XLW_DIR environment variable to detect xlw installation
-- test doesn't link excel32.lib anymore
+- the library debug version is called xlwd.lib
+- xlwExample uses XLW_DIR environment variable to detect xlw installation
+- xlwExample doesn't link xlw.lib anymore
 - doxygen.cfg renamed as xlw.doxy, moved under Docs folder, and modified in
   order to account for the Docs folder
 - updated to doxygen 1.2.14

@@ -16,7 +16,7 @@
 
 // $Id$
 
-#include <xlw/excel32.h>
+#include <xlw/xlw.h>
 
 extern "C"
 {

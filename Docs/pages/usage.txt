@@ -2,7 +2,7 @@
 /*! \page usage Usage
     To use XLW just add
     \code
-    #include <xlw/excel32.h>
+    #include <xlw/xlw.h>
     \endcode
     at the beginning of your source/header files.
 
@@ -13,20 +13,20 @@
     \subsection microsoftvisual Microsoft Visual C++
     A few suggestions for Visual C++ users wanting to use %XLW into their
     own application:
-    -# As long as you include xlw/excel32.h, you won't have to explicitly
-    link your application to excel32.lib (or excel32d.lib). This is
+    -# As long as you include xlw/xlw.h, you won't have to explicitly
+    link your application to xlw.lib (or xlwd.lib). This is
     automatically done with a pragma statement:
     \code
     #ifdef _DEBUG
-        #pragma comment(lib,"excel32d.lib")
+        #pragma comment(lib,"xlwd.lib")
     #else
-        #pragma comment(lib,"excel32.lib")
+        #pragma comment(lib,"xlw.lib")
     #endif
     \endcode
     -# Your main() must be compiled with the same options that were used in
     compiling the %XLW library - namely, you'll have to set the run-time
     library to "Multithreaded DLL" or "Debug Multithreaded DLL" depending on
-    whether you're linking to excel32.lib or excel32d.lib, respectively.
+    whether you're linking to xlw.lib or xlwd.lib, respectively.
     This setting is in the project settings, "C/C++" tab, "Code Generation"
     category.
     You'll have to check the "Use RTTI" option under the "C++ Language"
