@@ -56,8 +56,16 @@ Excel or by the XLL (default is true).
 */
 XlfOper::XlfOper(LPXLOPER lpxloper, bool isExcelData): lpxloper_(lpxloper)
 {
-  if (isExcelData && lpxloper->xltype == xltypeStr)
+  if (lpxloper_ == 0)
+	return;
+
+  int type = lpxloper_->xltype;
+  bool isAuxType = (type == xltypeStr || type == xltypeRef ||
+                	type == xltypeMulti || type == xltypeBigData);
+  if (isExcelData && isAuxType)
+  {
     lpxloper_->xltype&=xlbitCallFreeAuxMem;
+  }
   return;
 }
 
@@ -71,6 +79,9 @@ elsewhere in the XLL.
 */
 XlfOper::~XlfOper()
 {
+  if (! lpxloper_)
+	  return;
+
   if (lpxloper_->xltype & xlbitCallFreeAuxMem)
   {
     FreeAuxiliaryMemory();
@@ -85,21 +96,24 @@ XlfOper::~XlfOper()
 Allocates 16 bits (size of a XLOPER) on the temporary buffer
 stored by XlfExcel with a call to XlfExcel::GetMemory().
 
-\bug Each XlfOper allocation causes a call to Allocate which in turn
+\warning Each XlfOper allocation causes a call to Allocate which in turn
 reserve the necessary number of bytes in the internal buffer. The
 problem is that even temporary XlfOper used inside the xll function use
 this internal buffer. This buffer is not freed before the next call to
 the xll to ensure Excel can use the data before they are freed. This
 causes a bottleneck if the function uses many temporary XlfOper (see
 Deallocate()).
+
+\return \c xlretSuccess or \c xlretInvXloper if no memory is could 
+be allocated.
 */
-void XlfOper::Allocate()
+int XlfOper::Allocate()
 {
   lpxloper_ = (LPXLOPER)XlfExcel::Instance().GetMemory(sizeof(XLOPER));
   if (!lpxloper_)
-    return;
+    return xlretInvXloper;
   lpxloper_->xltype = xltypeNil;
-  return;
+  return xlretSuccess;
 }
 
 void XlfOper::FreeAuxiliaryMemory() const
@@ -133,6 +147,10 @@ double XlfOper::AsDouble() const
 int XlfOper::ConvertToDouble(double& d) const throw()
 {
   int xlret;
+
+  if (lpxloper_ == 0)
+	  return xlretInvXloper;
+
   if (lpxloper_->xltype == xltypeInt)
   {
 	  d = lpxloper_->val.w;
@@ -168,6 +186,10 @@ short XlfOper::AsShort() const
 int XlfOper::ConvertToShort(short& s) const throw()
 {
   int xlret;
+
+  if (lpxloper_ == 0)
+	  return xlretInvXloper;
+
   if (lpxloper_->xltype == xltypeNum)
   {
 	  s = lpxloper_->val.num;
@@ -199,6 +221,10 @@ bool XlfOper::AsBool() const
 int XlfOper::ConvertToBool(bool& b) const throw()
 {
   int xlret;
+
+  if (lpxloper_ == 0)
+	  return xlretInvXloper;
+
   if (lpxloper_->xltype == xltypeBool)
   {
 	  b = (lpxloper_->val.boolean != 0);
@@ -233,6 +259,10 @@ char * XlfOper::AsString() const
 int XlfOper::ConvertToString(char *& s) const throw()
 {
   int xlret;
+
+  if (lpxloper_ == 0)
+	  return xlretInvXloper;
+
   if (lpxloper_->xltype == xltypeStr)
   {
     size_t n = lpxloper_->val.str[0];
@@ -266,6 +296,10 @@ XlfRef XlfOper::AsRef() const
 int XlfOper::ConvertToRef(XlfRef& r) const throw()
 {
   int xlret;
+
+  if (lpxloper_ == 0)
+	  return xlretInvXloper;
+
   if (lpxloper_->xltype == xltypeRef)
   {
 	const XLREF& ref=lpxloper_->val.mref.lpmref->reftbl[0];
@@ -300,61 +334,103 @@ XlfOper& XlfOper::Set(LPXLOPER lpxloper)
 
 XlfOper& XlfOper::Set(double value)
 {
-  lpxloper_->xltype = xltypeNum;
-  lpxloper_->val.num = value;
+  if (lpxloper_)
+  {
+    lpxloper_->xltype = xltypeNum;
+    lpxloper_->val.num = value;
+  }
   return *this;
 }
 
 XlfOper& XlfOper::Set(short value)
 {
-  lpxloper_->xltype = xltypeInt;
-  lpxloper_->val.w = value;
+  if (lpxloper_)
+  {
+    lpxloper_->xltype = xltypeInt;
+    lpxloper_->val.w = value;
+  }
   return *this;
 }
 
 XlfOper& XlfOper::Set(bool value)
 {
-  lpxloper_->xltype = xltypeBool;
-  lpxloper_->val.boolean = value;
-  return *this;
-}
-
-XlfOper& XlfOper::Set(const XlfRef& range)
-{
-  lpxloper_->xltype = xltypeRef;
-  XLMREF * pmRef = reinterpret_cast<XLMREF *>(XlfExcel::Instance().GetMemory(sizeof(XLMREF)));
-  pmRef->count=1;
-  pmRef->reftbl[0].rwFirst = range.GetRowBegin();
-  pmRef->reftbl[0].rwLast = range.GetRowEnd()-1;
-  pmRef->reftbl[0].colFirst = range.GetColBegin();
-  pmRef->reftbl[0].colLast = range.GetColEnd()-1;
-  lpxloper_->val.mref.lpmref = pmRef;
-  lpxloper_->val.mref.idSheet = range.GetSheetId();
+  if (lpxloper_)
+  {
+    lpxloper_->xltype = xltypeBool;
+    lpxloper_->val.boolean = value;
+  }
   return *this;
 }
 
 /*!
-\bug String longer than 255 characters are truncated. A warning
+If no memory can be allocated on xlw internal buffer, the XlfOper is set
+to an invalid state and the XlfRef is not copied.
+*/
+XlfOper& XlfOper::Set(const XlfRef& range)
+{
+  if (lpxloper_)
+  {
+    lpxloper_->xltype = xltypeRef;
+    XLMREF * pmRef = reinterpret_cast<XLMREF *>(XlfExcel::Instance().GetMemory(sizeof(XLMREF)));
+	// if no memory is available
+	if (pmRef == 0)
+	{
+		// set XlfOper to an invalid state
+		lpxloper_=0;
+	}
+	else
+	{
+      pmRef->count=1;
+      pmRef->reftbl[0].rwFirst = range.GetRowBegin();
+      pmRef->reftbl[0].rwLast = range.GetRowEnd()-1;
+      pmRef->reftbl[0].colFirst = range.GetColBegin();
+      pmRef->reftbl[0].colLast = range.GetColEnd()-1;
+      lpxloper_->val.mref.lpmref = pmRef;
+      lpxloper_->val.mref.idSheet = range.GetSheetId();
+	}
+  }
+  return *this;
+}
+
+/*!
+If no memory can be allocated on xlw internal buffer, the XlfOper is set
+to an invalid state and the string is not copied.
+
+\note String longer than 255 characters are truncated. A warning
 is issued in debug mode.
 */
 XlfOper& XlfOper::Set(const char *value)
 {
-  lpxloper_->xltype = xltypeStr;
-  int n = strlen(value);
-  ERR_CHECKW2(n<256,"String too long will be truncated");
-  // One byte more for NULL terminal char (allow use of strcpy)
-  // and one for the std::string size (convention used by Excel)
-  lpxloper_->val.str = (LPSTR)XlfExcel::Instance().GetMemory(n + 2);
-  strcpy(lpxloper_->val.str + 1, value);
-  // the number of character include the final \0 or not ?
-  lpxloper_->val.str[0] = (BYTE)(n + 1);
+  if (lpxloper_)
+  {
+	lpxloper_->xltype = xltypeStr;
+	int n = strlen(value);
+    ERR_CHECKW2(n<256,"String too long will be truncated");
+    // One byte more for NULL terminal char (allow use of strcpy)
+    // and one for the std::string size (convention used by Excel)
+    LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 2));
+	if (str == 0)
+	{
+		lpxloper_=0;
+	}
+	else
+	{
+      strcpy(str + 1, value);
+      // the number of character include the final \0 or not ?
+      lpxloper_->val.str = str;
+      lpxloper_->val.str[0] = (BYTE)(n + 1);
+	}
+  }
   return *this;
 }
 
 XlfOper& XlfOper::SetError(WORD error)
 {
-  lpxloper_->xltype = xltypeErr;
-  lpxloper_->val.err = error;
+  if (lpxloper_)
+  {
+	lpxloper_->xltype = xltypeErr;
+	lpxloper_->val.err = error;
+  }
   return *this;
 }
 

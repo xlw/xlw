@@ -346,6 +346,8 @@ int XlfExcel::ThrowOnCriticalError(int xlret) const
 	ERR_THROW(XlfExceptionAbort)
   if (xlret & xlretStackOvfl)
 	ERR_THROW_MSG(std::runtime_error,"Stack Overflow");
+  if (xlret & xlretInvXloper)
+	ERR_THROW_MSG(std::runtime_error,"Invalid Xloper");
   return xlret;
 }
 

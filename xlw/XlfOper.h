@@ -176,7 +176,7 @@ private:
   int Coerce(short type, XlfOper& res) const;
 
   //! Reserves memory in XLL buffer (garbage collected).
-  void Allocate();
+  int Allocate();
 
   //! Anticipates deallocation if possible.
   void Deallocate();
