@@ -37,6 +37,16 @@
 #endif
 
 /*!
+This bit is currently unused by Microsoft Excel. We set it
+to indicate that the LPXLOPER (passed by Excel) holds some extra
+memory to be freed.
+ 
+This bit is controled in ~XlfOper to know if the DLL should release
+auxiliary memory or not by a call to FreeAuxiliaryMemory.
+*/
+int XlfOper::xlbitFreeAuxMem = 0x8000;
+
+/*!
 Shallow copy of a pointer to XLOPER.
 \param lpxloper Pointer to XLOPER.
 \param isExcelData Flags that tells if the auxiliary data is allocated by
@@ -50,19 +60,29 @@ XlfOper::XlfOper(LPXLOPER lpxloper): lpxloper_(lpxloper)
 Calls Deallocate() to free the XLOPER allocated by the XLL. XLOPER allocated
 by Excel remain under Excel responsability.
  
-Calls FreeAuxiliaryMemory if the XLOPER is owned by MS Excel (not XlfExcel) 
-and maintains heap allocated data.
+Calls FreeAuxiliaryMemory if the XLOPER is marked by XlfOper::Call as an 
+XLOPER returned by MS Excel and if the type matches one of xltypeStr, 
+xltypeRef, xltypeMulti, xltypeBigData.
 */
 XlfOper::~XlfOper()
 {
   if (! lpxloper_)
     return;
 
-	if ( (lpxloper_->xltype == xltypeStr && ! XlfExcel::Instance().IsInBuffer(lpxloper_->val.str))
-		|| (lpxloper_->xltype == xltypeRef && ! XlfExcel::Instance().IsInBuffer(reinterpret_cast<char *>(lpxloper_->val.mref.lpmref)))
-		|| (lpxloper_->xltype == xltypeMulti && ! XlfExcel::Instance().IsInBuffer(reinterpret_cast<char *>(lpxloper_->val.array.lparray)))
-		|| (lpxloper_->xltype == xltypeBigData && ! XlfExcel::Instance().IsInBuffer(reinterpret_cast<char *>(lpxloper_->val.bigdata.h.lpbData))))
+	int type = lpxloper_->xltype;
+
+	bool canHaveAuxMem = ( 
+		type & xltypeStr || 
+		type & xltypeRef || 
+		type & xltypeMulti ||
+		type & xltypeBigData);
+
+	if (canHaveAuxMem && (type & xlbitFreeAuxMem))
+	{
     FreeAuxiliaryMemory();
+    // and switch back the bit as it was originally
+    lpxloper_->xltype &= ~xlbitFreeAuxMem;
+	}
   Deallocate();
   return;
 }
@@ -131,12 +151,12 @@ int XlfOper::ConvertToDouble(double& d) const throw()
   if (lpxloper_ == 0)
     return xlretInvXloper;
 
-  if (lpxloper_->xltype == xltypeInt)
+  if (lpxloper_->xltype & xltypeInt)
   {
     d = lpxloper_->val.w;
     xlret=xlretSuccess;
   }
-  else if (lpxloper_->xltype == xltypeNum)
+  else if (lpxloper_->xltype & xltypeNum)
   {
     d = lpxloper_->val.num;
     xlret=xlretSuccess;
@@ -232,7 +252,7 @@ int XlfOper::ConvertToShort(short& s) const throw()
   if (lpxloper_ == 0)
     return xlretInvXloper;
 
-  if (lpxloper_->xltype == xltypeNum)
+  if (lpxloper_->xltype & xltypeNum)
   {
     s = lpxloper_->val.num;
     xlret=xlretSuccess;
@@ -270,7 +290,7 @@ int XlfOper::ConvertToBool(bool& b) const throw()
   if (lpxloper_ == 0)
     return xlretInvXloper;
 
-  if (lpxloper_->xltype == xltypeBool)
+  if (lpxloper_->xltype & xltypeBool)
   {
     b = (lpxloper_->val.boolean != 0);
     xlret = xlretSuccess;
@@ -311,7 +331,7 @@ int XlfOper::ConvertToString(char *& s) const throw()
   if (lpxloper_ == 0)
     return xlretInvXloper;
 
-  if (lpxloper_->xltype == xltypeStr)
+  if (lpxloper_->xltype & xltypeStr)
   {
     size_t n = lpxloper_->val.str[0];
     s = XlfExcel::Instance().GetMemory(n + 1);
@@ -352,7 +372,7 @@ int XlfOper::ConvertToRef(XlfRef& r) const throw()
   if (lpxloper_ == 0)
     return xlretInvXloper;
 
-  if (lpxloper_->xltype == xltypeRef)
+  if (lpxloper_->xltype & xltypeRef)
   {
     const XLREF& ref=lpxloper_->val.mref.lpmref->reftbl[0];
     r = XlfRef (ref.rwFirst,  // top

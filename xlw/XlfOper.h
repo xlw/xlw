@@ -82,8 +82,8 @@ public:
   ;
 #endif
 #endif
-	//! Constructs an Excel error.
-	static XlfOper Error(WORD);
+  //! Constructs an Excel error.
+  static XlfOper Error(WORD);
   //! Dtor
   ~XlfOper();
   //! Free auxiliary memory associated with the XLOPER
@@ -102,20 +102,20 @@ public:
   int ConvertToDouble(double&) const throw();
 
   //! Lets the user choose how to convert a range in a vector<double>
-	/*!
-	 * Default policy is UniDimensional. The 2 others are typically to facilitate conversion
-	 * to matrix classes.
-	 *
-	 * \sa ConvertToDoubleVector, AsDoubleVector.
-	 */
+  /*!
+   * Default policy is UniDimensional. The 2 others are typically to facilitate conversion
+   * to matrix classes.
+   *
+   * \sa ConvertToDoubleVector, AsDoubleVector.
+   */
   enum DoubleVectorConvPolicy
   {
-		/*! Generates an error if the range is not uni dimensional (one row or one column). */
-    UniDimensional, 
-		/*! Flattens the range in a C-like way (rows are continuous). */
-    RowMajor, 
-		/*! Flattens the range in a Fortran-like way (columns are continuous). */
-    ColumnMajor 
+    /*! Generates an error if the range is not uni dimensional (one row or one column). */
+    UniDimensional,
+    /*! Flattens the range in a C-like way (rows are continuous). */
+    RowMajor,
+    /*! Flattens the range in a Fortran-like way (columns are continuous). */
+    ColumnMajor
   };
 
   //! Converts to a std::vector<double>.
@@ -208,6 +208,11 @@ private:
 
   //! Throws an exception when critical errors occur.
   int ThrowOnError(int) const;
+
+	//! Internally used to flag XLOPER returned by Excel.
+	static int xlbitFreeAuxMem;
+
+	friend XlfExcel;
 };
 
 #ifdef PORT_NO_MEMBER_TEMPLATE
