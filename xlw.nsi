@@ -69,10 +69,6 @@ SectionIn 1 2 3
     File "lib\Win32\VisualStudio\excel32.lib"
     File "lib\Win32\VisualStudio\excel32_d.lib"
 
-    SetOutPath $INSTDIR\lib\Win32\Borland
-    File "lib\Win32\Borland\excel32.lib"
-    File "lib\Win32\Borland\excel32_d.lib"
-
     WriteRegStr HKEY_LOCAL_MACHINE \
                 "Software\Microsoft\Windows\CurrentVersion\Uninstall\XLW" \
                 "DisplayName" "XLW (remove only)"
