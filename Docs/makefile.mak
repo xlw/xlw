@@ -13,14 +13,15 @@ LATEX     = latex
 PDFLATEX  = pdflatex
 MAKEINDEX = makeindex
 DVIPS     = dvips
+HHC       = hhc
 
 # Options
-#TEX_OPTS = --quiet --pool-size=1000000
-TEX_OPTS = --pool-size=1000000
+TEX_OPTS = --quiet --pool-size=1000000
+#TEX_OPTS = --pool-size=1000000
 
 # Primary target:
 # all docs
-all:: tex-files
+all:: winhelp tex-files
     cd latex
     $(PDFLATEX) $(TEX_OPTS) refman
     $(MAKEINDEX) refman.idx
@@ -31,6 +32,11 @@ all:: tex-files
 
 # HTML documentation only
 html: html-offline
+
+winhelp:: html
+    cd html
+    $(HHC) index.hhp
+    cd ..
 
 html-offline::
     $(DOXYGEN) xlw.doxy

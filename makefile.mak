@@ -47,6 +47,11 @@ docs-html:
     $(MAKE) html
     cd ..
 
+docs-winhelp:
+    cd Docs
+    $(MAKE) winhelp
+    cd ..
+
 docs-html-online:
     cd Docs
     $(MAKE) html-online
