@@ -5,9 +5,6 @@ where is the mopdule name ??
 error message available on request
 XlfOper.asVector
 
-bug1: too large input matrix
-bug2: too many functions in AutoOpen
-
 add contributors in documentation
 
 activate cvs mailing list
