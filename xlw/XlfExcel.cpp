@@ -262,3 +262,51 @@ int XlfExcel::Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) c
   return xlret;
 }
 
+namespace {
+
+//! Needed by IsCalledByFuncWiz.
+typedef struct _EnumStruct {
+    bool bFuncWiz;
+    short hwndXLMain;
+} EnumStruct, FAR * LPEnumStruct;
+
+//! Needed by IsCalledByFuncWiz.
+bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum)
+{
+    const size_t CLASS_NAME_BUFFER = 50;
+
+    // first check the class of the window.  Will be szXLDialogClass
+    // if function wizard dialog is up in Excel
+    char rgsz[CLASS_NAME_BUFFER];
+    GetClassName(hwnd, (LPSTR)rgsz, CLASS_NAME_BUFFER);
+    if (2 == CompareString(MAKELCID(MAKELANGID(LANG_ENGLISH,
+        SUBLANG_ENGLISH_US),SORT_DEFAULT), NORM_IGNORECASE,
+        (LPSTR)rgsz,  (lstrlen((LPSTR)rgsz)>lstrlen("bosa_sdm_XL")) 
+        ? lstrlen("bosa_sdm_XL"):-1, "bosa_sdm_XL", -1)) 
+    {
+        if(LOWORD((DWORD) GetParent(hwnd)) == pEnum->hwndXLMain) 
+        {
+            pEnum->bFuncWiz = TRUE;
+            return false;
+        }
+    }
+    // no luck - continue the enumeration
+    return true;
+}
+}
+
+bool XlfExcel::IsCalledByFuncWiz() const
+{
+    XLOPER xHwndMain;
+    EnumStruct    enm;
+
+    if (Excel4(xlGetHwnd, &xHwndMain, 0) == xlretSuccess) 
+    {
+        enm.bFuncWiz = false;
+        enm.hwndXLMain = xHwndMain.val.w;
+        EnumWindows((WNDENUMPROC) EnumProc,
+            (LPARAM) ((LPEnumStruct)  &enm)); 
+        return enm.bFuncWiz;
+    }
+    return false;    //safe case: Return false if not sure
+}

@@ -77,6 +77,8 @@ public:
   void SendMessage(const char * msg=0);
   //! Was the Esc key pressed ?
   bool IsEscPressed() const;
+  //! Is the function being calculated currently called by the Function Wizard ?
+  bool IsCalledByFuncWiz() const;
 
 private:
   //! Static pointer to the unique instance of XlfExcel object.
