@@ -30,21 +30,13 @@
 #include <iostream>
 
 /*!
-Since we pass XLOPER from the XLL towards
-Excel we should not use XLL local variables: these would be
-freed before MSExcel could get the data.
- 
-Therefore the framework C library that comes with Excel 97
-developer's kit suggests to use a static area where the XlfOper
-are stored (see XlfExcel::GetMemory) and still available to
-Excel when we exit the XLL routine. This array is then reset
-by a call to XlfExcel::FreeMemory at the begining of each new
-call of one of the XLL functions.
- 
 The macro EXCEL_BEGIN includes a call to XlfExcel::FreeMemory.
  
-\warning FreeMemory frees *all* memory previously allocated
-by the framework.
+FreeMemory frees *all* memory previously allocated by the 
+framework. Keeps the biggest buffer allocated (front one) so far 
+for subsequent calls.
+
+\sa XlfBuffer.
 */
 INLINE void XlfExcel::FreeMemory(bool finished)
 {
@@ -59,6 +51,10 @@ INLINE void XlfExcel::FreeMemory(bool finished)
   offset_ = 0;
 }
 
+/*!
+Allocates a \c new[] buffer and pushes it in front of the list of buffers.
+\arg size Size of the new buffer in bytes.
+*/
 INLINE void XlfExcel::PushNewBuffer(size_t size)
 {
   XlfBuffer newBuffer;
@@ -77,15 +73,15 @@ INLINE void XlfExcel::PushNewBuffer(size_t size)
 \return the address of the chunk.
  
 Check if the buffer has enough memory, and move the offset of the static
-buffer of the ammount of memory requested.
+buffer of the ammount of memory requested. If the buffer is full, a new
+buffer is allocated whose size is 150% of the one we just filled.
  
-\bug If the buffer is full, it can't be extended and an exception
-XlfBufferIsFull is thrown.
+\sa XlfBuffer, XlfExcel::PushNewBuffer(size_t)
 */
 INLINE LPSTR XlfExcel::GetMemory(size_t bytes)
 {
   if (freeList_.empty())
-    PushNewBuffer(1024);
+    PushNewBuffer(8192);
   while (1)
   {
     XlfBuffer& buffer = freeList_.front();
@@ -96,8 +92,28 @@ INLINE LPSTR XlfExcel::GetMemory(size_t bytes)
       return buffer.start + temp;
     }
     else
-      PushNewBuffer(buffer.size*2);
+      PushNewBuffer(buffer.size*1.5);
   }
   // should never get to this point...
   return 0;
+}
+
+/*!
+\arg ptr Address to check.
+\return true if the address is between the start and the end of one 
+of the allocated buffer.
+*/
+INLINE bool XlfExcel::IsInBuffer(char * ptr) const
+{	
+	BufferList::const_iterator it = freeList_.begin();
+	BufferList::const_iterator end = freeList_.end();
+
+	while (it != end)
+	{
+		const XlfBuffer& buffer = *it;
+		if (buffer.start <= ptr && ptr < buffer.start+buffer.size)
+			return true;
+		++it;
+	}
+	return false;
 }

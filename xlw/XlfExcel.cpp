@@ -15,7 +15,7 @@
 
 /*!
 \file XlfExcel.cpp
-\brief Implements the classes XlfExcel and XlfExcelDestroyer.
+\brief Implements the classes XlfExcel.
 */
 
 // $Id$
@@ -58,44 +58,28 @@ struct XlfExcelImpl
   ofstream * hlogf_;
 };
 
-bool XlfExcel::IsInitialized()
-{
-  return this_ != 0;
-}
-
 //! Destroys the XlfExcel singleton.
 /*!
-A static instance of XlfExcelDestroyer
-in the dtor of XlfExcel makes sure XlfExcel dtor is called before the
-end of the program.
-
-Note that it does not help you if some function tries to access the
-XlfExcelDestroyer after its dtor was called. It is howver very unlikely.
-If it ever happened a new instance of XlfExcel would be created.
+\deprecated Uses xlAutoClose: 
+\code
+  long EXCEL_EXPORT xlAutoClose()
+  {
+		delete &XlfExcel::Instance();
+    return 1;
+  }
+\endcode
 */
 class XlfExcelDestroyer
-{
-public:
-  //! Dtor.
-  /*!
-  Deletes the pointer returned by XlfExcel::Instance().
-  */
-  ~XlfExcelDestroyer()
-  {
-    // delete 0 is safe. It should never happen though.
-    delete &XlfExcel::Instance();
-  }
-};
+{};
 
 /*!
 You always have the choice with the singleton in returning a pointer or
 a reference. By returning a reference and declaring the copy ctor and the
-assignment otor private, I limit the risk of a wrong use of XlfExcel
+assignment otor private, we limit the risk of a wrong use of XlfExcel
 (typically duplication).
 */
 XlfExcel& XlfExcel::Instance()
 {
-//	static XlfExcelDestroyer destroyer;
 	if (!this_)
 	{
 		this_ = new XlfExcel;
@@ -257,22 +241,5 @@ int XlfExcel::Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) c
 #endif
 	int xlret = Excel4v(xlfn, pxResult, count, pxdata);
 	return xlret;
-}
-
-/*!
-Currently errors that are considered critical are those that the require the XLL
-to return to Excel immediately. These are xlretUncalced, xlretAbort, and xlretStackOvfl.
-*/
-int XlfExcel::ThrowOnCriticalError(int xlret) const
-{
-  if (xlret & xlretUncalced)
-	  throw XlfExceptionUncalculated();
-  if (xlret & xlretAbort)
-	  throw XlfExceptionAbort();
-  if (xlret & xlretStackOvfl)
-	  throw std::runtime_error("Stack Overflow");
-  if (xlret & xlretInvXloper)
-	  throw std::runtime_error("Invalid Xloper (memory could be exhausted)");
-  return xlret;
 }
 
