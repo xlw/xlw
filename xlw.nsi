@@ -126,6 +126,7 @@ SectionIn 1 2
   File /r "test\*.dsw"
   File /r "test\*.mak"
   File /r "test\*.xls"
+  File /r "test\xll\Win32\VisualStudio\Release\*.xll"
 
   IfFileExists $SMPROGRAMS\QuantLib 0 NoSourceShortCuts
     CreateShortCut "$SMPROGRAMS\XLW\Demo XLL workspace.lnk" \

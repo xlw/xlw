@@ -2,7 +2,7 @@
 - added nsi file for Win32 installer generation. The installer also set the
   environment variable XLW_DIR pointing to your xlw installation folder.
   This way any project based on xlw can add "$(XLW_DIR)" to the "Additional
-  include directory" list and add "$(QL_DIR)\lib\Win32\VisualStudio\" to the
+  include directory" list and add "$(XLW_DIR)\lib\Win32\VisualStudio\" to the
   "Additional library path" list.
 - moved sources under xlw folder, and switched to <xlw/xxx.h> inclusion
   style (library suggested standards, at least by GNU)
@@ -37,12 +37,12 @@
 - purged port.h of unnecessary defines
 - introduced XLW_HEX_VERSION and XLW_VERSION
 - added config.bcc.h for Borland CPP defines
-- compiled xlw under borland
-- the library debug version is called excel32_d.lib (Python convention)
+- compiled xlw under borland (it doesn't work yet)
+- the library debug version is called excel32d.lib
 - test uses XLW_DIR environment variable to detect xlw installation
 - test doesn't link excel32.lib anymore
 - doxygen.cfg renamed as xlw.doxy, moved under Docs folder, and modified in
   order to account for the Docs folder
-- updated to doxygen 1.2.11.1
+- updated to doxygen 1.2.14
 - all *.txt documentation pages moved under Docs folder
 - added CVS Id tag to all files
