@@ -136,6 +136,27 @@ extern "C"
     EXCEL_END;
   }
 
+  /*! Demonstrates how to use the template Set method to 
+   *  pass homogenous array to Excel.
+   */
+  LPXLOPER EXCEL_EXPORT xlVersion()
+  {
+	EXCEL_BEGIN
+	using namespace std;
+
+	vector<string> versionStrings(2);
+	versionStrings[0] = string(XLW_VERSION);
+	versionStrings[1] = string(__DATE__);
+	/*! Note the input array must be 1d but you can lay out 
+	 *  the contents whichever way you want. In this example
+	 *  we lay it out on 1 row and 2 columns.
+	 *  \sa XlfOper::Set<FwdIt>(WORD r, BYTE c, FwdIt it)
+	 */
+	return XlfOper(1,2,versionStrings.begin());
+
+	EXCEL_END
+  }
+
   long EXCEL_EXPORT xlAutoOpen()
   {
     oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
@@ -183,6 +204,10 @@ extern "C"
 	// Registers the fifth function xlNumberOfCall as volatile (unconditionally recalculated)
     XlfFuncDesc nbCalls("xlNbCalls","NbCalls","returns the number of time the function has been calculated since the xll was loaded (volatile)","xlw Example",XlfFuncDesc::Volatile);
     nbCalls.Register();
+
+	// Version
+	XlfFuncDesc version("xlVersion","Version","returns the version of xlw and the last compilation date. Demonstrates array of strings.","xlw Example");
+	version.Register();
 	
     // Clears the status bar.
     XlfExcel::Instance().SendMessage();
