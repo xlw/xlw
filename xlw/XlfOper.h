@@ -92,18 +92,37 @@ public:
   bool IsMissing() const;
   //! Is the data an error ?
   bool IsError() const;
-  //! Converts to a double.
+
+  //! Converts to a double. 
   double AsDouble() const;
+  //! Attempts conversion to double and returns Excel4 error code. 
+  int ConvertToDouble(double&) const throw();
+
   //! Converts to a short.
   short AsShort() const;
+  //! Attempts conversion to short and returns Excel4 error code.
+  int ConvertToShort(short&) const throw();
+
   //! Converts to a bool.
   bool AsBool() const;
+  //! Attempts conversion to bool and returns Excel4 error code.
+  int ConvertToBool(bool&) const throw();
+
   //! Converts to an int.
   int AsInt() const;
+  //! Attempts conversion to int and returns Excel4 error code.
+  int ConvertToInt(int&) const throw();
+
   //! Converts to a char *.
   char * AsString() const;
+  //! Attempts conversion to string and returns Excel4 error code.
+  int ConvertToString(char *&) const throw();
+
   //! Converts to a XlfReg.
   XlfRef AsRef() const;
+  //! Attempts conversion to XlRef and returns Excel4 error code.
+  int ConvertToRef(XlfRef&) const throw();
+
   //! Gets the internal LPXLOPER.
   LPXLOPER GetLPXLOPER() const;
 
@@ -154,7 +173,7 @@ private:
   LPXLOPER lpxloper_;
 
   //! Coerces method is called by conversion operators if needed (never by the user).
-  void Coerce(short type, XlfOper& res) const;
+  int Coerce(short type, XlfOper& res) const;
 
   //! Reserves memory in XLL buffer (garbage collected).
   void Allocate();
