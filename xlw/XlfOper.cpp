@@ -269,7 +269,7 @@ int XlfOper::ConvertToShort(short& s) const throw()
 
   if (lpxloper_->xltype & xltypeNum)
   {
-    s = lpxloper_->val.num;
+    s = short(lpxloper_->val.num);
     xlret=xlretSuccess;
   }
   else
@@ -568,7 +568,7 @@ XlfOper& XlfOper::Set(WORD r, BYTE c)
 XlfOper& XlfOper::Set(size_t i, XlfOper& val)
 {
   assert(lpxloper_->xltype == xltypeMulti);
-  assert(i < lpxloper_->val.array.rows * lpxloper_->val.array.columns);
+  assert(i < size_t(lpxloper_->val.array.rows * lpxloper_->val.array.columns));
   lpxloper_->val.array.lparray[i] = *(LPXLOPER)val;
   return *this;
 }
