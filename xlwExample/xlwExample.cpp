@@ -108,11 +108,11 @@ extern "C"
 
   long EXCEL_EXPORT xlAutoOpen()
   {
-//    EXCEL_BEGIN;
-
     // Displays a message in the status bar.
     XlfExcel::Instance().SendMessage("Registering library...");
 
+	// Clears buffer between each registration
+	XlfExcel::Instance().FreeMemory();
     // Registers the first function xlCirc.
     // Variable description of type R (default).
     XlfArgDesc diameter("diameter","Diameter of the circle");
@@ -123,7 +123,8 @@ extern "C"
     // Registers the function circ.
     circ.Register();
 
-
+	// Clears buffer between each registration
+	XlfExcel::Instance().FreeMemory();
     // Registers the second function xlConcat.
     // Argument descriptions.
     XlfArgDesc str1("string1","First string");
@@ -136,7 +137,8 @@ extern "C"
     // Registers the concat function.
     concat.Register();
 
-
+	// Clears buffer between each registration
+	XlfExcel::Instance().FreeMemory();
     // Registers the third function xlStats.
     // Argument descriptions.
     XlfArgDesc pop("Population","Target range containing the population");
@@ -150,8 +152,6 @@ extern "C"
     // Clears the status bar.
     XlfExcel::Instance().SendMessage();
     return 1;
-
-//    EXCEL_END;
   }
 
 }
