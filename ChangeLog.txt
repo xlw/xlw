@@ -1,4 +1,135 @@
+2003-03-08  jlecomte
+	* xlw/XlfFuncDesc.cpp:
+	* xlw/XlfFuncDesc.h:
+	* xlwExample/xlwExample.cpp:
+	* xlwExample/xlwExample.xls:
+		Added recalcPolicy to let user register function as volatile (
+		unconditionally recalculated). Note that default is still not volatile
+
+	* TODO.txt:
+		fixed since 1.2
+
+2003-03-02  nando
+	* xlw.dsp:
+		english version of the dsp
+
+2003-02-20  nando
+	* xlwExample/xlwExample.vcproj:
+		file xlwExample.vcproj was initially added on branch libXLL
+		branch.
+
+	* .cvsignore:
+	* Docs/Setting up a project with libXLL.doc:
+	* Docs/Setting up a project with libXLL.pdf:
+	* Docs/excel97sdk.chm:
+	* Docs/pages/download.txt:
+	* Docs/pages/index.txt:
+	* Docs/pages/install.txt:
+	* READMELIBXLL.TXT:
+	* xlfRegister.html:
+	* xlw.dsp:
+	* xlw.dsw:
+	* xlw.mak:
+	* xlw.sln:
+	* xlw.vcproj:
+	* xlw/XlfExcel.inl:
+	* xlw/XlfOper.cpp:
+	* xlw/XlfOper.h:
+	* xlw/XlfOper.inl:
+	* xlw/XllMain_c.h:
+	* xlw/XllMain_c.h:
+	* xlw/XllTypeLib.cpp:
+	* xlw/XllTypeLib.h:
+	* xlw/makefile.mak:
+	* xlw/xlcall32.h:
+	* xlw/xldata32.h:
+	* xlw/xll.h:
+	* xlwExample/xlwExample.mak:
+	* xlwExample/xlwExample.mak:
+	* xlwExample/xlwExample.vcproj:
+		libXLL added
+
+	* xlw/XllTypeLib.cpp:
+		file XllTypeLib.cpp was initially added on branch libXLL-branch.
+
+	* xlw.vcproj:
+		file xlw.vcproj was initially added on branch libXLL-branch.
+
+	* xlw/xll.h:
+		file xll.h was initially added on branch libXLL-branch.
+
+	* Docs/Setting up a project with libXLL.pdf:
+		file Setting up a project with libXLL.pdf was initially added
+		on branch libXLL-branch.
+
+	* xlw.sln:
+		file xlw.sln was initially added on branch libXLL-branch.
+
+	* xlw/xldata32.h:
+		file xldata32.h was initially added on branch libXLL-branch.
+
+	* Docs/excel97sdk.chm:
+		file excel97sdk.chm was initially added on branch libXLL-branch.
+
+	* xlfRegister.html:
+		file xlfRegister.html was initially added on branch libXLL
+		branch.
+
+	* Docs/Setting up a project with libXLL.doc:
+		file Setting up a project with libXLL.doc was initially added
+		on branch libXLL-branch.
+
+	* READMELIBXLL.TXT:
+		file READMELIBXLL.TXT was initially added on branch libXLL
+		branch.
+
+	* xlw/XllMain_c.h:
+		file XllMain_c.h was initially added on branch libXLL-branch.
+
+	* xlw/XllTypeLib.h:
+		file XllTypeLib.h was initially added on branch libXLL-branch.
+
+2003-02-10  nando
+	* .cvsignore:
+	* Docs/.cvsignore:
+	* Docs/.cvsignore:
+	* lib/Win32/VisualStudio/.cvsignore:
+	* xlwExample/.cvsignore:
+	* xlwExample/xll/Win32/VisualStudio/.cvsignore:
+		added .cvsignore files
+
+2003-02-07  nando
+	* .cvsignore:
+	* xlw.mak:
+	* xlwExample/.cvsignore:
+	* xlwExample/xlwExample.mak:
+		cvsignore list of files
+
+2002-07-24  nando
+	* Docs/pages/index.txt:
+	* Docs/xlw.doxy:
+	* dev_tools/version_number.txt:
+	* xlw.mak:
+	* xlw.nsi:
+	* xlw/EXCEL32_API.h:
+	* xlwExample/xlwExample.mak:
+		updated version number
+
 2002-07-09  jlecomte
+	* ChangeLog.txt:
+	* Docs/pages/download.txt:
+	* Docs/pages/gettingStarted.txt:
+	* Docs/pages/history.txt:
+	* Docs/pages/install.txt:
+	* Docs/xlwfooter.html:
+	* dev_tools/version_number.txt:
+	* xlw/EXCEL32_API.h:
+	* xlw/XlfExcel.cpp:
+	* xlw/XlfExcel.h:
+	* xlw/XlfOper.cpp:
+	* xlwExample/xlwExample.cpp:
+		Merged update made for R010200f0
+
 	* xlw/EXCEL32_API.h:
 	* xlw/XlfExcel.cpp:
 	* xlw/XlfExcel.h:
@@ -17,12 +148,23 @@
 	* xlwExample/xlwExample.cpp:
 		Reformatted code so it looks nicer in the doc
 
+	* xlw/XlfExcel.cpp:
+	* xlw/XlfExcel.h:
+		Removed reference to log and ofstream
+
+	* dev_tools/version_number.txt:
+	* xlw/EXCEL32_API.h:
+		Updated version number to 010200f0
+
 	* Docs/pages/download.txt:
 	* Docs/pages/gettingStarted.txt:
 	* Docs/pages/history.txt:
 	* Docs/pages/install.txt:
 		Updated doc for new download link, new features and updated
 		xlwExample.cpp
+
+	* ChangeLog.txt:
+		Mainly documentation fixes
 
 2002-07-08  jlecomte
 	* Docs/images/doxygen.png:
@@ -252,6 +394,7 @@
 
 	* lib/README.txt:
 	* lib/Win32/Borland/dummy.txt:
+	* lib/Win32/Mingw32/dummy.txt:
 	* lib/Win32/README.txt:
 	* lib/Win32/VisualStudio/README.txt:
 	* lib/Win32/VisualStudio/dummy.txt:
@@ -503,6 +646,12 @@
 	* TODO.txt:
 	* excel32.dsw:
 	* makefile.mak:
+	* test/main.cpp:
+	* test/makefile.mak:
+	* test/test.dsp:
+	* test/test.dsw:
+	* test/test.mak:
+	* test/test.xls:
 	* xlw.nsi:
 	* xlwExample/makefile.mak:
 	* xlwExample/xlwExample.cpp:
@@ -516,34 +665,9 @@
 		new docs
 
 2002-03-14  nando
-	* Docs/xlwheader.tex:
-		trying the quantlib approach
-
-	* Docs/pages/misc.txt:
-		modified to have correct PDF output
-
-	* Docs/pages/excel32.txt:
-		dummy commit
-
-	* Docs/pages/bibliography.txt:
-		modified for correct PDF output
-
-	* Docs/makefile.mak:
-		removed useless target
-
-	* xlw.nsi:
-		correct version number
-
 	* xlw/XlfOper.h:
 	* xlw/excel32.h:
 		pruned redundant inclusions
-
-	* xlw.nsi:
-		bug fixed
-
-	* dev_tools/srcdist.bat:
-	* dev_tools/version_number.txt:
-		working on source distribution
 
 	* Docs/makefile.mak:
 	* Docs/makefile.mak:
@@ -563,6 +687,12 @@
 	* TODO.txt:
 		new docs
 
+	* Docs/xlwheader.tex:
+		trying the quantlib approach
+
+	* xlw.nsi:
+		bug fixed
+
 	* ChangeLog.txt:
 	* ChangeLog.txt:
 	* Docs/xlw.doxy:
@@ -570,8 +700,33 @@
 	* README.TXT:
 	* TODO.txt:
 	* TODO.txt:
+	* test/test.dsp:
+	* test/test.mak:
+	* test/test.mak:
 	* xlw.nsi:
 		updated
+
+	* xlw.nsi:
+		correct version number
+
+	* test/main.cpp:
+		new license
+
+	* Docs/pages/misc.txt:
+		modified to have correct PDF output
+
+	* Docs/pages/excel32.txt:
+		dummy commit
+
+	* Docs/pages/bibliography.txt:
+		modified for correct PDF output
+
+	* Docs/makefile.mak:
+		removed useless target
+
+	* dev_tools/srcdist.bat:
+	* dev_tools/version_number.txt:
+		working on source distribution
 
 2002-03-13  nando
 	* xlw.nsi:
@@ -642,6 +797,7 @@
 		upgraded t doxygen 1.2.14
 
 2002-02-18  nando
+	* test/main.cpp:
 	* xlw/macros.h:
 		added default catch (...) {}
 		Temporary removed try/catch from xlAutoOpen()
@@ -652,24 +808,31 @@
 	* TODO.txt:
 	* excel32.dsp:
 	* excel32.mak:
+	* test/test.mak:
 	* xlw/config.msvc.h:
 		changed _d into d (degub version of the library)
 
 2002-02-11  nando
 	* Docs/makefile.mak:
 	* makefile.mak:
+	* test/makefile.mak:
 	* xlw/makefile.mak:
 		trying to make it work with Borland
 
 2002-01-31  nando
 	* NEWS.TXT:
 	* TODO.txt:
+	* test/makefile.mak:
 	* xlw.nsi:
 		added PDF and WinHelp documentation
 
 	* Docs/pages/knownbugs.txt:
 	* NEWS.TXT:
 	* TODO.txt:
+	* test/main.cpp:
+	* test/makefile.mak:
+	* test/test.dsp:
+	* test/test.mak:
 		borland test compiles
 
 	* Docs/makefile.mak:
@@ -762,6 +925,17 @@
 	* misc.txt:
 	* port.h:
 	* pragmas.h:
+	* test/main.cpp:
+	* test/main.cpp:
+	* test/makefile.mak:
+	* test/test.dsp:
+	* test/test.dsp:
+	* test/test.dsw:
+	* test/test.mak:
+	* test/test.mak:
+	* test/test.mak:
+	* test/test.xls:
+	* test/test.xls:
 	* xlcall32.h:
 	* xlw.nsi:
 	* xlw.nsi:
@@ -876,6 +1050,9 @@
 	* misc.txt:
 	* port.h:
 	* pragmas.h:
+	* test/main.cpp:
+	* test/test.dsp:
+	* test/test.xls:
 	* xlcall32.h:
 		start
 
