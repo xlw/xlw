@@ -34,8 +34,8 @@
 struct XlfFuncDescImpl
 {
   //! Ctor.
-  XlfFuncDescImpl(XlfFuncDesc::RecalcPolicy recalcPolicy, 
-	  const std::string& category): recalcPolicy_(recalcPolicy), category_(category) 
+  XlfFuncDescImpl(XlfFuncDesc::RecalcPolicy recalcPolicy,
+	  const std::string& category): recalcPolicy_(recalcPolicy), category_(category)
   {}
   //! Recalculation policy
   XlfFuncDesc::RecalcPolicy recalcPolicy_;
@@ -53,7 +53,7 @@ XlfAbstractCmdDesc::XlfAbstractCmdDesc.
 \param category Category in which the function should appear.
 \param recalcPolicy Policy to recalculate the cell.
 */
-XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias, 
+XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias,
 						 const std::string& comment, const std::string& category,
 						 RecalcPolicy recalcPolicy)
     :XlfAbstractCmdDesc(name, alias, comment), impl_(0)
@@ -100,10 +100,13 @@ int XlfFuncDesc::DoRegister(const std::string& dllName) const
 	if (impl_->recalcPolicy_ == XlfFuncDesc::Volatile)
 	{
 		args+="!";
+        args+=" "; // make string longer so next line doesn't cause memory violation
 		args[nbargs + 2] = 0;
-	} 
-	else
+	}
+	else {
+        args+=" "; // make string longer so next line doesn't cause memory violation
 		args[nbargs + 1] = 0;
+    }
 	LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
 	LPXLOPER *px = rgx;
 	(*px++) = XlfOper(dllName.c_str());
