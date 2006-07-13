@@ -1,6 +1,5 @@
-
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -59,18 +58,18 @@ INLINE XlfOper::XlfOper(short value)
 }
 
 /*!
-See XlfOper::Set(bool)
+See XlfOper::Set(short,bool)
 */
-INLINE XlfOper::XlfOper(bool value)
+INLINE XlfOper::XlfOper(short value, bool error)
 {
   Allocate();
-  Set(value);
+  Set(value,error);
 }
 
 /*!
-See XlfOper::Set(const std::string&)
+See XlfOper::Set(bool)
 */
-INLINE XlfOper::XlfOper(const std::string& value)
+INLINE XlfOper::XlfOper(bool value)
 {
   Allocate();
   Set(value);
@@ -86,6 +85,42 @@ INLINE XlfOper::XlfOper(const char *value)
 }
 
 /*!
+See XlfOper::Set(const std::string& value))
+*/
+INLINE XlfOper::XlfOper(const std::string& value)
+{
+  Allocate();
+  Set(value.c_str());
+}
+
+/*!
+See XlfOper::Set(const CellMatrix& )
+*/
+INLINE XlfOper::XlfOper(const CellMatrix& value)
+{
+  Allocate();
+  Set(value);
+}
+
+/*!
+See XlfOper::Set(const MyMatrix& )
+*/
+INLINE XlfOper::XlfOper(const MyMatrix& value)
+{
+  Allocate();
+  Set(value);
+}
+
+/*!
+See XlfOper::Set(const MyArray& )
+*/
+INLINE XlfOper::XlfOper(const MyArray& value)
+{
+  Allocate();
+  Set(value);
+}
+
+/*!
 See XlfOper::Set(const XlfRef&)
 
 \sa XlfRef
@@ -94,21 +129,6 @@ INLINE XlfOper::XlfOper(const XlfRef& range)
 {
   Allocate();
   Set(range);
-}
-
-/*! See XlfOper::Set(rows,cols) */
-INLINE XlfOper::XlfOper(WORD rows,BYTE cols)
-{
-  Allocate();
-  Set(rows,cols);
-}
-
-/*!
-Provided for convenience. Forwards to XlfOper::Set(const char *)
-*/
-INLINE XlfOper& XlfOper::Set(const std::string& val)
-{
-	return Set(val.c_str());
 }
 
 /*!
@@ -179,4 +199,3 @@ buffer by temporary XLOPER allocated by the XLL.
 */
 INLINE void XlfOper::Deallocate()
 {}
-

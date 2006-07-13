@@ -25,6 +25,7 @@
 // $Id$
 
 #include <xlw/XlfOper.h>
+#include <string>
 #include <exception>
 
 #if defined(_MSC_VER)

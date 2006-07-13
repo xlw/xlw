@@ -1,6 +1,5 @@
-
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -24,7 +23,10 @@
 
 // $Id$
 
+#include <xlw/EXCEL32_API.h>
+#include <xlw/xlcall32.h>
 #include <xlw/XlfExcel.h>
+#include <xlw/MyContainers.h>
 #include <vector>
 
 #if defined(_MSC_VER)
@@ -36,6 +38,7 @@
 #endif
 
 class XlfRef;
+class CellMatrix;
 
 //! Wrapper around a pointer to the XLOPER Excel data structure.
 /*!
@@ -62,17 +65,23 @@ public:
   XlfOper(double value);
   //! short ctor.
   XlfOper(short value);
+  //! short or error ctor.
+  XlfOper(short value, bool Error);
   //! boolean ctor.
   XlfOper(bool value);
   //! 0 terminated chararcter string ctor.
   XlfOper(const char *value);
-  //! std::string ctor.
-  XlfOper(const std::string& str);
+//!  string ctor.
+  XlfOper(const std::string& value);
+  //! CellMatrix ctor
+  XlfOper(const CellMatrix& value);
+  //! MyMatrix ctor
+  XlfOper(const MyMatrix& value);
+ //! MyArray ctor
+  XlfOper(const MyArray& value);
   //! XlfRef ctor.
   XlfOper(const XlfRef& range);
 #ifndef PORT_NO_MEMBER_TEMPLATE
-  //! Container ctor (no data)
-  XlfOper(WORD rows, BYTE cols);
   //! Container ctor.
   template <class FwdIt>
   XlfOper(WORD rows, BYTE cols, FwdIt start)
@@ -101,6 +110,8 @@ public:
 
   //! Converts to a double.
   double AsDouble(int * pxlret = 0) const;
+ //! Converts to a double with error identifer.
+  double AsDouble(const std::string& ErrorId, int * pxlret = 0) const;
 
   //! Lets the user choose how to convert a range in a vector<double>
   /*!
@@ -121,14 +132,43 @@ public:
 
   //! Converts to a std::vector<double>.
   std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  std::vector<double> AsDoubleVector(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+ 
+  //! Converts to an array.
+  MyArray AsArray(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  MyArray AsArray(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+
   //! Converts to a short.
   short AsShort(int * pxlret = 0) const;
+ //! Converts to a short with error identifer.
+  short AsShort(const std::string& ErrorId, int * pxlret = 0) const;
+
   //! Converts to a bool.
   bool AsBool(int * pxlret = 0) const;
+  //! Converts to a bool with error identifer..
+  bool AsBool(const std::string& ErrorId,int * pxlret = 0) const;
+
   //! Converts to an int.
   int AsInt(int * pxlret = 0) const;
+ //! Converts to an int with error identifer..
+  int AsInt(const std::string& ErrorId,int * pxlret = 0) const;
+
   //! Converts to a char *.
   char * AsString(int * pxlret = 0) const;
+ //! Converts to a char * with error identifer..
+  char * AsString(const std::string& ErrorId,int * pxlret = 0) const;
+
+  //! Converts to a cell Matrix
+  CellMatrix AsCellMatrix( int * pxlret=0) const;
+//! Converts to a cell Matrix with error identifer.
+  CellMatrix AsCellMatrix( const std::string& ErrorId,int * pxlret=0) const;
+ 
+  //! Converts to a matrix
+  MyMatrix AsMatrix( int * pxlret=0) const;
+//! Converts to a matrix with error identifer.
+  MyMatrix AsMatrix( const std::string& ErrorId,int * pxlret=0) const;
+
+
   //! Converts to a XlfReg.
   XlfRef AsRef(int * pxlret = 0) const;
 
@@ -137,33 +177,31 @@ public:
 
   //! Set the underlying XLOPER * to lpxloper
   XlfOper& Set(LPXLOPER lpxloper);
-  //! Set to a double
+  //! Set to a a double
   XlfOper& Set(double value);
-  //! Set to a short
+  //! Set to a a short
   XlfOper& Set(short value);
-  //! Set to a boolean
+  //! Set to a a boolean
   XlfOper& Set(bool value);
-  //! Set to a zero-terminated character string
+  //! Set to a a zero-terminated character string
   XlfOper& Set(const char *value);
-  //! Set to a standard string
-  XlfOper& Set(const std::string& value);
+  //! Set to a cell matrix
+  XlfOper& Set(const CellMatrix& cells);
+  //! Set to a  matrix
+  XlfOper& Set(const MyMatrix& matrix);
+  //! Set to an array
+  XlfOper& Set(const MyArray& values);
   //! Set to a range
   XlfOper& Set(const XlfRef& range);
+  //! Set to a short or error, bool for disambiguation
+  XlfOper& Set(short value, bool Error);
   //! Set to an error value
   XlfOper& SetError(WORD error);
   //! Cast to XLOPER *
   operator LPXLOPER();
-  //! Sets to an array (unfilled version)
-  XlfOper& Set(WORD r, BYTE c);
-  //! Fills the array
-  XlfOper& Set(size_t i, XlfOper& val);
 #ifndef PORT_NO_MEMBER_TEMPLATE
-  //! Set to an array (filled version)
+  //! Set to an array
   /*!
-  This version requires all the element of the container to be of the
-  same type. Use the unfilled version together with 
-  Set(size_t i,const XlfOper&) to generate heterogenous arrays.
-
   \param r number of rows in the array
   \param c number of columns in the array
   \param it iterator pointing to the begining of a container
@@ -174,11 +212,12 @@ public:
   XlfOper& Set(WORD r, BYTE c, FwdIt it)
 #ifdef PORT_PARTIAL_MEMBER_TEMPLATE
   {
-    Set(r,c);
-    for (size_t i = 0; i < size_t(r*c); ++i, ++it) {
-      XlfOper temp(*it);
-	  Set(i, temp);
-    }
+    lpxloper_->xltype = xltypeMulti;
+    lpxloper_->val.array.rows = r;
+    lpxloper_->val.array.columns = c;
+    lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
+    for (size_t i = 0; i < size_t(r*c); ++i, ++it)
+      lpxloper_->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
     return *this;
   }
 #else
@@ -186,7 +225,7 @@ public:
 #endif
 #endif
 
-private:
+public:
   //! Internal LPXLOPER.
   LPXLOPER lpxloper_;
 
@@ -202,6 +241,9 @@ private:
   //! Throws an exception when critical errors occur.
   int ThrowOnError(int) const;
 
+  //! Throws an exception when critical errors occur but passes on an identifier to help track it down
+  int ThrowOnError(int, const std::string& identifier) const;
+  
   //! Internally used to flag XLOPER returned by Excel.
   static int xlbitFreeAuxMem;
 
@@ -217,8 +259,16 @@ private:
   int ConvertToInt(int&) const throw();
   //! Attempts conversion to string and returns Excel4 error code.
   int ConvertToString(char *&) const throw();
+  //! Attempts conversion to CellMatrix and returns Excel4 error code
+  int ConvertToCellMatrix( CellMatrix& output) const;
+  //! Attempts conversion to Matrix and returns Excel4 error code
+  int ConvertToMatrix( MyMatrix& output) const;
+
   //! Attempts conversion to XlRef and returns Excel4 error code.
   int ConvertToRef(XlfRef&) const throw();
+  //! Attempts conversion to XlRef and returns Excel4 error code.
+  int XlfOper::ConvertToErr(WORD& e) const throw();
+
 
   friend class XlfExcel;
 };
@@ -269,4 +319,3 @@ XlfOper& XlfOper::Set<FwdIt>(WORD r, BYTE c, FwdIt it);
 #endif
 
 #endif
-

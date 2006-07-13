@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "xlw"=.\xlw.dsp - Package Owner=<4>
+Project: "xlwVisio"=.\xlwVisio.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -11,21 +11,6 @@ Package=<5>
 
 Package=<4>
 {{{
-}}}
-
-###############################################################################
-
-Project: "xlwExample"=.\xlwExample\xlwExample.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name xlw
-    End Project Dependency
 }}}
 
 ###############################################################################

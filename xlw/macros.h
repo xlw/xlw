@@ -1,6 +1,5 @@
-
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004, 2004 Jérôme Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -25,10 +24,18 @@
 // $Id$
 
 #include <xlw/XlfException.h>
+#include <xlw/XlfExcel.h>
 
 #if defined(_MSC_VER)
 #pragma once
 #endif
+
+//! Export flag.
+/*!
+Export macro that tells the compiler that the function is to be exported.
+*/
+#define EXCEL_EXPORT __declspec(dllexport)
+
 
 //! Initialization macro
 /*!
@@ -53,6 +60,10 @@ Catching rules are as follow :
 - try first to catch excel exception that need the framework to return to excel
 asap (namely coerce, uncalculated cell, and abort). If catched, returns 0 that
 Excel will translate to #NULL!.
+- catch runtime errors and send string to excel
+- catch strings and echo them
+- catch const char * and echo them
+- catch cell matrix and echo it, useful for complicated errors
 - catch all other kind of exception. Return #VALUE! error.
 
 You could easily add your own exception here. Note that it causes all your
@@ -61,6 +72,14 @@ interface to recompile.
 #define EXCEL_END \
 } catch (XlfException&) { \
 	return 0; \
+} catch (std::runtime_error& error){\
+	return XlfOper(error.what());\
+} catch (std::string& error){\
+	return XlfOper(error);\
+} catch (const char* error){\
+	return XlfOper(error);\
+} catch (const CellMatrix& error){\
+	return XlfOper(error);\
 } catch (...) { \
 	return XlfOper::Error(xlerrValue); \
 }
@@ -77,5 +96,8 @@ interface to recompile.
 
 */
 
-#endif
+#define __HERE__ __FILE__ "(" _MAKESTRING(__LINE__) "): "
+#define _MAKESTRING(a) __MAKESTRING(a)
+#define __MAKESTRING(a) #a
 
+#endif
