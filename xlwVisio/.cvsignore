@@ -1,0 +1,8 @@
+Debug
+release
+*.nbc
+*.user
+*.suo
+*.ncb
+
+
