@@ -43,4 +43,6 @@ std::string // says hello name
 HelloWorld(std::string name // name to be echoed
            );
  
+int EchoInt(int x);
+
 #endif
