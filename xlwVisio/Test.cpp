@@ -63,3 +63,8 @@ std::string HelloWorld(std::string name)
 {
     return "hello "+name;
 }
+
+int EchoInt(int x)
+{
+	return x;
+}

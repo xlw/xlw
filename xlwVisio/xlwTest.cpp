@@ -345,3 +345,48 @@ EXCEL_END
 
 //////////////////////////
 
+namespace
+{
+XLRegistration::Arg
+EchoIntArgs[]=
+{
+{ "x"," "}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerEchoInt("xlEchoInt",
+"EchoInt",
+" ",
+LibraryName,
+EchoIntArgs,
+"R");
+}
+
+
+
+extern "C"
+{
+LPXLOPER EXCEL_EXPORT
+xlEchoInt(
+LPXLOPER xlx_)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+XlfOper xlx(xlx_);
+int x(xlx.AsInt("x"));
+
+double result(
+	EchoInt(
+		x)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
