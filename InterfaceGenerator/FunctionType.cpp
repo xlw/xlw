@@ -17,57 +17,64 @@
 
 void CheckAndGetType(char& c, std::string& ConversionString, std::string className)
 {
-		if (className == "double" )
+	
+	if (className == std::string("double") )
+	{
+		c = 'R';
+		ConversionString = ".AsDouble";
+	}
+	else
+		if (className == "short" )
 		{
 			c = 'R';
-			ConversionString = ".AsDouble";
+			ConversionString = ".AsShort";
 		}
 		else
-			if (className == "int" )
+			if (className == "MyMatrix")
+			{
+				c = 'P';
+				ConversionString = ".AsMatrix";
+			}
+			else if (className ==  "MyArray"	)
 			{
 				c = 'R';
-				ConversionString = ".AsInt";
+				ConversionString = ".AsArray";
 			}
 			else
-				if (className == "MyMatrix")
+				if (className == "CellMatrix"	)
 				{
 					c = 'P';
-					ConversionString = ".AsMatrix";
+					ConversionString = ".AsCellMatrix";
 				}
-			else if (className ==  "MyArray"	)
-				{
-					c = 'R';
-					ConversionString = ".AsArray";
-				}
+				else
+					if (className == "string")
+					{
+						c='R';
+						ConversionString = ".AsString";
+					}
 					else
-						if (className == "CellMatrix"	)
+						if (className == "std::string")
 						{
-							c = 'P';
-							ConversionString = ".AsCellMatrix";
+							c='R';
+							ConversionString = ".AsString";
 						}
-						else
-							if (className == "string")
+						else 
+							if (className == "bool")
 							{
 								c='R';
-								ConversionString = ".AsString";
+								ConversionString = ".AsBool";
 							}
 							else
-								if (className == "std::string")
+								if (className == "short")
 								{
 									c='R';
-									ConversionString = ".AsString";
+									ConversionString = ".AsShort";	
 								}
-								else 
-									if (className == "bool")
-									{
-										c='R';
-										ConversionString = ".AsBool";
-									}
-									else
-										throw("unknown variable type found "+className);
-	
+								else
+									throw("unknown variable type found \""+className+"\"");
 
-	return;
+
+			return;
 }
 std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input)
 {
