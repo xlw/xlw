@@ -1,6 +1,13 @@
 #include "Test.h"
 
 
+short // echoes a short
+EchoShort(short x // number to be echoed
+		   )
+{
+	return x;
+}
+
 MyMatrix EchoMat(const MyMatrix& EchoEe)
 {
 	return EchoEe;
@@ -59,12 +66,8 @@ Stats(const MyArray& data 	  )
 }
 
 
-std::string HelloWorld(std::string name)
+std::string HelloWorldAgain(std::string name)
 {
     return "hello "+name;
 }
 
-int EchoInt(int x)
-{
-	return x;
-}
