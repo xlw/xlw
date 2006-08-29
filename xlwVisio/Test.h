@@ -9,6 +9,10 @@
 #include <xlw/MyContainers.h>
 #include <xlw/CellMatrix.h>
 
+short // echoes a short
+EchoShort(short x // number to be echoed
+	   );
+
 MyMatrix // echoes a matrix
 EchoMat(const MyMatrix& Echoee // argument to be echoed
 		);
@@ -40,9 +44,7 @@ Stats(const MyArray& data // input for computation
 
 
 std::string // says hello name
-HelloWorld(std::string name // name to be echoed
+HelloWorldAgain(std::string name // name to be echoed
            );
  
-int EchoInt(int x);
-
 #endif
