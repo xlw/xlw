@@ -46,8 +46,9 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 	AddLine(output, "#include <xlw/XlFunctionRegistration.h>");
 	AddLine(output, "#include <stdexcept>");
 	AddLine(output,"#include <xlw/XlOpenClose.h>");
+	AddLine(output,"namespace {");
 	AddLine(output,"const char* LibraryName = \""+LibraryName+"\";");
-
+	AddLine(output,"};");
 	AddLine(output,"");
 	AddLine(output,"// dummy function to force linkage");
 	AddLine(output,"namespace {");
