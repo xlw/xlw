@@ -5,12 +5,14 @@
 #include <xlw/pragmas.h>
 #include <xlw/MyContainers.h>
 #include <xlw/CellMatrix.h>
-#include "Test.h"
+#include "test.h"
 #include <xlw/xlw.h>
 #include <xlw/XlFunctionRegistration.h>
 #include <stdexcept>
 #include <xlw/XlOpenClose.h>
-const char* LibraryName = "Test.h";
+namespace {
+const char* LibraryName = "test.h";
+};
 
 // dummy function to force linkage
 namespace {
@@ -23,6 +25,51 @@ xlAutoClose();
 
 // registrations start here
 
+
+namespace
+{
+XLRegistration::Arg
+EchoShortArgs[]=
+{
+{ "x"," number to be echoed "}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerEchoShort("xlEchoShort",
+"EchoShort",
+" echoes a short ",
+LibraryName,
+EchoShortArgs,
+"R");
+}
+
+
+
+extern "C"
+{
+LPXLOPER EXCEL_EXPORT
+xlEchoShort(
+LPXLOPER xlx_)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+XlfOper xlx(xlx_);
+short x(xlx.AsShort("x"));
+
+short result(
+	EchoShort(
+		x)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
 
 namespace
 {
@@ -303,16 +350,16 @@ EXCEL_END
 namespace
 {
 XLRegistration::Arg
-HelloWorldArgs[]=
+HelloWorldAgainArgs[]=
 {
 { "name"," name to be echoed "}
 };
   XLRegistration::XLFunctionRegistrationHelper
-registerHelloWorld("xlHelloWorld",
-"HelloWorld",
+registerHelloWorldAgain("xlHelloWorldAgain",
+"HelloWorldAgain",
 " says hello name ",
 LibraryName,
-HelloWorldArgs,
+HelloWorldAgainArgs,
 "R");
 }
 
@@ -321,7 +368,7 @@ HelloWorldArgs,
 extern "C"
 {
 LPXLOPER EXCEL_EXPORT
-xlHelloWorld(
+xlHelloWorldAgain(
 LPXLOPER xlname_)
 {
 EXCEL_BEGIN;
@@ -333,53 +380,8 @@ XlfOper xlname(xlname_);
 std::string name(xlname.AsString("name"));
 
 std::string result(
-	HelloWorld(
+	HelloWorldAgain(
 		name)
-	);
-return XlfOper(result);
-EXCEL_END
-}
-}
-
-
-
-//////////////////////////
-
-namespace
-{
-XLRegistration::Arg
-EchoIntArgs[]=
-{
-{ "x"," "}
-};
-  XLRegistration::XLFunctionRegistrationHelper
-registerEchoInt("xlEchoInt",
-"EchoInt",
-" ",
-LibraryName,
-EchoIntArgs,
-"R");
-}
-
-
-
-extern "C"
-{
-LPXLOPER EXCEL_EXPORT
-xlEchoInt(
-LPXLOPER xlx_)
-{
-EXCEL_BEGIN;
-
-	if (XlfExcel::Instance().IsCalledByFuncWiz())
-		return XlfOper(true);
-
-XlfOper xlx(xlx_);
-int x(xlx.AsInt("x"));
-
-double result(
-	EchoInt(
-		x)
 	);
 return XlfOper(result);
 EXCEL_END
