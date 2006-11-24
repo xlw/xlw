@@ -14,8 +14,10 @@
 */
 
 #include "FunctionModel.h"
-FunctionModel::FunctionModel(std::string ReturnType_, std::string Name, std::string Description)
-: ReturnType(ReturnType_), FunctionName(Name), FunctionDescription(Description)
+#include "IncludeRegister.h"
+
+FunctionModel::FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_)
+: ReturnType(ReturnType_), FunctionName(Name), FunctionDescription(Description), Volatile(Volatile_)
 {
 }
 

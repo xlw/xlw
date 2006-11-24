@@ -3,9 +3,27 @@
 //						CellMatrix.cpp
 //
 //
-
+/*
+ Copyright (C) 2006 Mark Joshi
+ 
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+ 
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+ 
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 #include "CellMatrix.h"
 #include <algorithm>
+
+unsigned long maxi(unsigned long a, unsigned long b)
+{
+	return a > b ? a : b;
+}
 
 bool CellValue::IsAString() const
 {
@@ -180,14 +198,14 @@ unsigned long CellMatrix::ColumnsInStructure() const
 
 CellMatrix MergeCellMatrices(const CellMatrix& Top, const CellMatrix& Bottom)
 {
-	unsigned long cols = std::max(Top.ColumnsInStructure(), Bottom.ColumnsInStructure());
+	unsigned long cols = maxi(Top.ColumnsInStructure(), Bottom.ColumnsInStructure());
 	unsigned long rows = Top.RowsInStructure()+Bottom.RowsInStructure();
 
 	CellMatrix merged(rows,cols);
 
-	for (unsigned long i=0; i < Top.ColumnsInStructure(); i++)
+	{for (unsigned long i=0; i < Top.ColumnsInStructure(); i++)
 		for (unsigned long j=0; j < Top.RowsInStructure(); j++)
-			merged(j,i) = Top(j,i);
+			merged(j,i) = Top(j,i);}
 
 	for (unsigned long i=0; i < Bottom.ColumnsInStructure(); i++)
 		for (unsigned long j=0; j < Bottom.RowsInStructure(); j++)
@@ -200,7 +218,7 @@ CellMatrix MergeCellMatrices(const CellMatrix& Top, const CellMatrix& Bottom)
 void CellMatrix::PushBottom(const CellMatrix& newRows)
 {
 	CellMatrix newRowsResize(newRows);
-	unsigned long newColumns = std::max(newRows.ColumnsInStructure(),Columns);
+	unsigned long newColumns = maxi(newRows.ColumnsInStructure(),Columns);
 
 	if (newColumns > Columns)
 		for (unsigned long i=0; i < Rows; i++)

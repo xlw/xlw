@@ -49,4 +49,13 @@ XlfOper XlfRef::operator()(WORD r, BYTE c) const
 	res.Set(XlfRef(rowbegin_ + r, colbegin_ + c, sheetId_));
 	return res;
 }
+  
+XlfOper XlfRef::operator()(size_t relativerow, size_t relativecol) const
+{
+	return operator()(static_cast<WORD>(relativerow),static_cast<BYTE>(relativecol));
+}
 
+XlfOper XlfRef::operator()(unsigned long relativerow, unsigned long relativecol) const
+{
+	return operator()(static_cast<WORD>(relativerow),static_cast<BYTE>(relativecol));
+}

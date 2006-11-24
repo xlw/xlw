@@ -32,6 +32,13 @@ std::string Token::GetValue() const
 	return Value;
 }
 
+void RemoveSpaces(std::string& value)
+{
+	while (value.size() > 0 && value[value.size()-1] ==' ')
+	{
+		value.resize(	value.size()-1);
+	}
+}
 
 std::vector<Token> Tokenize(const std::vector<char>& input)
 {
@@ -79,11 +86,13 @@ std::vector<Token> Tokenize(const std::vector<char>& input)
 				if ( d== '/') // one line comment
 				{
 					std::string value;
-					while (*it != '\n')
+					while (*it != '\n' && it+1 != input.end())
 					{
 						PushBack(value,*it);
 						++it;
 					}
+
+					RemoveSpaces(value);
 					output.push_back(Token(Token::comment,value));
 				}
 				else 

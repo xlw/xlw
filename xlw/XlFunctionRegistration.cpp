@@ -3,6 +3,20 @@
 //									XlFunctionRegistriation.cpp
 //
 //
+/*
+ Copyright (C) 2006 Mark Joshi
+ 
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+ 
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+ 
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 #include "pragmas.h"
 #include "XlFunctionRegistration.h"
 #include "xlfFuncDesc.h"
@@ -15,15 +29,17 @@ XLFunctionRegistrationData::XLFunctionRegistrationData(const std::string& Functi
                      const std::string& FunctionDescription_,
                      const std::string& Library_,
                      const Arg Arguments[],
-                     const char* ArgumentTypes_)
+                     const char* ArgumentTypes_,
+					 bool Volatile_)
 	:				FunctionName(FunctionName_),
                      ExcelFunctionName(ExcelFunctionName_),
                      FunctionDescription(FunctionDescription_),
                      Library(Library_),
-                     ArgumentTypes(ArgumentTypes_)
+                     ArgumentTypes(ArgumentTypes_),
+					 Volatile(Volatile_)
 {
 
-	NoOfArguments =ArgumentTypes.size();
+	NoOfArguments =static_cast<int>(ArgumentTypes.size());
 
 	ArgumentNames.reserve(NoOfArguments);
 	ArgumentDescriptions.reserve(NoOfArguments);
@@ -79,14 +95,16 @@ XLFunctionRegistrationHelper::XLFunctionRegistrationHelper(const std::string& Fu
                      const std::string& FunctionDescription,
                      const std::string& Library,
                      const Arg Args[],
-                     const char* Types)
+                     const char* Types,
+					 bool Volatile)
 {
 	XLFunctionRegistrationData tmp(FunctionName, 
 																ExcelFunctionName, 
 																FunctionDescription, 
 																Library, 
 																Args, 
-																Types);
+																Types,
+																Volatile);
 
 	ExcelFunctionRegistrationRegistry::Instance().AddFunction(tmp);
 }
@@ -101,10 +119,12 @@ void ExcelFunctionRegistrationRegistry::DoTheRegistrations() const
 {
 	for (std::list<XLFunctionRegistrationData>::const_iterator it = RegistrationData.begin(); it !=  RegistrationData.end(); ++it)
 	{
+		XlfFuncDesc::RecalcPolicy policy = it->GetVolatile() ? XlfFuncDesc::Volatile : XlfFuncDesc::NotVolatile;
 		 XlfFuncDesc xlFunction(it->GetFunctionName(), 
 													it->GetExcelFunctionName(), 
 													it->GetFunctionDescription(), 
-													it->GetLibrary());
+													it->GetLibrary(),
+													policy);
 		XlfArgDescList xlFunctionArgs;
 
 		for (int i=0; i < it->GetNoOfArguments(); ++i)

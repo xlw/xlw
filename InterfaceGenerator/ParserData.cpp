@@ -16,11 +16,11 @@
 #include "ParserData.h"
 
 FunctionArgumentType::FunctionArgumentType(std::string NameIdentifier_,
-                          std::string ConversionToMethod_,
+                          const std::vector<std::string>& ConversionChain_,
                           char EXCELKey_)
                           :
                           NameIdentifier(NameIdentifier_),
-                          ConversionToMethod(ConversionToMethod_),
+                          ConversionChain(ConversionChain_),
                           EXCELKey(EXCELKey_)
                           {}
                           
@@ -30,9 +30,9 @@ const std::string& FunctionArgumentType::GetNameIdentifier() const
  return NameIdentifier;           
 }
            
-const std::string& FunctionArgumentType::GetConversionToMethod() const
+const std::vector<std::string>& FunctionArgumentType::GetConversionChain() const
 {
- return ConversionToMethod;
+ return ConversionChain;
 }
 
 FunctionArgumentType FunctionArgument::GetTheType() const
@@ -88,13 +88,15 @@ FunctionDescription::FunctionDescription(std::string FunctionName_,
                          std::string FunctionHelpDescription_,
 						std::string ReturnType_,
 						 char ExcelKey_,
-                         const std::vector<FunctionArgument>& Arguments_)
+                         const std::vector<FunctionArgument>& Arguments_,
+						 bool Volatile_)
                          :
                          FunctionName(FunctionName_),
                          FunctionHelpDescription(FunctionHelpDescription_),
 						 ReturnType(ReturnType_),
 						 ExcelKey(ExcelKey_),
-                         Arguments(Arguments_)
+                         Arguments(Arguments_),
+						 Volatile(Volatile_)
 {
 }
 
@@ -106,4 +108,9 @@ FunctionDescription::FunctionDescription(std::string FunctionName_,
 std::string FunctionDescription::GetReturnType() const
 {
 	return ReturnType;
+}
+
+bool FunctionDescription::GetVolatile() const
+{
+	return  Volatile;
 }

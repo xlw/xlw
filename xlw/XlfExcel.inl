@@ -86,7 +86,7 @@ INLINE LPSTR XlfExcel::GetMemory(size_t bytes)
     XlfBuffer& buffer = freeList_.front();
     if (offset_ + bytes < buffer.size)
     {
-      int temp = offset_;
+      int temp = static_cast<int>(offset_);
       offset_ += bytes;
       return buffer.start + temp;
     }

@@ -88,7 +88,8 @@ public:
   void SetSheetId(DWORD);
   //! Access operator
   XlfOper operator()(WORD relativerow, BYTE relativecol) const;
-
+  XlfOper operator()(size_t relativerow, size_t relativecol) const;
+  XlfOper operator()(unsigned long relativerow, unsigned long relativecol) const;
 private:
   //! Index of the top row of the range reference.
   WORD rowbegin_;

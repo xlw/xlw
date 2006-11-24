@@ -22,16 +22,16 @@ class  FunctionArgumentType
 {
 public:       
      FunctionArgumentType(std::string NameIdentifier,
-                          std::string ConversionToMethod,
+						  const std::vector<std::string>& ConversionChain,
                           char EXCELKey);
      
      const std::string& GetNameIdentifier() const;
-     const std::string& GetConversionToMethod() const;
+	 const std::vector<std::string>& GetConversionChain() const;
      char GetEXCELKey() const;
      
 private:
      std::string NameIdentifier;
-     std::string ConversionToMethod;            
+     std::vector<std::string> ConversionChain;            
      char EXCELKey; 
             
 };
@@ -60,7 +60,8 @@ public:
                          std::string FunctionHelpDescription_,
 						 std::string ReturnType,
 						 char ExcelKey,
-                         const std::vector<FunctionArgument>& Arguments_);
+                         const std::vector<FunctionArgument>& Arguments_, 
+						 bool Volatile_);
      
      std::string GetFunctionName() const;
      std::string GetFunctionDescription() const;
@@ -68,6 +69,7 @@ public:
 	 std::string GetReturnType() const;
      const FunctionArgument& GetArgument(unsigned long ArgumentNumber) const;
      unsigned long NumberOfArguments() const;
+	 bool GetVolatile() const;
             
 private:
      std::string FunctionName;
@@ -75,6 +77,7 @@ private:
 	 std::string ReturnType;
 	 char ExcelKey;
      std::vector<FunctionArgument> Arguments;
+	 bool Volatile;
      
       
 };

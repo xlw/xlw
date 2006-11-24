@@ -21,11 +21,12 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 
 	std::string returnType = it->GetValue();
 	++it;
+	bool Volatile = false;
 
 	if (it == end)
 		throw("function half declared at end of file");
 
-	std::string functionDesc;
+	std::string functionDesc("too lazy to comment this function");
 
 	if (it->GetType() == Token::comment)
 	{
@@ -36,12 +37,27 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 	if (it == end)
 		throw("function half declared at end of file");
 
+	if (it->GetType() == Token::comment)
+	{
+		std::string commentString = it->GetValue();
+
+		if (commentString == "<xlw:volatile")
+		{
+			Volatile =true;
+			++it;
+			if (it == end)
+				throw("function half declared at end of file");
+		}
+		else
+			throw("unexpected comment in function definition ");
+	}
+
 	if (it->GetType() != Token::identifier)
 		throw("function name expected after return type");
 	
 	std::string functionName(it->GetValue());
 
-	FunctionModel theFunction(returnType,functionName,functionDesc);
+	FunctionModel theFunction(returnType,functionName,functionDesc,Volatile);
 
 	++it;
 	if (it == end)
@@ -74,7 +90,7 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 		if (it == end)
 	    	throw("function half declared at end of file "+functionName);
 
-		std::string argComment;
+		std::string argComment("too lazy to comment this one");
 
 		if (it->GetType() == Token::comment)
 		{
@@ -101,7 +117,7 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 
 }
 
-std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& input)
+std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& input, std::string& LibraryName)
 {
 	std::vector<FunctionModel> output;
 
@@ -138,7 +154,14 @@ std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& inpu
 				++it;
 				break;
 			case Token::comment :
-				++it; //ignore comment unless in function definition
+				{
+					std::string val = it->GetValue();
+					if (val.size()>= 19 && val.substr(0,17) == "<xlw:libraryname=")
+					{
+						LibraryName = val.substr(19,val.size());
+					}
+					++it; //ignore comment unless in function definition
+				}
 				break;
 			case Token::identifier :
 				output.push_back(FunctionFind(it,input.end()));

@@ -39,6 +39,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;C:\Program Files\Microsoft Platform SDK\Include&quot;;.."
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE"
 				RuntimeLibrary="3"
 				ObjectFile="$(IntDir)\"
 				DebugInformationFormat="4"
@@ -96,7 +97,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;C:\Program Files\Microsoft Platform SDK\Include&quot;;.."
-				PreprocessorDefinitions="NDEBUG"
+				PreprocessorDefinitions="NDEBUG, _CRT_SECURE_NO_DEPRECATE"
 				RuntimeLibrary="2"
 			/>
 			<Tool
@@ -137,6 +138,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\xlw\ArgList.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\CellMatrix.cpp"
 				>
 				<FileConfiguration
@@ -150,6 +155,10 @@
 						DebugInformationFormat="4"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\xlw\DoubleOrNothing.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\xlw\MJmatrices.cpp"
@@ -182,6 +191,14 @@
 			<File
 				RelativePath="..\xlw\XlfException.cpp"
 				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\xlw\XlfFuncDesc.cpp"
@@ -214,6 +231,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\xlw\ArgList.h"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\CellMatrix.h"
 				>
 			</File>
@@ -227,6 +248,10 @@
 			</File>
 			<File
 				RelativePath="..\xlw\config.msvc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\DoubleOrNothing.h"
 				>
 			</File>
 			<File
@@ -263,6 +288,10 @@
 			</File>
 			<File
 				RelativePath="..\xlw\Win32StreamBuf.inl"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\wrapper.h"
 				>
 			</File>
 			<File

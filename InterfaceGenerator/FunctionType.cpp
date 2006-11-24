@@ -14,67 +14,26 @@
 */
 
 #include "FunctionType.h"
+#include "TypeRegister.h"
 
-void CheckAndGetType(char& c, std::string& ConversionString, std::string className)
+void CheckAndGetType(char& c, 
+					 std::vector<std::string>& ConversionChain, 
+					 std::string className)
 {
-	
-	if (className == std::string("double") )
-	{
-		c = 'R';
-		ConversionString = ".AsDouble";
-	}
-	else
-		if (className == "short" )
-		{
-			c = 'R';
-			ConversionString = ".AsShort";
-		}
-		else
-			if (className == "MyMatrix")
-			{
-				c = 'P';
-				ConversionString = ".AsMatrix";
-			}
-			else if (className ==  "MyArray"	)
-			{
-				c = 'R';
-				ConversionString = ".AsArray";
-			}
-			else
-				if (className == "CellMatrix"	)
-				{
-					c = 'P';
-					ConversionString = ".AsCellMatrix";
-				}
-				else
-					if (className == "string")
-					{
-						c='R';
-						ConversionString = ".AsString";
-					}
-					else
-						if (className == "std::string")
-						{
-							c='R';
-							ConversionString = ".AsString";
-						}
-						else 
-							if (className == "bool")
-							{
-								c='R';
-								ConversionString = ".AsBool";
-							}
-							else
-								if (className == "short")
-								{
-									c='R';
-									ConversionString = ".AsShort";	
-								}
-								else
-									throw("unknown variable type found \""+className+"\"");
+	ConversionChain = TypeRegistry::Instance().GetChain(className);
 
+	std::string secondLastType = *(ConversionChain.rbegin()+1);
 
-			return;
+	TypeRegistry::regData  data= TypeRegistry::Instance().GetRegistration(secondLastType);
+
+	std::string key = data.ExcelKey;
+
+	if (key.size() == 0)
+		throw("excel key not given  "+className);
+
+	c = key[0];
+
+	return;
 }
 std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input)
 {
@@ -84,7 +43,7 @@ std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input
 	while (it != input.end())
 	{
 		char key;
-		std::string conversionString;
+		std::vector<std::string> conversionString;
 		std::string returnType = it->GetReturnType();
 		CheckAndGetType(key,conversionString,returnType);
 		std::string name = it->GetFunctionName();
@@ -94,17 +53,18 @@ std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input
 		for (unsigned long i=0; i < it->GetNumberArgs(); i++)
 		{
 			char thisKey;
-			std::string thisConversionString;
+			std::vector<std::string> thisConversionString;
 			std::string thisType = it->GetArgumentReturnType(i);
 			CheckAndGetType(thisKey,thisConversionString,thisType);
 
 			FunctionArgumentType typeDesc(thisType,thisConversionString,thisKey);
 
+
 			FunctionArgument thisArgument(typeDesc,it->GetArgumentFunctionName(i),it->GetArgumentFunctionDescription(i));
 			Arguments.push_back(thisArgument);
 		}
 
-		FunctionDescription thisDescription(name,desc,returnType,key,Arguments);
+		FunctionDescription thisDescription(name,desc,returnType,key,Arguments,it->GetVolatile());
 		output.push_back(thisDescription);
 		++it;
 	}

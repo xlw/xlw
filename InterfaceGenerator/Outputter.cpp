@@ -14,6 +14,8 @@
 */
 
 #include "Outputter.h"
+#include "TypeRegister.h"
+#include "IncludeRegister.h"
 
 void PushBack(std::string& str, char c)
 {
@@ -46,6 +48,13 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 	AddLine(output, "#include <xlw/XlFunctionRegistration.h>");
 	AddLine(output, "#include <stdexcept>");
 	AddLine(output,"#include <xlw/XlOpenClose.h>");
+
+	const std::set<std::string>& includes = IncludeRegistry::Instance().GetIncludes();
+	for (std::set<std::string>::const_iterator it = includes.begin(); it!= includes.end(); ++it)
+	{
+		AddLine(output, "#include "+*it+"\n");
+	}
+
 	AddLine(output,"namespace {");
 	AddLine(output,"const char* LibraryName = \""+LibraryName+"\";");
 	AddLine(output,"};");
@@ -101,7 +110,11 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 		AddLine(output,"\""+ functionDescriptions[i].GetFunctionDescription()+" \",");
 		AddLine(output, "LibraryName,");
         AddLine(output,name+"Args,");
-		AddLine(output,"\""+keys+"\");");
+		AddLine(output,"\""+keys+"\"");
+		if ( functionDescriptions[i].GetVolatile())
+			AddLine(output,",true");
+		
+		AddLine(output, ");");
 		AddLine(output,"}");
 
 		// ok we've done the registration, we still need to do the function
@@ -144,12 +157,49 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 		AddLine(output,"XlfOper xl"+functionDescriptions[i].GetArgument(j).GetArgumentName()+"(xl"+
 			functionDescriptions[i].GetArgument(j).GetArgumentName()+"_);");
 
-		AddLine(output,functionDescriptions[i].GetArgument(j).GetTheType().GetNameIdentifier()+" "+
-				functionDescriptions[i].GetArgument(j).GetArgumentName()+"(xl"+
-				functionDescriptions[i].GetArgument(j).GetArgumentName()+functionDescriptions[i].GetArgument(j).GetTheType().GetConversionToMethod()
-				+"(\""+functionDescriptions[i].GetArgument(j).GetArgumentName()+"\")"
-				+");");
-				AddLine(output,"");
+		// we converted to XlfOper now we have to go through our conversion chain
+
+		std::vector<std::string> chain = functionDescriptions[i].GetArgument(j).GetTheType().GetConversionChain();
+		char id = 'a';
+		
+		std::string lastId = "xl"+functionDescriptions[i].GetArgument(j).GetArgumentName();
+
+	//	for (std::vector<std::string>::const_reverse_iterator it = chain.rbegin()+1; 
+	//		it != chain.rend(); ++it)
+	//	{
+
+		for (unsigned long k=0; k < chain.size() -1; k++)
+		{
+			std::vector<std::string>::const_iterator it = chain.begin()+chain.size()-2-k;
+			std::string newId = functionDescriptions[i].GetArgument(j).GetArgumentName();
+			
+			if (k+1 != chain.size() -1)
+				newId.push_back(id);
+
+			TypeRegistry::regData argData = TypeRegistry::Instance().GetRegistration(*it);		
+			AddLine(output, argData.NewType+" "+newId+"(");
+
+			bool specIdentifier = argData.TakesIdentifier;
+			std::string identifierBit;
+			bool isMethod = argData.IsAMethod;
+
+			if (specIdentifier && !isMethod)
+					identifierBit = ",\""+newId+"\"";
+			if (specIdentifier && isMethod)
+					identifierBit = +"\""+newId+"\"";
+
+		
+			if (isMethod)
+				AddLine(output, "\t"+lastId+"."+argData.Converter+"("+identifierBit+"));");
+			else 
+				AddLine(output, "\t"+argData.Converter+"("+lastId+identifierBit+"));");
+		
+			++id;
+			lastId=newId;
+		}
+		
+		AddLine(output,"");
+
 	}}
 	AddLine(output,functionDescriptions[i].GetReturnType()+" result(");
 	AddLine(output,'\t'+functionDescriptions[i].GetFunctionName()+"(");

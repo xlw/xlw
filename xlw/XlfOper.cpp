@@ -259,6 +259,26 @@ and xlretSuccess otherwise or whatever error occurs during coercing the data to 
 */
 int XlfOper::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolicy policy) const
 {
+	if (lpxloper_->xltype == xltypeMissing)
+    {
+        v.resize(0);
+        return xlretSuccess;
+    }
+
+	if (lpxloper_->xltype & xltypeNum)
+	{
+		// first test if double
+		double d=0.0;
+		int xlret1 = ConvertToDouble(d);
+
+		if (xlret1 == xlretSuccess)
+		{
+			v.resize(1);
+			v[0] = d;
+			return xlret1;
+		}
+	}
+
   XlfRef ref;
 
   int xlret = ConvertToRef(ref);
@@ -481,7 +501,7 @@ int XlfOper::ConvertToCellMatrix(CellMatrix& output) const
 	XlfRef ref;
 
    
-    if (lpxloper_->xltype == xltypeMissing)
+    if (lpxloper_->xltype == xltypeMissing || lpxloper_->xltype == xltypeNil )
     {
 	
         CellMatrix tmp(1,1);
@@ -870,7 +890,11 @@ XlfOper& XlfOper::Set(const MyMatrix& values)
 }
 XlfOper& XlfOper::Set(const MyArray& values)
 {
-	CellMatrix tmp(values.size(), 1UL);
+	if (values.size() ==0)
+	{
+		return Set(CellMatrix(1,1));
+	}
+	CellMatrix tmp(static_cast<unsigned long>(values.size()), 1UL);
 	for (unsigned long i=0; i < values.size(); i++)
 			tmp(i,0) = values[i];
 	return Set(tmp);
@@ -1013,7 +1037,7 @@ XlfOper& XlfOper::Set(const char *value)
   if (lpxloper_)
   {
     lpxloper_->xltype = xltypeStr;
-    int n = strlen(value);
+    int n = static_cast<unsigned int>(strlen(value));
     if (n >= 256)
       std::cerr << __HERE__ << "String too long is truncated" << std::endl;
     // One byte more for NULL terminal char (allow use of strcpy)

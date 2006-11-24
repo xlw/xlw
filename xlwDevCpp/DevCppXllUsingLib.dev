@@ -1,7 +1,7 @@
 [Project]
 FileName=DevCppXllUsingLib.dev
 Name=DevCppXll
-UnitCount=27
+UnitCount=32
 Type=3
 Ver=1
 ObjFiles=
@@ -140,36 +140,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit24]
-FileName=xlwTest.cpp
-CompileCpp=1
-Folder=DevCppXll
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit25]
-FileName=Test.h
-CompileCpp=1
-Folder=DevCppXll
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit26]
-FileName=Test.cpp
-CompileCpp=1
-Folder=DevCppXll
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit27]
 FileName=..\xlw\XlOpenClose.h
 CompileCpp=1
 Folder=DevCppXll
@@ -179,8 +149,38 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit25]
+FileName=..\TestFiles\xlwTest.cpp
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit26]
+FileName=..\TestFiles\PayOff.cpp
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit27]
+FileName=..\TestFiles\PayOff.h
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit29]
-FileName=..\xlw\XlfRef.h
+FileName=..\TestFiles\PayoffConcrete.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -190,7 +190,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit30]
-FileName=..\xlw\xlw.h
+FileName=..\TestFiles\PayOffRegistration.cpp
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -200,7 +200,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit31]
-FileName=..\xlw\config.bcc.h
+FileName=..\TestFiles\Test.cpp
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -368,7 +368,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit32]
-FileName=..\xlw\CellMatrix.cpp
+FileName=..\TestFiles\Test.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -489,6 +489,16 @@ BuildCmd=
 
 [Unit23]
 FileName=..\xlw\XlFunctionRegistration.h
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit28]
+FileName=..\TestFiles\PayOffConcrete.cpp
 CompileCpp=1
 Folder=DevCppXll
 Compile=1

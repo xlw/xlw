@@ -123,7 +123,7 @@ int XlfFuncDesc::DoRegister(const std::string& dllName) const
   {
 		(*px++) = XlfOper((*it).GetComment().c_str());
   }
-	int err = XlfExcel::Instance().Callv(xlfRegister, NULL, 10 + nbargs, rgx);
+	int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, NULL, 10 + nbargs, rgx));
 	delete[] rgx;
 	return err;
 }

@@ -3,7 +3,20 @@
 //									main.cpp
 //
 //
-
+/*
+ Copyright (C) 2006 Mark Joshi
+ 
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+ 
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+ 
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 
 #include <iostream>
 #include <fstream>
@@ -72,7 +85,9 @@ try
 	std::vector<Token> tokenVector2(Strip(tokenVector1));
 	std::cout << "file has been stripped\n";
 
-	std::vector<FunctionModel> modelVector(ConvertToFunctionModel(tokenVector2));
+	std::string LibraryName(inputfile);// use input file name as default library name
+
+	std::vector<FunctionModel> modelVector(ConvertToFunctionModel(tokenVector2,LibraryName));
 
 	std::cout << "file has been function modeled\n";
 
@@ -81,8 +96,7 @@ try
 	std::cout << "file has been function described\n";
 
     std::vector<char> outputVector(OutputFileCreator(functionVector,  
-																								inputfile,inputfile)); // use input file name as library name
-
+														inputfile,LibraryName)); 
 	std::cout << "new file is a vector\n";
 
 	ofstream output(outputfile.c_str());

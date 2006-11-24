@@ -1,4 +1,17 @@
-
+/*
+ Copyright (C) 2006 Mark Joshi
+ 
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+ 
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+ 
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 #if !defined(REGISTER_XL_FUNCTION_H)
 #define REGISTER_XL_FUNCTION_H
 
@@ -20,7 +33,8 @@ public:
                      const std::string& FunctionDescription_,
                      const std::string& Library_,
                      const Arg Arguments[],
-                     const char* ArgumentTypes_); 
+                     const char* ArgumentTypes_,
+					 bool Volatile_=false); 
 
 	std::string GetFunctionName() const;
 	std::string GetExcelFunctionName() const;
@@ -30,6 +44,11 @@ public:
 	std::vector<std::string> GetArgumentNames() const;
 	std::vector<std::string> GetArgumentDescriptions() const;
 	std::string GetArgumentTypes() const;
+
+	bool GetVolatile() const
+	{
+		return Volatile;
+	}
   
 private:
 
@@ -41,6 +60,7 @@ private:
 	std::vector<std::string> ArgumentNames;
 	std::vector<std::string> ArgumentDescriptions;
 	std::string ArgumentTypes;
+	bool Volatile;
 
 
 };
@@ -54,7 +74,8 @@ public:
                      const std::string& FunctionDescription,
                      const std::string& Library,
                      const Arg Args[],
-                     const char* Types); 
+                     const char* Types,
+					 bool Volatile=false); 
   
 private:
   

@@ -23,7 +23,7 @@ class FunctionModel
 {
 public:
 
-	FunctionModel(std::string ReturnType_, std::string Name, std::string Description);
+	FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_=false);
 
 	void AddArgument(std::string Type_, std::string Name_, std::string Description_);
 
@@ -57,10 +57,16 @@ public:
 		return ArgumentDescs.at(i);
 	}
 
+	bool GetVolatile() const
+	{
+		return Volatile;
+	}
+
 private:
 	std::string ReturnType;
 	std::string FunctionName;
 	std::string FunctionDescription;
+	bool Volatile;
 
 	std::vector<std::string > ArgumentTypes;
 	std::vector<std::string > ArgumentNames;

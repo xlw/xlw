@@ -20,6 +20,6 @@
 #include "FunctionModel.h"
 #include <vector>
 
-std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& input);
+std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& input, std::string& LibraryName);
 
 #endif
