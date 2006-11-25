@@ -3,7 +3,12 @@
 //												PayOffConcrete.cpp
 //
 //
-
+#ifdef _MSC_VER
+#if _MSC_VER < 1250
+#pragma warning(disable:4786)
+#define VC6
+#endif
+#endif
 #include "PayOffConcrete.h"
 
 
@@ -78,9 +83,14 @@ PayOffSpread::PayOffSpread(ArgumentList args)
 		Volume2 = args.GetDoubleArgumentValue("Volume2");
 	else 
 		Volume2 = -1.0;
+#ifndef VC6
 	OptionOne = Wrapper<PayOff>(GetFromFactory<PayOff>(args.GetArgumentListArgumentValue("optionone")));
 	OptionTwo = Wrapper<PayOff>(GetFromFactory<PayOff>(args.GetArgumentListArgumentValue("optiontwo")));
+#else
+	OptionOne = Wrapper<PayOff>(GetFromFactory<PayOff>(ArgumentList(args.GetCellsArgumentValue("optionone"),"optionone")));
+	OptionTwo = Wrapper<PayOff>(GetFromFactory<PayOff>(ArgumentList(args.GetCellsArgumentValue("optiontwo"),"optiontwo")));
 
+#endif
 	args.CheckAllUsed("PayOffSpread");
 }
 
