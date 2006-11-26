@@ -1,3 +1,6 @@
+2006-11-26 mark joshi
+a large number of changes for xlwplus
+
 2003-03-08  jlecomte
 	* xlw/XlfFuncDesc.cpp:
 	* xlw/XlfFuncDesc.h:
