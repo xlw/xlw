@@ -149,7 +149,8 @@ conversion code in
 C++, a parser routine has been written that takes in a header file and
 output a C++ source file with all the registration and data conversion
 already written. This means that a user needs virtually no specialist
-knowledge in order to convert any C++ routine into an xll. 
+knowledge in order to convert any C++ routine into an xll.  It is
+ intended that xlw plus will become xlw 2.0.
 
 In addition, the original xlw was written to work with Visual Studio
 6.0. This version comes with project files for Visual studio 6.0, visual studio 7.1, and
@@ -174,13 +175,12 @@ in directory appropriate for your compiler:
 \begin{itemize}
 \item For DevCpp look in the folder xlwDevCpp, and the project is
   called InterfaceGenerator.dev.
-\item For Visual Studio 8.0, open the solution in the folder xlwVisio, and the
+\item For Visual Studio 8.0, open the solution in the folder xlwVisio8, and the
+  project is called InterfaceGenerator. 
+\item For Visual Studio 7.1, open the solution in the folder xlwVisio7, and the
   project is called InterfaceGenerator. 
 \item For Visual Studio 6.0, open the workspace in the folder
-  xlwVisio, and the project is called InterfaceGenerator. 
-\item For Visual Studio .net (i.e. 7), use the .dsw file in the folder
-  xlwVisio and convert to a .net file. Then follow instructions as for
-  6.0 or 8.0.
+  xlwVisio6, and the project is called InterfaceGenerator. 
 \end{itemize}
 This project should be built and will produce a console application
 called InterfaceGenerator.exe. Note one can use the version of this
@@ -192,17 +192,25 @@ project files are in the same place as for the console application.
 \begin{itemize}
 \item For DevCpp the project file is called DevCppLibXl.dev, 
 and the
-  library file is called  DevCppLibXl.a. 
+  library file is called  DevCppLibXl.a and is built in the same
+  folder. 
 \item For Visual Studio 8.0, the project is called xlwLib. The built
-  libraries are xlwLib-Debug.lib and xlwLib.lib. 
+  libraries are xlwLib-Debug.lib and xlwLib.lib, and will be built
+  into xlwLib/Release and  xlwLib/backslash Debug, respectively. 
+\item For Visual Studio 7.1, the project is called xlwLib. The built
+  libraries are xlwLib-Debug.lib and xlwLib.lib, and will be built
+  into xlwLib7/Release and  xlwLib7/Debug, respectively. 
 \item For Visual Studio 6.0, the project is called xlwLib. The built
-  libraries are xlwLib-Debug.lib and xlwLib.lib. 
+  libraries are xlwLib-Debug.lib and xlwLib.lib, and will be built
+  into xlwLib6/Release and  xlwLib6/Debug, respectively. 
 \end{itemize}
 
 For each compiler, an example project is given of functions to be
-exported to the xll. These are called: DevCppXll.dev, xlwVisio and
-xlwVisio. Each project contains a header file Test.h, a source file
-Test.cpp and an interface file xlwTest.cpp.
+exported to the xll. These are called: DevCppXll.dev, and xlwVisio.
+Each project contains a header file Test.h, a source file
+Test.cpp and an interface file xlwTest.cpp, these are contained in the
+folder testfiles. Some files for payoffs can also be found there, and
+example spreadsheets. 
 
 It is the interface file xlwTest.cpp that has been automatically
 generated. To re-generate it, simply ensure that
@@ -211,7 +219,7 @@ Test.h and then at a command prompt type ``InterfaceGenerator Test.h''.
 
 Simply building the xll project will then produce an xll, which can be
 opened in EXCEL and produces extra functions in a library called
-Test.h. 
+``MyTestLibary.'' 
 
 To use xlw plus for your own functions, one should first write a C++
 function which compiles 
@@ -249,7 +257,9 @@ to do are
 \item The folder containing the xlw libary file must be on the linking
   path.
 \item The xlw library file must be on the list of files to link
-  against. 
+  against. (i.e. for Visual studio, 
+ xlwLib.lib in release mode and xlwLib-Debug.lib in
+  debug mode)
 \item The project must be a dll project in DevCpp. (Create a dll
   project, remove the file created by DevCpp and then add your files.) 
 \item The project must use multi-threaded dll code generation in
@@ -276,12 +286,13 @@ InterfaceGenerator tool to run automatically.
 \section{Basic Data-types}
 
 The function to be exported to EXCEL can only use data-types supported
-by the interface generator. These are divisible into basic data types: double, short,
+by the interface generator. These are divisible into basic data types: 
+double, short,
 MyMatrix, MyArray, CellMatrix, string, std::string, and bool, and
 extended data types: int, unsigned long, ArgumentList, PayOff. 
 
 Note the XLOPER type has two numeric data types which are essentially
-short and double.
+short and double so other numeric types go via double. 
 
 The class MyMatrix is defined via a typedef in MyContainers.h to
 MJMatrix. You can use change this to your favourite matrix type. The
@@ -339,8 +350,12 @@ TypeRegistry::Helper payoffreg("Wrapper<PayOff>", // new type
 
 \end{verbatim}
 
-The key is to tell EXCEL the type, this is only used when converting
-from XlfOper, i.e. when defining a basic type. 
+The first argument is the identifier for the new type.
+
+The second is the type which the new type is constructed from. 
+
+The third is the function or method used to construct the new type
+from the old one. 
 
 The first bool is to specify whether the conversion function is a
 method of the old class, or simply a function or constructor that
@@ -351,7 +366,89 @@ takes in a second argument which is a string expressing an identifier
 in case of error -- this is very handy when trying to work out which
 argument in your complicated function is dubious. 
 
+The key is to tell EXCEL the type, this is only used when converting
+from XlfOper, i.e. when defining a basic type. This is typically ``R''
+or ``P''.
 
+The last argument allows the forcing of extra \#includes in your .cpp
+interface file. This allows you to ensure that the conversion function
+is available. 
+
+You define new types from other new types. The maximum depth is 26, at
+which point the parser concludes that you have accidentally created a
+loop. 
+
+The three main data types that have been added for illustration are the
+DoubleOrNothing, ArgumentList and Wrapper<PayOff> . 
+
+The DoubleOrNothing class allows one distinguish between a number passed in
+or an empty argument. One can therefore choose between a number passed
+in, and a default value if the argument is empty. 
+
+The argument list takes in a table of cells and turns it into a
+collection of arguments. This allows the passing of a variable number of
+arguments within one function argument. The top left of the table must be
+the name of the structure e.g. PayOff. Within the table, the types
+number, string, array, matrix, cells and list can be used. For each of
+these one gives a name and then the data below. For an array, the size
+of the array should be specified directly below the name. For a
+matrix, cells, and list the number of rows and columns should be given
+directly below. The type cells is simply a matrix of cell values. The
+type list is an ArgumentList, (not supported in VC6.) The use of
+ArgumentLists inside ArgumentLists is very useful for doing
+decoration and composite patterns. Note that everything passed in to an
+ArgumentList is put into lower case. 
+
+The ArgumentList is particularly powerful with factories. We have
+ provided a templatized factory that takes in an ArgumentList, and can be
+ used for arbitrary types. The only restrictions are that the
+ inherited types have cosntructors that take in an ArgumentList, and
+ that they have a common base class.  
+ We illustrate this with the PayOff class. 
+
+The factory returns a raw pointer to the base class, so this should be
+immediately converted to a smart pointer (if you don't you will get
+memory leaks) so we use a polymorphic copying pointer,
+Wrapper. However, one could use a boost::shared\_ptr or a
+std::auto\_ptr. Our new data type is therefore 
+
+\begin{verbatim}
+Wrapper< PayOff >
+\end{verbatim}
+
+, which takes ownership and ensures deletion at the appropriate time. 
+
+Examples of how to use this class are given in the spreadsheet
+Example.xls (or Example6.xls for users of VC6.)
+
+\section{xlw commands}
+
+The default name of the Library in Excel is the name of the header
+file. You can change this by
+
+\begin{verbatim}
+
+//<xlw:libraryname=MyTestLibrary
+
+\end{verbatim}
+
+in the header file. Note that all functions in the header file will have
+the same library name which will be that specified by the last
+libraryname command. 
+
+If you want a volatile function then this can be done as follows:
+
+\begin{verbatim}
+
+double // system clock
+//<xlw:volatile    
+SystemTime(DoubleOrNothing ticksPerSecond // number to divide by
+                   );
+
+\end{verbatim}
+
+A volatile function is a function whose value can change even if the
+arguments have not -- typically random numbers or time. 
 
 \section{The interface file}
 
@@ -420,7 +517,7 @@ code: e.g.
 \end{itemize}
 
 In xlw plus, only the types P and R are used. P is used for CellMatrix
-and MyMatrix. R is used for all other types. Types such as bool and
+and MyMatrix. R is used for all other basic types. Types such as bool and
 double are therefore first passed in as LPXLOPERs and then transformed
 into the right data type. 
 
@@ -473,7 +570,7 @@ This ensures that the function is a dll export, and so can be
 dynamically linked against. 
 
 Note that all types are passed in as LPXLOPERs not XlfOpers or other
-types. XlfOpers are not used since the cause a crash with the MinGW
+types. XlfOpers are not used since they cause a crash with the MinGW
 compiler as they are not POD objects. 
 
 The macros EXCEL\_BEGIN and EXCEL\_END contain starting and finishing
@@ -487,7 +584,8 @@ entered.
 
 Each argument is then converted. First to an XlfOper, and then using
 the .As methods to the correct type. Note a string is passed into the
-.As method, this allows a throw to identify the offending argument. 
+.As method, this allows a throw to identify the offending argument. If
+you use extended types there will be a string of conversions here. 
 
 Once the arguments have been converted, the original function is
 called and the result stored. For return to EXCEL, it is converted
@@ -505,8 +603,9 @@ The routine first reads in the file and places it in a vector of chars
 for convenience. It is then turned into tokens. Each token will be an
 identifier, preprocessor directive,  comment or delimiter. 
 
-Tokens correspoding to consts and ampersands are then removed, since
-they will not affect the coding of the interface routine. 
+Tokens corresponding to consts and ampersands are then removed, since
+they will not affect the coding of the interface routine. At this
+stage, unsigned identifiers are also dealt with. 
 
 Once this has been done, the file is turned into a list of functions,
 with each function having a list of arguments with names and types.
@@ -517,13 +616,6 @@ conversion routines.
 Once this has been done, the output file is written into a vector, and
 then written to a file. 
 
-If you wish to add new datatypes, the place to change them is the
-function CheckAndGetType in FunctionType.cpp. Note, however, that the
-code produced must be compatible with that in XlfOper. You may
-therefore need to add a new constructor of XlfOper and a new .As
-routine. Note however that the CellMatrix should be able to encompass
-anything you want so it make more sense to write a routine for
-converting a CellMatrix to the requisite data type. 
 
 \section{Troubleshooting}
 
@@ -539,7 +631,11 @@ high (or too low!)
 If you get the unrecognizable format error, possibilities are
 
 \begin{itemize}
-\item Missing dlls on your machine. 
+\item Missing dlls on your machine. This often occurs if you compile
+  in VC7 on one machine and then move the xll to another one. This can
+  be cured either by working out how to get the compiler not to need
+  the dlls, or by copying the required dlls to the new machine. (or
+  switch to using DevCpp.) 
 \item Failure to export the auto open and auto close functions. 
 \end{itemize}
 
