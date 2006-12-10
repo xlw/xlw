@@ -32,6 +32,15 @@ public:
 	
 	struct regData
 	{
+	public:
+		regData(std::string NewType,
+						std::string OldType,
+						std::string Converter,
+						bool IsAMethod,
+						bool TakesIdentifier,
+						std::string ExcelKey,
+						std::string IncludeFile);
+
 		std::string NewType;
 						std::string OldType;
 						std::string Converter;

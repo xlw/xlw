@@ -12,7 +12,11 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
-
+#ifdef _MSC_VER
+#if _MSC_VER < 1250
+#pragma warning(disable:4786)
+#endif
+#endif
 #include "Functionizer.h"
 
 FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<Token>::const_iterator end)

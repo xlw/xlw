@@ -17,9 +17,24 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
+#ifdef _MSC_VER
+#if _MSC_VER < 1250
+#pragma warning(disable:4786)
+#define VC6
+#endif
+#endif
 #include "ArgList.h"
 #include <algorithm>
 #include <sstream>
+
+namespace
+{
+	template<class T>
+	T maxi(T i, T j)
+	{
+		return i > j ? i : j;
+	}
+}
 
 void MakeLowerCase(std::string& input)
 {
@@ -108,16 +123,17 @@ ArgumentList::ArgumentList(CellMatrix cells,
 	}
 
 
-	for (unsigned long i=1; i < columns; i++)
+	{for (unsigned long i=1; i < columns; i++)
 		if (!cells(0,i).IsEmpty() )
 			throw("An argument list should only have the structure name on the first line: "+StructureName+ " " + ErrorId);
+	}
 
 	ErrorId +=" "+StructureName;
 
-	for (unsigned long i=1; i < rows; i++)
+	{for (unsigned long i=1; i < rows; i++)
 		for (unsigned long j=0; j < columns; j++)
 			if (cells(i,j).IsError())
-				GenerateThrow("Error Cell passed in ",i,j);
+				GenerateThrow("Error Cell passed in ",i,j);}
 
 	unsigned long row=1UL;
 
@@ -153,8 +169,9 @@ ArgumentList::ArgumentList(CellMatrix cells,
 					GenerateThrow("No space where data expected below name", row, column);
 
 				cells(row,column).clear();
-
-				CellValue& cellBelow(cells(row+1,column));
+// weird syntax to satisfy VC6
+				CellValue* belowPtr = &cells(row+1,column);
+				CellValue& cellBelow = *belowPtr;
 
 				if (cellBelow.IsEmpty())
 					GenerateThrow("Data expected below name", row, column);
@@ -206,8 +223,12 @@ ArgumentList::ArgumentList(CellMatrix cells,
 							bool nonNumeric = false;
 							CellMatrix extracted(ExtractCells(cells,row+2,column,ErrorId,thisName,nonNumeric));
 
+
 							if (cellBelow.StringValueLowerCase() == "list")
 							{
+#ifdef VC6
+								throw("if you want list arguments don't use vc6.");
+#else
 								ArgumentList value(extracted,ErrorId+":"+thisName);
 
 								ArgumentType thisOne = list;
@@ -218,7 +239,7 @@ ArgumentList::ArgumentList(CellMatrix cells,
 								std::pair<std::string,ArgumentList> valuePair(thisName,value);
 
 								ListArguments.insert(valuePair);
-
+#endif
 							}
 
 							if (cellBelow.StringValueLowerCase() == "cells")
@@ -256,7 +277,7 @@ ArgumentList::ArgumentList(CellMatrix cells,
 							}
 
 							cellBelow = empty;
-							rowsDown = std::max(rowsDown,extracted.RowsInStructure()+2);
+							rowsDown = maxi(rowsDown,extracted.RowsInStructure()+2);
 							column+= extracted.ColumnsInStructure();
 						}
 						else // ok its an array or boring string
@@ -293,7 +314,7 @@ ArgumentList::ArgumentList(CellMatrix cells,
 								std::pair<std::string,MyArray> valuePair(thisName,theArray);
 
 								ArrayArguments.insert(valuePair);
-								rowsDown = std::max(rowsDown,size+2);
+								rowsDown = maxi(rowsDown,size+2);
 			
 								column+=1;
 							}
@@ -324,20 +345,21 @@ ArgumentList::ArgumentList(CellMatrix cells,
 
 	}
 
-    for (unsigned long i=0; i < rows; i++)
+    {for (unsigned long i=0; i < rows; i++)
         for (unsigned long j=0; j < columns; j++)
             if (!cells(i,j).IsEmpty())
             {
                GenerateThrow("extraneous data "+ErrorId,i,j);
-            }
+	}}
 
-   for (unsigned long i=0; i < ArgumentNames.size(); i++)
+	{for (unsigned long i=0; i < ArgumentNames.size(); i++)
         {
             if (!(Names.insert(ArgumentNames[i]).second) )
                 throw("Same argument name used twice "+ArgumentNames[i].first+" "+ErrorId);
 
             ArgumentsUsed.insert(std::pair<std::string,bool>(ArgumentNames[i].first,false));   
         }
+	}
 }
     
 std::string ArgumentList::GetStructureName() const
@@ -435,7 +457,7 @@ bool ArgumentList::GetBoolArgumentValue(const std::string& ArgumentName_)
 
 }
 
-
+#ifndef VC6
 ArgumentList ArgumentList::GetArgumentListArgumentValue(const std::string& ArgumentName_)
 {
 	std::string ArgumentName(ArgumentName_);
@@ -448,6 +470,7 @@ ArgumentList ArgumentList::GetArgumentListArgumentValue(const std::string& Argum
     UseArgumentName(ArgumentName);
 	return it->second; 
 }
+#endif
 
 CellMatrix ArgumentList::GetCellsArgumentValue(const std::string& ArgumentName_)
 {
@@ -495,16 +518,16 @@ CellMatrix ArgumentList::AllData() const
 	CellMatrix results(1,1);
 	results(0,0)= StructureName;
 	   
-	for (std::map<std::string,double>::const_iterator it= DoubleArguments.begin();
+	{for (std::map<std::string,double>::const_iterator it= DoubleArguments.begin();
 			it != DoubleArguments.end(); it++)
 	{
 		 CellMatrix tmp(2,1);
 		 tmp(0,0) = it->first;
 		 tmp(1,0) = it->second;
 		 results.PushBottom(tmp);
-	}
+	}}
 
-	for (std::map<std::string,MyArray>::const_iterator it= ArrayArguments.begin();
+	{for (std::map<std::string,MyArray>::const_iterator it= ArrayArguments.begin();
 			it != ArrayArguments.end(); it++)
 	{
 		CellMatrix tmp(static_cast<unsigned long>(3+it->second.size()),1);
@@ -514,12 +537,12 @@ CellMatrix ArgumentList::AllData() const
 		 for (unsigned long i=0; i < it->second.size(); i++)
 			 tmp(i+3,0)=it->second[i];
 		 results.PushBottom(tmp);
-	}
+	}}
 	
-	for (std::map<std::string,MJMatrix>::const_iterator it= MatrixArguments.begin();
+	{for (std::map<std::string,MJMatrix>::const_iterator it= MatrixArguments.begin();
 			it != MatrixArguments.end(); it++)
 	{
-		CellMatrix tmp(3+it->second.rows(),std::max(2UL,it->second.columns()));
+		CellMatrix tmp(3+it->second.rows(),maxi(2UL,it->second.columns()));
 		 tmp(0,0) = it->first;
 		 tmp(1,0) = std::string("matrix");
 		 tmp(2,0) = static_cast<double>(it->second.rows());
@@ -528,28 +551,30 @@ CellMatrix ArgumentList::AllData() const
 			 for (unsigned long j=0; j < it->second.columns(); j++)
 				 tmp(i+3,j)=it->second(i,j);
 		 results.PushBottom(tmp);
-	}
+	}}
 
-	for (std::map<std::string,std::string>::const_iterator it= StringArguments.begin();
+	{for (std::map<std::string,std::string>::const_iterator it= StringArguments.begin();
 			it != StringArguments.end(); it++)
 	{
 		 CellMatrix tmp(2,1);
 		 tmp(0,0) = it->first;
 		 tmp(1,0) = it->second;
 		 results.PushBottom(tmp);
-	}
-	for (std::map<std::string,bool>::const_iterator it= BoolArguments.begin();
+	}}
+
+	{for (std::map<std::string,bool>::const_iterator it= BoolArguments.begin();
 			it != BoolArguments.end(); it++)
 	{
 		 CellMatrix tmp(2,1);
 		 tmp(0,0) = it->first;
 		 tmp(1,0) = it->second;
 		 results.PushBottom(tmp);
-	}
-	for (std::map<std::string,CellMatrix>::const_iterator it= CellArguments.begin();
+	}}
+
+	{for (std::map<std::string,CellMatrix>::const_iterator it= CellArguments.begin();
 			it != CellArguments.end(); it++)
 	{
-		CellMatrix tmp(3+it->second.RowsInStructure(),std::max(2UL,it->second.ColumnsInStructure()));
+		CellMatrix tmp(3+it->second.RowsInStructure(),maxi(2UL,it->second.ColumnsInStructure()));
 		 tmp(0,0) = it->first;
 		 tmp(1,0) = std::string("cells");
 		 tmp(2,0) = static_cast<double>(it->second.RowsInStructure());
@@ -558,9 +583,9 @@ CellMatrix ArgumentList::AllData() const
 			 for (unsigned long j=0; j < it->second.ColumnsInStructure(); j++)
 				 tmp(i+3,j)=it->second(i,j);
 		 results.PushBottom(tmp);
-	}
-
-	for (std::map<std::string,ArgumentList>::const_iterator it= ListArguments.begin();
+	}}
+#ifndef VC6
+	{for (std::map<std::string,ArgumentList>::const_iterator it= ListArguments.begin();
 		it != ListArguments.end(); it++)
 	{
 		CellMatrix cells(it->second.AllData());
@@ -573,7 +598,9 @@ CellMatrix ArgumentList::AllData() const
 		tmp.PushBottom(cells);
 
 		results.PushBottom(tmp);
-	}
+	}}
+#endif
+
 
 	return results;
 }

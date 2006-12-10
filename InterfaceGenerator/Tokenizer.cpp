@@ -14,7 +14,11 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-
+#ifdef _MSC_VER
+#if _MSC_VER < 1250
+#pragma warning(disable:4786)
+#endif
+#endif
 #include "Tokenizer.h"
 #include "Outputter.h"
 

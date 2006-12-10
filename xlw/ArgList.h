@@ -55,8 +55,12 @@ public:
     MyArray GetArrayArgumentValue(const std::string& ArgumentName);
     MyMatrix GetMatrixArgumentValue(const std::string& ArgumentName);
 	bool GetBoolArgumentValue(const std::string& ArgumentName);
-	ArgumentList GetArgumentListArgumentValue(const std::string& ArgumentName);
 	CellMatrix GetCellsArgumentValue(const std::string& ArgumentName);
+
+#if !(defined(_MSC_VER)) ||  _MSC_VER > 1250 // get a proper compiler 
+	ArgumentList GetArgumentListArgumentValue(const std::string& ArgumentName);
+#endif
+
 
     bool IsArgumentPresent(const std::string& ArgumentName) const;
 
@@ -75,7 +79,12 @@ private:
     std::map<std::string,MyArray> ArrayArguments;
     std::map<std::string,MyMatrix> MatrixArguments;
     std::map<std::string,std::string> StringArguments;
-	std::map<std::string,ArgumentList> ListArguments;
+	
+#if !(defined(_MSC_VER)) ||  _MSC_VER > 1250 // get a proper compiler 
+	std::map<std::string,ArgumentList> ListArguments;	
+#endif
+
+
 	std::map<std::string,CellMatrix> CellArguments;
 	std::map<std::string,bool> BoolArguments;
 

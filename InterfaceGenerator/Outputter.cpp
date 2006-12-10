@@ -12,7 +12,12 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
-
+#ifdef _MSC_VER
+#if _MSC_VER < 1250
+#pragma warning(disable:4786)
+#pragma warning(disable:4503)
+#endif
+#endif
 #include "Outputter.h"
 #include "TypeRegister.h"
 #include "IncludeRegister.h"
@@ -164,9 +169,6 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 		
 		std::string lastId = "xl"+functionDescriptions[i].GetArgument(j).GetArgumentName();
 
-	//	for (std::vector<std::string>::const_reverse_iterator it = chain.rbegin()+1; 
-	//		it != chain.rend(); ++it)
-	//	{
 
 		for (unsigned long k=0; k < chain.size() -1; k++)
 		{
@@ -174,7 +176,7 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 			std::string newId = functionDescriptions[i].GetArgument(j).GetArgumentName();
 			
 			if (k+1 != chain.size() -1)
-				newId.push_back(id);
+				newId+= id;
 
 			TypeRegistry::regData argData = TypeRegistry::Instance().GetRegistration(*it);		
 			AddLine(output, argData.NewType+" "+newId+"(");
@@ -186,7 +188,7 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 			if (specIdentifier && !isMethod)
 					identifierBit = ",\""+newId+"\"";
 			if (specIdentifier && isMethod)
-					identifierBit = +"\""+newId+"\"";
+					identifierBit = "\""+newId+"\"";
 
 		
 			if (isMethod)

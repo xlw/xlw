@@ -5,7 +5,7 @@
 #include <xlw/pragmas.h>
 #include <xlw/MyContainers.h>
 #include <xlw/CellMatrix.h>
-#include "Test.h"
+#include "test.h"
 #include <xlw/xlw.h>
 #include <xlw/XlFunctionRegistration.h>
 #include <stdexcept>

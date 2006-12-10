@@ -12,9 +12,32 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
-
+#ifdef _MSC_VER
+#if _MSC_VER < 1250
+#pragma warning(disable:4786)
+#pragma warning(disable:4503)
+#endif
+#endif
 #include "TypeRegister.h"
 #include "IncludeRegister.h"
+
+TypeRegistry::regData::regData(std::string NewType_,
+				 std::string OldType_,
+				 std::string Converter_,
+				 bool IsAMethod_,
+				 bool TakesIdentifier_,
+				 std::string ExcelKey_,
+				 std::string IncludeFile_)
+				 :
+NewType(NewType_),OldType(OldType_),
+Converter(Converter_),
+IsAMethod(IsAMethod_),
+TakesIdentifier(TakesIdentifier_),
+ExcelKey(ExcelKey_),
+IncludeFile(IncludeFile_)
+{
+}
+
 void TypeRegistry::Register(const regData& data)
 {
 	Registrations.insert(std::make_pair(data.NewType,data));
@@ -29,9 +52,9 @@ TypeRegistry::Helper::Helper(std::string NewType,
 			   std::string IncludeFile)
 			   : NewType_(NewType)
 {
-	regData data = { NewType,OldType,ConversionCommand,
+	regData data(NewType,OldType,ConversionCommand,
 													IsAMethod,TakesAnIdentifier,
-													ExcelKey, IncludeFile};
+													ExcelKey, IncludeFile);
 
 	TypeRegistry::Instance().Register(data);
 }
