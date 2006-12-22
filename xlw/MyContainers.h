@@ -32,7 +32,15 @@
 #include "MJMatrices.h"
 #include <vector>
 
+// uncomment the next line if your matrix class uses round brackets
+//#define USE_PARENTHESESES
+// change the typedefs to your favourite container classes
 typedef MJMatrix MyMatrix;
 typedef std::vector<double> MyArray;
+
+double Element(const MJMatrix& A, unsigned long i , unsigned long j);
+
+double& ChangingElement(MJMatrix& A, unsigned long i , unsigned long j);
+
 
 #endif
