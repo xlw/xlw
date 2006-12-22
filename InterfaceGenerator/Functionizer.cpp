@@ -19,6 +19,13 @@
 #endif
 #include "Functionizer.h"
 
+std::string LeftString(std::string input, unsigned long i)
+{
+	i = std::min<unsigned long>(static_cast<unsigned long>(input.size()), i);
+	std::string ret(input.begin(), input.begin()+i);
+	return ret;
+}
+
 FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<Token>::const_iterator end)
 {
 	// we should be at start of function
@@ -26,6 +33,7 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 	std::string returnType = it->GetValue();
 	++it;
 	bool Volatile = false;
+	bool time =false;
 
 	if (it == end)
 		throw("function half declared at end of file");
@@ -41,19 +49,32 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 	if (it == end)
 		throw("function half declared at end of file");
 
-	if (it->GetType() == Token::comment)
+	while (it->GetType() == Token::comment)
 	{
 		std::string commentString = it->GetValue();
 
+		if (LeftString(commentString,5UL) != "<xlw:")
+			throw("unexpected comment in function definition before function name");
+
+		bool found = false;
 		if (commentString == "<xlw:volatile")
 		{
 			Volatile =true;
 			++it;
+			found = true;
 			if (it == end)
 				throw("function half declared at end of file");
 		}
-		else
-			throw("unexpected comment in function definition ");
+		if (commentString == "<xlw:time")
+		{
+			time = true;
+			++it;
+			found = true;
+			if (it == end)
+				throw("function half declared at end of file");
+		}
+		if (!found)
+			throw("unknown xlw command: "+commentString);
 	}
 
 	if (it->GetType() != Token::identifier)
@@ -61,7 +82,7 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 	
 	std::string functionName(it->GetValue());
 
-	FunctionModel theFunction(returnType,functionName,functionDesc,Volatile);
+	FunctionModel theFunction(returnType,functionName,functionDesc,Volatile,time);
 
 	++it;
 	if (it == end)

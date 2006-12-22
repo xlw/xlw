@@ -93,14 +93,16 @@ FunctionDescription::FunctionDescription(std::string FunctionName_,
 						std::string ReturnType_,
 						 char ExcelKey_,
                          const std::vector<FunctionArgument>& Arguments_,
-						 bool Volatile_)
+						 bool Volatile_,
+						 bool Time_)
                          :
                          FunctionName(FunctionName_),
                          FunctionHelpDescription(FunctionHelpDescription_),
 						 ReturnType(ReturnType_),
 						 ExcelKey(ExcelKey_),
                          Arguments(Arguments_),
-						 Volatile(Volatile_)
+						 Volatile(Volatile_),
+						 Time(Time_)
 {
 }
 
@@ -117,4 +119,9 @@ std::string FunctionDescription::GetReturnType() const
 bool FunctionDescription::GetVolatile() const
 {
 	return  Volatile;
+}
+
+bool FunctionDescription::DoTime() const
+{
+	return  Time;
 }

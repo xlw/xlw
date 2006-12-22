@@ -69,7 +69,7 @@ std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input
 			Arguments.push_back(thisArgument);
 		}
 
-		FunctionDescription thisDescription(name,desc,returnType,key,Arguments,it->GetVolatile());
+		FunctionDescription thisDescription(name,desc,returnType,key,Arguments,it->GetVolatile(),it->DoTime());
 		output.push_back(thisDescription);
 		++it;
 	}

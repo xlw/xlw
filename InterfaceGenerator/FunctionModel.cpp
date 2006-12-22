@@ -20,8 +20,8 @@
 #include "FunctionModel.h"
 #include "IncludeRegister.h"
 
-FunctionModel::FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_)
-: ReturnType(ReturnType_), FunctionName(Name), FunctionDescription(Description), Volatile(Volatile_)
+FunctionModel::FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_, bool Time_)
+: ReturnType(ReturnType_), FunctionName(Name), FunctionDescription(Description), Volatile(Volatile_), Time(Time_)
 {
 }
 

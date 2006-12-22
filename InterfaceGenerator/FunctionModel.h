@@ -23,7 +23,7 @@ class FunctionModel
 {
 public:
 
-	FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_=false);
+	FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_=false, bool Time_=false);
 
 	void AddArgument(std::string Type_, std::string Name_, std::string Description_);
 
@@ -62,11 +62,22 @@ public:
 		return Volatile;
 	}
 
+	bool DoTime() const
+	{
+		return Time;
+	}
+
+	void SetTime(bool doit)
+	{
+		Time=doit;
+	}
+
 private:
 	std::string ReturnType;
 	std::string FunctionName;
 	std::string FunctionDescription;
 	bool Volatile;
+	bool Time;
 
 	std::vector<std::string > ArgumentTypes;
 	std::vector<std::string > ArgumentNames;

@@ -61,7 +61,8 @@ public:
 						 std::string ReturnType,
 						 char ExcelKey,
                          const std::vector<FunctionArgument>& Arguments_, 
-						 bool Volatile_);
+						 bool Volatile_,
+						 bool Time_);
      
      std::string GetFunctionName() const;
      std::string GetFunctionDescription() const;
@@ -70,6 +71,7 @@ public:
      const FunctionArgument& GetArgument(unsigned long ArgumentNumber) const;
      unsigned long NumberOfArguments() const;
 	 bool GetVolatile() const;
+	 bool DoTime() const;
             
 private:
      std::string FunctionName;
@@ -78,6 +80,7 @@ private:
 	 char ExcelKey;
      std::vector<FunctionArgument> Arguments;
 	 bool Volatile;
+	 bool Time;
      
       
 };

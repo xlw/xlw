@@ -53,6 +53,7 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 	AddLine(output, "#include <xlw/XlFunctionRegistration.h>");
 	AddLine(output, "#include <stdexcept>");
 	AddLine(output,"#include <xlw/XlOpenClose.h>");
+	AddLine(output,"#include <ctime>");
 
 	const std::set<std::string>& includes = IncludeRegistry::Instance().GetIncludes();
 	for (std::set<std::string>::const_iterator it = includes.begin(); it!= includes.end(); ++it)
@@ -203,6 +204,12 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 		AddLine(output,"");
 
 	}}
+
+	if (functionDescriptions[i].DoTime())
+	{
+		AddLine(output," double t = (clock()+0.0)/CLOCKS_PER_SEC;");
+	}
+	
 	AddLine(output,functionDescriptions[i].GetReturnType()+" result(");
 	AddLine(output,'\t'+functionDescriptions[i].GetFunctionName()+"(");
 	for (unsigned long j=0; j < functionDescriptions[i].NumberOfArguments(); j++)
@@ -217,10 +224,20 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 		}
 	AddLine(output,"\t);");
 
-	
-
-	 AddLine(output,"return XlfOper(result);");
-
+	if (functionDescriptions[i].DoTime())
+	{
+		AddLine(output,"  t = (clock()+0.0)/CLOCKS_PER_SEC-t;");
+		AddLine(output,"CellMatrix resultCells(result);");
+		AddLine(output,"CellMatrix time(1,2);");
+		AddLine(output,"time(0,0) = \"time taken\";");
+		AddLine(output,"time(0,1) = t;");
+		AddLine(output,"resultCells.PushBottom(time);");
+		AddLine(output,"return XlfOper(resultCells);");
+	}
+	else
+	{
+		AddLine(output,"return XlfOper(result);");
+	}
 	AddLine(	output,"EXCEL_END");
 
 	AddLine(output,"}");
