@@ -38,6 +38,8 @@ public:
     ArgumentList(CellMatrix cells, 
                       std::string ErrorIdentifier);
 
+	ArgumentList(std::string name);
+
 
     enum ArgumentType
     {
@@ -57,9 +59,8 @@ public:
 	bool GetBoolArgumentValue(const std::string& ArgumentName);
 	CellMatrix GetCellsArgumentValue(const std::string& ArgumentName);
 
-#if !(defined(_MSC_VER)) ||  _MSC_VER > 1250 // get a proper compiler 
 	ArgumentList GetArgumentListArgumentValue(const std::string& ArgumentName);
-#endif
+
 
 
     bool IsArgumentPresent(const std::string& ArgumentName) const;
@@ -69,7 +70,18 @@ public:
 	CellMatrix AllData() const; // makes data into a cell matrix that could be used for 
 								// creating the same argumnet list
 								// useful for checking the class works!
-   
+
+	// data insertions
+
+	void add(const std::string& ArgumentName, const std::string& value);
+    void add(const std::string& ArgumentName, double value);
+    void add(const std::string& ArgumentName, const MyArray& value);
+    void add(const std::string& ArgumentName, const MyMatrix& value);
+	void add(const std::string& ArgumentName, bool value);
+	void add(const std::string& ArgumentName, const CellMatrix& values);
+  	void addList(const std::string& ArgumentName, const CellMatrix& values);
+	void add(const std::string& ArgumentName, const ArgumentList& values);
+
 private:
 
     std::string StructureName;
@@ -79,10 +91,7 @@ private:
     std::map<std::string,MyArray> ArrayArguments;
     std::map<std::string,MyMatrix> MatrixArguments;
     std::map<std::string,std::string> StringArguments;
-	
-#if !(defined(_MSC_VER)) ||  _MSC_VER > 1250 // get a proper compiler 
-	std::map<std::string,ArgumentList> ListArguments;	
-#endif
+	std::map<std::string,CellMatrix> ListArguments;	
 
 
 	std::map<std::string,CellMatrix> CellArguments;
@@ -94,7 +103,7 @@ private:
 
 	void GenerateThrow(std::string message, unsigned long row, unsigned long column);
 	void UseArgumentName(const std::string& ArgumentName); // private as no error checking performed
-
+	void RegisterName(const std::string& ArgumentName, ArgumentType type);
 };
 
 

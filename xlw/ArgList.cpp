@@ -103,6 +103,90 @@ CellMatrix ExtractCells(CellMatrix& cells,
 }
 
 
+void ArgumentList::add(const std::string& ArgumentName, const std::string& value)
+{
+	ArgumentType thisOne = string;
+	std::pair<std::string, ArgumentType> thisPair(ArgumentName,thisOne);
+	ArgumentNames.push_back(thisPair);
+
+	std::pair<std::string,std::string> valuePair(ArgumentName,value);
+	StringArguments.insert(valuePair);
+
+	RegisterName(ArgumentName, thisOne);
+}
+
+void ArgumentList::add(const std::string& ArgumentName, double value)
+{
+	ArgumentType thisOne = number;
+	std::pair<std::string, ArgumentType> thisPair(ArgumentName,thisOne);
+	ArgumentNames.push_back(thisPair);
+
+	std::pair<std::string,double> valuePair(ArgumentName,value);
+	DoubleArguments.insert(valuePair);
+	
+	RegisterName(ArgumentName, thisOne);
+				
+}
+
+void ArgumentList::add(const std::string& ArgumentName, const MyArray& value)
+{
+	ArgumentType thisOne = vector;
+	std::pair<std::string, ArgumentType> thisPair(ArgumentName,thisOne);
+	ArgumentNames.push_back(thisPair);
+	ArrayArguments.insert(std::make_pair(ArgumentName,value));
+	
+	RegisterName(ArgumentName, thisOne);
+}
+
+void ArgumentList::add(const std::string& ArgumentName, const MyMatrix& value)
+{
+	ArgumentType thisOne = matrix;
+	std::pair<std::string, ArgumentType> thisPair(ArgumentName,thisOne);
+	ArgumentNames.push_back(thisPair);
+	MatrixArguments.insert(std::make_pair(ArgumentName,value));
+	
+	RegisterName(ArgumentName, thisOne);
+}
+
+void ArgumentList::add(const std::string& ArgumentName, bool value)
+{
+	ArgumentType thisOne = boolean;
+	std::pair<std::string, ArgumentType> thisPair(ArgumentName,thisOne);
+	ArgumentNames.push_back(thisPair);
+	BoolArguments.insert(std::make_pair(ArgumentName,value));
+	
+	RegisterName(ArgumentName, thisOne);
+
+}
+
+void ArgumentList::add(const std::string& ArgumentName, const CellMatrix& values)
+{
+	ArgumentType thisOne = cells;
+	std::pair<std::string, ArgumentType> thisPair(ArgumentName,thisOne);
+	ArgumentNames.push_back(thisPair);
+	CellArguments.insert(std::make_pair(ArgumentName,values));
+	
+	RegisterName(ArgumentName, thisOne);
+
+}
+
+   
+void ArgumentList::addList(const std::string& ArgumentName, const CellMatrix& values)
+{
+	ArgumentType thisOne = list;
+	std::pair<std::string, ArgumentType> thisPair(ArgumentName,thisOne);
+	ArgumentNames.push_back(thisPair);
+	ListArguments.insert(std::make_pair(ArgumentName,values));
+
+	
+	RegisterName(ArgumentName, thisOne);
+}
+
+void ArgumentList::add(const std::string& ArgumentName, const ArgumentList& values)
+{
+	CellMatrix cellValues(values.AllData());
+	addList(ArgumentName,cellValues);
+}
 
 ArgumentList::ArgumentList(CellMatrix cells, 
 						   std::string ErrorId)
@@ -178,16 +262,7 @@ ArgumentList::ArgumentList(CellMatrix cells,
 
 				if (cellBelow.IsANumber())
 				{
-					double value = cellBelow.NumericValue();
-
-					ArgumentType thisOne = number;
-
-					std::pair<std::string, ArgumentType> thisPair(thisName,thisOne);
-					ArgumentNames.push_back(thisPair);
-
-					std::pair<std::string,double> valuePair(thisName,value);
-
-					DoubleArguments.insert(valuePair);
+					add(thisName, cellBelow.NumericValue());
 
 					column++;
 
@@ -196,17 +271,7 @@ ArgumentList::ArgumentList(CellMatrix cells,
 				else
 					if (cellBelow.IsBoolean())
 					{
-
-						bool value = cellBelow.BooleanValue();
-
-						ArgumentType thisOne = boolean;
-
-						std::pair<std::string, ArgumentType> thisPair(thisName,thisOne);
-						ArgumentNames.push_back(thisPair);
-
-						std::pair<std::string,bool> valuePair(thisName,value);
-
-						BoolArguments.insert(valuePair);
+						add(thisName, cellBelow.BooleanValue());
 
 						column++;
 
@@ -226,32 +291,15 @@ ArgumentList::ArgumentList(CellMatrix cells,
 
 							if (cellBelow.StringValueLowerCase() == "list")
 							{
-#ifdef VC6
-								throw("if you want list arguments don't use vc6.");
-#else
 								ArgumentList value(extracted,ErrorId+":"+thisName);
 
-								ArgumentType thisOne = list;
+								addList(thisName, extracted); //note not value
 
-								std::pair<std::string, ArgumentType> thisPair(thisName,thisOne);
-								ArgumentNames.push_back(thisPair);
-
-								std::pair<std::string,ArgumentList> valuePair(thisName,value);
-
-								ListArguments.insert(valuePair);
-#endif
 							}
 
 							if (cellBelow.StringValueLowerCase() == "cells")
 							{
-								ArgumentType thisOne = ArgumentList::cells;
-
-								std::pair<std::string, ArgumentType> thisPair(thisName,thisOne);
-								ArgumentNames.push_back(thisPair);
-
-								std::pair<std::string,CellMatrix> valuePair(thisName,extracted);
-
-								CellArguments.insert(valuePair);
+								add(thisName,extracted);
 							}
 
 							
@@ -260,20 +308,14 @@ ArgumentList::ArgumentList(CellMatrix cells,
 								if (nonNumeric)
 									throw("Non numerical value in matrix argument :"+thisName+ " "+ErrorId);
 
-								ArgumentType thisOne = matrix;
-
 								MJMatrix value(extracted.RowsInStructure(),extracted.ColumnsInStructure());
 
 								for (unsigned long i=0; i < extracted.RowsInStructure(); i++)
 									for (unsigned long j=0; j < extracted.ColumnsInStructure(); j++)
-										value(i,j) = extracted(i,j);
+										ChangingElement(value,i,j) = extracted(i,j);
 
-								std::pair<std::string, ArgumentType> thisPair(thisName,thisOne);
-								ArgumentNames.push_back(thisPair);
+								add(thisName,value);
 
-								std::pair<std::string,MJMatrix> valuePair(thisName,value);
-
-								MatrixArguments.insert(valuePair);
 							}
 
 							cellBelow = empty;
@@ -286,8 +328,7 @@ ArgumentList::ArgumentList(CellMatrix cells,
 								||cellBelow.StringValueLowerCase() == "vector" )
 							{
 								cellBelow.clear();
-								ArgumentType thisOne = vector;
-
+							
 								if (row+2>= rows)
 									throw(ErrorId+" data expected below array "+thisName);
 
@@ -306,14 +347,8 @@ ArgumentList::ArgumentList(CellMatrix cells,
 									cells(row+3+i,column).clear();
 								}
 
+								add(thisName,theArray);
 
-
-								std::pair<std::string, ArgumentType> thisPair(thisName,thisOne);
-								ArgumentNames.push_back(thisPair);
-
-								std::pair<std::string,MyArray> valuePair(thisName,theArray);
-
-								ArrayArguments.insert(valuePair);
 								rowsDown = maxi(rowsDown,size+2);
 			
 								column+=1;
@@ -321,16 +356,7 @@ ArgumentList::ArgumentList(CellMatrix cells,
 							else
 							{
 								std::string value = cellBelow.StringValueLowerCase();
-
-								ArgumentType thisOne = string;
-
-								std::pair<std::string, ArgumentType> thisPair(thisName,thisOne);
-								ArgumentNames.push_back(thisPair);
-
-								std::pair<std::string,std::string> valuePair(thisName,value);
-
-								StringArguments.insert(valuePair);
-
+								add(thisName,value);
 								column++;
 
 								cellBelow=empty; 
@@ -351,15 +377,16 @@ ArgumentList::ArgumentList(CellMatrix cells,
             {
                GenerateThrow("extraneous data "+ErrorId,i,j);
 	}}
+}
 
-	{for (unsigned long i=0; i < ArgumentNames.size(); i++)
-        {
-            if (!(Names.insert(ArgumentNames[i]).second) )
-                throw("Same argument name used twice "+ArgumentNames[i].first+" "+ErrorId);
+void ArgumentList::RegisterName(const std::string& ArgumentName, ArgumentType type)
+{
+	ArgumentNames.push_back(std::make_pair(ArgumentName,type));
+	if (!(Names.insert(*ArgumentNames.rbegin()).second) )
+                throw("Same argument name used twice "+ArgumentName);
 
-            ArgumentsUsed.insert(std::pair<std::string,bool>(ArgumentNames[i].first,false));   
-        }
-	}
+	ArgumentsUsed.insert(std::pair<std::string,bool>(ArgumentName,false));   
+
 }
     
 std::string ArgumentList::GetStructureName() const
@@ -457,20 +484,19 @@ bool ArgumentList::GetBoolArgumentValue(const std::string& ArgumentName_)
 
 }
 
-#ifndef VC6
+
 ArgumentList ArgumentList::GetArgumentListArgumentValue(const std::string& ArgumentName_)
 {
 	std::string ArgumentName(ArgumentName_);
 	MakeLowerCase(ArgumentName);
-	std::map<std::string, ArgumentList>::const_iterator it = ListArguments.find(ArgumentName);
+	std::map<std::string, CellMatrix>::const_iterator it = ListArguments.find(ArgumentName);
 
     if (it == ListArguments.end())
         throw(StructureName+std::string(" unknown ArgList argument asked for :")+ArgumentName);
 
     UseArgumentName(ArgumentName);
-	return it->second; 
+	return ArgumentList(it->second,ArgumentName); 
 }
-#endif
 
 CellMatrix ArgumentList::GetCellsArgumentValue(const std::string& ArgumentName_)
 {
@@ -512,6 +538,10 @@ void ArgumentList::GenerateThrow(std::string message, unsigned long row, unsigne
 	throw(StructureName+" "+message+" row:"+ConvertToString(row)+"; column:"+ConvertToString(column)+".");
 }
 
+ArgumentList::ArgumentList(std::string name) : StructureName(name)
+{
+	
+}
 
 CellMatrix ArgumentList::AllData() const
 {
@@ -549,7 +579,7 @@ CellMatrix ArgumentList::AllData() const
 		 tmp(2,1) = static_cast<double>(it->second.columns());
 		 for (unsigned long i=0; i < it->second.rows(); i++)
 			 for (unsigned long j=0; j < it->second.columns(); j++)
-				 tmp(i+3,j)=it->second(i,j);
+				 tmp(i+3,j)=Element(it->second,i,j);
 		 results.PushBottom(tmp);
 	}}
 
@@ -584,22 +614,21 @@ CellMatrix ArgumentList::AllData() const
 				 tmp(i+3,j)=it->second(i,j);
 		 results.PushBottom(tmp);
 	}}
-#ifndef VC6
-	{for (std::map<std::string,ArgumentList>::const_iterator it= ListArguments.begin();
+
+	{for (std::map<std::string,CellMatrix>::const_iterator it= ListArguments.begin();
 		it != ListArguments.end(); it++)
 	{
-		CellMatrix cells(it->second.AllData());
-
-		CellMatrix tmp(3,2);
-		tmp(0,0) = it->first;
-		tmp(1,0) = std::string("list");
-		tmp(2,0) = static_cast<double>(cells.RowsInStructure());
-		tmp(2,1) = static_cast<double>(cells.ColumnsInStructure());
-		tmp.PushBottom(cells);
-
-		results.PushBottom(tmp);
+		CellMatrix tmp(3+it->second.RowsInStructure(),maxi(2UL,it->second.ColumnsInStructure()));
+		 tmp(0,0) = it->first;
+		 tmp(1,0) = std::string("list");
+		 tmp(2,0) = static_cast<double>(it->second.RowsInStructure());
+		 tmp(2,1) = static_cast<double>(it->second.ColumnsInStructure());
+		 for (unsigned long i=0; i < it->second.RowsInStructure(); i++)
+			 for (unsigned long j=0; j < it->second.ColumnsInStructure(); j++)
+				 tmp(i+3,j)=it->second(i,j);
+		 results.PushBottom(tmp);
 	}}
-#endif
+
 
 
 	return results;
