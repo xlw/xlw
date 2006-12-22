@@ -5,11 +5,12 @@
 #include <xlw/pragmas.h>
 #include <xlw/MyContainers.h>
 #include <xlw/CellMatrix.h>
-#include "test.h"
+#include "Test.h"
 #include <xlw/xlw.h>
 #include <xlw/XlFunctionRegistration.h>
 #include <stdexcept>
 #include <xlw/XlOpenClose.h>
+#include <ctime>
 #include <xlw/ArgList.h>
 
 #include <xlw/ArgListFactory.h>
@@ -111,11 +112,18 @@ XlfOper xlEchoee(xlEchoee_);
 MyMatrix Echoee(
 	xlEchoee.AsMatrix("Echoee"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 MyMatrix result(
 	EchoMat(
 		Echoee)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -158,11 +166,18 @@ XlfOper xlEchoee(xlEchoee_);
 MyArray Echoee(
 	xlEchoee.AsArray("Echoee"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 MyArray result(
 	EchoArray(
 		Echoee)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -205,11 +220,18 @@ XlfOper xlEchoee(xlEchoee_);
 CellMatrix Echoee(
 	xlEchoee.AsCellMatrix("Echoee"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 CellMatrix result(
 	EchoCells(
 		Echoee)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -252,11 +274,18 @@ XlfOper xlDiameter(xlDiameter_);
 double Diameter(
 	xlDiameter.AsDouble("Diameter"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
 	Circ(
 		Diameter)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -305,12 +334,19 @@ XlfOper xlstr2(xlstr2_);
 std::string str2(
 	xlstr2.AsString("str2"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 std::string result(
 	Concat(
 		str1,
 		str2)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -353,11 +389,18 @@ XlfOper xldata(xldata_);
 MyArray data(
 	xldata.AsArray("data"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 MyArray result(
 	Stats(
 		data)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -400,11 +443,18 @@ XlfOper xlname(xlname_);
 std::string name(
 	xlname.AsString("name"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 std::string result(
 	HelloWorldAgain(
 		name)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -449,11 +499,18 @@ double ba(
 unsigned long b(
 	static_cast<unsigned long>(ba));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
 	EchoUL(
 		b)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -498,11 +555,18 @@ double ba(
 int b(
 	static_cast<int>(ba));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
 	EchoInt(
 		b)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -553,12 +617,19 @@ XlfOper xldefaultValue(xldefaultValue_);
 double defaultValue(
 	xldefaultValue.AsDouble("defaultValue"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
 	EchoDoubleOrNothing(
 		x,
 		defaultValue)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -603,11 +674,18 @@ CellMatrix argsa(
 ArgumentList args(
 	ArgumentList(argsa,"args"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 CellMatrix result(
 	EchoArgList(
 		args)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -653,11 +731,18 @@ CellMatrix ticksPerSeconda(
 DoubleOrNothing ticksPerSecond(
 	DoubleOrNothing(ticksPerSeconda,"ticksPerSecond"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
 	SystemTime(
 		ticksPerSecond)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
@@ -710,12 +795,19 @@ XlfOper xlSpot(xlSpot_);
 double Spot(
 	xlSpot.AsDouble("Spot"));
 
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
 	PayOffEvaluation(
 		PayOffTable,
 		Spot)
 	);
-return XlfOper(result);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }
