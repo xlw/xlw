@@ -102,6 +102,8 @@ ValueAsString(value), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(
 }
 
 
+
+
 CellValue::CellValue(const char* value) : Type(CellValue::string), 
 ValueAsString(value), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
 {
@@ -170,8 +172,54 @@ std::string CellValue::StringValueLowerCase() const
 	return tmp;
 }
 
+CellMatrix::CellMatrix() : Cells(0), Rows(0), Columns(0)
+{
+}
 
-CellMatrix::CellMatrix(unsigned long rows, unsigned long columns) : Cells(rows), Rows(rows), Columns(columns)
+CellMatrix::CellMatrix(double x): Cells(1), Rows(1), Columns(1)
+{
+	Cells[0].push_back(CellValue(x));
+}
+CellMatrix::CellMatrix(std::string x): Cells(1), Rows(1), Columns(1)
+{
+	Cells[0].push_back(CellValue(x));
+}
+
+CellMatrix::CellMatrix(const char* x): Cells(1), Rows(1), Columns(1)
+{
+	Cells[0].push_back(CellValue(x));
+}
+
+
+
+
+CellMatrix::CellMatrix(const MyArray& data) : Cells(data.size()), 
+	Rows(data.size()), Columns(1)
+{
+	for (unsigned long i=0; i < data.size(); ++i)
+		Cells[i].push_back(CellValue(data[i]));
+}
+CellMatrix::CellMatrix(const MyMatrix& data): Cells(data.rows()), 
+	Rows(data.rows()), Columns(data.columns())
+{
+	for (unsigned long i=0; i < data.rows(); ++i)
+		for (unsigned long j=0; j < data.columns(); ++j)
+			Cells[i].push_back(CellValue(Element(data,i,j)));
+}
+
+CellMatrix::CellMatrix(unsigned long i)
+	: Cells(1), Rows(1), Columns(1)
+{
+	Cells[0].push_back(CellValue(static_cast<double>(i)));
+}
+
+CellMatrix::CellMatrix(int i): Cells(1), Rows(1), Columns(1)
+{
+	Cells[0].push_back(CellValue(static_cast<double>(i)));
+}
+    
+CellMatrix::CellMatrix(unsigned long rows, unsigned long columns) 
+	: Cells(rows), Rows(rows), Columns(columns)
 {
 	for (unsigned long i=0; i < rows; i++)
 		Cells[i].resize(columns);

@@ -22,6 +22,7 @@
 
 #include <string>
 #include <vector>
+#include <xlw/MyContainers.h>
 
 class CellValue
 {
@@ -79,6 +80,14 @@ class CellMatrix
 public:
 
     CellMatrix(unsigned long rows, unsigned long columns);
+	CellMatrix();
+	CellMatrix(double x);
+	CellMatrix(std::string x);
+	CellMatrix(const char* x);
+	CellMatrix(const MyArray& data);
+	CellMatrix(const MyMatrix& data);
+	CellMatrix(unsigned long i);
+	CellMatrix(int i);
     
     const CellValue& operator()(unsigned long i, unsigned long j) const;
     CellValue& operator()(unsigned long i, unsigned long j);
