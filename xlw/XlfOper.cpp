@@ -461,7 +461,7 @@ int XlfOper::ConvertToMatrix(MyMatrix& value) const
 	for (unsigned long i =0; i < tmp.RowsInStructure(); i++)
 		for (unsigned long j =0; j < tmp.ColumnsInStructure(); j++)
 			if (tmp(i,j).IsANumber())
-				value[i][j] = tmp(i,j).NumericValue();
+				ChangingElement(value,i,j) = tmp(i,j).NumericValue();
 			else
 				return xlretFailed;
 
@@ -885,7 +885,7 @@ XlfOper& XlfOper::Set(const MyMatrix& values)
 	CellMatrix tmp(values.rows(), values.columns());
 	for (unsigned long i=0; i < values.rows(); i++)
 		for (unsigned long j=0; j < values.columns(); j++)
-			tmp(i,j) = values[i][j];
+			tmp(i,j) = Element(values,i,j);
 	return Set(tmp);
 }
 XlfOper& XlfOper::Set(const MyArray& values)
