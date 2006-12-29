@@ -18,6 +18,7 @@
 #endif
 #endif
 #include "Functionizer.h"
+#include <iostream>
 
 std::string LeftString(std::string input, unsigned long i)
 {
@@ -26,14 +27,14 @@ std::string LeftString(std::string input, unsigned long i)
 	return ret;
 }
 
-FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<Token>::const_iterator end)
+FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<Token>::const_iterator end, bool TimeDefault)
 {
 	// we should be at start of function
 
 	std::string returnType = it->GetValue();
 	++it;
 	bool Volatile = false;
-	bool time =false;
+	bool time =TimeDefault;
 
 	if (it == end)
 		throw("function half declared at end of file");
@@ -145,6 +146,7 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& input, std::string& LibraryName)
 {
 	std::vector<FunctionModel> output;
+	bool timeDefault=false;
 
 	std::vector<Token>::const_iterator it = input.begin();
 
@@ -181,15 +183,39 @@ std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& inpu
 			case Token::comment :
 				{
 					std::string val = it->GetValue();
-					if (val.size()>= 19 && val.substr(0,17) == "<xlw:libraryname=")
+					if (LeftString(val,5) == "<xlw:")
 					{
-						LibraryName = val.substr(19,val.size());
+						bool found = false;
+
+						if (val.size()>= 19 && val.substr(0,17) == "<xlw:libraryname=")
+						{
+							LibraryName = val.substr(19,val.size());
+							found =true;
+						}
+
+						if (LeftString(val,12) == "<xlw:timeall")
+						{
+							timeDefault = true;
+							found =true;
+
+						}
+
+						if (LeftString(val,13) == "<xlw:timenone")
+						{
+							timeDefault = false;
+							found =true;
+
+						}
+
+						if (!found)
+							std::cout << "Unknown xlw command "+val+"\n";
+
 					}
 					++it; //ignore comment unless in function definition
 				}
 				break;
 			case Token::identifier :
-				output.push_back(FunctionFind(it,input.end()));
+				output.push_back(FunctionFind(it,input.end(),timeDefault));
 				break;
 			default:
 				throw("unknown token type found");

@@ -105,6 +105,9 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 
 		    AddLine(output,thisLine);
 		}}
+
+		if (functionDescriptions[i].NumberOfArguments() == 0)
+			AddLine(output, " { \"\",\"\" } ");
 	
 		AddLine(output,"};");
 		// ok arg list is now set up
@@ -148,6 +151,9 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 			AddLine(output,"LPXLOPER xl"+functionDescriptions[i].GetArgument(j).GetArgumentName()+"_"+delimiter);
 	
 		}}
+
+		if (functionDescriptions[i].NumberOfArguments()==0)
+			AddLine(output, ")");
 
 
 
@@ -211,18 +217,23 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 	}
 	
 	AddLine(output,functionDescriptions[i].GetReturnType()+" result(");
-	AddLine(output,'\t'+functionDescriptions[i].GetFunctionName()+"(");
-	for (unsigned long j=0; j < functionDescriptions[i].NumberOfArguments(); j++)
-		{
-			std::string delimiter;
-			if (j +1 < functionDescriptions[i].NumberOfArguments())
-				delimiter = ",";
-			else 
-				delimiter = ")";
+	if (functionDescriptions[i].NumberOfArguments() >0)
+	{
+		AddLine(output,'\t'+functionDescriptions[i].GetFunctionName()+"(");
+		for (unsigned long j=0; j < functionDescriptions[i].NumberOfArguments(); j++)
+			{
+				std::string delimiter;
+				if (j +1 < functionDescriptions[i].NumberOfArguments())
+					delimiter = ",";
+				else 
+					delimiter = ")";
 
-			AddLine(output,"\t\t"+functionDescriptions[i].GetArgument(j).GetArgumentName()+delimiter);
-		}
-	AddLine(output,"\t);");
+				AddLine(output,"\t\t"+functionDescriptions[i].GetArgument(j).GetArgumentName()+delimiter);
+			}
+		AddLine(output,"\t);");
+	}
+	else
+		AddLine(output,'\t'+functionDescriptions[i].GetFunctionName()+"());");
 
 	if (functionDescriptions[i].DoTime())
 	{
