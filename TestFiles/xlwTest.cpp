@@ -34,6 +34,47 @@ xlAutoClose();
 namespace
 {
 XLRegistration::Arg
+EmptyArgFunctionArgs[]=
+{
+ { "","" } 
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerEmptyArgFunction("xlEmptyArgFunction",
+"EmptyArgFunction",
+" tests empty args ",
+LibraryName,
+EmptyArgFunctionArgs,
+""
+);
+}
+
+
+
+extern "C"
+{
+LPXLOPER EXCEL_EXPORT
+xlEmptyArgFunction(
+)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+std::string result(
+	EmptyArgFunction());
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
 EchoShortArgs[]=
 {
 { "x"," number to be echoed "}

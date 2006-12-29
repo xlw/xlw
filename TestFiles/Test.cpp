@@ -16,6 +16,13 @@
 #include "Test.h"
 #include <ctime>
 
+std::string // tests empty args
+EmptyArgFunction()
+{
+	return "this function is useless except for testing.";
+}
+
+
 short // echoes a short
 EchoShort(short x // number to be echoed
 		   )

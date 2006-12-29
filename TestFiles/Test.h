@@ -15,6 +15,10 @@
 
 //<xlw:libraryname=MyTestLibrary
 
+std::string // tests empty args
+EmptyArgFunction();
+
+
 short // echoes a short
 EchoShort(short x // number to be echoed
 	   );
