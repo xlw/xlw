@@ -1,7 +1,7 @@
 [Project]
 FileName=DevCppXll.dev
 Name=DevCppXll
-UnitCount=52
+UnitCount=53
 Type=3
 Ver=1
 ObjFiles=
@@ -619,6 +619,16 @@ BuildCmd=
 
 [Unit52]
 FileName=..\TestFiles\Test.h
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit53]
+FileName=..\xlw\MyContainers.cpp
 CompileCpp=1
 Folder=DevCppXll
 Compile=1

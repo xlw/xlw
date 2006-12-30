@@ -1,7 +1,7 @@
 [Project]
 FileName=DevCppLibXll.dev
 Name=DevCppXll
-UnitCount=47
+UnitCount=48
 Type=2
 Ver=1
 ObjFiles=
@@ -518,7 +518,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit48]
-FileName=..\xlw\wrapper.h
+FileName=..\xlw\MyContainers.cpp
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
