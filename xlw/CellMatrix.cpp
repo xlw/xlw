@@ -114,6 +114,13 @@ ValueAsString(""), ValueAsNumeric(Number), ValueAsBool(false), ValueAsErrorCode(
 {
 
 }
+
+CellValue::CellValue(int i): Type(CellValue::number), 
+ValueAsString(""), ValueAsNumeric(i), ValueAsBool(false), ValueAsErrorCode(0)
+{
+
+}
+
 CellValue::CellValue(unsigned long Code, bool Error): Type(error), 
 ValueAsString(""), ValueAsNumeric(Code), ValueAsBool(false), ValueAsErrorCode(Code)
 {

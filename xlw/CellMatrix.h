@@ -41,6 +41,7 @@ public:
 	CellValue(unsigned long Code, bool Error); //Error = true if you want an error code
 	CellValue(bool TrueFalse);
 	CellValue(const char* values);
+	CellValue(int i);
 
     CellValue();
 
