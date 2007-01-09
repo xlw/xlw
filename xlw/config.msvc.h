@@ -2,6 +2,7 @@
 /*
  Copyright (c) 2002, 2003, 2004 Ferdinando Ametrano
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (c) 2006 Mark Joshi
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -31,6 +32,23 @@
 #elif (_MSC_VER == 1200)
 // move inside here configs specific to VC++ 6.0
 #  define XLW_LIB_TOOLSET "vc6"
+#pragma warning(disable:4786)
+//disable the debug info warnings for too long template names
+#pragma warning(disable:4503)
+#pragma warning(disable:4786)
+
+//suppress the disable:4786 failing bug, (dont ask!)
+
+class Warning4786WorkAround 
+{
+
+public:
+	Warning4786WorkAround(){}
+
+};
+
+static Warning4786WorkAround VeryDummy4786Variable;
+
 #elif (_MSC_VER == 1300)
 // move inside here configs specific to VC++ .Net
 #  define XLW_LIB_TOOLSET "vc7"
