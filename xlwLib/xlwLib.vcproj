@@ -165,6 +165,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\xlw\MyContainers.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\Win32StreamBuf.cpp"
 				>
 			</File>
