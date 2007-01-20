@@ -192,10 +192,6 @@ SOURCE=..\TestFiles\Test.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Test.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\xlw\Win32StreamBuf.h
 # End Source File
 # Begin Source File
