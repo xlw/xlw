@@ -20,9 +20,18 @@
 #include "Functionizer.h"
 #include <iostream>
 
+
+namespace
+{
+	template<class T>
+	T mini(T a, T b)
+	{
+		return a < b ? a : b;
+	}
+}
 std::string LeftString(std::string input, unsigned long i)
 {
-	i = std::min<unsigned long>(static_cast<unsigned long>(input.size()), i);
+	i = mini<unsigned long>(static_cast<unsigned long>(input.size()), i);
 	std::string ret(input.begin(), input.begin()+i);
 	return ret;
 }
