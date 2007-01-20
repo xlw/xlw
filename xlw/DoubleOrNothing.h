@@ -20,6 +20,7 @@
 #ifndef DOUBLE_OR_NOTHING_H
 #define DOUBLE_OR_NOTHING_H
 class CellMatrix;
+#include <xlw/port.h>
 #include <string>
 
 class DoubleOrNothing

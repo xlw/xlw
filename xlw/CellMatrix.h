@@ -20,6 +20,7 @@
 #ifndef CELL_MATRIX_H
 #define CELL_MATRIX_H
 
+#include <xlw/port.h>
 #include <string>
 #include <vector>
 #include <xlw/MyContainers.h>

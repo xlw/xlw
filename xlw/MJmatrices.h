@@ -27,11 +27,7 @@
 #ifndef MJMATRICES_H
 #define MJMATRICES_H
 
-
-#ifdef _MSC_VER
-#pragma warning(disable:4786)
-#endif
-
+#include <xlw/port.h>
 
 class MJMatrix
 {

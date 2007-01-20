@@ -17,12 +17,7 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
-#ifdef _MSC_VER
-#if _MSC_VER < 1250
-#pragma warning(disable:4786)
-#define VC6
-#endif
-#endif
+
 #include "DoubleOrNothing.h"
 #include "CellMatrix.h"
 
