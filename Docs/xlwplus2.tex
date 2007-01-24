@@ -114,8 +114,8 @@
 \def \buy {\operatorname{buy}}
 
 %\input epsf
-  \title[xlw plus]{
-xlw plus : a system for building xlls without pain
+  \title[xlw 2,1]{
+xlw 2.1 : a system for building xlls without pain
 }
 \author{Mark S. Joshi}
 \address{Centre for Actuarial Studies, Department of Economics,
@@ -142,18 +142,17 @@ various packages have been develop to wrap it. One such package is xlw
 writing such plug-ins as dlls (dynamics link libraries) commonly known
 as xlls. 
 
-The xlw plus package is an extension of xlw; its basic framework is
+The xlw 2.1 package is an extension of xlw; its basic framework is
 the same but various changes have been added to improve usability. The
 largest of these is that rather than coding the registration and data
 conversion code in
 C++, a parser routine has been written that takes in a header file and
 output a C++ source file with all the registration and data conversion
 already written. This means that a user needs virtually no specialist
-knowledge in order to convert any C++ routine into an xll.  It is
- intended that xlw plus will become xlw 2.0.
+knowledge in order to convert any C++ routine into an xll.  
 
 In addition, the original xlw was written to work with Visual Studio
-6.0. This version comes with project files for Visual studio 6.0, visual studio 7.1, and
+6.0. This version comes with project files for Visual studio 6.0, visual studio 7.1, and 
 8.0, as well as for DevCpp 4.9.9.2. DevCpp is a free IDE for the MinGW
 g++ compiler, and so xlls can be built using g++. 
 
@@ -169,7 +168,7 @@ existing types.
 
 \section{Usage}
 
-Before using xlw plus, one first has to build the xlw plus library and
+Before using xlw 2.1, one first has to build the xlw 2.1 library and
 the interface generator. The interface generator project can be found
 in directory appropriate for your compiler:
 \begin{itemize}
@@ -187,7 +186,7 @@ called InterfaceGenerator.exe. Note one can use the version of this
 application built with any one compiler with any other compiler
 without trouble. 
 
-Second one need to build the xlw plus library to link against. The
+Second one need to build the xlw 2.1 library to link against. The
 project files are in the same place as for the console application. 
 \begin{itemize}
 \item For DevCpp the project file is called DevCppLibXl.dev, 
@@ -221,7 +220,7 @@ Simply building the xll project will then produce an xll, which can be
 opened in EXCEL and produces extra functions in a library called
 ``MyTestLibary.'' 
 
-To use xlw plus for your own functions, one should first write a C++
+To use xlw 2.1 for your own functions, one should first write a C++
 function which compiles 
 and builds except for the interfacing code. The functions to be
 exported to EXCEL should be contained in header files which contain
@@ -298,7 +297,9 @@ The class MyMatrix is defined via a typedef in MyContainers.h to
 MJMatrix. You can use change this to your favourite matrix type. The
 matrix class must support the following: it should have .rows()
 and .columns() defined; a constructor that takes number of rows and
-columns; and elements should be accessible via a[i][j]. 
+columns; and elements should be accessible via a[i][j]. If your matrix
+class only supports element access via round brackets, you should
+define the macro USE_PARENTHESESES.
 
 The class MyArray is also defined via a typedef in MyContainers.h. The
 default is to typedef to std::vector. It must have .size(), a
@@ -317,7 +318,7 @@ already been declared via using.
 
 \section{Extended data types}
 
-xlw plus has been designed to make it easy to work with your own data
+xlw 2.1 has been designed to make it easy to work with your own data
 types. The only constraint is that a function (or method) must exist
 that takes in a data-type that is already constructible from basic
 types, and creates the new type. For this purpose, a constructor is
@@ -450,6 +451,16 @@ SystemTime(DoubleOrNothing ticksPerSecond // number to divide by
 A volatile function is a function whose value can change even if the
 arguments have not -- typically random numbers or time. 
 
+You can also time functions by inserting 
+\begin{verbatim}
+
+//<xlw:time
+
+\end{verbatim}
+in the same place. (Yes, volatile functions can be timed, the order of
+the two commands is not important.)
+
+
 \section{The interface file}
 
 It is not necessary to ever look at the interface file. However, it
@@ -516,7 +527,7 @@ code: e.g.
 \item B - double
 \end{itemize}
 
-In xlw plus, only the types P and R are used. P is used for CellMatrix
+In xlw 2.1, only the types P and R are used. P is used for CellMatrix
 and MyMatrix. R is used for all other basic types. Types such as bool and
 double are therefore first passed in as LPXLOPERs and then transformed
 into the right data type. 
