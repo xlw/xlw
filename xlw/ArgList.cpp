@@ -629,4 +629,74 @@ CellMatrix ArgumentList::AllData() const
 	return results;
 }
 
-  
+
+bool ArgumentList::GetIfPresent(const std::string& ArgumentName,
+								unsigned long& ArgumentValue)
+{
+	if (!IsArgumentPresent(ArgumentName))
+		return false;
+
+	ArgumentValue = GetULArgumentValue(ArgumentName);
+	return true;
+}
+
+bool ArgumentList::GetIfPresent(const std::string& ArgumentName,
+								double& ArgumentValue)
+{
+	if (!IsArgumentPresent(ArgumentName))
+		return false;
+
+	ArgumentValue = GetDoubleArgumentValue(ArgumentName);
+	return true;
+}
+
+bool ArgumentList::GetIfPresent(const std::string& ArgumentName,
+								MyArray& ArgumentValue)
+{
+	if (!IsArgumentPresent(ArgumentName))
+		return false;
+
+	ArgumentValue = GetArrayArgumentValue(ArgumentName);
+	return true;
+}
+
+bool ArgumentList::GetIfPresent(const std::string& ArgumentName,
+								MyMatrix& ArgumentValue)
+{
+	if (!IsArgumentPresent(ArgumentName))
+		return false;
+
+	ArgumentValue = GetMatrixArgumentValue(ArgumentName);
+	return true;
+}
+
+bool ArgumentList::GetIfPresent(const std::string& ArgumentName,
+								bool& ArgumentValue)
+{
+	if (!IsArgumentPresent(ArgumentName))
+		return false;
+
+	ArgumentValue = GetBoolArgumentValue(ArgumentName);
+	return true;
+}
+
+bool ArgumentList::GetIfPresent(const std::string& ArgumentName,
+								CellMatrix& ArgumentValue)
+{
+	if (!IsArgumentPresent(ArgumentName))
+		return false;
+
+	ArgumentValue = GetCellsArgumentValue(ArgumentName);
+	return true;
+}
+
+bool ArgumentList::GetIfPresent(const std::string& ArgumentName,
+								ArgumentList& ArgumentValue)
+{
+	if (!IsArgumentPresent(ArgumentName))
+		return false;
+
+	ArgumentValue = GetArgumentListArgumentValue(ArgumentName);
+	return true;
+}
+

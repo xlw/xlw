@@ -58,9 +58,24 @@ public:
     MyMatrix GetMatrixArgumentValue(const std::string& ArgumentName);
 	bool GetBoolArgumentValue(const std::string& ArgumentName);
 	CellMatrix GetCellsArgumentValue(const std::string& ArgumentName);
-
 	ArgumentList GetArgumentListArgumentValue(const std::string& ArgumentName);
 
+
+	// bool indicates whether the argument was found
+	bool GetIfPresent(const std::string& ArgumentName,
+		unsigned long& ArgumentValue);
+	bool GetIfPresent(const std::string& ArgumentName,
+		double& ArgumentValue);
+	bool GetIfPresent(const std::string& ArgumentName,
+		MyArray& ArgumentValue);
+	bool GetIfPresent(const std::string& ArgumentName,
+		MyMatrix& ArgumentValue);
+	bool GetIfPresent(const std::string& ArgumentName,
+		bool& ArgumentValue);
+	bool GetIfPresent(const std::string& ArgumentName,
+		CellMatrix& ArgumentValue);
+	bool GetIfPresent(const std::string& ArgumentName,
+		ArgumentList& ArgumentValue);
 
 
     bool IsArgumentPresent(const std::string& ArgumentName) const;
@@ -68,7 +83,7 @@ public:
 	void CheckAllUsed(const std::string& ErrorId) const;
 
 	CellMatrix AllData() const; // makes data into a cell matrix that could be used for 
-								// creating the same argumnet list
+								// creating the same argument list
 								// useful for checking the class works!
 
 	// data insertions
