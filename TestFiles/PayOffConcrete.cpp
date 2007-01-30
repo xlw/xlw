@@ -70,14 +70,11 @@ PayOffSpread::PayOffSpread(ArgumentList args)
 	if (args.GetStringArgumentValue("name") != "spread")
 		throw("payoff list not for spread passed to payoffspread : got "+args.GetStringArgumentValue("name"));
 
-	if (args.IsArgumentPresent("Volume1"))
-		Volume1 = args.GetDoubleArgumentValue("Volume1");
-	else 
-		Volume1 = 1.0;
-	if (args.IsArgumentPresent("Volume2"))
-		Volume2 = args.GetDoubleArgumentValue("Volume2");
-	else 
-		Volume2 = -1.0;
+	if (!args.GetIfPresent("Volume1",Volume1))
+		Volume1= 1.0;
+
+	if (!args.GetIfPresent("Volume2",Volume2))
+		Volume2= -1.0;
 
 	OptionOne = Wrapper<PayOff>(GetFromFactory<PayOff>(args.GetArgumentListArgumentValue("optionone")));
 	OptionTwo = Wrapper<PayOff>(GetFromFactory<PayOff>(args.GetArgumentListArgumentValue("optiontwo")));
