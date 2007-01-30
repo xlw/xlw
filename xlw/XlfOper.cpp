@@ -810,7 +810,8 @@ int XlfOper::ConvertToString(char *& s) const throw()
 
   if (lpxloper_->xltype & xltypeStr)
   {
-    size_t n = lpxloper_->val.str[0];
+    BYTE nB = lpxloper_->val.str[0]; // to make numbers bigger than 128 behave properly
+    size_t n = static_cast<size_t>(nB);
     s = XlfExcel::Instance().GetMemory(n + 1);
     memcpy(s, lpxloper_->val.str + 1, n);
     s[n] = 0;
@@ -1039,7 +1040,10 @@ XlfOper& XlfOper::Set(const char *value)
     lpxloper_->xltype = xltypeStr;
     int n = static_cast<unsigned int>(strlen(value));
     if (n >= 256)
+	{
       std::cerr << __HERE__ << "String too long is truncated" << std::endl;
+	  n = 254;
+	}
     // One byte more for NULL terminal char (allow use of strcpy)
     // and one for the std::string size (convention used by Excel)
     LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 2));
