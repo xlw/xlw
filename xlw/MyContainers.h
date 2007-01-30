@@ -38,9 +38,9 @@
 typedef MJMatrix MyMatrix;
 typedef std::vector<double> MyArray;
 
-double Element(const MJMatrix& A, unsigned long i , unsigned long j);
+double Element(const MyMatrix& A, unsigned long i , unsigned long j);
 
-double& ChangingElement(MJMatrix& A, unsigned long i , unsigned long j);
+double& ChangingElement(MyMatrix& A, unsigned long i , unsigned long j);
 
 
 #endif

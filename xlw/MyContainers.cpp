@@ -3,23 +3,23 @@
 
 #ifdef USE_PARENTHESESES
 
-double Element(const MJMatrix& A, unsigned long i , unsigned long j)
+double Element(const MyMatrix& A, unsigned long i , unsigned long j)
 {
 	return A(i,j);
 }
 
-double& ChangingElement(MJMatrix& A, unsigned long i , unsigned long j)
+double& ChangingElement(MyMatrix& A, unsigned long i , unsigned long j)
 {
 	return A(i,j);
 }
 #else
 
-double Element(const MJMatrix& A, unsigned long i , unsigned long j)
+double Element(const MyMatrix& A, unsigned long i , unsigned long j)
 {
 	return A[i][j];
 }
 
-double& ChangingElement(MJMatrix& A, unsigned long i , unsigned long j)
+double& ChangingElement(MyMatrix& A, unsigned long i , unsigned long j)
 {
 	return A[i][j];
 }
