@@ -58,6 +58,16 @@ TypeRegistry::Helper::Helper(std::string NewType,
 
 	TypeRegistry::Instance().Register(data);
 }
+bool TypeRegistry::IsOfBaseType(const std::string & id) const
+{
+	if (id =="LPXLOPER")
+		return true;
+
+	if (id == "double")
+		return true;
+
+	return false;
+}
 
 void TypeRegistry::BuildLists() const
 {
@@ -73,7 +83,7 @@ void TypeRegistry::BuildLists() const
 		IncludeRegistry::Instance().Register(it->second.NewType,it->second.IncludeFile);
 
 		chain[pos] = it->second.NewType;
-		while (chain[pos] != "XlfOper")
+		while (!IsOfBaseType(chain[pos]))
 		{
 			std::map<std::string,regData>::const_iterator iter 
 										= Registrations.find(chain[pos]);

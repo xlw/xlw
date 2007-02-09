@@ -27,19 +27,24 @@ void CheckAndGetType(char& c,
 {
 	ConversionChain = TypeRegistry::Instance().GetChain(className);
 
-	std::string secondLastType = *(ConversionChain.rbegin()+1);
+	size_t i = 0;
+	std::string key;
+	while (key == "" && i < ConversionChain.size())
+	{
 
-	TypeRegistry::regData  data= TypeRegistry::Instance().GetRegistration(secondLastType);
-
-	std::string key = data.ExcelKey;
+		TypeRegistry::regData  data= TypeRegistry::Instance().GetRegistration(ConversionChain[i]);
+		key = data.ExcelKey;
+		++i;
+	}
 
 	if (key.size() == 0)
-		throw("excel key not given  "+className);
+			throw("excel key not given  "+className);
 
 	c = key[0];
 
 	return;
 }
+
 std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input)
 {
 	std::vector<FunctionModel>::const_iterator it = input.begin();

@@ -147,8 +147,15 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 				delimiter = ",";
 			else 
 				delimiter = ")";
+	
+			std::vector<std::string> chain = functionDescriptions[i].GetArgument(j).GetTheType().GetConversionChain();
+			std::vector<std::string>::const_iterator it = chain.begin()+chain.size()-1;
+	
+			std::string uniqifier("a");
+			if (chain.size() ==1)
+				uniqifier ="";
 
-			AddLine(output,"LPXLOPER xl"+functionDescriptions[i].GetArgument(j).GetArgumentName()+"_"+delimiter);
+			AddLine(output,*it+" "+functionDescriptions[i].GetArgument(j).GetArgumentName()+uniqifier+delimiter);
 	
 		}}
 
@@ -166,16 +173,14 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 
 	{for (unsigned long j=0; j < functionDescriptions[i].NumberOfArguments(); j++)
 	{
-		AddLine(output,"XlfOper xl"+functionDescriptions[i].GetArgument(j).GetArgumentName()+"(xl"+
-			functionDescriptions[i].GetArgument(j).GetArgumentName()+"_);");
 
 		// we converted to XlfOper now we have to go through our conversion chain
 
 		std::vector<std::string> chain = functionDescriptions[i].GetArgument(j).GetTheType().GetConversionChain();
 		char id = 'a';
 		
-		std::string lastId = "xl"+functionDescriptions[i].GetArgument(j).GetArgumentName();
-
+		std::string lastId = functionDescriptions[i].GetArgument(j).GetArgumentName()+id;
+		++id;
 
 		for (unsigned long k=0; k < chain.size() -1; k++)
 		{

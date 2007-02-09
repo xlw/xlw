@@ -29,6 +29,21 @@ namespace
 {
 // fundamental types
 
+TypeRegistry::Helper XlfOperReg("XlfOper", // new type
+			   "LPXLOPER", // old type
+			   "", // converter name, we just pass into the constructor as a declaration
+			   false, // is a method
+			   false // takes identifier
+			   );
+
+TypeRegistry::Helper doubleFundamentalReg("double", // new type
+			   "double", // old type, EXCEL understands doubles so this is simply a copy
+			   "", // converter name, we just pass into the constructor as a declaration
+			   false, // is a method
+			   false, // takes identifier
+			   "B"
+			   );
+
 TypeRegistry::Helper shortreg("short", // new type
 			   "XlfOper", // old type
 			   "AsShort", // converter name
@@ -36,6 +51,8 @@ TypeRegistry::Helper shortreg("short", // new type
 			   true, // takes identifier
 			   "R" // should be empty unless OldType is XlfOper
 			   );
+
+/* we are passing doubles now directly rather than via LPXLOPERs
 TypeRegistry::Helper doublereg("double", // new type
 			   "XlfOper", // old type
 			   "AsDouble", // converter name
@@ -43,6 +60,7 @@ TypeRegistry::Helper doublereg("double", // new type
 			   true, // takes identifier
 			   "R" // should be empty unless OldType is XlfOper
 			   );
+*/
 
 TypeRegistry::Helper arrayreg("MyArray", // new type
 			   "XlfOper", // old type

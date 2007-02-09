@@ -5,7 +5,7 @@
 #include <xlw/pragmas.h>
 #include <xlw/MyContainers.h>
 #include <xlw/CellMatrix.h>
-#include "test.h"
+#include "Test.h"
 #include <xlw/xlw.h>
 #include <xlw/XlFunctionRegistration.h>
 #include <stdexcept>
@@ -95,16 +95,17 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlEchoShort(
-LPXLOPER xlx_)
+LPXLOPER xa)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlx(xlx_);
+XlfOper xb(
+	(xa));
 short x(
-	xlx.AsShort("x"));
+	xb.AsShort("x"));
 
 short result(
 	EchoShort(
@@ -142,16 +143,17 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlEchoMat(
-LPXLOPER xlEchoee_)
+LPXLOPER Echoeea)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlEchoee(xlEchoee_);
+XlfOper Echoeeb(
+	(Echoeea));
 MyMatrix Echoee(
-	xlEchoee.AsMatrix("Echoee"));
+	Echoeeb.AsMatrix("Echoee"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 MyMatrix result(
@@ -196,16 +198,17 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlEchoArray(
-LPXLOPER xlEchoee_)
+LPXLOPER Echoeea)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlEchoee(xlEchoee_);
+XlfOper Echoeeb(
+	(Echoeea));
 MyArray Echoee(
-	xlEchoee.AsArray("Echoee"));
+	Echoeeb.AsArray("Echoee"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 MyArray result(
@@ -250,16 +253,17 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlEchoCells(
-LPXLOPER xlEchoee_)
+LPXLOPER Echoeea)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlEchoee(xlEchoee_);
+XlfOper Echoeeb(
+	(Echoeea));
 CellMatrix Echoee(
-	xlEchoee.AsCellMatrix("Echoee"));
+	Echoeeb.AsCellMatrix("Echoee"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 CellMatrix result(
@@ -294,7 +298,7 @@ registerCirc("xlCirc",
 " computes the circumference of a circle ",
 LibraryName,
 CircArgs,
-"R"
+"B"
 );
 }
 
@@ -304,16 +308,13 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlCirc(
-LPXLOPER xlDiameter_)
+double Diameter)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlDiameter(xlDiameter_);
-double Diameter(
-	xlDiameter.AsDouble("Diameter"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
@@ -359,21 +360,23 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlConcat(
-LPXLOPER xlstr1_,
-LPXLOPER xlstr2_)
+LPXLOPER str1a,
+LPXLOPER str2a)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlstr1(xlstr1_);
+XlfOper str1b(
+	(str1a));
 std::string str1(
-	xlstr1.AsString("str1"));
+	str1b.AsString("str1"));
 
-XlfOper xlstr2(xlstr2_);
+XlfOper str2b(
+	(str2a));
 std::string str2(
-	xlstr2.AsString("str2"));
+	str2b.AsString("str2"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 std::string result(
@@ -419,16 +422,17 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlStats(
-LPXLOPER xldata_)
+LPXLOPER dataa)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xldata(xldata_);
+XlfOper datab(
+	(dataa));
 MyArray data(
-	xldata.AsArray("data"));
+	datab.AsArray("data"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 MyArray result(
@@ -473,16 +477,17 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlHelloWorldAgain(
-LPXLOPER xlname_)
+LPXLOPER namea)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlname(xlname_);
+XlfOper nameb(
+	(namea));
 std::string name(
-	xlname.AsString("name"));
+	nameb.AsString("name"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 std::string result(
@@ -517,7 +522,7 @@ registerEchoUL("xlEchoUL",
 " echoes an unsigned long ",
 LibraryName,
 EchoULArgs,
-"R"
+"B"
 );
 }
 
@@ -527,16 +532,13 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlEchoUL(
-LPXLOPER xlb_)
+double ba)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlb(xlb_);
-double ba(
-	xlb.AsDouble("ba"));
 unsigned long b(
 	static_cast<unsigned long>(ba));
 
@@ -573,7 +575,7 @@ registerEchoInt("xlEchoInt",
 " echoes an int ",
 LibraryName,
 EchoIntArgs,
-"R"
+"B"
 );
 }
 
@@ -583,16 +585,13 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlEchoInt(
-LPXLOPER xlb_)
+double ba)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlb(xlb_);
-double ba(
-	xlb.AsDouble("ba"));
 int b(
 	static_cast<int>(ba));
 
@@ -630,7 +629,7 @@ registerEchoDoubleOrNothing("xlEchoDoubleOrNothing",
 " tests DoubleOrNothingType ",
 LibraryName,
 EchoDoubleOrNothingArgs,
-"PR"
+"PB"
 );
 }
 
@@ -640,23 +639,21 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlEchoDoubleOrNothing(
-LPXLOPER xlx_,
-LPXLOPER xldefaultValue_)
+LPXLOPER xa,
+double defaultValue)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlx(xlx_);
-CellMatrix xa(
-	xlx.AsCellMatrix("xa"));
+XlfOper xb(
+	(xa));
+CellMatrix xc(
+	xb.AsCellMatrix("xc"));
 DoubleOrNothing x(
-	DoubleOrNothing(xa,"x"));
+	DoubleOrNothing(xc,"x"));
 
-XlfOper xldefaultValue(xldefaultValue_);
-double defaultValue(
-	xldefaultValue.AsDouble("defaultValue"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
@@ -702,18 +699,19 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlEchoArgList(
-LPXLOPER xlargs_)
+LPXLOPER argsa)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlargs(xlargs_);
-CellMatrix argsa(
-	xlargs.AsCellMatrix("argsa"));
+XlfOper argsb(
+	(argsa));
+CellMatrix argsc(
+	argsb.AsCellMatrix("argsc"));
 ArgumentList args(
-	ArgumentList(argsa,"args"));
+	ArgumentList(argsc,"args"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 CellMatrix result(
@@ -759,18 +757,19 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlSystemTime(
-LPXLOPER xlticksPerSecond_)
+LPXLOPER ticksPerSeconda)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlticksPerSecond(xlticksPerSecond_);
-CellMatrix ticksPerSeconda(
-	xlticksPerSecond.AsCellMatrix("ticksPerSeconda"));
+XlfOper ticksPerSecondb(
+	(ticksPerSeconda));
+CellMatrix ticksPerSecondc(
+	ticksPerSecondb.AsCellMatrix("ticksPerSecondc"));
 DoubleOrNothing ticksPerSecond(
-	DoubleOrNothing(ticksPerSeconda,"ticksPerSecond"));
+	DoubleOrNothing(ticksPerSecondc,"ticksPerSecond"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
@@ -806,7 +805,7 @@ registerPayOffEvaluation("xlPayOffEvaluation",
 " evaluate pay--off ",
 LibraryName,
 PayOffEvaluationArgs,
-"PR"
+"PB"
 );
 }
 
@@ -816,25 +815,23 @@ extern "C"
 {
 LPXLOPER EXCEL_EXPORT
 xlPayOffEvaluation(
-LPXLOPER xlPayOffTable_,
-LPXLOPER xlSpot_)
+LPXLOPER PayOffTablea,
+double Spot)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper xlPayOffTable(xlPayOffTable_);
-CellMatrix PayOffTablea(
-	xlPayOffTable.AsCellMatrix("PayOffTablea"));
-ArgumentList PayOffTableb(
-	ArgumentList(PayOffTablea,"PayOffTableb"));
+XlfOper PayOffTableb(
+	(PayOffTablea));
+CellMatrix PayOffTablec(
+	PayOffTableb.AsCellMatrix("PayOffTablec"));
+ArgumentList PayOffTabled(
+	ArgumentList(PayOffTablec,"PayOffTabled"));
 Wrapper<PayOff> PayOffTable(
-	GetFromFactory<PayOff>(PayOffTableb));
+	GetFromFactory<PayOff>(PayOffTabled));
 
-XlfOper xlSpot(xlSpot_);
-double Spot(
-	xlSpot.AsDouble("Spot"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
