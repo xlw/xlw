@@ -220,15 +220,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\TestFiles\PayOff.h"
-				>
-			</File>
-			<File
 				RelativePath="..\TestFiles\PayOffConcrete.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\TestFiles\PayoffConcrete.h"
 				>
 			</File>
 			<File
@@ -240,10 +232,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\TestFiles\Test.h"
-				>
-			</File>
-			<File
 				RelativePath="..\TestFiles\xlwTest.cpp"
 				>
 			</File>
@@ -252,6 +240,18 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath="..\TestFiles\PayOff.h"
+				>
+			</File>
+			<File
+				RelativePath="..\TestFiles\PayoffConcrete.h"
+				>
+			</File>
+			<File
+				RelativePath="..\TestFiles\Test.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
