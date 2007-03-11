@@ -6,15 +6,20 @@
 #define XL_ARRAY_H
 
 #include "xlcall32.h"
-typedef struct
+#include "MyContainers.h"
+
+struct xlarray
 {
 	WORD rows;
 	WORD columns;
-	double array[1];
-}
-xlarray;
+	double data[1];
+};
 
 
 typedef xlarray* LPXLARRAY;
+
+
+NEMatrix GetMatrix(LPXLARRAY);
+
 #endif
 

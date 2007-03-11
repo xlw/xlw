@@ -37,6 +37,7 @@
 // change the typedefs to your favourite container classes
 typedef MJMatrix MyMatrix;
 typedef std::vector<double> MyArray;
+typedef MyMatrix NEMatrix;
 
 double Element(const MyMatrix& A, unsigned long i , unsigned long j);
 

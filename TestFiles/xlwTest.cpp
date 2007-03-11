@@ -12,8 +12,10 @@
 #include <xlw/XlOpenClose.h>
 #include <ctime>
 #include <xlw/ArgList.h>
-#include <xlw/xlarray.h>
+
 #include <xlw/ArgListFactory.h>
+
+#include <xlw/xlarray.h>
 
 namespace {
 const char* LibraryName = "TestLibrary";
@@ -171,6 +173,8 @@ EXCEL_END
 }
 }
 
+
+
 //////////////////////////
 
 namespace
@@ -203,24 +207,14 @@ EXCEL_BEGIN;
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-	int rows = Echoeea->rows;
-	int cols = Echoeea->columns;
+NEMatrix Echoee(
+	GetMatrix(Echoeea));
 
-	MyMatrix Echoee(rows,cols);
-	for (int i=0; i < rows; ++i)
-		for (int j=0; j < cols; ++j)
-		{
-			int k = i*cols+j;
-			double val = Echoeea->array[k];
-			Echoee(i,j)= val;
-		}
-
-
-
-
-	MyMatrix result(
-			Echoee);
-	return XlfOper(result);
+MyMatrix result(
+	EchoMatrix(
+		Echoee)
+	);
+return XlfOper(result);
 EXCEL_END
 }
 }

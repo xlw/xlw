@@ -29,6 +29,10 @@ EchoMat(const MyMatrix& Echoee // argument to be echoed
 		);
 
 
+MyMatrix // echoes a matrix
+EchoMatrix(const NEMatrix& Echoee // argument to be echoed
+		);
+
 MyArray // echoes an array
 //<xlw:time
 EchoArray(const MyArray& Echoee // argument to be echoed

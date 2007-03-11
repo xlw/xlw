@@ -37,6 +37,13 @@ MyMatrix EchoMat(const MyMatrix& EchoEe)
 
 
 
+MyMatrix // echoes a matrix
+EchoMatrix(const NEMatrix& Echoee // argument to be echoed
+		)
+{
+	return Echoee;
+}
+
 MyArray EchoArray(const MyArray& Echoee// argument to be echoed
 				  )
 {
