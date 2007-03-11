@@ -97,4 +97,13 @@ double // evaluate pay--off
 PayOffEvaluation(const Wrapper<PayOff>& PayOffTable // table for payoff
 	   , double Spot // point for evaluation
 			);
+
+bool // checks to see if there's an error
+ContainsError(const CellMatrix& input // data to check for errors
+							 );
+
+
+bool // checks to see if there's a div by zero
+ContainsDivByZero(const CellMatrix& input // data to check for errors
+							 );
 #endif

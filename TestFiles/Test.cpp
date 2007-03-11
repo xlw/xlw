@@ -139,3 +139,30 @@ PayOffEvaluation(const Wrapper<PayOff>& OptionPayOff // table for payoff
 {
 	return (*OptionPayOff)(Spot);
 }
+
+bool // checks to see if there's an error
+ContainsError(const CellMatrix& input // data to check for errors
+							 )
+{
+	for (unsigned long i=0; i < input.RowsInStructure(); ++i)
+		for (unsigned long j=0; j < input.ColumnsInStructure(); ++j)
+			if (input(i,j).IsError())
+				return true;
+
+	return false;
+
+}
+
+bool // checks to see if there's a div by zero
+ContainsDivByZero(const CellMatrix& input // data to check for errors
+							 )
+{
+	for (unsigned long i=0; i < input.RowsInStructure(); ++i)
+		for (unsigned long j=0; j < input.ColumnsInStructure(); ++j)
+			if (input(i,j).IsError())
+				if (input(i,j).ErrorValue() == 7UL)
+					return true;
+
+	return false;
+
+}

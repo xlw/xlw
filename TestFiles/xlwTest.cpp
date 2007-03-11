@@ -12,7 +12,7 @@
 #include <xlw/XlOpenClose.h>
 #include <ctime>
 #include <xlw/ArgList.h>
-
+#include <xlw/xlarray.h>
 #include <xlw/ArgListFactory.h>
 
 namespace {
@@ -167,6 +167,60 @@ time(0,0) = "time taken";
 time(0,1) = t;
 resultCells.PushBottom(time);
 return XlfOper(resultCells);
+EXCEL_END
+}
+}
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+EchoMatrixArgs[]=
+{
+{ "Echoee"," argument to be echoed "}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerEchoMatrix("xlEchoMatrix",
+"EchoMatrix",
+" echoes a matrix ",
+LibraryName,
+EchoMatrixArgs,
+"K"
+);
+}
+
+
+
+extern "C"
+{
+LPXLOPER EXCEL_EXPORT
+xlEchoMatrix(
+LPXLARRAY Echoeea)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+	int rows = Echoeea->rows;
+	int cols = Echoeea->columns;
+
+	MyMatrix Echoee(rows,cols);
+	for (int i=0; i < rows; ++i)
+		for (int j=0; j < cols; ++j)
+		{
+			int k = i*cols+j;
+			double val = Echoeea->array[k];
+			Echoee(i,j)= val;
+		}
+
+
+
+
+	MyMatrix result(
+			Echoee);
+	return XlfOper(result);
 EXCEL_END
 }
 }
@@ -846,6 +900,102 @@ time(0,0) = "time taken";
 time(0,1) = t;
 resultCells.PushBottom(time);
 return XlfOper(resultCells);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+ContainsErrorArgs[]=
+{
+{ "input"," data to check for errors "}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerContainsError("xlContainsError",
+"ContainsError",
+" checks to see if there's an error ",
+LibraryName,
+ContainsErrorArgs,
+"P"
+);
+}
+
+
+
+extern "C"
+{
+LPXLOPER EXCEL_EXPORT
+xlContainsError(
+LPXLOPER inputa)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+XlfOper inputb(
+	(inputa));
+CellMatrix input(
+	inputb.AsCellMatrix("input"));
+
+bool result(
+	ContainsError(
+		input)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+ContainsDivByZeroArgs[]=
+{
+{ "input"," data to check for errors "}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerContainsDivByZero("xlContainsDivByZero",
+"ContainsDivByZero",
+" checks to see if there's a div by zero ",
+LibraryName,
+ContainsDivByZeroArgs,
+"P"
+);
+}
+
+
+
+extern "C"
+{
+LPXLOPER EXCEL_EXPORT
+xlContainsDivByZero(
+LPXLOPER inputa)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+XlfOper inputb(
+	(inputa));
+CellMatrix input(
+	inputb.AsCellMatrix("input"));
+
+bool result(
+	ContainsDivByZero(
+		input)
+	);
+return XlfOper(result);
 EXCEL_END
 }
 }
