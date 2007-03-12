@@ -44,6 +44,15 @@ TypeRegistry::Helper doubleFundamentalReg("double", // new type
 			   "B"
 			   );
 
+TypeRegistry::Helper arrayFundamentalReg("NEMatrix", // new type
+			   "LPXLARRAY", // old type, EXCEL understands doubles so this is simply a copy
+			   "GetMatrix", // converter name, we just pass into the constructor as a declaration
+			   false, // is a method
+			   false, // takes identifier
+			   "K",
+			   "<xlw/xlarray.h>"
+			   );
+
 TypeRegistry::Helper shortreg("short", // new type
 			   "XlfOper", // old type
 			   "AsShort", // converter name

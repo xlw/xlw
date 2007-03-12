@@ -66,6 +66,9 @@ bool TypeRegistry::IsOfBaseType(const std::string & id) const
 	if (id == "double")
 		return true;
 
+	if (id == "LPXLARRAY")
+		return true;
+
 	return false;
 }
 
