@@ -198,7 +198,7 @@ std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& inpu
 
 						if (val.size()>= 19 && val.substr(0,17) == "<xlw:libraryname=")
 						{
-							LibraryName = val.substr(19,val.size());
+							LibraryName = val.substr(17,val.size());
 							found =true;
 						}
 
