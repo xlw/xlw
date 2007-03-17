@@ -277,16 +277,21 @@ the following:
 odbccp32.lib User32.lib xlwlib.lib
 \item Make sure the SDK library directory is included on the list of
   directories to search for library directories. 
+\item When creating a new project, you must use create new project
+  from existing code, and then later on say its a dll project. (This
+  not an option when creating new projects from new code.)
 \end{itemize}
 
 Note some users have added a custom build step that causes the
 InterfaceGenerator tool to run automatically. 
 
+
+
 \section{Basic Data-types}
 
 The function to be exported to EXCEL can only use data-types supported
 by the interface generator. These are divisible into basic data types: 
-double, short,
+double, short, NEMatrix,
 MyMatrix, MyArray, CellMatrix, string, std::string, and bool, and
 extended data types: int, unsigned long, ArgumentList, PayOff. 
 
@@ -299,7 +304,14 @@ matrix class must support the following: it should have .rows()
 and .columns() defined; a constructor that takes number of rows and
 columns; and elements should be accessible via a[i][j]. If your matrix
 class only supports element access via round brackets, you should
-define the macro USE_PARENTHESESES.
+define the macro USE\_PARENTHESESES.
+
+The class NEMatrix is a typedef for MyMatrix but if you declare an
+argument to be of this type then the function will not be called
+unless the argument is a non-empty matrix of numbers. (Otherwise, you
+get \#VALUE.) If you are working with very large matrices it should be
+more stable as the data type is much simpler, (it uses type K for
+passing instead of type P). 
 
 The class MyArray is also defined via a typedef in MyContainers.h. The
 default is to typedef to std::vector. It must have .size(), a
@@ -367,9 +379,9 @@ takes in a second argument which is a string expressing an identifier
 in case of error -- this is very handy when trying to work out which
 argument in your complicated function is dubious. 
 
-The key is to tell EXCEL the type, this is only used when converting
+The key is to tell EXCEL the type, this is generally only used when converting
 from XlfOper, i.e. when defining a basic type. This is typically ``R''
-or ``P''.
+or ``P''. Doubles are passed as type ``B'' and non-empty matrices as ``K.''
 
 The last argument allows the forcing of extra \#includes in your .cpp
 interface file. This allows you to ensure that the conversion function
@@ -395,7 +407,7 @@ these one gives a name and then the data below. For an array, the size
 of the array should be specified directly below the name. For a
 matrix, cells, and list the number of rows and columns should be given
 directly below. The type cells is simply a matrix of cell values. The
-type list is an ArgumentList, (not supported in VC6.) The use of
+type list is an ArgumentList. The use of
 ArgumentLists inside ArgumentLists is very useful for doing
 decoration and composite patterns. Note that everything passed in to an
 ArgumentList is put into lower case. 
@@ -420,7 +432,7 @@ Wrapper< PayOff >
 , which takes ownership and ensures deletion at the appropriate time. 
 
 Examples of how to use this class are given in the spreadsheet
-Example.xls (or Example6.xls for users of VC6.)
+Example.xls.
 
 \section{xlw commands}
 
@@ -473,7 +485,7 @@ functions with EXCEL and are therefore essential.
 There is a line
 \begin{verbatim}
 
-const char* LibraryName = "test.h";
+const char* LibraryName = "MyTestLibrary";
 
 \end{verbatim}
 This specifies the name of the library in the EXCEL function
@@ -527,9 +539,10 @@ code: e.g.
 \item B - double
 \end{itemize}
 
-In xlw 2.1, only the types P and R are used. P is used for CellMatrix
-and MyMatrix. R is used for all other basic types. Types such as bool and
-double are therefore first passed in as LPXLOPERs and then transformed
+In xlw 2.1, only the types P, B, K, and R are used. P is used for CellMatrix
+and MyMatrix. K is used for NEMatrix. B for double. 
+R is used for all other basic types. Types such as bool 
+are therefore first passed in as LPXLOPERs and then transformed
 into the right data type. 
 
 An example of the interface function definition is 
@@ -580,7 +593,7 @@ macro:
 This ensures that the function is a dll export, and so can be
 dynamically linked against. 
 
-Note that all types are passed in as LPXLOPERs not XlfOpers or other
+Note that types are passed in as LPXLOPERs not XlfOpers or other
 types. XlfOpers are not used since they cause a crash with the MinGW
 compiler as they are not POD objects. 
 
