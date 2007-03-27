@@ -186,7 +186,7 @@ called InterfaceGenerator.exe. Note one can use the version of this
 application built with any one compiler with any other compiler
 without trouble. 
 
-Second one need to build the xlw 2.1 library to link against. The
+Second one needs to build the xlw 2.1 library to link against. The
 project files are in the same place as for the console application. 
 \begin{itemize}
 \item For DevCpp the project file is called DevCppLibXl.dev, 
@@ -218,7 +218,7 @@ Test.h and then at a command prompt type ``InterfaceGenerator Test.h''.
 
 Simply building the xll project will then produce an xll, which can be
 opened in EXCEL and produces extra functions in a library called
-``MyTestLibary.'' 
+``MyTestLibrary.'' 
 
 To use xlw 2.1 for your own functions, one should first write a C++
 function which compiles 
@@ -252,8 +252,8 @@ have any number of interface files in the same xll project.
 If you wish to create a new xll project, this can be done. The things
 to do are 
 \begin{itemize}
-\item The folder contained the xlw folder must be on the include path.
-\item The folder containing the xlw libary file must be on the linking
+\item The folder containing the xlw folder must be on the include path.
+\item The folder containing the xlw library file must be on the linking
   path.
 \item The xlw library file must be on the list of files to link
   against. (i.e. for Visual studio, 
@@ -285,6 +285,31 @@ odbccp32.lib User32.lib xlwlib.lib
 Note some users have added a custom build step that causes the
 InterfaceGenerator tool to run automatically. 
 
+\section{Step by step guide for visual studio 8.0 express users}
+
+This was written by a user, and goes into more detail on how to  make
+a new project using xlw. 
+\begin{itemize}
+\item  Install SDK first, follow the instructions here
+\item You can open the InterfaceGenerator project directly from the folder and build it, this will give you the InterfaceGenerator.exe
+\item You can open the xlwLib directly from the folder and build it
+\item Create a new project using existing code, then choose dll project
+\item You can now add your function files or the files from the
+  TestFiles folder.
+\item Once you have added your own files the C++ menu appears in
+  the project properties. Make sure the folder containing the xlw
+  folder is in the list of include directories.
+\item If you add your own files, put the InterfaceGenerator.exe in the same folder and than go to DOS command window, go to the directory and call: InterfaceGenerator myfile.h. This will generate a xlwmyfile.cpp, include this file in your project.
+\item Add the SDK folder in the Project Properties C/C++ Include menue.
+\item Add the xlw folder in the Project Properties C/C++ Include menue.
+\item Add the SDK/Lib folder in the Project Properties Linker Include libraries menue.
+\item Add the xlwLib/Debug folder in the Project Properties Linker Include libraries menue, if you're running the project in Debug mode.
+\item You have to add the following files in the Linker Input menu: odbc32.lib odbccp32.lib User32.lib xlwLib-Debug.lib, if you're running in debug mode
+\item You have to change the name in Linker Output menue to Debug/FDFunctions.xll, of whatever the name of your xll file is
+\item run the project, go to the Debug folder in your Project folder and you'll find the xll file there
+\item If your macros security level is to high, you won't see anything. Set it to middle or low. Now you can go to the insert functions menue and you should find the library and the functions.
+\end{itemize}
+
 
 
 \section{Basic Data-types}
@@ -293,7 +318,8 @@ The function to be exported to EXCEL can only use data-types supported
 by the interface generator. These are divisible into basic data types: 
 double, short, NEMatrix,
 MyMatrix, MyArray, CellMatrix, string, std::string, and bool, and
-extended data types: int, unsigned long, ArgumentList, PayOff. 
+extended data types: int, unsigned long, ArgumentList,
+DoubleOrNothing, PayOff. 
 
 Note the XLOPER type has two numeric data types which are essentially
 short and double so other numeric types go via double. 
@@ -537,6 +563,7 @@ code: e.g.
 \item R - LPXLOPER by reference
 \item P - LPXLOPER by value
 \item B - double
+\item K - floating point array
 \end{itemize}
 
 In xlw 2.1, only the types P, B, K, and R are used. P is used for CellMatrix
