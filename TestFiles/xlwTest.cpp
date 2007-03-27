@@ -18,7 +18,7 @@
 #include <xlw/xlarray.h>
 
 namespace {
-const char* LibraryName = "TestLibrary";
+const char* LibraryName = "MyTestLibrary";
 };
 
 // dummy function to force linkage
