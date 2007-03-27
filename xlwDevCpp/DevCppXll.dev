@@ -1,7 +1,7 @@
 [Project]
 FileName=DevCppXll.dev
 Name=DevCppXll
-UnitCount=53
+UnitCount=55
 Type=3
 Ver=1
 ObjFiles=
@@ -518,7 +518,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit55]
-FileName=..\xlwVisio\Test.h
+FileName=..\xlw\xlarray.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -629,6 +629,16 @@ BuildCmd=
 
 [Unit53]
 FileName=..\xlw\MyContainers.cpp
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit54]
+FileName=..\xlw\xlarray.cpp
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
