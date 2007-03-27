@@ -173,6 +173,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\xlw\xlarray.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\xlarray.h"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\XlfAbstractCmdDesc.cpp"
 				>
 			</File>
