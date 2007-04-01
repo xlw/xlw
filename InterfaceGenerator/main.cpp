@@ -39,12 +39,12 @@ int main(int argc, char *argv[])
 try
 {
 	//cout << "Input file name \n";
-	std::string inputfile("Test.h");
+	//std::string inputfile("Test.h");
 //	cin>> inputfile;
 
-//	if (argc == 1 || argc > 3)
-//		throw("usage is inputfile outputfile (outputfile is optional)");
-//	std::string inputfile(argv[1]);
+	if (argc == 1 || argc > 3)
+		throw("usage is inputfile outputfile (outputfile is optional)");
+	std::string inputfile(argv[1]);
 
 //	cout << "Output file name \n";
 //	std::string outputfile("C:\\tmp.cpp");
