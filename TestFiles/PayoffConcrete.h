@@ -9,7 +9,7 @@
 #include "PayOff.h"
 #include <xlw/ArgList.h>
 #include <xlw/Wrapper.h>
-#include <xlw/ArgListFactory.h>
+
 
 class PayOffCall : public PayOff
 {

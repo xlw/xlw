@@ -157,18 +157,11 @@ XlfOper Echoeeb(
 MyMatrix Echoee(
 	Echoeeb.AsMatrix("Echoee"));
 
- double t = (clock()+0.0)/CLOCKS_PER_SEC;
 MyMatrix result(
 	EchoMat(
 		Echoee)
 	);
-  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
-CellMatrix resultCells(result);
-CellMatrix time(1,2);
-time(0,0) = "time taken";
-time(0,1) = t;
-resultCells.PushBottom(time);
-return XlfOper(resultCells);
+return XlfOper(result);
 EXCEL_END
 }
 }
@@ -258,18 +251,11 @@ XlfOper Echoeeb(
 MyArray Echoee(
 	Echoeeb.AsArray("Echoee"));
 
- double t = (clock()+0.0)/CLOCKS_PER_SEC;
 MyArray result(
 	EchoArray(
 		Echoee)
 	);
-  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
-CellMatrix resultCells(result);
-CellMatrix time(1,2);
-time(0,0) = "time taken";
-time(0,1) = t;
-resultCells.PushBottom(time);
-return XlfOper(resultCells);
+return XlfOper(result);
 EXCEL_END
 }
 }

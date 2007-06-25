@@ -24,7 +24,6 @@ EchoShort(short x // number to be echoed
 	   );
 
 MyMatrix // echoes a matrix
-//<xlw:time
 EchoMat(const MyMatrix& Echoee // argument to be echoed
 		);
 
@@ -34,7 +33,6 @@ EchoMatrix(const NEMatrix& Echoee // argument to be echoed
 		);
 
 MyArray // echoes an array
-//<xlw:time
 EchoArray(const MyArray& Echoee // argument to be echoed
 				  );
 
