@@ -7,7 +7,6 @@
 #ifndef ARG_LIST_FACTORY_HELPER_H
 #define ARG_LIST_FACTORY_HELPER_H
 #include <xlw/ArgListFactory.h>
-#include <map>
 #include <string>
 
 template<class TBase, class TDerived>
