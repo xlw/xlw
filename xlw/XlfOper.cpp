@@ -452,6 +452,16 @@ note this necessitates passing as a P not an R
 */
 int XlfOper::ConvertToMatrix(MyMatrix& value) const
 {
+	// deal with empty case first
+	if (lpxloper_->xltype == xltypeMissing || lpxloper_->xltype == xltypeNil )
+    {
+	
+       MyMatrix tmp;
+       value = tmp;
+        
+        return xlretSuccess;
+    }
+
 	CellMatrix tmp(1,1);// will be resized anyway
 	int xlret = ConvertToCellMatrix(tmp);
 	if (xlret != xlretSuccess)
@@ -883,6 +893,11 @@ int XlfOper::ConvertToRef(XlfRef& r) const throw()
 
 XlfOper& XlfOper::Set(const MyMatrix& values)
 {
+	if (values.rows() ==0 || values.columns() ==0)
+	{
+		return *this;
+	}
+
 	CellMatrix tmp(values.rows(), values.columns());
 	for (unsigned long i=0; i < values.rows(); i++)
 		for (unsigned long j=0; j < values.columns(); j++)
@@ -893,7 +908,7 @@ XlfOper& XlfOper::Set(const MyArray& values)
 {
 	if (values.size() ==0)
 	{
-		return Set(CellMatrix(1,1));
+		return *this;
 	}
 	CellMatrix tmp(static_cast<unsigned long>(values.size()), 1UL);
 	for (unsigned long i=0; i < values.size(); i++)
