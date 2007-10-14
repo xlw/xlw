@@ -39,7 +39,7 @@ struct XlfFuncDescImpl
   {}
   //! Recalculation policy
   XlfFuncDesc::RecalcPolicy recalcPolicy_;
-  //! Category where the function is displayed in the function wizzard.
+  //! Category where the function is displayed in the function wizard.
   std::string category_;
   //! List of the argument descriptions of the function.
   XlfArgDescList arguments_;

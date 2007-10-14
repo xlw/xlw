@@ -56,9 +56,9 @@ public:
   void SetAlias(const std::string& alias);
   //! Gets the alias to be shown in Excel.
   const std::string& GetAlias() const;
-  //! Sets the comment string to be shown in the function wizzard.
+  //! Sets the comment string to be shown in the function wizard.
   void SetComment(const std::string& comment);
-  //! Gets the comment string to be shown in the function wizzard.
+  //! Gets the comment string to be shown in the function wizard.
   const std::string& GetComment() const;
 
 protected:

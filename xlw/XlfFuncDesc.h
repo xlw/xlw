@@ -54,9 +54,9 @@ public:
   //! Dtor.
   ~XlfFuncDesc();
 
-  //! Sets the category where your function will appear in the function wizzard.
+  //! Sets the category where your function will appear in the function wizard.
   void SetCategory(const std::string& category);
-  //! Gets the category where your function will appear in the function wizzard.
+  //! Gets the category where your function will appear in the function wizard.
   const std::string& GetCategory() const;
   //! Sets the arguments definition.
   void SetArguments(const XlfArgDescList& arguments);
@@ -68,9 +68,9 @@ protected:
   int DoRegister(const std::string& dllName) const;
 
 private:
-  //! Default ctor is declared private but not defined.
+  //! Copy ctor is declared private but not defined.
   XlfFuncDesc(const XlfFuncDesc&);
-  //! Copy otor is declared private but not defined.
+  //! Assignment operator is declared private but not defined.
   XlfFuncDesc& operator=(const XlfFuncDesc&);
   //! Pointer to implementation (pimpl idiom, see \ref HS).
   struct XlfFuncDescImpl * impl_;

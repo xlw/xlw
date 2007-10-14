@@ -108,7 +108,7 @@ private:
   XlfExcel();
   //! Copy ctor is not defined.
   XlfExcel(const XlfExcel&);
-  //! Assignment otor is not defined.
+  //! Assignment operator is not defined.
   XlfExcel& operator=(const XlfExcel&);
   //! Initialize the C++ framework.
   void InitLibrary();

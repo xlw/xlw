@@ -169,7 +169,7 @@ public:
   MyMatrix AsMatrix( const std::string& ErrorId,int * pxlret=0) const;
 
 
-  //! Converts to a XlfReg.
+  //! Converts to a XlfRef.
   XlfRef AsRef(int * pxlret = 0) const;
 
   //! Gets the internal LPXLOPER.
