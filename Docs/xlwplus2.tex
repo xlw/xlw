@@ -418,7 +418,7 @@ which point the parser concludes that you have accidentally created a
 loop. 
 
 The three main data types that have been added for illustration are the
-DoubleOrNothing, ArgumentList and Wrapper<PayOff> . 
+DoubleOrNothing, ArgumentList and Wrapper\textless PayOff\textgreater . 
 
 The DoubleOrNothing class allows one distinguish between a number passed in
 or an empty argument. One can therefore choose between a number passed
@@ -441,7 +441,7 @@ ArgumentList is put into lower case.
 The ArgumentList is particularly powerful with factories. We have
  provided a templatized factory that takes in an ArgumentList, and can be
  used for arbitrary types. The only restrictions are that the
- inherited types have cosntructors that take in an ArgumentList, and
+ inherited types have constructors that take in an ArgumentList, and
  that they have a common base class.  
  We illustrate this with the PayOff class. 
 
@@ -552,7 +552,7 @@ the name of each followed by its description.
 
 In the second part, a global variable is declared. The creation of
 this global variable registers the function with a global singleton,
-which ensure that it is registered with EXCEL. This approach allows
+which ensures that it is registered with EXCEL. This approach allows
 the registration to be split across many files. The information passed
 to the constructor is the name of the function in C++ in the interface
 file, the name of the function in the function in EXCEL, the function
@@ -560,8 +560,8 @@ description, the name of the library in EXCEL, the arguments declared
 above and the types of the arguments. The types are expressed via a
 code: e.g. 
 \begin{itemize}
-\item R - LPXLOPER by reference
-\item P - LPXLOPER by value
+\item R - XLOPER by reference (LPXLOPER)
+\item P - OPER by reference
 \item B - double
 \item K - floating point array
 \end{itemize}
