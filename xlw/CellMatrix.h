@@ -30,6 +30,7 @@ class CellValue
 
 public:
     bool IsAString() const;
+    bool IsAWstring() const;
     bool IsANumber() const;
   	bool IsBoolean() const;
 	bool IsError() const;
@@ -38,6 +39,7 @@ public:
 
 
     CellValue(const std::string&);
+    CellValue(const std::wstring&);
     CellValue(double Number);
 	CellValue(unsigned long Code, bool Error); //Error = true if you want an error code
 	CellValue(bool TrueFalse);
@@ -47,6 +49,7 @@ public:
     CellValue();
 
     const std::string& StringValue() const;
+    const std::wstring& WstringValue() const;
     double NumericValue() const;
 	bool BooleanValue() const;
 	unsigned long ErrorValue() const;
@@ -55,10 +58,11 @@ public:
 
 	enum ValueType 
 	{
-		string, number, boolean, error, empty
+		string, wstring, number, boolean, error, empty
 	};
 
 	operator std::string() const;
+	operator std::wstring() const;
 	operator bool() const;
 	operator double() const;
 	operator unsigned long() const;
@@ -70,6 +74,7 @@ private:
 	ValueType Type;
   
     std::string ValueAsString;
+    std::wstring ValueAsWstring;
     double ValueAsNumeric;
 	bool ValueAsBool;
 	unsigned long ValueAsErrorCode;

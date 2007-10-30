@@ -33,6 +33,8 @@
 #pragma once
 #endif
 
+typedef void* LPXLFOPER;
+
 //! Interface between excel and the framework.
 /*!
 Implemented as a singleton (see \ref DP). You can't access the
@@ -55,9 +57,11 @@ public:
   //! Gets XLL name
   std::string GetName() const;
   //! Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel)
-  int __cdecl Call(int xlfn, LPXLOPER pxResult, int count, ...) const;
+  int __cdecl Call(int xlfn, LPXLFOPER pxResult, int count, ...) const;
   //! Same as above but with an argument array instead of the variable length argument list
-  int Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
+  int Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const;
+  int Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
+  int Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdata[]) const;
 
   // Wrapped functions that are often needed and/or painful to code
 
@@ -68,6 +72,7 @@ public:
   //! Is the function being calculated currently called by the Function Wizard ?
   bool IsCalledByFuncWiz() const;
 
+  bool excel12() const { return excel12_; }
 private:
   //! Static pointer to the unique instance of XlfExcel object.
   static XlfExcel *this_;
@@ -114,6 +119,8 @@ private:
   void InitLibrary();
   //! Creates a new static buffer and add it to the free list.
   void PushNewBuffer(size_t);
+
+  bool excel12_;
 };
 
 #ifdef NDEBUG

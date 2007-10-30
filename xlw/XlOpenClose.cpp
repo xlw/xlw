@@ -15,8 +15,6 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-
-
 #include "XlOpenClose.h"
 #include <iostream>
 #include <sstream>
@@ -33,17 +31,23 @@ extern "C"
 
   long EXCEL_EXPORT xlAutoOpen()
   {
-    oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
-    std::cerr << __HERE__ << "std::cerr redirected to MSVC debugger" << std::endl;
+      try {
 
-    // Displays a message in the status bar.
-    XlfExcel::Instance().SendMessage("Registering library...");
+        oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
+        std::cerr << __HERE__ << "std::cerr redirected to MSVC debugger" << std::endl;
 
-	XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheRegistrations();
-	
-    // Clears the status bar.
-    XlfExcel::Instance().SendMessage();
-    return 1;
+        // Displays a message in the status bar.
+        XlfExcel::Instance().SendMessage("Registering library...");
+
+	    XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheRegistrations();
+    	
+        // Clears the status bar.
+        XlfExcel::Instance().SendMessage();
+        return 1;
+
+      } catch(...) {
+        return 0;
+      }
   }
 
   long EXCEL_EXPORT xlAutoClose()

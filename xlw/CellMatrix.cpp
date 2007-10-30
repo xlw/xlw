@@ -30,6 +30,11 @@ bool CellValue::IsAString() const
 	return Type == string;
 }
 
+bool CellValue::IsAWstring() const
+{
+	return Type == wstring;
+}
+
 
 bool CellValue::IsANumber() const
 {
@@ -57,6 +62,14 @@ CellValue::operator std::string() const
 	if (Type != string)
 		throw("non string cell asked to be a string");
 	return ValueAsString;
+
+}
+
+CellValue::operator std::wstring() const
+{
+	if (Type != wstring)
+		throw("non wstring cell asked to be a wstring");
+	return ValueAsWstring;
 
 }
 	
@@ -89,6 +102,7 @@ void CellValue::clear()
 {
 	Type = empty;
 	ValueAsString="";
+	ValueAsWstring=L"";
 	ValueAsNumeric=0.0;
 	ValueAsBool=false;
 	ValueAsErrorCode=0;
@@ -96,33 +110,36 @@ void CellValue::clear()
 
 
 CellValue::CellValue(const std::string& value) : Type(CellValue::string), 
-ValueAsString(value), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(value), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
 {
 
 }
 
+CellValue::CellValue(const std::wstring& value) : Type(CellValue::wstring), 
+ValueAsString(""), ValueAsWstring(value), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
+{
 
-
+}
 
 CellValue::CellValue(const char* value) : Type(CellValue::string), 
-ValueAsString(value), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(value), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
 {
 
 }
 CellValue::CellValue(double Number): Type(CellValue::number), 
-ValueAsString(""), ValueAsNumeric(Number), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(Number), ValueAsBool(false), ValueAsErrorCode(0)
 {
 
 }
 
 CellValue::CellValue(int i): Type(CellValue::number), 
-ValueAsString(""), ValueAsNumeric(i), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(i), ValueAsBool(false), ValueAsErrorCode(0)
 {
 
 }
 
 CellValue::CellValue(unsigned long Code, bool Error): Type(error), 
-ValueAsString(""), ValueAsNumeric(Code), ValueAsBool(false), ValueAsErrorCode(Code)
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(Code), ValueAsBool(false), ValueAsErrorCode(Code)
 {
 	if (!Error)
 		Type = number;
@@ -130,13 +147,13 @@ ValueAsString(""), ValueAsNumeric(Code), ValueAsBool(false), ValueAsErrorCode(Co
 
 CellValue::CellValue(bool TrueFalse)
  : Type(CellValue::boolean), 
-ValueAsString(""), ValueAsNumeric(0.0), ValueAsBool(TrueFalse), ValueAsErrorCode(0)
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(TrueFalse), ValueAsErrorCode(0)
 {
 
 }
 
 CellValue::CellValue(): Type(CellValue::empty), 
-ValueAsString(""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
 {
 }
 
@@ -145,6 +162,12 @@ const std::string& CellValue::StringValue() const
 	if (Type != string)
 		throw("non string cell asked to be a string");
 	return ValueAsString;
+}
+const std::wstring& CellValue::WstringValue() const
+{
+	if (Type != wstring)
+		throw("non wstring cell asked to be a wstring");
+	return ValueAsWstring;
 }
 double CellValue::NumericValue() const
 {

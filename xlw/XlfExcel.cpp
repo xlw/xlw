@@ -30,6 +30,9 @@
 #include <xlw/XlfOper.h>
 #include <xlw/defines.h>
 
+#include <xlw/XlfOperImpl4.h> // FIXME
+#include <xlw/XlfOperImpl12.h> // FIXME
+
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop
@@ -42,9 +45,14 @@
 extern "C"
 {
   //! Main API function to Excel.
-  int (__cdecl *Excel4)(int xlfn, LPXLOPER operRes, int count,...);
+  int (__cdecl *Excel4_)(int xlfn, LPXLOPER operRes, int count, ...);
   //! Main API function to Excel, passing the argument as an array.
-  int (__stdcall *Excel4v)(int xlfn, LPXLOPER operRes, int count, LPXLOPER far opers[]);
+  int (__stdcall *Excel4v_)(int xlfn, LPXLOPER operRes, int count, LPXLOPER far opers[]);
+
+  ////! Main API function to Excel.
+  //int (__cdecl *Excel12)(int xlfn, LPXLOPER12 operRes, int count, ...);
+  ////! Main API function to Excel, passing the argument as an array.
+  //int (__stdcall *Excel12v)(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 far opers[]);
 }
 
 XlfExcel *XlfExcel::this_ = 0;
@@ -77,7 +85,7 @@ XlfExcel& XlfExcel::Instance()
 }
 
 /*!
-If not title is specified, the message is assumed to be an error log
+If no title is specified, the message is assumed to be an error log
 */
 void XlfExcel::MsgBox(const char *errmsg, const char *title)
 {
@@ -111,16 +119,16 @@ If msg is 0, the status bar is cleared.
 void XlfExcel::SendMessage(const char *msg)
 {
   if (msg)
-    Call(xlcMessage, 0, 2, (LPXLOPER)XlfOper(true), (LPXLOPER)XlfOper(msg));
+    Call(xlcMessage, 0, 2, (LPXLFOPER)XlfOper(true), (LPXLFOPER)XlfOper(msg));
   else
-    Call(xlcMessage, 0, 1, (LPXLOPER)XlfOper(false));
+    Call(xlcMessage, 0, 1, (LPXLFOPER)XlfOper(false));
   return;
 }
 
 bool XlfExcel::IsEscPressed() const
 {
   XlfOper ret;
-  Call(xlAbort, ret, 1, (LPXLOPER)XlfOper(false));
+  Call(xlAbort, ret, 1, (LPXLFOPER)XlfOper(false));
   return ret.AsBool();
 }
 
@@ -138,6 +146,17 @@ XlfExcel::~XlfExcel()
   return;
 }
 
+bool set_excel12() {
+    XLOPER xRet1, xRet2, xTemp1, xTemp2;
+    xTemp1.xltype = xTemp2.xltype = xltypeInt;
+    xTemp1.val.w = 2;
+    xTemp2.val.w = xltypeInt;
+    Excel4_(xlfGetWorkspace, &xRet1, 1, &xTemp1);
+    Excel4_(xlCoerce, &xRet2, 2, &xRet1, &xTemp2);
+    Excel4_(xlFree, 0, 1, &xRet1);
+    return (xRet2.val.w == 12);
+}
+
 /*!
 Load \c XlfCALL32.DLL to interface excel (this library is shipped with Excel)
 and link it to the XLL.
@@ -147,12 +166,27 @@ void XlfExcel::InitLibrary()
   HINSTANCE handle = LoadLibrary("XLCALL32.DLL");
   if (handle == 0)
     throw std::runtime_error("Could not load library XLCALL32.DLL");
-  Excel4 = (int (__cdecl *)(int, struct xloper *, int, ...))GetProcAddress(handle,"Excel4");
-  if (Excel4 == 0)
+  Excel4_ = (int (__cdecl *)(int, struct xloper *, int, ...))GetProcAddress(handle, "Excel4");
+  if (Excel4_ == 0)
     throw std::runtime_error("Could not get address of Excel4 callback");
-  Excel4v = (int (__stdcall *)(int, struct xloper *, int, struct xloper *[]))GetProcAddress(handle,"Excel4v");
-  if (Excel4v == 0)
+  Excel4v_ = (int (__stdcall *)(int, struct xloper *, int, struct xloper *[]))GetProcAddress(handle, "Excel4v");
+  if (Excel4v_ == 0)
     throw std::runtime_error("Could not get address of Excel4v callback");
+
+  excel12_ = set_excel12();
+  if (excel12_) {
+      //Excel12 = (int (__cdecl *)(int, LPXLOPER12, int, ...))GetProcAddress(handle, "Excel12");
+      //if (Excel12 == 0)
+      //  throw std::runtime_error("Could not get address of Excel12 callback");
+      //Excel12v = (int (__stdcall *)(int, struct xloper12 *, int, struct xloper12 *[]))GetProcAddress(handle, "Excel12v");
+      //if (Excel12v == 0)
+      //  throw std::runtime_error("Could not get address of Excel12v callback");
+
+    static XlfOperImpl12 xlfOperImpl12;
+  } else {
+    static XlfOperImpl4 xlfOperImpl4;
+  }
+
   impl_->handle_ = handle;
   return;
 }
@@ -161,7 +195,7 @@ std::string XlfExcel::GetName() const
 {
   std::string ret;
   XlfOper xName;
-  int err = Call(xlGetName, (LPXLOPER)xName, 0);
+  int err = Call(xlGetName, (LPXLFOPER)xName, 0);
   if (err != xlretSuccess)
     std::cerr << XLW__HERE__ << "Could not get DLL name" << std::endl;
   else
@@ -170,11 +204,43 @@ std::string XlfExcel::GetName() const
 }
 
 #ifdef __MINGW32__
-int __cdecl XlfExcel::Call(int xlfn, LPXLOPER pxResult, int count, ...) const
+int __cdecl XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, ...) const
 #else
-int cdecl XlfExcel::Call(int xlfn, LPXLOPER pxResult, int count, ...) const
+int cdecl XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, ...) const
 #endif
 {
+    if (excel12_) {
+
+#ifdef _ALPHA_
+  /*
+  * On the Alpha, arguments may be passed in via registers instead of
+  * being located in a contiguous block of memory, so we must use the
+  * va_arg functions to retrieve them instead of simply walking through
+  * memory.
+  	*/
+  va_list argList;
+  LPXLOPER12 *plpx = alloca(count*sizeof(LPXLOPER12));
+#endif
+
+#ifdef _ALPHA_
+  /* Fetch all of the LPXLOPERS and copy them into plpx.
+  * plpx is alloca'ed and will automatically be freed when the function
+  * exits.
+  */
+  va_start(argList, count);
+  for (i = 0; i<count; i++)
+    plpx[i] = va_arg(argList, LPXLOPER12);
+  va_end(argList);
+#endif
+
+#ifdef _ALPHA_
+  return Call12v(xlfn, pxResult, count, plpx);
+#else
+  return Call12v(xlfn, (LPXLOPER12)pxResult, count, (LPXLOPER12 *)(&count + 1));
+#endif
+
+    } else {
+
 #ifdef _ALPHA_
   /*
   * On the Alpha, arguments may be passed in via registers instead of
@@ -198,11 +264,14 @@ int cdecl XlfExcel::Call(int xlfn, LPXLOPER pxResult, int count, ...) const
 #endif
 
 #ifdef _ALPHA_
-  return Callv(xlfn, pxResult, count, plpx);
+  return Call4v(xlfn, pxResult, count, plpx);
 #else
-  return Callv(xlfn, pxResult, count, (LPXLOPER *)(&count + 1));
+  return Call4v(xlfn, (LPXLOPER)pxResult, count, (LPXLOPER *)(&count + 1));
 #endif
+
+    }
 }
+
 
 /*!
 If one (or more) cells refered as argument is(are) uncalculated, the framework
@@ -213,7 +282,15 @@ with XlfOper::xlbitCallFreeAuxMem.
  
 \sa XlfOper::~XlfOper
 */
-int XlfExcel::Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const
+int XlfExcel::Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const
+{
+    if (excel12_)
+        return Call12v(xlfn, (LPXLOPER12)pxResult, count, (LPXLOPER12*)pxdata);
+    else
+        return Call4v(xlfn, (LPXLOPER)pxResult, count, (LPXLOPER*)pxdata);
+}
+
+int XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const
 {
 #ifndef NDEBUG
   for (size_t i = 0; i<size_t(count);++i)
@@ -230,7 +307,39 @@ int XlfExcel::Callv(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) c
       std::cerr << "0 pointer passed as argument #" << i << std::endl;
     }
 #endif
-  int xlret = Excel4v(xlfn, pxResult, count, pxdata);
+  int xlret = Excel4v_(xlfn, pxResult, count, pxdata);
+  if (pxResult)
+  {
+    int type = pxResult->xltype;
+
+    bool hasAuxMem = (type & xltypeStr ||
+                      type & xltypeRef ||
+                      type & xltypeMulti ||
+                      type & xltypeBigData);
+    if (hasAuxMem)
+      pxResult->xltype |= XlfOper::xlbitFreeAuxMem;
+  }
+  return xlret;
+}
+
+int XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdata[]) const
+{
+#ifndef NDEBUG
+  for (size_t i = 0; i<size_t(count);++i)
+    if (!pxdata[i])
+    {
+      if (xlfn & xlCommand)
+        std::cerr << XLW__HERE__ << "xlCommand | " << (xlfn & 0x0FFF) << std::endl;
+      if (xlfn & xlSpecial)
+        std::cerr << "xlSpecial | " << (xlfn & 0x0FFF) << std::endl;
+      if (xlfn & xlIntl)
+        std::cerr << "xlIntl | " << (xlfn & 0x0FFF) << std::endl;
+      if (xlfn & xlPrompt)
+        std::cerr << "xlPrompt | " << (xlfn & 0x0FFF) << std::endl;
+      std::cerr << "0 pointer passed as argument #" << i << std::endl;
+    }
+#endif
+  int xlret = Excel12v(xlfn, pxResult, count, pxdata);
   if (pxResult)
   {
     int type = pxResult->xltype;
@@ -286,7 +395,7 @@ bool XlfExcel::IsCalledByFuncWiz() const
   XLOPER xHwndMain;
   EnumStruct    enm;
 
-  if (Excel4(xlGetHwnd, &xHwndMain, 0) == xlretSuccess)
+  if (Excel4_(xlGetHwnd, &xHwndMain, 0) == xlretSuccess)
   {
     enm.bFuncWiz = false;
     enm.hwndXLMain = xHwndMain.val.w;

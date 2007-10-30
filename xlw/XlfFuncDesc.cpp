@@ -81,11 +81,64 @@ Registers the function as a function in excel.
 */
 int XlfFuncDesc::DoRegister(const std::string& dllName) const
 {
+
+    if (XlfExcel::Instance().excel12()) {
+
   // alias arguments
   XlfArgDescList& arguments = impl_->arguments_;
 
 	size_t nbargs = arguments.size();
-	std::string args("R");
+	std::string args("Q");
+	std::string argnames;
+
+	XlfArgDescList::const_iterator it = arguments.begin();
+	while (it != arguments.end())
+	{
+		argnames += (*it).GetName();
+		args += (*it).GetType();
+		++it;
+		if (it != arguments.end())
+			argnames+=", ";
+	}
+	if (impl_->recalcPolicy_ == XlfFuncDesc::Volatile)
+	{
+		args+="!";
+        args+=" "; // make string longer so next line doesn't cause memory violation
+		args[nbargs + 2] = 0;
+	}
+	else {
+        args+=" "; // make string longer so next line doesn't cause memory violation
+		args[nbargs + 1] = 0;
+    }
+	LPXLOPER12 *rgx = new LPXLOPER12[10 + nbargs];
+	LPXLOPER12 *px = rgx;
+    for (unsigned int i=0; i<args.length(); i++) if (args[i] == 'P') args[i] = 'Q';
+	(*px++) = XlfOper(dllName.c_str());
+	(*px++) = XlfOper(GetName().c_str());
+	(*px++) = XlfOper(args.c_str());
+	(*px++) = XlfOper(GetAlias().c_str());
+	(*px++) = XlfOper(argnames.c_str());
+	(*px++) = XlfOper(1.0);
+	(*px++) = XlfOper(impl_->category_.c_str());
+	(*px++) = XlfOper("");
+	(*px++) = XlfOper("");
+	(*px++) = XlfOper(GetComment().c_str());
+	for (it = arguments.begin(); it != arguments.end(); ++it)
+  {
+		(*px++) = XlfOper((*it).GetComment().c_str());
+  }
+	int err = static_cast<int>(XlfExcel::Instance().Call12v(xlfRegister, NULL, 10 + nbargs, rgx));
+	delete[] rgx;
+	return err;
+
+    } else {
+
+  // alias arguments
+  XlfArgDescList& arguments = impl_->arguments_;
+
+	size_t nbargs = arguments.size();
+	//std::string args("R");
+	std::string args("P");
 	std::string argnames;
 
 	XlfArgDescList::const_iterator it = arguments.begin();
@@ -123,8 +176,10 @@ int XlfFuncDesc::DoRegister(const std::string& dllName) const
   {
 		(*px++) = XlfOper((*it).GetComment().c_str());
   }
-	int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, NULL, 10 + nbargs, rgx));
+	int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, NULL, 10 + nbargs, rgx));
 	delete[] rgx;
 	return err;
+
+    }
 }
 

@@ -177,10 +177,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\xlw\xlarray.h"
-				>
-			</File>
-			<File
 				RelativePath="..\xlw\XlfAbstractCmdDesc.cpp"
 				>
 			</File>
@@ -221,7 +217,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper.inl"
+				RelativePath="..\xlw\XlfOperImpl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl12.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl4.cpp"
 				>
 			</File>
 			<File
@@ -307,6 +311,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\xlw\xlarray.h"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\xlcall32.h"
 				>
 			</File>
@@ -355,6 +363,22 @@
 				>
 			</File>
 			<File
+				RelativePath="..\xlw\XlfOper.inl"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl12.h"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl4.h"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\XlfRef.h"
 				>
 			</File>
@@ -381,6 +405,14 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath="..\xlw\frmwrk32.lib"
+			>
+		</File>
+		<File
+			RelativePath="..\xlw\xlcall32.lib"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

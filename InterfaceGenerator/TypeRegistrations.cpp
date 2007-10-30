@@ -30,7 +30,8 @@ namespace
 // fundamental types
 
 TypeRegistry::Helper XlfOperReg("XlfOper", // new type
-			   "LPXLOPER", // old type
+			   //"LPXLOPER", // old type
+			   "LPXLFOPER", // old type
 			   "", // converter name, we just pass into the constructor as a declaration
 			   false, // is a method
 			   false // takes identifier

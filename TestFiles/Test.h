@@ -14,7 +14,7 @@
 #include <xlw/Wrapper.h>
 
 //<xlw:libraryname=MyTestLibrary
-
+/*
 std::string // tests empty args
 EmptyArgFunction();
 
@@ -36,12 +36,12 @@ MyArray // echoes an array
 EchoArray(const MyArray& Echoee // argument to be echoed
 				  );
 
-
+*/
 CellMatrix // echoes a cell matrix
 //<xlw:time
 EchoCells(const CellMatrix& Echoee// argument to be echoed
 				   );
-
+/*
 double // computes the circumference of a circle
 //<xlw:time
 Circ(double Diameter //the circle's diameter
@@ -108,4 +108,5 @@ ContainsError(const CellMatrix& input // data to check for errors
 bool // checks to see if there's a div by zero
 ContainsDivByZero(const CellMatrix& input // data to check for errors
 							 );
+*/
 #endif

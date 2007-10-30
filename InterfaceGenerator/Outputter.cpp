@@ -136,7 +136,8 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 		AddLine(output,"extern \"C\"");
 		AddLine(output,"{");
 
-		AddLine(output,"LPXLOPER EXCEL_EXPORT");
+		//AddLine(output,"LPXLOPER EXCEL_EXPORT");
+		AddLine(output,"LPXLFOPER EXCEL_EXPORT");
 		AddLine(output,"xl"+name+"(");
 	
 	

@@ -72,7 +72,8 @@ int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
 	xMenu.val.array.rows = 1;
 	xMenu.val.array.columns = 5;
 
-	int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)&xMenu);
+	//int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)&xMenu);
+	int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_.c_str()), (LPXLFOPER)&xMenu);
 	if (err != xlretSuccess)
     std::cerr << XLW__HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
 	delete[] pxMenu;
@@ -86,7 +87,8 @@ int XlfCmdDesc::Check(bool ERR_CHECK) const
     std::cerr << XLW__HERE__ << "No menu specified for the command \"" << GetName().c_str() << "\"" << std::endl;
 		return xlretFailed;
 	}
-	int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)XlfOper(text_.c_str()), (LPXLOPER)XlfOper(ERR_CHECK));
+	//int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)XlfOper(text_.c_str()), (LPXLOPER)XlfOper(ERR_CHECK));
+	int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_.c_str()), (LPXLFOPER)XlfOper(text_.c_str()), (LPXLFOPER)XlfOper(ERR_CHECK));
 	if (err != xlretSuccess)
 	{
     std::cerr << XLW__HERE__ << "Registration of " << GetAlias().c_str() << " failed" << std::endl;
@@ -108,15 +110,24 @@ int XlfCmdDesc::DoRegister() const
 		return xlretFailed;
 	}
 //	ERR_LOG("Registering command \"" << alias_.c_str() << "\" from \"" << name_.c_str() << "\" in \"" << dllname.c_str() << "\"");
+	//int err = XlfExcel::Instance().Call(
+	//	xlfRegister, NULL, 7,
+	//	(LPXLOPER)XlfOper(dllname.c_str()),
+	//	(LPXLOPER)XlfOper(GetName().c_str()),
+	//	(LPXLOPER)XlfOper("A"),
+	//	(LPXLOPER)XlfOper(GetAlias().c_str()),
+	//	(LPXLOPER)XlfOper(""),
+	//	(LPXLOPER)XlfOper(2.0),
+	//	(LPXLOPER)XlfOper(""));
 	int err = XlfExcel::Instance().Call(
 		xlfRegister, NULL, 7,
-		(LPXLOPER)XlfOper(dllname.c_str()),
-		(LPXLOPER)XlfOper(GetName().c_str()),
-		(LPXLOPER)XlfOper("A"),
-		(LPXLOPER)XlfOper(GetAlias().c_str()),
-		(LPXLOPER)XlfOper(""),
-		(LPXLOPER)XlfOper(2.0),
-		(LPXLOPER)XlfOper(""));
+		(LPXLFOPER)XlfOper(dllname.c_str()),
+		(LPXLFOPER)XlfOper(GetName().c_str()),
+		(LPXLFOPER)XlfOper("A"),
+		(LPXLFOPER)XlfOper(GetAlias().c_str()),
+		(LPXLFOPER)XlfOper(""),
+		(LPXLFOPER)XlfOper(2.0),
+		(LPXLFOPER)XlfOper(""));
 	return err;
 }
 

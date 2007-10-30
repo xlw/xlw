@@ -1,4 +1,6 @@
+
 /*
+ Copyright (C) 2007 Eric Ehlers
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -63,7 +65,7 @@ See XlfOper::Set(short,bool)
 INLINE XlfOper::XlfOper(short value, bool error)
 {
   Allocate();
-  Set(value,error);
+  Set(value, error);
 }
 
 /*!
@@ -91,6 +93,15 @@ INLINE XlfOper::XlfOper(const std::string& value)
 {
   Allocate();
   Set(value.c_str());
+}
+
+/*!
+See XlfOper::Set(const std::string& value))
+*/
+INLINE XlfOper::XlfOper(const std::wstring& value)
+{
+  Allocate();
+  Set(value);
 }
 
 /*!
@@ -136,10 +147,10 @@ Unlike other XlfOper, the return value is not allocated on the internal
 buffer to avoid allocating more memory. Instead it is allocated on a
 shared static XLOPER.
 
-\arg error One of the values listed bellow and defined in xlcall32.h
+\arg error One of the values listed below and defined in xlcall32.h
 
 \code
-#define xlerrNull    0    // No info
+#define xlerrNull    0      // No info
 #define xlerrDiv0    7		// Division by 0
 #define xlerrValue   15		// Bad value
 #define xlerrRef     23		// Bad reference
@@ -158,44 +169,12 @@ INLINE XlfOper XlfOper::Error(WORD xlerr)
 	return ret;
 }
 
-INLINE XlfOper& XlfOper::operator=(const XlfOper& rhs)
-{
-  if (this != &rhs)
-    lpxloper_ = rhs.lpxloper_;
-  return *this;
-}
-
-INLINE XlfOper::operator LPXLOPER()
-{
-  return lpxloper_;
-}
-
-INLINE bool XlfOper::IsMissing() const
-{
-  return lpxloper_->xltype == xltypeMissing;
-}
-
-INLINE bool XlfOper::IsError() const
-{
-  return lpxloper_->xltype == xltypeErr;
-}
-
 /*!
 Forwards to XlfOper::AsDouble.
 */
-INLINE int XlfOper::AsInt(int * pxlret) const
+INLINE int XlfOper::AsInt(int *pxlret) const
 {
   return static_cast<int>(AsDouble(pxlret));
 }
 
-INLINE LPXLOPER XlfOper::GetLPXLOPER() const
-{
-  return lpxloper_;
-}
 
-/*!
-Do nothing. May be implemented later to avoid overload of the internal
-buffer by temporary XLOPER allocated by the XLL.
-*/
-INLINE void XlfOper::Deallocate()
-{}

@@ -1,0 +1,25 @@
+# xlwVisio8\RunInterfaceGenerator\Makefile.vc
+
+MAKEFILE=Makefile.vc
+BUILDFLAG=buildflag
+IFACE_GEN_EXE=InterfaceGenerator.exe
+IFACE_GEN_ORIG=..\Release\$(IFACE_GEN_EXE)
+IFACE_GEN_DIR=..\..\TestFiles
+IFACE_GEN_COPY=$(IFACE_GEN_DIR)\$(IFACE_GEN_EXE)
+IFACE_INPUT=Test.h
+IFACE_INPUT_PATH=$(IFACE_GEN_DIR)\$(IFACE_INPUT)
+
+INPUTS = $(MAKEFILE) $(IFACE_GEN_ORIG) $(IFACE_INPUT_PATH)
+
+ALL : $(BUILDFLAG)
+
+$(BUILDFLAG) : $(INPUTS)
+    COPY $(IFACE_GEN_ORIG) $(IFACE_GEN_COPY)
+    CD $(IFACE_GEN_DIR)
+    $(IFACE_GEN_EXE) $(IFACE_INPUT)
+    CD ..\xlwVisio8\RunInterfaceGenerator
+	ECHO flagged > $@
+
+CLEAN :
+	-@ if EXIST $(BUILDFLAG) del $(BUILDFLAG)
+
