@@ -30,8 +30,8 @@
 #include <xlw/XlfOper.h>
 #include <xlw/defines.h>
 
-#include <xlw/XlfOperImpl4.h> // FIXME
-#include <xlw/XlfOperImpl12.h> // FIXME
+#include <xlw/XlfOperImpl4.h>
+#include <xlw/XlfOperImpl12.h>
 
 // Stop header precompilation
 #ifdef _MSC_VER
@@ -48,11 +48,6 @@ extern "C"
   int (__cdecl *Excel4_)(int xlfn, LPXLOPER operRes, int count, ...);
   //! Main API function to Excel, passing the argument as an array.
   int (__stdcall *Excel4v_)(int xlfn, LPXLOPER operRes, int count, LPXLOPER far opers[]);
-
-  ////! Main API function to Excel.
-  //int (__cdecl *Excel12)(int xlfn, LPXLOPER12 operRes, int count, ...);
-  ////! Main API function to Excel, passing the argument as an array.
-  //int (__stdcall *Excel12v)(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 far opers[]);
 }
 
 XlfExcel *XlfExcel::this_ = 0;
@@ -175,13 +170,6 @@ void XlfExcel::InitLibrary()
 
   excel12_ = set_excel12();
   if (excel12_) {
-      //Excel12 = (int (__cdecl *)(int, LPXLOPER12, int, ...))GetProcAddress(handle, "Excel12");
-      //if (Excel12 == 0)
-      //  throw std::runtime_error("Could not get address of Excel12 callback");
-      //Excel12v = (int (__stdcall *)(int, struct xloper12 *, int, struct xloper12 *[]))GetProcAddress(handle, "Excel12v");
-      //if (Excel12v == 0)
-      //  throw std::runtime_error("Could not get address of Excel12v callback");
-
     static XlfOperImpl12 xlfOperImpl12;
   } else {
     static XlfOperImpl4 xlfOperImpl4;

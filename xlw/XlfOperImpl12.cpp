@@ -637,9 +637,6 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const CellMatrix& cells) const
                 xlfOper.lpxloper12_->val.array.lparray[k] = *(LPXLOPER12)XlfOper(cells(i,j).NumericValue());
             else
                 if (cells(i,j).IsAString())
-                    xlfOper.lpxloper12_->val.array.lparray[k] = *(LPXLOPER12)XlfOper(cells(i,j).StringValue().c_str());
-            else
-                if (cells(i,j).IsAWstring())
                     xlfOper.lpxloper12_->val.array.lparray[k] = *(LPXLOPER12)XlfOper(cells(i,j).WstringValue());
                 else
 					if (cells(i,j).IsBoolean())

@@ -30,7 +30,6 @@ class CellValue
 
 public:
     bool IsAString() const;
-    bool IsAWstring() const;
     bool IsANumber() const;
   	bool IsBoolean() const;
 	bool IsError() const;
@@ -55,6 +54,7 @@ public:
 	unsigned long ErrorValue() const;
 
 	std::string StringValueLowerCase() const;
+	std::wstring WstringValueLowerCase() const;
 
 	enum ValueType 
 	{

@@ -12,6 +12,7 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
+
 #ifdef _MSC_VER
 #if _MSC_VER < 1250
 #pragma warning(disable:4786)
@@ -61,6 +62,9 @@ TypeRegistry::Helper::Helper(std::string NewType,
 bool TypeRegistry::IsOfBaseType(const std::string & id) const
 {
 	if (id =="LPXLOPER")
+		return true;
+
+	if (id =="LPXLFOPER")
 		return true;
 
 	if (id == "double")

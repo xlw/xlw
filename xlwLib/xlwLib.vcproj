@@ -177,6 +177,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\xlw\xlcall.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\XlfAbstractCmdDesc.cpp"
 				>
 			</File>
@@ -405,14 +409,6 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
-		<File
-			RelativePath="..\xlw\frmwrk32.lib"
-			>
-		</File>
-		<File
-			RelativePath="..\xlw\xlcall32.lib"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -193,13 +193,13 @@ ArgumentList::ArgumentList(CellMatrix cells,
 	if (rows == 0)
 		throw(std::string("Argument List requires non empty cell matix ")+ErrorId);
 
-	if (!cells(0,0).IsAString())
-		throw(std::string("a structure name must be specified for argument list class ")+ErrorId);
-	else
-	{
-		StructureName = cells(0,0).StringValueLowerCase();
-		cells(0,0) = empty;
-	}
+    if (!cells(0,0).IsAString())
+	    throw(std::string("a structure name must be specified for argument list class ")+ErrorId);
+    else
+    {
+	    StructureName = cells(0,0).StringValueLowerCase();
+	    cells(0,0) = empty;
+    }
 
 
 	{for (unsigned long i=1; i < columns; i++)
