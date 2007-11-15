@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="xlwVisio"
+	Name="xlwMSVC"
 	ProjectGUID="{EFFEEBBF-BC0D-465B-892F-931E7C321089}"
 	>
 	<Platforms>
@@ -41,7 +41,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/xlwVisio.tlb"
+				TypeLibraryName=".\Debug/xlwMSVC.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -52,7 +52,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\Debug/xlwVisio.pch"
+				PrecompiledHeaderFile=".\Debug/xlwMSVC.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
@@ -74,13 +74,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib User32.lib xlwLib-Debug.lib"
-				OutputFile="Debug/xlwVisio.xll"
+				OutputFile="Debug/xlwMSVC.xll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;C:\Program Files\Microsoft Platform SDK\Lib&quot;;Debug"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/xlwVisio.pdb"
-				ImportLibrary=".\Debug/xlwVisio.lib"
+				ProgramDatabaseFile=".\Debug/xlwMSVC.pdb"
+				ImportLibrary=".\Debug/xlwMSVC.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -95,7 +95,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/xlwVisio.bsc"
+				OutputFile=".\Debug/xlwMSVC.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -138,7 +138,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Release/xlwVisio.tlb"
+				TypeLibraryName=".\Release/xlwMSVC.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -150,7 +150,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release/xlwVisio.pch"
+				PrecompiledHeaderFile=".\Release/xlwMSVC.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
 				ProgramDataBaseFileName=".\Release/"
@@ -172,12 +172,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib User32.lib xlwlib.lib"
-				OutputFile="Release/xlwVisio.xll"
+				OutputFile="Release/xlwMSVC.xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;C:\Program Files\Microsoft Platform SDK\Lib&quot;;Release"
-				ProgramDatabaseFile=".\Release/xlwVisio.pdb"
-				ImportLibrary=".\Release/xlwVisio.lib"
+				ProgramDatabaseFile=".\Release/xlwMSVC.pdb"
+				ImportLibrary=".\Release/xlwMSVC.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -192,7 +192,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Release/xlwVisio.bsc"
+				OutputFile=".\Release/xlwMSVC.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
