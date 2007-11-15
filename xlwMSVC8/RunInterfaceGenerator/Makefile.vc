@@ -17,7 +17,7 @@ $(BUILDFLAG) : $(INPUTS)
     COPY $(IFACE_GEN_ORIG) $(IFACE_GEN_COPY)
     CD $(IFACE_GEN_DIR)
     $(IFACE_GEN_EXE) $(IFACE_INPUT)
-    CD ..\xlwVisio8\RunInterfaceGenerator
+    CD ..\xlwMSVC8\RunInterfaceGenerator
 	ECHO flagged > $@
 
 CLEAN :
