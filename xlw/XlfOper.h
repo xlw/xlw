@@ -37,15 +37,15 @@
 
 //! Wrapper around a pointer to the XLOPER Excel data structure.
 /*!
-This class eases the work of marchalling and unmarshalling data to
+This class eases the work of marshalling and unmarshalling data to
 the Excel XLOPER format (including memory).
  
 XlfOper holds a pointer to a XLOPER.
  
-\warning It is important \e not to add any data member to this class
+\warning It is important \e not to add any data members to this class
 because the library heavily relies on the fact that LPXLOPER and
 XlfOper have the same size. It allows the library to interpret any
-LPXLOPER sent by Excel as a XlfOper.
+LPXLOPER sent by Excel as an XlfOper.
 */
 class EXCEL32_API XlfOper
 {
@@ -60,9 +60,7 @@ public:
     //! Copy ctor.
     XlfOper(const XlfOper& oper);
     //! XLOPER * ctor.
-    //XlfOper(LPXLOPER lpxloper) { XlfOperImpl::instance().init(*this, lpxloper); } FIXME
     XlfOper(LPXLFOPER lpxloper) : lpxloper4_(reinterpret_cast<LPXLOPER>(lpxloper)) {}
-    //XlfOper(LPXLOPER lpxloper) : lpxloper4_(lpxloper) {}
     //! double ctor.
     XlfOper(double value);
     //! short ctor.
@@ -133,14 +131,13 @@ public:
 
     //! Converts to a bool.
     bool AsBool(int *pxlret = 0) const;
-    //! Converts to a bool with error identifer..
+    //! Converts to a bool with error identifer.
     bool AsBool(const std::string& ErrorId, int *pxlret = 0) const;
 
     //! Converts to an int.
     int AsInt(int *pxlret = 0) const;
     //! Converts to an int with error identifer..
-    //int AsInt(const std::string& ErrorId, int *pxlret = 0) const {
-    //    return XlfOperImpl::instance().AsInt(*this, ErrorId, pxlret); }
+    int AsInt(const std::string& ErrorId, int *pxlret = 0) const;
 
     //! Converts to a char *.
     char *AsString(int *pxlret = 0) const;
@@ -237,35 +234,35 @@ private:
     //! Internally used to flag XLOPER returned by Excel.
     static int xlbitFreeAuxMem;
 
-    //! Attempts conversion to double and returns Excel4 error code.
+    //! Attempts conversion to double and returns Excel error code.
     int ConvertToDoubleVector(std::vector<double>& value, XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional) const
          { return XlfOperImpl::instance().ConvertToDoubleVector(*this, value, policy); }
-    //! Attempts conversion to double and returns Excel4 error code.
+    //! Attempts conversion to double and returns Excel error code.
     int ConvertToDouble(double& value) const throw() {
         return XlfOperImpl::instance().ConvertToDouble(*this, value); }
-    //! Attempts conversion to short and returns Excel4 error code.
+    //! Attempts conversion to short and returns Excel error code.
     int ConvertToShort(short& value) const throw() {
         return XlfOperImpl::instance().ConvertToShort(*this, value); }
-    //! Attempts conversion to bool and returns Excel4 error code.
+    //! Attempts conversion to bool and returns Excel error code.
     int ConvertToBool(bool& value) const throw() {
         return XlfOperImpl::instance().ConvertToBool(*this, value); }
-    //! Attempts conversion to int and returns Excel4 error code.
+    //! Attempts conversion to int and returns Excel error code.
     //int ConvertToInt(int& value) const throw() {
     //    return XlfOperImpl::instance().ConvertToInt(*this, value); }
-    //! Attempts conversion to string and returns Excel4 error code.
+    //! Attempts conversion to string and returns Excel error code.
     int ConvertToString(char *& value) const throw() {
         return XlfOperImpl::instance().ConvertToString(*this, value); }
-    //! Attempts conversion to CellMatrix and returns Excel4 error code
+    //! Attempts conversion to CellMatrix and returns Excel error code
     int ConvertToCellMatrix(CellMatrix& output) const {
         return XlfOperImpl::instance().ConvertToCellMatrix(*this, output); }
-    //! Attempts conversion to Matrix and returns Excel4 error code
+    //! Attempts conversion to Matrix and returns Excel error code
     int ConvertToMatrix(MyMatrix& output) const {
         return XlfOperImpl::instance().ConvertToMatrix(*this, output); }
 
-    //! Attempts conversion to XlRef and returns Excel4 error code.
+    //! Attempts conversion to XlRef and returns Excel error code.
     int ConvertToRef(XlfRef& ref) const throw() {
         return XlfOperImpl::instance().ConvertToRef(*this, ref); }
-    //! Attempts conversion to XlRef and returns Excel4 error code.
+    //! Attempts conversion to XlRef and returns Excel error code.
     int ConvertToErr(WORD& e) const throw() {
         return XlfOperImpl::instance().ConvertToErr(*this, e); }
 
@@ -274,7 +271,7 @@ private:
 //#ifdef PORT_NO_MEMBER_TEMPLATE
 ///*!
 //\brief Set an array to an XlfOper.
-//Because not all compilers support member template this function
+//Because not all compilers support member templates this function
 //is provided in order to replace the template method Set(WORD,BYTE,FwdIt).
 //*/
 //template <class FwdIt>

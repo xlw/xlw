@@ -16,8 +16,8 @@
 */
 
 /*!
-\file XlfOper.cpp
-\brief Implements the XlfOper class.
+\file XlfOperImpl4.cpp
+\brief Implements the XlfOperImpl4 class.
 */
 
 // $Id: XlfOper.cpp 335 2007-06-25 03:47:43Z markjoshi $
@@ -70,18 +70,18 @@ void XlfOperImpl4::destroy(const XlfOper &xlfOper) const
 }
 
 /*!
-Allocates 16 bits (size of a XLOPER) on the temporary buffer
+Allocates 16 bytes (size of an XLOPER) on the temporary buffer
 stored by XlfExcel with a call to XlfExcel::GetMemory().
  
 \warning Each XlfOper allocation causes a call to Allocate which in turn
-reserve the necessary number of bytes in the internal buffer. The
-problem is that even temporary XlfOper used inside the xll function use
+reserves the necessary number of bytes in the internal buffer. The
+problem is that even temporary XlfOper used inside the xll function uses
 this internal buffer. This buffer is not freed before the next call to
 the xll to ensure Excel can use the data before they are freed. This
 causes a bottleneck if the function uses many temporary XlfOper (see
 Deallocate()).
  
-\return \c xlretSuccess or \c xlretInvXloper if no memory is could 
+\return \c xlretSuccess or \c xlretInvXloper if no memory could 
 be allocated.
 */
 int XlfOperImpl4::Allocate(XlfOper &xlfOper) const
@@ -259,8 +259,8 @@ int XlfOperImpl4::ConvertToBool(const XlfOper &xlfOper, bool& b) const throw()
   return xlret;
 };
 
-/*! converts the XlfOper to a matrix, since if its a valid matrix
-its also a valid cellmatrix we convert to cell matrix first,
+/*! Converts the XlfOper to a matrix, since if it's a valid matrix
+it's also a valid cellmatrix we convert to cell matrix first,
 note this necessitates passing as a P not an R
 */
 int XlfOperImpl4::ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& value) const
@@ -741,23 +741,32 @@ XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const XlfRef& range) const
 /*!
 If no memory can be allocated on xlw internal buffer, the XlfOper is set
 to an invalid state and the string is not copied.
- 
-\note String longer than 255 characters are truncated. A warning
+
+The Excel API supports strings of 256 bytes.  The 0th byte holds the length
+of the string and the remaining 255 bytes hold the string data which is not
+null terminated.
+
+Here xlw uses the 0th byte for the string length, then at the 1st byte
+starts a string which _is_ null terminated.  In theory this allows a pointer
+to the 1st byte to be passed to C string functions requiring null termination
+e.g. strcpy.  Not sure whether this technique is necessary or wise.
+
+\note A string longer than 254 characters is truncated. A warning
 is issued in debug mode.
 */
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const char *value) const
 {
   if (xlfOper.lpxloper4_)
   {
-    xlfOper.lpxloper4_->xltype = xltypeStr;
     int n = static_cast<unsigned int>(strlen(value));
-    if (n >= 256)
+
+    if (n > 254)
 	{
-      std::cerr << __HERE__ << "String too long is truncated" << std::endl;
+      std::cerr << __HERE__ << "String truncated to 254 bytes" << std::endl;
 	  n = 254;
 	}
-    // One byte more for NULL terminal char (allow use of strcpy)
-    // and one for the std::string size (convention used by Excel)
+    // One byte more for the string length (convention used by Excel)
+    // and one for the NULL terminal char (allow use of strcpy)
     LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 2));
     if (str == 0)
     {
@@ -768,10 +777,12 @@ XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const char *value) const
 #ifdef _MSC_VER
 #pragma warning(disable:4996)
 #endif
-      strcpy(str + 1, value);
-      // FIXME the number of character include the final \0 or not ?
+      strncpy(str + 1, value, n);
+      str[n + 1] = 0;
+
       xlfOper.lpxloper4_->val.str = str;
       xlfOper.lpxloper4_->val.str[0] = (BYTE)(n + 1);
+      xlfOper.lpxloper4_->xltype = xltypeStr;
     }
   }
   return xlfOper;

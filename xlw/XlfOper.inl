@@ -60,7 +60,7 @@ INLINE XlfOper::XlfOper(short value)
 }
 
 /*!
-See XlfOper::Set(short,bool)
+See XlfOper::Set(short, bool)
 */
 INLINE XlfOper::XlfOper(short value, bool error)
 {
@@ -87,7 +87,7 @@ INLINE XlfOper::XlfOper(const char *value)
 }
 
 /*!
-See XlfOper::Set(const std::string& value))
+See XlfOper::Set(const std::string& value)
 */
 INLINE XlfOper::XlfOper(const std::string& value)
 {
@@ -96,7 +96,7 @@ INLINE XlfOper::XlfOper(const std::string& value)
 }
 
 /*!
-See XlfOper::Set(const std::string& value))
+See XlfOper::Set(const std::wstring& value)
 */
 INLINE XlfOper::XlfOper(const std::wstring& value)
 {
@@ -105,7 +105,7 @@ INLINE XlfOper::XlfOper(const std::wstring& value)
 }
 
 /*!
-See XlfOper::Set(const CellMatrix& )
+See XlfOper::Set(const CellMatrix&)
 */
 INLINE XlfOper::XlfOper(const CellMatrix& value)
 {
@@ -114,7 +114,7 @@ INLINE XlfOper::XlfOper(const CellMatrix& value)
 }
 
 /*!
-See XlfOper::Set(const MyMatrix& )
+See XlfOper::Set(const MyMatrix&)
 */
 INLINE XlfOper::XlfOper(const MyMatrix& value)
 {
@@ -123,7 +123,7 @@ INLINE XlfOper::XlfOper(const MyMatrix& value)
 }
 
 /*!
-See XlfOper::Set(const MyArray& )
+See XlfOper::Set(const MyArray&)
 */
 INLINE XlfOper::XlfOper(const MyArray& value)
 {
@@ -177,4 +177,10 @@ INLINE int XlfOper::AsInt(int *pxlret) const
   return static_cast<int>(AsDouble(pxlret));
 }
 
-
+/*!
+Forwards to XlfOper::AsDouble.
+*/
+INLINE int XlfOper::AsInt(const std::string& ErrorId, int *pxlret) const
+{
+  return static_cast<int>(AsDouble(ErrorId, pxlret));
+}

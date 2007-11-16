@@ -70,18 +70,18 @@ void XlfOperImpl12::destroy(const XlfOper &xlfOper) const
 }
 
 /*!
-Allocates 16 bits (size of a XLOPER) on the temporary buffer
+Allocates 32 bytes (size of an XLOPER12) on the temporary buffer
 stored by XlfExcel with a call to XlfExcel::GetMemory().
  
 \warning Each XlfOper allocation causes a call to Allocate which in turn
-reserve the necessary number of bytes in the internal buffer. The
-problem is that even temporary XlfOper used inside the xll function use
+reserves the necessary number of bytes in the internal buffer. The
+problem is that even temporary XlfOper used inside the xll function uses
 this internal buffer. This buffer is not freed before the next call to
 the xll to ensure Excel can use the data before they are freed. This
 causes a bottleneck if the function uses many temporary XlfOper (see
 Deallocate()).
  
-\return \c xlretSuccess or \c xlretInvXloper if no memory is could 
+\return \c xlretSuccess or \c xlretInvXloper if no memory could 
 be allocated.
 */
 int XlfOperImpl12::Allocate(XlfOper &xlfOper) const
@@ -259,8 +259,8 @@ int XlfOperImpl12::ConvertToBool(const XlfOper &xlfOper, bool& b) const throw()
   return xlret;
 };
 
-/*! converts the XlfOper to a matrix, since if its a valid matrix
-its also a valid cellmatrix we convert to cell matrix first,
+/*! Converts the XlfOper to a matrix, since if it's a valid matrix
+it's also a valid cellmatrix we convert to cell matrix first,
 note this necessitates passing as a P not an R
 */
 int XlfOperImpl12::ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& value) const
@@ -741,19 +741,20 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const XlfRef& range) const
 /*!
 If no memory can be allocated on xlw internal buffer, the XlfOper is set
 to an invalid state and the string is not copied.
- 
-\note String longer than 255 characters are truncated. A warning
-is issued in debug mode.
 */
 XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const char *value) const
 {
   if (xlfOper.lpxloper12_)
   {
     int len = strlen(value);
-    xlfOper.lpxloper12_->xltype = xltypeStr;
     xlfOper.lpxloper12_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory((len+1)*2);
-    mbstowcs(xlfOper.lpxloper12_->val.str + 1, value, len);
-    xlfOper.lpxloper12_->val.str[0] = (BYTE)len;
+    if (xlfOper.lpxloper12_->val.str) {
+        xlfOper.lpxloper12_->xltype = xltypeStr;
+        mbstowcs(xlfOper.lpxloper12_->val.str + 1, value, len);
+        xlfOper.lpxloper12_->val.str[0] = (BYTE)len;
+    } else {
+        xlfOper.lpxloper12_ = 0;
+    }
   }
   return xlfOper;
 }

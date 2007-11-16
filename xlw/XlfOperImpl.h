@@ -19,8 +19,8 @@
 #define INC_XlfOperImpl_H
 
 /*!
-\file XlfOper.h
-\brief Declares class XlfOper.
+\file XlfOperImpl.h
+\brief Declares class XlfOperImpl.
 */
 
 // $Id: XlfOper.h 340 2007-10-14 15:40:31Z ericehlers $
@@ -47,15 +47,15 @@ typedef void* LPXLFOPER;
 
 //! Wrapper around a pointer to the XLOPER Excel data structure.
 /*!
-This class eases the work of marchalling and unmarshalling data to
+This class eases the work of marshalling and unmarshalling data to
 the Excel XLOPER format (including memory).
  
 XlfOper holds a pointer to a XLOPER.
  
-\warning It is important \e not to add any data member to this class
+\warning It is important \e not to add any data members to this class
 because the library heavily relies on the fact that LPXLOPER and
 XlfOper have the same size. It allows the library to interpret any
-LPXLOPER sent by Excel as a XlfOper.
+LPXLOPER sent by Excel as an XlfOper.
 */
 class EXCEL32_API XlfOperImpl
 {
@@ -200,7 +200,7 @@ private:
 //#ifdef PORT_NO_MEMBER_TEMPLATE
 ///*!
 //\brief Set an array to an XlfOper.
-//Because not all compilers support member template this function
+//Because not all compilers support member templates this function
 //is provided in order to replace the template method Set(WORD,BYTE,FwdIt).
 //*/
 //template <class FwdIt>
