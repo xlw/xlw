@@ -142,19 +142,19 @@ various packages have been develop to wrap it. One such package is xlw
 writing such plug-ins as dlls (dynamics link libraries) commonly known
 as xlls. 
 
-The xlw 2.1 package is an extension of xlw; its basic framework is
-the same but various changes have been added to improve usability. The
-largest of these is that rather than coding the registration and data
-conversion code in
-C++, a parser routine has been written that takes in a header file and
-output a C++ source file with all the registration and data conversion
-already written. This means that a user needs virtually no specialist
-knowledge in order to convert any C++ routine into an xll.  
+The xlw 2.1 package is an extension of xlw; its basic framework is the same but
+various changes have been added to improve usability. The largest of these is
+that rather than coding the registration and data conversion code in C++, a
+parser routine has been written that takes in a header file and output a C++
+source file with all the registration and data conversion already written. This
+means that a user needs virtually no specialist knowledge in order to convert
+any C++ routine into an xll.  
 
-In addition, the original xlw was written to work with Visual Studio
-6.0. This version comes with project files for Visual studio 6.0, visual studio 7.1, and 
-8.0, as well as for DevCpp 4.9.9.2. DevCpp is a free IDE for the MinGW
-g++ compiler, and so xlls can be built using g++. 
+In addition, the original xlw was written to work with Visual Studio 6.0.
+Support for Visual Studio 6.0 has been discontinued; this version comes with
+project files for Visual Studio 7.1 and 8.0, as well as for DevCpp 4.9.9.2.
+DevCpp is a free IDE for the MinGW g++ compiler, and so XLLs can be built using
+g++. 
 
 A number of other more minor changes have been made: throws of strings and
 similar objects are caught and passed back to EXCEL; failure of
@@ -174,12 +174,10 @@ in directory appropriate for your compiler:
 \begin{itemize}
 \item For DevCpp look in the folder xlwDevCpp, and the project is
   called InterfaceGenerator.dev.
-\item For Visual Studio 8.0, open the solution in the folder xlwVisio8, and the
+\item For Visual Studio 8.0, open the solution in the folder xlwMSVC8, and the
   project is called InterfaceGenerator. 
-\item For Visual Studio 7.1, open the solution in the folder xlwVisio7, and the
+\item For Visual Studio 7.1, open the solution in the folder xlwMSVC7, and the
   project is called InterfaceGenerator. 
-\item For Visual Studio 6.0, open the workspace in the folder
-  xlwVisio6, and the project is called InterfaceGenerator. 
 \end{itemize}
 This project should be built and will produce a console application
 called InterfaceGenerator.exe. Note one can use the version of this
@@ -195,17 +193,14 @@ and the
   folder. 
 \item For Visual Studio 8.0, the project is called xlwLib. The built
   libraries are xlwLib-Debug.lib and xlwLib.lib, and will be built
-  into xlwLib/Release and  xlwLib/backslash Debug, respectively. 
+  into xlwLib/Release and  xlwLib/Debug, respectively. 
 \item For Visual Studio 7.1, the project is called xlwLib. The built
   libraries are xlwLib-Debug.lib and xlwLib.lib, and will be built
   into xlwLib7/Release and  xlwLib7/Debug, respectively. 
-\item For Visual Studio 6.0, the project is called xlwLib. The built
-  libraries are xlwLib-Debug.lib and xlwLib.lib, and will be built
-  into xlwLib6/Release and  xlwLib6/Debug, respectively. 
 \end{itemize}
 
 For each compiler, an example project is given of functions to be
-exported to the xll. These are called: DevCppXll.dev, and xlwVisio.
+exported to the xll. These are called: DevCppXll.dev, and xlwMSVC.
 Each project contains a header file Test.h, a source file
 Test.cpp and an interface file xlwTest.cpp, these are contained in the
 folder testfiles. Some files for payoffs can also be found there, and
