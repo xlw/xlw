@@ -64,7 +64,7 @@ bool TypeRegistry::IsOfBaseType(const std::string & id) const
 	if (id =="LPXLOPER")
 		return true;
 
-	if (id =="LPXLFOPER")
+	if (id =="LPXLFOPER")//FIXME
 		return true;
 
 	if (id == "double")

@@ -82,7 +82,7 @@ Registers the function as a function in excel.
 int XlfFuncDesc::DoRegister(const std::string& dllName) const
 {
 
-    if (XlfExcel::Instance().excel12()) {
+    if (XlfExcel::Instance().excel12()) { // FIXME
 
   // alias arguments
   XlfArgDescList& arguments = impl_->arguments_;
@@ -112,7 +112,11 @@ int XlfFuncDesc::DoRegister(const std::string& dllName) const
     }
 	LPXLOPER12 *rgx = new LPXLOPER12[10 + nbargs];
 	LPXLOPER12 *px = rgx;
-    for (unsigned int i=0; i<args.length(); i++) if (args[i] == 'P') args[i] = 'Q';
+    // FIXME - Excel 2007 support - temporary hack - to be replaced by proper solution
+    for (unsigned int i=0; i<args.length(); i++) {
+        if (args[i] == 'P') args[i] = 'Q';
+        if (args[i] == 'R') args[i] = 'U';
+    }
 	(*px++) = XlfOper(dllName.c_str());
 	(*px++) = XlfOper(GetName().c_str());
 	(*px++) = XlfOper(args.c_str());
@@ -131,7 +135,7 @@ int XlfFuncDesc::DoRegister(const std::string& dllName) const
 	delete[] rgx;
 	return err;
 
-    } else {
+    } else {  // Excel 4
 
   // alias arguments
   XlfArgDescList& arguments = impl_->arguments_;

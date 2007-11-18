@@ -27,8 +27,14 @@ unsigned long maxi(unsigned long a, unsigned long b)
 
 bool CellValue::IsAString() const
 {
-	//return Type == string;
-	return Type == string || Type == wstring;
+	return Type == string;
+	//return Type == string || Type == wstring;
+}
+
+bool CellValue::IsAWstring() const
+{
+	return Type == wstring;
+	//return Type == string || Type == wstring;
 }
 
 bool CellValue::IsANumber() const
@@ -155,14 +161,15 @@ ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false),
 
 const std::string& CellValue::StringValue() const
 {
-	//if (Type != string)
-	if (Type != string && Type != wstring)
+	if (Type != string)
+	//if (Type != string && Type != wstring)
 		throw("non string cell asked to be a string");
 	return ValueAsString;
 }
 const std::wstring& CellValue::WstringValue() const
 {
-	if (Type != string && Type != wstring)
+	if (Type != wstring)
+	//if (Type != string && Type != wstring)
 		throw("non wstring cell asked to be a wstring");
 	return ValueAsWstring;
 }

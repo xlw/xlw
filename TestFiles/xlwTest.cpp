@@ -87,7 +87,7 @@ registerEchoShort("xlEchoShort",
 " echoes a short ",
 LibraryName,
 EchoShortArgs,
-"R"
+"P"
 );
 }
 
@@ -384,7 +384,7 @@ registerConcat("xlConcat",
 " Concatenates two strings ",
 LibraryName,
 ConcatArgs,
-"RR"
+"PP"
 );
 }
 
@@ -501,7 +501,7 @@ registerHelloWorldAgain("xlHelloWorldAgain",
 " says hello name ",
 LibraryName,
 HelloWorldAgainArgs,
-"R"
+"P"
 );
 }
 

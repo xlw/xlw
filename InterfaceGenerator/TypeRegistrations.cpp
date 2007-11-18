@@ -59,7 +59,8 @@ TypeRegistry::Helper shortreg("short", // new type
 			   "AsShort", // converter name
 			   true, // is a method
 			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
+			   //"R" // should be empty unless OldType is XlfOper
+			   "P" // should be empty unless OldType is XlfOper FIXME
 			   );
 
 /* we are passing doubles now directly rather than via LPXLOPERs
@@ -78,6 +79,7 @@ TypeRegistry::Helper arrayreg("MyArray", // new type
 			   true, // is a method
 			   true, // takes identifier
 			   "R" // should be empty unless OldType is XlfOper
+			   //"P" // should be empty unless OldType is XlfOper FIXME
 			   );
 
 
@@ -102,7 +104,8 @@ TypeRegistry::Helper stringreg("string", // new type
 			   "AsString", // converter name
 			   true, // is a method
 			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
+			   //"R" // should be empty unless OldType is XlfOper
+			   "P" // should be empty unless OldType is XlfOper FIXME
 			   );
 
 TypeRegistry::Helper sstringreg("std::string", // new type
@@ -110,7 +113,8 @@ TypeRegistry::Helper sstringreg("std::string", // new type
 			   "AsString", // converter name
 			   true, // is a method
 			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
+			   //"R" // should be empty unless OldType is XlfOper
+			   "P" // should be empty unless OldType is XlfOper FIXME
 			   );
 
 
@@ -119,7 +123,8 @@ TypeRegistry::Helper boolreg("bool", // new type
 			   "AsBool", // converter name
 			   true, // is a method
 			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
+			   //"R" // should be empty unless OldType is XlfOper
+			   "P" // should be empty unless OldType is XlfOper FIXME
 			   );
 
 // extended types

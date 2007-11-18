@@ -193,7 +193,8 @@ ArgumentList::ArgumentList(CellMatrix cells,
 	if (rows == 0)
 		throw(std::string("Argument List requires non empty cell matix ")+ErrorId);
 
-    if (!cells(0,0).IsAString())
+    //if (!cells(0,0).IsAString())
+    if (!cells(0,0).IsAString() && !cells(0,0).IsAWstring())//FIXME
 	    throw(std::string("a structure name must be specified for argument list class ")+ErrorId);
     else
     {
@@ -236,7 +237,8 @@ ArgumentList::ArgumentList(CellMatrix cells,
 			}
 			else // we have data
 			{
-				if (!cells(row,column).IsAString())
+				//if (!cells(row,column).IsAString())
+				if (!cells(row,column).IsAString() && !cells(row,column).IsAWstring())//FIXME
 					GenerateThrow("data  where name expected.", row, column);
 
 				std::string thisName(cells(row,column).StringValueLowerCase());

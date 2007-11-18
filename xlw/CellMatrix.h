@@ -30,6 +30,7 @@ class CellValue
 
 public:
     bool IsAString() const;
+    bool IsAWstring() const;
     bool IsANumber() const;
   	bool IsBoolean() const;
 	bool IsError() const;
