@@ -383,6 +383,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\xlw\XlfOperSet.h"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\XlfRef.h"
 				>
 			</File>

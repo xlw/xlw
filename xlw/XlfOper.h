@@ -84,19 +84,6 @@ public:
     //! XlfRef ctor.
     XlfOper(const XlfRef& range);
 
-//#ifndef PORT_NO_MEMBER_TEMPLATE
-//    //! Container ctor.
-//    template <class FwdIt>
-//    XlfOper(WORD rows, BYTE cols, FwdIt start)
-//#ifdef PORT_PARTIAL_MEMBER_TEMPLATE
-//    {
-//        return XlfOperImpl::instance().init<FwdIt>(*this, rows, cols, start);
-//    }
-//#else
-//    ;
-//#endif
-//#endif
-
     //! Constructs an Excel error.
     static XlfOper Error(WORD word);
     //! Dtor
@@ -184,32 +171,13 @@ public:
     XlfOper& Set(short value, bool Error) { return XlfOperImpl::instance().Set(*this, value, Error); }
     //! Set to an error value
     XlfOper& SetError(WORD error) { return XlfOperImpl::instance().SetError(*this, error); }
+
     //! Cast to XLOPER *
     operator LPXLOPER() { return XlfOperImpl::instance().operator_LPXLOPER(*this); }
     //! Cast to XLOPER12 *
     operator LPXLOPER12() { return XlfOperImpl::instance().operator_LPXLOPER12(*this); }
     //! Cast to LPXLFOPER
     operator LPXLFOPER() { return XlfOperImpl::instance().operator_LPXLFOPER(*this); }
-
-//#ifndef PORT_NO_MEMBER_TEMPLATE
-//    //! Set to an array
-//    /*!
-//    \param r number of rows in the array
-//    \param c number of columns in the array
-//    \param it iterator pointing to the begining of a container
-//     of size r x c (at least) that contain the data.
-//    \warning Data are to be stored row-wise.
-//    */
-//    template<class FwdIt>
-//    XlfOper& Set(WORD rows, BYTE cols, FwdIt it)
-//#ifdef PORT_PARTIAL_MEMBER_TEMPLATE
-//    {
-//        return XlfOperImpl::instance().Set(*this, rows, cols, it);
-//    }
-//#else
-//    ;
-//#endif
-//#endif
 
 private:
 
@@ -267,34 +235,6 @@ private:
         return XlfOperImpl::instance().ConvertToErr(*this, e); }
 
 };
-
-//#ifdef PORT_NO_MEMBER_TEMPLATE
-///*!
-//\brief Set an array to an XlfOper.
-//Because not all compilers support member templates this function
-//is provided in order to replace the template method Set(WORD,BYTE,FwdIt).
-//*/
-//template <class FwdIt>
-//XlfOper& XlfOperSet(XlfOper& oper, WORD rows, BYTE cols, FwdIt it)
-//{
-//    return XlfOperImpl::instance().XlfOperSet<FwdIt>(*this, oper, rows, cols, it);
-//}
-//#else
-//#ifndef PORT_PARTIAL_MEMBER_TEMPLATE
-///*!
-//\param r number of rows in the array
-//\param c number of columns in the array
-//\param it iterator pointing to the begining of a container
-//of size r x c (at least) that contain the data.
-//\warning Data are to be stored row-wise.
-//*/
-//template<class FwdIt>
-//XlfOper& XlfOper::Set<FwdIt>(WORD rows, BYTE cols, FwdIt it);
-//{
-//    return XlfOperImpl::instance().Set<FwdIt>(*this, rows, cols, it);
-//}
-//#endif
-//#endif
 
 #ifdef NDEBUG
 #include <xlw/XlfOper.inl>

@@ -64,20 +64,6 @@ public:
     static const XlfOperImpl &instance() { return *instance_; }
     XlfOperImpl() { instance_ = this; }
 
-//#ifndef PORT_NO_MEMBER_TEMPLATE
-//    //! Container ctor.
-//    template <class FwdIt>
-//    virtual void init(const XlfOper &xlfOper, WORD rows, BYTE cols, FwdIt start)
-//#ifdef PORT_PARTIAL_MEMBER_TEMPLATE
-//    {
-//        Allocate(xlfOper);
-//        Set (xlfOper, rows, cols, start);
-//    }
-//#else
-//  ;
-//#endif
-//#endif
-
     //! Dtor
     virtual void destroy(const XlfOper& xlfOper) const = 0;
     //! Free auxiliary memory associated with the XLOPER
@@ -137,32 +123,6 @@ public:
     //! Cast to LPXLFOPER
     virtual LPXLFOPER operator_LPXLFOPER(const XlfOper &xlfOper) const = 0;
 
-//#ifndef PORT_NO_MEMBER_TEMPLATE
-//  //! Set to an array
-//  /*!
-//  \param r number of rows in the array
-//  \param c number of columns in the array
-//  \param it iterator pointing to the begining of a container
-//    of size r x c (at least) that contain the data.
-//  \warning Data are to be stored row-wise.
-//  */
-//  template<class FwdIt>
-//  XlfOper& Set(WORD r, BYTE c, FwdIt it)
-//#ifdef PORT_PARTIAL_MEMBER_TEMPLATE
-//  {
-//    lpxloper_->xltype = xltypeMulti;
-//    lpxloper_->val.array.rows = r;
-//    lpxloper_->val.array.columns = c;
-//    lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
-//    for (size_t i = 0; i < size_t(r*c); ++i, ++it)
-//      lpxloper_->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
-//    return *this;
-//  }
-//#else
-//  ;
-//#endif
-//#endif
-
     //! Coerce method is called by conversion operators if needed (never by the user).
     virtual int Coerce(const XlfOper &xlfOper, short type, XlfOper& res) const = 0;
 
@@ -196,46 +156,5 @@ private:
     static XlfOperImpl *instance_;
 
 };
-
-//#ifdef PORT_NO_MEMBER_TEMPLATE
-///*!
-//\brief Set an array to an XlfOper.
-//Because not all compilers support member templates this function
-//is provided in order to replace the template method Set(WORD,BYTE,FwdIt).
-//*/
-//template <class FwdIt>
-//XlfOper& XlfOperSet(XlfOper& oper, WORD rows, BYTE cols, FwdIt it)
-//{
-//  LPXLOPER lpxloper=oper;
-//  lpxloper->xltype = xltypeMulti;
-//  lpxloper->val.array.rows = rows;
-//  lpxloper->val.array.columns = cols;
-//  lpxloper->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(rows*cols*sizeof(XLOPER));
-//  for (size_t i = 0; i < rows*cols; ++i, ++it)
-//    lpxloper->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
-//  return oper;
-//}
-//#else
-//#ifndef PORT_PARTIAL_MEMBER_TEMPLATE
-///*!
-//\param r number of rows in the array
-//\param c number of columns in the array
-//\param it iterator pointing to the begining of a container
-//of size r x c (at least) that contain the data.
-//\warning Data are to be stored row-wise.
-//*/
-//template<class FwdIt>
-//XlfOper& XlfOper::Set<FwdIt>(WORD r, BYTE c, FwdIt it);
-//{
-//  lpxloper_->xltype = xltypeMulti;
-//  lpxloper_->val.array.rows = r;
-//  lpxloper_->val.array.columns = c;
-//  lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
-//  for (size_t i = 0; i < r*c; ++i, ++it)
-//    lpxloper_->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
-//  return *this;
-//}
-//#endif
-//#endif
 
 #endif

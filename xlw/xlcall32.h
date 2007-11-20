@@ -30,7 +30,7 @@
 **/
 
 typedef INT32 BOOL;			/* Boolean */
-typedef WCHAR XCHAR;			/* Wide Character */
+typedef WCHAR XCHAR;		/* Wide Character */
 typedef INT32 RW;			/* XL 12 Row */
 typedef INT32 COL;			/* XL 12 Column */
 
