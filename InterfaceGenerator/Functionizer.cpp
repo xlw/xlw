@@ -44,6 +44,7 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 	++it;
 	bool Volatile = false;
 	bool time =TimeDefault;
+	bool threadsafe = false;
 
 	if (it == end)
 		throw("function half declared at end of file");
@@ -83,6 +84,14 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 			if (it == end)
 				throw("function half declared at end of file");
 		}
+		if (commentString == "<xlw:threadsafe")
+		{
+			threadsafe = true;
+			++it;
+			found = true;
+			if (it == end)
+				throw("function half declared at end of file");
+		}
 		if (!found)
 			throw("unknown xlw command: "+commentString);
 	}
@@ -92,7 +101,7 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 	
 	std::string functionName(it->GetValue());
 
-	FunctionModel theFunction(returnType,functionName,functionDesc,Volatile,time);
+	FunctionModel theFunction(returnType,functionName,functionDesc,Volatile,time,threadsafe);
 
 	++it;
 	if (it == end)

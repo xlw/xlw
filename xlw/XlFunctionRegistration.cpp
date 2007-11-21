@@ -5,6 +5,7 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -30,13 +31,15 @@ XLFunctionRegistrationData::XLFunctionRegistrationData(const std::string& Functi
                      const std::string& Library_,
                      const Arg Arguments[],
                      const char* ArgumentTypes_,
-					 bool Volatile_)
+					 bool Volatile_,
+					 bool Threadsafe_)
 	:				FunctionName(FunctionName_),
                      ExcelFunctionName(ExcelFunctionName_),
                      FunctionDescription(FunctionDescription_),
                      Library(Library_),
                      ArgumentTypes(ArgumentTypes_),
-					 Volatile(Volatile_)
+					 Volatile(Volatile_),
+					 Threadsafe(Threadsafe_)
 {
 
 	NoOfArguments =static_cast<int>(ArgumentTypes.size());
@@ -96,7 +99,8 @@ XLFunctionRegistrationHelper::XLFunctionRegistrationHelper(const std::string& Fu
                      const std::string& Library,
                      const Arg Args[],
                      const char* Types,
-					 bool Volatile)
+					 bool Volatile,
+					 bool Threadsafe)
 {
 	XLFunctionRegistrationData tmp(FunctionName, 
 																ExcelFunctionName, 
@@ -104,7 +108,8 @@ XLFunctionRegistrationHelper::XLFunctionRegistrationHelper(const std::string& Fu
 																Library, 
 																Args, 
 																Types,
-																Volatile);
+																Volatile,
+																Threadsafe);
 
 	ExcelFunctionRegistrationRegistry::Instance().AddFunction(tmp);
 }
@@ -124,7 +129,8 @@ void ExcelFunctionRegistrationRegistry::DoTheRegistrations() const
 													it->GetExcelFunctionName(), 
 													it->GetFunctionDescription(), 
 													it->GetLibrary(),
-													policy);
+													policy, 
+													it->GetThreadsafe());
 		XlfArgDescList xlFunctionArgs;
 
 		for (int i=0; i < it->GetNoOfArguments(); ++i)

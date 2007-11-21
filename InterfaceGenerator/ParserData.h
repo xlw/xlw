@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -62,7 +63,8 @@ public:
 						 char ExcelKey,
                          const std::vector<FunctionArgument>& Arguments_, 
 						 bool Volatile_,
-						 bool Time_);
+						 bool Time_, 
+						 bool Threadsafe_);
      
      std::string GetFunctionName() const;
      std::string GetFunctionDescription() const;
@@ -72,6 +74,7 @@ public:
      unsigned long NumberOfArguments() const;
 	 bool GetVolatile() const;
 	 bool DoTime() const;
+	 bool GetThreadsafe() const;
             
 private:
      std::string FunctionName;
@@ -81,6 +84,7 @@ private:
      std::vector<FunctionArgument> Arguments;
 	 bool Volatile;
 	 bool Time;
+	 bool Threadsafe;
      
       
 };

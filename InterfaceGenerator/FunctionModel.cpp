@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -20,8 +21,8 @@
 #include "FunctionModel.h"
 #include "IncludeRegister.h"
 
-FunctionModel::FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_, bool Time_)
-: ReturnType(ReturnType_), FunctionName(Name), FunctionDescription(Description), Volatile(Volatile_), Time(Time_)
+FunctionModel::FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_, bool Time_, bool Threadsafe_)
+: ReturnType(ReturnType_), FunctionName(Name), FunctionDescription(Description), Volatile(Volatile_), Time(Time_), Threadsafe(Threadsafe_)
 {
 }
 

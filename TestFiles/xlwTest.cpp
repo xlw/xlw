@@ -47,6 +47,7 @@ registerEmptyArgFunction("xlEmptyArgFunction",
 LibraryName,
 EmptyArgFunctionArgs,
 ""
+,false
 );
 }
 
@@ -88,6 +89,7 @@ registerEchoShort("xlEchoShort",
 LibraryName,
 EchoShortArgs,
 "P"
+,false
 );
 }
 
@@ -136,6 +138,7 @@ registerEchoMat("xlEchoMat",
 LibraryName,
 EchoMatArgs,
 "P"
+,false
 );
 }
 
@@ -184,6 +187,7 @@ registerEchoMatrix("xlEchoMatrix",
 LibraryName,
 EchoMatrixArgs,
 "K"
+,false
 );
 }
 
@@ -230,6 +234,7 @@ registerEchoArray("xlEchoArray",
 LibraryName,
 EchoArrayArgs,
 "R"
+,false
 );
 }
 
@@ -278,6 +283,7 @@ registerEchoCells("xlEchoCells",
 LibraryName,
 EchoCellsArgs,
 "P"
+,false
 );
 }
 
@@ -333,6 +339,7 @@ registerCirc("xlCirc",
 LibraryName,
 CircArgs,
 "B"
+,false
 );
 }
 
@@ -385,6 +392,7 @@ registerConcat("xlConcat",
 LibraryName,
 ConcatArgs,
 "PP"
+,false
 );
 }
 
@@ -447,6 +455,7 @@ registerStats("xlStats",
 LibraryName,
 StatsArgs,
 "R"
+,false
 );
 }
 
@@ -502,6 +511,7 @@ registerHelloWorldAgain("xlHelloWorldAgain",
 LibraryName,
 HelloWorldAgainArgs,
 "P"
+,false
 );
 }
 
@@ -557,6 +567,7 @@ registerEchoUL("xlEchoUL",
 LibraryName,
 EchoULArgs,
 "B"
+,false
 );
 }
 
@@ -610,6 +621,7 @@ registerEchoInt("xlEchoInt",
 LibraryName,
 EchoIntArgs,
 "B"
+,false
 );
 }
 
@@ -664,6 +676,7 @@ registerEchoDoubleOrNothing("xlEchoDoubleOrNothing",
 LibraryName,
 EchoDoubleOrNothingArgs,
 "PB"
+,false
 );
 }
 
@@ -724,6 +737,7 @@ registerEchoArgList("xlEchoArgList",
 LibraryName,
 EchoArgListArgs,
 "P"
+,false
 );
 }
 
@@ -840,6 +854,7 @@ registerPayOffEvaluation("xlPayOffEvaluation",
 LibraryName,
 PayOffEvaluationArgs,
 "PB"
+,false
 );
 }
 
@@ -902,6 +917,7 @@ registerContainsError("xlContainsError",
 LibraryName,
 ContainsErrorArgs,
 "P"
+,false
 );
 }
 
@@ -950,6 +966,7 @@ registerContainsDivByZero("xlContainsDivByZero",
 LibraryName,
 ContainsDivByZeroArgs,
 "P"
+,false
 );
 }
 
@@ -975,6 +992,49 @@ bool result(
 	ContainsDivByZero(
 		input)
 	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+GetThreadIdArgs[]=
+{
+ { "","" } 
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerGetThreadId("xlGetThreadId",
+"GetThreadId",
+" returns ID of current execution thread ",
+LibraryName,
+GetThreadIdArgs,
+""
+,false
+,true
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlGetThreadId(
+)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+double result(
+	GetThreadId());
 return XlfOper(result);
 EXCEL_END
 }

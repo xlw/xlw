@@ -94,7 +94,8 @@ FunctionDescription::FunctionDescription(std::string FunctionName_,
 						 char ExcelKey_,
                          const std::vector<FunctionArgument>& Arguments_,
 						 bool Volatile_,
-						 bool Time_)
+						 bool Time_,
+						 bool Threadsafe_)
                          :
                          FunctionName(FunctionName_),
                          FunctionHelpDescription(FunctionHelpDescription_),
@@ -102,7 +103,8 @@ FunctionDescription::FunctionDescription(std::string FunctionName_,
 						 ExcelKey(ExcelKey_),
                          Arguments(Arguments_),
 						 Volatile(Volatile_),
-						 Time(Time_)
+						 Time(Time_),
+						 Threadsafe(Threadsafe_)
 {
 }
 
@@ -124,4 +126,9 @@ bool FunctionDescription::GetVolatile() const
 bool FunctionDescription::DoTime() const
 {
 	return  Time;
+}
+
+bool FunctionDescription::GetThreadsafe() const
+{
+	return  Threadsafe;
 }

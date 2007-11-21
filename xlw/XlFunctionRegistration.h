@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -34,7 +35,8 @@ public:
                      const std::string& Library_,
                      const Arg Arguments[],
                      const char* ArgumentTypes_,
-					 bool Volatile_=false); 
+					 bool Volatile_=false,
+					 bool Threadsafe_=false); 
 
 	std::string GetFunctionName() const;
 	std::string GetExcelFunctionName() const;
@@ -49,6 +51,11 @@ public:
 	{
 		return Volatile;
 	}
+
+	bool GetThreadsafe() const
+	{
+		return Threadsafe;
+	}
   
 private:
 
@@ -61,6 +68,7 @@ private:
 	std::vector<std::string> ArgumentDescriptions;
 	std::string ArgumentTypes;
 	bool Volatile;
+	bool Threadsafe;
 
 
 };
@@ -75,7 +83,8 @@ public:
                      const std::string& Library,
                      const Arg Args[],
                      const char* Types,
-					 bool Volatile=false); 
+					 bool Volatile=false,
+					 bool Threadsafe=false); 
   
 private:
   

@@ -1,5 +1,6 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -50,7 +51,7 @@ public:
   //! Ctor
   XlfFuncDesc(const std::string& name, const std::string& alias,
               const std::string& comment, const std::string& category,
-			  RecalcPolicy recalcPolicy = NotVolatile);
+			  RecalcPolicy recalcPolicy = NotVolatile, bool Threadsafe = false);
   //! Dtor.
   ~XlfFuncDesc();
 
@@ -66,6 +67,8 @@ public:
 protected:
   //! Registers the function (template method).
   int DoRegister(const std::string& dllName) const;
+  int DoRegister4(const std::string& dllName) const;
+  int DoRegister12(const std::string& dllName) const;
 
 private:
   //! Copy ctor is declared private but not defined.

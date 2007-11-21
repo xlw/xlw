@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -121,6 +122,10 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
         AddLine(output,name+"Args,");
 		AddLine(output,"\""+keys+"\"");
 		if ( functionDescriptions[i].GetVolatile())
+			AddLine(output,",true");
+        else
+			AddLine(output,",false");
+		if ( functionDescriptions[i].GetThreadsafe())
 			AddLine(output,",true");
 		
 		AddLine(output, ");");

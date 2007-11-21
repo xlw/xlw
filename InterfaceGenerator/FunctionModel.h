@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -23,7 +24,7 @@ class FunctionModel
 {
 public:
 
-	FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_=false, bool Time_=false);
+	FunctionModel(std::string ReturnType_, std::string Name, std::string Description, bool Volatile_=false, bool Time_=false, bool Threadsafe_=false);
 
 	void AddArgument(std::string Type_, std::string Name_, std::string Description_);
 
@@ -72,12 +73,18 @@ public:
 		Time=doit;
 	}
 
+	bool GetThreadsafe() const
+	{
+		return Threadsafe;
+	}
+
 private:
 	std::string ReturnType;
 	std::string FunctionName;
 	std::string FunctionDescription;
 	bool Volatile;
 	bool Time;
+	bool Threadsafe;
 
 	std::vector<std::string > ArgumentTypes;
 	std::vector<std::string > ArgumentNames;

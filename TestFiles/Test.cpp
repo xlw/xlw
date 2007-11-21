@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -13,8 +14,12 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
+
+#pragma warning (disable : 4996)
+
 #include "Test.h"
 #include <ctime>
+#include <windows.h>
 
 std::string // tests empty args
 EmptyArgFunction()
@@ -172,4 +177,8 @@ ContainsDivByZero(const CellMatrix& input // data to check for errors
 
 	return false;
 
+}
+
+double GetThreadId() {
+    return GetCurrentThreadId();
 }

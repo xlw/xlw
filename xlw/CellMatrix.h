@@ -41,7 +41,7 @@ public:
     CellValue(const std::string&);
     CellValue(const std::wstring&);
     CellValue(double Number);
-	CellValue(unsigned long Code, bool Error); //Error = true if you want an error code
+	CellValue(unsigned long Code, bool Error=false); //Error = true if you want an error code
 	CellValue(bool TrueFalse);
 	CellValue(const char* values);
 	CellValue(int i);

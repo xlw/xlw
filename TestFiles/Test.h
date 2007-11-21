@@ -104,4 +104,9 @@ ContainsError(const CellMatrix& input // data to check for errors
 bool // checks to see if there's a div by zero
 ContainsDivByZero(const CellMatrix& input // data to check for errors
 							 );
+
+double // returns ID of current execution thread
+//<xlw:threadsafe
+GetThreadId();
+
 #endif
