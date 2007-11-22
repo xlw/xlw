@@ -820,8 +820,9 @@ int XlfOper::ConvertToString(char *& s) const throw()
 
   if (lpxloper_->xltype & xltypeStr)
   {
-    BYTE nB = lpxloper_->val.str[0]; // to make numbers bigger than 128 behave properly
-    size_t n = static_cast<size_t>(nB);
+    // Must use datatype unsigned char (BYTE) to process 0th byte
+    // otherwise numbers greater than 128 are incorrect
+    size_t n = (unsigned char) lpxloper_->val.str[0];
     s = XlfExcel::Instance().GetMemory(n + 1);
     memcpy(s, lpxloper_->val.str + 1, n);
     s[n] = 0;

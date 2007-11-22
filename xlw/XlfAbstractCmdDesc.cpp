@@ -23,6 +23,8 @@
 
 #include <xlw/XlfAbstractCmdDesc.h>
 #include <xlw/XlfExcel.h>
+#include <xlw/XlfException.h>
+#include <xlw/macros.h>
 #include <iostream>
 #include <stdexcept>
 
@@ -58,12 +60,18 @@ void XlfAbstractCmdDesc::Register() const
     throw std::runtime_error("Could not get library name");
   int err = DoRegister(dllName);
   if (err != xlretSuccess)
-    std::cerr << "Error " << err << " while registering " << GetAlias().c_str() << std::endl;
+    std::cerr << __HERE__ << "Error " << err << " while registering " << GetAlias().c_str() << std::endl;
   return;
 }
 
-void XlfAbstractCmdDesc::Unregister()
+void XlfAbstractCmdDesc::Unregister() const
 {
+  std::string dllName = XlfExcel::Instance().GetName();
+  if (dllName.empty())
+    throw std::runtime_error("Could not get library name");
+  int err = DoUnregister(dllName);
+  if (err != xlretSuccess)
+    std::cerr << __HERE__ << "Error " << err << " while registering " << GetAlias().c_str() << std::endl;
   return;
 }
 
@@ -95,5 +103,19 @@ void XlfAbstractCmdDesc::SetComment(const std::string& comment)
 const std::string& XlfAbstractCmdDesc::GetComment() const
 {
   return comment_;
+}
+
+/*!
+The new arguments replace all the old one (if any set). You can not
+push back the arguments one by one.
+*/
+void XlfAbstractCmdDesc::SetArguments(const XlfArgDescList& arguments)
+{
+  arguments_ = arguments;
+}
+
+const XlfArgDescList& XlfAbstractCmdDesc::GetArguments() const
+{
+  return arguments_;
 }
 

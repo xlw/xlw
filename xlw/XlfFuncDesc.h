@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
@@ -60,12 +61,16 @@ public:
   const std::string& GetCategory() const;
   //! Sets the arguments definition.
   void SetArguments(const XlfArgDescList& arguments);
-  //! Gets the arguments definition.
-  const XlfArgDescList& GetArguments() const;
+  //! Gets the index into our list of UDFs
+  int GetIndex() const;
+  //! Sets in the index into our list of UDFs
+  void SetIndex(int i_);
 
 protected:
   //! Registers the function (template method).
   int DoRegister(const std::string& dllName) const;
+  //! Unregisters the function (template method).
+  int DoUnregister(const std::string& dllName) const;
 
 private:
   //! Copy ctor is declared private but not defined.
@@ -74,6 +79,12 @@ private:
   XlfFuncDesc& operator=(const XlfFuncDesc&);
   //! Pointer to implementation (pimpl idiom, see \ref HS).
   struct XlfFuncDescImpl * impl_;
+  //! Shared registration code
+  int RegisterAs(const std::string& dllName, double mode_, double* funcId = NULL) const;
+  //! Is this function currently live, or has it been faux-unregistered?
+  //bool live_;
+  //! Index into our list of UDFs
+  int index_;
 };
 
 #endif

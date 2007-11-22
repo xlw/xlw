@@ -23,6 +23,7 @@
 
 #include <xlw/XlfCmdDesc.h>
 #include <xlw/XlfOper.h>
+#include <xlw/XlfException.h>
 #include <xlw/defines.h>
 #include <iostream>
 
@@ -33,8 +34,8 @@
 
 /*! \e see XlfAbstractCmdDesc::XlfAbstractCmdDesc(const std::string&, const std::string&, const std::string&)
 */
-XlfCmdDesc::XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment)
-    :XlfAbstractCmdDesc(name, alias, comment), menu_()
+XlfCmdDesc::XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden)
+    :XlfAbstractCmdDesc(name, alias, comment), menu_(), hidden_(hidden)
 {}
 
 XlfCmdDesc::~XlfCmdDesc()
@@ -99,24 +100,68 @@ int XlfCmdDesc::Check(bool ERR_CHECK) const
 Registers the command as a macro in excel.
 \sa XlfExcel, XlfFuncDesc.
 */
-int XlfCmdDesc::DoRegister() const
+int XlfCmdDesc::DoRegister(const std::string& dllName) const
 {
-	const std::string& dllname = XlfExcel::Instance().GetName();
-	if (dllname.empty())
-	{
-    std::cerr << XLW__HERE__ << "Library name is not initialized" << std::endl;
-		return xlretFailed;
-	}
+  
+  XlfArgDescList arguments = GetArguments();
+  
+  // 2 = normal macro, 0 = hidden command
+  double type = hidden_ ? 0 : 2;
+
+  /*
 //	ERR_LOG("Registering command \"" << alias_.c_str() << "\" from \"" << name_.c_str() << "\" in \"" << dllname.c_str() << "\"");
 	int err = XlfExcel::Instance().Call(
 		xlfRegister, NULL, 7,
-		(LPXLOPER)XlfOper(dllname.c_str()),
+		(LPXLOPER)XlfOper(dllName.c_str()),
 		(LPXLOPER)XlfOper(GetName().c_str()),
 		(LPXLOPER)XlfOper("A"),
 		(LPXLOPER)XlfOper(GetAlias().c_str()),
 		(LPXLOPER)XlfOper(""),
-		(LPXLOPER)XlfOper(2.0),
+		(LPXLOPER)XlfOper(type),
 		(LPXLOPER)XlfOper(""));
 	return err;
+  */
+
+  size_t nbargs = arguments.size();
+	std::string args("A");
+	std::string argnames;
+
+	XlfArgDescList::const_iterator it = arguments.begin();
+	while (it != arguments.end())
+	{
+		argnames += (*it).GetName();
+		args += (*it).GetType();
+		++it;
+		if (it != arguments.end())
+			argnames+=", ";
+	}  
+  
+  LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
+	LPXLOPER *px = rgx;
+	
+  (*px++) = XlfOper(dllName.c_str());
+  (*px++) = XlfOper(GetName().c_str());
+  (*px++) = XlfOper(args.c_str());
+  (*px++) = XlfOper(GetAlias().c_str());
+  (*px++) = XlfOper(argnames.c_str());
+  (*px++) = XlfOper(type);
+  (*px++) = XlfOper("");
+	(*px++) = XlfOper("");
+	(*px++) = XlfOper("");
+	(*px++) = XlfOper(GetComment().c_str());
+  	for (it = arguments.begin(); it != arguments.end(); ++it)
+  {
+		(*px++) = XlfOper((*it).GetComment().c_str());
+  }
+
+    int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, NULL, 10 + nbargs, rgx));
+	delete[] rgx;
+	return err;
+  
+}
+
+int XlfCmdDesc::DoUnregister(const std::string& dllName) const
+{
+  return xlretSuccess;
 }
 

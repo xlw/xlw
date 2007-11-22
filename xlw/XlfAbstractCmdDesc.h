@@ -26,6 +26,7 @@
 
 #include <xlw/EXCEL32_API.h>
 #include <string>
+#include <xlw/XlfArgDescList.h>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -46,7 +47,7 @@ public:
   //! Registers the command to Excel.
   void Register() const;
   //! Unregister the command from Excel.
-  void Unregister();
+  void Unregister() const;
 
   //! Sets the name of the command in the XLL
   void SetName(const std::string& name);
@@ -60,18 +61,27 @@ public:
   void SetComment(const std::string& comment);
   //! Gets the comment string to be shown in the function wizard.
   const std::string& GetComment() const;
+  //! Sets the arguments definition.
+  void SetArguments(const XlfArgDescList& arguments);
+  //! Gets the arguments definition.
+  const XlfArgDescList& GetArguments() const;
 
 protected:
   //! Actually registers the command (see template method in \ref DP)
   virtual int DoRegister(const std::string& dllName) const = 0;
+  //! Actually unregisters the command (see template method in \ref DP)
+  virtual int DoUnregister(const std::string& dllName) const = 0;
 
-private:
   //! Name of the command in the XLL.
   std::string name_;
   //! Alias for the command in Excel.
   std::string alias_;
+
+private:
   //! Comment associated to the command.
   std::string comment_;
+  //! List of the argument descriptions of the function.
+  XlfArgDescList arguments_;
 };
 
 #endif

@@ -23,6 +23,8 @@
 
 #include <xlw/XlfFuncDesc.h>
 #include <xlw/XlfArgDescList.h>
+#include <xlw/XlfExcel.h>
+#include <xlw/XlfException.h>
 #include <xlw/XlfOper.h>
 
 // Stop header precompilation
@@ -75,16 +77,32 @@ void XlfFuncDesc::SetArguments(const XlfArgDescList& arguments)
   impl_->arguments_ = arguments;
 }
 
+int XlfFuncDesc::GetIndex() const
+{
+  return index_;
+}
+
+void XlfFuncDesc::SetIndex(int i_)
+{
+  index_ = i_;
+}
+
 /*!
 Registers the function as a function in excel.
 \sa XlfExcel, XlfCmdDesc.
 */
 int XlfFuncDesc::DoRegister(const std::string& dllName) const
 {
-  // alias arguments
-  XlfArgDescList& arguments = impl_->arguments_;
+  //live_ = true;
+  return RegisterAs(dllName, 1);
+}
 
-	size_t nbargs = arguments.size();
+int XlfFuncDesc::DoUnregister(const std::string& dllName) const
+{
+  //live_ = false;
+
+  XlfArgDescList arguments = GetArguments();
+  size_t nbargs = arguments.size();
 	std::string args("R");
 	std::string argnames;
 
@@ -97,6 +115,37 @@ int XlfFuncDesc::DoRegister(const std::string& dllName) const
 		if (it != arguments.end())
 			argnames+=", ";
 	}
+
+	double funcId;
+  int err = RegisterAs(dllName, 0, &funcId);
+
+  XlfOper unreg;
+  err = Excel4(xlfUnregister, unreg, 1, XlfOper(funcId));
+
+  return err;
+}
+
+int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* funcId) const
+{
+
+  // alias arguments
+  
+  XlfArgDescList arguments = GetArguments();
+  
+  size_t nbargs = arguments.size();
+	std::string args("R");
+	std::string argnames;
+
+	XlfArgDescList::const_iterator it = arguments.begin();
+	while (it != arguments.end())
+	{
+		argnames += (*it).GetName();
+		args += (*it).GetType();
+		++it;
+		if (it != arguments.end())
+			argnames+=", ";
+	}
+  
 	if (impl_->recalcPolicy_ == XlfFuncDesc::Volatile)
 	{
 		args+="!";
@@ -114,7 +163,7 @@ int XlfFuncDesc::DoRegister(const std::string& dllName) const
 	(*px++) = XlfOper(args.c_str());
 	(*px++) = XlfOper(GetAlias().c_str());
 	(*px++) = XlfOper(argnames.c_str());
-	(*px++) = XlfOper(1.0);
+	(*px++) = XlfOper(mode_);
 	(*px++) = XlfOper(impl_->category_.c_str());
 	(*px++) = XlfOper("");
 	(*px++) = XlfOper("");
@@ -123,7 +172,14 @@ int XlfFuncDesc::DoRegister(const std::string& dllName) const
   {
 		(*px++) = XlfOper((*it).GetComment().c_str());
   }
-	int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, NULL, 10 + nbargs, rgx));
+  XLOPER res;
+	int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, &res, 10 + nbargs, rgx));
+	
+	if(funcId != NULL)
+	{
+		*funcId = res.val.num;
+	}
+  
 	delete[] rgx;
 	return err;
 }
