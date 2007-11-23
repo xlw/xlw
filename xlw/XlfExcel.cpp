@@ -198,68 +198,19 @@ int cdecl XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, ...) const
 #endif
 {
     if (excel12_) {
-
-#ifdef _ALPHA_
-  /*
-  * On the Alpha, arguments may be passed in via registers instead of
-  * being located in a contiguous block of memory, so we must use the
-  * va_arg functions to retrieve them instead of simply walking through
-  * memory.
-  	*/
-  va_list argList;
-  LPXLOPER12 *plpx = alloca(count*sizeof(LPXLOPER12));
-#endif
-
-#ifdef _ALPHA_
-  /* Fetch all of the LPXLOPERS and copy them into plpx.
-  * plpx is alloca'ed and will automatically be freed when the function
-  * exits.
-  */
-  va_start(argList, count);
-  for (i = 0; i<count; i++)
-    plpx[i] = va_arg(argList, LPXLOPER12);
-  va_end(argList);
-#endif
-
-#ifdef _ALPHA_
-  return Call12v(xlfn, pxResult, count, plpx);
-#else
-  return Call12v(xlfn, (LPXLOPER12)pxResult, count, (LPXLOPER12 *)(&count + 1));
-#endif
-
+        return Call12v(xlfn, (LPXLOPER12)pxResult, count, (LPXLOPER12 *)(&count + 1));
     } else {
-
-#ifdef _ALPHA_
-  /*
-  * On the Alpha, arguments may be passed in via registers instead of
-  * being located in a contiguous block of memory, so we must use the
-  * va_arg functions to retrieve them instead of simply walking through
-  * memory.
-  	*/
-  va_list argList;
-  LPXLOPER *plpx = alloca(count*sizeof(LPXLOPER));
-#endif
-
-#ifdef _ALPHA_
-  /* Fetch all of the LPXLOPERS and copy them into plpx.
-  * plpx is alloca'ed and will automatically be freed when the function
-  * exits.
-  */
-  va_start(argList, count);
-  for (i = 0; i<count; i++)
-    plpx[i] = va_arg(argList, LPXLOPER);
-  va_end(argList);
-#endif
-
-#ifdef _ALPHA_
-  return Call4v(xlfn, pxResult, count, plpx);
-#else
-  return Call4v(xlfn, (LPXLOPER)pxResult, count, (LPXLOPER *)(&count + 1));
-#endif
-
+        return Call4v(xlfn, (LPXLOPER)pxResult, count, (LPXLOPER *)(&count + 1));
     }
 }
 
+int __cdecl XlfExcel::Call4(int xlfn, LPXLOPER pxResult, int count, ...) const {
+    return Call4v(xlfn, pxResult, count, (LPXLOPER *)(&count + 1));
+}
+
+int __cdecl XlfExcel::Call12(int xlfn, LPXLOPER12 pxResult, int count, ...) const {
+    return Call12v(xlfn, pxResult, count, (LPXLOPER12 *)(&count + 1));
+}
 
 /*!
 If one (or more) cells refered as argument is(are) uncalculated, the framework
@@ -305,7 +256,7 @@ int XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) 
                       type & xltypeMulti ||
                       type & xltypeBigData);
     if (hasAuxMem)
-      pxResult->xltype |= XlfOper::xlbitFreeAuxMem;
+      pxResult->xltype |= XlfOperImpl::xlbitFreeAuxMem;
   }
   return xlret;
 }
@@ -337,7 +288,7 @@ int XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdat
                       type & xltypeMulti ||
                       type & xltypeBigData);
     if (hasAuxMem)
-      pxResult->xltype |= XlfOper::xlbitFreeAuxMem;
+      pxResult->xltype |= XlfOperImpl::xlbitFreeAuxMem;
   }
   return xlret;
 }

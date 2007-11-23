@@ -1,7 +1,7 @@
 
 /*
- Copyright (C) 2007 Eric Ehlers
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -49,77 +49,81 @@ LPXLOPER sent by Excel as an XlfOper.
 */
 class EXCEL32_API XlfOperImpl4 : public XlfOperImpl
 {
+public:
+
+    static const XlfOperImpl4 &instance();
+
 private:
 
     //! Dtor
-    virtual void destroy(const XlfOper &xlfOper) const;
+    virtual void destroy(const XlfOperUnion &xlfOperUnion) const;
     //! Free auxiliary memory associated with the XLOPER
-    virtual void FreeAuxiliaryMemory(const XlfOper &xlfOper) const;
+    virtual void FreeAuxiliaryMemory(const XlfOperUnion &xlfOperUnion) const;
     //! Assignment operator
     virtual XlfOper& assignment_operator(XlfOper &xlfOper, const XlfOper &rhs) const;
 
     //! Is the data missing ?
-    virtual bool IsMissing(const XlfOper &xlfOper) const;
+    virtual bool IsMissing(const XlfOperUnion &xlfOperUnion) const;
     //! Is the data an error ?
-    virtual bool IsError(const XlfOper &xlfOper) const;
+    virtual bool IsError(const XlfOperUnion &xlfOperUnion) const;
 
     //! Gets the internal LPXLFOPER.
-    virtual LPXLFOPER GetLPXLFOPER(const XlfOper &xlfOper) const;
+    virtual LPXLFOPER GetLPXLFOPER(const XlfOperUnion &xlfOperUnion) const;
 
     //! Set the underlying XLOPER * to lpxloper
-    virtual XlfOper& Set(XlfOper &xlfOper, LPXLFOPER lpxlfoper) const;
+    virtual void Set(XlfOperUnion &xlfOperUnion, LPXLFOPER lpxlfoper) const;
     //! Set to a double
-    virtual XlfOper& Set(XlfOper &xlfOper, double value) const;
+    virtual void Set(XlfOperUnion &xlfOperUnion, double value) const;
     //! Set to a short
-    virtual XlfOper& Set(XlfOper &xlfOper, short value) const;
+    virtual void Set(XlfOperUnion &xlfOperUnion, short value) const;
     //! Set to a boolean
-    virtual XlfOper& Set(XlfOper &xlfOper, bool value) const;
+    virtual void Set(XlfOperUnion &xlfOperUnion, bool value) const;
     //! Set to a zero-terminated character string
-    virtual XlfOper& Set(XlfOper &xlfOper, const char *value) const;
+    virtual void Set(XlfOperUnion &xlfOperUnion, const char *value) const;
     //! Set to a wstring
-    virtual XlfOper& Set(XlfOper &xlfOper, const std::wstring &value) const;
+    virtual void Set(XlfOperUnion &xlfOperUnion, const std::wstring &value) const;
     //! Set to a cell matrix
-    virtual XlfOper& Set(XlfOper &xlfOper, const CellMatrix& cells) const;
+    virtual void Set(XlfOperUnion &xlfOperUnion, const CellMatrix& cells) const;
     //! Set to a range
-    virtual XlfOper& Set(XlfOper &xlfOper, const XlfRef& range) const;
+    virtual void Set(XlfOperUnion &xlfOperUnion, const XlfRef& range) const;
     //! Set to a short or error, bool for disambiguation
-    virtual XlfOper& Set(XlfOper &xlfOper, short value, bool Error) const;
+    virtual void Set(XlfOperUnion &xlfOperUnion, short value, bool Error) const;
     //! Set to an error value
-    virtual XlfOper& SetError(XlfOper &xlfOper, WORD error) const;
+    virtual void SetError(XlfOperUnion &xlfOperUnion, WORD error) const;
     //! Cast to XLOPER *
-    virtual LPXLOPER operator_LPXLOPER(const XlfOper &xlfOper) const;
+    virtual LPXLOPER operator_LPXLOPER(const XlfOperUnion &xlfOperUnion) const;
     //! Cast to XLOPER12 *
-    virtual LPXLOPER12 operator_LPXLOPER12(const XlfOper &xlfOper) const;
+    virtual LPXLOPER12 operator_LPXLOPER12(const XlfOperUnion &xlfOperUnion) const;
     //! Cast to LPXLFOPER
-    virtual LPXLFOPER operator_LPXLFOPER(const XlfOper &xlfOper) const;
+    virtual LPXLFOPER operator_LPXLFOPER(const XlfOperUnion &xlfOperUnion) const;
 
     //! Coerce method is called by conversion operators if needed (never by the user).
-    virtual int Coerce(const XlfOper &xlfOper, short type, XlfOper& res) const;
+    int Coerce(const XlfOperUnion &xlfOperUnion, short type, XlfOperUnion &result) const;
 
     //! Reserves memory in XLL buffer (garbage collected).
-    virtual int Allocate(XlfOper &xlfOper) const;
+    virtual int Allocate(XlfOperUnion &xlfOperUnion) const;
 
     //! Attempts conversion to double and returns Excel4 error code.
-    virtual int ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<double>& value, DoubleVectorConvPolicy policy = UniDimensional) const;
+    virtual int ConvertToDoubleVector(const XlfOperUnion &xlfOperUnion, std::vector<double>& value, DoubleVectorConvPolicy policy = UniDimensional) const;
     //! Attempts conversion to double and returns Excel4 error code.
-    virtual int ConvertToDouble(const XlfOper &xlfOper, double& value) const throw();
+    virtual int ConvertToDouble(const XlfOperUnion &xlfOperUnion, double& value) const throw();
     //! Attempts conversion to short and returns Excel4 error code.
-    virtual int ConvertToShort(const XlfOper &xlfOper, short& value) const throw();
+    virtual int ConvertToShort(const XlfOperUnion &xlfOperUnion, short& value) const throw();
     //! Attempts conversion to bool and returns Excel4 error code.
-    virtual int ConvertToBool(const XlfOper &xlfOper, bool& value) const throw();
+    virtual int ConvertToBool(const XlfOperUnion &xlfOperUnion, bool& value) const throw();
     //! Attempts conversion to int and returns Excel4 error code.
-    //virtual int ConvertToInt(const XlfOper &xlfOper, int& value) const throw();
+    //virtual int ConvertToInt(const XlfOperUnion &xlfOperUnion, int& value) const throw();
     //! Attempts conversion to string and returns Excel4 error code.
-    virtual int ConvertToString(const XlfOper &xlfOper, char *& value) const throw();
+    virtual int ConvertToString(const XlfOperUnion &xlfOperUnion, char *& value) const throw();
     //! Attempts conversion to CellMatrix and returns Excel4 error code
-    virtual int ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& output) const;
+    virtual int ConvertToCellMatrix(const XlfOperUnion &xlfOperUnion, CellMatrix& output) const;
     //! Attempts conversion to Matrix and returns Excel4 error code
-    virtual int ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& output) const;
+    virtual int ConvertToMatrix(const XlfOperUnion &xlfOperUnion, MyMatrix& output) const;
 
     //! Attempts conversion to XlRef and returns Excel4 error code.
-    virtual int ConvertToRef(const XlfOper &xlfOper, XlfRef& value) const throw();
+    virtual int ConvertToRef(const XlfOperUnion &xlfOperUnion, XlfRef& value) const throw();
     //! Attempts conversion to XlRef and returns Excel4 error code.
-    virtual int ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw();
+    virtual int ConvertToErr(const XlfOperUnion &xlfOperUnion, WORD& e) const throw();
 };
 
 #endif

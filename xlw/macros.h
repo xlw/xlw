@@ -81,7 +81,7 @@ interface to recompile.
 } catch (const CellMatrix& error){\
 	return XlfOper(error);\
 } catch (...) { \
-	return XlfOper::Error(xlerrValue); \
+	return XlfOperImpl::Error(xlerrValue); \
 }
 
 /* as example:

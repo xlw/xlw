@@ -217,10 +217,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\xlw\XlfOperImpl.cpp"
 				>
 			</File>
@@ -367,11 +363,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper.inl"
+				RelativePath="..\xlw\XlfOper12.h"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOper4.h"
 				>
 			</File>
 			<File
 				RelativePath="..\xlw\XlfOperImpl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl.inl"
 				>
 			</File>
 			<File
@@ -384,6 +388,10 @@
 			</File>
 			<File
 				RelativePath="..\xlw\XlfOperSet.h"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperUnion.h"
 				>
 			</File>
 			<File

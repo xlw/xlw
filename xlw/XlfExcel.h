@@ -58,6 +58,8 @@ public:
   std::string GetName() const;
   //! Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel)
   int __cdecl Call(int xlfn, LPXLFOPER pxResult, int count, ...) const;
+  int __cdecl Call4(int xlfn, LPXLOPER pxResult, int count, ...) const;
+  int __cdecl Call12(int xlfn, LPXLOPER12 pxResult, int count, ...) const;
   //! Same as above but with an argument array instead of the variable length argument list
   int Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const;
   int Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
