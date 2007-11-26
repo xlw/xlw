@@ -25,7 +25,7 @@
 #include <xlw/XlfOperImpl4.h>
 #include <xlw/XlfOper.h>
 #include <xlw/XlfException.h>
-#include <xlw/macros.h>
+#include <xlw/defines.h>
 #include <cassert>
 #include <iostream>
 #include <stdexcept>
@@ -103,7 +103,7 @@ void XlfOperImpl4::FreeAuxiliaryMemory(const XlfOperUnion &xlfOperUnion) const
 {
   //int err = XlfExcel::Instance().XlfExcel::Instance().Call4(xlFree, NULL, 1, xlfOperUnion.lpxloper4);
   //if (err != xlretSuccess)
-  //  std::cerr << __HERE__ << "Call to xlFree failed" << std::endl;
+  //  std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
 }
 
 /*!
@@ -569,8 +569,9 @@ int XlfOperImpl4::ConvertToString(const XlfOperUnion &xlfOperUnion, char *& s) c
 
   if (xlfOperUnion.lpxloper4->xltype & xltypeStr)
   {
-    BYTE nB = xlfOperUnion.lpxloper4->val.str[0]; // to make numbers bigger than 128 behave properly
-    size_t n = static_cast<size_t>(nB);
+    // Must use datatype unsigned char (BYTE) to process 0th byte
+    // otherwise numbers greater than 128 are incorrect
+    size_t n = (unsigned char) xlfOperUnion.lpxloper4->val.str[0];
     s = XlfExcel::Instance().GetMemory(n + 1);
     memcpy(s, xlfOperUnion.lpxloper4->val.str + 1, n);
     s[n] = 0;
@@ -758,7 +759,7 @@ void XlfOperImpl4::Set(XlfOperUnion &xlfOperUnion, const char *value) const
 
     if (n > 254)
 	{
-      std::cerr << __HERE__ << "String truncated to 254 bytes" << std::endl;
+      std::cerr << XLW__HERE__ << "String truncated to 254 bytes" << std::endl;
 	  n = 254;
 	}
     // One byte more for the string length (convention used by Excel)

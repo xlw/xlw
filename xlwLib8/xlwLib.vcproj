@@ -217,6 +217,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\xlw\XlfOper4.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\XlfOperImpl.cpp"
 				>
 			</File>
@@ -264,6 +268,10 @@
 			</File>
 			<File
 				RelativePath="..\xlw\config.msvc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\defines.h"
 				>
 			</File>
 			<File
@@ -363,11 +371,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper12.h"
+				RelativePath="..\xlw\XlfOper4.h"
 				>
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper4.h"
+				RelativePath="..\xlw\XlfOper4.inl"
 				>
 			</File>
 			<File

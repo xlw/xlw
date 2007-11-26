@@ -23,8 +23,9 @@
 // $Id$
 
 #include <xlw/XlfFuncDesc.h>
-#include <xlw/XlfArgDescList.h>
-#include <xlw/XlfOper.h>
+#include <xlw/XlfExcel.h>
+#include <xlw/XlfException.h>
+#include <xlw/XlfOper4.h>
 
 // Stop header precompilation
 #ifdef _MSC_VER
@@ -78,14 +79,33 @@ void XlfFuncDesc::SetArguments(const XlfArgDescList& arguments)
   impl_->arguments_ = arguments;
 }
 
-int XlfFuncDesc::DoRegister4(const std::string& dllName) const
+int XlfFuncDesc::GetIndex() const
 {
-  // alias arguments
-  XlfArgDescList& arguments = impl_->arguments_;
+  return index_;
+}
 
-	size_t nbargs = arguments.size();
-	//std::string args("R");
-	std::string args("P");
+void XlfFuncDesc::SetIndex(int i_)
+{
+  index_ = i_;
+}
+
+/*!
+Registers the function as a function in excel.
+\sa XlfExcel, XlfCmdDesc.
+*/
+int XlfFuncDesc::DoRegister(const std::string& dllName) const
+{
+  //live_ = true;
+  return RegisterAs(dllName, 1);
+}
+
+int XlfFuncDesc::DoUnregister(const std::string& dllName) const
+{
+  //live_ = false;
+
+  XlfArgDescList arguments = GetArguments();
+  size_t nbargs = arguments.size();
+	std::string args("R");
 	std::string argnames;
 
 	XlfArgDescList::const_iterator it = arguments.begin();
@@ -97,44 +117,25 @@ int XlfFuncDesc::DoRegister4(const std::string& dllName) const
 		if (it != arguments.end())
 			argnames+=", ";
 	}
-	if (impl_->recalcPolicy_ == XlfFuncDesc::Volatile)
-	{
-		args+="!";
-        args+=" "; // make string longer so next line doesn't cause memory violation
-		args[nbargs + 2] = 0;
-	}
-	else {
-        args+=" "; // make string longer so next line doesn't cause memory violation
-		args[nbargs + 1] = 0;
-    }
-	LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
-	LPXLOPER *px = rgx;
-	(*px++) = XlfOper(dllName.c_str());
-	(*px++) = XlfOper(GetName().c_str());
-	(*px++) = XlfOper(args.c_str());
-	(*px++) = XlfOper(GetAlias().c_str());
-	(*px++) = XlfOper(argnames.c_str());
-	(*px++) = XlfOper(1.0);
-	(*px++) = XlfOper(impl_->category_.c_str());
-	(*px++) = XlfOper("");
-	(*px++) = XlfOper("");
-	(*px++) = XlfOper(GetComment().c_str());
-	for (it = arguments.begin(); it != arguments.end(); ++it)
-  {
-		(*px++) = XlfOper((*it).GetComment().c_str());
-  }
-	int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, NULL, 10 + nbargs, rgx));
-	delete[] rgx;
-	return err;
+
+	double funcId;
+  int err = RegisterAs(dllName, 0, &funcId);
+
+  XlfOper unreg;
+  //err = Excel4(xlfUnregister, unreg, 1, XlfOper(funcId));
+  err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, XlfOper(funcId)));
+
+  return err;
 }
 
-int XlfFuncDesc::DoRegister12(const std::string& dllName) const
+int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* funcId) const
 {
+
   // alias arguments
   XlfArgDescList& arguments = impl_->arguments_;
 
-	size_t nbargs = arguments.size();
-	std::string args("Q");
+  size_t nbargs = arguments.size();
+	std::string args("P");
 	std::string argnames;
 
 	XlfArgDescList::const_iterator it = arguments.begin();
@@ -152,52 +153,48 @@ int XlfFuncDesc::DoRegister12(const std::string& dllName) const
 		args+="!";
         offset++;
 	}
-	if (impl_->Threadsafe_)
-	{
-		args+="$";
+    // FIXME - Excel 2007 support - temporary hack - to be replaced by proper solution
+    if (XlfExcel::Instance().excel12() && impl_->Threadsafe_)
+    {
+	    args+="$";
         offset++;
-	}
+    }
 
     args+=" "; // make string longer so next line doesn't cause memory violation
 	args[nbargs + offset] = 0;
 
-	LPXLOPER12 *rgx = new LPXLOPER12[10 + nbargs];
-	LPXLOPER12 *px = rgx;
+	LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
+	LPXLOPER *px = rgx;
     // FIXME - Excel 2007 support - temporary hack - to be replaced by proper solution
-    for (unsigned int i=0; i<args.length(); i++) {
-        if (args[i] == 'P') args[i] = 'Q';
-        if (args[i] == 'R') args[i] = 'U';
+    if (XlfExcel::Instance().excel12()) {
+        for (unsigned int i=0; i<args.length(); i++) {
+            if (args[i] == 'P') args[i] = 'Q';
+            if (args[i] == 'R') args[i] = 'U';
+        }
     }
-	(*px++) = XlfOper(dllName.c_str());
-	(*px++) = XlfOper(GetName().c_str());
-	(*px++) = XlfOper(args.c_str());
-	(*px++) = XlfOper(GetAlias().c_str());
-	(*px++) = XlfOper(argnames.c_str());
-	(*px++) = XlfOper(1.0);
-	(*px++) = XlfOper(impl_->category_.c_str());
-	(*px++) = XlfOper("");
-	(*px++) = XlfOper("");
-	(*px++) = XlfOper(GetComment().c_str());
+	(*px++) = XlfOper4(dllName.c_str());
+	(*px++) = XlfOper4(GetName().c_str());
+	(*px++) = XlfOper4(args.c_str());
+	(*px++) = XlfOper4(GetAlias().c_str());
+	(*px++) = XlfOper4(argnames.c_str());
+	(*px++) = XlfOper4(mode_);
+	(*px++) = XlfOper4(impl_->category_.c_str());
+	(*px++) = XlfOper4("");
+	(*px++) = XlfOper4("");
+	(*px++) = XlfOper4(GetComment().c_str());
 	for (it = arguments.begin(); it != arguments.end(); ++it)
   {
-		(*px++) = XlfOper((*it).GetComment().c_str());
+		(*px++) = XlfOper4((*it).GetComment().c_str());
   }
-	int err = static_cast<int>(XlfExcel::Instance().Call12v(xlfRegister, NULL, 10 + nbargs, rgx));
+  XLOPER res;
+	int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, &res, 10 + nbargs, rgx));
+	
+	if(funcId != NULL)
+	{
+		*funcId = res.val.num;
+	}
+  
 	delete[] rgx;
 	return err;
-}
-
-/*!
-Registers the function as a function in excel.
-\sa XlfExcel, XlfCmdDesc.
-*/
-int XlfFuncDesc::DoRegister(const std::string& dllName) const
-{
-    // FIXME temporary hack in support of Excel 12 - to be cleaned up.
-    if (XlfExcel::Instance().excel12()) {
-        return DoRegister12(dllName);
-    } else {  // Excel 4
-        return DoRegister4(dllName);
-    }
 }
 

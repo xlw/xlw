@@ -42,7 +42,7 @@ class EXCEL32_API XlfCmdDesc: public XlfAbstractCmdDesc
 {
 public:
   //! Ctor.
-  XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment);
+  XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden);
   //! Dtor.
   ~XlfCmdDesc();
   //! Adds the command to an Excel menu bar.
@@ -54,13 +54,17 @@ public:
 
 protected:
   //! Registers the command to Excel
-  int DoRegister() const;
+  int DoRegister(const std::string& dllName) const;
+  //! Unregisters the function (template method).
+  int DoUnregister(const std::string& dllName) const;
 
 private:
   //! Menu in which the command is to be displayed.
   std::string menu_;
   //! Text in the menu.
   std::string text_;
+  //! Hidden flag
+  bool hidden_;
 };
 
 #endif

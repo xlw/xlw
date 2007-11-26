@@ -103,7 +103,7 @@ void XlfOperImpl12::FreeAuxiliaryMemory(const XlfOperUnion &xlfOperUnion) const
 {
   //int err = XlfExcel::Instance().XlfExcel::Instance().Call12(xlFree, NULL, 1, xlfOperUnion.lpxloper12);
   //if (err != xlretSuccess)
-  //  std::cerr << __HERE__ << "Call to xlFree failed" << std::endl;
+  //  std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
   return;
 }
 

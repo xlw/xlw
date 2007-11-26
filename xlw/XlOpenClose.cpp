@@ -34,7 +34,7 @@ extern "C"
       try {
 
         oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
-        std::cerr << __HERE__ << "std::cerr redirected to MSVC debugger" << std::endl;
+        std::cerr << XLW__HERE__ << "std::cerr redirected to MSVC debugger" << std::endl;
 
         // Displays a message in the status bar.
         XlfExcel::Instance().SendMessage("Registering library...");
@@ -52,7 +52,7 @@ extern "C"
 
   long EXCEL_EXPORT xlAutoClose()
   {
-    std::cerr << __HERE__ << "Releasing ressources" << std::endl;
+    std::cerr << XLW__HERE__ << "Releasing ressources" << std::endl;
     delete &XlfExcel::Instance();
     std::cerr.rdbuf(oldStreamBuf);
     return 1;
