@@ -751,7 +751,7 @@ void XlfOperImpl12::Set(XlfOperUnion &xlfOperUnion, const char *value) const
     if (xlfOperUnion.lpxloper12->val.str) {
         xlfOperUnion.lpxloper12->xltype = xltypeStr;
         mbstowcs(xlfOperUnion.lpxloper12->val.str + 1, value, len);
-        xlfOperUnion.lpxloper12->val.str[0] = (BYTE)len;
+        xlfOperUnion.lpxloper12->val.str[0] = len;
     } else {
         xlfOperUnion.lpxloper12 = 0;
     }
