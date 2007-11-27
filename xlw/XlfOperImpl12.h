@@ -25,7 +25,7 @@
 
 // $Id: XlfOper.h 340 2007-10-14 15:40:31Z ericehlers $
 
-#include <xlw/XlfOperImpl4.h>
+#include <xlw/XlfOperImpl.h>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -47,12 +47,8 @@ because the library heavily relies on the fact that LPXLOPER and
 XlfOper have the same size. It allows the library to interpret any
 LPXLOPER sent by Excel as an XlfOper.
 */
-class EXCEL32_API XlfOperImpl12 : public XlfOperImpl4
+class EXCEL32_API XlfOperImpl12 : public XlfOperImpl
 {
-public:
-
-    static const XlfOperImpl12 &instance();
-
 private:
     //! Dtor
     virtual void destroy(const XlfOperUnion &xlfOperUnion) const;

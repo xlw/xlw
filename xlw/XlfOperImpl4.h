@@ -49,10 +49,6 @@ LPXLOPER sent by Excel as an XlfOper.
 */
 class EXCEL32_API XlfOperImpl4 : public XlfOperImpl
 {
-public:
-
-    static const XlfOperImpl4 &instance();
-
 private:
 
     //! Dtor

@@ -37,7 +37,7 @@
 #pragma DEBUG_HEADERS
 #endif
 
-class XlfRef;
+//class XlfRef;
 class CellMatrix;
 
 //! Wrapper around a pointer to the XLOPER Excel data structure.
@@ -225,7 +225,7 @@ public:
 #endif
 #endif
 
-public:
+private:
   //! Internal LPXLOPER.
   LPXLOPER lpxloper_;
 

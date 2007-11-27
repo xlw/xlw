@@ -36,14 +36,6 @@
 #pragma hdrstop
 #endif
 
-const XlfOperImpl4 &XlfOperImpl4::instance() {
-    if (instance_) {
-        XlfOperImpl4 *ret = dynamic_cast<XlfOperImpl4*>(instance_);
-        if (ret) return *ret;
-    }        
-    throw("Attempt to reference uninitialized XlfOperImpl4 object");
-}
-
 /*!
 Calls Deallocate() to free the XLOPER allocated by the XLL. XLOPER allocated
 by Excel remain under Excel responsibility.
