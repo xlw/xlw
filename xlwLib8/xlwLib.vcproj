@@ -379,6 +379,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\xlw\XlfOper.inl"
+				>
+			</File>
+			<File
 				RelativePath="..\xlw\XlfOper12.h"
 				>
 			</File>
