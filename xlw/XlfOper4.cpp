@@ -23,7 +23,7 @@
 #include <xlw/XlfOper4.h>
 #include <xlw/XlfException.h>
 //#include <xlw/XlfRef.h>
-#include <xlw/macros.h>
+#include <xlw/defines.h>
 #include <cassert>
 #include <iostream>
 #include <stdexcept>
@@ -117,7 +117,7 @@ void XlfOper4::FreeAuxiliaryMemory() const
 {
   int err = XlfExcel::Instance().XlfExcel::Instance().Call(xlFree, NULL, 1, (LPXLOPER)lpxloper_);
   if (err != xlretSuccess)
-    std::cerr << __HERE__ << "Call to xlFree failed" << std::endl;
+    std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
   return;
 }
 
@@ -1068,7 +1068,7 @@ XlfOper4& XlfOper4::Set(const char *value)
     int n = static_cast<unsigned int>(strlen(value));
     if (n >= 256)
 	{
-      std::cerr << __HERE__ << "String too long is truncated" << std::endl;
+      std::cerr << XLW__HERE__ << "String too long is truncated" << std::endl;
 	  n = 254;
 	}
     // One byte more for NULL terminal char (allow use of strcpy)

@@ -257,7 +257,7 @@ int XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) 
                       type & xltypeMulti ||
                       type & xltypeBigData);
     if (hasAuxMem)
-      pxResult->xltype |= XlfOperImpl::xlbitFreeAuxMem;
+      pxResult->xltype |= XlfOper::xlbitFreeAuxMem;
   }
   return xlret;
 }
@@ -289,7 +289,7 @@ int XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdat
                       type & xltypeMulti ||
                       type & xltypeBigData);
     if (hasAuxMem)
-      pxResult->xltype |= XlfOperImpl::xlbitFreeAuxMem;
+      pxResult->xltype |= XlfOper::xlbitFreeAuxMem;
   }
   return xlret;
 }

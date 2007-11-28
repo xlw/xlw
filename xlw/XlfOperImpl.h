@@ -27,11 +27,8 @@
 
 #include <xlw/EXCEL32_API.h>
 #include <xlw/xlcall32.h>
-#include <xlw/XlfOperUnion.h>
 #include <xlw/XlfExcel.h>
 #include <xlw/MyContainers.h>
-#include <xlw/CellMatrix.h>
-#include <xlw/XlfRef.h>
 #include <vector>
 
 #if defined(_MSC_VER)
@@ -64,47 +61,20 @@ class EXCEL32_API XlfOperImpl
 {
 public:
 
-    static const XlfOperImpl &instance();
+    static const XlfOperImpl &instance() { return *instance_; }
     XlfOperImpl() { instance_ = this; }
 
-    //! Default ctor.
-    void Init(XlfOperUnion &xlfOperUnion) const;
-    //! double ctor.
-    void Init(XlfOperUnion &xlfOperUnion, double value) const;
-    //! short ctor.
-    void Init(XlfOperUnion &xlfOperUnion, short value) const;
-    //! short or error ctor.
-    void Init(XlfOperUnion &xlfOperUnion, short value, bool Error) const;
-    //! boolean ctor.
-    void Init(XlfOperUnion &xlfOperUnion, bool value) const;
-    //! 0 terminated character string ctor.
-    void Init(XlfOperUnion &xlfOperUnion, const char *value) const;
-    //!  string ctor.
-    void Init(XlfOperUnion &xlfOperUnion, const std::string& value) const;
-    //!  wstring ctor.
-    void Init(XlfOperUnion &xlfOperUnion, const std::wstring& value) const;
-    //! CellMatrix ctor
-    void Init(XlfOperUnion &xlfOperUnion, const CellMatrix& value) const;
-    //! MyMatrix ctor
-    void Init(XlfOperUnion &xlfOperUnion, const MyMatrix& value) const;
-    //! MyArray ctor
-    void Init(XlfOperUnion &xlfOperUnion, const MyArray& value) const;
-    //! XlfRef ctor.
-    void Init(XlfOperUnion &xlfOperUnion, const XlfRef& range) const;
-
-    //! Constructs an Excel error.
-    static XlfOper Error(WORD word);
     //! Dtor
-    virtual void destroy(const XlfOperUnion &xlfOperUnion) const = 0;
+    virtual void destroy(const XlfOper& xlfOper) const = 0;
     //! Free auxiliary memory associated with the XLOPER
-    virtual void FreeAuxiliaryMemory(const XlfOperUnion &xlfOperUnion) const = 0;
+    virtual void FreeAuxiliaryMemory(const XlfOper& xlfOper) const = 0;
     //! Assignment operator
     virtual XlfOper& assignment_operator(XlfOper &xlfOper, const XlfOper& rhs) const = 0;
 
     //! Is the data missing ?
-    virtual bool IsMissing(const XlfOperUnion &xlfOperUnion) const = 0;
+    virtual bool IsMissing(const XlfOper &xlfOper) const = 0;
     //! Is the data an error ?
-    virtual bool IsError(const XlfOperUnion &xlfOperUnion) const = 0;
+    virtual bool IsError(const XlfOper &xlfOper) const = 0;
 
     //! Lets the user choose how to convert a range in a vector<double>
     /*!
@@ -123,135 +93,68 @@ public:
         ColumnMajor
     };
 
-    //! Converts to a double.
-    double AsDouble(const XlfOperUnion &xlfOperUnion, int *pxlret = 0) const;
-    //! Converts to a double with error identifer.
-    double AsDouble(const XlfOperUnion &xlfOperUnion, const std::string& ErrorId, int *pxlret = 0) const;
-
-    //! Converts to a std::vector<double>.
-    std::vector<double> AsDoubleVector(const XlfOperUnion &xlfOperUnion,
-        XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
-    std::vector<double> AsDoubleVector(const XlfOperUnion &xlfOperUnion,
-        const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
- 
-    //! Converts to an array.
-    MyArray AsArray(const XlfOperUnion &xlfOperUnion,
-        XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
-    MyArray AsArray(const XlfOperUnion &xlfOperUnion,
-        const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
-
-    //! Converts to a short.
-    short AsShort(const XlfOperUnion &xlfOperUnion, int *pxlret = 0) const;
-    //! Converts to a short with error identifer.
-    short AsShort(const XlfOperUnion &xlfOperUnion, const std::string& ErrorId, int *pxlret = 0) const;
-
-    //! Converts to a bool.
-    bool AsBool(const XlfOperUnion &xlfOperUnion, int *pxlret = 0) const;
-    //! Converts to a bool with error identifer.
-    bool AsBool(const XlfOperUnion &xlfOperUnion, const std::string& ErrorId, int *pxlret = 0) const;
-
-    //! Converts to an int.
-    int AsInt(XlfOperUnion &xlfOperUnion, int *pxlret = 0) const;
-    //! Converts to an int with error identifer.
-    int AsInt(XlfOperUnion &xlfOperUnion, const std::string& ErrorId, int *pxlret = 0) const;
-    //! Converts to a char *.
-    char *AsString(const XlfOperUnion &xlfOperUnion, int *pxlret = 0) const;
-    //! Converts to a char * with error identifer.
-    char *AsString(const XlfOperUnion &xlfOperUnion, const std::string& ErrorId, int *pxlret = 0) const;
-
-    //! Converts to a cell Matrix
-    CellMatrix AsCellMatrix(const XlfOperUnion &xlfOperUnion, int *pxlret=0) const;
-    //! Converts to a cell Matrix with error identifer.
-    CellMatrix AsCellMatrix(const XlfOperUnion &xlfOperUnion, const std::string& ErrorId, int *pxlret=0) const;
- 
-    //! Converts to a matrix
-    MyMatrix AsMatrix(const XlfOperUnion &xlfOperUnion, int *pxlret=0) const;
-    //! Converts to a matrix with error identifer.
-    MyMatrix AsMatrix(const XlfOperUnion &xlfOperUnion, const std::string& ErrorId, int *pxlret=0) const;
-
-    //! Converts to a XlfRef.
-    XlfRef AsRef(const XlfOperUnion &xlfOperUnion, int *pxlret = 0) const;
-
     //! Gets the internal LPXLFOPER.
-    virtual LPXLFOPER GetLPXLFOPER(const XlfOperUnion &xlfOperUnion) const = 0;
+    virtual LPXLFOPER GetLPXLFOPER(const XlfOper &xlfOper) const = 0;
 
     //! Set the underlying XLOPER * to lpxloper
-    virtual void Set(XlfOperUnion &xlfOperUnion, LPXLFOPER lpxlfoper) const = 0;
+    virtual XlfOper& Set(XlfOper &xlfOper, LPXLFOPER lpxlfoper) const = 0;
     //! Set to a double
-    virtual void Set(XlfOperUnion &xlfOperUnion, double value) const = 0;
+    virtual XlfOper& Set(XlfOper &xlfOper, double value) const = 0;
     //! Set to a short
-    virtual void Set(XlfOperUnion &xlfOperUnion, short value) const = 0;
+    virtual XlfOper& Set(XlfOper &xlfOper, short value) const = 0;
     //! Set to a boolean
-    virtual void Set(XlfOperUnion &xlfOperUnion, bool value) const = 0;
+    virtual XlfOper& Set(XlfOper &xlfOper, bool value) const = 0;
     //! Set to a zero-terminated character string
-    virtual void Set(XlfOperUnion &xlfOperUnion, const char *value) const = 0;
+    virtual XlfOper& Set(XlfOper &xlfOper, const char *value) const = 0;
     //! Set to a wstring
-    virtual void Set(XlfOperUnion &xlfOperUnion, const std::wstring &value) const = 0;
+    virtual XlfOper& Set(XlfOper &xlfOper, const std::wstring &value) const = 0;
     //! Set to a cell matrix
-    virtual void Set(XlfOperUnion &xlfOperUnion, const CellMatrix& cells) const = 0;
-    //! Set to a  matrix
-    void Set(XlfOperUnion &xlfOperUnion, const MyMatrix& values);
-    //! Set to an array
-    void Set(XlfOperUnion &xlfOperUnion, const MyArray& values);
+    virtual XlfOper& Set(XlfOper &xlfOper, const CellMatrix& cells) const = 0;
     //! Set to a range
-    virtual void Set(XlfOperUnion &xlfOperUnion, const XlfRef& range) const = 0;
+    virtual XlfOper& Set(XlfOper &xlfOper, const XlfRef& range) const = 0;
     //! Set to a short or error, bool for disambiguation
-    virtual void Set(XlfOperUnion &xlfOperUnion, short value, bool Error) const = 0;
+    virtual XlfOper& Set(XlfOper &xlfOper, short value, bool Error) const = 0;
     //! Set to an error value
-    virtual void SetError(XlfOperUnion &xlfOperUnion, WORD error) const = 0;
+    virtual XlfOper& SetError(XlfOper &xlfOper, WORD error) const = 0;
     //! Cast to XLOPER *
-    virtual LPXLOPER operator_LPXLOPER(const XlfOperUnion &xlfOperUnion) const = 0;
+    virtual LPXLOPER operator_LPXLOPER(const XlfOper &xlfOper) const = 0;
     //! Cast to XLOPER12 *
-    virtual LPXLOPER12 operator_LPXLOPER12(const XlfOperUnion &xlfOperUnion) const = 0;
+    virtual LPXLOPER12 operator_LPXLOPER12(const XlfOper &xlfOper) const = 0;
     //! Cast to LPXLFOPER
-    virtual LPXLFOPER operator_LPXLFOPER(const XlfOperUnion &xlfOperUnion) const = 0;
+    virtual LPXLFOPER operator_LPXLFOPER(const XlfOper &xlfOper) const = 0;
 
     //! Coerce method is called by conversion operators if needed (never by the user).
-    //virtual int Coerce(const XlfOperUnion &xlfOperUnion, short type, XlfOperUnion &res) const = 0;
+    virtual int Coerce(const XlfOper &xlfOper, short type, XlfOper& res) const = 0;
 
     //! Reserves memory in XLL buffer (garbage collected).
-    virtual int Allocate(XlfOperUnion &xlfOperUnion) const = 0;
-
-    //! Internally used to flag XLOPER returned by Excel.
-    static int xlbitFreeAuxMem;
+    virtual int Allocate(XlfOper &xlfOper) const = 0;
 
     //! Attempts conversion to double and returns Excel4 error code.
-    virtual int ConvertToDoubleVector(const XlfOperUnion &xlfOperUnion, std::vector<double>& value, DoubleVectorConvPolicy policy = UniDimensional) const = 0;
+    virtual int ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<double>& value, DoubleVectorConvPolicy policy = UniDimensional) const = 0;
     //! Attempts conversion to double and returns Excel4 error code.
-    virtual int ConvertToDouble(const XlfOperUnion &xlfOperUnion, double& value) const throw() = 0;
+    virtual int ConvertToDouble(const XlfOper &xlfOper, double& value) const throw() = 0;
     //! Attempts conversion to short and returns Excel4 error code.
-    virtual int ConvertToShort(const XlfOperUnion &xlfOperUnion, short& value) const throw() = 0;
+    virtual int ConvertToShort(const XlfOper &xlfOper, short& value) const throw() = 0;
     //! Attempts conversion to bool and returns Excel4 error code.
-    virtual int ConvertToBool(const XlfOperUnion &xlfOperUnion, bool& value) const throw() = 0;
+    virtual int ConvertToBool(const XlfOper &xlfOper, bool& value) const throw() = 0;
     //! Attempts conversion to int and returns Excel4 error code.
-    //virtual int ConvertToInt(const XlfOperUnion &xlfOperUnion, int& value) const throw() = 0;
+    //virtual int ConvertToInt(const XlfOper &xlfOper, int& value) const throw() = 0;
     //! Attempts conversion to string and returns Excel4 error code.
-    virtual int ConvertToString(const XlfOperUnion &xlfOperUnion, char *& value) const throw() = 0;
+    virtual int ConvertToString(const XlfOper &xlfOper, char *& value) const throw() = 0;
     //! Attempts conversion to CellMatrix and returns Excel4 error code
-    virtual int ConvertToCellMatrix(const XlfOperUnion &xlfOperUnion, CellMatrix& output) const = 0;
+    virtual int ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& output) const = 0;
     //! Attempts conversion to Matrix and returns Excel4 error code
-    virtual int ConvertToMatrix(const XlfOperUnion &xlfOperUnion, MyMatrix& output) const = 0;
+    virtual int ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& output) const = 0;
 
     //! Attempts conversion to XlRef and returns Excel4 error code.
-    virtual int ConvertToRef(const XlfOperUnion &xlfOperUnion, XlfRef& value) const throw() = 0;
+    virtual int ConvertToRef(const XlfOper &xlfOper, XlfRef& value) const throw() = 0;
     //! Attempts conversion to XlRef and returns Excel4 error code.
-    virtual int ConvertToErr(const XlfOperUnion &xlfOperUnion, WORD& e) const throw() = 0;
-
-protected:
-
-    static XlfOperImpl *instance_;
+    virtual int ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw() = 0;
 
 private:
 
-    //! Throws an exception when critical errors occur.
-    int ThrowOnError(int value) const;
-    //! Throws an exception when critical errors occur but passes on an identifier to help track it down
-    int ThrowOnError(int value, const std::string& identifier) const;
+    static XlfOperImpl *instance_;
 
 };
-
-#ifdef NDEBUG
-#include <xlw/XlfOperImpl.inl>
-#endif
 
 #endif

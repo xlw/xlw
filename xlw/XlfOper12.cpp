@@ -25,7 +25,7 @@
 #include <xlw/XlfOper12.h>
 #include <xlw/XlfException.h>
 //#include <xlw/XlfRef.h>
-#include <xlw/macros.h>
+#include <xlw/defines.h>
 #include <cassert>
 #include <iostream>
 #include <stdexcept>
@@ -119,7 +119,7 @@ void XlfOper12::FreeAuxiliaryMemory() const
 {
   int err = XlfExcel::Instance().XlfExcel::Instance().Call(xlFree, NULL, 1, (LPXLOPER12)lpxloper_);
   if (err != xlretSuccess)
-    std::cerr << __HERE__ << "Call to xlFree failed" << std::endl;
+    std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
   return;
 }
 
