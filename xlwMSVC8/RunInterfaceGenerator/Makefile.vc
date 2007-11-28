@@ -1,9 +1,15 @@
 # xlwVisio8\RunInterfaceGenerator\Makefile.vc
 
+!IFDEF NDEBUG
+ENVIRON=Release
+!ELSE
+ENVIRON=Debug
+!ENDIF
+
 MAKEFILE=Makefile.vc
 BUILDFLAG=buildflag
 IFACE_GEN_EXE=InterfaceGenerator.exe
-IFACE_GEN_ORIG=..\Release\$(IFACE_GEN_EXE)
+IFACE_GEN_ORIG=..\$(ENVIRON)\$(IFACE_GEN_EXE)
 IFACE_GEN_DIR=..\..\TestFiles
 IFACE_GEN_COPY=$(IFACE_GEN_DIR)\$(IFACE_GEN_EXE)
 IFACE_INPUT=Test.h
