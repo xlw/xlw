@@ -79,15 +79,15 @@ void XlfFuncDesc::SetArguments(const XlfArgDescList& arguments)
   impl_->arguments_ = arguments;
 }
 
-int XlfFuncDesc::GetIndex() const
-{
-  return index_;
-}
+//int XlfFuncDesc::GetIndex() const
+//{
+//  return index_;
+//}
 
-void XlfFuncDesc::SetIndex(int i_)
-{
-  index_ = i_;
-}
+//void XlfFuncDesc::SetIndex(int i_)
+//{
+//  index_ = i_;
+//}
 
 /*!
 Registers the function as a function in excel.

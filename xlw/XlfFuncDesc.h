@@ -61,10 +61,10 @@ public:
   const std::string& GetCategory() const;
   //! Sets the arguments definition.
   void SetArguments(const XlfArgDescList& arguments);
-  //! Gets the index into our list of UDFs
-  int GetIndex() const;
-  //! Sets in the index into our list of UDFs
-  void SetIndex(int i_);
+  //! Gets the index into our list of UDFs (not used?)
+  //int GetIndex() const;
+  //! Sets in the index into our list of UDFs (not used?)
+  //void SetIndex(int i_);
 
 protected:
   //! Registers the function (template method).
@@ -82,9 +82,10 @@ private:
   //! Shared registration code
   int RegisterAs(const std::string& dllName, double mode_, double* funcId = NULL) const;
   //! Is this function currently live, or has it been faux-unregistered?
+  // commented out - seems unused, forces DoRegister/DoUnregister to be non-const
   //bool live_;
-  //! Index into our list of UDFs
-  int index_;
+  //! Index into our list of UDFs (not used?)
+  //int index_;
 };
 
 #endif
