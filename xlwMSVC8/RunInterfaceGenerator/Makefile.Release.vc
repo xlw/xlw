@@ -1,12 +1,8 @@
 # xlwVisio8\RunInterfaceGenerator\Makefile.vc
 
-!IFDEF NDEBUG
 ENVIRON=Release
-!ELSE
-ENVIRON=Debug
-!ENDIF
 
-MAKEFILE=Makefile.vc
+MAKEFILE=Makefile.$(ENVIRON).vc
 BUILDFLAG=buildflag
 IFACE_GEN_EXE=InterfaceGenerator.exe
 IFACE_GEN_ORIG=..\$(ENVIRON)\$(IFACE_GEN_EXE)

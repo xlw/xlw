@@ -22,9 +22,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f Makefile.vc"
-				ReBuildCommandLine="NMAKE /f Makefile.vc /a"
-				CleanCommandLine="NMAKE /f Makefile.vc clean"
+				BuildCommandLine="NMAKE /f Makefile.Debug.vc"
+				ReBuildCommandLine="NMAKE /f Makefile.Debug.vc /a"
+				CleanCommandLine="NMAKE /f Makefile.Debug.vc clean"
 				Output=""
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				IncludeSearchPath=""
@@ -42,9 +42,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f Makefile.vc"
-				ReBuildCommandLine="NMAKE /f Makefile.vc /a"
-				CleanCommandLine="NMAKE /f Makefile.vc clean"
+				BuildCommandLine="NMAKE /f Makefile.Release.vc"
+				ReBuildCommandLine="NMAKE /f Makefile.Release.vc /a"
+				CleanCommandLine="NMAKE /f Makefile.Release.vc clean"
 				Output=""
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				IncludeSearchPath=""
@@ -59,7 +59,11 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\Makefile.vc"
+			RelativePath=".\Makefile.Debug.vc"
+			>
+		</File>
+		<File
+			RelativePath=".\Makefile.Release.vc"
 			>
 		</File>
 	</Files>
