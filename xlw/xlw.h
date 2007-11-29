@@ -33,6 +33,7 @@
 #include <xlw/XlfFuncDesc.h>
 #include <xlw/XlfOper.h>
 #include <xlw/XlfRef.h>
+#include <xlw/CellMatrix.h>
 
 #ifdef PORT_PRAGMA_ONCE
 #pragma once
