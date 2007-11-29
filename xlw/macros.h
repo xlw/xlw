@@ -25,6 +25,7 @@
 
 #include <xlw/XlfException.h>
 #include <xlw/XlfExcel.h>
+#include <xlw/CellMatrix.h>
 
 #if defined(_MSC_VER)
 #pragma once
