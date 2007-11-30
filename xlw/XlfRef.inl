@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -31,30 +32,30 @@ INLINE XlfRef::XlfRef()
     :rowbegin_(0), rowend_(0), colbegin_(0), colend_(0), sheetId_(0)
 {}
 
-INLINE XlfRef::XlfRef(WORD top, BYTE left, WORD bottom, BYTE right, DWORD sheetId)
+INLINE XlfRef::XlfRef(INT32 top, INT32 left, INT32 bottom, INT32 right, DWORD sheetId)
     :rowbegin_(top), rowend_(bottom + 1), colbegin_(left), colend_(right + 1), sheetId_(sheetId)
 {}
 
-INLINE XlfRef::XlfRef(WORD row, BYTE col, DWORD sheetId)
+INLINE XlfRef::XlfRef(INT32 row, INT32 col, DWORD sheetId)
     :rowbegin_(row), rowend_(row + 1), colbegin_(col), colend_(col + 1), sheetId_(sheetId)
 {}
 
-INLINE WORD XlfRef::GetRowBegin() const
+INLINE INT32 XlfRef::GetRowBegin() const
 {
   return rowbegin_;
 }
 
-INLINE WORD XlfRef::GetRowEnd() const
+INLINE INT32 XlfRef::GetRowEnd() const
 {
   return rowend_;
 }
 
-INLINE BYTE XlfRef::GetColBegin() const
+INLINE INT32 XlfRef::GetColBegin() const
 {
   return colbegin_;
 }
 
-INLINE BYTE XlfRef::GetColEnd() const
+INLINE INT32 XlfRef::GetColEnd() const
 {
   return colend_;
 }
@@ -64,32 +65,32 @@ INLINE DWORD XlfRef::GetSheetId() const
   return sheetId_;
 }
 
-INLINE BYTE XlfRef::GetNbCols() const
+INLINE INT32 XlfRef::GetNbCols() const
 {
   return colend_-colbegin_;
 }
 
-INLINE WORD XlfRef::GetNbRows() const
+INLINE INT32 XlfRef::GetNbRows() const
 {
   return rowend_-rowbegin_;
 }
 
-INLINE void XlfRef::SetRowBegin(WORD rowbegin)
+INLINE void XlfRef::SetRowBegin(INT32 rowbegin)
 {
   rowbegin_ = rowbegin;
 }
 
-INLINE void XlfRef::SetRowEnd(WORD rowend)
+INLINE void XlfRef::SetRowEnd(INT32 rowend)
 {
   rowend_ = rowend;
 }
 
-INLINE void XlfRef::SetColBegin(BYTE colbegin)
+INLINE void XlfRef::SetColBegin(INT32 colbegin)
 {
   colbegin_ = colbegin;
 }
 
-INLINE void XlfRef::SetColEnd(BYTE colend)
+INLINE void XlfRef::SetColEnd(INT32 colend)
 {
   colend_ = colend;
 }

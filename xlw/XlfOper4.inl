@@ -1,5 +1,7 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -125,13 +127,12 @@ See XlfOper4::Set(const XlfRef&)
 
 \sa XlfRef
 */
-/*
 INLINE XlfOper4::XlfOper4(const XlfRef& range)
 {
   Allocate();
   Set(range);
 }
-*/
+
 /*!
 Unlike other XlfOper4, the return value is not allocated on the internal
 buffer to avoid allocating more memory. Instead it is allocated on a

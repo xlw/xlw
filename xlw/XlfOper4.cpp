@@ -1,5 +1,7 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -22,7 +24,6 @@
 
 #include <xlw/XlfOper4.h>
 #include <xlw/XlfException.h>
-//#include <xlw/XlfRef.h>
 #include <xlw/defines.h>
 #include <cassert>
 #include <iostream>
@@ -199,7 +200,6 @@ not null the method won't throw and the Excel return code will be returned
 in this variable.
 
 */
-/*
 MyArray XlfOper4::AsArray(DoubleVectorConvPolicy policy, int * pxlret) const
 {
 	std::vector<double> tmp(AsDoubleVector(policy,pxlret));
@@ -219,7 +219,6 @@ MyArray XlfOper4::AsArray(const std::string& ErrorId,DoubleVectorConvPolicy poli
 	
 	return result;
 }
-*/
 
 /*!
 Attempts to convert the implict object to a vector of double. If pxlret is 
@@ -228,7 +227,6 @@ in this variable.
 
 \sa XlfOper4::ConvertToDoubleVector.
 */
-/*
 std::vector<double> XlfOper4::AsDoubleVector(DoubleVectorConvPolicy policy, int * pxlret) const
 {
   std::vector<double> v;
@@ -249,7 +247,7 @@ std::vector<double> XlfOper4::AsDoubleVector(const std::string& ErrorId, DoubleV
     ThrowOnError(xlret,ErrorId+" conversion to double vector");
   return v;
 }
-*/
+
 /*!
 Converts the data in the range in a vector of double according to the specified policy.
  
@@ -260,7 +258,6 @@ and xlretSuccess otherwise or whatever error occurs during coercing the data to 
  
 \sa DoubleVectorConvPolicy
 */
-/*
 int XlfOper4::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolicy policy) const
 {
 	if (lpxloper_->xltype == xltypeMissing)
@@ -306,17 +303,17 @@ int XlfOper4::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPoli
     {
       if (policy == RowMajor)
         // C-like dense matrix storage
-        xlret = ref(i,j).ConvertToDouble(v[i*nbCols+j]);
+        xlret = ref.element<XlfOper4>(i,j).ConvertToDouble(v[i*nbCols+j]);
       else
         // Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
-        xlret = ref(i,j).ConvertToDouble(v[j*nbRows+i]);
+        xlret = ref.element<XlfOper4>(i,j).ConvertToDouble(v[j*nbRows+i]);
       if (xlret != xlretSuccess)
         return xlret;
     }
   }
   return xlret;
 };
-*/
+
 /*!
 Attempts to convert the implict object to a short. If pxlret is not null
 the method won't throw and the Excel return code will be returned in this
@@ -429,7 +426,6 @@ in this variable.
 
 \sa XlfOper4::ConvertToMatrix.
 */
-/*
 MyMatrix XlfOper4::AsMatrix( int * pxlret) const
 {
   MyMatrix output; // will be resized anyway
@@ -451,12 +447,11 @@ MyMatrix XlfOper4::AsMatrix( const std::string& ErrorId, int * pxlret) const
     ThrowOnError(xlret,ErrorId+" conversion to matrix failed");
   return output;
 }
-*/
+
 /*! converts the XlfOper4 to a matrix, since if its a valid matrix
 its also a valid cellmatrix we convert to cell matrix first,
 note this necessitates passing as a P not an R
 */
-/*
 int XlfOper4::ConvertToMatrix(MyMatrix& value) const
 {
 	// deal with empty case first
@@ -484,7 +479,7 @@ int XlfOper4::ConvertToMatrix(MyMatrix& value) const
 
 	return xlretSuccess;
 }
-*/
+
 /*!
 Attempts to convert the implict object to a cell matrix. If pxlret is 
 not null the method won't throw and the Excel return code will be returned 
@@ -492,7 +487,6 @@ in this variable.
 
 \sa XlfOper4::ConvertToCellMatrix.
 */
-/*
 CellMatrix XlfOper4::AsCellMatrix( int * pxlret) const
 {
   CellMatrix output(1,1); // will be resized anyway
@@ -654,23 +648,23 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 	{
 		for (unsigned long j = 0; j < nbCols; ++j)
 		{
-			unsigned long type = ref(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper_->xltype;
+			unsigned long type = ref.element<XlfOper4>(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper_->xltype;
 
 			if (type == xltypeRef)
 			{
 				XlfRef xlrefij;
 
-				int xlretij = ref(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToRef(xlrefij);
+				int xlretij = ref.element<XlfOper4>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToRef(xlrefij);
 
 				if (xlretij != xlretSuccess)
 					return xlretij;
 
-				type = ref(0UL,0UL).lpxloper_->xltype;
+				type = ref.element<XlfOper4>(0UL,0UL).lpxloper_->xltype;
 
 				if (type == xltypeNum)
 				{
 					double tmp;
-					xlret = xlrefij(0UL,0UL).ConvertToDouble(tmp);
+					xlret = xlrefij.element<XlfOper4>(0UL,0UL).ConvertToDouble(tmp);
 
 					output(i,j) = tmp;
 
@@ -682,7 +676,7 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 					{
 						WORD tmp;
 
-						xlret = xlrefij(0UL,0UL).ConvertToErr(tmp);
+						xlret = xlrefij.element<XlfOper4>(0UL,0UL).ConvertToErr(tmp);
 
 						output(i,j) = CellValue(tmp,true);
 
@@ -694,7 +688,7 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 					{
 						bool tmp;
 
-						xlret = xlrefij(0UL,0UL).ConvertToBool(tmp);
+						xlret = xlrefij.element<XlfOper4>(0UL,0UL).ConvertToBool(tmp);
 
 						output(i,j) = tmp;
 
@@ -706,7 +700,7 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 						char* tmp;
 						if (type == xltypeStr || type == xltypeSRef)
 						{
-							xlret = xlrefij(0UL,0UL).ConvertToString(tmp);
+							xlret = xlrefij.element<XlfOper4>(0UL,0UL).ConvertToString(tmp);
 							output(i,j) = std::string(tmp);
 
 							if (xlret != xlretSuccess)
@@ -730,7 +724,7 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 				if (type == xltypeNum)
 				{
 					double tmp;
-					xlret = ref(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToDouble(tmp);
+					xlret = ref.element<XlfOper4>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToDouble(tmp);
 
 					output(i,j) = tmp;
 
@@ -742,7 +736,7 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 					char* tmp;
 					if (type == xltypeStr || type == xltypeSRef)
 					{
-						xlret = ref(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToString(tmp);
+						xlret = ref.element<XlfOper4>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToString(tmp);
 						output(i,j) = std::string(tmp);
 
 						if (xlret != xlretSuccess)
@@ -750,7 +744,7 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 					} 
 					else
 					{
-						if (ref(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper_->xltype != xltypeMissing)
+						if (ref.element<XlfOper4>(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper_->xltype != xltypeMissing)
 							return xlretInvXloper;
 
 					}
@@ -762,7 +756,7 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 	return xlret;
 
 }
-*/
+
 int XlfOper4::ConvertToErr(WORD& e) const throw()
 {
   int xlret;
@@ -819,7 +813,7 @@ char * XlfOper4::AsString(const std::string& ErrorId, int * pxlret) const
 	  ThrowOnError(xlret,ErrorId+" conversion to char* failed");
   return s;
 };
-// FIXME port bugfix from XlfOperImpl4::ConvertToString
+
 int XlfOper4::ConvertToString(char *& s) const throw()
 {
   int xlret;
@@ -858,7 +852,6 @@ variable.
 
 \sa XlfOper4::ConvertToRef.
 */
-/*
 XlfRef XlfOper4::AsRef(int * pxlret) const
 {
   XlfRef r;
@@ -901,7 +894,7 @@ int XlfOper4::ConvertToRef(XlfRef& r) const throw()
   }
   return xlret;
 }
-*/
+
 XlfOper4& XlfOper4::Set(const MyMatrix& values)
 {
 	if (values.rows() ==0 || values.columns() ==0)
@@ -1026,7 +1019,6 @@ XlfOper4& XlfOper4::Set(bool value)
 If no memory can be allocated on xlw internal buffer, the XlfOper4 is set
 to an invalid state and the XlfRef is not copied.
 */
-/*
 XlfOper4& XlfOper4::Set(const XlfRef& range)
 {
   if (lpxloper_)
@@ -1052,7 +1044,7 @@ XlfOper4& XlfOper4::Set(const XlfRef& range)
   }
   return *this;
 }
-*/
+
 /*!
 If no memory can be allocated on xlw internal buffer, the XlfOper4 is set
 to an invalid state and the string is not copied.

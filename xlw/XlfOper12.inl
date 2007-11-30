@@ -127,13 +127,11 @@ See XlfOper12::Set(const XlfRef&)
 
 \sa XlfRef
 */
-/*
 INLINE XlfOper12::XlfOper12(const XlfRef& range)
 {
   Allocate();
   Set(range);
 }
-*/
 
 /*!
 Unlike other XlfOper12, the return value is not allocated on the internal

@@ -1,5 +1,7 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -26,6 +28,7 @@
 #include <xlw/EXCEL32_API.h>
 #include <xlw/xlcall32.h>
 #include <xlw/XlfExcel.h>
+#include <xlw/XlfRef.h>
 #include <xlw/MyContainers.h>
 #include <vector>
 
@@ -37,7 +40,7 @@
 #pragma DEBUG_HEADERS
 #endif
 
-//class XlfRef;
+class XlfRef;
 class CellMatrix;
 
 //! Wrapper around a pointer to the XLOPER Excel data structure.
@@ -71,16 +74,16 @@ public:
   XlfOper4(bool value);
   //! 0 terminated chararcter string ctor.
   XlfOper4(const char *value);
-//!  string ctor.
+  //!  string ctor.
   XlfOper4(const std::string& value);
   //! CellMatrix ctor
   XlfOper4(const CellMatrix& value);
   //! MyMatrix ctor
   XlfOper4(const MyMatrix& value);
- //! MyArray ctor
+  //! MyArray ctor
   XlfOper4(const MyArray& value);
   //! XlfRef ctor.
-  //XlfOper4(const XlfRef& range);
+  XlfOper4(const XlfRef& range);
 #ifndef PORT_NO_MEMBER_TEMPLATE
   //! Container ctor.
   template <class FwdIt>
@@ -131,16 +134,16 @@ public:
   };
 
   //! Converts to a std::vector<double>.
-  //std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
-  //std::vector<double> AsDoubleVector(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  std::vector<double> AsDoubleVector(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
  
   //! Converts to an array.
-  //MyArray AsArray(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
-  //MyArray AsArray(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  MyArray AsArray(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  MyArray AsArray(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
 
   //! Converts to a short.
   short AsShort(int * pxlret = 0) const;
- //! Converts to a short with error identifer.
+  //! Converts to a short with error identifer.
   short AsShort(const std::string& ErrorId, int * pxlret = 0) const;
 
   //! Converts to a bool.
@@ -155,22 +158,22 @@ public:
 
   //! Converts to a char *.
   char * AsString(int * pxlret = 0) const;
- //! Converts to a char * with error identifer..
+  //! Converts to a char * with error identifer..
   char * AsString(const std::string& ErrorId,int * pxlret = 0) const;
 
   //! Converts to a cell Matrix
-  //CellMatrix AsCellMatrix( int * pxlret=0) const;
+  CellMatrix AsCellMatrix( int * pxlret=0) const;
   //! Converts to a cell Matrix with error identifer.
-  //CellMatrix AsCellMatrix( const std::string& ErrorId,int * pxlret=0) const;
+  CellMatrix AsCellMatrix( const std::string& ErrorId,int * pxlret=0) const;
  
   //! Converts to a matrix
-  //MyMatrix AsMatrix( int * pxlret=0) const;
+  MyMatrix AsMatrix( int * pxlret=0) const;
   //! Converts to a matrix with error identifer.
-  //MyMatrix AsMatrix( const std::string& ErrorId,int * pxlret=0) const;
+  MyMatrix AsMatrix( const std::string& ErrorId,int * pxlret=0) const;
 
 
   //! Converts to a XlfRef.
-  //XlfRef AsRef(int * pxlret = 0) const;
+  XlfRef AsRef(int * pxlret = 0) const;
 
   //! Gets the internal LPXLOPER.
   LPXLOPER GetLPXLOPER() const;
@@ -192,7 +195,7 @@ public:
   //! Set to an array
   XlfOper4& Set(const MyArray& values);
   //! Set to a range
-  //XlfOper4& Set(const XlfRef& range);
+  XlfOper4& Set(const XlfRef& range);
   //! Set to a short or error, bool for disambiguation
   XlfOper4& Set(short value, bool Error);
   //! Set to an error value
@@ -260,12 +263,12 @@ private:
   //! Attempts conversion to string and returns Excel4 error code.
   int ConvertToString(char *&) const throw();
   //! Attempts conversion to CellMatrix and returns Excel4 error code
-  //int ConvertToCellMatrix( CellMatrix& output) const;
+  int ConvertToCellMatrix( CellMatrix& output) const;
   //! Attempts conversion to Matrix and returns Excel4 error code
-  //int ConvertToMatrix( MyMatrix& output) const;
+  int ConvertToMatrix( MyMatrix& output) const;
 
   //! Attempts conversion to XlRef and returns Excel4 error code.
-  //int ConvertToRef(XlfRef&) const throw();
+  int ConvertToRef(XlfRef&) const throw();
   //! Attempts conversion to XlRef and returns Excel4 error code.
   int XlfOper4::ConvertToErr(WORD& e) const throw();
 

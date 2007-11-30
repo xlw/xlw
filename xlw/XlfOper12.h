@@ -28,6 +28,7 @@
 #include <xlw/EXCEL32_API.h>
 #include <xlw/xlcall32.h>
 #include <xlw/XlfExcel.h>
+#include <xlw/XlfRef.h>
 #include <xlw/MyContainers.h>
 #include <vector>
 
@@ -73,16 +74,16 @@ public:
   XlfOper12(bool value);
   //! 0 terminated chararcter string ctor.
   XlfOper12(const char *value);
-//!  string ctor.
+  //!  string ctor.
   XlfOper12(const std::string& value);
   //! CellMatrix ctor
   XlfOper12(const CellMatrix& value);
   //! MyMatrix ctor
   XlfOper12(const MyMatrix& value);
- //! MyArray ctor
+  //! MyArray ctor
   XlfOper12(const MyArray& value);
   //! XlfRef ctor.
-  //XlfOper12(const XlfRef& range);
+  XlfOper12(const XlfRef& range);
 #ifndef PORT_NO_MEMBER_TEMPLATE
   //! Container ctor.
   template <class FwdIt>
@@ -133,12 +134,12 @@ public:
   };
 
   //! Converts to a std::vector<double>.
-  //std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
-  //std::vector<double> AsDoubleVector(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  std::vector<double> AsDoubleVector(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
  
   //! Converts to an array.
-  //MyArray AsArray(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
-  //MyArray AsArray(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  MyArray AsArray(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+  MyArray AsArray(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
 
   //! Converts to a short.
   short AsShort(int * pxlret = 0) const;
@@ -161,18 +162,18 @@ public:
   char * AsString(const std::string& ErrorId,int * pxlret = 0) const;
 
   //! Converts to a cell Matrix
-  //CellMatrix AsCellMatrix( int * pxlret=0) const;
+  CellMatrix AsCellMatrix( int * pxlret=0) const;
   //! Converts to a cell Matrix with error identifer.
-  //CellMatrix AsCellMatrix( const std::string& ErrorId,int * pxlret=0) const;
+  CellMatrix AsCellMatrix( const std::string& ErrorId,int * pxlret=0) const;
  
   //! Converts to a matrix
-  //MyMatrix AsMatrix( int * pxlret=0) const;
+  MyMatrix AsMatrix( int * pxlret=0) const;
   //! Converts to a matrix with error identifer.
-  //MyMatrix AsMatrix( const std::string& ErrorId,int * pxlret=0) const;
+  MyMatrix AsMatrix( const std::string& ErrorId,int * pxlret=0) const;
 
 
   //! Converts to a XlfRef.
-  //XlfRef AsRef(int * pxlret = 0) const;
+  XlfRef AsRef(int * pxlret = 0) const;
 
   //! Gets the internal LPXLOPER12.
   LPXLOPER12 GetLPXLOPER() const;
@@ -194,7 +195,7 @@ public:
   //! Set to an array
   XlfOper12& Set(const MyArray& values);
   //! Set to a range
-  //XlfOper12& Set(const XlfRef& range);
+  XlfOper12& Set(const XlfRef& range);
   //! Set to a short or error, bool for disambiguation
   XlfOper12& Set(short value, bool Error);
   //! Set to an error value
@@ -262,12 +263,12 @@ private:
   //! Attempts conversion to string and returns Excel4 error code.
   int ConvertToString(char *&) const throw();
   //! Attempts conversion to CellMatrix and returns Excel4 error code
-  //int ConvertToCellMatrix( CellMatrix& output) const;
+  int ConvertToCellMatrix( CellMatrix& output) const;
   //! Attempts conversion to Matrix and returns Excel4 error code
-  //int ConvertToMatrix( MyMatrix& output) const;
+  int ConvertToMatrix( MyMatrix& output) const;
 
   //! Attempts conversion to XlRef and returns Excel4 error code.
-  //int ConvertToRef(XlfRef&) const throw();
+  int ConvertToRef(XlfRef&) const throw();
   //! Attempts conversion to XlRef and returns Excel4 error code.
   int XlfOper12::ConvertToErr(WORD& e) const throw();
 

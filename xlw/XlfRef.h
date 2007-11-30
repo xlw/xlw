@@ -1,5 +1,7 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -59,46 +61,56 @@ public:
   //! Default ctor.
   XlfRef();
   //! Absolute reference ctor.
-  XlfRef(WORD top, BYTE left, WORD bottom, BYTE right, DWORD sheetId = 0);
+  XlfRef(INT32 top, INT32 left, INT32 bottom, INT32 right, DWORD sheetId = 0);
   //! Absolute reference ctor, to a single cell.
-  XlfRef(WORD row, BYTE col, DWORD sheetId = 0);
+  XlfRef(INT32 row, INT32 col, DWORD sheetId = 0);
   //! Gets the first row of the range (0 based).
-  WORD GetRowBegin() const;
+  INT32 GetRowBegin() const;
   //! Gets passed the last row of the range (0 based).
-  WORD GetRowEnd() const;
+  INT32 GetRowEnd() const;
   //! Gets the first column of the range (0 based).
-  BYTE GetColBegin() const;
+  INT32 GetColBegin() const;
   //! Gets passed the last column of the range (0 based).
-  BYTE GetColEnd() const;
+  INT32 GetColEnd() const;
   //! Gets the number of columns.
-  BYTE GetNbCols() const;
+  INT32 GetNbCols() const;
   //! Gets the number of rows.
-  WORD GetNbRows() const;
+  INT32 GetNbRows() const;
   //! Gets MS Excel sheet identifier of the range.
   DWORD GetSheetId() const;
   //! Sets the first row of the range.
-  void SetRowBegin(WORD rowbegin);
+  void SetRowBegin(INT32 rowbegin);
   //! Sets passed the last row of the range.
-  void SetRowEnd(WORD rowend);
+  void SetRowEnd(INT32 rowend);
   //! Sets the first column of the range.
-  void SetColBegin(BYTE colbegin);
+  void SetColBegin(INT32 colbegin);
   //! Sets passed the last column of the range.
-  void SetColEnd(BYTE colend);
+  void SetColEnd(INT32 colend);
   //! Sets MS Excel sheet identifier of the range.
   void SetSheetId(DWORD);
   //! Access operator
-  XlfOper operator()(WORD relativerow, BYTE relativecol) const;
-  XlfOper operator()(size_t relativerow, size_t relativecol) const;
-  XlfOper operator()(unsigned long relativerow, unsigned long relativecol) const;
+  //XlfOper operator()(INT32 relativerow, INT32 relativecol) const;
+  template <class T>
+  T element(INT32 r, INT32 c) const {
+  #if !defined(NDEBUG)
+	if (rowbegin_ + r > rowend_ || colbegin_ + c > colend_)
+  {
+    std::cerr << "XlfRef access out of range" << std::endl;
+  }
+  #endif
+	T res;
+	res.Set(XlfRef(rowbegin_ + r, colbegin_ + c, sheetId_));
+	return res;
+  }
 private:
   //! Index of the top row of the range reference.
-  WORD rowbegin_;
+  INT32 rowbegin_;
   //! Index of one past the last row of the range reference.
-  WORD rowend_;
+  INT32 rowend_;
   //! Index of the left most column of the range reference.
-  BYTE colbegin_;
+  INT32 colbegin_;
   //! Index of one past the right most column of the range reference.
-  BYTE colend_;
+  INT32 colend_;
   //! Index of the sheet the reference is pointing to.
   DWORD sheetId_;
 };

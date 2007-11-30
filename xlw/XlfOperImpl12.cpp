@@ -198,10 +198,10 @@ int XlfOperImpl12::ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<dou
     {
       if (policy == RowMajor)
         // C-like dense matrix storage
-        xlret = ref(i,j).ConvertToDouble(v[i*nbCols+j]);
+        xlret = ref.element<XlfOper>(i,j).ConvertToDouble(v[i*nbCols+j]);
       else
         // Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
-        xlret = ref(i,j).ConvertToDouble(v[j*nbRows+i]);
+        xlret = ref.element<XlfOper>(i,j).ConvertToDouble(v[j*nbRows+i]);
       if (xlret != xlretSuccess)
         return xlret;
     }
@@ -423,23 +423,23 @@ int XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& outpu
 	{
 		for (unsigned long j = 0; j < nbCols; ++j)
 		{
-			unsigned long type = ref(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper12_->xltype;
+			unsigned long type = ref.element<XlfOper>(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper12_->xltype;
 
 			if (type == xltypeRef)
 			{
 				XlfRef xlrefij;
 
-				int xlretij = ref(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToRef(xlrefij);
+				int xlretij = ref.element<XlfOper>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToRef(xlrefij);
 
 				if (xlretij != xlretSuccess)
 					return xlretij;
 
-				type = ref(0UL,0UL).lpxloper12_->xltype;
+				type = ref.element<XlfOper>(0UL,0UL).lpxloper12_->xltype;
 
 				if (type == xltypeNum)
 				{
 					double tmp;
-					xlret = xlrefij(0UL,0UL).ConvertToDouble(tmp);
+					xlret = xlrefij.element<XlfOper>(0UL,0UL).ConvertToDouble(tmp);
 
 					output(i,j) = tmp;
 
@@ -451,7 +451,7 @@ int XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& outpu
 					{
 						WORD tmp;
 
-						xlret = xlrefij(0UL,0UL).ConvertToErr(tmp);
+						xlret = xlrefij.element<XlfOper>(0UL,0UL).ConvertToErr(tmp);
 
 						output(i,j) = CellValue(tmp,true);
 
@@ -463,7 +463,7 @@ int XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& outpu
 					{
 						bool tmp;
 
-						xlret = xlrefij(0UL,0UL).ConvertToBool(tmp);
+						xlret = xlrefij.element<XlfOper>(0UL,0UL).ConvertToBool(tmp);
 
 						output(i,j) = tmp;
 
@@ -475,7 +475,7 @@ int XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& outpu
 						char* tmp;
 						if (type == xltypeStr || type == xltypeSRef)
 						{
-							xlret = xlrefij(0UL,0UL).ConvertToString(tmp);
+							xlret = xlrefij.element<XlfOper>(0UL,0UL).ConvertToString(tmp);
 							output(i,j) = std::string(tmp);
 
 							if (xlret != xlretSuccess)
@@ -496,7 +496,7 @@ int XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& outpu
 				if (type == xltypeNum)
 				{
 					double tmp;
-					xlret = ref(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToDouble(tmp);
+					xlret = ref.element<XlfOper>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToDouble(tmp);
 
 					output(i,j) = tmp;
 
@@ -508,7 +508,7 @@ int XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& outpu
 					char* tmp;
 					if (type == xltypeStr || type == xltypeSRef)
 					{
-						xlret = ref(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToString(tmp);
+						xlret = ref.element<XlfOper>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToString(tmp);
 						output(i,j) = std::string(tmp);
 
 						if (xlret != xlretSuccess)
@@ -516,7 +516,7 @@ int XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& outpu
 					} 
 					else
 					{
-						if (ref(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper12_->xltype != xltypeMissing)
+						if (ref.element<XlfOper>(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper12_->xltype != xltypeMissing)
 							return xlretInvXloper;
 
 					}

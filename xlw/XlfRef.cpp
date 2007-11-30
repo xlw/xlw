@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -37,25 +38,15 @@
 /*!
 \note In debug build, generates a message if the request is in the range.
 */
-XlfOper XlfRef::operator()(WORD r, BYTE c) const
-{
-#if !defined(NDEBUG)
-	if (rowbegin_ + r > rowend_ || colbegin_ + c > colend_)
-  {
-    std::cerr << "XlfRef access out of range" << std::endl;
-  }
-#endif
-	XlfOper res;
-	res.Set(XlfRef(rowbegin_ + r, colbegin_ + c, sheetId_));
-	return res;
-}
-  
-XlfOper XlfRef::operator()(size_t relativerow, size_t relativecol) const
-{
-	return operator()(static_cast<WORD>(relativerow),static_cast<BYTE>(relativecol));
-}
-
-XlfOper XlfRef::operator()(unsigned long relativerow, unsigned long relativecol) const
-{
-	return operator()(static_cast<WORD>(relativerow),static_cast<BYTE>(relativecol));
-}
+//XlfOper XlfRef::operator()(INT32 r, INT32 c) const
+//{
+//#if !defined(NDEBUG)
+//	if (rowbegin_ + r > rowend_ || colbegin_ + c > colend_)
+//  {
+//    std::cerr << "XlfRef access out of range" << std::endl;
+//  }
+//#endif
+//	XlfOper res;
+//	res.Set(XlfRef(rowbegin_ + r, colbegin_ + c, sheetId_));
+//	return res;
+//}
