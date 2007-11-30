@@ -562,8 +562,7 @@ int XlfOperImpl12::ConvertToString(const XlfOper &xlfOper, char *& s) const thro
 
   if (xlfOper.lpxloper12_->xltype & xltypeStr)
   {
-    BYTE nB = xlfOper.lpxloper12_->val.str[0]; // to make numbers bigger than 128 behave properly
-    size_t n = static_cast<size_t>(nB);
+    size_t n = xlfOper.lpxloper12_->val.str[0];
     s = XlfExcel::Instance().GetMemory(n + 1);
     wcstombs(s, xlfOper.lpxloper12_->val.str + 1, n);
     s[n] = 0;
@@ -754,7 +753,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const char *value) const
     if (xlfOper.lpxloper12_->val.str) {
         xlfOper.lpxloper12_->xltype = xltypeStr;
         mbstowcs(xlfOper.lpxloper12_->val.str + 1, value, len);
-        xlfOper.lpxloper12_->val.str[0] = (BYTE)len;
+        xlfOper.lpxloper12_->val.str[0] = len;
     } else {
         xlfOper.lpxloper12_ = 0;
     }
@@ -769,7 +768,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const std::wstring &value) const
     xlfOper.lpxloper12_->xltype = xltypeStr;
     xlfOper.lpxloper12_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory((value.length()+1)*2);
     wcsncpy(xlfOper.lpxloper12_->val.str + 1, value.c_str(), value.length());
-    xlfOper.lpxloper12_->val.str[0] = (BYTE)value.length();
+    xlfOper.lpxloper12_->val.str[0] = value.length();
   }
   return xlfOper;
 }
