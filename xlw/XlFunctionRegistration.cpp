@@ -30,19 +30,17 @@ XLFunctionRegistrationData::XLFunctionRegistrationData(const std::string& Functi
                      const std::string& FunctionDescription_,
                      const std::string& Library_,
                      const Arg Arguments[],
-                     const char* ArgumentTypes_,
+                     int NoOfArguments_,
 					 bool Volatile_,
 					 bool Threadsafe_)
 	:				FunctionName(FunctionName_),
                      ExcelFunctionName(ExcelFunctionName_),
                      FunctionDescription(FunctionDescription_),
                      Library(Library_),
-                     ArgumentTypes(ArgumentTypes_),
+                     NoOfArguments(NoOfArguments_),
 					 Volatile(Volatile_),
 					 Threadsafe(Threadsafe_)
 {
-
-	NoOfArguments =static_cast<int>(ArgumentTypes.size());
 
 	ArgumentNames.reserve(NoOfArguments);
 	ArgumentDescriptions.reserve(NoOfArguments);
@@ -51,6 +49,7 @@ XLFunctionRegistrationData::XLFunctionRegistrationData(const std::string& Functi
 	{
 		ArgumentNames.push_back(Arguments[i].ArgumentName);
 		ArgumentDescriptions.push_back(Arguments[i].ArgumentDescription);
+		ArgumentTypes.push_back(Arguments[i].ArgumentType);
 	}
 }
 
@@ -87,7 +86,7 @@ std::vector<std::string> XLFunctionRegistrationData::GetArgumentDescriptions() c
 	return ArgumentDescriptions;
 }
 
-std::string XLFunctionRegistrationData::GetArgumentTypes() const
+std::vector<std::string> XLFunctionRegistrationData::GetArgumentTypes() const
 { 
 	return ArgumentTypes;
 }
@@ -98,7 +97,7 @@ XLFunctionRegistrationHelper::XLFunctionRegistrationHelper(const std::string& Fu
                      const std::string& FunctionDescription,
                      const std::string& Library,
                      const Arg Args[],
-                     const char* Types,
+                     int NoOfArguments,
 					 bool Volatile,
 					 bool Threadsafe)
 {
@@ -106,8 +105,8 @@ XLFunctionRegistrationHelper::XLFunctionRegistrationHelper(const std::string& Fu
 																ExcelFunctionName, 
 																FunctionDescription, 
 																Library, 
-																Args, 
-																Types,
+																Args,
+                                                                NoOfArguments,
 																Volatile,
 																Threadsafe);
 

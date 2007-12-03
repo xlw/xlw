@@ -105,7 +105,7 @@ int XlfFuncDesc::DoUnregister(const std::string& dllName) const
 
   XlfArgDescList arguments = GetArguments();
   size_t nbargs = arguments.size();
-	std::string args("R");
+	std::string args(XlfArgDesc::XlfOperType());
 	std::string argnames;
 
 	XlfArgDescList::const_iterator it = arguments.begin();
@@ -131,11 +131,11 @@ int XlfFuncDesc::DoUnregister(const std::string& dllName) const
 int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* funcId) const
 {
 
-  // alias arguments
-  XlfArgDescList& arguments = impl_->arguments_;
+    // alias arguments
+    XlfArgDescList& arguments = impl_->arguments_;
 
-  size_t nbargs = arguments.size();
-	std::string args("P");
+    size_t nbargs = arguments.size();
+    std::string args(XlfArgDesc::XlfOperType());
 	std::string argnames;
 
 	XlfArgDescList::const_iterator it = arguments.begin();
@@ -153,7 +153,6 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
 		args+="!";
         offset++;
 	}
-    // FIXME - Excel 2007 support - temporary hack - to be replaced by proper solution
     if (XlfExcel::Instance().excel12() && impl_->Threadsafe_)
     {
 	    args+="$";
@@ -165,13 +164,6 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
 
 	LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
 	LPXLOPER *px = rgx;
-    // FIXME - Excel 2007 support - temporary hack - to be replaced by proper solution
-    if (XlfExcel::Instance().excel12()) {
-        for (unsigned int i=0; i<args.length(); i++) {
-            if (args[i] == 'P') args[i] = 'Q';
-            if (args[i] == 'R') args[i] = 'U';
-        }
-    }
 	(*px++) = XlfOper4(dllName.c_str());
 	(*px++) = XlfOper4(GetName().c_str());
 	(*px++) = XlfOper4(args.c_str());

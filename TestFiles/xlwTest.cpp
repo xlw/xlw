@@ -46,7 +46,7 @@ registerEmptyArgFunction("xlEmptyArgFunction",
 " tests empty args ",
 LibraryName,
 EmptyArgFunctionArgs,
-""
+0
 ,false
 );
 }
@@ -80,7 +80,7 @@ namespace
 XLRegistration::Arg
 EchoShortArgs[]=
 {
-{ "x"," number to be echoed "}
+{ "x"," number to be echoed ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoShort("xlEchoShort",
@@ -88,7 +88,7 @@ registerEchoShort("xlEchoShort",
 " echoes a short ",
 LibraryName,
 EchoShortArgs,
-"P"
+1
 ,false
 );
 }
@@ -129,7 +129,7 @@ namespace
 XLRegistration::Arg
 EchoMatArgs[]=
 {
-{ "Echoee"," argument to be echoed "}
+{ "Echoee"," argument to be echoed ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoMat("xlEchoMat",
@@ -137,7 +137,7 @@ registerEchoMat("xlEchoMat",
 " echoes a matrix ",
 LibraryName,
 EchoMatArgs,
-"P"
+1
 ,false
 );
 }
@@ -178,7 +178,7 @@ namespace
 XLRegistration::Arg
 EchoMatrixArgs[]=
 {
-{ "Echoee"," argument to be echoed "}
+{ "Echoee"," argument to be echoed ","K"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoMatrix("xlEchoMatrix",
@@ -186,7 +186,7 @@ registerEchoMatrix("xlEchoMatrix",
 " echoes a matrix ",
 LibraryName,
 EchoMatrixArgs,
-"K"
+1
 ,false
 );
 }
@@ -225,7 +225,7 @@ namespace
 XLRegistration::Arg
 EchoArrayArgs[]=
 {
-{ "Echoee"," argument to be echoed "}
+{ "Echoee"," argument to be echoed ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoArray("xlEchoArray",
@@ -233,7 +233,7 @@ registerEchoArray("xlEchoArray",
 " echoes an array ",
 LibraryName,
 EchoArrayArgs,
-"P"
+1
 ,false
 );
 }
@@ -274,7 +274,7 @@ namespace
 XLRegistration::Arg
 EchoCellsArgs[]=
 {
-{ "Echoee"," argument to be echoed "}
+{ "Echoee"," argument to be echoed ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoCells("xlEchoCells",
@@ -282,7 +282,7 @@ registerEchoCells("xlEchoCells",
 " echoes a cell matrix ",
 LibraryName,
 EchoCellsArgs,
-"P"
+1
 ,false
 );
 }
@@ -330,7 +330,7 @@ namespace
 XLRegistration::Arg
 CircArgs[]=
 {
-{ "Diameter","the circle's diameter "}
+{ "Diameter","the circle's diameter ","B"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerCirc("xlCirc",
@@ -338,7 +338,7 @@ registerCirc("xlCirc",
 " computes the circumference of a circle ",
 LibraryName,
 CircArgs,
-"B"
+1
 ,false
 );
 }
@@ -382,8 +382,8 @@ namespace
 XLRegistration::Arg
 ConcatArgs[]=
 {
-{ "str1"," first string "},
-{ "str2","second string "}
+{ "str1"," first string ","XLFOPER"},
+{ "str2","second string ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerConcat("xlConcat",
@@ -391,7 +391,7 @@ registerConcat("xlConcat",
 " Concatenates two strings ",
 LibraryName,
 ConcatArgs,
-"PP"
+2
 ,false
 );
 }
@@ -446,7 +446,7 @@ namespace
 XLRegistration::Arg
 StatsArgs[]=
 {
-{ "data"," input for computation "}
+{ "data"," input for computation ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerStats("xlStats",
@@ -454,7 +454,7 @@ registerStats("xlStats",
 " computes mean and variance of a range ",
 LibraryName,
 StatsArgs,
-"P"
+1
 ,false
 );
 }
@@ -502,7 +502,7 @@ namespace
 XLRegistration::Arg
 HelloWorldAgainArgs[]=
 {
-{ "name"," name to be echoed "}
+{ "name"," name to be echoed ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerHelloWorldAgain("xlHelloWorldAgain",
@@ -510,7 +510,7 @@ registerHelloWorldAgain("xlHelloWorldAgain",
 " says hello name ",
 LibraryName,
 HelloWorldAgainArgs,
-"P"
+1
 ,false
 );
 }
@@ -558,7 +558,7 @@ namespace
 XLRegistration::Arg
 EchoULArgs[]=
 {
-{ "b"," number to echo "}
+{ "b"," number to echo ","B"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoUL("xlEchoUL",
@@ -566,7 +566,7 @@ registerEchoUL("xlEchoUL",
 " echoes an unsigned long ",
 LibraryName,
 EchoULArgs,
-"B"
+1
 ,false
 );
 }
@@ -612,7 +612,7 @@ namespace
 XLRegistration::Arg
 EchoIntArgs[]=
 {
-{ "b"," number to echo "}
+{ "b"," number to echo ","B"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoInt("xlEchoInt",
@@ -620,7 +620,7 @@ registerEchoInt("xlEchoInt",
 " echoes an int ",
 LibraryName,
 EchoIntArgs,
-"B"
+1
 ,false
 );
 }
@@ -666,8 +666,8 @@ namespace
 XLRegistration::Arg
 EchoDoubleOrNothingArgs[]=
 {
-{ "x"," value to specify "},
-{ "defaultValue"," value to use if not specified "}
+{ "x"," value to specify ","XLFOPER"},
+{ "defaultValue"," value to use if not specified ","B"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoDoubleOrNothing("xlEchoDoubleOrNothing",
@@ -675,7 +675,7 @@ registerEchoDoubleOrNothing("xlEchoDoubleOrNothing",
 " tests DoubleOrNothingType ",
 LibraryName,
 EchoDoubleOrNothingArgs,
-"PB"
+2
 ,false
 );
 }
@@ -728,7 +728,7 @@ namespace
 XLRegistration::Arg
 EchoArgListArgs[]=
 {
-{ "args"," arguments to echo "}
+{ "args"," arguments to echo ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoArgList("xlEchoArgList",
@@ -736,7 +736,7 @@ registerEchoArgList("xlEchoArgList",
 " echoes arg list ",
 LibraryName,
 EchoArgListArgs,
-"P"
+1
 ,false
 );
 }
@@ -786,7 +786,7 @@ namespace
 XLRegistration::Arg
 SystemTimeArgs[]=
 {
-{ "ticksPerSecond"," number to divide by "}
+{ "ticksPerSecond"," number to divide by ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerSystemTime("xlSystemTime",
@@ -794,7 +794,7 @@ registerSystemTime("xlSystemTime",
 " system clock ",
 LibraryName,
 SystemTimeArgs,
-"P"
+1
 ,true
 );
 }
@@ -844,8 +844,8 @@ namespace
 XLRegistration::Arg
 PayOffEvaluationArgs[]=
 {
-{ "PayOffTable"," table for payoff "},
-{ "Spot"," point for evaluation "}
+{ "PayOffTable"," table for payoff ","XLFOPER"},
+{ "Spot"," point for evaluation ","B"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerPayOffEvaluation("xlPayOffEvaluation",
@@ -853,7 +853,7 @@ registerPayOffEvaluation("xlPayOffEvaluation",
 " evaluate pay--off ",
 LibraryName,
 PayOffEvaluationArgs,
-"PB"
+2
 ,false
 );
 }
@@ -908,7 +908,7 @@ namespace
 XLRegistration::Arg
 ContainsErrorArgs[]=
 {
-{ "input"," data to check for errors "}
+{ "input"," data to check for errors ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerContainsError("xlContainsError",
@@ -916,7 +916,7 @@ registerContainsError("xlContainsError",
 " checks to see if there's an error ",
 LibraryName,
 ContainsErrorArgs,
-"P"
+1
 ,false
 );
 }
@@ -957,7 +957,7 @@ namespace
 XLRegistration::Arg
 ContainsDivByZeroArgs[]=
 {
-{ "input"," data to check for errors "}
+{ "input"," data to check for errors ","XLFOPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerContainsDivByZero("xlContainsDivByZero",
@@ -965,7 +965,7 @@ registerContainsDivByZero("xlContainsDivByZero",
 " checks to see if there's a div by zero ",
 LibraryName,
 ContainsDivByZeroArgs,
-"P"
+1
 ,false
 );
 }
@@ -1014,7 +1014,7 @@ registerGetThreadId("xlGetThreadId",
 " returns ID of current execution thread ",
 LibraryName,
 GetThreadIdArgs,
-""
+0
 ,false
 ,true
 );

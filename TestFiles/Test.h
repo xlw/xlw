@@ -83,7 +83,6 @@ CellMatrix // echoes arg list
 EchoArgList( ArgumentList args  // arguments to echo
 	 );
 
-
 double // system clock
 //<xlw:volatile
 //<xlw:time

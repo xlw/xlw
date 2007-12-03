@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -46,7 +47,7 @@ public:
   //! Default ctor.
   XlfArgDesc();
   //! Detailed ctor.
-  XlfArgDesc(const std::string& name, const std::string& comment, char type='R');
+  XlfArgDesc(const std::string& name, const std::string& comment, const std::string& type="R");
   //! Dtor
   ~XlfArgDesc();
   //! Set the name of the argument
@@ -58,7 +59,9 @@ public:
   //! Get the comment string
   const std::string& GetComment() const;
   //! Get the argument type
-  char GetType() const;
+  std::string GetType() const;
+
+  static std::string XlfOperType();
 
 private:
   //! Name of the argument as it appears in Excel,
@@ -66,7 +69,7 @@ private:
   //! Comment line associated to the comment (appears in function wizard).
   std::string comment_;
   //! Type of the argument (see Excel documentation).
-  char type_;
+  std::string type_;
   //! Controls the name is valid to be used properly by the function wizard.
   void CheckNameLength();
   //! Controls that the comment associated to the argument ends is not truncated.

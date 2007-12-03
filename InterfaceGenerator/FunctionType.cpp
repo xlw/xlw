@@ -1,5 +1,7 @@
+
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -21,7 +23,7 @@
 #include "FunctionType.h"
 #include "TypeRegister.h"
 
-void CheckAndGetType(char& c, 
+void CheckAndGetType(std::string& c, 
 					 std::vector<std::string>& ConversionChain, 
 					 std::string className)
 {
@@ -40,7 +42,7 @@ void CheckAndGetType(char& c,
 	if (key.size() == 0)
 			throw("excel key not given  "+className);
 
-	c = key[0];
+	c = key;
 
 	return;
 }
@@ -52,7 +54,7 @@ std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input
 
 	while (it != input.end())
 	{
-		char key;
+        std::string key;
 		std::vector<std::string> conversionString;
 		std::string returnType = it->GetReturnType();
 		CheckAndGetType(key,conversionString,returnType);
@@ -62,7 +64,7 @@ std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input
 		std::vector<FunctionArgument> Arguments;
 		for (unsigned long i=0; i < it->GetNumberArgs(); i++)
 		{
-			char thisKey;
+			std::string thisKey;
 			std::vector<std::string> thisConversionString;
 			std::string thisType = it->GetArgumentReturnType(i);
 			CheckAndGetType(thisKey,thisConversionString,thisType);

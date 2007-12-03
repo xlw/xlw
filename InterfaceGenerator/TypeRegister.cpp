@@ -1,5 +1,7 @@
+
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -64,7 +66,7 @@ bool TypeRegistry::IsOfBaseType(const std::string & id) const
 	if (id =="LPXLOPER")
 		return true;
 
-	if (id =="LPXLFOPER")//FIXME
+	if (id =="LPXLFOPER")//Excel12 changes
 		return true;
 
 	if (id == "double")

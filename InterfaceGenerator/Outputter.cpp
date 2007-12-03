@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007 Eric Ehlers
@@ -22,6 +23,7 @@
 #include "Outputter.h"
 #include "TypeRegister.h"
 #include "IncludeRegister.h"
+#include <sstream>
 
 void PushBack(std::string& str, char c)
 {
@@ -83,7 +85,7 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 	for (unsigned long i=0; i < functionDescriptions.size(); i++)
 	{
 		std::string name = functionDescriptions[i].GetFunctionName();
-		std::string keys;
+		//std::string keys;
 		AddLine(output,"namespace");
 		AddLine(output,"{");
     
@@ -94,12 +96,14 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
     
 		{for (unsigned long j=0; j < functionDescriptions[i].NumberOfArguments(); j++)
 		{
-			PushBack(keys,functionDescriptions[i].GetArgument(j).GetTheType().GetEXCELKey());
+			//PushBack(keys,functionDescriptions[i].GetArgument(j).GetTheType().GetEXCELKey());
 			std::string thisLine = "{ \"";
 			thisLine+= functionDescriptions[i].GetArgument(j).GetArgumentName();
 			thisLine+= "\",\"";
 			thisLine+= functionDescriptions[i].GetArgument(j).GetArgumentDescription();
-			thisLine+=" \"}";
+			thisLine+= " \",\"";
+			thisLine+= functionDescriptions[i].GetArgument(j).GetTheType().GetEXCELKey();
+			thisLine+="\"}";
 
 		if (j+1< functionDescriptions[i].NumberOfArguments())
 			thisLine+=",";
@@ -113,6 +117,8 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 		AddLine(output,"};");
 		// ok arg list is now set up
     
+        std::ostringstream s;
+        s << functionDescriptions[i].NumberOfArguments();
 
 	    AddLine(output,"  XLRegistration::XLFunctionRegistrationHelper"); 
         AddLine(output,"register"+name+"(\"xl"+name+"\",");
@@ -120,7 +126,8 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
 		AddLine(output,"\""+ functionDescriptions[i].GetFunctionDescription()+" \",");
 		AddLine(output, "LibraryName,");
         AddLine(output,name+"Args,");
-		AddLine(output,"\""+keys+"\"");
+        AddLine(output,s.str());
+		//AddLine(output,"\""+keys+"\"");
 		if ( functionDescriptions[i].GetVolatile())
 			AddLine(output,",true");
         else

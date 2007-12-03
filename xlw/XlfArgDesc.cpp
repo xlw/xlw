@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -23,12 +24,21 @@
 
 #include <xlw/XlfArgDesc.h>
 #include <xlw/defines.h>
+#include <xlw/XlfExcel.h>
 #include <iostream>
 
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop
 #endif
+
+std::string XlfArgDesc::XlfOperType() {
+    if (XlfExcel::Instance().excel12()) {
+        return "Q";
+    } else {
+        return "P";
+    }
+}
 
 void XlfArgDesc::CheckNameLength()
 {
@@ -58,7 +68,7 @@ Note that B stands for double or date, I for 16 bits integer, J for
 */
 XlfArgDesc::XlfArgDesc(const std::string& name,
                        const std::string& comment,
-                       char type)
+                       const std::string& type)
     : name_(name), comment_(comment), type_(type)
 {
   CheckNameLength();
@@ -90,8 +100,12 @@ const std::string& XlfArgDesc::GetComment() const
   return comment_;
 }
 
-char XlfArgDesc::GetType() const
+std::string XlfArgDesc::GetType() const
 {
-  return type_;
+    if (type_ == "XLFOPER") {
+        return XlfOperType();
+    } else {
+        return type_;
+    }
 }
 

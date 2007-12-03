@@ -5,6 +5,7 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -60,7 +61,7 @@ TypeRegistry::Helper shortreg("short", // new type
 			   true, // is a method
 			   true, // takes identifier
 			   //"R" // should be empty unless OldType is XlfOper
-			   "P" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
 			   );
 
 /* we are passing doubles now directly rather than via LPXLOPERs
@@ -79,7 +80,7 @@ TypeRegistry::Helper arrayreg("MyArray", // new type
 			   true, // is a method
 			   true, // takes identifier
 			   //"R" // should be empty unless OldType is XlfOper
-			   "P" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
 			   );
 
 
@@ -88,7 +89,7 @@ TypeRegistry::Helper matrixreg("MyMatrix", // new type
 			   "AsMatrix", // converter name
 			   true, // is a method
 			   true, // takes identifier
-			   "P" // should be empty unless OldType is XlfOper
+			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
 			   );
 
 TypeRegistry::Helper cellsreg("CellMatrix", // new type
@@ -96,7 +97,7 @@ TypeRegistry::Helper cellsreg("CellMatrix", // new type
 			   "AsCellMatrix", // converter name
 			   true, // is a method
 			   true, // takes identifier
-			   "P" // should be empty unless OldType is XlfOper
+			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
 			   );
 
 TypeRegistry::Helper stringreg("string", // new type
@@ -105,7 +106,7 @@ TypeRegistry::Helper stringreg("string", // new type
 			   true, // is a method
 			   true, // takes identifier
 			   //"R" // should be empty unless OldType is XlfOper
-			   "P" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
 			   );
 
 TypeRegistry::Helper sstringreg("std::string", // new type
@@ -114,7 +115,7 @@ TypeRegistry::Helper sstringreg("std::string", // new type
 			   true, // is a method
 			   true, // takes identifier
 			   //"R" // should be empty unless OldType is XlfOper
-			   "P" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
 			   );
 
 
@@ -124,7 +125,7 @@ TypeRegistry::Helper boolreg("bool", // new type
 			   true, // is a method
 			   true, // takes identifier
 			   //"R" // should be empty unless OldType is XlfOper
-			   "P" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
 			   );
 
 // extended types

@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007 Eric Ehlers
@@ -24,7 +25,7 @@
 namespace XLRegistration
 {
 
-struct Arg { const char * ArgumentName; const char * ArgumentDescription; };
+struct Arg { const char * ArgumentName; const char * ArgumentDescription; const char * ArgumentType; };
 
 class XLFunctionRegistrationData
 {
@@ -34,7 +35,7 @@ public:
                      const std::string& FunctionDescription_,
                      const std::string& Library_,
                      const Arg Arguments[],
-                     const char* ArgumentTypes_,
+                     int NoOfArguments_,
 					 bool Volatile_=false,
 					 bool Threadsafe_=false); 
 
@@ -45,7 +46,7 @@ public:
 	int GetNoOfArguments() const;
 	std::vector<std::string> GetArgumentNames() const;
 	std::vector<std::string> GetArgumentDescriptions() const;
-	std::string GetArgumentTypes() const;
+	std::vector<std::string> GetArgumentTypes() const;
 
 	bool GetVolatile() const
 	{
@@ -66,7 +67,7 @@ private:
 	int NoOfArguments;
 	std::vector<std::string> ArgumentNames;
 	std::vector<std::string> ArgumentDescriptions;
-	std::string ArgumentTypes;
+	std::vector<std::string> ArgumentTypes;
 	bool Volatile;
 	bool Threadsafe;
 
@@ -82,7 +83,7 @@ public:
                      const std::string& FunctionDescription,
                      const std::string& Library,
                      const Arg Args[],
-                     const char* Types,
+                     int NoOfArguments,
 					 bool Volatile=false,
 					 bool Threadsafe=false); 
   
