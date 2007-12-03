@@ -280,6 +280,45 @@ int XlfOper4::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPoli
 		}
 	}
 
+	if (lpxloper_->xltype & xltypeMulti)
+	{
+        size_t nbRows = lpxloper_->val.array.rows;
+        size_t nbCols = lpxloper_->val.array.columns;
+
+        bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
+        if (policy == UniDimensional && ! isUniDimRange)
+            // not a vector we return a failure
+            return xlretFailed;
+
+        size_t n = nbRows*nbCols;
+        v.resize(n);
+
+        for (size_t i = 0; i < nbRows; ++i)
+        {
+            for (size_t j = 0; j < nbCols; ++j)
+            {
+                size_t index;
+                if (policy == RowMajor)
+                    // C-like dense matrix storage
+                    index = i*nbCols+j;
+                else
+                    // Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
+                    index = j*nbRows+i;
+
+                unsigned long thisType = (*lpxloper_).val.array.lparray[i*nbCols+j].xltype;
+                if (thisType == xltypeNum)
+                {
+                    v[index] = (*lpxloper_).val.array.lparray[i*nbCols+j].val.num;
+                }
+                else
+                {
+                    v[index] = XlfOper(&(*lpxloper_).val.array.lparray[i*nbCols+j]).AsDouble();
+                }
+            }
+        }
+        return xlretSuccess;
+	}
+
   XlfRef ref;
 
   int xlret = ConvertToRef(ref);
@@ -654,6 +693,8 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 			{
 				XlfRef xlrefij;
 
+                // FIXME possible bug?  This line calls XlfOper::element(), which constructs an Xloper from an XlfRef.
+                // The result returned to variable "type" is always xltypeRef and that value is not catered for below.
 				int xlretij = ref.element<XlfOper4>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToRef(xlrefij);
 
 				if (xlretij != xlretSuccess)

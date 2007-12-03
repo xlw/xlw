@@ -233,7 +233,7 @@ registerEchoArray("xlEchoArray",
 " echoes an array ",
 LibraryName,
 EchoArrayArgs,
-"R"
+"P"
 ,false
 );
 }
@@ -454,7 +454,7 @@ registerStats("xlStats",
 " computes mean and variance of a range ",
 LibraryName,
 StatsArgs,
-"R"
+"P"
 ,false
 );
 }

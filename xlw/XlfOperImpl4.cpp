@@ -176,6 +176,47 @@ int XlfOperImpl4::ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<doub
 		}
 	}
 
+	if (xlfOper.lpxloper4_->xltype & xltypeMulti)
+	{
+        size_t nbRows = xlfOper.lpxloper4_->val.array.rows;
+        size_t nbCols = xlfOper.lpxloper4_->val.array.columns;
+
+        bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
+        if (policy == UniDimensional && ! isUniDimRange)
+            // not a vector we return a failure
+            return xlretFailed;
+
+        size_t n = nbRows*nbCols;
+        v.resize(n);
+
+        for (size_t i = 0; i < nbRows; ++i)
+        {
+            for (size_t j = 0; j < nbCols; ++j)
+            {
+                size_t index;
+                if (policy == RowMajor)
+                    // C-like dense matrix storage
+                    index = i*nbCols+j;
+                else
+                    // Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
+                    index = j*nbRows+i;
+
+                unsigned long thisType = (*xlfOper.lpxloper4_).val.array.lparray[i*nbCols+j].xltype;
+                if (thisType == xltypeNum)
+                {
+                    v[index] = (*xlfOper.lpxloper4_).val.array.lparray[i*nbCols+j].val.num;
+                }
+                else
+                {
+                    int xlret =  XlfOper(&(*xlfOper.lpxloper4_).val.array.lparray[i*nbCols+j]).ConvertToDouble(v[index]);
+                    if (xlret != xlretSuccess)
+                        return xlret;
+                }
+            }
+        }
+        return xlretSuccess;
+	}
+
   XlfRef ref;
 
   int xlret = ConvertToRef(xlfOper, ref);
@@ -435,6 +476,8 @@ int XlfOperImpl4::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& output
 				if (xlretij != xlretSuccess)
 					return xlretij;
 
+                // FIXME possible bug?  This line calls XlfOper::element(), which constructs an Xloper from an XlfRef.
+                // The result returned to variable "type" is always xltypeRef and that value is not catered for below.
 				type = ref.element<XlfOper>(0UL,0UL).lpxloper4_->xltype;
 
 				if (type == xltypeNum)
