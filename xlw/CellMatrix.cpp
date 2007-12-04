@@ -5,6 +5,7 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -60,8 +61,8 @@ bool CellValue::IsEmpty() const
 
 CellValue::operator std::string() const
 {
-	//if (Type != string)
-	if (Type != string && Type != wstring)
+	if (Type != string)
+	//if (Type != string && Type != wstring)
 		throw("non string cell asked to be a string");
 	return ValueAsString;
 
@@ -69,7 +70,8 @@ CellValue::operator std::string() const
 
 CellValue::operator std::wstring() const
 {
-	if (Type != string && Type != wstring)
+	if (Type != wstring)
+	//if (Type != string && Type != wstring)
 		throw("non string cell asked to be a string");
 	return ValueAsWstring;
 
@@ -159,12 +161,22 @@ ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false),
 {
 }
 
-const std::string& CellValue::StringValue() const
+//const std::string& CellValue::StringValue() const
+//{
+//	if (Type != string)
+//	//if (Type != string && Type != wstring)
+//		throw("non string cell asked to be a string");
+//	return ValueAsString;
+//}
+std::string CellValue::StringValue() const
 {
-	if (Type != string)
-	//if (Type != string && Type != wstring)
+    if (Type == string) {
+	    return ValueAsString;
+    } else if (Type == wstring) {
+        return std::string(ValueAsWstring.begin(), ValueAsWstring.end());
+    } else {
 		throw("non string cell asked to be a string");
-	return ValueAsString;
+    }
 }
 const std::wstring& CellValue::WstringValue() const
 {
@@ -173,6 +185,7 @@ const std::wstring& CellValue::WstringValue() const
 		throw("non wstring cell asked to be a wstring");
 	return ValueAsWstring;
 }
+
 double CellValue::NumericValue() const
 {
 	
@@ -242,6 +255,10 @@ CellMatrix::CellMatrix(double x): Cells(1), Rows(1), Columns(1)
 	Cells[0].push_back(CellValue(x));
 }
 CellMatrix::CellMatrix(std::string x): Cells(1), Rows(1), Columns(1)
+{
+	Cells[0].push_back(CellValue(x));
+}
+CellMatrix::CellMatrix(std::wstring x): Cells(1), Rows(1), Columns(1)
 {
 	Cells[0].push_back(CellValue(x));
 }

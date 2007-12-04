@@ -1,6 +1,5 @@
 
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -15,31 +14,33 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-// $Id$
 
-#ifndef INC_Excel32_H
-#define INC_Excel32_H
+#ifndef INC_XlfStr_H
+#define INC_XlfStr_H
 
 /*!
-\file xlw.h
-\brief Includes all the include files of the package.
+\file XlfStr.h
+\brief Declares the XlfStr class.
 */
 
-// Package files
-#include <xlw/macros.h>
-#include <xlw/defines.h>
-#include <xlw/XlfArgDescList.h>
-#include <xlw/XlfCmdDesc.h>
-#include <xlw/XlfOper.h>
-#include <xlw/XlfFuncDesc.h>
-#include <xlw/XlfOper.h>
-#include <xlw/XlfRef.h>
-#include <xlw/CellMatrix.h>
-#include <xlw/XlfStr.h>
+// $Id: XlfRef.h 395 2007-11-30 15:36:29Z ericehlers $
 
-#ifdef PORT_PRAGMA_ONCE
+#include <xlw/EXCEL32_API.h>
+#include <xlw/xlcall32.h>
+#include <string>
+
+#if defined(_MSC_VER)
 #pragma once
 #endif
+
+//! Experimental treatment of long strings for Excel 2007.
+/*!
+xxx
+*/
+
+typedef void* XLWSTR;
+
+std::wstring voidToWstr(XLWSTR xlwstr);
 
 #endif
 

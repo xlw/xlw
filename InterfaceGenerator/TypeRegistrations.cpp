@@ -32,7 +32,7 @@ namespace
 
 TypeRegistry::Helper XlfOperReg("XlfOper", // new type
 			   //"LPXLOPER", // old type
-			   "LPXLFOPER", // old type
+			   "LPXLFOPER", // old type - Excel12 changes
 			   "", // converter name, we just pass into the constructor as a declaration
 			   false, // is a method
 			   false // takes identifier
@@ -60,8 +60,10 @@ TypeRegistry::Helper shortreg("short", // new type
 			   "AsShort", // converter name
 			   true, // is a method
 			   true, // takes identifier
+               // Excel12 changes - XLF_OPER is a dummy parameter code which at runtime is interpreted
+               // by class XlfArgDesc as P (OPER) or Q (OPER12) depending on Excel version detected.
 			   //"R" // should be empty unless OldType is XlfOper
-			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
 /* we are passing doubles now directly rather than via LPXLOPERs
@@ -79,8 +81,10 @@ TypeRegistry::Helper arrayreg("MyArray", // new type
 			   "AsArray", // converter name
 			   true, // is a method
 			   true, // takes identifier
+               // Excel12 changes - XLF_OPER is a dummy parameter code which at runtime is interpreted
+               // by class XlfArgDesc as P (OPER) or Q (OPER12) depending on Excel version detected.
 			   //"R" // should be empty unless OldType is XlfOper
-			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
 
@@ -89,7 +93,10 @@ TypeRegistry::Helper matrixreg("MyMatrix", // new type
 			   "AsMatrix", // converter name
 			   true, // is a method
 			   true, // takes identifier
-			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
+               // Excel12 changes - XLF_OPER is a dummy parameter code which at runtime is interpreted
+               // by class XlfArgDesc as P (OPER) or Q (OPER12) depending on Excel version detected.
+			   //"P" // should be empty unless OldType is XlfOper
+			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
 TypeRegistry::Helper cellsreg("CellMatrix", // new type
@@ -97,7 +104,10 @@ TypeRegistry::Helper cellsreg("CellMatrix", // new type
 			   "AsCellMatrix", // converter name
 			   true, // is a method
 			   true, // takes identifier
-			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
+               // Excel12 changes - XLF_OPER is a dummy parameter code which at runtime is interpreted
+               // by class XlfArgDesc as P (OPER) or Q (OPER12) depending on Excel version detected.
+			   //"P" // should be empty unless OldType is XlfOper
+			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
 TypeRegistry::Helper stringreg("string", // new type
@@ -105,8 +115,10 @@ TypeRegistry::Helper stringreg("string", // new type
 			   "AsString", // converter name
 			   true, // is a method
 			   true, // takes identifier
+               // Excel12 changes - XLF_OPER is a dummy parameter code which at runtime is interpreted
+               // by class XlfArgDesc as P (OPER) or Q (OPER12) depending on Excel version detected.
 			   //"R" // should be empty unless OldType is XlfOper
-			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
 TypeRegistry::Helper sstringreg("std::string", // new type
@@ -114,18 +126,32 @@ TypeRegistry::Helper sstringreg("std::string", // new type
 			   "AsString", // converter name
 			   true, // is a method
 			   true, // takes identifier
+               // Excel12 changes - XLF_OPER is a dummy parameter code which at runtime is interpreted
+               // by class XlfArgDesc as P (OPER) or Q (OPER12) depending on Excel version detected.
 			   //"R" // should be empty unless OldType is XlfOper
-			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
+// A test for Excel 12 - special treatment of std::wstring
+TypeRegistry::Helper swstringreg("XLWSTR", // new type - a typedef to void*
+			   "XLWSTR", // old type
+			   "", // converter name
+			   false, // is a method
+			   false, // takes identifier
+               // XLW_WSTR is a dummy parameter code which at runtime is interpreted
+               // by class XlfArgDesc as C (char*) or C% (wchar_t*) depending on Excel version detected.
+			   "XLW_WSTR" // should be empty unless OldType is XlfOper 
+			   );
 
 TypeRegistry::Helper boolreg("bool", // new type
 			   "XlfOper", // old type
 			   "AsBool", // converter name
 			   true, // is a method
 			   true, // takes identifier
+               // Excel12 changes - XLF_OPER is a dummy parameter code which at runtime is interpreted
+               // by class XlfArgDesc as P (OPER) or Q (OPER12) depending on Excel version detected.
 			   //"R" // should be empty unless OldType is XlfOper
-			   "XLFOPER" // should be empty unless OldType is XlfOper // Excel12 changes
+			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
 // extended types
@@ -141,6 +167,15 @@ TypeRegistry::Helper ULreg("unsigned long", // new type
 TypeRegistry::Helper intreg("int", // new type
 			   "double", // old type
 			   "static_cast<int>", // converter name
+			   false, // is a method
+			   false 
+			   );
+
+
+// A test for Excel 12 - special treatment of std::wstring
+TypeRegistry::Helper intreg2("std::wstring", // new type
+			   "XLWSTR", // old type
+			   "voidToWstr", // converter name
 			   false, // is a method
 			   false 
 			   );

@@ -1,6 +1,5 @@
 
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -15,31 +14,32 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-// $Id$
-
-#ifndef INC_Excel32_H
-#define INC_Excel32_H
-
 /*!
-\file xlw.h
-\brief Includes all the include files of the package.
+\file XlfStr.cpp
+\brief Implements the XlfStr class.
 */
 
-// Package files
-#include <xlw/macros.h>
-#include <xlw/defines.h>
-#include <xlw/XlfArgDescList.h>
-#include <xlw/XlfCmdDesc.h>
-#include <xlw/XlfOper.h>
-#include <xlw/XlfFuncDesc.h>
-#include <xlw/XlfOper.h>
-#include <xlw/XlfRef.h>
-#include <xlw/CellMatrix.h>
+// $Id: XlfRef.cpp 395 2007-11-30 15:36:29Z ericehlers $
+
 #include <xlw/XlfStr.h>
+#include <xlw/XlfExcel.h>
 
-#ifdef PORT_PRAGMA_ONCE
-#pragma once
+// Stop header precompilation
+#ifdef _MSC_VER
+#pragma hdrstop
 #endif
 
-#endif
+std::wstring voidToWstr(XLWSTR xlwstr) {
+    if (XlfExcel::Instance().excel12()) {
+        return std::wstring(static_cast<wchar_t*>(xlwstr));
+    } else {
+        char *c = static_cast<char*>(xlwstr);
+        size_t len = strlen(c)*2+2;
+        wchar_t *w = new wchar_t[len];
+        mbstowcs(w, c, len);
+        std::wstring ret(w);
+        delete[] w;
+        return ret;
+    }
+}
 

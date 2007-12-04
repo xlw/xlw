@@ -5,6 +5,7 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -48,8 +49,10 @@ public:
 
     CellValue();
 
-    const std::string& StringValue() const;
+    //const std::string& StringValue() const;
+    std::string StringValue() const;
     const std::wstring& WstringValue() const;
+    const char* CharPtrValue() const;
     double NumericValue() const;
 	bool BooleanValue() const;
 	unsigned long ErrorValue() const;
@@ -91,6 +94,7 @@ public:
 	CellMatrix();
 	CellMatrix(double x);
 	CellMatrix(std::string x);
+	CellMatrix(std::wstring x);
 	CellMatrix(const char* x);
 	CellMatrix(const MyArray& data);
 	CellMatrix(const MyMatrix& data);

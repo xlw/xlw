@@ -147,20 +147,16 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
 		if (it != arguments.end())
 			argnames+=", ";
 	}
-    int offset = 1;
 	if (impl_->recalcPolicy_ == XlfFuncDesc::Volatile)
 	{
 		args+="!";
-        offset++;
 	}
     if (XlfExcel::Instance().excel12() && impl_->Threadsafe_)
     {
 	    args+="$";
-        offset++;
     }
 
-    args+=" "; // make string longer so next line doesn't cause memory violation
-	args[nbargs + offset] = 0;
+    args+='\0'; // null termination for C string
 
 	LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
 	LPXLOPER *px = rgx;

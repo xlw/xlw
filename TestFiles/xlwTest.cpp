@@ -80,7 +80,7 @@ namespace
 XLRegistration::Arg
 EchoShortArgs[]=
 {
-{ "x"," number to be echoed ","XLFOPER"}
+{ "x"," number to be echoed ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoShort("xlEchoShort",
@@ -129,7 +129,7 @@ namespace
 XLRegistration::Arg
 EchoMatArgs[]=
 {
-{ "Echoee"," argument to be echoed ","XLFOPER"}
+{ "Echoee"," argument to be echoed ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoMat("xlEchoMat",
@@ -225,7 +225,7 @@ namespace
 XLRegistration::Arg
 EchoArrayArgs[]=
 {
-{ "Echoee"," argument to be echoed ","XLFOPER"}
+{ "Echoee"," argument to be echoed ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoArray("xlEchoArray",
@@ -274,7 +274,7 @@ namespace
 XLRegistration::Arg
 EchoCellsArgs[]=
 {
-{ "Echoee"," argument to be echoed ","XLFOPER"}
+{ "Echoee"," argument to be echoed ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoCells("xlEchoCells",
@@ -382,8 +382,8 @@ namespace
 XLRegistration::Arg
 ConcatArgs[]=
 {
-{ "str1"," first string ","XLFOPER"},
-{ "str2","second string ","XLFOPER"}
+{ "str1"," first string ","XLW_WSTR"},
+{ "str2","second string ","XLW_WSTR"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerConcat("xlConcat",
@@ -402,26 +402,22 @@ extern "C"
 {
 LPXLFOPER EXCEL_EXPORT
 xlConcat(
-LPXLFOPER str1a,
-LPXLFOPER str2a)
+XLWSTR str1a,
+XLWSTR str2a)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper str1b(
-	(str1a));
-std::string str1(
-	str1b.AsString("str1"));
+std::wstring str1(
+	voidToWstr(str1a));
 
-XlfOper str2b(
-	(str2a));
-std::string str2(
-	str2b.AsString("str2"));
+std::wstring str2(
+	voidToWstr(str2a));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
-std::string result(
+std::wstring result(
 	Concat(
 		str1,
 		str2)
@@ -446,7 +442,7 @@ namespace
 XLRegistration::Arg
 StatsArgs[]=
 {
-{ "data"," input for computation ","XLFOPER"}
+{ "data"," input for computation ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerStats("xlStats",
@@ -502,7 +498,7 @@ namespace
 XLRegistration::Arg
 HelloWorldAgainArgs[]=
 {
-{ "name"," name to be echoed ","XLFOPER"}
+{ "name"," name to be echoed ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerHelloWorldAgain("xlHelloWorldAgain",
@@ -666,7 +662,7 @@ namespace
 XLRegistration::Arg
 EchoDoubleOrNothingArgs[]=
 {
-{ "x"," value to specify ","XLFOPER"},
+{ "x"," value to specify ","XLF_OPER"},
 { "defaultValue"," value to use if not specified ","B"}
 };
   XLRegistration::XLFunctionRegistrationHelper
@@ -728,7 +724,7 @@ namespace
 XLRegistration::Arg
 EchoArgListArgs[]=
 {
-{ "args"," arguments to echo ","XLFOPER"}
+{ "args"," arguments to echo ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerEchoArgList("xlEchoArgList",
@@ -786,7 +782,7 @@ namespace
 XLRegistration::Arg
 SystemTimeArgs[]=
 {
-{ "ticksPerSecond"," number to divide by ","XLFOPER"}
+{ "ticksPerSecond"," number to divide by ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerSystemTime("xlSystemTime",
@@ -844,7 +840,7 @@ namespace
 XLRegistration::Arg
 PayOffEvaluationArgs[]=
 {
-{ "PayOffTable"," table for payoff ","XLFOPER"},
+{ "PayOffTable"," table for payoff ","XLF_OPER"},
 { "Spot"," point for evaluation ","B"}
 };
   XLRegistration::XLFunctionRegistrationHelper
@@ -908,7 +904,7 @@ namespace
 XLRegistration::Arg
 ContainsErrorArgs[]=
 {
-{ "input"," data to check for errors ","XLFOPER"}
+{ "input"," data to check for errors ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerContainsError("xlContainsError",
@@ -957,7 +953,7 @@ namespace
 XLRegistration::Arg
 ContainsDivByZeroArgs[]=
 {
-{ "input"," data to check for errors ","XLFOPER"}
+{ "input"," data to check for errors ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerContainsDivByZero("xlContainsDivByZero",

@@ -245,7 +245,6 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -259,6 +258,10 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfStr.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\xlw\XlFunctionRegistration.cpp"
@@ -436,6 +439,10 @@
 			</File>
 			<File
 				RelativePath="..\xlw\XlfRef.inl"
+				>
+			</File>
+			<File
+				RelativePath="..\xlw\XlfStr.h"
 				>
 			</File>
 			<File

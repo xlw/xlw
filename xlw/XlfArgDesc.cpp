@@ -102,8 +102,14 @@ const std::string& XlfArgDesc::GetComment() const
 
 std::string XlfArgDesc::GetType() const
 {
-    if (type_ == "XLFOPER") {
+    if (type_ == "XLF_OPER") {
         return XlfOperType();
+    } else if (type_ == "XLW_WSTR") {
+        if (XlfExcel::Instance().excel12()) {
+            return "C%";
+        } else {
+            return "C";
+        }
     } else {
         return type_;
     }

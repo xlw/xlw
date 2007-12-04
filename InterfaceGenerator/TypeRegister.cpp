@@ -69,6 +69,9 @@ bool TypeRegistry::IsOfBaseType(const std::string & id) const
 	if (id =="LPXLFOPER")//Excel12 changes
 		return true;
 
+	if (id =="XLWSTR")//Excel12 changes
+		return true;
+
 	if (id == "double")
 		return true;
 

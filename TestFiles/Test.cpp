@@ -70,9 +70,9 @@ Circ(double Diameter //the circle's diameter
 }
 
 
-std::string Concat(std::string str1, std::string str2)
+std::wstring Concat(std::wstring str1, std::wstring str2)
   {
-    std::string ret = str1+str2;
+    std::wstring ret = str1+str2;
     return ret;
   }
 

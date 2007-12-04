@@ -43,13 +43,12 @@ double // computes the circumference of a circle
 Circ(double Diameter //the circle's diameter
 			);
 
-
-std::string // Concatenates two strings
+std::wstring // Concatenates two strings
 //<xlw:time
-Concat(std::string str1 // first string
-	   , std::string str2 //second string
+Concat(std::wstring str1 // first string
+	   , std::wstring str2 //second string
 	   );
- 
+
 MyArray // computes mean and variance of a range
 //<xlw:time
 Stats(const MyArray& data // input for computation
