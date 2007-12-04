@@ -173,7 +173,7 @@ TypeRegistry::Helper intreg("int", // new type
 
 
 // A test for Excel 12 - special treatment of std::wstring
-TypeRegistry::Helper intreg2("std::wstring", // new type
+TypeRegistry::Helper wstrreg("std::wstring", // new type
 			   "XLWSTR", // old type
 			   "voidToWstr", // converter name
 			   false, // is a method
