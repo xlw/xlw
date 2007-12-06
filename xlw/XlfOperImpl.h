@@ -151,6 +151,9 @@ public:
     //! Attempts conversion to XlRef and returns Excel4 error code.
     virtual int ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw() = 0;
 
+    virtual DWORD xltype(const XlfOper &xlfOper) const = 0;
+    virtual bool IsRef(const XlfOper &xlfOper) const = 0;
+
 private:
 
     static XlfOperImpl *instance_;

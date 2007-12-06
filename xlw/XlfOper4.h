@@ -228,6 +228,9 @@ public:
 #endif
 #endif
 
+    WORD xltype() const;
+    bool IsRef() const;
+
 private:
   //! Internal LPXLOPER.
   LPXLOPER lpxloper_;

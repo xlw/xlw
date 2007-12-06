@@ -866,3 +866,18 @@ LPXLFOPER XlfOperImpl12::GetLPXLFOPER(const XlfOper &xlfOper) const
 {
   return xlfOper.lpxloper12_;
 }
+
+DWORD XlfOperImpl12::xltype(const XlfOper &xlfOper) const {
+    if (xlfOper.lpxloper12_)
+        return xlfOper.lpxloper12_->xltype;
+    else
+        return 0;
+}
+
+bool XlfOperImpl12::IsRef(const XlfOper &xlfOper) const {
+  if (xlfOper.lpxloper12_)
+    return xlfOper.lpxloper12_->xltype & xltypeRef;
+  else
+    return false;
+}
+

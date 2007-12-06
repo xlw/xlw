@@ -179,6 +179,9 @@ public:
     //! Cast to LPXLFOPER
     operator LPXLFOPER() { return XlfOperImpl::instance().operator_LPXLFOPER(*this); }
 
+    DWORD xltype() const { return XlfOperImpl::instance().xltype(*this); }
+    bool IsRef() const { return XlfOperImpl::instance().IsRef(*this); }
+
 private:
 
     //! Internal LPXLOPER.

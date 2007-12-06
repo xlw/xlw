@@ -1188,3 +1188,17 @@ int XlfOper12::ThrowOnError(int xlret, const std::string& Identifier) const
   return xlret;
 }
 
+DWORD XlfOper12::xltype() const {
+    if (lpxloper_)
+        return lpxloper_->xltype;
+    else
+        return 0;
+}
+
+bool XlfOper12::IsRef() const {
+  if (lpxloper_)
+    return lpxloper_->xltype & xltypeRef;
+  else
+    return false;
+}
+

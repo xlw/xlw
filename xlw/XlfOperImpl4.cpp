@@ -887,3 +887,18 @@ LPXLFOPER XlfOperImpl4::GetLPXLFOPER(const XlfOper &xlfOper) const
 {
   return xlfOper.lpxloper4_;
 }
+
+DWORD XlfOperImpl4::xltype(const XlfOper &xlfOper) const {
+    if (xlfOper.lpxloper4_)
+        return xlfOper.lpxloper4_->xltype;
+    else
+        return 0;
+}
+
+bool XlfOperImpl4::IsRef(const XlfOper &xlfOper) const {
+  if (xlfOper.lpxloper4_)
+    return xlfOper.lpxloper4_->xltype & xltypeRef;
+  else
+    return false;
+}
+
