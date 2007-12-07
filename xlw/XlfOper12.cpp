@@ -1194,11 +1194,3 @@ DWORD XlfOper12::xltype() const {
     else
         return 0;
 }
-
-bool XlfOper12::IsRef() const {
-  if (lpxloper_)
-    return lpxloper_->xltype & xltypeRef;
-  else
-    return false;
-}
-

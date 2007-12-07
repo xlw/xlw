@@ -174,12 +174,52 @@ INLINE XlfOper4::operator LPXLOPER()
 
 INLINE bool XlfOper4::IsMissing() const
 {
-  return lpxloper_->xltype == xltypeMissing;
+  return lpxloper_->xltype & xltypeMissing;
 }
 
 INLINE bool XlfOper4::IsError() const
 {
-  return lpxloper_->xltype == xltypeErr;
+  return lpxloper_->xltype & xltypeErr;
+}
+
+INLINE bool XlfOper4::IsRef() const
+{
+  return lpxloper_->xltype & xltypeRef;
+}
+
+INLINE bool XlfOper4::IsSRef() const
+{
+  return lpxloper_->xltype & xltypeSRef;
+}
+
+INLINE bool XlfOper4::IsMulti() const
+{
+  return lpxloper_->xltype & xltypeMulti;
+}
+
+INLINE bool XlfOper4::IsNumber() const
+{
+  return lpxloper_->xltype & xltypeNum;
+}
+
+INLINE bool XlfOper4::IsString() const
+{
+  return lpxloper_->xltype & xltypeStr;
+}
+
+INLINE bool XlfOper4::IsNil() const
+{
+  return lpxloper_->xltype & xltypeNil;
+}
+
+INLINE bool XlfOper4::IsBool() const
+{
+  return lpxloper_->xltype & xltypeBool;
+}
+
+INLINE bool XlfOper4::IsInt() const
+{
+  return lpxloper_->xltype & xltypeInt;
 }
 
 /*!

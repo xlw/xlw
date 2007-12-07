@@ -75,6 +75,22 @@ public:
     virtual bool IsMissing(const XlfOper &xlfOper) const = 0;
     //! Is the data an error ?
     virtual bool IsError(const XlfOper &xlfOper) const = 0;
+    //! Is the data a reference ?
+    virtual bool IsRef(const XlfOper &xlfOper) const = 0;
+    //! Is the data a sheet reference ?
+    virtual bool IsSRef(const XlfOper &xlfOper) const = 0;
+    //! Is the data an array ?
+    virtual bool IsMulti(const XlfOper &xlfOper) const = 0;
+    //! Is the data a number ?
+    virtual bool IsNumber(const XlfOper &xlfOper) const = 0;
+    //! Is the data a string ?
+    virtual bool IsString(const XlfOper &xlfOper) const = 0;
+    //! Is the data a null value ?
+    virtual bool IsNil(const XlfOper &xlfOper) const = 0;
+    //! Is the data a boolean ?
+    virtual bool IsBool(const XlfOper &xlfOper) const = 0;
+    //! Is the data an integer ?
+    virtual bool IsInt(const XlfOper &xlfOper) const = 0;
 
     //! Lets the user choose how to convert a range in a vector<double>
     /*!
@@ -152,7 +168,6 @@ public:
     virtual int ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw() = 0;
 
     virtual DWORD xltype(const XlfOper &xlfOper) const = 0;
-    virtual bool IsRef(const XlfOper &xlfOper) const = 0;
 
 private:
 

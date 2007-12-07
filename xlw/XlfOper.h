@@ -97,6 +97,22 @@ public:
     bool IsMissing() const { return XlfOperImpl::instance().IsMissing(*this); }
     //! Is the data an error ?
     bool IsError() const { return XlfOperImpl::instance().IsError(*this); }
+    //! Is the data a reference ?
+    bool IsRef() const { return XlfOperImpl::instance().IsRef(*this); }
+    //! Is the data a sheet reference ?
+    bool IsSRef() const { return XlfOperImpl::instance().IsRef(*this); }
+    //! Is the data an array ?
+    bool IsMulti() const { return XlfOperImpl::instance().IsRef(*this); }
+    //! Is the data a number ?
+    bool IsNumber() const { return XlfOperImpl::instance().IsNumber(*this); }
+    //! Is the data a string ?
+    bool IsString() const { return XlfOperImpl::instance().IsString(*this); }
+    //! Is the data a null value ?
+    bool IsNil() const { return XlfOperImpl::instance().IsNil(*this); }
+    //! Is the data a boolean ?
+    bool IsBool() const { return XlfOperImpl::instance().IsBool(*this); }
+    //! Is the data an integer ?
+    bool IsInt() const { return XlfOperImpl::instance().IsInt(*this); }
 
     //! Converts to a double.
     double AsDouble(int *pxlret = 0) const;
@@ -180,7 +196,6 @@ public:
     operator LPXLFOPER() { return XlfOperImpl::instance().operator_LPXLFOPER(*this); }
 
     DWORD xltype() const { return XlfOperImpl::instance().xltype(*this); }
-    bool IsRef() const { return XlfOperImpl::instance().IsRef(*this); }
 
 private:
 

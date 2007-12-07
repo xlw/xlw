@@ -875,12 +875,52 @@ LPXLFOPER XlfOperImpl4::operator_LPXLFOPER(const XlfOper &xlfOper) const
 
 bool XlfOperImpl4::IsMissing(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype == xltypeMissing;
+  return xlfOper.lpxloper4_->xltype & xltypeMissing;
 }
 
 bool XlfOperImpl4::IsError(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype == xltypeErr;
+  return xlfOper.lpxloper4_->xltype & xltypeErr;
+}
+
+bool XlfOperImpl4::IsRef(const XlfOper &xlfOper) const
+{
+  return xlfOper.lpxloper4_->xltype & xltypeRef;
+}
+
+bool XlfOperImpl4::IsSRef(const XlfOper &xlfOper) const
+{
+  return xlfOper.lpxloper4_->xltype & xltypeSRef;
+}
+
+bool XlfOperImpl4::IsMulti(const XlfOper &xlfOper) const
+{
+  return xlfOper.lpxloper4_->xltype & xltypeMulti;
+}
+
+bool XlfOperImpl4::IsNumber(const XlfOper &xlfOper) const
+{
+  return xlfOper.lpxloper4_->xltype & xltypeNum;
+}
+
+bool XlfOperImpl4::IsString(const XlfOper &xlfOper) const
+{
+  return xlfOper.lpxloper4_->xltype & xltypeStr;
+}
+
+bool XlfOperImpl4::IsNil(const XlfOper &xlfOper) const
+{
+  return xlfOper.lpxloper4_->xltype & xltypeNil;
+}
+
+bool XlfOperImpl4::IsBool(const XlfOper &xlfOper) const
+{
+  return xlfOper.lpxloper4_->xltype & xltypeBool;
+}
+
+bool XlfOperImpl4::IsInt(const XlfOper &xlfOper) const
+{
+  return xlfOper.lpxloper4_->xltype & xltypeInt;
 }
 
 LPXLFOPER XlfOperImpl4::GetLPXLFOPER(const XlfOper &xlfOper) const
@@ -894,11 +934,3 @@ DWORD XlfOperImpl4::xltype(const XlfOper &xlfOper) const {
     else
         return 0;
 }
-
-bool XlfOperImpl4::IsRef(const XlfOper &xlfOper) const {
-  if (xlfOper.lpxloper4_)
-    return xlfOper.lpxloper4_->xltype & xltypeRef;
-  else
-    return false;
-}
-

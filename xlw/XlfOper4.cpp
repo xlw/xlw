@@ -1212,11 +1212,3 @@ WORD XlfOper4::xltype() const {
   else
     return 0;
 }
-
-bool XlfOper4::IsRef() const {
-  if (lpxloper_)
-    return lpxloper_->xltype & xltypeRef;
-  else
-    return false;
-}
-

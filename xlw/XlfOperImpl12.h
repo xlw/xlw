@@ -62,6 +62,22 @@ private:
     virtual bool IsMissing(const XlfOper &xlfOper) const;
     //! Is the data an error ?
     virtual bool IsError(const XlfOper &xlfOper) const;
+    //! Is the data a reference ?
+    virtual bool IsRef(const XlfOper &xlfOper) const;
+    //! Is the data a sheet reference ?
+    virtual bool IsSRef(const XlfOper &xlfOper) const;
+    //! Is the data an array ?
+    virtual bool IsMulti(const XlfOper &xlfOper) const;
+    //! Is the data a number ?
+    virtual bool IsNumber(const XlfOper &xlfOper) const;
+    //! Is the data a string ?
+    virtual bool IsString(const XlfOper &xlfOper) const;
+    //! Is the data a null value ?
+    virtual bool IsNil(const XlfOper &xlfOper) const;
+    //! Is the data a boolean ?
+    virtual bool IsBool(const XlfOper &xlfOper) const;
+    //! Is the data an integer ?
+    virtual bool IsInt(const XlfOper &xlfOper) const;
 
     //! Gets the internal LPXLFOPER.
     virtual LPXLFOPER GetLPXLFOPER(const XlfOper &xlfOper) const;
@@ -122,7 +138,6 @@ private:
     virtual int ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw();
 
     virtual DWORD xltype(const XlfOper &xlfOper) const;
-    virtual bool IsRef(const XlfOper &xlfOper) const;
 };
 
 #endif

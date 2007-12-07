@@ -110,6 +110,22 @@ public:
   bool IsMissing() const;
   //! Is the data an error ?
   bool IsError() const;
+  //! Is the data a reference ?
+  bool IsRef() const;
+  //! Is the data a sheet reference ?
+  bool IsSRef() const;
+  //! Is the data an array ?
+  bool IsMulti() const;
+  //! Is the data a number ?
+  bool IsNumber() const;
+  //! Is the data a string ?
+  bool IsString() const;
+  //! Is the data a null value ?
+  bool IsNil() const;
+  //! Is the data a boolean ?
+  bool IsBool() const;
+  //! Is the data an integer ?
+  bool IsInt() const;
 
   //! Converts to a double.
   double AsDouble(int * pxlret = 0) const;
@@ -229,7 +245,6 @@ public:
 #endif
 
     WORD xltype() const;
-    bool IsRef() const;
 
 private:
   //! Internal LPXLOPER.
