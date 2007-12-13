@@ -25,6 +25,7 @@
 #include <string>
 #include <vector>
 #include <xlw/MyContainers.h>
+#include <xlw/XlfOper.h>
 
 class CellValue
 {
@@ -34,6 +35,7 @@ public:
     bool IsAWstring() const;
     bool IsANumber() const;
   	bool IsBoolean() const;
+  	bool IsXlfOper() const;
 	bool IsError() const;
 
     bool IsEmpty() const;
@@ -44,6 +46,8 @@ public:
     CellValue(double Number);
 	CellValue(unsigned long Code, bool Error=false); //Error = true if you want an error code
 	CellValue(bool TrueFalse);
+	CellValue(const XlfOper &xlfOper);
+	CellValue(XlfOper&);
 	CellValue(const char* values);
 	CellValue(int i);
 
@@ -55,6 +59,7 @@ public:
     const char* CharPtrValue() const;
     double NumericValue() const;
 	bool BooleanValue() const;
+    const XlfOper &XlfOperValue() const;
 	unsigned long ErrorValue() const;
 
 	std::string StringValueLowerCase() const;
@@ -62,12 +67,13 @@ public:
 
 	enum ValueType 
 	{
-		string, wstring, number, boolean, error, empty
+		string, wstring, number, boolean, xlfoper, error, empty
 	};
 
 	operator std::string() const;
 	operator std::wstring() const;
 	operator bool() const;
+	operator XlfOper() const;
 	operator double() const;
 	operator unsigned long() const;
 
@@ -81,6 +87,7 @@ private:
     std::wstring ValueAsWstring;
     double ValueAsNumeric;
 	bool ValueAsBool;
+    XlfOper ValueAsXlfOper;
 	unsigned long ValueAsErrorCode;
 
 

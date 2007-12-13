@@ -48,6 +48,11 @@ bool CellValue::IsBoolean() const
 	return Type == boolean;
 }
 
+bool CellValue::IsXlfOper() const
+{
+	return Type == xlfoper;
+}
+
 bool CellValue::IsError() const
 {
 	return Type == error;
@@ -76,7 +81,7 @@ CellValue::operator std::wstring() const
 	return ValueAsWstring;
 
 }
-	
+
 CellValue::operator bool() const
 {
 	if (Type != boolean)
@@ -84,6 +89,12 @@ CellValue::operator bool() const
 	return ValueAsBool;
 }
 
+CellValue::operator XlfOper() const
+{
+	if (Type != xlfoper)
+		throw("non xlfoper cell asked to be a xlfoper");
+	return ValueAsXlfOper;
+}
 
 CellValue::operator double() const
 {
@@ -109,41 +120,42 @@ void CellValue::clear()
 	ValueAsWstring=L"";
 	ValueAsNumeric=0.0;
 	ValueAsBool=false;
+    ValueAsXlfOper=XlfOper();
 	ValueAsErrorCode=0;
 }
 
 
 CellValue::CellValue(const std::string& value) : Type(CellValue::string), 
-ValueAsString(value), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(value), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
 
 CellValue::CellValue(const std::wstring& value) : Type(CellValue::wstring), 
-ValueAsString(""), ValueAsWstring(value), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(""), ValueAsWstring(value), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
 
 CellValue::CellValue(const char* value) : Type(CellValue::string), 
-ValueAsString(value), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(value), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
 CellValue::CellValue(double Number): Type(CellValue::number), 
-ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(Number), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(Number), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
 
 CellValue::CellValue(int i): Type(CellValue::number), 
-ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(i), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(i), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
 
 CellValue::CellValue(unsigned long Code, bool Error): Type(error), 
-ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(Code), ValueAsBool(false), ValueAsErrorCode(Code)
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(Code), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(Code)
 {
 	if (!Error)
 		Type = number;
@@ -153,11 +165,17 @@ CellValue::CellValue(bool TrueFalse)
  : Type(CellValue::boolean), 
 ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(TrueFalse), ValueAsErrorCode(0)
 {
+}
+
+CellValue::CellValue(const XlfOper &xlfOper)
+ : Type(CellValue::xlfoper), 
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(xlfOper), ValueAsErrorCode(0)
+{
 
 }
 
 CellValue::CellValue(): Type(CellValue::empty), 
-ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsErrorCode(0)
+ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 }
 
@@ -193,6 +211,7 @@ double CellValue::NumericValue() const
 		throw("non number cell asked to be a number");
 	return ValueAsNumeric;
 }
+
 bool CellValue::BooleanValue() const
 {
 	
@@ -201,6 +220,16 @@ bool CellValue::BooleanValue() const
 
 	return ValueAsBool;
 }
+
+const XlfOper &CellValue::XlfOperValue() const
+{
+	
+	if (Type != xlfoper)
+		throw("non xlfoper cell asked to be a xlfoper");
+
+	return ValueAsXlfOper;
+}
+
 unsigned long CellValue::ErrorValue() const
 {
 	if (Type != error)

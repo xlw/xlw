@@ -687,6 +687,9 @@ XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const CellMatrix& cells) const
 					if (cells(i,j).IsBoolean())
 						    xlfOper.lpxloper4_->val.array.lparray[k] = *(LPXLOPER)XlfOper(cells(i,j).BooleanValue());
 					else
+						if (cells(i,j).IsXlfOper())
+							 xlfOper.lpxloper4_->val.array.lparray[k] = *(LPXLOPER)XlfOper(cells(i,j).XlfOperValue().GetLPXLFOPER());
+						else               
 						if (cells(i,j).IsError())
 							 xlfOper.lpxloper4_->val.array.lparray[k] = *(LPXLOPER)XlfOper(static_cast<WORD>(cells(i,j).ErrorValue()),true);
 						else               
