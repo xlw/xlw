@@ -47,7 +47,7 @@ public:
   //! Default ctor.
   XlfArgDesc();
   //! Detailed ctor.
-  XlfArgDesc(const std::string& name, const std::string& comment, const std::string& type="R");
+  XlfArgDesc(const std::string& name, const std::string& comment, const std::string& type="XLF_OPER");
   //! Dtor
   ~XlfArgDesc();
   //! Set the name of the argument
