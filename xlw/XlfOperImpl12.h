@@ -100,6 +100,18 @@ private:
     virtual XlfOper& Set(XlfOper &xlfOper, const XlfRef& range) const;
     //! Set to a short or error, bool for disambiguation
     virtual XlfOper& Set(XlfOper &xlfOper, short value, bool Error) const;
+    //! Set to an array
+    template <class FwdIt>
+    XlfOper& Set(XlfOper& xlfOper, RW rows, COL cols, FwdIt it)
+    {
+        xlfOper.lpxloper12_->xltype = xltypeMulti;
+        xlfOper.lpxloper12_->val.array.rows = rows;
+        xlfOper.lpxloper12_->val.array.columns = cols;
+        xlfOper.lpxloper12_->val.array.lparray = (LPXLOPER12)XlfExcel::Instance().GetMemory(rows * cols * sizeof(XLOPER12));
+        for (size_t i = 0; i < rows * cols; ++i, ++it)
+            xlfOper.lpxloper12_->val.array.lparray[i] = *(LPXLOPER12)XlfOper(*it);
+    }
+
     //! Set to an error value
     virtual XlfOper& SetError(XlfOper &xlfOper, WORD error) const;
     //! Cast to XLOPER *

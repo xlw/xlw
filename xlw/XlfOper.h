@@ -83,6 +83,13 @@ public:
     XlfOper(const MyArray& value);
     //! XlfRef ctor.
     XlfOper(const XlfRef& range);
+    //! Container ctor.
+    template <class FwdIt>
+    XlfOper(RW rows, COL cols, FwdIt start)
+    {
+        Allocate();
+        Set(rows, cols, start);
+    }
 
     //! Constructs an Excel error.
     static XlfOper Error(WORD word);
@@ -185,6 +192,20 @@ public:
     XlfOper& Set(const XlfRef& range) { return XlfOperImpl::instance().Set(*this, range); }
     //! Set to a short or error, bool for disambiguation
     XlfOper& Set(short value, bool Error) { return XlfOperImpl::instance().Set(*this, value, Error); }
+    //! Set to an array
+    /*!
+    \param r number of rows in the array
+    \param c number of columns in the array
+    \param it iterator pointing to the begining of a container
+     of size r x c (at least) that contain the data.
+    \warning Data are to be stored row-wise.
+    */
+    template<class FwdIt>
+    XlfOper& Set(RW rows, COL cols, FwdIt it)
+    {
+        return XlfOperImpl::instance().Set(*this, rows, cols, it);
+    }
+
     //! Set to an error value
     XlfOper& SetError(WORD error) { return XlfOperImpl::instance().SetError(*this, error); }
 

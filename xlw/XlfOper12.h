@@ -84,19 +84,13 @@ public:
   XlfOper12(const MyArray& value);
   //! XlfRef ctor.
   XlfOper12(const XlfRef& range);
-#ifndef PORT_NO_MEMBER_TEMPLATE
   //! Container ctor.
   template <class FwdIt>
   XlfOper12(WORD rows, BYTE cols, FwdIt start)
-#ifdef PORT_PARTIAL_MEMBER_TEMPLATE
   {
     Allocate();
     Set(rows,cols,start);
   }
-#else
-  ;
-#endif
-#endif
   //! Constructs an Excel error.
   static XlfOper12 Error(WORD);
   //! Dtor
@@ -218,7 +212,6 @@ public:
   XlfOper12& SetError(WORD error);
   //! Cast to XLOPER12 *
   operator LPXLOPER12();
-#ifndef PORT_NO_MEMBER_TEMPLATE
   //! Set to an array
   /*!
   \param r number of rows in the array
@@ -229,7 +222,6 @@ public:
   */
   template<class FwdIt>
   XlfOper12& Set(WORD r, BYTE c, FwdIt it)
-#ifdef PORT_PARTIAL_MEMBER_TEMPLATE
   {
     lpxloper_->xltype = xltypeMulti;
     lpxloper_->val.array.rows = r;
@@ -239,10 +231,6 @@ public:
       lpxloper_->val.array.lparray[i] = *(LPXLOPER12)XlfOper12(*it);
     return *this;
   }
-#else
-  ;
-#endif
-#endif
 
     DWORD xltype() const;
 
@@ -293,48 +281,6 @@ private:
 
   friend class XlfExcel;
 };
-
-#ifdef PORT_NO_MEMBER_TEMPLATE
-/*!
-\brief Set an array to an XlfOper12.
-Because not all compilers support member template this function
-is provided in order to replace the template method Set(WORD,BYTE,FwdIt).
-*/
-template <class FwdIt>
-XlfOper12& XlfOperSet(XlfOper12& oper, WORD rows, BYTE cols, FwdIt it)
-{
-  LPXLOPER12 lpxloper=oper;
-  lpxloper->xltype = xltypeMulti;
-  lpxloper->val.array.rows = rows;
-  lpxloper->val.array.columns = cols;
-  lpxloper->val.array.lparray = (LPXLOPER12)XlfExcel::Instance().GetMemory(rows*cols*sizeof(XLOPER12));
-  for (size_t i = 0; i < rows*cols; ++i, ++it)
-    lpxloper->val.array.lparray[i] = *(LPXLOPER12)XlfOper12(*it);
-  return oper;
-}
-#else
-#ifndef PORT_PARTIAL_MEMBER_TEMPLATE
-/*!
-\param r number of rows in the array
-\param c number of columns in the array
-\param it iterator pointing to the begining of a container
-of size r x c (at least) that contain the data.
-\warning Data are to be stored row-wise.
-*/
-template<class FwdIt>
-XlfOper12& XlfOper12::Set<FwdIt>(WORD r, BYTE c, FwdIt it);
-{
-  lpxloper_->xltype = xltypeMulti;
-  lpxloper_->val.array.rows = r;
-  lpxloper_->val.array.columns = c;
-  lpxloper_->val.array.lparray = (LPXLOPER12)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER12));
-  for (size_t i = 0; i < r*c; ++i, ++it)
-    lpxloper_->val.array.lparray[i] = *(LPXLOPER12)XlfOper12(*it);
-  return *this;
-}
-#endif
-#endif
-
 
 #ifdef NDEBUG
 #include <xlw/XlfOper12.inl>

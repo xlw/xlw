@@ -244,13 +244,6 @@
 				RelativePath="..\xlw\XlfRef.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -427,10 +420,6 @@
 			</File>
 			<File
 				RelativePath="..\xlw\XlfOperImpl4.h"
-				>
-			</File>
-			<File
-				RelativePath="..\xlw\XlfOperSet.h"
 				>
 			</File>
 			<File

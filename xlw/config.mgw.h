@@ -23,7 +23,7 @@
 
 
 //! Partial support of member templates (if defined inline).
-#define PORT_PARTIAL_MEMBER_TEMPLATE
+//#define PORT_PARTIAL_MEMBER_TEMPLATE
 //! Imports symbol if exist, for shared library.
 #define PORT_IMPORT_SYMBOL __declspec(dllimport)
 //! Exports symbol if exist, for shared library.
