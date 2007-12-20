@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -128,7 +129,7 @@ bool XlfExcel::IsEscPressed() const
   return ret.AsBool();
 }
 
-XlfExcel::XlfExcel(): impl_(0), offset_(0)
+XlfExcel::XlfExcel(): impl_(0) //, offset_(0) // Fixes for thread safety
 {
   impl_ = new XlfExcelImpl();
   return;

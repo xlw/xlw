@@ -163,8 +163,10 @@ shared static XLOPER.
 */
 INLINE XlfOper XlfOper::Error(WORD xlerr)
 {
-	static XLOPER oper;
-	XlfOper ret(&oper);
+	//static XLOPER oper;
+	//XlfOper ret(&oper);
+    // The above is not thread safe.
+	XlfOper ret;
 	ret.SetError(xlerr);
 	return ret;
 }

@@ -154,8 +154,10 @@ shared static XLOPER.
 */
 INLINE XlfOper4 XlfOper4::Error(WORD xlerr)
 {
-	static XLOPER oper;
-	XlfOper4 ret(&oper);
+	//static XLOPER oper;
+	//XlfOper4 ret(&oper);
+    // The above is not thread safe.
+	XlfOper4 ret;
 	ret.SetError(xlerr);
 	return ret;
 }
