@@ -549,8 +549,6 @@ CellMatrix XlfOper12::AsCellMatrix( const std::string& ErrorId, int * pxlret) co
 }
 int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 {    
-	XlfRef ref;
-
    
     if (lpxloper_->xltype == xltypeMissing || lpxloper_->xltype == xltypeNil )
     {
@@ -675,6 +673,8 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 
     }
 
+	XlfRef ref;
+
     int xlret = ConvertToRef(ref);
     if (xlret != xlretSuccess)
         return xlret;
@@ -687,25 +687,25 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 	{
 		for (unsigned long j = 0; j < nbCols; ++j)
 		{
-			unsigned long type = ref.element<XlfOper12>(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper_->xltype;
+            XlfOper12 element = ref.element<XlfOper12>(static_cast<WORD>(i),static_cast<BYTE>(j));
+			unsigned long type = element.lpxloper_->xltype;
 
 			if (type == xltypeRef)
 			{
 				XlfRef xlrefij;
 
-				int xlretij = ref.element<XlfOper12>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToRef(xlrefij);
+				int xlretij = element.ConvertToRef(xlrefij);
 
 				if (xlretij != xlretSuccess)
 					return xlretij;
 
-                // FIXME possible bug?  This line calls XlfOper::element(), which constructs an Xloper from an XlfRef.
-                // The result returned to variable "type" is always xltypeRef and that value is not catered for below.
-				type = ref.element<XlfOper12>(0UL,0UL).lpxloper_->xltype;
+                XlfOper12 refElement = xlrefij.element<XlfOper12>(0UL,0UL);
+				type = refElement.lpxloper_->xltype;
 
 				if (type == xltypeNum)
 				{
 					double tmp;
-					xlret = xlrefij.element<XlfOper12>(0UL,0UL).ConvertToDouble(tmp);
+					xlret = refElement.ConvertToDouble(tmp);
 
 					output(i,j) = tmp;
 
@@ -717,7 +717,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 					{
 						WORD tmp;
 
-						xlret = xlrefij.element<XlfOper12>(0UL,0UL).ConvertToErr(tmp);
+						xlret = refElement.ConvertToErr(tmp);
 
 						output(i,j) = CellValue(tmp,true);
 
@@ -729,7 +729,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 					{
 						bool tmp;
 
-						xlret = xlrefij.element<XlfOper12>(0UL,0UL).ConvertToBool(tmp);
+						xlret = refElement.ConvertToBool(tmp);
 
 						output(i,j) = tmp;
 
@@ -741,7 +741,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 						char* tmp;
 						if (type == xltypeStr || type == xltypeSRef)
 						{
-							xlret = xlrefij.element<XlfOper12>(0UL,0UL).ConvertToString(tmp);
+							xlret = refElement.ConvertToString(tmp);
 							output(i,j) = std::string(tmp);
 
 							if (xlret != xlretSuccess)
@@ -765,7 +765,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 				if (type == xltypeNum)
 				{
 					double tmp;
-					xlret = ref.element<XlfOper12>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToDouble(tmp);
+					xlret = element.ConvertToDouble(tmp);
 
 					output(i,j) = tmp;
 
@@ -777,7 +777,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 					char* tmp;
 					if (type == xltypeStr || type == xltypeSRef)
 					{
-						xlret = ref.element<XlfOper12>(static_cast<WORD>(i),static_cast<BYTE>(j)).ConvertToString(tmp);
+						xlret = element.ConvertToString(tmp);
 						output(i,j) = std::string(tmp);
 
 						if (xlret != xlretSuccess)
@@ -785,7 +785,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 					} 
 					else
 					{
-						if (ref.element<XlfOper12>(static_cast<WORD>(i),static_cast<BYTE>(j)).lpxloper_->xltype != xltypeMissing)
+						if (element.lpxloper_->xltype != xltypeMissing)
 							return xlretInvXloper;
 
 					}
