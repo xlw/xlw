@@ -797,7 +797,7 @@ null terminated.
 Here xlw uses the 0th byte for the string length, then at the 1st byte
 starts a string which _is_ null terminated.  In theory this allows a pointer
 to the 1st byte to be passed to C string functions requiring null termination
-e.g. strcpy.  Not sure whether this technique is necessary or wise.
+e.g. strcpy.
 
 \note A string longer than 254 characters is truncated. A warning
 is issued in debug mode.

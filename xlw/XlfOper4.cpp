@@ -1085,19 +1085,27 @@ XlfOper4& XlfOper4::Set(const XlfRef& range)
 /*!
 If no memory can be allocated on xlw internal buffer, the XlfOper4 is set
 to an invalid state and the string is not copied.
- 
-\note String longer than 255 characters are truncated. A warning
+
+The Excel API supports strings of 256 bytes.  The 0th byte holds the length
+of the string and the remaining 255 bytes hold the string data which is not
+null terminated.
+
+Here xlw uses the 0th byte for the string length, then at the 1st byte
+starts a string which _is_ null terminated.  In theory this allows a pointer
+to the 1st byte to be passed to C string functions requiring null termination
+e.g. strcpy.
+
+\note A string longer than 254 characters is truncated. A warning
 is issued in debug mode.
 */
 XlfOper4& XlfOper4::Set(const char *value)
 {
   if (lpxloper_)
   {
-    lpxloper_->xltype = xltypeStr;
     int n = static_cast<unsigned int>(strlen(value));
-    if (n >= 256)
+    if (n > 254)
 	{
-      std::cerr << XLW__HERE__ << "String too long is truncated" << std::endl;
+      std::cerr << XLW__HERE__ << "String truncated to 254 bytes" << std::endl;
 	  n = 254;
 	}
     // One byte more for NULL terminal char (allow use of strcpy)
@@ -1112,10 +1120,12 @@ XlfOper4& XlfOper4::Set(const char *value)
 #ifdef _MSC_VER
 #pragma warning(disable:4996)
 #endif
-      strcpy(str + 1, value);
-      // the number of character include the final \0 or not ?
+      strncpy(str + 1, value, n);
+      str[n + 1] = 0;
+
       lpxloper_->val.str = str;
       lpxloper_->val.str[0] = (BYTE)(n + 1);
+      lpxloper_->xltype = xltypeStr;
     }
   }
   return *this;
