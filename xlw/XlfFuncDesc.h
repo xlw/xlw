@@ -44,9 +44,9 @@ public:
   //! Policy to reclalculate cells.
   enum RecalcPolicy {
     //! Function gets recalculated if one of the argument has changed.
-    NotVolatile, 
+    NotVolatile,
     //! Function gets recalculated unconditionally each time the sheet is calculated.
-    Volatile 
+    Volatile
   } ;
 
   //! Ctor

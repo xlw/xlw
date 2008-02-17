@@ -2,14 +2,14 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007 Eric Ehlers
- 
+
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -31,9 +31,9 @@
 
 /*!
 The macro EXCEL_BEGIN includes a call to XlfExcel::FreeMemory.
- 
-FreeMemory frees *all* memory previously allocated by the 
-framework. Keeps the biggest buffer allocated (front one) so far 
+
+FreeMemory frees *all* memory previously allocated by the
+framework. Keeps the biggest buffer allocated (front one) so far
 for subsequent calls.
 
 \sa XlfBuffer.
@@ -105,11 +105,11 @@ INLINE void XlfExcel::PushNewBuffer(size_t size, BufferList &bufferList)
 /*!
 \param bytes is the size of the chunk required in bytes.
 \return the address of the chunk.
- 
+
 Check if the buffer has enough memory, and move the offset of the static
 buffer of the ammount of memory requested. If the buffer is full, a new
 buffer is allocated whose size is 150% of the one we just filled.
- 
+
 \sa XlfBuffer, XlfExcel::PushNewBuffer(size_t)
 */
 //INLINE LPSTR XlfExcel::GetMemory(size_t bytes)

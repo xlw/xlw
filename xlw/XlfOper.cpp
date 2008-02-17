@@ -2,14 +2,14 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007 Eric Ehlers
- 
+
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -45,7 +45,7 @@
 This bit is currently unused by Microsoft Excel. We set it
 to indicate that the LPXLOPER (passed by Excel) holds some extra
 memory to be freed.
- 
+
 This bit is controled in ~XlfOper to know if the DLL should release
 auxiliary memory or not by a call to FreeAuxiliaryMemory.
 */
@@ -83,8 +83,8 @@ double XlfOper::AsDouble(const std::string& ErrorId, int *pxlret) const
 /*!
 Attempts to convert the implict object to a an array.
 Does this by calling AsDoubleVector.
-If pxlret is 
-not null the method won't throw and the Excel return code will be returned 
+If pxlret is
+not null the method won't throw and the Excel return code will be returned
 in this variable.
 
 */
@@ -104,14 +104,14 @@ MyArray XlfOper::AsArray(const std::string& ErrorId, XlfOperImpl::DoubleVectorCo
     MyArray result(tmp.size());
     for (unsigned long i=0; i < result.size(); i++)
         result[i] = tmp[i];
-    
+
     return result;
 }
 
 
 /*!
-Attempts to convert the implict object to a vector of double. If pxlret is 
-not null the method won't throw and the Excel return code will be returned 
+Attempts to convert the implict object to a vector of double. If pxlret is
+not null the method won't throw and the Excel return code will be returned
 in this variable.
 
 \sa XlfOper::ConvertToDoubleVector.
@@ -197,8 +197,8 @@ bool XlfOper::AsBool(const std::string& ErrorId, int *pxlret) const
 };
 
 /*!
-Attempts to convert the implict object to a matrix. If pxlret is 
-not null the method won't throw and the Excel return code will be returned 
+Attempts to convert the implict object to a matrix. If pxlret is
+not null the method won't throw and the Excel return code will be returned
 in this variable.
 
 \sa XlfOper::ConvertToMatrix.
@@ -226,8 +226,8 @@ MyMatrix XlfOper::AsMatrix(const std::string& ErrorId, int *pxlret) const
 }
 
 /*!
-Attempts to convert the implict object to a cell matrix. If pxlret is 
-not null the method won't throw and the Excel return code will be returned 
+Attempts to convert the implict object to a cell matrix. If pxlret is
+not null the method won't throw and the Excel return code will be returned
 in this variable.
 
 \sa XlfOper::ConvertToCellMatrix.
@@ -255,13 +255,13 @@ CellMatrix XlfOper::AsCellMatrix(const std::string& ErrorId, int *pxlret) const
 }
 
 /*!
-Attempts to convert the implict object to a char string. If pxlret is not 
-null the method won't throw and the Excel return code will be returned in 
+Attempts to convert the implict object to a char string. If pxlret is not
+null the method won't throw and the Excel return code will be returned in
 this variable.
 
 \sa XlfOper::ConvertToString.
 
-The XLL allocates the memory on its own buffer. This buffer is automatically 
+The XLL allocates the memory on its own buffer. This buffer is automatically
 freed when a function of the XLL is called again. Note that coerce to
 a char string is the slowest cast of all.
 */
@@ -333,11 +333,11 @@ XlfOper& XlfOper::Set(const MyArray& values)
 
 /*!
 Throws an exception if the argument is anything other than xlretSuccess.
- 
+
 Events that require an immediate return to excel (uncalculated cell, abort,
 stack overflow and invalid OPER (potential memory exhaustion)) throw an
 XlfException.
- 
+
 Other events throw std::runtime_error.
 */
 int XlfOper::ThrowOnError(int xlret) const
@@ -366,13 +366,13 @@ int XlfOper::ThrowOnError(int xlret) const
 
 /*!
 Throws an exception if the argument is anything other than xlretSuccess.
- 
+
 Events that require an immediate return to excel (uncalculated cell, abort,
 stack overflow and invalid OPER (potential memory exhaustion)) throw an
 XlfException.
- 
+
 Other events throw std::runtime_error. The Identifier is tagged on to the error message to help track down
-problems. 
+problems.
 */
 int XlfOper::ThrowOnError(int xlret, const std::string& Identifier) const
 {

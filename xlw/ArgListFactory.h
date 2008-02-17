@@ -28,7 +28,7 @@ ArgListFactory<T>& FactoryInstance()
 }
 
 template<typename T>
-class ArgListFactory  
+class ArgListFactory
 {
 public:
 #ifndef VC6
@@ -64,10 +64,10 @@ void ArgListFactory<T>::RegisterClass(std::string ClassId, CreateTFunction Creat
 template<typename T>
 T* ArgListFactory<T>::CreateT(ArgumentList args)
 {
-    
+
     std::string Id = args.GetStringArgumentValue("name");
 
-    
+
     if  (TheCreatorFunctions.find(Id) == TheCreatorFunctions.end())
     {
         throw(Id+" is an unknown class. Known types are "+KnownTypes);
@@ -83,4 +83,4 @@ T* GetFromFactory(const ArgumentList& args)
 {
     return FactoryInstance<T>().CreateT(args);
 }
-#endif 
+#endif

@@ -1,19 +1,19 @@
 //
-//    
+//
 //                                    XlFunctionRegistriation.cpp
 //
 //
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007 Eric Ehlers
- 
+
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -72,7 +72,7 @@ std::string XLFunctionRegistrationData::GetLibrary() const
     return Library;
 }
 
-int XLFunctionRegistrationData::GetNoOfArguments() const{ 
+int XLFunctionRegistrationData::GetNoOfArguments() const{
     return NoOfArguments;
 }
 
@@ -82,12 +82,12 @@ std::vector<std::string> XLFunctionRegistrationData::GetArgumentNames() const
 }
 
 std::vector<std::string> XLFunctionRegistrationData::GetArgumentDescriptions() const
-{ 
+{
     return ArgumentDescriptions;
 }
 
 std::vector<std::string> XLFunctionRegistrationData::GetArgumentTypes() const
-{ 
+{
     return ArgumentTypes;
 }
 
@@ -101,10 +101,10 @@ XLFunctionRegistrationHelper::XLFunctionRegistrationHelper(const std::string& Fu
                      bool Volatile,
                      bool Threadsafe)
 {
-    XLFunctionRegistrationData tmp(FunctionName, 
-                                                                ExcelFunctionName, 
-                                                                FunctionDescription, 
-                                                                Library, 
+    XLFunctionRegistrationData tmp(FunctionName,
+                                                                ExcelFunctionName,
+                                                                FunctionDescription,
+                                                                Library,
                                                                 Args,
                                                                 NoOfArguments,
                                                                 Volatile,
@@ -124,11 +124,11 @@ void ExcelFunctionRegistrationRegistry::DoTheRegistrations() const
     for (std::list<XLFunctionRegistrationData>::const_iterator it = RegistrationData.begin(); it !=  RegistrationData.end(); ++it)
     {
         XlfFuncDesc::RecalcPolicy policy = it->GetVolatile() ? XlfFuncDesc::Volatile : XlfFuncDesc::NotVolatile;
-         XlfFuncDesc xlFunction(it->GetFunctionName(), 
-                                                    it->GetExcelFunctionName(), 
-                                                    it->GetFunctionDescription(), 
+         XlfFuncDesc xlFunction(it->GetFunctionName(),
+                                                    it->GetExcelFunctionName(),
+                                                    it->GetFunctionDescription(),
                                                     it->GetLibrary(),
-                                                    policy, 
+                                                    policy,
                                                     it->GetThreadsafe());
         XlfArgDescList xlFunctionArgs;
 
@@ -137,7 +137,7 @@ void ExcelFunctionRegistrationRegistry::DoTheRegistrations() const
                 XlfArgDesc ThisArgumentDescription(it->GetArgumentNames()[i],
                                                                                 it->GetArgumentDescriptions()[i],
                                                                                 it->GetArgumentTypes()[i]);
-                xlFunctionArgs + ThisArgumentDescription; 
+                xlFunctionArgs + ThisArgumentDescription;
                                                                                             //+ is a push_back operation
         }
 

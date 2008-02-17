@@ -14,7 +14,7 @@ public:
 
     Wrapper()
     { DataPtr =0;}
-  
+
     Wrapper(T* DataPtr_ ) // takes ownership of object pointed to by DataPtr_
     { DataPtr =DataPtr_;}
 
@@ -28,7 +28,7 @@ public:
         if (DataPtr !=0)
             delete DataPtr;
     }
-  
+
     Wrapper(const Wrapper<T>& original)
     {
         if (original.DataPtr !=0)
@@ -53,12 +53,12 @@ public:
 
     T& operator*()
     {
-        return *DataPtr; 
+        return *DataPtr;
     }
 
     const T& operator*() const
     {
-        return *DataPtr; 
+        return *DataPtr;
     }
 
     const T* const operator->() const

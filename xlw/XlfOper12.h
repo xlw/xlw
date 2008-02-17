@@ -2,14 +2,14 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007 Eric Ehlers
- 
+
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -47,9 +47,9 @@ class CellMatrix;
 /*!
 This class eases the work of marchalling and unmarshalling data to
 the Excel XLOPER format (including memory).
- 
+
 XlfOper12 holds a pointer to a XLOPER.
- 
+
 \warning It is important \e not to add any data member to this class
 because the library heavily relies on the fact that LPXLOPER12 and
 XlfOper12 have the same size. It allows the library to interpret any
@@ -146,7 +146,7 @@ public:
   //! Converts to a std::vector<double>.
   std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
   std::vector<double> AsDoubleVector(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
- 
+
   //! Converts to an array.
   MyArray AsArray(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
   MyArray AsArray(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
@@ -175,7 +175,7 @@ public:
   CellMatrix AsCellMatrix( int * pxlret=0) const;
   //! Converts to a cell Matrix with error identifer.
   CellMatrix AsCellMatrix( const std::string& ErrorId,int * pxlret=0) const;
- 
+
   //! Converts to a matrix
   MyMatrix AsMatrix( int * pxlret=0) const;
   //! Converts to a matrix with error identifer.
@@ -252,7 +252,7 @@ private:
 
   //! Throws an exception when critical errors occur but passes on an identifier to help track it down
   int ThrowOnError(int, const std::string& identifier) const;
-  
+
   //! Internally used to flag XLOPER returned by Excel.
   static int xlbitFreeAuxMem;
 

@@ -5,14 +5,14 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
- 
+
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -35,7 +35,7 @@ class ArgumentList
 {
 public:
 
-    ArgumentList(CellMatrix cells, 
+    ArgumentList(CellMatrix cells,
                       std::string ErrorIdentifier);
 
     ArgumentList(std::string name);
@@ -43,16 +43,16 @@ public:
 
     enum ArgumentType
     {
-        string, number, vector, matrix, 
+        string, number, vector, matrix,
         boolean, list, cells
     };
 
     std::string GetStructureName() const;
 
-    const std::vector<std::pair<std::string, ArgumentType> >& GetArgumentNamesAndTypes() const; 
-    
+    const std::vector<std::pair<std::string, ArgumentType> >& GetArgumentNamesAndTypes() const;
+
     std::string GetStringArgumentValue(const std::string& ArgumentName);
-    unsigned long GetULArgumentValue(const std::string& ArgumentName); 
+    unsigned long GetULArgumentValue(const std::string& ArgumentName);
     double GetDoubleArgumentValue(const std::string& ArgumentName);
     MyArray GetArrayArgumentValue(const std::string& ArgumentName);
     MyMatrix GetMatrixArgumentValue(const std::string& ArgumentName);
@@ -82,7 +82,7 @@ public:
 
     void CheckAllUsed(const std::string& ErrorId) const;
 
-    CellMatrix AllData() const; // makes data into a cell matrix that could be used for 
+    CellMatrix AllData() const; // makes data into a cell matrix that could be used for
                                 // creating the same argument list
                                 // useful for checking the class works!
 
@@ -106,7 +106,7 @@ private:
     std::map<std::string,MyArray> ArrayArguments;
     std::map<std::string,MyMatrix> MatrixArguments;
     std::map<std::string,std::string> StringArguments;
-    std::map<std::string,CellMatrix> ListArguments;    
+    std::map<std::string,CellMatrix> ListArguments;
 
 
     std::map<std::string,CellMatrix> CellArguments;

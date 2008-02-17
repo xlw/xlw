@@ -26,7 +26,7 @@
 #include "windows.h"
 
 /*
-** XL 12 Basic Datatypes 
+** XL 12 Basic Datatypes
 **/
 
 typedef INT32 BOOL;            /* Boolean */
@@ -35,12 +35,12 @@ typedef INT32 RW;            /* XL 12 Row */
 typedef INT32 COL;            /* XL 12 Column */
 
 /*
-** XLREF structure 
+** XLREF structure
 **
 ** Describes a single rectangular reference.
 */
 
-typedef struct xlref 
+typedef struct xlref
 {
     WORD rwFirst;
     WORD rwLast;
@@ -53,11 +53,11 @@ typedef struct xlref
 ** XLMREF structure
 **
 ** Describes multiple rectangular references.
-** This is a variable size structure, default 
+** This is a variable size structure, default
 ** size is 1 reference.
 */
 
-typedef struct xlmref 
+typedef struct xlmref
 {
     WORD count;
     XLREF reftbl[1];                    /* actually reftbl[count] */
@@ -65,7 +65,7 @@ typedef struct xlmref
 
 
 /*
-** XLREF12 structure 
+** XLREF12 structure
 **
 ** Describes a single XL 12 rectangular reference.
 */
@@ -83,7 +83,7 @@ typedef struct xlref12
 ** XLMREF12 structure
 **
 ** Describes multiple rectangular XL 12 references.
-** This is a variable size structure, default 
+** This is a variable size structure, default
 ** size is 1 reference.
 */
 
@@ -122,43 +122,43 @@ typedef struct _FP12
 
 
 /*
-** XLOPER structure 
+** XLOPER structure
 **
 ** Excel's fundamental data type: can hold data
-** of any type. Use "R" as the argument type in the 
+** of any type. Use "R" as the argument type in the
 ** REGISTER function.
 **/
 
-typedef struct xloper 
+typedef struct xloper
 {
-    union 
+    union
     {
         double num;                    /* xltypeNum */
         LPSTR str;                    /* xltypeStr */
 #ifdef __cplusplus
         WORD xbool;                    /* xltypeBool */
-#else    
+#else
         WORD bool;                    /* xltypeBool */
-#endif    
+#endif
         WORD err;                    /* xltypeErr */
         short int w;                    /* xltypeInt */
-        struct 
+        struct
         {
             WORD count;                /* always = 1 */
             XLREF ref;
         } sref;                        /* xltypeSRef */
-        struct 
+        struct
         {
             XLMREF *lpmref;
             DWORD idSheet;
         } mref;                        /* xltypeRef */
-        struct 
+        struct
         {
             struct xloper *lparray;
             WORD rows;
             WORD columns;
         } array;                    /* xltypeMulti */
-        struct 
+        struct
         {
             union
             {
@@ -184,39 +184,39 @@ typedef struct xloper
 } XLOPER, *LPXLOPER;
 
 /*
-** XLOPER12 structure 
+** XLOPER12 structure
 **
 ** Excel 12's fundamental data type: can hold data
-** of any type. Use "U" as the argument type in the 
+** of any type. Use "U" as the argument type in the
 ** REGISTER function.
 **/
 
-typedef struct xloper12 
+typedef struct xloper12
 {
-    union 
+    union
     {
         double num;                           /* xltypeNum */
         XCHAR *str;                           /* xltypeStr */
         BOOL xbool;                           /* xltypeBool */
         int err;                           /* xltypeErr */
         int w;
-        struct 
+        struct
         {
             WORD count;                       /* always = 1 */
             XLREF12 ref;
         } sref;                        /* xltypeSRef */
-        struct 
+        struct
         {
             XLMREF12 *lpmref;
             DWORD idSheet;
         } mref;                        /* xltypeRef */
-        struct 
+        struct
         {
             struct xloper12 *lparray;
             RW rows;
             COL columns;
         } array;                    /* xltypeMulti */
-        struct 
+        struct
         {
             union
             {
@@ -281,7 +281,7 @@ typedef struct xloper12
 #define xlerrNA      42
 
 
-/* 
+/*
 ** Flow data types
 **
 ** Used for val.flow.xlflow field of XLOPER and XLOPER12 structures
@@ -301,13 +301,13 @@ typedef struct xloper12
 ** These values can be returned from Excel4(), Excel4v(), Excel12() or Excel12v().
 */
 
-#define xlretSuccess        0    /* success */ 
+#define xlretSuccess        0    /* success */
 #define xlretAbort          1    /* macro halted */
-#define xlretInvXlfn        2    /* invalid function number */ 
-#define xlretInvCount       4    /* invalid number of arguments */ 
-#define xlretInvXloper      8    /* invalid OPER structure */  
-#define xlretStackOvfl      16   /* stack overflow */  
-#define xlretFailed         32   /* command failed */  
+#define xlretInvXlfn        2    /* invalid function number */
+#define xlretInvCount       4    /* invalid number of arguments */
+#define xlretInvXloper      8    /* invalid OPER structure */
+#define xlretStackOvfl      16   /* stack overflow */
+#define xlretFailed         32   /* command failed */
 #define xlretUncalced       64   /* uncalced cell */
 #define xlretNotThreadSafe  128  /* not allowed during multi-threaded calc */
 
@@ -326,8 +326,8 @@ typedef struct xloper12
 extern "C" {
 #endif
 
-//int _cdecl Excel4(int xlfn, LPXLOPER operRes, int count,... ); 
-extern int (_cdecl *Excel4)(int xlfn, LPXLOPER operRes, int count,... ); 
+//int _cdecl Excel4(int xlfn, LPXLOPER operRes, int count,... );
+extern int (_cdecl *Excel4)(int xlfn, LPXLOPER operRes, int count,... );
 /* followed by count LPXLOPERs */
 
 //int pascal Excel4v(int xlfn, LPXLOPER operRes, int count, LPXLOPER opers[]);
@@ -351,7 +351,7 @@ int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 opers[])
 
 /*
 ** Function number bits
-*/ 
+*/
 
 #define xlCommand    0x8000
 #define xlSpecial    0x4000
@@ -396,7 +396,7 @@ int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 opers[])
 #define dtSheet 0    // sheet
 #define dtProc  1    // XLM macro
 #define dtChart 2    // Chart
-#define dtBasic 6    // VBA 
+#define dtBasic 6    // VBA
 
 /* hit test codes */
 #define htNone        0x00    // none of below
@@ -462,7 +462,7 @@ typedef struct _mouseinfo
 
 
 
-/* 
+/*
 ** User defined function
 **
 ** First argument should be a function reference.

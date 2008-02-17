@@ -5,14 +5,14 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
- 
+
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -25,7 +25,7 @@
 #include <algorithm>
 
 
-MJMatrix& 
+MJMatrix&
 MJMatrix::resize(unsigned long rows, unsigned long columns)
 {
   if(rows==Rows && columns == Columns)
@@ -72,20 +72,20 @@ void MJMatrix::Create(unsigned long rows, unsigned long cols)
 }
 
 
-MJMatrix::MJMatrix(unsigned long Rows_, unsigned long Columns_) 
-                :       Rows(Rows_), 
+MJMatrix::MJMatrix(unsigned long Rows_, unsigned long Columns_)
+                :       Rows(Rows_),
                         Columns(Columns_)
 {
     Create();
 }
 
 MJMatrix::MJMatrix(const MJMatrix& original)
-                :       Rows(original.Rows), 
+                :       Rows(original.Rows),
                         Columns(original.Columns)
 {
     Create();
 
-    std::copy(original.Start, original.Start+Rows*Columns, Start);    
+    std::copy(original.Start, original.Start+Rows*Columns, Start);
 
 }
 
@@ -107,7 +107,7 @@ MJMatrix& MJMatrix::operator=(const MJMatrix& original)
             Create();
         }
 
-        std::copy(original.Start, original.Start+Rows*Columns, Start);    
+        std::copy(original.Start, original.Start+Rows*Columns, Start);
     }
 
     return *this;

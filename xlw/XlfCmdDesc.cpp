@@ -104,9 +104,9 @@ Registers the command as a macro in excel.
 */
 int XlfCmdDesc::DoRegister(const std::string& dllName) const
 {
-  
+
   XlfArgDescList arguments = GetArguments();
-  
+
   // 2 = normal macro, 0 = hidden command
   double type = hidden_ ? 0 : 2;
 
@@ -145,11 +145,11 @@ int XlfCmdDesc::DoRegister(const std::string& dllName) const
         ++it;
         if (it != arguments.end())
             argnames+=", ";
-    }  
-  
+    }
+
   LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
     LPXLOPER *px = rgx;
-    
+
   (*px++) = XlfOper4(dllName.c_str());
   (*px++) = XlfOper4(GetName().c_str());
   (*px++) = XlfOper4(args.c_str());
@@ -168,7 +168,7 @@ int XlfCmdDesc::DoRegister(const std::string& dllName) const
     int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, NULL, 10 + nbargs, rgx));
     delete[] rgx;
     return err;
-  
+
 }
 
 int XlfCmdDesc::DoUnregister(const std::string& dllName) const

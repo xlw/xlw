@@ -6,7 +6,7 @@
 **  Description:    Code file for Excel 2007 callbacks
 **  Platform:       Microsoft Windows
 **
-**  This file defines the entry points 
+**  This file defines the entry points
 **  which are used in the Microsoft Excel 2007 C API.
 **
 */
@@ -50,7 +50,7 @@ int _cdecl Excel12(int xlfn, LPXLOPER12 operRes, int count, ...)
 {
 
 #ifdef _WIN64
-    
+
     return(xlretFailed);
 
 #else
@@ -80,14 +80,14 @@ int _cdecl Excel12(int xlfn, LPXLOPER12 operRes, int count, ...)
         }
     }
     return(mdRet);
-    
+
 #endif
 }
 
 int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 opers[])
 {
 #ifdef _WIN64
-    
+
     return(xlretFailed);
 
 #else

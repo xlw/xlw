@@ -2,14 +2,14 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007 Eric Ehlers
- 
+
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -44,7 +44,7 @@
 This bit is currently unused by Microsoft Excel. We set it
 to indicate that the LPXLOPER12 (passed by Excel) holds some extra
 memory to be freed.
- 
+
 This bit is controled in ~XlfOper12 to know if the DLL should release
 auxiliary memory or not by a call to FreeAuxiliaryMemory.
 */
@@ -61,9 +61,9 @@ XlfOper12::XlfOper12(LPXLOPER12 lpxloper): lpxloper_(lpxloper)
 /*!
 Calls Deallocate() to free the XLOPER allocated by the XLL. XLOPER allocated
 by Excel remain under Excel responsability.
- 
-Calls FreeAuxiliaryMemory if the XLOPER is marked by XlfOper12::Call as an 
-XLOPER returned by MS Excel and if the type matches one of xltypeStr, 
+
+Calls FreeAuxiliaryMemory if the XLOPER is marked by XlfOper12::Call as an
+XLOPER returned by MS Excel and if the type matches one of xltypeStr,
 xltypeRef, xltypeMulti, xltypeBigData.
 */
 XlfOper12::~XlfOper12()
@@ -73,9 +73,9 @@ XlfOper12::~XlfOper12()
 
   int type = lpxloper_->xltype;
 
-//  Only the types bellow can be flagged xlFreeAuxMem, thus the test is 
+//  Only the types bellow can be flagged xlFreeAuxMem, thus the test is
 //  actually redundant: we don't need to re-check the type of the oper.
-//  
+//
 //  bool canHaveAuxMem = (type & xltypeStr ||
 //                        type & xltypeRef ||
 //                        type & xltypeMulti ||
@@ -93,7 +93,7 @@ XlfOper12::~XlfOper12()
 /*!
 Allocates 16 bits (size of a XLOPER) on the temporary buffer
 stored by XlfExcel with a call to XlfExcel::GetMemory().
- 
+
 \warning Each XlfOper12 allocation causes a call to Allocate which in turn
 reserve the necessary number of bytes in the internal buffer. The
 problem is that even temporary XlfOper12 used inside the xll function use
@@ -101,8 +101,8 @@ this internal buffer. This buffer is not freed before the next call to
 the xll to ensure Excel can use the data before they are freed. This
 causes a bottleneck if the function uses many temporary XlfOper12 (see
 Deallocate()).
- 
-\return \c xlretSuccess or \c xlretInvXloper if no memory is could 
+
+\return \c xlretSuccess or \c xlretInvXloper if no memory is could
 be allocated.
 */
 int XlfOper12::Allocate()
@@ -195,8 +195,8 @@ int XlfOper12::ConvertToDouble(double& d) const throw()
 /*!
 Attempts to convert the implict object to a an array.
 Does this by calling AsDoubleVector.
-If pxlret is 
-not null the method won't throw and the Excel return code will be returned 
+If pxlret is
+not null the method won't throw and the Excel return code will be returned
 in this variable.
 
 */
@@ -216,13 +216,13 @@ MyArray XlfOper12::AsArray(const std::string& ErrorId,DoubleVectorConvPolicy pol
     MyArray result(tmp.size());
     for (unsigned long i=0; i < result.size(); i++)
         result[i] = tmp[i];
-    
+
     return result;
 }
 
 /*!
-Attempts to convert the implict object to a vector of double. If pxlret is 
-not null the method won't throw and the Excel return code will be returned 
+Attempts to convert the implict object to a vector of double. If pxlret is
+not null the method won't throw and the Excel return code will be returned
 in this variable.
 
 \sa XlfOper12::ConvertToDoubleVector.
@@ -250,12 +250,12 @@ std::vector<double> XlfOper12::AsDoubleVector(const std::string& ErrorId, Double
 
 /*!
 Converts the data in the range in a vector of double according to the specified policy.
- 
+
 \pre All values in the range should be convertible to a double.
- 
+
 \return xlretFailed if the policy is UniDimensional and the range is not uni dimensional
 and xlretSuccess otherwise or whatever error occurs during coercing the data to double.
- 
+
 \sa DoubleVectorConvPolicy
 */
 int XlfOper12::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolicy policy) const
@@ -459,8 +459,8 @@ int XlfOper12::ConvertToBool(bool& b) const throw()
 };
 
 /*!
-Attempts to convert the implict object to a matrix. If pxlret is 
-not null the method won't throw and the Excel return code will be returned 
+Attempts to convert the implict object to a matrix. If pxlret is
+not null the method won't throw and the Excel return code will be returned
 in this variable.
 
 \sa XlfOper12::ConvertToMatrix.
@@ -496,10 +496,10 @@ int XlfOper12::ConvertToMatrix(MyMatrix& value) const
     // deal with empty case first
     if (lpxloper_->xltype == xltypeMissing || lpxloper_->xltype == xltypeNil )
     {
-    
+
        MyMatrix tmp;
        value = tmp;
-        
+
         return xlretSuccess;
     }
 
@@ -520,8 +520,8 @@ int XlfOper12::ConvertToMatrix(MyMatrix& value) const
 }
 
 /*!
-Attempts to convert the implict object to a cell matrix. If pxlret is 
-not null the method won't throw and the Excel return code will be returned 
+Attempts to convert the implict object to a cell matrix. If pxlret is
+not null the method won't throw and the Excel return code will be returned
 in this variable.
 
 \sa XlfOper12::ConvertToCellMatrix.
@@ -548,75 +548,75 @@ CellMatrix XlfOper12::AsCellMatrix( const std::string& ErrorId, int * pxlret) co
   return output;
 }
 int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
-{    
-   
+{
+
     if (lpxloper_->xltype == xltypeMissing || lpxloper_->xltype == xltypeNil )
     {
-    
+
         CellMatrix tmp(1,1);
         output = tmp;
-        
+
         return xlretSuccess;
     }
-    
+
     if (lpxloper_->xltype == xltypeNum)
     {
         CellMatrix tmp(1,1);
-        
+
         tmp(0,0) = lpxloper_->val.num;
-        
+
         output = tmp;
 
- 
-        
+
+
         return xlretSuccess;
     }
 
     if (lpxloper_->xltype == xltypeBool)
     {
         CellMatrix tmp(1,1);
-        
+
         tmp(0,0) = (lpxloper_->val.xbool >0);
-        
+
         output = tmp;
 
-        
+
         return xlretSuccess;
     }
 
     if (lpxloper_->xltype == xltypeErr)
     {
         CellMatrix tmp(1,1);
-        
+
         tmp(0,0) = CellValue(lpxloper_->val.err,true);
-        
+
         output = tmp;
-        
+
         return xlretSuccess;
     }
 
     if (lpxloper_->xltype == xltypeStr)
     {
         CellMatrix tmpCell(1,1);
-        
+
         unsigned long len = *((*lpxloper_).val.str);
-        
+
         std::string tmp;
         tmp.resize(len);
-        
-        
+
+
         for(unsigned long k=0; k<len; ++k)
             tmp[k]= ((*lpxloper_).val.str)[k+1];
-        
-        
+
+
         tmpCell(0,0) = tmp;
-        
+
         output = tmpCell;
 
         return xlretSuccess;
     }
 
-    
+
     if (lpxloper_->xltype == xltypeMulti)
     {
         unsigned long rows = lpxloper_->val.array.rows;
@@ -630,27 +630,27 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
                 if (thisType == xltypeNum)
                 {
                     double x = (*lpxloper_).val.array.lparray[i*columns+j].val.num;
-                    result(i,j) = x;  
+                    result(i,j) = x;
                 }
                 else
-                {   
+                {
                     if (thisType==xltypeStr)
                     {
                           unsigned long len = *((*lpxloper_).val.array.lparray[i*columns+j].val.str);
-  
+
                           std::string tmp;
                           tmp.resize(len);
 
                           for(unsigned long k=0; k<len; ++k)
                             tmp[k]=
                             ((*lpxloper_).val.array.lparray[i*columns+j].val.str)[k+1];
-                        
+
                           result(i,j) = tmp;
                     }
-                    
-                    else     
+
+                    else
                         if (thisType == xltypeBool)
-                        {    
+                        {
                             result(i,j) = ((*lpxloper_).val.array.lparray[i*columns+j].val.xbool > 0);
                         }
                         else
@@ -662,12 +662,12 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
                                 if (thisType!=xltypeMissing && thisType != xltypeNil)
                                     throw("cell contains neither number nor string nor boolean nor empty");
                 }
-                    
+
             }
 
         output= result;
 
-        
+
         return xlretSuccess;
 
 
@@ -678,10 +678,10 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
     int xlret = ConvertToRef(ref);
     if (xlret != xlretSuccess)
         return xlret;
-    
+
     unsigned long nbRows = ref.GetNbRows();
     unsigned long nbCols = ref.GetNbCols();
-    
+
     output = CellMatrix(nbRows,nbCols);
     for (unsigned long i = 0; i < nbRows; ++i)
     {
@@ -712,7 +712,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
                     if (xlret != xlretSuccess)
                         return xlret;
                 }
-                else 
+                else
                     if (type == xltypeErr)
                     {
                         WORD tmp;
@@ -746,7 +746,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 
                             if (xlret != xlretSuccess)
                                 return xlret;
-                        } 
+                        }
                         else
                         {
 
@@ -761,7 +761,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 
 
             }
-            else 
+            else
                 if (type == xltypeNum)
                 {
                     double tmp;
@@ -782,7 +782,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 
                         if (xlret != xlretSuccess)
                             return xlret;
-                    } 
+                    }
                     else
                     {
                         if (element.lpxloper_->xltype != xltypeMissing)
@@ -793,7 +793,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
                 }
         }
 
-    }  
+    }
     return xlret;
 
 }
@@ -823,13 +823,13 @@ int XlfOper12::ConvertToErr(WORD& e) const throw()
 };
 
 /*!
-Attempts to convert the implict object to a char string. If pxlret is not 
-null the method won't throw and the Excel return code will be returned in 
+Attempts to convert the implict object to a char string. If pxlret is not
+null the method won't throw and the Excel return code will be returned in
 this variable.
 
 \sa XlfOper12::ConvertToString.
 
-The XLL allocates the memory on its own buffer. This buffer is automatically 
+The XLL allocates the memory on its own buffer. This buffer is automatically
 freed when a function of the XLL is called again. Note that coerce to
 a char string is the slowest cast of all.
 */
@@ -968,9 +968,9 @@ XlfOper12& XlfOper12::Set(const CellMatrix& cells)
 
     lpxloper_->xltype = xltypeMulti;
     lpxloper_->val.array.rows = r;
-    lpxloper_->val.array.columns = c; 
+    lpxloper_->val.array.columns = c;
 
-    lpxloper_->val.array.lparray 
+    lpxloper_->val.array.lparray
             = (LPXLOPER12)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER12));
 
     for (int i=0; i < r; i++)
@@ -988,7 +988,7 @@ XlfOper12& XlfOper12::Set(const CellMatrix& cells)
                     else
                         if (cells(i,j).IsError())
                              lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(static_cast<WORD>(cells(i,j).ErrorValue()),true);
-                        else               
+                        else
                                 lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12("");
         }
 
@@ -1086,7 +1086,7 @@ XlfOper12& XlfOper12::Set(const XlfRef& range)
 /*!
 If no memory can be allocated on xlw internal buffer, the XlfOper12 is set
 to an invalid state and the string is not copied.
- 
+
 \note String longer than 255 characters are truncated. A warning
 is issued in debug mode.
 */
@@ -1122,11 +1122,11 @@ XlfOper12& XlfOper12::SetError(WORD error)
 
 /*!
 Throws an exception if the argument is anything other than xlretSuccess.
- 
+
 Events that require an immediate return to excel (uncalculated cell, abort,
 stack overflow and invalid OPER (potential memory exhaustion)) throw an
 XlfException.
- 
+
 Other events throw std::runtime_error.
 */
 int XlfOper12::ThrowOnError(int xlret) const
@@ -1156,13 +1156,13 @@ int XlfOper12::ThrowOnError(int xlret) const
 
 /*!
 Throws an exception if the argument is anything other than xlretSuccess.
- 
+
 Events that require an immediate return to excel (uncalculated cell, abort,
 stack overflow and invalid OPER (potential memory exhaustion)) throw an
 XlfException.
- 
+
 Other events throw std::runtime_error. The Identifier is tagged on to the error message to help track down
-problems. 
+problems.
 */
 int XlfOper12::ThrowOnError(int xlret, const std::string& Identifier) const
 {

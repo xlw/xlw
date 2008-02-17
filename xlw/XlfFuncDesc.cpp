@@ -176,12 +176,12 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
   }
   XLOPER res;
     int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, &res, 10 + nbargs, rgx));
-    
+
     if(funcId != NULL)
     {
         *funcId = res.val.num;
     }
-  
+
     delete[] rgx;
     return err;
 }

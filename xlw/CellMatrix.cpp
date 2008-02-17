@@ -6,14 +6,14 @@
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007 Eric Ehlers
- 
+
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -125,36 +125,36 @@ void CellValue::clear()
 }
 
 
-CellValue::CellValue(const std::string& value) : Type(CellValue::string), 
+CellValue::CellValue(const std::string& value) : Type(CellValue::string),
 ValueAsString(value), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
 
-CellValue::CellValue(const std::wstring& value) : Type(CellValue::wstring), 
+CellValue::CellValue(const std::wstring& value) : Type(CellValue::wstring),
 ValueAsString(""), ValueAsWstring(value), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
 
-CellValue::CellValue(const char* value) : Type(CellValue::string), 
+CellValue::CellValue(const char* value) : Type(CellValue::string),
 ValueAsString(value), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
-CellValue::CellValue(double Number): Type(CellValue::number), 
+CellValue::CellValue(double Number): Type(CellValue::number),
 ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(Number), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
 
-CellValue::CellValue(int i): Type(CellValue::number), 
+CellValue::CellValue(int i): Type(CellValue::number),
 ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(i), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 
 }
 
-CellValue::CellValue(unsigned long Code, bool Error): Type(error), 
+CellValue::CellValue(unsigned long Code, bool Error): Type(error),
 ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(Code), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(Code)
 {
     if (!Error)
@@ -162,19 +162,19 @@ ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(Code), ValueAsBool(false)
 }
 
 CellValue::CellValue(bool TrueFalse)
- : Type(CellValue::boolean), 
+ : Type(CellValue::boolean),
 ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(TrueFalse), ValueAsErrorCode(0)
 {
 }
 
 CellValue::CellValue(const XlfOper &xlfOper)
- : Type(CellValue::xlfoper), 
+ : Type(CellValue::xlfoper),
 ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(xlfOper), ValueAsErrorCode(0)
 {
 
 }
 
-CellValue::CellValue(): Type(CellValue::empty), 
+CellValue::CellValue(): Type(CellValue::empty),
 ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(XlfOper()), ValueAsErrorCode(0)
 {
 }
@@ -206,7 +206,7 @@ const std::wstring& CellValue::WstringValue() const
 
 double CellValue::NumericValue() const
 {
-    
+
     if (Type != number)
         throw("non number cell asked to be a number");
     return ValueAsNumeric;
@@ -214,7 +214,7 @@ double CellValue::NumericValue() const
 
 bool CellValue::BooleanValue() const
 {
-    
+
     if (Type != boolean)
         throw("non boolean cell asked to be a bool");
 
@@ -223,7 +223,7 @@ bool CellValue::BooleanValue() const
 
 const XlfOper &CellValue::XlfOperValue() const
 {
-    
+
     if (Type != xlfoper)
         throw("non xlfoper cell asked to be a xlfoper");
 
@@ -300,13 +300,13 @@ CellMatrix::CellMatrix(const char* x): Cells(1), Rows(1), Columns(1)
 
 
 
-CellMatrix::CellMatrix(const MyArray& data) : Cells(data.size()), 
+CellMatrix::CellMatrix(const MyArray& data) : Cells(data.size()),
     Rows(data.size()), Columns(1)
 {
     for (unsigned long i=0; i < data.size(); ++i)
         Cells[i].push_back(CellValue(data[i]));
 }
-CellMatrix::CellMatrix(const MyMatrix& data): Cells(data.rows()), 
+CellMatrix::CellMatrix(const MyMatrix& data): Cells(data.rows()),
     Rows(data.rows()), Columns(data.columns())
 {
     for (unsigned long i=0; i < data.rows(); ++i)
@@ -324,14 +324,14 @@ CellMatrix::CellMatrix(int i): Cells(1), Rows(1), Columns(1)
 {
     Cells[0].push_back(CellValue(static_cast<double>(i)));
 }
-    
-CellMatrix::CellMatrix(unsigned long rows, unsigned long columns) 
+
+CellMatrix::CellMatrix(unsigned long rows, unsigned long columns)
     : Cells(rows), Rows(rows), Columns(columns)
 {
     for (unsigned long i=0; i < rows; i++)
         Cells[i].resize(columns);
 }
-    
+
 const CellValue& CellMatrix::operator()(unsigned long i, unsigned long j) const
 {
     return Cells.at(i).at(j);
@@ -347,7 +347,7 @@ unsigned long CellMatrix::RowsInStructure() const
     return Rows;
 }
 unsigned long CellMatrix::ColumnsInStructure() const
-{    
+{
     return Columns;
 }
 
@@ -389,6 +389,6 @@ void CellMatrix::PushBottom(const CellMatrix& newRows)
     Rows = static_cast<unsigned long>(Cells.size());
     Columns = newColumns;
 
-    
+
 
 }

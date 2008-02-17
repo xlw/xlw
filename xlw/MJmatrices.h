@@ -5,14 +5,14 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
- 
+
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -37,24 +37,24 @@ public:
     MJMatrix(const MJMatrix& original);
 
     MJMatrix& operator=(const MJMatrix& original);
-    
+
     ~MJMatrix();
-    
-   
+
+
     inline unsigned long rows() const;
     inline unsigned long columns() const;
 
     inline MJMatrix& operator+=(const MJMatrix& addend);
 
     MJMatrix& resize(unsigned long rows, unsigned long columns);
-         
+
     inline double* operator[](unsigned long i);
     inline const double* const operator[](unsigned long i) const;
 
     inline const double& operator()(unsigned long i, unsigned long j) const;
     inline double& operator()(unsigned long i, unsigned long j);
 
-  
+
 
 private:
 
@@ -116,7 +116,7 @@ inline unsigned long MJMatrix::rows() const
 inline unsigned long MJMatrix::columns() const
 {
     return Columns;
-}   
+}
 
 
 inline MJMatrix& MJMatrix::operator+=(const MJMatrix& addend)
