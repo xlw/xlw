@@ -35,7 +35,7 @@ INLINE int Win32StreamBuf::sync()
 {
     SendToDebugWindow();
     buf_.erase();
-	return 0;
+    return 0;
 }
 
 /*!

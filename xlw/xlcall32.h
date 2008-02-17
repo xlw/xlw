@@ -29,10 +29,10 @@
 ** XL 12 Basic Datatypes 
 **/
 
-typedef INT32 BOOL;			/* Boolean */
-typedef WCHAR XCHAR;		/* Wide Character */
-typedef INT32 RW;			/* XL 12 Row */
-typedef INT32 COL;			/* XL 12 Column */
+typedef INT32 BOOL;            /* Boolean */
+typedef WCHAR XCHAR;        /* Wide Character */
+typedef INT32 RW;            /* XL 12 Row */
+typedef INT32 COL;            /* XL 12 Column */
 
 /*
 ** XLREF structure 
@@ -42,10 +42,10 @@ typedef INT32 COL;			/* XL 12 Column */
 
 typedef struct xlref 
 {
-	WORD rwFirst;
-	WORD rwLast;
-	BYTE colFirst;
-	BYTE colLast;
+    WORD rwFirst;
+    WORD rwLast;
+    BYTE colFirst;
+    BYTE colLast;
 } XLREF, *LPXLREF;
 
 
@@ -59,8 +59,8 @@ typedef struct xlref
 
 typedef struct xlmref 
 {
-	WORD count;
-	XLREF reftbl[1];					/* actually reftbl[count] */
+    WORD count;
+    XLREF reftbl[1];                    /* actually reftbl[count] */
 } XLMREF, *LPXLMREF;
 
 
@@ -72,10 +72,10 @@ typedef struct xlmref
 
 typedef struct xlref12
 {
-	RW rwFirst;
-	RW rwLast;
-	COL colFirst;
-	COL colLast;
+    RW rwFirst;
+    RW rwLast;
+    COL colFirst;
+    COL colLast;
 } XLREF12, *LPXLREF12;
 
 
@@ -89,8 +89,8 @@ typedef struct xlref12
 
 typedef struct xlmref12
 {
-	WORD count;
-	XLREF12 reftbl[1];					/* actually reftbl[count] */
+    WORD count;
+    XLREF12 reftbl[1];                    /* actually reftbl[count] */
 } XLMREF12, *LPXLMREF12;
 
 
@@ -131,56 +131,56 @@ typedef struct _FP12
 
 typedef struct xloper 
 {
-	union 
-	{
-		double num;					/* xltypeNum */
-		LPSTR str;					/* xltypeStr */
+    union 
+    {
+        double num;                    /* xltypeNum */
+        LPSTR str;                    /* xltypeStr */
 #ifdef __cplusplus
-		WORD xbool;					/* xltypeBool */
-#else	
-		WORD bool;					/* xltypeBool */
-#endif	
-		WORD err;					/* xltypeErr */
-		short int w;					/* xltypeInt */
-		struct 
-		{
-			WORD count;				/* always = 1 */
-			XLREF ref;
-		} sref;						/* xltypeSRef */
-		struct 
-		{
-			XLMREF *lpmref;
-			DWORD idSheet;
-		} mref;						/* xltypeRef */
-		struct 
-		{
-			struct xloper *lparray;
-			WORD rows;
-			WORD columns;
-		} array;					/* xltypeMulti */
-		struct 
-		{
-			union
-			{
-				short int level;		/* xlflowRestart */
-				short int tbctrl;		/* xlflowPause */
-				DWORD idSheet;			/* xlflowGoto */
-			} valflow;
-			WORD rw;				/* xlflowGoto */
-			BYTE col;				/* xlflowGoto */
-			BYTE xlflow;
-		} flow;						/* xltypeFlow */
-		struct
-		{
-			union
-			{
-				BYTE *lpbData;			/* data passed to XL */
-				HANDLE hdata;			/* data returned from XL */
-			} h;
-			long cbData;
-		} bigdata;					/* xltypeBigData */
-	} val;
-	WORD xltype;
+        WORD xbool;                    /* xltypeBool */
+#else    
+        WORD bool;                    /* xltypeBool */
+#endif    
+        WORD err;                    /* xltypeErr */
+        short int w;                    /* xltypeInt */
+        struct 
+        {
+            WORD count;                /* always = 1 */
+            XLREF ref;
+        } sref;                        /* xltypeSRef */
+        struct 
+        {
+            XLMREF *lpmref;
+            DWORD idSheet;
+        } mref;                        /* xltypeRef */
+        struct 
+        {
+            struct xloper *lparray;
+            WORD rows;
+            WORD columns;
+        } array;                    /* xltypeMulti */
+        struct 
+        {
+            union
+            {
+                short int level;        /* xlflowRestart */
+                short int tbctrl;        /* xlflowPause */
+                DWORD idSheet;            /* xlflowGoto */
+            } valflow;
+            WORD rw;                /* xlflowGoto */
+            BYTE col;                /* xlflowGoto */
+            BYTE xlflow;
+        } flow;                        /* xltypeFlow */
+        struct
+        {
+            union
+            {
+                BYTE *lpbData;            /* data passed to XL */
+                HANDLE hdata;            /* data returned from XL */
+            } h;
+            long cbData;
+        } bigdata;                    /* xltypeBigData */
+    } val;
+    WORD xltype;
 } XLOPER, *LPXLOPER;
 
 /*
@@ -193,52 +193,52 @@ typedef struct xloper
 
 typedef struct xloper12 
 {
-	union 
-	{
-		double num;				       	/* xltypeNum */
-		XCHAR *str;				       	/* xltypeStr */
-		BOOL xbool;				       	/* xltypeBool */
-		int err;				       	/* xltypeErr */
-		int w;
-		struct 
-		{
-			WORD count;			       	/* always = 1 */
-			XLREF12 ref;
-		} sref;						/* xltypeSRef */
-		struct 
-		{
-			XLMREF12 *lpmref;
-			DWORD idSheet;
-		} mref;						/* xltypeRef */
-		struct 
-		{
-			struct xloper12 *lparray;
-			RW rows;
-			COL columns;
-		} array;					/* xltypeMulti */
-		struct 
-		{
-			union
-			{
-				int level;			/* xlflowRestart */
-				int tbctrl;			/* xlflowPause */
-				DWORD idSheet;			/* xlflowGoto */
-			} valflow;
-			RW rw;				       	/* xlflowGoto */
-			COL col;			       	/* xlflowGoto */
-			BYTE xlflow;
-		} flow;						/* xltypeFlow */
-		struct
-		{
-			union
-			{
-				BYTE *lpbData;			/* data passed to XL */
-				HANDLE hdata;			/* data returned from XL */
-			} h;
-			long cbData;
-		} bigdata;					/* xltypeBigData */
-	} val;
-	DWORD xltype;
+    union 
+    {
+        double num;                           /* xltypeNum */
+        XCHAR *str;                           /* xltypeStr */
+        BOOL xbool;                           /* xltypeBool */
+        int err;                           /* xltypeErr */
+        int w;
+        struct 
+        {
+            WORD count;                       /* always = 1 */
+            XLREF12 ref;
+        } sref;                        /* xltypeSRef */
+        struct 
+        {
+            XLMREF12 *lpmref;
+            DWORD idSheet;
+        } mref;                        /* xltypeRef */
+        struct 
+        {
+            struct xloper12 *lparray;
+            RW rows;
+            COL columns;
+        } array;                    /* xltypeMulti */
+        struct 
+        {
+            union
+            {
+                int level;            /* xlflowRestart */
+                int tbctrl;            /* xlflowPause */
+                DWORD idSheet;            /* xlflowGoto */
+            } valflow;
+            RW rw;                           /* xlflowGoto */
+            COL col;                       /* xlflowGoto */
+            BYTE xlflow;
+        } flow;                        /* xltypeFlow */
+        struct
+        {
+            union
+            {
+                BYTE *lpbData;            /* data passed to XL */
+                HANDLE hdata;            /* data returned from XL */
+            } h;
+            long cbData;
+        } bigdata;                    /* xltypeBigData */
+    } val;
+    DWORD xltype;
 } XLOPER12, *LPXLOPER12;
 
 /*
@@ -262,7 +262,7 @@ typedef struct xloper12
 #define xlbitXLFree      0x1000
 #define xlbitDLLFree     0x4000
 
-#define xltypeBigData	(xltypeStr | xltypeInt)
+#define xltypeBigData    (xltypeStr | xltypeInt)
 
 
 /*
@@ -379,85 +379,85 @@ int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 opers[])
 #define xlEnableXLMsgs  (10 | xlSpecial)
 #define xlDisableXLMsgs (11 | xlSpecial)
 #define xlDefineBinaryName (12 | xlSpecial)
-#define xlGetBinaryName	(13 | xlSpecial)
+#define xlGetBinaryName    (13 | xlSpecial)
 /* GetFooInfo are valid only for calls to LPenHelper */
-#define xlGetFmlaInfo	(14 | xlSpecial)
-#define xlGetMouseInfo	(15 | xlSpecial)
+#define xlGetFmlaInfo    (14 | xlSpecial)
+#define xlGetMouseInfo    (15 | xlSpecial)
 
 /* edit modes */
-#define xlModeReady	0	// not in edit mode
-#define xlModeEnter	1	// enter mode
-#define xlModeEdit	2	// edit mode
-#define xlModePoint	4	// point mode
+#define xlModeReady    0    // not in edit mode
+#define xlModeEnter    1    // enter mode
+#define xlModeEdit    2    // edit mode
+#define xlModePoint    4    // point mode
 
 /* document(page) types */
-#define dtNil 0x7f	// window is not a sheet, macro, chart or basic
+#define dtNil 0x7f    // window is not a sheet, macro, chart or basic
 // OR window is not the selected window at idle state
-#define dtSheet 0	// sheet
-#define dtProc  1	// XLM macro
-#define dtChart 2	// Chart
-#define dtBasic 6	// VBA 
+#define dtSheet 0    // sheet
+#define dtProc  1    // XLM macro
+#define dtChart 2    // Chart
+#define dtBasic 6    // VBA 
 
 /* hit test codes */
-#define htNone		0x00	// none of below
-#define htClient	0x01	// internal for "in the client are", should never see
-#define htVSplit	0x02	// vertical split area with split panes
-#define htHSplit	0x03	// horizontal split area
-#define htColWidth	0x04	// column width adjuster area
-#define htRwHeight	0x05	// row height adjuster area
-#define htRwColHdr	0x06	// the intersection of row and column headers
-#define htObject	0x07	// the body of an object
+#define htNone        0x00    // none of below
+#define htClient    0x01    // internal for "in the client are", should never see
+#define htVSplit    0x02    // vertical split area with split panes
+#define htHSplit    0x03    // horizontal split area
+#define htColWidth    0x04    // column width adjuster area
+#define htRwHeight    0x05    // row height adjuster area
+#define htRwColHdr    0x06    // the intersection of row and column headers
+#define htObject    0x07    // the body of an object
 // the following are for size handles of draw objects
-#define htTopLeft	0x08
-#define htBotLeft	0x09
-#define htLeft		0x0A
-#define htTopRight	0x0B
-#define htBotRight	0x0C
-#define htRight		0x0D
-#define htTop		0x0E
-#define htBot		0x0F
+#define htTopLeft    0x08
+#define htBotLeft    0x09
+#define htLeft        0x0A
+#define htTopRight    0x0B
+#define htBotRight    0x0C
+#define htRight        0x0D
+#define htTop        0x0E
+#define htBot        0x0F
 // end size handles
-#define htRwGut		0x10	// row area of outline gutter
-#define htColGut	0x11	// column area of outline gutter
-#define htTextBox	0x12	// body of a text box (where we shouw I-Beam cursor)
-#define htRwLevels	0x13	// row levels buttons of outline gutter
-#define htColLevels	0x14	// column levels buttons of outline gutter
-#define htDman		0x15	// the drag/drop handle of the selection
-#define htDmanFill	0x16	// the auto-fill handle of the selection
-#define htXSplit	0x17	// the intersection of the horz & vert pane splits
-#define htVertex	0x18	// a vertex of a polygon draw object
-#define htAddVtx	0x19	// htVertex in add a vertex mode
-#define htDelVtx	0x1A	// htVertex in delete a vertex mode
-#define htRwHdr		0x1B	// row header
-#define htColHdr	0x1C	// column header
-#define htRwShow	0x1D	// Like htRowHeight except means grow a hidden column
-#define htColShow	0x1E	// column version of htRwShow
-#define htSizing	0x1F	// Internal use only
-#define htSxpivot	0x20	// a drag/drop tile in a pivot table
-#define htTabs		0x21	// the sheet paging tabs
-#define htEdit		0x22	// Internal use only
+#define htRwGut        0x10    // row area of outline gutter
+#define htColGut    0x11    // column area of outline gutter
+#define htTextBox    0x12    // body of a text box (where we shouw I-Beam cursor)
+#define htRwLevels    0x13    // row levels buttons of outline gutter
+#define htColLevels    0x14    // column levels buttons of outline gutter
+#define htDman        0x15    // the drag/drop handle of the selection
+#define htDmanFill    0x16    // the auto-fill handle of the selection
+#define htXSplit    0x17    // the intersection of the horz & vert pane splits
+#define htVertex    0x18    // a vertex of a polygon draw object
+#define htAddVtx    0x19    // htVertex in add a vertex mode
+#define htDelVtx    0x1A    // htVertex in delete a vertex mode
+#define htRwHdr        0x1B    // row header
+#define htColHdr    0x1C    // column header
+#define htRwShow    0x1D    // Like htRowHeight except means grow a hidden column
+#define htColShow    0x1E    // column version of htRwShow
+#define htSizing    0x1F    // Internal use only
+#define htSxpivot    0x20    // a drag/drop tile in a pivot table
+#define htTabs        0x21    // the sheet paging tabs
+#define htEdit        0x22    // Internal use only
 
 typedef struct _fmlainfo
 {
-	int wPointMode;	// current edit mode.  0 => rest of struct undefined
-	int cch;	// count of characters in formula
-	char *lpch;	// pointer to formula characters.  READ ONLY!!!
-	int ichFirst;	// char offset to start of selection
-	int ichLast;	// char offset to end of selection (may be > cch)
-	int ichCaret;	// char offset to blinking caret
+    int wPointMode;    // current edit mode.  0 => rest of struct undefined
+    int cch;    // count of characters in formula
+    char *lpch;    // pointer to formula characters.  READ ONLY!!!
+    int ichFirst;    // char offset to start of selection
+    int ichLast;    // char offset to end of selection (may be > cch)
+    int ichCaret;    // char offset to blinking caret
 } FMLAINFO;
 
 typedef struct _mouseinfo
 {
-	/* input section */
-	HWND hwnd;		// window to get info on
-	POINT pt;		// mouse position to get info on
+    /* input section */
+    HWND hwnd;        // window to get info on
+    POINT pt;        // mouse position to get info on
 
-	/* output section */
-	int dt;			// document(page) type
-	int ht;			// hit test code
-	int rw;			// row @ mouse (-1 if #n/a)
-	int col;		// col @ mouse (-1 if #n/a)
+    /* output section */
+    int dt;            // document(page) type
+    int ht;            // hit test code
+    int rw;            // row @ mouse (-1 if #n/a)
+    int col;        // col @ mouse (-1 if #n/a)
 } MOUSEINFO;
 
 

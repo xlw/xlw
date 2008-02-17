@@ -151,24 +151,24 @@ shared static XLOPER.
 
 \code
 #define xlerrNull    0      // No info
-#define xlerrDiv0    7		// Division by 0
-#define xlerrValue   15		// Bad value
-#define xlerrRef     23		// Bad reference
-#define xlerrName    29		// Bad name
-#define xlerrNum     36		// Bad number
-#define xlerrNA      42		// Not available
+#define xlerrDiv0    7        // Division by 0
+#define xlerrValue   15        // Bad value
+#define xlerrRef     23        // Bad reference
+#define xlerrName    29        // Bad name
+#define xlerrNum     36        // Bad number
+#define xlerrNA      42        // Not available
 \endcode
 
 \sa XlfOper::SetError(WORD)
 */
 INLINE XlfOper XlfOper::Error(WORD xlerr)
 {
-	//static XLOPER oper;
-	//XlfOper ret(&oper);
+    //static XLOPER oper;
+    //XlfOper ret(&oper);
     // The above is not thread safe.
-	XlfOper ret;
-	ret.SetError(xlerr);
-	return ret;
+    XlfOper ret;
+    ret.SetError(xlerr);
+    return ret;
 }
 
 /*!

@@ -41,12 +41,12 @@
 //XlfOper XlfRef::operator()(INT32 r, INT32 c) const
 //{
 //#if !defined(NDEBUG)
-//	if (rowbegin_ + r > rowend_ || colbegin_ + c > colend_)
+//    if (rowbegin_ + r > rowend_ || colbegin_ + c > colend_)
 //  {
 //    std::cerr << "XlfRef access out of range" << std::endl;
 //  }
 //#endif
-//	XlfOper res;
-//	res.Set(XlfRef(rowbegin_ + r, colbegin_ + c, sheetId_));
-//	return res;
+//    XlfOper res;
+//    res.Set(XlfRef(rowbegin_ + r, colbegin_ + c, sheetId_));
+//    return res;
 //}

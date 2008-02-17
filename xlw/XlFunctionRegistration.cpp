@@ -1,6 +1,6 @@
 //
-//	
-//									XlFunctionRegistriation.cpp
+//    
+//                                    XlFunctionRegistriation.cpp
 //
 //
 /*
@@ -31,64 +31,64 @@ XLFunctionRegistrationData::XLFunctionRegistrationData(const std::string& Functi
                      const std::string& Library_,
                      const Arg Arguments[],
                      int NoOfArguments_,
-					 bool Volatile_,
-					 bool Threadsafe_)
-	:				FunctionName(FunctionName_),
+                     bool Volatile_,
+                     bool Threadsafe_)
+    :                FunctionName(FunctionName_),
                      ExcelFunctionName(ExcelFunctionName_),
                      FunctionDescription(FunctionDescription_),
                      Library(Library_),
                      NoOfArguments(NoOfArguments_),
-					 Volatile(Volatile_),
-					 Threadsafe(Threadsafe_)
+                     Volatile(Volatile_),
+                     Threadsafe(Threadsafe_)
 {
 
-	ArgumentNames.reserve(NoOfArguments);
-	ArgumentDescriptions.reserve(NoOfArguments);
+    ArgumentNames.reserve(NoOfArguments);
+    ArgumentDescriptions.reserve(NoOfArguments);
 
-	for (int i=0; i < NoOfArguments; i++)
-	{
-		ArgumentNames.push_back(Arguments[i].ArgumentName);
-		ArgumentDescriptions.push_back(Arguments[i].ArgumentDescription);
-		ArgumentTypes.push_back(Arguments[i].ArgumentType);
-	}
+    for (int i=0; i < NoOfArguments; i++)
+    {
+        ArgumentNames.push_back(Arguments[i].ArgumentName);
+        ArgumentDescriptions.push_back(Arguments[i].ArgumentDescription);
+        ArgumentTypes.push_back(Arguments[i].ArgumentType);
+    }
 }
 
 std::string XLFunctionRegistrationData::GetFunctionName() const
 {
-	return FunctionName;
+    return FunctionName;
 }
 std::string XLFunctionRegistrationData::GetExcelFunctionName() const
 {
-	return ExcelFunctionName;
+    return ExcelFunctionName;
 }
 std::string XLFunctionRegistrationData::GetFunctionDescription() const
 {
-	return FunctionDescription;
+    return FunctionDescription;
 }
 
 
 std::string XLFunctionRegistrationData::GetLibrary() const
 {
-	return Library;
+    return Library;
 }
 
 int XLFunctionRegistrationData::GetNoOfArguments() const{ 
-	return NoOfArguments;
+    return NoOfArguments;
 }
 
 std::vector<std::string> XLFunctionRegistrationData::GetArgumentNames() const
 {
-	return ArgumentNames;
+    return ArgumentNames;
 }
 
 std::vector<std::string> XLFunctionRegistrationData::GetArgumentDescriptions() const
 { 
-	return ArgumentDescriptions;
+    return ArgumentDescriptions;
 }
 
 std::vector<std::string> XLFunctionRegistrationData::GetArgumentTypes() const
 { 
-	return ArgumentTypes;
+    return ArgumentTypes;
 }
 
 
@@ -98,57 +98,57 @@ XLFunctionRegistrationHelper::XLFunctionRegistrationHelper(const std::string& Fu
                      const std::string& Library,
                      const Arg Args[],
                      int NoOfArguments,
-					 bool Volatile,
-					 bool Threadsafe)
+                     bool Volatile,
+                     bool Threadsafe)
 {
-	XLFunctionRegistrationData tmp(FunctionName, 
-																ExcelFunctionName, 
-																FunctionDescription, 
-																Library, 
-																Args,
+    XLFunctionRegistrationData tmp(FunctionName, 
+                                                                ExcelFunctionName, 
+                                                                FunctionDescription, 
+                                                                Library, 
+                                                                Args,
                                                                 NoOfArguments,
-																Volatile,
-																Threadsafe);
+                                                                Volatile,
+                                                                Threadsafe);
 
-	ExcelFunctionRegistrationRegistry::Instance().AddFunction(tmp);
+    ExcelFunctionRegistrationRegistry::Instance().AddFunction(tmp);
 }
 
 ExcelFunctionRegistrationRegistry& ExcelFunctionRegistrationRegistry::Instance()
 {
-	static ExcelFunctionRegistrationRegistry SingleInstance;
-	return SingleInstance;
+    static ExcelFunctionRegistrationRegistry SingleInstance;
+    return SingleInstance;
 }
 
 void ExcelFunctionRegistrationRegistry::DoTheRegistrations() const
 {
-	for (std::list<XLFunctionRegistrationData>::const_iterator it = RegistrationData.begin(); it !=  RegistrationData.end(); ++it)
-	{
-		XlfFuncDesc::RecalcPolicy policy = it->GetVolatile() ? XlfFuncDesc::Volatile : XlfFuncDesc::NotVolatile;
-		 XlfFuncDesc xlFunction(it->GetFunctionName(), 
-													it->GetExcelFunctionName(), 
-													it->GetFunctionDescription(), 
-													it->GetLibrary(),
-													policy, 
-													it->GetThreadsafe());
-		XlfArgDescList xlFunctionArgs;
+    for (std::list<XLFunctionRegistrationData>::const_iterator it = RegistrationData.begin(); it !=  RegistrationData.end(); ++it)
+    {
+        XlfFuncDesc::RecalcPolicy policy = it->GetVolatile() ? XlfFuncDesc::Volatile : XlfFuncDesc::NotVolatile;
+         XlfFuncDesc xlFunction(it->GetFunctionName(), 
+                                                    it->GetExcelFunctionName(), 
+                                                    it->GetFunctionDescription(), 
+                                                    it->GetLibrary(),
+                                                    policy, 
+                                                    it->GetThreadsafe());
+        XlfArgDescList xlFunctionArgs;
 
-		for (int i=0; i < it->GetNoOfArguments(); ++i)
-		{
-				XlfArgDesc ThisArgumentDescription(it->GetArgumentNames()[i],
-																				it->GetArgumentDescriptions()[i],
-																				it->GetArgumentTypes()[i]);
-				xlFunctionArgs + ThisArgumentDescription; 
-																							//+ is a push_back operation
-		}
+        for (int i=0; i < it->GetNoOfArguments(); ++i)
+        {
+                XlfArgDesc ThisArgumentDescription(it->GetArgumentNames()[i],
+                                                                                it->GetArgumentDescriptions()[i],
+                                                                                it->GetArgumentTypes()[i]);
+                xlFunctionArgs + ThisArgumentDescription; 
+                                                                                            //+ is a push_back operation
+        }
 
-		 xlFunction.SetArguments(xlFunctionArgs);
-		 xlFunction.Register();
-	}
+         xlFunction.SetArguments(xlFunctionArgs);
+         xlFunction.Register();
+    }
 
 }
 void ExcelFunctionRegistrationRegistry::AddFunction(const XLFunctionRegistrationData& data)
 {
-	RegistrationData.push_back(data);
+    RegistrationData.push_back(data);
 }
 
 ExcelFunctionRegistrationRegistry::ExcelFunctionRegistrationRegistry()

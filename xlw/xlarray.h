@@ -1,5 +1,5 @@
 //
-//										xlarray.h
+//                                        xlarray.h
 //
 
 #ifndef XL_ARRAY_H
@@ -10,9 +10,9 @@
 
 struct xlarray
 {
-	WORD rows;
-	WORD columns;
-	double data[1];
+    WORD rows;
+    WORD columns;
+    double data[1];
 };
 
 

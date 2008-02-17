@@ -1,6 +1,6 @@
 //
 //
-//							ArgList.h
+//                            ArgList.h
 //
 //
 /*
@@ -38,64 +38,64 @@ public:
     ArgumentList(CellMatrix cells, 
                       std::string ErrorIdentifier);
 
-	ArgumentList(std::string name);
+    ArgumentList(std::string name);
 
 
     enum ArgumentType
     {
         string, number, vector, matrix, 
-		boolean, list, cells
+        boolean, list, cells
     };
 
     std::string GetStructureName() const;
 
     const std::vector<std::pair<std::string, ArgumentType> >& GetArgumentNamesAndTypes() const; 
     
-	std::string GetStringArgumentValue(const std::string& ArgumentName);
+    std::string GetStringArgumentValue(const std::string& ArgumentName);
     unsigned long GetULArgumentValue(const std::string& ArgumentName); 
     double GetDoubleArgumentValue(const std::string& ArgumentName);
     MyArray GetArrayArgumentValue(const std::string& ArgumentName);
     MyMatrix GetMatrixArgumentValue(const std::string& ArgumentName);
-	bool GetBoolArgumentValue(const std::string& ArgumentName);
-	CellMatrix GetCellsArgumentValue(const std::string& ArgumentName);
-	ArgumentList GetArgumentListArgumentValue(const std::string& ArgumentName);
+    bool GetBoolArgumentValue(const std::string& ArgumentName);
+    CellMatrix GetCellsArgumentValue(const std::string& ArgumentName);
+    ArgumentList GetArgumentListArgumentValue(const std::string& ArgumentName);
 
 
-	// bool indicates whether the argument was found
-	bool GetIfPresent(const std::string& ArgumentName,
-		unsigned long& ArgumentValue);
-	bool GetIfPresent(const std::string& ArgumentName,
-		double& ArgumentValue);
-	bool GetIfPresent(const std::string& ArgumentName,
-		MyArray& ArgumentValue);
-	bool GetIfPresent(const std::string& ArgumentName,
-		MyMatrix& ArgumentValue);
-	bool GetIfPresent(const std::string& ArgumentName,
-		bool& ArgumentValue);
-	bool GetIfPresent(const std::string& ArgumentName,
-		CellMatrix& ArgumentValue);
-	bool GetIfPresent(const std::string& ArgumentName,
-		ArgumentList& ArgumentValue);
+    // bool indicates whether the argument was found
+    bool GetIfPresent(const std::string& ArgumentName,
+        unsigned long& ArgumentValue);
+    bool GetIfPresent(const std::string& ArgumentName,
+        double& ArgumentValue);
+    bool GetIfPresent(const std::string& ArgumentName,
+        MyArray& ArgumentValue);
+    bool GetIfPresent(const std::string& ArgumentName,
+        MyMatrix& ArgumentValue);
+    bool GetIfPresent(const std::string& ArgumentName,
+        bool& ArgumentValue);
+    bool GetIfPresent(const std::string& ArgumentName,
+        CellMatrix& ArgumentValue);
+    bool GetIfPresent(const std::string& ArgumentName,
+        ArgumentList& ArgumentValue);
 
 
     bool IsArgumentPresent(const std::string& ArgumentName) const;
 
-	void CheckAllUsed(const std::string& ErrorId) const;
+    void CheckAllUsed(const std::string& ErrorId) const;
 
-	CellMatrix AllData() const; // makes data into a cell matrix that could be used for 
-								// creating the same argument list
-								// useful for checking the class works!
+    CellMatrix AllData() const; // makes data into a cell matrix that could be used for 
+                                // creating the same argument list
+                                // useful for checking the class works!
 
-	// data insertions
+    // data insertions
 
-	void add(const std::string& ArgumentName, const std::string& value);
+    void add(const std::string& ArgumentName, const std::string& value);
     void add(const std::string& ArgumentName, double value);
     void add(const std::string& ArgumentName, const MyArray& value);
     void add(const std::string& ArgumentName, const MyMatrix& value);
-	void add(const std::string& ArgumentName, bool value);
-	void add(const std::string& ArgumentName, const CellMatrix& values);
-  	void addList(const std::string& ArgumentName, const CellMatrix& values);
-	void add(const std::string& ArgumentName, const ArgumentList& values);
+    void add(const std::string& ArgumentName, bool value);
+    void add(const std::string& ArgumentName, const CellMatrix& values);
+      void addList(const std::string& ArgumentName, const CellMatrix& values);
+    void add(const std::string& ArgumentName, const ArgumentList& values);
 
 private:
 
@@ -106,19 +106,19 @@ private:
     std::map<std::string,MyArray> ArrayArguments;
     std::map<std::string,MyMatrix> MatrixArguments;
     std::map<std::string,std::string> StringArguments;
-	std::map<std::string,CellMatrix> ListArguments;	
+    std::map<std::string,CellMatrix> ListArguments;    
 
 
-	std::map<std::string,CellMatrix> CellArguments;
-	std::map<std::string,bool> BoolArguments;
+    std::map<std::string,CellMatrix> CellArguments;
+    std::map<std::string,bool> BoolArguments;
 
     std::map<std::string,ArgumentType> Names;
 
     std::map<std::string,bool> ArgumentsUsed;
 
-	void GenerateThrow(std::string message, unsigned long row, unsigned long column);
-	void UseArgumentName(const std::string& ArgumentName); // private as no error checking performed
-	void RegisterName(const std::string& ArgumentName, ArgumentType type);
+    void GenerateThrow(std::string message, unsigned long row, unsigned long column);
+    void UseArgumentName(const std::string& ArgumentName); // private as no error checking performed
+    void RegisterName(const std::string& ArgumentName, ArgumentType type);
 };
 
 

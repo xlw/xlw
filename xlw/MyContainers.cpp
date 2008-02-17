@@ -5,22 +5,22 @@
 
 double Element(const MyMatrix& A, unsigned long i , unsigned long j)
 {
-	return A(i,j);
+    return A(i,j);
 }
 
 double& ChangingElement(MyMatrix& A, unsigned long i , unsigned long j)
 {
-	return A(i,j);
+    return A(i,j);
 }
 #else
 
 double Element(const MyMatrix& A, unsigned long i , unsigned long j)
 {
-	return A[i][j];
+    return A[i][j];
 }
 
 double& ChangingElement(MyMatrix& A, unsigned long i , unsigned long j)
 {
-	return A[i][j];
+    return A[i][j];
 }
 #endif

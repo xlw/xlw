@@ -30,46 +30,46 @@ struct Arg { const char * ArgumentName; const char * ArgumentDescription; const 
 class XLFunctionRegistrationData
 {
 public:
-  	XLFunctionRegistrationData(const std::string& FunctionName_,
+      XLFunctionRegistrationData(const std::string& FunctionName_,
                      const std::string& ExcelFunctionName_,
                      const std::string& FunctionDescription_,
                      const std::string& Library_,
                      const Arg Arguments[],
                      int NoOfArguments_,
-					 bool Volatile_=false,
-					 bool Threadsafe_=false); 
+                     bool Volatile_=false,
+                     bool Threadsafe_=false); 
 
-	std::string GetFunctionName() const;
-	std::string GetExcelFunctionName() const;
-	std::string GetFunctionDescription() const;
-	std::string GetLibrary() const;
-	int GetNoOfArguments() const;
-	std::vector<std::string> GetArgumentNames() const;
-	std::vector<std::string> GetArgumentDescriptions() const;
-	std::vector<std::string> GetArgumentTypes() const;
+    std::string GetFunctionName() const;
+    std::string GetExcelFunctionName() const;
+    std::string GetFunctionDescription() const;
+    std::string GetLibrary() const;
+    int GetNoOfArguments() const;
+    std::vector<std::string> GetArgumentNames() const;
+    std::vector<std::string> GetArgumentDescriptions() const;
+    std::vector<std::string> GetArgumentTypes() const;
 
-	bool GetVolatile() const
-	{
-		return Volatile;
-	}
+    bool GetVolatile() const
+    {
+        return Volatile;
+    }
 
-	bool GetThreadsafe() const
-	{
-		return Threadsafe;
-	}
+    bool GetThreadsafe() const
+    {
+        return Threadsafe;
+    }
   
 private:
 
-	std::string FunctionName;
-	std::string ExcelFunctionName;
-	std::string FunctionDescription;
-	std::string Library;
-	int NoOfArguments;
-	std::vector<std::string> ArgumentNames;
-	std::vector<std::string> ArgumentDescriptions;
-	std::vector<std::string> ArgumentTypes;
-	bool Volatile;
-	bool Threadsafe;
+    std::string FunctionName;
+    std::string ExcelFunctionName;
+    std::string FunctionDescription;
+    std::string Library;
+    int NoOfArguments;
+    std::vector<std::string> ArgumentNames;
+    std::vector<std::string> ArgumentDescriptions;
+    std::vector<std::string> ArgumentTypes;
+    bool Volatile;
+    bool Threadsafe;
 
 
 };
@@ -78,14 +78,14 @@ class XLFunctionRegistrationHelper
 {
 public:
   
-	XLFunctionRegistrationHelper(const std::string& FunctionName,
+    XLFunctionRegistrationHelper(const std::string& FunctionName,
                      const std::string& ExcelFunctionName,
                      const std::string& FunctionDescription,
                      const std::string& Library,
                      const Arg Args[],
                      int NoOfArguments,
-					 bool Volatile=false,
-					 bool Threadsafe=false); 
+                     bool Volatile=false,
+                     bool Threadsafe=false); 
   
 private:
   
@@ -97,17 +97,17 @@ class ExcelFunctionRegistrationRegistry
 {
 public:
 
-	static ExcelFunctionRegistrationRegistry& Instance();
+    static ExcelFunctionRegistrationRegistry& Instance();
 
-	void DoTheRegistrations() const;
-	void AddFunction(const XLFunctionRegistrationData&);
+    void DoTheRegistrations() const;
+    void AddFunction(const XLFunctionRegistrationData&);
 
 private:
-	ExcelFunctionRegistrationRegistry();
-	ExcelFunctionRegistrationRegistry(const ExcelFunctionRegistrationRegistry& original);
+    ExcelFunctionRegistrationRegistry();
+    ExcelFunctionRegistrationRegistry(const ExcelFunctionRegistrationRegistry& original);
 
-	std::list<XLFunctionRegistrationData> RegistrationData;
-	
+    std::list<XLFunctionRegistrationData> RegistrationData;
+    
 };
 
 }

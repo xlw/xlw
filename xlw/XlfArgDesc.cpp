@@ -52,7 +52,7 @@ void XlfArgDesc::CheckDescEnd()
   std::string::size_type n = comment_.length();
   static std::string mandatoryEnding(". ");
   if (comment_.length() < 2 || comment_.substr(n-2) != mandatoryEnding)
-	  comment_ += mandatoryEnding;
+      comment_ += mandatoryEnding;
 }
 
 XlfArgDesc::XlfArgDesc()

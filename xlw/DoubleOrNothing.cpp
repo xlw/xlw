@@ -1,6 +1,6 @@
 //
 //
-//														DoubleOrNothing.cpp
+//                                                        DoubleOrNothing.cpp
 //
 //
 /*
@@ -23,25 +23,25 @@
 
 DoubleOrNothing::DoubleOrNothing(const CellMatrix& cells, const std::string& identifier)
 {
-	if (cells.ColumnsInStructure() != 1 || cells.RowsInStructure() != 1)
-		throw("Multiple values given where one expected for DoubleOrNothing " +identifier);
+    if (cells.ColumnsInStructure() != 1 || cells.RowsInStructure() != 1)
+        throw("Multiple values given where one expected for DoubleOrNothing " +identifier);
 
-	if (!cells(0,0).IsEmpty() && !cells(0,0).IsANumber() )
-		throw("expected a double or nothing, got something else "+identifier);
+    if (!cells(0,0).IsEmpty() && !cells(0,0).IsANumber() )
+        throw("expected a double or nothing, got something else "+identifier);
 
-	Empty = cells(0,0).IsEmpty();
+    Empty = cells(0,0).IsEmpty();
 
-	Value = Empty ? 0.0 : cells(0,0).NumericValue();
-	
+    Value = Empty ? 0.0 : cells(0,0).NumericValue();
+    
 }
 
 bool DoubleOrNothing::IsEmpty() const
 {
-	return Empty;
+    return Empty;
 }
 
 double DoubleOrNothing::GetValueOrDefault(double defaultValue) const
 {
-	return Empty ? defaultValue : Value;
+    return Empty ? defaultValue : Value;
 }
 

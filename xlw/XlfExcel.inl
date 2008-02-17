@@ -84,7 +84,7 @@ Allocates a \c new[] buffer and pushes it in front of the list of buffers.
 //  freeList_.push_front(newBuffer);
 //  offset_=0;
 //#if !defined(NDEBUG)
-//	std::cerr << "xlw is allocating a new buffer of " << size << " bytes" << std::endl;
+//    std::cerr << "xlw is allocating a new buffer of " << size << " bytes" << std::endl;
 //#endif
 //  return;
 //}
@@ -97,7 +97,7 @@ INLINE void XlfExcel::PushNewBuffer(size_t size, BufferList &bufferList)
   bufferList.push_front(newBuffer);
   //offset_=0;
 #if !defined(NDEBUG)
-	std::cerr << "xlw is allocating a new buffer of " << size << " bytes" << std::endl;
+    std::cerr << "xlw is allocating a new buffer of " << size << " bytes" << std::endl;
 #endif
   return;
 }

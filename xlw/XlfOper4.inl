@@ -142,24 +142,24 @@ shared static XLOPER.
 
 \code
 #define xlerrNull    0    // No info
-#define xlerrDiv0    7		// Division by 0
-#define xlerrValue   15		// Bad value
-#define xlerrRef     23		// Bad reference
-#define xlerrName    29		// Bad name
-#define xlerrNum     36		// Bad number
-#define xlerrNA      42		// Not available
+#define xlerrDiv0    7        // Division by 0
+#define xlerrValue   15        // Bad value
+#define xlerrRef     23        // Bad reference
+#define xlerrName    29        // Bad name
+#define xlerrNum     36        // Bad number
+#define xlerrNA      42        // Not available
 \endcode
 
 \sa XlfOper4::SetError(WORD)
 */
 INLINE XlfOper4 XlfOper4::Error(WORD xlerr)
 {
-	//static XLOPER oper;
-	//XlfOper4 ret(&oper);
+    //static XLOPER oper;
+    //XlfOper4 ret(&oper);
     // The above is not thread safe.
-	XlfOper4 ret;
-	ret.SetError(xlerr);
-	return ret;
+    XlfOper4 ret;
+    ret.SetError(xlerr);
+    return ret;
 }
 
 INLINE XlfOper4& XlfOper4::operator=(const XlfOper4& rhs)

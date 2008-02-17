@@ -45,7 +45,7 @@ inline bool IsDebuggerPresent()
 #ifdef NDEBUG
     return false;
 #else
-	return true;
+    return true;
 #endif
 }
 #endif
@@ -57,7 +57,7 @@ the put area and send it to the debug window using OutputDebugString.
 void Win32StreamBuf::SendToDebugWindow()
 {
     if (IsDebuggerPresent() && !buf_.empty())
-		::OutputDebugString(buf_.c_str());
+        ::OutputDebugString(buf_.c_str());
 }
 
 #endif // _WIN32

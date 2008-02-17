@@ -48,54 +48,54 @@ bool XlfCmdDesc::IsAddedToMenuBar()
 
 int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
 {
-	XLOPER xMenu;
-	LPXLOPER pxMenu;
-	LPXLOPER px;
+    XLOPER xMenu;
+    LPXLOPER pxMenu;
+    LPXLOPER px;
 
-	menu_ = menu;
-	text_ = text;
+    menu_ = menu;
+    text_ = text;
 
-	// This is a small trick to allocate an array 5 XlfOper
-	// One must first allocate the array with XLOPER
-//	px = pxMenu = (LPXLOPER)new XLOPER[5];
-	px = pxMenu = new XLOPER[5];
-	// and then assign the XLOPER to XlfOper specifying false
-	// to tell the Framework that the data is not owned by
-	// Excel and that it should not call xlFree when destroyed
-	XlfOper(px++).Set(text_.c_str());
-	XlfOper(px++).Set(GetAlias().c_str());
-	XlfOper(px++).Set("");
-	XlfOper(px++).Set(GetComment().c_str());
-	XlfOper(px++).Set("");
+    // This is a small trick to allocate an array 5 XlfOper
+    // One must first allocate the array with XLOPER
+//    px = pxMenu = (LPXLOPER)new XLOPER[5];
+    px = pxMenu = new XLOPER[5];
+    // and then assign the XLOPER to XlfOper specifying false
+    // to tell the Framework that the data is not owned by
+    // Excel and that it should not call xlFree when destroyed
+    XlfOper(px++).Set(text_.c_str());
+    XlfOper(px++).Set(GetAlias().c_str());
+    XlfOper(px++).Set("");
+    XlfOper(px++).Set(GetComment().c_str());
+    XlfOper(px++).Set("");
 
-	xMenu.xltype = xltypeMulti;
-	xMenu.val.array.lparray = pxMenu;
-	xMenu.val.array.rows = 1;
-	xMenu.val.array.columns = 5;
+    xMenu.xltype = xltypeMulti;
+    xMenu.val.array.lparray = pxMenu;
+    xMenu.val.array.rows = 1;
+    xMenu.val.array.columns = 5;
 
-	//int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)&xMenu);
-	int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_.c_str()), (LPXLFOPER)&xMenu);
-	if (err != xlretSuccess)
+    //int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)&xMenu);
+    int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_.c_str()), (LPXLFOPER)&xMenu);
+    if (err != xlretSuccess)
     std::cerr << XLW__HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
-	delete[] pxMenu;
-	return err;
+    delete[] pxMenu;
+    return err;
 }
 
 int XlfCmdDesc::Check(bool ERR_CHECK) const
 {
-	if (menu_.empty())
-	{
+    if (menu_.empty())
+    {
     std::cerr << XLW__HERE__ << "No menu specified for the command \"" << GetName().c_str() << "\"" << std::endl;
-		return xlretFailed;
-	}
-	//int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)XlfOper(text_.c_str()), (LPXLOPER)XlfOper(ERR_CHECK));
-	int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_.c_str()), (LPXLFOPER)XlfOper(text_.c_str()), (LPXLFOPER)XlfOper(ERR_CHECK));
-	if (err != xlretSuccess)
-	{
+        return xlretFailed;
+    }
+    //int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)XlfOper(text_.c_str()), (LPXLOPER)XlfOper(ERR_CHECK));
+    int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_.c_str()), (LPXLFOPER)XlfOper(text_.c_str()), (LPXLFOPER)XlfOper(ERR_CHECK));
+    if (err != xlretSuccess)
+    {
     std::cerr << XLW__HERE__ << "Registration of " << GetAlias().c_str() << " failed" << std::endl;
-		return err;
-	}
-	return xlretSuccess;
+        return err;
+    }
+    return xlretSuccess;
 }
 
 /*!
@@ -111,45 +111,45 @@ int XlfCmdDesc::DoRegister(const std::string& dllName) const
   double type = hidden_ ? 0 : 2;
 
   /*
-//	ERR_LOG("Registering command \"" << alias_.c_str() << "\" from \"" << name_.c_str() << "\" in \"" << dllname.c_str() << "\"");
-	int err = XlfExcel::Instance().Call(
-		xlfRegister, NULL, 7,
-		(LPXLOPER)XlfOper(dllName.c_str()),
-		(LPXLOPER)XlfOper(GetName().c_str()),
-		(LPXLOPER)XlfOper("A"),
-		(LPXLOPER)XlfOper(GetAlias().c_str()),
-		(LPXLOPER)XlfOper(""),
-		(LPXLOPER)XlfOper(type),
-		(LPXLOPER)XlfOper(""));
-	int err = XlfExcel::Instance().Call(
-		xlfRegister, NULL, 7,
-		(LPXLFOPER)XlfOper(dllName.c_str()),
-		(LPXLFOPER)XlfOper(GetName().c_str()),
-		(LPXLFOPER)XlfOper("A"),
-		(LPXLFOPER)XlfOper(GetAlias().c_str()),
-		(LPXLFOPER)XlfOper(""),
-		(LPXLFOPER)XlfOper(type),
-		(LPXLFOPER)XlfOper(""));
-	return err;
+//    ERR_LOG("Registering command \"" << alias_.c_str() << "\" from \"" << name_.c_str() << "\" in \"" << dllname.c_str() << "\"");
+    int err = XlfExcel::Instance().Call(
+        xlfRegister, NULL, 7,
+        (LPXLOPER)XlfOper(dllName.c_str()),
+        (LPXLOPER)XlfOper(GetName().c_str()),
+        (LPXLOPER)XlfOper("A"),
+        (LPXLOPER)XlfOper(GetAlias().c_str()),
+        (LPXLOPER)XlfOper(""),
+        (LPXLOPER)XlfOper(type),
+        (LPXLOPER)XlfOper(""));
+    int err = XlfExcel::Instance().Call(
+        xlfRegister, NULL, 7,
+        (LPXLFOPER)XlfOper(dllName.c_str()),
+        (LPXLFOPER)XlfOper(GetName().c_str()),
+        (LPXLFOPER)XlfOper("A"),
+        (LPXLFOPER)XlfOper(GetAlias().c_str()),
+        (LPXLFOPER)XlfOper(""),
+        (LPXLFOPER)XlfOper(type),
+        (LPXLFOPER)XlfOper(""));
+    return err;
   */
 
   size_t nbargs = arguments.size();
-	std::string args("A");
-	std::string argnames;
+    std::string args("A");
+    std::string argnames;
 
-	XlfArgDescList::const_iterator it = arguments.begin();
-	while (it != arguments.end())
-	{
-		argnames += (*it).GetName();
-		args += (*it).GetType();
-		++it;
-		if (it != arguments.end())
-			argnames+=", ";
-	}  
+    XlfArgDescList::const_iterator it = arguments.begin();
+    while (it != arguments.end())
+    {
+        argnames += (*it).GetName();
+        args += (*it).GetType();
+        ++it;
+        if (it != arguments.end())
+            argnames+=", ";
+    }  
   
   LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
-	LPXLOPER *px = rgx;
-	
+    LPXLOPER *px = rgx;
+    
   (*px++) = XlfOper4(dllName.c_str());
   (*px++) = XlfOper4(GetName().c_str());
   (*px++) = XlfOper4(args.c_str());
@@ -157,17 +157,17 @@ int XlfCmdDesc::DoRegister(const std::string& dllName) const
   (*px++) = XlfOper4(argnames.c_str());
   (*px++) = XlfOper4(type);
   (*px++) = XlfOper4("");
-	(*px++) = XlfOper4("");
-	(*px++) = XlfOper4("");
-	(*px++) = XlfOper4(GetComment().c_str());
-  	for (it = arguments.begin(); it != arguments.end(); ++it)
+    (*px++) = XlfOper4("");
+    (*px++) = XlfOper4("");
+    (*px++) = XlfOper4(GetComment().c_str());
+      for (it = arguments.begin(); it != arguments.end(); ++it)
   {
-		(*px++) = XlfOper4((*it).GetComment().c_str());
+        (*px++) = XlfOper4((*it).GetComment().c_str());
   }
 
     int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, NULL, 10 + nbargs, rgx));
-	delete[] rgx;
-	return err;
+    delete[] rgx;
+    return err;
   
 }
 

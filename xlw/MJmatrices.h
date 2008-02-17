@@ -47,11 +47,11 @@ public:
     inline MJMatrix& operator+=(const MJMatrix& addend);
 
     MJMatrix& resize(unsigned long rows, unsigned long columns);
-		 
-	inline double* operator[](unsigned long i);
+         
+    inline double* operator[](unsigned long i);
     inline const double* const operator[](unsigned long i) const;
 
-	inline const double& operator()(unsigned long i, unsigned long j) const;
+    inline const double& operator()(unsigned long i, unsigned long j) const;
     inline double& operator()(unsigned long i, unsigned long j);
 
   

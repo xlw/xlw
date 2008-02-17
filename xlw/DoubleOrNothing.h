@@ -26,16 +26,16 @@ class CellMatrix;
 class DoubleOrNothing
 {
 public:
-	DoubleOrNothing(const CellMatrix& cells, const std::string& identifier);
+    DoubleOrNothing(const CellMatrix& cells, const std::string& identifier);
 
-	bool IsEmpty() const;
-	double GetValueOrDefault(double defaultValue) const;
+    bool IsEmpty() const;
+    double GetValueOrDefault(double defaultValue) const;
 
 
 
 private:
-	bool Empty;
-	double Value;
+    bool Empty;
+    double Value;
 
 };
 

@@ -37,7 +37,7 @@ struct XlfFuncDescImpl
 {
   //! Ctor.
   XlfFuncDescImpl(XlfFuncDesc::RecalcPolicy recalcPolicy, bool Threadsafe,
-	  const std::string& category): recalcPolicy_(recalcPolicy), Threadsafe_(Threadsafe), category_(category)
+      const std::string& category): recalcPolicy_(recalcPolicy), Threadsafe_(Threadsafe), category_(category)
   {}
   //! Recalculation policy
   XlfFuncDesc::RecalcPolicy recalcPolicy_;
@@ -58,8 +58,8 @@ XlfAbstractCmdDesc::XlfAbstractCmdDesc.
 \param recalcPolicy Policy to recalculate the cell.
 */
 XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias,
-						 const std::string& comment, const std::string& category,
-						 RecalcPolicy recalcPolicy, bool Threadsafe)
+                         const std::string& comment, const std::string& category,
+                         RecalcPolicy recalcPolicy, bool Threadsafe)
     :XlfAbstractCmdDesc(name, alias, comment), impl_(0)
 {
   impl_ = new XlfFuncDescImpl(recalcPolicy,Threadsafe,category);
@@ -105,20 +105,20 @@ int XlfFuncDesc::DoUnregister(const std::string& dllName) const
 
   XlfArgDescList arguments = GetArguments();
   size_t nbargs = arguments.size();
-	std::string args(XlfArgDesc::XlfOperType());
-	std::string argnames;
+    std::string args(XlfArgDesc::XlfOperType());
+    std::string argnames;
 
-	XlfArgDescList::const_iterator it = arguments.begin();
-	while (it != arguments.end())
-	{
-		argnames += (*it).GetName();
-		args += (*it).GetType();
-		++it;
-		if (it != arguments.end())
-			argnames+=", ";
-	}
+    XlfArgDescList::const_iterator it = arguments.begin();
+    while (it != arguments.end())
+    {
+        argnames += (*it).GetName();
+        args += (*it).GetType();
+        ++it;
+        if (it != arguments.end())
+            argnames+=", ";
+    }
 
-	double funcId;
+    double funcId;
   int err = RegisterAs(dllName, 0, &funcId);
 
   XlfOper unreg;
@@ -136,53 +136,53 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
 
     size_t nbargs = arguments.size();
     std::string args(XlfArgDesc::XlfOperType());
-	std::string argnames;
+    std::string argnames;
 
-	XlfArgDescList::const_iterator it = arguments.begin();
-	while (it != arguments.end())
-	{
-		argnames += (*it).GetName();
-		args += (*it).GetType();
-		++it;
-		if (it != arguments.end())
-			argnames+=", ";
-	}
-	if (impl_->recalcPolicy_ == XlfFuncDesc::Volatile)
-	{
-		args+="!";
-	}
+    XlfArgDescList::const_iterator it = arguments.begin();
+    while (it != arguments.end())
+    {
+        argnames += (*it).GetName();
+        args += (*it).GetType();
+        ++it;
+        if (it != arguments.end())
+            argnames+=", ";
+    }
+    if (impl_->recalcPolicy_ == XlfFuncDesc::Volatile)
+    {
+        args+="!";
+    }
     if (XlfExcel::Instance().excel12() && impl_->Threadsafe_)
     {
-	    args+="$";
+        args+="$";
     }
 
     args+='\0'; // null termination for C string
 
-	LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
-	LPXLOPER *px = rgx;
-	(*px++) = XlfOper4(dllName.c_str());
-	(*px++) = XlfOper4(GetName().c_str());
-	(*px++) = XlfOper4(args.c_str());
-	(*px++) = XlfOper4(GetAlias().c_str());
-	(*px++) = XlfOper4(argnames.c_str());
-	(*px++) = XlfOper4(mode_);
-	(*px++) = XlfOper4(impl_->category_.c_str());
-	(*px++) = XlfOper4("");
-	(*px++) = XlfOper4("");
-	(*px++) = XlfOper4(GetComment().c_str());
-	for (it = arguments.begin(); it != arguments.end(); ++it)
+    LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
+    LPXLOPER *px = rgx;
+    (*px++) = XlfOper4(dllName.c_str());
+    (*px++) = XlfOper4(GetName().c_str());
+    (*px++) = XlfOper4(args.c_str());
+    (*px++) = XlfOper4(GetAlias().c_str());
+    (*px++) = XlfOper4(argnames.c_str());
+    (*px++) = XlfOper4(mode_);
+    (*px++) = XlfOper4(impl_->category_.c_str());
+    (*px++) = XlfOper4("");
+    (*px++) = XlfOper4("");
+    (*px++) = XlfOper4(GetComment().c_str());
+    for (it = arguments.begin(); it != arguments.end(); ++it)
   {
-		(*px++) = XlfOper4((*it).GetComment().c_str());
+        (*px++) = XlfOper4((*it).GetComment().c_str());
   }
   XLOPER res;
-	int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, &res, 10 + nbargs, rgx));
-	
-	if(funcId != NULL)
-	{
-		*funcId = res.val.num;
-	}
+    int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, &res, 10 + nbargs, rgx));
+    
+    if(funcId != NULL)
+    {
+        *funcId = res.val.num;
+    }
   
-	delete[] rgx;
-	return err;
+    delete[] rgx;
+    return err;
 }
 

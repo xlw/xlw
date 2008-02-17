@@ -72,27 +72,27 @@ interface to recompile.
 */
 #define EXCEL_END \
 } catch (XlfException&) { \
-	return 0; \
+    return 0; \
 } catch (std::runtime_error& error){\
-	return XlfOper(error.what());\
+    return XlfOper(error.what());\
 } catch (std::string& error){\
-	return XlfOper(error);\
+    return XlfOper(error);\
 } catch (const char* error){\
-	return XlfOper(error);\
+    return XlfOper(error);\
 } catch (const CellMatrix& error){\
-	return XlfOper(error);\
+    return XlfOper(error);\
 } catch (...) { \
-	return XlfOper::Error(xlerrValue); \
+    return XlfOper::Error(xlerrValue); \
 }
 
 /* as example:
 #define EXCEL_END \
 } catch (XlfException&) { \
-	return 0; \
+    return 0; \
 } catch (yourException&) { \
-	exceptionHandling; \
+    exceptionHandling; \
 } catch (...) { \
-	return XlfOper::Error(xlerrValue); \
+    return XlfOper::Error(xlerrValue); \
 }
 
 */

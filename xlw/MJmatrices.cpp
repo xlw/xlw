@@ -58,9 +58,9 @@ void MJMatrix::Create()
     else
         Start=0;
 
-	for (unsigned long i=0; i < Rows; i++)
-		for (unsigned long j=0; j < Columns; j++)
-			RowStarts[i][j]=0.0;
+    for (unsigned long i=0; i < Rows; i++)
+        for (unsigned long j=0; j < Columns; j++)
+            RowStarts[i][j]=0.0;
 }
 
 

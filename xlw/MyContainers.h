@@ -1,6 +1,6 @@
 //
 //
-//															MyContainers.h
+//                                                            MyContainers.h
 //
 //
 /*
@@ -18,11 +18,11 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 /*
-	everyone has their favoured matrix and array class
-	You should alter this file to typedef your favourite of each to MyMatrix and MyVector.
+    everyone has their favoured matrix and array class
+    You should alter this file to typedef your favourite of each to MyMatrix and MyVector.
 
-	For MyMatrix it is assumed that a constructor with MyMatrix(unsigned long, unsigned long) exists 
-	and that an element can be accessed via thisMatrix[i][j]
+    For MyMatrix it is assumed that a constructor with MyMatrix(unsigned long, unsigned long) exists 
+    and that an element can be accessed via thisMatrix[i][j]
 
 
 */

@@ -1,6 +1,6 @@
 //
 //
-//															ArgListArgListFactory.h
+//                                                            ArgListArgListFactory.h
 //
 //
 
@@ -22,7 +22,7 @@ public:
 template<class TBase, class TDerived>
 FactoryHelper<TBase,TDerived>::FactoryHelper(std::string id)
 {
-	MakeLowerCase(id);
+    MakeLowerCase(id);
     FactoryInstance<TBase >().RegisterClass(id, FactoryHelper<TBase,TDerived>::create);
 }
 

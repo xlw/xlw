@@ -202,22 +202,22 @@ in this variable.
 */
 MyArray XlfOper12::AsArray(DoubleVectorConvPolicy policy, int * pxlret) const
 {
-	std::vector<double> tmp(AsDoubleVector(policy,pxlret));
-	MyArray result(tmp.size());
-	for (unsigned long i=0; i < result.size(); i++)
-		result[i] = tmp[i];
+    std::vector<double> tmp(AsDoubleVector(policy,pxlret));
+    MyArray result(tmp.size());
+    for (unsigned long i=0; i < result.size(); i++)
+        result[i] = tmp[i];
 
-	return result;
+    return result;
 }
 
 MyArray XlfOper12::AsArray(const std::string& ErrorId,DoubleVectorConvPolicy policy, int * pxlret ) const
 {
-	std::vector<double> tmp(AsDoubleVector(ErrorId,policy,pxlret));
-	MyArray result(tmp.size());
-	for (unsigned long i=0; i < result.size(); i++)
-		result[i] = tmp[i];
-	
-	return result;
+    std::vector<double> tmp(AsDoubleVector(ErrorId,policy,pxlret));
+    MyArray result(tmp.size());
+    for (unsigned long i=0; i < result.size(); i++)
+        result[i] = tmp[i];
+    
+    return result;
 }
 
 /*!
@@ -260,28 +260,28 @@ and xlretSuccess otherwise or whatever error occurs during coercing the data to 
 */
 int XlfOper12::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolicy policy) const
 {
-	if (lpxloper_->xltype == xltypeMissing)
+    if (lpxloper_->xltype == xltypeMissing)
     {
         v.resize(0);
         return xlretSuccess;
     }
 
-	if (lpxloper_->xltype & xltypeNum)
-	{
-		// first test if double
-		double d=0.0;
-		int xlret1 = ConvertToDouble(d);
+    if (lpxloper_->xltype & xltypeNum)
+    {
+        // first test if double
+        double d=0.0;
+        int xlret1 = ConvertToDouble(d);
 
-		if (xlret1 == xlretSuccess)
-		{
-			v.resize(1);
-			v[0] = d;
-			return xlret1;
-		}
-	}
+        if (xlret1 == xlretSuccess)
+        {
+            v.resize(1);
+            v[0] = d;
+            return xlret1;
+        }
+    }
 
-	if (lpxloper_->xltype & xltypeMulti)
-	{
+    if (lpxloper_->xltype & xltypeMulti)
+    {
         size_t nbRows = lpxloper_->val.array.rows;
         size_t nbCols = lpxloper_->val.array.columns;
 
@@ -317,7 +317,7 @@ int XlfOper12::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPol
             }
         }
         return xlretSuccess;
-	}
+    }
 
   XlfRef ref;
 
@@ -493,30 +493,30 @@ note this necessitates passing as a P not an R
 */
 int XlfOper12::ConvertToMatrix(MyMatrix& value) const
 {
-	// deal with empty case first
-	if (lpxloper_->xltype == xltypeMissing || lpxloper_->xltype == xltypeNil )
+    // deal with empty case first
+    if (lpxloper_->xltype == xltypeMissing || lpxloper_->xltype == xltypeNil )
     {
-	
+    
        MyMatrix tmp;
        value = tmp;
         
         return xlretSuccess;
     }
 
-	CellMatrix tmp(1,1);// will be resized anyway
-	int xlret = ConvertToCellMatrix(tmp);
-	if (xlret != xlretSuccess)
-		return xlret;
+    CellMatrix tmp(1,1);// will be resized anyway
+    int xlret = ConvertToCellMatrix(tmp);
+    if (xlret != xlretSuccess)
+        return xlret;
 
-	value = MyMatrix(tmp.RowsInStructure(), tmp.ColumnsInStructure());
-	for (unsigned long i =0; i < tmp.RowsInStructure(); i++)
-		for (unsigned long j =0; j < tmp.ColumnsInStructure(); j++)
-			if (tmp(i,j).IsANumber())
-				ChangingElement(value,i,j) = tmp(i,j).NumericValue();
-			else
-				return xlretFailed;
+    value = MyMatrix(tmp.RowsInStructure(), tmp.ColumnsInStructure());
+    for (unsigned long i =0; i < tmp.RowsInStructure(); i++)
+        for (unsigned long j =0; j < tmp.ColumnsInStructure(); j++)
+            if (tmp(i,j).IsANumber())
+                ChangingElement(value,i,j) = tmp(i,j).NumericValue();
+            else
+                return xlretFailed;
 
-	return xlretSuccess;
+    return xlretSuccess;
 }
 
 /*!
@@ -552,7 +552,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
    
     if (lpxloper_->xltype == xltypeMissing || lpxloper_->xltype == xltypeNil )
     {
-	
+    
         CellMatrix tmp(1,1);
         output = tmp;
         
@@ -572,7 +572,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
         return xlretSuccess;
     }
 
-	if (lpxloper_->xltype == xltypeBool)
+    if (lpxloper_->xltype == xltypeBool)
     {
         CellMatrix tmp(1,1);
         
@@ -584,7 +584,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
         return xlretSuccess;
     }
 
-	if (lpxloper_->xltype == xltypeErr)
+    if (lpxloper_->xltype == xltypeErr)
     {
         CellMatrix tmp(1,1);
         
@@ -649,18 +649,18 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
                     }
                     
                     else     
-						if (thisType == xltypeBool)
-						{	
-							result(i,j) = ((*lpxloper_).val.array.lparray[i*columns+j].val.xbool > 0);
-						}
-						else
-							if (thisType== xltypeErr)
-							{
-								result(i,j) = CellValue(((*lpxloper_).val.array.lparray[i*columns+j].val.err),true);
-							}
-							else
-		                        if (thisType!=xltypeMissing && thisType != xltypeNil)
-			                        throw("cell contains neither number nor string nor boolean nor empty");
+                        if (thisType == xltypeBool)
+                        {    
+                            result(i,j) = ((*lpxloper_).val.array.lparray[i*columns+j].val.xbool > 0);
+                        }
+                        else
+                            if (thisType== xltypeErr)
+                            {
+                                result(i,j) = CellValue(((*lpxloper_).val.array.lparray[i*columns+j].val.err),true);
+                            }
+                            else
+                                if (thisType!=xltypeMissing && thisType != xltypeNil)
+                                    throw("cell contains neither number nor string nor boolean nor empty");
                 }
                     
             }
@@ -673,7 +673,7 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 
     }
 
-	XlfRef ref;
+    XlfRef ref;
 
     int xlret = ConvertToRef(ref);
     if (xlret != xlretSuccess)
@@ -683,118 +683,118 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
     unsigned long nbCols = ref.GetNbCols();
     
     output = CellMatrix(nbRows,nbCols);
-	for (unsigned long i = 0; i < nbRows; ++i)
-	{
-		for (unsigned long j = 0; j < nbCols; ++j)
-		{
+    for (unsigned long i = 0; i < nbRows; ++i)
+    {
+        for (unsigned long j = 0; j < nbCols; ++j)
+        {
             XlfOper12 element = ref.element<XlfOper12>(static_cast<WORD>(i),static_cast<BYTE>(j));
-			unsigned long type = element.lpxloper_->xltype;
+            unsigned long type = element.lpxloper_->xltype;
 
-			if (type == xltypeRef)
-			{
-				XlfRef xlrefij;
+            if (type == xltypeRef)
+            {
+                XlfRef xlrefij;
 
-				int xlretij = element.ConvertToRef(xlrefij);
+                int xlretij = element.ConvertToRef(xlrefij);
 
-				if (xlretij != xlretSuccess)
-					return xlretij;
+                if (xlretij != xlretSuccess)
+                    return xlretij;
 
                 XlfOper12 refElement = xlrefij.element<XlfOper12>(0UL,0UL);
-				type = refElement.lpxloper_->xltype;
+                type = refElement.lpxloper_->xltype;
 
-				if (type == xltypeNum)
-				{
-					double tmp;
-					xlret = refElement.ConvertToDouble(tmp);
+                if (type == xltypeNum)
+                {
+                    double tmp;
+                    xlret = refElement.ConvertToDouble(tmp);
 
-					output(i,j) = tmp;
+                    output(i,j) = tmp;
 
-					if (xlret != xlretSuccess)
-						return xlret;
-				}
-				else 
-					if (type == xltypeErr)
-					{
-						WORD tmp;
+                    if (xlret != xlretSuccess)
+                        return xlret;
+                }
+                else 
+                    if (type == xltypeErr)
+                    {
+                        WORD tmp;
 
-						xlret = refElement.ConvertToErr(tmp);
+                        xlret = refElement.ConvertToErr(tmp);
 
-						output(i,j) = CellValue(tmp,true);
+                        output(i,j) = CellValue(tmp,true);
 
-						if (xlret != xlretSuccess)
-							return xlret;
-					}
-					else
-					if (type == xltypeBool)
-					{
-						bool tmp;
+                        if (xlret != xlretSuccess)
+                            return xlret;
+                    }
+                    else
+                    if (type == xltypeBool)
+                    {
+                        bool tmp;
 
-						xlret = refElement.ConvertToBool(tmp);
+                        xlret = refElement.ConvertToBool(tmp);
 
-						output(i,j) = tmp;
+                        output(i,j) = tmp;
 
-						if (xlret != xlretSuccess)
-							return xlret;
-					}
-					else
-					{
-						char* tmp;
-						if (type == xltypeStr || type == xltypeSRef)
-						{
-							xlret = refElement.ConvertToString(tmp);
-							output(i,j) = std::string(tmp);
+                        if (xlret != xlretSuccess)
+                            return xlret;
+                    }
+                    else
+                    {
+                        char* tmp;
+                        if (type == xltypeStr || type == xltypeSRef)
+                        {
+                            xlret = refElement.ConvertToString(tmp);
+                            output(i,j) = std::string(tmp);
 
-							if (xlret != xlretSuccess)
-								return xlret;
-						} 
-						else
-						{
+                            if (xlret != xlretSuccess)
+                                return xlret;
+                        } 
+                        else
+                        {
 
-							if (type != xltypeMissing)
-								return xlretInvXloper;
+                            if (type != xltypeMissing)
+                                return xlretInvXloper;
 
-						}
+                        }
 
-					}
-
-
+                    }
 
 
-			}
-			else 
-				if (type == xltypeNum)
-				{
-					double tmp;
-					xlret = element.ConvertToDouble(tmp);
 
-					output(i,j) = tmp;
 
-					if (xlret != xlretSuccess)
-						return xlret;
-				}
-				else
-				{
-					char* tmp;
-					if (type == xltypeStr || type == xltypeSRef)
-					{
-						xlret = element.ConvertToString(tmp);
-						output(i,j) = std::string(tmp);
+            }
+            else 
+                if (type == xltypeNum)
+                {
+                    double tmp;
+                    xlret = element.ConvertToDouble(tmp);
 
-						if (xlret != xlretSuccess)
-							return xlret;
-					} 
-					else
-					{
-						if (element.lpxloper_->xltype != xltypeMissing)
-							return xlretInvXloper;
+                    output(i,j) = tmp;
 
-					}
+                    if (xlret != xlretSuccess)
+                        return xlret;
+                }
+                else
+                {
+                    char* tmp;
+                    if (type == xltypeStr || type == xltypeSRef)
+                    {
+                        xlret = element.ConvertToString(tmp);
+                        output(i,j) = std::string(tmp);
 
-				}
-		}
+                        if (xlret != xlretSuccess)
+                            return xlret;
+                    } 
+                    else
+                    {
+                        if (element.lpxloper_->xltype != xltypeMissing)
+                            return xlretInvXloper;
 
-	}  
-	return xlret;
+                    }
+
+                }
+        }
+
+    }  
+    return xlret;
 
 }
 
@@ -851,7 +851,7 @@ char * XlfOper12::AsString(const std::string& ErrorId, int * pxlret) const
   if (pxlret)
     *pxlret=xlret;
   else
-	  ThrowOnError(xlret,ErrorId+" conversion to char* failed");
+      ThrowOnError(xlret,ErrorId+" conversion to char* failed");
   return s;
 };
 int XlfOper12::ConvertToString(char *& s) const throw()
@@ -935,27 +935,27 @@ int XlfOper12::ConvertToRef(XlfRef& r) const throw()
 
 XlfOper12& XlfOper12::Set(const MyMatrix& values)
 {
-	if (values.rows() ==0 || values.columns() ==0)
-	{
-		return *this;
-	}
+    if (values.rows() ==0 || values.columns() ==0)
+    {
+        return *this;
+    }
 
-	CellMatrix tmp(values.rows(), values.columns());
-	for (unsigned long i=0; i < values.rows(); i++)
-		for (unsigned long j=0; j < values.columns(); j++)
-			tmp(i,j) = Element(values,i,j);
-	return Set(tmp);
+    CellMatrix tmp(values.rows(), values.columns());
+    for (unsigned long i=0; i < values.rows(); i++)
+        for (unsigned long j=0; j < values.columns(); j++)
+            tmp(i,j) = Element(values,i,j);
+    return Set(tmp);
 }
 XlfOper12& XlfOper12::Set(const MyArray& values)
 {
-	if (values.size() ==0)
-	{
-		return *this;
-	}
-	CellMatrix tmp(static_cast<unsigned long>(values.size()), 1UL);
-	for (unsigned long i=0; i < values.size(); i++)
-			tmp(i,0) = values[i];
-	return Set(tmp);
+    if (values.size() ==0)
+    {
+        return *this;
+    }
+    CellMatrix tmp(static_cast<unsigned long>(values.size()), 1UL);
+    for (unsigned long i=0; i < values.size(); i++)
+            tmp(i,0) = values[i];
+    return Set(tmp);
 }
 
 XlfOper12& XlfOper12::Set(const CellMatrix& cells)
@@ -963,7 +963,7 @@ XlfOper12& XlfOper12::Set(const CellMatrix& cells)
     int r= cells.RowsInStructure();
     int c= cells.ColumnsInStructure();
 
-	c= c<  255 ? c :255;
+    c= c<  255 ? c :255;
 
 
     lpxloper_->xltype = xltypeMulti;
@@ -983,13 +983,13 @@ XlfOper12& XlfOper12::Set(const CellMatrix& cells)
                 if (cells(i,j).IsAString())
                     lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(cells(i,j).StringValue().c_str());
                 else
-					if (cells(i,j).IsBoolean())
-						    lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(cells(i,j).BooleanValue());
-					else
-						if (cells(i,j).IsError())
-							 lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(static_cast<WORD>(cells(i,j).ErrorValue()),true);
-						else               
-					            lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12("");
+                    if (cells(i,j).IsBoolean())
+                            lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(cells(i,j).BooleanValue());
+                    else
+                        if (cells(i,j).IsError())
+                             lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(static_cast<WORD>(cells(i,j).ErrorValue()),true);
+                        else               
+                                lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12("");
         }
 
     return *this;
@@ -1029,16 +1029,16 @@ XlfOper12& XlfOper12::Set(short value, bool Error)
 {
   if (lpxloper_)
   {
-	if (Error)
-	{
-		lpxloper_->xltype = xltypeErr;
-		lpxloper_->val.err =value;
-	}
-	else
-	{
-		lpxloper_->xltype = xltypeInt;
-		lpxloper_->val.w = value;
-	}
+    if (Error)
+    {
+        lpxloper_->xltype = xltypeErr;
+        lpxloper_->val.err =value;
+    }
+    else
+    {
+        lpxloper_->xltype = xltypeInt;
+        lpxloper_->val.w = value;
+    }
   }
   return *this;
 }

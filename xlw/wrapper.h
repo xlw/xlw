@@ -15,7 +15,7 @@ public:
     Wrapper()
     { DataPtr =0;}
   
-	Wrapper(T* DataPtr_ ) // takes ownership of object pointed to by DataPtr_
+    Wrapper(T* DataPtr_ ) // takes ownership of object pointed to by DataPtr_
     { DataPtr =DataPtr_;}
 
     Wrapper(const T& inner)

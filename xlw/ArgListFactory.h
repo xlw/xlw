@@ -23,8 +23,8 @@ class ArgListFactory;
 template<class T>
 ArgListFactory<T>& FactoryInstance()
 {
-	static ArgListFactory<T> object;
-	return object;
+    static ArgListFactory<T> object;
+    return object;
 }
 
 template<typename T>
@@ -32,20 +32,20 @@ class ArgListFactory
 {
 public:
 #ifndef VC6
-	friend ArgListFactory<T>& FactoryInstance<>();
+    friend ArgListFactory<T>& FactoryInstance<>();
 #else
-	friend ArgListFactory<T>& FactoryInstance();
+    friend ArgListFactory<T>& FactoryInstance();
 #endif
-	typedef T* (*CreateTFunction)(const ArgumentList& );
+    typedef T* (*CreateTFunction)(const ArgumentList& );
    void RegisterClass(std::string ClassId, CreateTFunction);
     T* CreateT(ArgumentList args);
-	~ArgListFactory(){};
+    ~ArgListFactory(){};
 
 private:
     std::map<std::string, CreateTFunction> TheCreatorFunctions;
-	std::string KnownTypes;
-	ArgListFactory(){}
-	ArgListFactory(const ArgListFactory&){}
+    std::string KnownTypes;
+    ArgListFactory(){}
+    ArgListFactory(const ArgListFactory&){}
     ArgListFactory& operator=(const ArgListFactory&){ return *this;}
 
 };
@@ -56,24 +56,24 @@ private:
 template<typename T>
 void ArgListFactory<T>::RegisterClass(std::string ClassId, CreateTFunction CreatorFunction)
 {
-	 MakeLowerCase(ClassId);
+     MakeLowerCase(ClassId);
      TheCreatorFunctions.insert(std::pair<std::string,CreateTFunction>(ClassId,CreatorFunction));
-	 KnownTypes+=" "+ClassId;
+     KnownTypes+=" "+ClassId;
 }
 
 template<typename T>
 T* ArgListFactory<T>::CreateT(ArgumentList args)
 {
-	
-	std::string Id = args.GetStringArgumentValue("name");
+    
+    std::string Id = args.GetStringArgumentValue("name");
 
-	
+    
     if  (TheCreatorFunctions.find(Id) == TheCreatorFunctions.end())
     {
-		throw(Id+" is an unknown class. Known types are "+KnownTypes);
-	}
+        throw(Id+" is an unknown class. Known types are "+KnownTypes);
+    }
 
-	return (TheCreatorFunctions.find(Id)->second)(args);
+    return (TheCreatorFunctions.find(Id)->second)(args);
 }
 
 
@@ -81,6 +81,6 @@ T* ArgListFactory<T>::CreateT(ArgumentList args)
 template<class T>
 T* GetFromFactory(const ArgumentList& args)
 {
-	return FactoryInstance<T>().CreateT(args);
+    return FactoryInstance<T>().CreateT(args);
 }
 #endif 

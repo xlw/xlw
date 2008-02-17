@@ -90,22 +90,22 @@ in this variable.
 */
 MyArray XlfOper::AsArray(XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
 {
-	std::vector<double> tmp(AsDoubleVector(policy,pxlret));
-	MyArray result(tmp.size());
-	for (unsigned long i=0; i < result.size(); i++)
-		result[i] = tmp[i];
+    std::vector<double> tmp(AsDoubleVector(policy,pxlret));
+    MyArray result(tmp.size());
+    for (unsigned long i=0; i < result.size(); i++)
+        result[i] = tmp[i];
 
-	return result;
+    return result;
 }
 
 MyArray XlfOper::AsArray(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret ) const
 {
-	std::vector<double> tmp(AsDoubleVector(ErrorId,policy,pxlret));
-	MyArray result(tmp.size());
-	for (unsigned long i=0; i < result.size(); i++)
-		result[i] = tmp[i];
-	
-	return result;
+    std::vector<double> tmp(AsDoubleVector(ErrorId,policy,pxlret));
+    MyArray result(tmp.size());
+    for (unsigned long i=0; i < result.size(); i++)
+        result[i] = tmp[i];
+    
+    return result;
 }
 
 
@@ -283,7 +283,7 @@ char *XlfOper::AsString(const std::string& ErrorId, int *pxlret) const
   if (pxlret)
     *pxlret=xlret;
   else
-	  ThrowOnError(xlret,ErrorId + " conversion to char* failed");
+      ThrowOnError(xlret,ErrorId + " conversion to char* failed");
   return s;
 };
 
@@ -307,28 +307,28 @@ XlfRef XlfOper::AsRef(int *pxlret) const
 
 XlfOper& XlfOper::Set(const MyMatrix& values)
 {
-	if (values.rows() ==0 || values.columns() ==0)
-	{
-		return *this;
-	}
+    if (values.rows() ==0 || values.columns() ==0)
+    {
+        return *this;
+    }
 
-	CellMatrix tmp(values.rows(), values.columns());
-	for (unsigned long i=0; i < values.rows(); i++)
-		for (unsigned long j=0; j < values.columns(); j++)
-			tmp(i,j) = Element(values,i,j);
-	return Set(tmp);
+    CellMatrix tmp(values.rows(), values.columns());
+    for (unsigned long i=0; i < values.rows(); i++)
+        for (unsigned long j=0; j < values.columns(); j++)
+            tmp(i,j) = Element(values,i,j);
+    return Set(tmp);
 }
 
 XlfOper& XlfOper::Set(const MyArray& values)
 {
-	if (values.size() ==0)
-	{
-		return *this;
-	}
-	CellMatrix tmp(static_cast<unsigned long>(values.size()), 1UL);
-	for (unsigned long i=0; i < values.size(); i++)
-			tmp(i,0) = values[i];
-	return Set(tmp);
+    if (values.size() ==0)
+    {
+        return *this;
+    }
+    CellMatrix tmp(static_cast<unsigned long>(values.size()), 1UL);
+    for (unsigned long i=0; i < values.size(); i++)
+            tmp(i,0) = values[i];
+    return Set(tmp);
 }
 
 /*!

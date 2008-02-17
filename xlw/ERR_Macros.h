@@ -73,10 +73,10 @@ if (...)
 */
 #define ERR_LOG(message) if (true) \
 { \
-	char tmp___[1024]; \
-	ostrstream os____(tmp___,1024); \
-	os____ << __FILE__ << "(" << __LINE__ << "): " << message << '\n' << ends; \
-	ERR_LOG_INTERNAL(tmp___); \
+    char tmp___[1024]; \
+    ostrstream os____(tmp___,1024); \
+    os____ << __FILE__ << "(" << __LINE__ << "): " << message << '\n' << ends; \
+    ERR_LOG_INTERNAL(tmp___); \
 } else
 
 //! Wrapper for the try keyword.
@@ -96,7 +96,7 @@ after it's been catched by a catch block.
 //! Wrapper for the throw of an exception with message.
 /*! Adds the name of the exception thrown and calls ERR_LOG() macro
     with the message.
-	\sa ERR_LOG()
+    \sa ERR_LOG()
 */
 
 
@@ -105,11 +105,11 @@ after it's been catched by a catch block.
 
 #define ERR_THROW_MSG(except, message) if (true) \
 { \
-	char tmp__[1024]; \
-	ostrstream os___(tmp__,1024); \
-	os___ << message << ends; \
-	ERR_LOG("EXCEPTION (" #except ") : " << message); \
-	throw except(tmp__); \
+    char tmp__[1024]; \
+    ostrstream os___(tmp__,1024); \
+    os___ << message << ends; \
+    ERR_LOG("EXCEPTION (" #except ") : " << message); \
+    throw except(tmp__); \
 } else
 
 
@@ -130,8 +130,8 @@ These assertions are \e not \e removed for \e release versions.
 
 //! Wrapper for warning message sending.
 /*! Forward the message to ERR_LOG() prefixed by the text "WARNING :".
-	\sa ERR_LOG()
-	\bug In conditional statement, see ERR_LOG().
+    \sa ERR_LOG()
+    \bug In conditional statement, see ERR_LOG().
 */
 #define ERR_LOGW(message) { ERR_LOG("WARNING : " << message); }
 

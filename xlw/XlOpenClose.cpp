@@ -39,8 +39,8 @@ extern "C"
         // Displays a message in the status bar.
         XlfExcel::Instance().SendMessage("Registering library...");
 
-	    XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheRegistrations();
-    	
+        XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheRegistrations();
+        
         // Clears the status bar.
         XlfExcel::Instance().SendMessage();
         return 1;
