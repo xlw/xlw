@@ -35,7 +35,8 @@ TypeRegistry::Helper XlfOperReg("XlfOper", // new type
 			   "LPXLFOPER", // old type - Excel12 changes
 			   "", // converter name, we just pass into the constructor as a declaration
 			   false, // is a method
-			   false // takes identifier
+			   false, // takes identifier
+			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
 TypeRegistry::Helper doubleFundamentalReg("double", // new type

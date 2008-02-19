@@ -54,8 +54,6 @@ MyArray // computes mean and variance of a range
 Stats(const MyArray& data // input for computation
 	  );
 
-
-
 std::string // says hello name
 //<xlw:time
 HelloWorldAgain(std::string name // name to be echoed
@@ -95,7 +93,7 @@ PayOffEvaluation(const Wrapper<PayOff>& PayOffTable // table for payoff
 			);
 
 bool // checks to see if there's an error
-ContainsError(const CellMatrix& input // data to check for errors
+ContainsError(const CellMatrix& input2 // data to check for errors
 							 );
 
 
@@ -106,5 +104,10 @@ ContainsDivByZero(const CellMatrix& input // data to check for errors
 double // returns ID of current execution thread
 //<xlw:threadsafe
 GetThreadId();
+
+std::string // return a string indicating datatype of input
+//<xlw:time
+typeString(const XlfOper &input // value on which to perform type check 
+           );
 
 #endif

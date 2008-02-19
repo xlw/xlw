@@ -904,7 +904,7 @@ namespace
 XLRegistration::Arg
 ContainsErrorArgs[]=
 {
-{ "input"," data to check for errors ","XLF_OPER"}
+{ "input2"," data to check for errors ","XLF_OPER"}
 };
   XLRegistration::XLFunctionRegistrationHelper
 registerContainsError("xlContainsError",
@@ -923,21 +923,21 @@ extern "C"
 {
 LPXLFOPER EXCEL_EXPORT
 xlContainsError(
-LPXLFOPER inputa)
+LPXLFOPER input2a)
 {
 EXCEL_BEGIN;
 
 	if (XlfExcel::Instance().IsCalledByFuncWiz())
 		return XlfOper(true);
 
-XlfOper inputb(
-	(inputa));
-CellMatrix input(
-	inputb.AsCellMatrix("input"));
+XlfOper input2b(
+	(input2a));
+CellMatrix input2(
+	input2b.AsCellMatrix("input2"));
 
 bool result(
 	ContainsError(
-		input)
+		input2)
 	);
 return XlfOper(result);
 EXCEL_END
@@ -1032,6 +1032,60 @@ EXCEL_BEGIN;
 double result(
 	GetThreadId());
 return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+typeStringArgs[]=
+{
+{ "input"," value on which to perform type check ","XLF_OPER"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registertypeString("xltypeString",
+"typeString",
+" return a string indicating datatype of input ",
+LibraryName,
+typeStringArgs,
+1
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xltypeString(
+LPXLFOPER inputa)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+XlfOper input(
+	(inputa));
+
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
+std::string result(
+	typeString(
+		input)
+	);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
 EXCEL_END
 }
 }

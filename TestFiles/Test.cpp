@@ -182,3 +182,29 @@ ContainsDivByZero(const CellMatrix& input // data to check for errors
 double GetThreadId() {
     return GetCurrentThreadId();
 }
+
+std::string
+typeString(const XlfOper &input) {
+    if (input.IsMissing())
+        return "missing";
+    else if (input.IsError())
+        return "error";
+    else if (input.IsRef())
+        return "ref";
+    else if (input.IsSRef())
+        return "sref";
+    else if (input.IsMulti())
+        return "multi";
+    else if (input.IsNumber())
+        return "number";
+    else if (input.IsString())
+        return "string";
+    else if (input.IsNil())
+        return "nil";
+    else if (input.IsBool())
+        return "bool";
+    else if (input.IsInt())
+        return "int";
+    else
+        return "unknown";
+}
