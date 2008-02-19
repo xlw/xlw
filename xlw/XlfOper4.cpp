@@ -872,8 +872,9 @@ int XlfOper4::ConvertToString(char *& s) const throw()
   {
     // see AsDouble
     XLOPER tmp;
-    // Second argument true marks XlfOper4 so that xlFree is called on the
-    // MS Excel allocated memory (the string) when XlfOper4 goes out of scope.
+    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+    // so that the memory which Excel allocates to that variable (the string) is freed
+    // when the variable goes out of scope.
     XlfOper4 cast(&tmp);
     xlret = Coerce(xltypeStr,cast);
     if (xlret == xlretSuccess)
@@ -921,9 +922,9 @@ int XlfOper4::ConvertToRef(XlfRef& r) const throw()
   {
     // see AsDouble
     XLOPER tmp;
-    // Second argument true marks XlfOper4 so that xlFree is called on the
-    // MS Excel allocated memory (the reference array) when XlfOper4 goes
-    // out of scope.
+    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+    // so that the memory which Excel allocates to that variable (the reference) is freed
+    // when the variable goes out of scope.
     XlfOper4 cast(&tmp);
     xlret = Coerce(xltypeRef,cast);
     if (xlret == xlretSuccess)
