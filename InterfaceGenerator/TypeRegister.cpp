@@ -25,13 +25,13 @@
 #include "IncludeRegister.h"
 
 TypeRegistry::regData::regData(std::string NewType_,
-				 std::string OldType_,
-				 std::string Converter_,
-				 bool IsAMethod_,
-				 bool TakesIdentifier_,
-				 std::string ExcelKey_,
-				 std::string IncludeFile_)
-				 :
+                 std::string OldType_,
+                 std::string Converter_,
+                 bool IsAMethod_,
+                 bool TakesIdentifier_,
+                 std::string ExcelKey_,
+                 std::string IncludeFile_)
+                 :
 NewType(NewType_),OldType(OldType_),
 Converter(Converter_),
 IsAMethod(IsAMethod_),
@@ -43,95 +43,95 @@ IncludeFile(IncludeFile_)
 
 void TypeRegistry::Register(const regData& data)
 {
-	Registrations.insert(std::make_pair(data.NewType,data));
+    Registrations.insert(std::make_pair(data.NewType,data));
 }
 
 TypeRegistry::Helper::Helper(std::string NewType,
-			   std::string OldType,
-			   std::string ConversionCommand,
-			   bool IsAMethod,
-			   bool TakesAnIdentifier,
-			   std::string ExcelKey,
-			   std::string IncludeFile)
-			   : NewType_(NewType)
+               std::string OldType,
+               std::string ConversionCommand,
+               bool IsAMethod,
+               bool TakesAnIdentifier,
+               std::string ExcelKey,
+               std::string IncludeFile)
+               : NewType_(NewType)
 {
-	regData data(NewType,OldType,ConversionCommand,
-													IsAMethod,TakesAnIdentifier,
-													ExcelKey, IncludeFile);
+    regData data(NewType,OldType,ConversionCommand,
+                                                    IsAMethod,TakesAnIdentifier,
+                                                    ExcelKey, IncludeFile);
 
-	TypeRegistry::Instance().Register(data);
+    TypeRegistry::Instance().Register(data);
 }
 bool TypeRegistry::IsOfBaseType(const std::string & id) const
 {
-	//if (id =="LPXLOPER")
-	//	return true;
+    //if (id =="LPXLOPER")
+    //    return true;
 
-	if (id =="LPXLFOPER")
-		return true;
+    if (id =="LPXLFOPER")
+        return true;
 
-	if (id =="XLWSTR")
-		return true;
+    if (id =="XLWSTR")
+        return true;
 
-	if (id == "double")
-		return true;
+    if (id == "double")
+        return true;
 
-	if (id == "LPXLARRAY")
-		return true;
+    if (id == "LPXLARRAY")
+        return true;
 
-	return false;
+    return false;
 }
 
 void TypeRegistry::BuildLists() const
 {
-	if (ListsBuilt)
-		return;
-	
-	for (std::map<std::string,regData>::const_iterator it = Registrations.begin();
-		it != Registrations.end(); ++it)
-	{
-		std::vector<std::string> chain(1);
-		unsigned long pos =0;
+    if (ListsBuilt)
+        return;
+    
+    for (std::map<std::string,regData>::const_iterator it = Registrations.begin();
+        it != Registrations.end(); ++it)
+    {
+        std::vector<std::string> chain(1);
+        unsigned long pos =0;
 
-		IncludeRegistry::Instance().Register(it->second.NewType,it->second.IncludeFile);
+        IncludeRegistry::Instance().Register(it->second.NewType,it->second.IncludeFile);
 
-		chain[pos] = it->second.NewType;
-		while (!IsOfBaseType(chain[pos]))
-		{
-			std::map<std::string,regData>::const_iterator iter 
-										= Registrations.find(chain[pos]);
+        chain[pos] = it->second.NewType;
+        while (!IsOfBaseType(chain[pos]))
+        {
+            std::map<std::string,regData>::const_iterator iter 
+                                        = Registrations.find(chain[pos]);
 
-			if (iter == Registrations.end())
-				throw("broken chain "+chain[pos]+" " + it->first);
-			
-			chain.push_back(iter->second.OldType);
-			++pos;
+            if (iter == Registrations.end())
+                throw("broken chain "+chain[pos]+" " + it->first);
+            
+            chain.push_back(iter->second.OldType);
+            ++pos;
 
-			if (pos >= 26)
-				throw("26 deep type conversions suggests recursive loop");
-		}
+            if (pos >= 26)
+                throw("26 deep type conversions suggests recursive loop");
+        }
 
-		DeductionChains.insert(std::make_pair(it->first,chain));
-		
-	}
+        DeductionChains.insert(std::make_pair(it->first,chain));
+        
+    }
 
-	ListsBuilt=true;
+    ListsBuilt=true;
 }
 
 const std::vector<std::string>& TypeRegistry::GetChain(std::string x) const
 {
-	BuildLists();
-	std::map<std::string,std::vector<std::string> >::const_iterator iter 
-		= DeductionChains.find(x);
+    BuildLists();
+    std::map<std::string,std::vector<std::string> >::const_iterator iter 
+        = DeductionChains.find(x);
 
-	if (iter == DeductionChains.end())
-		throw(" bad type "+x);
+    if (iter == DeductionChains.end())
+        throw(" bad type "+x);
 
-	for (unsigned long i=0; i < iter->second.size(); i++)
-	{
-		 IncludeRegistry::Instance().UseArg(iter->second[i]);
-	}
+    for (unsigned long i=0; i < iter->second.size(); i++)
+    {
+         IncludeRegistry::Instance().UseArg(iter->second[i]);
+    }
 
-	return iter->second;
+    return iter->second;
 }
 
 
@@ -139,10 +139,10 @@ const std::vector<std::string>& TypeRegistry::GetChain(std::string x) const
 const TypeRegistry::regData& TypeRegistry::GetRegistration(const std::string key) const
 {
 
-	std::map<std::string, regData>::const_iterator it = Registrations.find(key);
+    std::map<std::string, regData>::const_iterator it = Registrations.find(key);
 
-	if (it == Registrations.end())
-		throw("unknown type "+key);
+    if (it == Registrations.end())
+        throw("unknown type "+key);
 
-	return it->second;
+    return it->second;
 }

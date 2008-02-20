@@ -24,62 +24,62 @@
 #include "TypeRegister.h"
 
 void CheckAndGetType(std::string& c, 
-					 std::vector<std::string>& ConversionChain, 
-					 std::string className)
+                     std::vector<std::string>& ConversionChain, 
+                     std::string className)
 {
-	ConversionChain = TypeRegistry::Instance().GetChain(className);
+    ConversionChain = TypeRegistry::Instance().GetChain(className);
 
-	size_t i = 0;
-	std::string key;
-	while (key == "" && i < ConversionChain.size())
-	{
+    size_t i = 0;
+    std::string key;
+    while (key == "" && i < ConversionChain.size())
+    {
 
-		TypeRegistry::regData  data= TypeRegistry::Instance().GetRegistration(ConversionChain[i]);
-		key = data.ExcelKey;
-		++i;
-	}
+        TypeRegistry::regData  data= TypeRegistry::Instance().GetRegistration(ConversionChain[i]);
+        key = data.ExcelKey;
+        ++i;
+    }
 
-	if (key.size() == 0)
-			throw("excel key not given  "+className);
+    if (key.size() == 0)
+            throw("excel key not given  "+className);
 
-	c = key;
+    c = key;
 
-	return;
+    return;
 }
 
 std::vector<FunctionDescription> FunctionTyper(std::vector<FunctionModel>& input)
 {
-	std::vector<FunctionModel>::const_iterator it = input.begin();
-	std::vector<FunctionDescription> output;
+    std::vector<FunctionModel>::const_iterator it = input.begin();
+    std::vector<FunctionDescription> output;
 
-	while (it != input.end())
-	{
+    while (it != input.end())
+    {
         std::string key;
-		std::vector<std::string> conversionString;
-		std::string returnType = it->GetReturnType();
-		CheckAndGetType(key,conversionString,returnType);
-		std::string name = it->GetFunctionName();
-		std::string desc = it->GetFunctionDescription();
+        std::vector<std::string> conversionString;
+        std::string returnType = it->GetReturnType();
+        CheckAndGetType(key,conversionString,returnType);
+        std::string name = it->GetFunctionName();
+        std::string desc = it->GetFunctionDescription();
 
-		std::vector<FunctionArgument> Arguments;
-		for (unsigned long i=0; i < it->GetNumberArgs(); i++)
-		{
-			std::string thisKey;
-			std::vector<std::string> thisConversionString;
-			std::string thisType = it->GetArgumentReturnType(i);
-			CheckAndGetType(thisKey,thisConversionString,thisType);
+        std::vector<FunctionArgument> Arguments;
+        for (unsigned long i=0; i < it->GetNumberArgs(); i++)
+        {
+            std::string thisKey;
+            std::vector<std::string> thisConversionString;
+            std::string thisType = it->GetArgumentReturnType(i);
+            CheckAndGetType(thisKey,thisConversionString,thisType);
 
-			FunctionArgumentType typeDesc(thisType,thisConversionString,thisKey);
+            FunctionArgumentType typeDesc(thisType,thisConversionString,thisKey);
 
 
-			FunctionArgument thisArgument(typeDesc,it->GetArgumentFunctionName(i),it->GetArgumentFunctionDescription(i));
-			Arguments.push_back(thisArgument);
-		}
+            FunctionArgument thisArgument(typeDesc,it->GetArgumentFunctionName(i),it->GetArgumentFunctionDescription(i));
+            Arguments.push_back(thisArgument);
+        }
 
-		FunctionDescription thisDescription(name,desc,returnType,key,Arguments,it->GetVolatile(),it->DoTime(),it->GetThreadsafe());
-		output.push_back(thisDescription);
-		++it;
-	}
+        FunctionDescription thisDescription(name,desc,returnType,key,Arguments,it->GetVolatile(),it->DoTime(),it->GetThreadsafe());
+        output.push_back(thisDescription);
+        ++it;
+    }
 
-	return output;
+    return output;
 }

@@ -1,6 +1,6 @@
 //
 //
-//												Singleton.h
+//                                                Singleton.h
 //
 //
 /*
@@ -26,15 +26,15 @@ Curiously recurring template pattern.
 template<class T>
 class Singleton 
 {
-public:	
-	static T& Instance()
-	{
-		static T one;
-		return one;
-	}
+public:    
+    static T& Instance()
+    {
+        static T one;
+        return one;
+    }
 protected:
         Singleton() {}
-		Singleton(const Singleton&){}
+        Singleton(const Singleton&){}
 
 };
 

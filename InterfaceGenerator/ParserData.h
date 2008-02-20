@@ -24,11 +24,11 @@ class  FunctionArgumentType
 {
 public:       
      FunctionArgumentType(std::string NameIdentifier,
-						  const std::vector<std::string>& ConversionChain,
+                          const std::vector<std::string>& ConversionChain,
                           const std::string& EXCELKey);
      
      const std::string& GetNameIdentifier() const;
-	 const std::vector<std::string>& GetConversionChain() const;
+     const std::vector<std::string>& GetConversionChain() const;
      const std::string &GetEXCELKey() const;
      
 private:
@@ -60,32 +60,32 @@ class FunctionDescription
 public:
      FunctionDescription(std::string FunctionName_,
                          std::string FunctionHelpDescription_,
-						 std::string ReturnType,
-						 const std::string& ExcelKey,
+                         std::string ReturnType,
+                         const std::string& ExcelKey,
                          const std::vector<FunctionArgument>& Arguments_, 
-						 bool Volatile_,
-						 bool Time_, 
-						 bool Threadsafe_);
+                         bool Volatile_,
+                         bool Time_, 
+                         bool Threadsafe_);
      
      std::string GetFunctionName() const;
      std::string GetFunctionDescription() const;
-	 std::string GetExcelKey() const;
-	 std::string GetReturnType() const;
+     std::string GetExcelKey() const;
+     std::string GetReturnType() const;
      const FunctionArgument& GetArgument(unsigned long ArgumentNumber) const;
      unsigned long NumberOfArguments() const;
-	 bool GetVolatile() const;
-	 bool DoTime() const;
-	 bool GetThreadsafe() const;
+     bool GetVolatile() const;
+     bool DoTime() const;
+     bool GetThreadsafe() const;
             
 private:
      std::string FunctionName;
      std::string FunctionHelpDescription;
-	 std::string ReturnType;
-	 std::string ExcelKey;
+     std::string ReturnType;
+     std::string ExcelKey;
      std::vector<FunctionArgument> Arguments;
-	 bool Volatile;
-	 bool Time;
-	 bool Threadsafe;
+     bool Volatile;
+     bool Time;
+     bool Threadsafe;
      
       
 };

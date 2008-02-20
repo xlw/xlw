@@ -47,7 +47,7 @@ FunctionArgumentType FunctionArgument::GetTheType() const
 }
 const std::string& FunctionArgumentType::GetEXCELKey() const
 {
-	return EXCELKey;
+    return EXCELKey;
 }
     
 std::string FunctionArgument::GetArgumentName() const
@@ -92,45 +92,45 @@ unsigned long FunctionDescription::NumberOfArguments() const
 }
 FunctionDescription::FunctionDescription(std::string FunctionName_,
                          std::string FunctionHelpDescription_,
-						 std::string ReturnType_,
-						 const std::string& ExcelKey_,
+                         std::string ReturnType_,
+                         const std::string& ExcelKey_,
                          const std::vector<FunctionArgument>& Arguments_,
-						 bool Volatile_,
-						 bool Time_,
-						 bool Threadsafe_)
+                         bool Volatile_,
+                         bool Time_,
+                         bool Threadsafe_)
                          :
                          FunctionName(FunctionName_),
                          FunctionHelpDescription(FunctionHelpDescription_),
-						 ReturnType(ReturnType_),
-						 ExcelKey(ExcelKey_),
+                         ReturnType(ReturnType_),
+                         ExcelKey(ExcelKey_),
                          Arguments(Arguments_),
-						 Volatile(Volatile_),
-						 Time(Time_),
-						 Threadsafe(Threadsafe_)
+                         Volatile(Volatile_),
+                         Time(Time_),
+                         Threadsafe(Threadsafe_)
 {
 }
 
  std::string FunctionDescription::GetExcelKey() const
  {
-	return ExcelKey;
+    return ExcelKey;
  }
 
 std::string FunctionDescription::GetReturnType() const
 {
-	return ReturnType;
+    return ReturnType;
 }
 
 bool FunctionDescription::GetVolatile() const
 {
-	return  Volatile;
+    return  Volatile;
 }
 
 bool FunctionDescription::DoTime() const
 {
-	return  Time;
+    return  Time;
 }
 
 bool FunctionDescription::GetThreadsafe() const
 {
-	return  Threadsafe;
+    return  Threadsafe;
 }

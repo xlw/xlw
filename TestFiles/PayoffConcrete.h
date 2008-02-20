@@ -1,6 +1,6 @@
 //
 //
-//										PayOffConcrete.h
+//                                        PayOffConcrete.h
 //
 //
 #ifndef PAYOFF_CONCRETE_H
@@ -56,10 +56,10 @@ public:
     virtual PayOff* clone() const;
 
 private:
-	Wrapper<PayOff> OptionOne;
-	Wrapper<PayOff> OptionTwo;
-	double Volume1;
-	double Volume2;
+    Wrapper<PayOff> OptionOne;
+    Wrapper<PayOff> OptionTwo;
+    double Volume1;
+    double Volume2;
 
 };
 

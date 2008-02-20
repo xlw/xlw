@@ -56,8 +56,8 @@ LPXLFOPER EXCEL_EXPORT
 xlTest1(){
 EXCEL_BEGIN;
 
-	if (XlfExcel::Instance().IsCalledByFuncWiz())
-		return XlfOper(true);
+    if (XlfExcel::Instance().IsCalledByFuncWiz())
+        return XlfOper(true);
 
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
