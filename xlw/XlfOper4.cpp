@@ -737,9 +737,9 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
                     }
                     else
                     {
-                        char* tmp;
                         if (type == xltypeStr || type == xltypeSRef)
                         {
+                            char* tmp;
                             xlret = refElement.ConvertToString(tmp);
                             output(i,j) = std::string(tmp);
 
@@ -770,9 +770,9 @@ int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
                 }
                 else
                 {
-                    char* tmp;
                     if (type == xltypeStr || type == xltypeSRef)
                     {
+                        char* tmp;
                         xlret = element.ConvertToString(tmp);
                         output(i,j) = std::string(tmp);
 
