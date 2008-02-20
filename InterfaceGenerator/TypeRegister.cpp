@@ -63,13 +63,13 @@ TypeRegistry::Helper::Helper(std::string NewType,
 }
 bool TypeRegistry::IsOfBaseType(const std::string & id) const
 {
-	if (id =="LPXLOPER")
+	//if (id =="LPXLOPER")
+	//	return true;
+
+	if (id =="LPXLFOPER")
 		return true;
 
-	if (id =="LPXLFOPER")//Excel12 changes
-		return true;
-
-	if (id =="XLWSTR")//Excel12 changes
+	if (id =="XLWSTR")
 		return true;
 
 	if (id == "double")

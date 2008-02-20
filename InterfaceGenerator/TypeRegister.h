@@ -74,7 +74,7 @@ public:
 			   std::string ConversionCommand,
 			   bool IsAMethod,
 			   bool TakesAnIdentifier,
-			   std::string ExcelKey ="", // should be empty unless OldType is XlfOper
+			   std::string ExcelKey ="",
 			   std::string IncludeFile=""
 			   );
 	private:
