@@ -108,11 +108,11 @@ FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<T
 		throw("function half declared at end of file");
 
 	if ( it->GetType() != Token::left)
-		throw("left parenthesis expected after function name :"+functionName);
+		throw("left parenthesis expected after function name: "+functionName);
 
 	++it;
 	if (it == end)
-		throw("function half declared at end of file"+functionName);
+		throw("function half declared at end of file "+functionName);
 
 	while ( it->GetType() != Token::right)
 	{

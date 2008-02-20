@@ -78,6 +78,10 @@ public:
   bool IsCalledByFuncWiz() const;
 
   bool excel12() const { return excel12_; }
+  std::string xlfOperType() const { return xlfOperType_; }
+  std::string xlfXloperType() const { return xlfXloperType_; }
+  std::string wStrType() const { return wStrType_; }
+
 private:
   //! Static pointer to the unique instance of XlfExcel object.
   static XlfExcel *this_;
@@ -133,6 +137,9 @@ private:
   void PushNewBuffer(size_t, BufferList &bufferList);
 
   bool excel12_;
+  std::string xlfOperType_;
+  std::string xlfXloperType_;
+  std::string wStrType_;
 };
 
 #ifdef NDEBUG

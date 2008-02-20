@@ -1050,7 +1050,7 @@ typeStringArgs[]=
   XLRegistration::XLFunctionRegistrationHelper
 registertypeString("xltypeString",
 "typeString",
-" return a string indicating datatype of input ",
+" return a string indicating datatype of OPER/OPER12 input ",
 LibraryName,
 typeStringArgs,
 1
@@ -1077,6 +1077,60 @@ XlfOper input(
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 std::string result(
 	typeString(
+		input)
+	);
+  t = (clock()+0.0)/CLOCKS_PER_SEC-t;
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t;
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+typeString2Args[]=
+{
+{ "input"," value on which to perform type check ","XLF_XLOPER"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registertypeString2("xltypeString2",
+"typeString2",
+" return a string indicating datatype of XLOPER/XLOPER12 input ",
+LibraryName,
+typeString2Args,
+1
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xltypeString2(
+LPXLFOPER inputa)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+reftest input(
+	(inputa));
+
+ double t = (clock()+0.0)/CLOCKS_PER_SEC;
+std::string result(
+	typeString2(
 		input)
 	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;

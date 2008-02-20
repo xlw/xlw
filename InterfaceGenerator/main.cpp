@@ -119,15 +119,15 @@ try
 }
 catch (const char *c)
 {
-	std::cout << c;
+	std::cout << "***ERROR***\n" << c << "\n***ERROR***\n";
 }
 catch (std::string c)
 {
-	std::cout << c;
+	std::cout << "***ERROR***\n" << c << "\n***ERROR***\n";
 }
 catch (...)
 {
-	std::cout << "exception thrown";
+	std::cout << "***ERROR***\n" << "exception thrown" << "\n***ERROR***\n";
 }
 //char d;
 //std::cin >> d;

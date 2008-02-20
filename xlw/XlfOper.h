@@ -107,9 +107,9 @@ public:
     //! Is the data a reference ?
     bool IsRef() const { return XlfOperImpl::instance().IsRef(*this); }
     //! Is the data a sheet reference ?
-    bool IsSRef() const { return XlfOperImpl::instance().IsRef(*this); }
+    bool IsSRef() const { return XlfOperImpl::instance().IsSRef(*this); }
     //! Is the data an array ?
-    bool IsMulti() const { return XlfOperImpl::instance().IsRef(*this); }
+    bool IsMulti() const { return XlfOperImpl::instance().IsMulti(*this); }
     //! Is the data a number ?
     bool IsNumber() const { return XlfOperImpl::instance().IsNumber(*this); }
     //! Is the data a string ?
@@ -217,6 +217,7 @@ public:
     operator LPXLFOPER() { return XlfOperImpl::instance().operator_LPXLFOPER(*this); }
 
     DWORD xltype() const { return XlfOperImpl::instance().xltype(*this); }
+    std::string xltypeName () const;
 
 private:
 

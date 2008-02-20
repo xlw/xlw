@@ -397,3 +397,29 @@ int XlfOper::ThrowOnError(int xlret, const std::string& Identifier) const
   assert(0);
   return xlret;
 }
+
+std::string XlfOper::xltypeName() const {
+    DWORD type = xltype();
+    if (type == xltypeNum)
+        return "xltypeNum";
+    else if (type == xltypeStr)
+        return "xltypeStr";
+    else if (type == xltypeBool)
+        return "xltypeBool";
+    else if (type == xltypeRef)
+        return "xltypeRef";
+    else if (type == xltypeErr)
+        return "xltypeErr";
+    else if (type == xltypeMulti)
+        return "xltypeMulti";
+    else if (type == xltypeMissing)
+        return "xltypeMissing";
+    else if (type == xltypeNil)
+        return "xltypeNil";
+    else if (type == xltypeSRef)
+        return "xltypeSRef";
+    else if (type == xltypeInt)
+        return "xltypeInt";
+    else
+        return "unknown";
+}

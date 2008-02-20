@@ -32,14 +32,6 @@
 #pragma hdrstop
 #endif
 
-std::string XlfArgDesc::XlfOperType() {
-    if (XlfExcel::Instance().excel12()) {
-        return "Q";
-    } else {
-        return "P";
-    }
-}
-
 void XlfArgDesc::CheckNameLength()
 {
   if (name_.length() >= 19)
@@ -103,13 +95,11 @@ const std::string& XlfArgDesc::GetComment() const
 std::string XlfArgDesc::GetType() const
 {
     if (type_ == "XLF_OPER") {
-        return XlfOperType();
+        return XlfExcel::Instance().xlfOperType();
+    } else if (type_ == "XLF_XLOPER") {
+        return XlfExcel::Instance().xlfXloperType();
     } else if (type_ == "XLW_WSTR") {
-        if (XlfExcel::Instance().excel12()) {
-            return "C%";
-        } else {
-            return "C";
-        }
+        return XlfExcel::Instance().wStrType();
     } else {
         return type_;
     }

@@ -27,7 +27,6 @@ EmptyArgFunction()
 	return "this function is useless except for testing.";
 }
 
-
 short // echoes a short
 EchoShort(short x // number to be echoed
 		   )
@@ -39,8 +38,6 @@ MyMatrix EchoMat(const MyMatrix& EchoEe)
 {
 	return EchoEe;
 }
-
-
 
 MyMatrix // echoes a matrix
 EchoMatrix(const NEMatrix& Echoee // argument to be echoed
@@ -55,7 +52,6 @@ MyArray EchoArray(const MyArray& Echoee// argument to be echoed
 	return Echoee;
 }
 
-
 CellMatrix EchoCells(const CellMatrix& Echoee// argument to be echoed
 				   )
 {
@@ -69,14 +65,12 @@ Circ(double Diameter //the circle's diameter
 	  return Diameter* 3.14159;
 }
 
-
 std::wstring Concat(std::wstring str1, std::wstring str2)
   {
     std::wstring ret = str1+str2;
     return ret;
   }
 
- 
 MyArray
 Stats(const MyArray& data 	  )
 {
@@ -99,7 +93,6 @@ Stats(const MyArray& data 	  )
 	return values;
 }
 
-
 std::string HelloWorldAgain(std::string name)
 {
     return "hello "+name;
@@ -112,14 +105,12 @@ EchoUL( unsigned long b  // number to echo
 	return static_cast<double>(b);
 }
 
-
 double // echoes an int 
 EchoInt( int b  // number to echo
 	 )
 {
 	return static_cast<int>(b);
 }
-
 
 double // tests DoubleOrNothingType
 EchoDoubleOrNothing( DoubleOrNothing x // value to specify
@@ -142,7 +133,6 @@ SystemTime(DoubleOrNothing ticksPerSecond // number to divide by
 {
 	return clock()/ticksPerSecond.GetValueOrDefault(CLOCKS_PER_SEC);
 }
-
 
 double // evaluate pay--off
 PayOffEvaluation(const Wrapper<PayOff>& OptionPayOff // table for payoff
@@ -183,28 +173,12 @@ double GetThreadId() {
     return GetCurrentThreadId();
 }
 
-std::string
+std::string // return a string indicating datatype of OPER/OPER12 input
 typeString(const XlfOper &input) {
-    if (input.IsMissing())
-        return "missing";
-    else if (input.IsError())
-        return "error";
-    else if (input.IsRef())
-        return "ref";
-    else if (input.IsSRef())
-        return "sref";
-    else if (input.IsMulti())
-        return "multi";
-    else if (input.IsNumber())
-        return "number";
-    else if (input.IsString())
-        return "string";
-    else if (input.IsNil())
-        return "nil";
-    else if (input.IsBool())
-        return "bool";
-    else if (input.IsInt())
-        return "int";
-    else
-        return "unknown";
+    return input.xltypeName();
+}
+
+std::string // return a string indicating datatype of XLOPER/XLOPER12 input
+typeString2(const reftest &input) {
+    return input.xltypeName();
 }

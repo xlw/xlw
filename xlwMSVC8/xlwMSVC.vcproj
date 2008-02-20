@@ -253,6 +253,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\TestFiles\reftest.h"
+				>
+			</File>
+			<File
 				RelativePath="..\TestFiles\Test.h"
 				>
 			</File>

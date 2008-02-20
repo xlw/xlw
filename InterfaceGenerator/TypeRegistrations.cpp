@@ -88,7 +88,6 @@ TypeRegistry::Helper arrayreg("MyArray", // new type
 			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
-
 TypeRegistry::Helper matrixreg("MyMatrix", // new type
 			   "XlfOper", // old type
 			   "AsMatrix", // converter name
@@ -155,6 +154,16 @@ TypeRegistry::Helper boolreg("bool", // new type
 			   "XLF_OPER" // should be empty unless OldType is XlfOper 
 			   );
 
+// Usually XlfOper is registered as type XLF_OPER   which equates to either P (OPER)   or Q (OPER12)
+// Here    XlfOper is registered as type XLF_XLOPER which equates to either R (XLOPER) or U (XLOPER12)
+TypeRegistry::Helper RefTestReg("reftest", // new type
+			   "LPXLFOPER", // old type
+			   "", // converter name, we just pass into the constructor as a declaration
+			   false, // is a method
+			   false, // takes identifier
+			   "XLF_XLOPER" // should be empty unless OldType is XlfOper 
+			   );
+
 // extended types
 
 TypeRegistry::Helper ULreg("unsigned long", // new type
@@ -164,14 +173,12 @@ TypeRegistry::Helper ULreg("unsigned long", // new type
 			   false 
 			   );
 
-
 TypeRegistry::Helper intreg("int", // new type
 			   "double", // old type
 			   "static_cast<int>", // converter name
 			   false, // is a method
 			   false 
 			   );
-
 
 // A test for Excel 12 - special treatment of std::wstring
 TypeRegistry::Helper wstrreg("std::wstring", // new type
@@ -181,14 +188,12 @@ TypeRegistry::Helper wstrreg("std::wstring", // new type
 			   false 
 			   );
 
-
 TypeRegistry::Helper DONreg("DoubleOrNothing", // new type
 			   "CellMatrix", // old type
 			   "DoubleOrNothing", // converter name
 			   false, // is a method
 			   true // takes identifier 
 			   );
-
 
 TypeRegistry::Helper arglistreg("ArgumentList", // new type
 			   "CellMatrix", // old type
@@ -207,6 +212,5 @@ TypeRegistry::Helper payoffreg("Wrapper<PayOff>", // new type
 			   "" , // no key
 			  "<xlw/ArgListFactory.h>"
 			   );
-
 
 }

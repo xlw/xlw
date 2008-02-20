@@ -173,8 +173,14 @@ void XlfExcel::InitLibrary()
   excel12_ = set_excel12();
   if (excel12_) {
     static XlfOperImpl12 xlfOperImpl12;
+    xlfOperType_ = "Q";
+    xlfXloperType_ = "U";
+    wStrType_ = "C%";
   } else {
     static XlfOperImpl4 xlfOperImpl4;
+    xlfOperType_ = "P";
+    xlfXloperType_ = "R";
+    wStrType_ = "C";
   }
 
   impl_->handle_ = handle;

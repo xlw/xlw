@@ -61,8 +61,6 @@ public:
   //! Get the argument type
   std::string GetType() const;
 
-  static std::string XlfOperType();
-
 private:
   //! Name of the argument as it appears in Excel,
   std::string name_;

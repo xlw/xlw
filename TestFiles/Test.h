@@ -11,6 +11,7 @@
 #include <xlw/DoubleOrNothing.h>
 #include <xlw/ArgList.h>
 #include "PayOff.h"
+#include "reftest.h"
 #include <xlw/Wrapper.h>
 
 //<xlw:libraryname=MyTestLibrary
@@ -105,9 +106,14 @@ double // returns ID of current execution thread
 //<xlw:threadsafe
 GetThreadId();
 
-std::string // return a string indicating datatype of input
+std::string // return a string indicating datatype of OPER/OPER12 input
 //<xlw:time
 typeString(const XlfOper &input // value on which to perform type check 
+           );
+
+std::string // return a string indicating datatype of XLOPER/XLOPER12 input
+//<xlw:time
+typeString2(const reftest &input // value on which to perform type check 
            );
 
 #endif
