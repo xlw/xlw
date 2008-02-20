@@ -61,11 +61,11 @@ xlEmptyArgFunction(
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 std::string result(
-    EmptyArgFunction());
+	EmptyArgFunction());
 return XlfOper(result);
 EXCEL_END
 }
@@ -103,18 +103,18 @@ LPXLFOPER xa)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper xb(
-    (xa));
+	(xa));
 short x(
-    xb.AsShort("x"));
+	xb.AsShort("x"));
 
 short result(
-    EchoShort(
-        x)
-    );
+	EchoShort(
+		x)
+	);
 return XlfOper(result);
 EXCEL_END
 }
@@ -152,18 +152,18 @@ LPXLFOPER Echoeea)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper Echoeeb(
-    (Echoeea));
+	(Echoeea));
 MyMatrix Echoee(
-    Echoeeb.AsMatrix("Echoee"));
+	Echoeeb.AsMatrix("Echoee"));
 
 MyMatrix result(
-    EchoMat(
-        Echoee)
-    );
+	EchoMat(
+		Echoee)
+	);
 return XlfOper(result);
 EXCEL_END
 }
@@ -201,16 +201,16 @@ LPXLARRAY Echoeea)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 NEMatrix Echoee(
-    GetMatrix(Echoeea));
+	GetMatrix(Echoeea));
 
 MyMatrix result(
-    EchoMatrix(
-        Echoee)
-    );
+	EchoMatrix(
+		Echoee)
+	);
 return XlfOper(result);
 EXCEL_END
 }
@@ -248,18 +248,18 @@ LPXLFOPER Echoeea)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper Echoeeb(
-    (Echoeea));
+	(Echoeea));
 MyArray Echoee(
-    Echoeeb.AsArray("Echoee"));
+	Echoeeb.AsArray("Echoee"));
 
 MyArray result(
-    EchoArray(
-        Echoee)
-    );
+	EchoArray(
+		Echoee)
+	);
 return XlfOper(result);
 EXCEL_END
 }
@@ -297,19 +297,19 @@ LPXLFOPER Echoeea)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper Echoeeb(
-    (Echoeea));
+	(Echoeea));
 CellMatrix Echoee(
-    Echoeeb.AsCellMatrix("Echoee"));
+	Echoeeb.AsCellMatrix("Echoee"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 CellMatrix result(
-    EchoCells(
-        Echoee)
-    );
+	EchoCells(
+		Echoee)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -353,15 +353,15 @@ double Diameter)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
-    Circ(
-        Diameter)
-    );
+	Circ(
+		Diameter)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -407,21 +407,21 @@ XLWSTR str2a)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 std::wstring str1(
-    voidToWstr(str1a));
+	voidToWstr(str1a));
 
 std::wstring str2(
-    voidToWstr(str2a));
+	voidToWstr(str2a));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 std::wstring result(
-    Concat(
-        str1,
-        str2)
-    );
+	Concat(
+		str1,
+		str2)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -465,19 +465,19 @@ LPXLFOPER dataa)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper datab(
-    (dataa));
+	(dataa));
 MyArray data(
-    datab.AsArray("data"));
+	datab.AsArray("data"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 MyArray result(
-    Stats(
-        data)
-    );
+	Stats(
+		data)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -521,19 +521,19 @@ LPXLFOPER namea)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper nameb(
-    (namea));
+	(namea));
 std::string name(
-    nameb.AsString("name"));
+	nameb.AsString("name"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 std::string result(
-    HelloWorldAgain(
-        name)
-    );
+	HelloWorldAgain(
+		name)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -577,17 +577,17 @@ double ba)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 unsigned long b(
-    static_cast<unsigned long>(ba));
+	static_cast<unsigned long>(ba));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
-    EchoUL(
-        b)
-    );
+	EchoUL(
+		b)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -631,17 +631,17 @@ double ba)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 int b(
-    static_cast<int>(ba));
+	static_cast<int>(ba));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
-    EchoInt(
-        b)
-    );
+	EchoInt(
+		b)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -687,23 +687,23 @@ double defaultValue)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper xb(
-    (xa));
+	(xa));
 CellMatrix xc(
-    xb.AsCellMatrix("xc"));
+	xb.AsCellMatrix("xc"));
 DoubleOrNothing x(
-    DoubleOrNothing(xc,"x"));
+	DoubleOrNothing(xc,"x"));
 
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
-    EchoDoubleOrNothing(
-        x,
-        defaultValue)
-    );
+	EchoDoubleOrNothing(
+		x,
+		defaultValue)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -747,21 +747,21 @@ LPXLFOPER argsa)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper argsb(
-    (argsa));
+	(argsa));
 CellMatrix argsc(
-    argsb.AsCellMatrix("argsc"));
+	argsb.AsCellMatrix("argsc"));
 ArgumentList args(
-    ArgumentList(argsc,"args"));
+	ArgumentList(argsc,"args"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 CellMatrix result(
-    EchoArgList(
-        args)
-    );
+	EchoArgList(
+		args)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -805,21 +805,21 @@ LPXLFOPER ticksPerSeconda)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper ticksPerSecondb(
-    (ticksPerSeconda));
+	(ticksPerSeconda));
 CellMatrix ticksPerSecondc(
-    ticksPerSecondb.AsCellMatrix("ticksPerSecondc"));
+	ticksPerSecondb.AsCellMatrix("ticksPerSecondc"));
 DoubleOrNothing ticksPerSecond(
-    DoubleOrNothing(ticksPerSecondc,"ticksPerSecond"));
+	DoubleOrNothing(ticksPerSecondc,"ticksPerSecond"));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
-    SystemTime(
-        ticksPerSecond)
-    );
+	SystemTime(
+		ticksPerSecond)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -865,25 +865,25 @@ double Spot)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper PayOffTableb(
-    (PayOffTablea));
+	(PayOffTablea));
 CellMatrix PayOffTablec(
-    PayOffTableb.AsCellMatrix("PayOffTablec"));
+	PayOffTableb.AsCellMatrix("PayOffTablec"));
 ArgumentList PayOffTabled(
-    ArgumentList(PayOffTablec,"PayOffTabled"));
+	ArgumentList(PayOffTablec,"PayOffTabled"));
 Wrapper<PayOff> PayOffTable(
-    GetFromFactory<PayOff>(PayOffTabled));
+	GetFromFactory<PayOff>(PayOffTabled));
 
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 double result(
-    PayOffEvaluation(
-        PayOffTable,
-        Spot)
-    );
+	PayOffEvaluation(
+		PayOffTable,
+		Spot)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -927,18 +927,18 @@ LPXLFOPER input2a)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper input2b(
-    (input2a));
+	(input2a));
 CellMatrix input2(
-    input2b.AsCellMatrix("input2"));
+	input2b.AsCellMatrix("input2"));
 
 bool result(
-    ContainsError(
-        input2)
-    );
+	ContainsError(
+		input2)
+	);
 return XlfOper(result);
 EXCEL_END
 }
@@ -976,18 +976,18 @@ LPXLFOPER inputa)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper inputb(
-    (inputa));
+	(inputa));
 CellMatrix input(
-    inputb.AsCellMatrix("input"));
+	inputb.AsCellMatrix("input"));
 
 bool result(
-    ContainsDivByZero(
-        input)
-    );
+	ContainsDivByZero(
+		input)
+	);
 return XlfOper(result);
 EXCEL_END
 }
@@ -1026,11 +1026,11 @@ xlGetThreadId(
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 double result(
-    GetThreadId());
+	GetThreadId());
 return XlfOper(result);
 EXCEL_END
 }
@@ -1068,17 +1068,17 @@ LPXLFOPER inputa)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 XlfOper input(
-    (inputa));
+	(inputa));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 std::string result(
-    typeString(
-        input)
-    );
+	typeString(
+		input)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
@@ -1122,17 +1122,17 @@ LPXLFOPER inputa)
 {
 EXCEL_BEGIN;
 
-    if (XlfExcel::Instance().IsCalledByFuncWiz())
-        return XlfOper(true);
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
 
 reftest input(
-    (inputa));
+	(inputa));
 
  double t = (clock()+0.0)/CLOCKS_PER_SEC;
 std::string result(
-    typeString2(
-        input)
-    );
+	typeString2(
+		input)
+	);
   t = (clock()+0.0)/CLOCKS_PER_SEC-t;
 CellMatrix resultCells(result);
 CellMatrix time(1,2);
