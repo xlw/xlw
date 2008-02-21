@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="xlwLib7"
+	Name="xlwLib"
 	ProjectGUID="{EF0259A5-FE0B-4B45-84E3-87D8822F51EC}"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -32,7 +32,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/xlwLib7.lib"/>
+				OutputFile="$(OutDir)/xlwLib.lib"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -71,7 +71,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/xlwLib7.lib"/>
+				OutputFile="$(OutDir)/xlwLib.lib"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
