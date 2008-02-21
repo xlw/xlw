@@ -1,7 +1,7 @@
 [Project]
 FileName=DevCppXllUsingLib.dev
 Name=DevCppXll
-UnitCount=48
+UnitCount=47
 Type=3
 Ver=1
 ObjFiles=
@@ -228,16 +228,6 @@ ProductVersion=
 AutoIncBuildNr=0
 
 [Unit33]
-FileName=..\TestFiles\Test2.cpp
-CompileCpp=1
-Folder=DevCppXll
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit34]
 FileName=..\TestFiles\reftest.h
 CompileCpp=1
 Folder=DevCppXll
@@ -247,7 +237,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit35]
+[Unit34]
 FileName=..\xlw\ArgList.h
 CompileCpp=1
 Folder=DevCppXll
@@ -257,7 +247,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit36]
+[Unit35]
 FileName=..\xlw\ArgListFactory.h
 CompileCpp=1
 Folder=DevCppXll
@@ -267,7 +257,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit37]
+[Unit36]
 FileName=..\xlw\ArgListFactoryHelper.h
 CompileCpp=1
 Folder=DevCppXll
@@ -277,7 +267,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit38]
+[Unit37]
 FileName=..\xlw\config.mgw.h
 CompileCpp=1
 Folder=DevCppXll
@@ -287,7 +277,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit39]
+[Unit38]
 FileName=..\xlw\defines.h
 CompileCpp=1
 Folder=DevCppXll
@@ -297,7 +287,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit40]
+[Unit39]
 FileName=..\xlw\DoubleOrNothing.h
 CompileCpp=1
 Folder=DevCppXll
@@ -307,37 +297,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit45]
-FileName=..\xlw\XlfOperImpl4.h
-CompileCpp=1
-Folder=DevCppXll
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit46]
-FileName=..\xlw\XlfOperImpl12.h
-CompileCpp=1
-Folder=DevCppXll
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit44]
-FileName=..\xlw\XlfOper12.h
-CompileCpp=1
-Folder=DevCppXll
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit41]
+[Unit40]
 FileName=..\xlw\wrapper.h
 CompileCpp=1
 Folder=DevCppXll
@@ -347,7 +307,37 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit42]
+[Unit45]
+FileName=..\xlw\XlfOperImpl12.h
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit46]
+FileName=..\xlw\XlfOperImpl.h
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit44]
+FileName=..\xlw\XlfOperImpl4.h
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit41]
 FileName=..\xlw\xlarray.h
 CompileCpp=1
 Folder=DevCppXll
@@ -357,8 +347,18 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit43]
+[Unit42]
 FileName=..\xlw\XlfOper4.h
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit43]
+FileName=..\xlw\XlfOper12.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -508,7 +508,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit47]
-FileName=..\xlw\XlfOperImpl.h
+FileName=..\xlw\XlfStr.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1

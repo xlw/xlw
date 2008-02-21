@@ -178,9 +178,6 @@
 				RelativePath="..\TestFiles\Test.cpp">
 			</File>
 			<File
-				RelativePath="..\TestFiles\Test2.cpp">
-			</File>
-			<File
 				RelativePath="..\TestFiles\xlwTest.cpp">
 			</File>
 		</Filter>
