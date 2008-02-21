@@ -38,11 +38,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlwLib7.lib"
+				AdditionalDependencies="xlwLib.lib"
 				OutputFile="Debug/xlwMSVC.xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="../xlwLib7/Debug"
+				AdditionalLibraryDirectories="xlwLib/Debug"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/xlwMSVC.pdb"
 				ImportLibrary=".\Debug/xlwMSVC.lib"
@@ -105,11 +105,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlwLib7.lib"
+				AdditionalDependencies="xlwLib.lib"
 				OutputFile="Release/xlwMSVC.xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="../xlwLib7/Release"
+				AdditionalLibraryDirectories="xlwLib/Release"
 				ProgramDatabaseFile=".\Release/xlwMSVC.pdb"
 				ImportLibrary=".\Release/xlwMSVC.lib"
 				TargetMachine="1"/>

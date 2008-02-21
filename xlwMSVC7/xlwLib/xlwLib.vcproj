@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".."
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -60,7 +60,7 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".."
+				AdditionalIncludeDirectories="..\.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -100,79 +100,79 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath="..\xlw\ArgList.cpp">
+				RelativePath="..\..\xlw\ArgList.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\CellMatrix.cpp">
+				RelativePath="..\..\xlw\CellMatrix.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\DoubleOrNothing.cpp">
+				RelativePath="..\..\xlw\DoubleOrNothing.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\MJmatrices.cpp">
+				RelativePath="..\..\xlw\MJmatrices.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\MyContainers.cpp">
+				RelativePath="..\..\xlw\MyContainers.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\Win32StreamBuf.cpp">
+				RelativePath="..\..\xlw\Win32StreamBuf.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\xlarray.cpp">
+				RelativePath="..\..\xlw\xlarray.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\xlcall.cpp">
+				RelativePath="..\..\xlw\xlcall.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfAbstractCmdDesc.cpp">
+				RelativePath="..\..\xlw\XlfAbstractCmdDesc.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfArgDesc.cpp">
+				RelativePath="..\..\xlw\XlfArgDesc.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfArgDescList.cpp">
+				RelativePath="..\..\xlw\XlfArgDescList.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfCmdDesc.cpp">
+				RelativePath="..\..\xlw\XlfCmdDesc.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfExcel.cpp">
+				RelativePath="..\..\xlw\XlfExcel.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfException.cpp">
+				RelativePath="..\..\xlw\XlfException.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfFuncDesc.cpp">
+				RelativePath="..\..\xlw\XlfFuncDesc.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper.cpp">
+				RelativePath="..\..\xlw\XlfOper.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper12.cpp">
+				RelativePath="..\..\xlw\XlfOper12.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper4.cpp">
+				RelativePath="..\..\xlw\XlfOper4.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOperImpl.cpp">
+				RelativePath="..\..\xlw\XlfOperImpl.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOperImpl12.cpp">
+				RelativePath="..\..\xlw\XlfOperImpl12.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOperImpl4.cpp">
+				RelativePath="..\..\xlw\XlfOperImpl4.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfRef.cpp">
+				RelativePath="..\..\xlw\XlfRef.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfStr.cpp">
+				RelativePath="..\..\xlw\XlfStr.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlFunctionRegistration.cpp">
+				RelativePath="..\..\xlw\XlFunctionRegistration.cpp">
 			</File>
 			<File
-				RelativePath="..\xlw\XlOpenClose.cpp">
+				RelativePath="..\..\xlw\XlOpenClose.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -180,142 +180,142 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\xlw\ArgList.h">
+				RelativePath="..\..\xlw\ArgList.h">
 			</File>
 			<File
-				RelativePath="..\xlw\ArgListFactory.h">
+				RelativePath="..\..\xlw\ArgListFactory.h">
 			</File>
 			<File
-				RelativePath="..\xlw\ArgListFactoryHelper.h">
+				RelativePath="..\..\xlw\ArgListFactoryHelper.h">
 			</File>
 			<File
-				RelativePath="..\xlw\CellMatrix.h">
+				RelativePath="..\..\xlw\CellMatrix.h">
 			</File>
 			<File
-				RelativePath="..\xlw\config.bcc.h">
+				RelativePath="..\..\xlw\config.bcc.h">
 			</File>
 			<File
-				RelativePath="..\xlw\config.mgw.h">
+				RelativePath="..\..\xlw\config.mgw.h">
 			</File>
 			<File
-				RelativePath="..\xlw\config.msvc.h">
+				RelativePath="..\..\xlw\config.msvc.h">
 			</File>
 			<File
-				RelativePath="..\xlw\defines.h">
+				RelativePath="..\..\xlw\defines.h">
 			</File>
 			<File
-				RelativePath="..\xlw\DoubleOrNothing.h">
+				RelativePath="..\..\xlw\DoubleOrNothing.h">
 			</File>
 			<File
-				RelativePath="..\xlw\ERR_Macros.h">
+				RelativePath="..\..\xlw\ERR_Macros.h">
 			</File>
 			<File
-				RelativePath="..\xlw\EXCEL32_API.h">
+				RelativePath="..\..\xlw\EXCEL32_API.h">
 			</File>
 			<File
-				RelativePath="..\xlw\macros.h">
+				RelativePath="..\..\xlw\macros.h">
 			</File>
 			<File
-				RelativePath="..\xlw\MJmatrices.h">
+				RelativePath="..\..\xlw\MJmatrices.h">
 			</File>
 			<File
-				RelativePath="..\xlw\MyContainers.h">
+				RelativePath="..\..\xlw\MyContainers.h">
 			</File>
 			<File
-				RelativePath="..\xlw\port.h">
+				RelativePath="..\..\xlw\port.h">
 			</File>
 			<File
-				RelativePath="..\xlw\pragmas.h">
+				RelativePath="..\..\xlw\pragmas.h">
 			</File>
 			<File
-				RelativePath="..\xlw\Win32StreamBuf.h">
+				RelativePath="..\..\xlw\Win32StreamBuf.h">
 			</File>
 			<File
-				RelativePath="..\xlw\Win32StreamBuf.inl">
+				RelativePath="..\..\xlw\Win32StreamBuf.inl">
 			</File>
 			<File
-				RelativePath="..\xlw\wrapper.h">
+				RelativePath="..\..\xlw\wrapper.h">
 			</File>
 			<File
-				RelativePath="..\xlw\xlarray.h">
+				RelativePath="..\..\xlw\xlarray.h">
 			</File>
 			<File
-				RelativePath="..\xlw\xlcall32.h">
+				RelativePath="..\..\xlw\xlcall32.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfAbstractCmdDesc.h">
+				RelativePath="..\..\xlw\XlfAbstractCmdDesc.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfAbstractCmdDesc.inl">
+				RelativePath="..\..\xlw\XlfAbstractCmdDesc.inl">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfArgDesc.h">
+				RelativePath="..\..\xlw\XlfArgDesc.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfArgDescList.h">
+				RelativePath="..\..\xlw\XlfArgDescList.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfCmdDesc.h">
+				RelativePath="..\..\xlw\XlfCmdDesc.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfExcel.h">
+				RelativePath="..\..\xlw\XlfExcel.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfExcel.inl">
+				RelativePath="..\..\xlw\XlfExcel.inl">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfException.h">
+				RelativePath="..\..\xlw\XlfException.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfException.inl">
+				RelativePath="..\..\xlw\XlfException.inl">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfFuncDesc.h">
+				RelativePath="..\..\xlw\XlfFuncDesc.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper.h">
+				RelativePath="..\..\xlw\XlfOper.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper.inl">
+				RelativePath="..\..\xlw\XlfOper.inl">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper12.h">
+				RelativePath="..\..\xlw\XlfOper12.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper12.inl">
+				RelativePath="..\..\xlw\XlfOper12.inl">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper4.h">
+				RelativePath="..\..\xlw\XlfOper4.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOper4.inl">
+				RelativePath="..\..\xlw\XlfOper4.inl">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOperImpl.h">
+				RelativePath="..\..\xlw\XlfOperImpl.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOperImpl12.h">
+				RelativePath="..\..\xlw\XlfOperImpl12.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfOperImpl4.h">
+				RelativePath="..\..\xlw\XlfOperImpl4.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfRef.h">
+				RelativePath="..\..\xlw\XlfRef.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfRef.inl">
+				RelativePath="..\..\xlw\XlfRef.inl">
 			</File>
 			<File
-				RelativePath="..\xlw\XlfStr.h">
+				RelativePath="..\..\xlw\XlfStr.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlFunctionRegistration.h">
+				RelativePath="..\..\xlw\XlFunctionRegistration.h">
 			</File>
 			<File
-				RelativePath="..\xlw\XlOpenClose.h">
+				RelativePath="..\..\xlw\XlOpenClose.h">
 			</File>
 			<File
-				RelativePath="..\xlw\xlw.h">
+				RelativePath="..\..\xlw\xlw.h">
 			</File>
 		</Filter>
 	</Files>

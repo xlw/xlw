@@ -9,7 +9,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlwMSVC", "xlwMSVC.vcproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InterfaceGenerator", "InterfaceGenerator\InterfaceGenerator.vcproj", "{E8296A35-DDBD-4CF3-BA6A-2217AE086561}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlwLib", "..\xlwLib9\xlwLib.vcproj", "{B2CA3E14-BD4A-4186-9303-E1B6454630D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlwLib", "xlwLib\xlwLib.vcproj", "{B2CA3E14-BD4A-4186-9303-E1B6454630D5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RunInterfaceGenerator", "RunInterfaceGenerator\RunInterfaceGenerator.vcproj", "{1115BBB6-8140-40EF-8805-DF2E41D1330E}"
 	ProjectSection(ProjectDependencies) = postProject
