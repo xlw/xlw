@@ -121,6 +121,9 @@
 				RelativePath="..\xlw\xlarray.cpp">
 			</File>
 			<File
+				RelativePath="..\xlw\xlcall.cpp">
+			</File>
+			<File
 				RelativePath="..\xlw\XlfAbstractCmdDesc.cpp">
 			</File>
 			<File
@@ -145,7 +148,25 @@
 				RelativePath="..\xlw\XlfOper.cpp">
 			</File>
 			<File
+				RelativePath="..\xlw\XlfOper12.cpp">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOper4.cpp">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl.cpp">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl12.cpp">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl4.cpp">
+			</File>
+			<File
 				RelativePath="..\xlw\XlfRef.cpp">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfStr.cpp">
 			</File>
 			<File
 				RelativePath="..\xlw\XlFunctionRegistration.cpp">
@@ -159,17 +180,144 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath="..\xlw\ArgList.h">
+			</File>
+			<File
+				RelativePath="..\xlw\ArgListFactory.h">
+			</File>
+			<File
+				RelativePath="..\xlw\ArgListFactoryHelper.h">
+			</File>
+			<File
+				RelativePath="..\xlw\CellMatrix.h">
+			</File>
+			<File
+				RelativePath="..\xlw\config.bcc.h">
+			</File>
+			<File
+				RelativePath="..\xlw\config.mgw.h">
+			</File>
+			<File
+				RelativePath="..\xlw\config.msvc.h">
+			</File>
+			<File
+				RelativePath="..\xlw\defines.h">
+			</File>
+			<File
+				RelativePath="..\xlw\DoubleOrNothing.h">
+			</File>
+			<File
+				RelativePath="..\xlw\ERR_Macros.h">
+			</File>
+			<File
+				RelativePath="..\xlw\EXCEL32_API.h">
+			</File>
+			<File
+				RelativePath="..\xlw\macros.h">
+			</File>
+			<File
+				RelativePath="..\xlw\MJmatrices.h">
+			</File>
+			<File
+				RelativePath="..\xlw\MyContainers.h">
+			</File>
+			<File
+				RelativePath="..\xlw\port.h">
+			</File>
+			<File
+				RelativePath="..\xlw\pragmas.h">
+			</File>
+			<File
+				RelativePath="..\xlw\Win32StreamBuf.h">
+			</File>
+			<File
+				RelativePath="..\xlw\Win32StreamBuf.inl">
+			</File>
+			<File
+				RelativePath="..\xlw\wrapper.h">
+			</File>
+			<File
 				RelativePath="..\xlw\xlarray.h">
 			</File>
+			<File
+				RelativePath="..\xlw\xlcall32.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfAbstractCmdDesc.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfAbstractCmdDesc.inl">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfArgDesc.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfArgDescList.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfCmdDesc.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfExcel.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfExcel.inl">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfException.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfException.inl">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfFuncDesc.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOper.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOper.inl">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOper12.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOper12.inl">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOper4.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOper4.inl">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl12.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfOperImpl4.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfRef.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfRef.inl">
+			</File>
+			<File
+				RelativePath="..\xlw\XlfStr.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlFunctionRegistration.h">
+			</File>
+			<File
+				RelativePath="..\xlw\XlOpenClose.h">
+			</File>
+			<File
+				RelativePath="..\xlw\xlw.h">
+			</File>
 		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
-		</Filter>
-		<File
-			RelativePath=".\ReadMe.txt">
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

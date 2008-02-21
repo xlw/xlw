@@ -191,9 +191,6 @@
 				RelativePath="..\..\InterfaceGenerator\IncludeRegister.cpp">
 			</File>
 			<File
-				RelativePath="..\..\InterfaceGenerator\IncludeRegister.h">
-			</File>
-			<File
 				RelativePath="..\..\InterfaceGenerator\main.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -248,9 +245,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\InterfaceGenerator\Singleton.h">
-			</File>
-			<File
 				RelativePath="..\..\InterfaceGenerator\Strip.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -290,9 +284,6 @@
 				RelativePath="..\..\InterfaceGenerator\TypeRegister.cpp">
 			</File>
 			<File
-				RelativePath="..\..\InterfaceGenerator\TypeRegister.h">
-			</File>
-			<File
 				RelativePath="..\..\InterfaceGenerator\TypeRegistrations.cpp">
 			</File>
 		</Filter>
@@ -309,10 +300,16 @@
 				RelativePath="..\..\InterfaceGenerator\FunctionType.h">
 			</File>
 			<File
+				RelativePath="..\..\InterfaceGenerator\IncludeRegister.h">
+			</File>
+			<File
 				RelativePath="..\..\InterfaceGenerator\Outputter.h">
 			</File>
 			<File
 				RelativePath="..\..\InterfaceGenerator\ParserData.h">
+			</File>
+			<File
+				RelativePath="..\..\InterfaceGenerator\Singleton.h">
 			</File>
 			<File
 				RelativePath="..\..\InterfaceGenerator\Strip.h">
@@ -320,10 +317,9 @@
 			<File
 				RelativePath="..\..\InterfaceGenerator\Tokenizer.h">
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			<File
+				RelativePath="..\..\InterfaceGenerator\TypeRegister.h">
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

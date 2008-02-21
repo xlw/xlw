@@ -147,19 +147,29 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
-			<File
-				RelativePath="..\TestFiles\PayOff.cpp">
-			</File>
+			Name="Header Files"
+			Filter="">
 			<File
 				RelativePath="..\TestFiles\PayOff.h">
 			</File>
 			<File
-				RelativePath="..\TestFiles\PayOffConcrete.cpp">
+				RelativePath="..\TestFiles\PayoffConcrete.h">
 			</File>
 			<File
-				RelativePath="..\TestFiles\PayoffConcrete.h">
+				RelativePath="..\TestFiles\reftest.h">
+			</File>
+			<File
+				RelativePath="..\TestFiles\Test.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			Filter="">
+			<File
+				RelativePath="..\TestFiles\PayOff.cpp">
+			</File>
+			<File
+				RelativePath="..\TestFiles\PayOffConcrete.cpp">
 			</File>
 			<File
 				RelativePath="..\TestFiles\PayOffRegistration.cpp">
@@ -168,19 +178,11 @@
 				RelativePath="..\TestFiles\Test.cpp">
 			</File>
 			<File
-				RelativePath="..\TestFiles\Test.h">
+				RelativePath="..\TestFiles\Test2.cpp">
 			</File>
 			<File
 				RelativePath="..\TestFiles\xlwTest.cpp">
 			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl">
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
 	</Files>
 	<Globals>
