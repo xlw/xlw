@@ -123,7 +123,8 @@ int XlfFuncDesc::DoUnregister(const std::string& dllName) const
 
   XlfOper unreg;
   //err = Excel4(xlfUnregister, unreg, 1, XlfOper(funcId));
-  err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, XlfOper(funcId)));
+  //err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, XlfOper(funcId)));
+  err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, static_cast<LPXLOPER>(XlfOper(funcId))));
 
   return err;
 }

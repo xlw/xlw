@@ -1,7 +1,7 @@
 [Project]
 FileName=DevCppXllUsingLib.dev
 Name=DevCppXll
-UnitCount=32
+UnitCount=48
 Type=3
 Ver=1
 ObjFiles=
@@ -228,7 +228,7 @@ ProductVersion=
 AutoIncBuildNr=0
 
 [Unit33]
-FileName=..\xlw\CellMatrix.h
+FileName=..\TestFiles\Test2.cpp
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -238,7 +238,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit34]
-FileName=..\xlw\MJmatrices.cpp
+FileName=..\TestFiles\reftest.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -248,7 +248,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit35]
-FileName=..\xlw\MJmatrices.h
+FileName=..\xlw\ArgList.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -258,7 +258,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit36]
-FileName=..\xlw\MyContainers.h
+FileName=..\xlw\ArgListFactory.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -268,7 +268,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit37]
-FileName=..\xlw\XlFunctionRegistration.cpp
+FileName=..\xlw\ArgListFactoryHelper.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -278,7 +278,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit38]
-FileName=..\xlw\XlFunctionRegistration.h
+FileName=..\xlw\config.mgw.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -288,7 +288,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit39]
-FileName=xlwTest.cpp
+FileName=..\xlw\defines.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -298,7 +298,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit40]
-FileName=Test.h
+FileName=..\xlw\DoubleOrNothing.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -308,7 +308,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit45]
-FileName=xlwTest.cpp
+FileName=..\xlw\XlfOperImpl4.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -318,7 +318,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit46]
-FileName=Test.h
+FileName=..\xlw\XlfOperImpl12.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -328,7 +328,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit44]
-FileName=Test.h
+FileName=..\xlw\XlfOper12.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -338,7 +338,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit41]
-FileName=Test.cpp
+FileName=..\xlw\wrapper.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -348,7 +348,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit42]
-FileName=..\xlw\XlOpenClose.h
+FileName=..\xlw\xlarray.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -358,7 +358,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit43]
-FileName=..\xlw\XlOpenClose.cpp
+FileName=..\xlw\XlfOper4.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1
@@ -499,6 +499,26 @@ BuildCmd=
 
 [Unit28]
 FileName=..\TestFiles\PayOffConcrete.cpp
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit47]
+FileName=..\xlw\XlfOperImpl.h
+CompileCpp=1
+Folder=DevCppXll
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit48]
+FileName=..\xlw\XlfStr.h
 CompileCpp=1
 Folder=DevCppXll
 Compile=1

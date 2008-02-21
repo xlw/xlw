@@ -26,6 +26,7 @@
 // $Id: XlfOper.h 340 2007-10-14 15:40:31Z ericehlers $
 
 #include <xlw/XlfOperImpl.h>
+#include <sstream>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -107,13 +108,13 @@ private:
         if (rows > USHRT_MAX) {
             std::ostringstream err;
             err << "Matrix row count " << rows << " exceeds Excel4 max " << USHRT_MAX;
-            throw(err.str.c_str());
+            throw(err.str);
         }
 
         if (cols > USHRT_MAX) {
             std::ostringstream err;
             err << "Matrix col count " << cols << " exceeds Excel4 max " << USHRT_MAX;
-            throw(err.str.c_str());
+            throw(err.str);
         }
 
         xlfOper.lpxloper4_->xltype = xltypeMulti;

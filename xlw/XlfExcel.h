@@ -30,6 +30,7 @@
 #include <xlw/xlcall32.h>
 #include <list>
 #include <map>
+#include <string>
 
 #if defined(_MSC_VER)
 #pragma once
