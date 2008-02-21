@@ -1,4 +1,4 @@
-# xlwVisio8\RunInterfaceGenerator\Makefile.vc
+# xlwMSVC8\RunInterfaceGenerator\Makefile.Debug.vc
 
 ENVIRON=Debug
 
