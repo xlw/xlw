@@ -57,7 +57,6 @@ public:
   LPSTR GetMemory(size_t bytes);
   //! Frees temporary memory used by the XLL
   void FreeMemory(bool finished=false);
-  void FreeBuffer(DWORD threadId, size_t nbBuffersToKeep);
   //! Gets XLL name
   std::string GetName() const;
   //! Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel)
@@ -112,14 +111,9 @@ private:
 
   typedef std::list<XlfBuffer> BufferList;
   //! Internal memory buffer holding memory to be referenced by Excel (excluded from the pimpl to allow inlining).
-  //BufferList freeList_;
+  BufferList freeList_;
   //! Pointer to next free area (excluded from the pimpl to allow inlining).
-  //size_t offset_;
-  // Fixes for thread safety
-  typedef std::map<DWORD, BufferList> BufferMap;
-  BufferMap freeList_;
-  typedef std::map<DWORD, size_t> OffsetMap;
-  OffsetMap offset_;
+  size_t offset_;
 
   //! Pointer to internal implementation (pimpl idiom, see \ref HS).
   struct XlfExcelImpl * impl_;
@@ -133,9 +127,7 @@ private:
   //! Initialize the C++ framework.
   void InitLibrary();
   //! Creates a new static buffer and add it to the free list.
-  //void PushNewBuffer(size_t);
-  // Fixes for thread safety
-  void PushNewBuffer(size_t, BufferList &bufferList);
+  void PushNewBuffer(size_t);
 
   bool excel12_;
   std::string xlfOperType_;
@@ -148,4 +140,3 @@ private:
 #endif
 
 #endif
-
