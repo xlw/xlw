@@ -16,7 +16,7 @@
 /*!
  * \file Win32StreamBuf.inl
  * \brief Inline implementation of the class Win32StreamBuf
- * \group utils
+ * \ingroup utils
  */
 
 // $Id$

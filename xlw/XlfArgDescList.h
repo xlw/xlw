@@ -51,19 +51,19 @@ public:
   XlfArgDescList& operator+(const XlfArgDesc& newarg);
   //! Type definition of the underlying container used to stored arguments.
   typedef std::list<XlfArgDesc> container_type;
-  //! \ref STL
+  //! FIXME missing docstring
   typedef container_type::iterator iterator;
-  //! \ref STL
+  //! FIXME missing docstring
   typedef container_type::const_iterator const_iterator;
-  //! \ref STL
+  //! FIXME missing docstring
   iterator begin();
-  //! \ref STL
+  //! FIXME missing docstring
   const_iterator begin() const;
-  //! \ref STL
+  //! FIXME missing docstring
   iterator end();
-  //! \ref STL
+  //! FIXME missing docstring
   const_iterator end() const;
-  //! \ref STL
+  //! FIXME missing docstring
   size_t size() const;
 
   friend EXCEL32_API XlfArgDescList operator+(const XlfArgDesc&, const XlfArgDesc&);

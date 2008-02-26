@@ -60,12 +60,12 @@ Catch exception in C function calls
 Catching rules are as follow :
 - try first to catch excel exception that need the framework to return to excel
 asap (namely coerce, uncalculated cell, and abort). If catched, returns 0 that
-Excel will translate to #NULL!.
+Excel will translate to \#NULL!.
 - catch runtime errors and send string to excel
 - catch strings and echo them
 - catch const char * and echo them
 - catch cell matrix and echo it, useful for complicated errors
-- catch all other kind of exception. Return #VALUE! error.
+- catch all other kind of exception. Return \#VALUE! error.
 
 You could easily add your own exception here. Note that it causes all your
 interface to recompile.

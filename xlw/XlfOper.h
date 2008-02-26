@@ -194,8 +194,8 @@ public:
     XlfOper& Set(short value, bool Error) { return XlfOperImpl::instance().Set(*this, value, Error); }
     //! Set to an array
     /*!
-    \param r number of rows in the array
-    \param c number of columns in the array
+    \param rows number of rows in the array
+    \param cols number of columns in the array
     \param it iterator pointing to the begining of a container
      of size r x c (at least) that contain the data.
     \warning Data are to be stored row-wise.
