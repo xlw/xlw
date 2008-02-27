@@ -22,9 +22,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f Makefile.Debug.vc"
-				ReBuildCommandLine="NMAKE /f Makefile.Debug.vc /a"
-				CleanCommandLine="NMAKE /f Makefile.Debug.vc clean"
+				BuildCommandLine="NMAKE /f ..\..\RunInterfaceGenerator\Makefile.vc ENVIRON=Debug"
+                ReBuildCommandLine="NMAKE /f ..\..\RunInterfaceGenerator\Makefile.vc /a ENVIRON=Debug"
+				CleanCommandLine="NMAKE /f ..\..\RunInterfaceGenerator\Makefile.vc clean ENVIRON=Debug"
 				Output=""
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				IncludeSearchPath=""
@@ -42,9 +42,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f Makefile.Release.vc"
-				ReBuildCommandLine="NMAKE /f Makefile.Release.vc /a"
-				CleanCommandLine="NMAKE /f Makefile.Release.vc clean"
+				BuildCommandLine="NMAKE /f ..\..\RunInterfaceGenerator\Makefile.vc ENVIRON=Release"
+				ReBuildCommandLine="NMAKE /f ..\..\RunInterfaceGenerator\Makefile.vc /a ENVIRON=Release"
+				CleanCommandLine="NMAKE /f ..\..\RunInterfaceGenerator\Makefile.vc clean ENVIRON=Release"
 				Output=""
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				IncludeSearchPath=""
@@ -59,11 +59,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\Makefile.Debug.vc"
-			>
-		</File>
-		<File
-			RelativePath=".\Makefile.Release.vc"
+			RelativePath="..\..\RunInterfaceGenerator\Makefile.vc"
 			>
 		</File>
 	</Files>

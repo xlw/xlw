@@ -40,6 +40,13 @@ void AddLine(std::vector<char>& file, std::string line)
     file.push_back('\n');
 }
 
+std::string strip(std::string in) {
+    for (size_t i=in.length(); i; --i)
+        if (in[i] == '/' || in[i] == '\\')
+            return in.substr(i + 1, in.length() - i);
+    return in;
+}
+
 std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& functionDescriptions,
                                     std::string inputFileName, std::string LibraryName)
 {
@@ -51,7 +58,7 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
     AddLine(output,"#include <xlw/pragmas.h>");
     AddLine(output,"#include <xlw/MyContainers.h>");
     AddLine(output,"#include <xlw/CellMatrix.h>");
-    AddLine(output, "#include \""+inputFileName+"\"");
+    AddLine(output, "#include \""+strip(inputFileName)+"\"");
     AddLine(output, "#include <xlw/xlw.h>");
     AddLine(output, "#include <xlw/XlFunctionRegistration.h>");
     AddLine(output, "#include <stdexcept>");
