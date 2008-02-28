@@ -101,30 +101,6 @@ private:
     virtual XlfOper& Set(XlfOper &xlfOper, const XlfRef& range) const;
     //! Set to a short or error, bool for disambiguation
     virtual XlfOper& Set(XlfOper &xlfOper, short value, bool Error) const;
-    //! Set to an array
-    template <class FwdIt>
-    XlfOper& Set(XlfOper& xlfOper, RW rows, COL cols, FwdIt it)
-    {
-        if (rows > USHRT_MAX) {
-            std::ostringstream err;
-            err << "Matrix row count " << rows << " exceeds Excel4 max " << USHRT_MAX;
-            throw(err.str);
-        }
-
-        if (cols > USHRT_MAX) {
-            std::ostringstream err;
-            err << "Matrix col count " << cols << " exceeds Excel4 max " << USHRT_MAX;
-            throw(err.str);
-        }
-
-        xlfOper.lpxloper4_->xltype = xltypeMulti;
-        xlfOper.lpxloper4_->val.array.rows = rows;
-        xlfOper.lpxloper4_->val.array.columns = cols;
-        xlfOper.lpxloper4_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(rows * cols * sizeof(XLOPER));
-        for (size_t i = 0; i < rows*cols; ++i, ++it)
-            xlfOper.lpxloper4_->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
-    }
-
     //! Set to an error value
     virtual XlfOper& SetError(XlfOper &xlfOper, WORD error) const;
     //! Cast to XLOPER *

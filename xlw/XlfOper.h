@@ -49,6 +49,7 @@ LPXLOPER sent by Excel as an XlfOper.
 */
 class EXCEL32_API XlfOper
 {
+    friend class XlfOperImpl;
     friend class XlfOperImpl4;
     friend class XlfOperImpl12;
     friend class XlfExcel;
