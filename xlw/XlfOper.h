@@ -76,11 +76,11 @@ public:
     XlfOper(const std::string& value);
     //!  wstring ctor.
     XlfOper(const std::wstring& value);
-    //! CellMatrix ctor
+    //! CellMatrix ctor.
     XlfOper(const CellMatrix& value);
-    //! MyMatrix ctor
+    //! MyMatrix ctor.
     XlfOper(const MyMatrix& value);
-    //! MyArray ctor
+    //! MyArray ctor.
     XlfOper(const MyArray& value);
     //! XlfRef ctor.
     XlfOper(const XlfRef& range);
@@ -147,20 +147,23 @@ public:
 
     //! Converts to an int.
     int AsInt(int *pxlret = 0) const;
-    //! Converts to an int with error identifer..
+    //! Converts to an int with error identifer.
     int AsInt(const std::string& ErrorId, int *pxlret = 0) const;
 
     //! Converts to a char *.
     char *AsString(int *pxlret = 0) const;
-    //! Converts to a char * with error identifer..
+    //! Converts to a char * with error identifer.
     char *AsString(const std::string& ErrorId, int *pxlret = 0) const;
 
-    //! Converts to a cell Matrix
+    //! Converts to a wstring.
+    std::wstring AsWstring(int *pxlret = 0) const;
+
+    //! Converts to a cell Matrix.
     CellMatrix AsCellMatrix(int *pxlret=0) const;
     //! Converts to a cell Matrix with error identifer.
     CellMatrix AsCellMatrix(const std::string& ErrorId, int *pxlret=0) const;
 
-    //! Converts to a matrix
+    //! Converts to a matrix.
     MyMatrix AsMatrix(int *pxlret=0) const;
     //! Converts to a matrix with error identifer.
     MyMatrix AsMatrix(const std::string& ErrorId, int *pxlret=0) const;
@@ -171,29 +174,29 @@ public:
     //! Gets the internal LPXLFOPER.
     LPXLFOPER GetLPXLFOPER() const { return XlfOperImpl::instance().GetLPXLFOPER(*this); }
 
-    //! Set the underlying XLOPER * to lpxloper
+    //! Set the underlying XLOPER * to lpxloper.
     XlfOper& Set(LPXLFOPER lpxlfoper) { return XlfOperImpl::instance().Set(*this, lpxlfoper); }
-    //! Set to a double
+    //! Set to a double.
     XlfOper& Set(double value) { return XlfOperImpl::instance().Set(*this, value); }
-    //! Set to a short
+    //! Set to a short.
     XlfOper& Set(short value) { return XlfOperImpl::instance().Set(*this, value); }
-    //! Set to a boolean
+    //! Set to a boolean.
     XlfOper& Set(bool value) { return XlfOperImpl::instance().Set(*this, value); }
-    //! Set to a zero-terminated character string
+    //! Set to a zero-terminated character string.
     XlfOper& Set(const char *value) { return XlfOperImpl::instance().Set(*this, value); }
-    //! Set to a wstring
+    //! Set to a wstring.
     XlfOper& Set(const std::wstring &value) { return XlfOperImpl::instance().Set(*this, value); }
-    //! Set to a cell matrix
+    //! Set to a cell matrix.
     XlfOper& Set(const CellMatrix& cells) { return XlfOperImpl::instance().Set(*this, cells); }
-    //! Set to a  matrix
+    //! Set to a  matrix.
     XlfOper& Set(const MyMatrix& matrix);
-    //! Set to an array
+    //! Set to an array.
     XlfOper& Set(const MyArray& values);
-    //! Set to a range
+    //! Set to a range.
     XlfOper& Set(const XlfRef& range) { return XlfOperImpl::instance().Set(*this, range); }
-    //! Set to a short or error, bool for disambiguation
+    //! Set to a short or error, bool for disambiguation.
     XlfOper& Set(short value, bool Error) { return XlfOperImpl::instance().Set(*this, value, Error); }
-    //! Set to an array
+    //! Set to an array.
     /*!
     \param rows number of rows in the array
     \param cols number of columns in the array
@@ -207,14 +210,14 @@ public:
         return XlfOperImpl::instance().Set(*this, rows, cols, it);
     }
 
-    //! Set to an error value
+    //! Set to an error value.
     XlfOper& SetError(WORD error) { return XlfOperImpl::instance().SetError(*this, error); }
 
-    //! Cast to XLOPER *
+    //! Cast to XLOPER *.
     operator LPXLOPER() { return XlfOperImpl::instance().operator_LPXLOPER(*this); }
-    //! Cast to XLOPER12 *
+    //! Cast to XLOPER12 *.
     operator LPXLOPER12() { return XlfOperImpl::instance().operator_LPXLOPER12(*this); }
-    //! Cast to LPXLFOPER
+    //! Cast to LPXLFOPER.
     operator LPXLFOPER() { return XlfOperImpl::instance().operator_LPXLFOPER(*this); }
 
     DWORD xltype() const { return XlfOperImpl::instance().xltype(*this); }
@@ -237,7 +240,7 @@ private:
     //! Throws an exception when critical errors occur.
     int ThrowOnError(int value) const;
 
-    //! Throws an exception when critical errors occur but passes on an identifier to help track it down
+    //! Throws an exception when critical errors occur but passes on an identifier to help track it down.
     int ThrowOnError(int value, const std::string& identifier) const;
 
     //! Internally used to flag XLOPER returned by Excel.
@@ -261,10 +264,13 @@ private:
     //! Attempts conversion to string and returns Excel error code.
     int ConvertToString(char *& value) const throw() {
         return XlfOperImpl::instance().ConvertToString(*this, value); }
-    //! Attempts conversion to CellMatrix and returns Excel error code
+    //! Attempts conversion to wstring and returns Excel error code.
+	int ConvertToWstring(std::wstring &value) const throw() {
+        return XlfOperImpl::instance().ConvertToWstring(*this, value); }
+    //! Attempts conversion to CellMatrix and returns Excel error code.
     int ConvertToCellMatrix(CellMatrix& output) const {
         return XlfOperImpl::instance().ConvertToCellMatrix(*this, output); }
-    //! Attempts conversion to Matrix and returns Excel error code
+    //! Attempts conversion to Matrix and returns Excel error code.
     int ConvertToMatrix(MyMatrix& output) const {
         return XlfOperImpl::instance().ConvertToMatrix(*this, output); }
 

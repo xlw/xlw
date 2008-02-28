@@ -193,7 +193,7 @@ int XlfOper4::ConvertToDouble(double& d) const throw()
 };
 
 /*!
-Attempts to convert the implict object to a an array.
+Attempts to convert the implict object to an array.
 Does this by calling AsDoubleVector.
 If pxlret is
 not null the method won't throw and the Excel return code will be returned
@@ -1103,7 +1103,7 @@ XlfOper4& XlfOper4::Set(const char *value)
 {
   if (lpxloper_)
   {
-    int n = static_cast<unsigned int>(strlen(value));
+    unsigned int n = static_cast<unsigned int>(strlen(value));
     if (n > 254)
     {
       std::cerr << XLW__HERE__ << "String truncated to 254 bytes" << std::endl;

@@ -96,6 +96,15 @@ INLINE XlfOper12::XlfOper12(const std::string& value)
 }
 
 /*!
+See XlfOper12::Set(const std::wstring& value))
+*/
+INLINE XlfOper12::XlfOper12(const std::wstring& value)
+{
+  Allocate();
+  Set(value);
+}
+
+/*!
 See XlfOper12::Set(const CellMatrix& )
 */
 INLINE XlfOper12::XlfOper12(const CellMatrix& value)

@@ -626,6 +626,37 @@ int XlfOperImpl12::ConvertToString(const XlfOper &xlfOper, char *& s) const thro
   return xlret;
 }
 
+int XlfOperImpl12::ConvertToWstring(const XlfOper &xlfOper, std::wstring &s) const throw()
+{
+  int xlret;
+
+  if (xlfOper.lpxloper12_ == 0)
+    return xlretInvXloper;
+
+  if (xlfOper.lpxloper12_->xltype & xltypeStr)
+  {
+    size_t n = xlfOper.lpxloper12_->val.str[0];
+    wchar_t *w = reinterpret_cast<wchar_t*>(XlfExcel::Instance().GetMemory(n*2+1));
+	memcpy(w, xlfOper.lpxloper12_->val.str + 1, n*2);
+	w[n]=0;
+	s = std::wstring(w);
+    xlret = xlretSuccess;
+  }
+  else
+  {
+    // see AsDouble
+    XLOPER12 tmp;
+    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+    // so that the memory which Excel allocates to that variable (the string) is freed
+    // when the variable goes out of scope.
+    XlfOper cast(&tmp);
+    xlret = Coerce(xlfOper, xltypeStr, cast);
+    if (xlret == xlretSuccess)
+      xlret = cast.ConvertToWstring(s);
+  }
+  return xlret;
+}
+
 int XlfOperImpl12::ConvertToRef(const XlfOper &xlfOper, XlfRef& r) const throw()
 {
   int xlret;
@@ -796,10 +827,10 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const char *value) const
   if (xlfOper.lpxloper12_)
   {
     int len = strlen(value);
-    xlfOper.lpxloper12_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory((len+1)*2);
+    xlfOper.lpxloper12_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(len*2+2);
     if (xlfOper.lpxloper12_->val.str) {
         xlfOper.lpxloper12_->xltype = xltypeStr;
-        mbstowcs(xlfOper.lpxloper12_->val.str + 1, value, len);
+        mbstowcs(xlfOper.lpxloper12_->val.str + 1, value, len*2);
         xlfOper.lpxloper12_->val.str[0] = len;
     } else {
         xlfOper.lpxloper12_ = 0;
@@ -813,7 +844,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const std::wstring &value) const
   if (xlfOper.lpxloper12_)
   {
     xlfOper.lpxloper12_->xltype = xltypeStr;
-    xlfOper.lpxloper12_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory((value.length()+1)*2);
+    xlfOper.lpxloper12_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(value.length()*2+2);
     wcsncpy(xlfOper.lpxloper12_->val.str + 1, value.c_str(), value.length());
     xlfOper.lpxloper12_->val.str[0] = value.length();
   }

@@ -33,6 +33,8 @@
 #include <xlw/XlfOper.h>
 #include <xlw/XlfFuncDesc.h>
 #include <xlw/XlfOper.h>
+#include <xlw/XlfOper4.h>
+#include <xlw/XlfOper12.h>
 #include <xlw/XlfRef.h>
 #include <xlw/CellMatrix.h>
 #include <xlw/XlfStr.h>

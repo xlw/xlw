@@ -136,7 +136,7 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
     XlfArgDescList& arguments = impl_->arguments_;
 
     size_t nbargs = arguments.size();
-    std::string args(XlfExcel::Instance().xlfOperType());
+    std::string args(argType());
     std::string argnames;
 
     XlfArgDescList::const_iterator it = arguments.begin();
@@ -185,5 +185,20 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
 
     delete[] rgx;
     return err;
+}
+
+std::string XlfFuncDesc::argType() const
+{
+    return XlfExcel::Instance().xlfOperType();
+}
+
+std::string XlfFuncDesc4::argType() const
+{
+    return "P";
+}
+
+std::string XlfFuncDesc12::argType() const
+{
+    return "Q";
 }
 

@@ -116,26 +116,27 @@ private:
     //! Reserves memory in XLL buffer (garbage collected).
     virtual int Allocate(XlfOper &xlfOper) const;
 
-    //! Attempts conversion to double and returns Excel4 error code.
+    //! Attempts conversion to double and returns Excel error code.
     virtual int ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<double>& value, DoubleVectorConvPolicy policy = UniDimensional) const;
-    //! Attempts conversion to double and returns Excel4 error code.
+    //! Attempts conversion to double and returns Excel error code.
     virtual int ConvertToDouble(const XlfOper &xlfOper, double& value) const throw();
-    //! Attempts conversion to short and returns Excel4 error code.
+    //! Attempts conversion to short and returns Excel error code.
     virtual int ConvertToShort(const XlfOper &xlfOper, short& value) const throw();
-    //! Attempts conversion to bool and returns Excel4 error code.
+    //! Attempts conversion to bool and returns Excel error code.
     virtual int ConvertToBool(const XlfOper &xlfOper, bool& value) const throw();
-    //! Attempts conversion to int and returns Excel4 error code.
+    //! Attempts conversion to int and returns Excel error code.
     //virtual int ConvertToInt(const XlfOper &xlfOper, int& value) const throw();
-    //! Attempts conversion to string and returns Excel4 error code.
+    //! Attempts conversion to string and returns Excel error code.
     virtual int ConvertToString(const XlfOper &xlfOper, char *& value) const throw();
-    //! Attempts conversion to CellMatrix and returns Excel4 error code
+	virtual int ConvertToWstring(const XlfOper &xlfOper, std::wstring &value) const throw();
+    //! Attempts conversion to CellMatrix and returns Excel error code
     virtual int ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& output) const;
-    //! Attempts conversion to Matrix and returns Excel4 error code
+    //! Attempts conversion to Matrix and returns Excel error code
     virtual int ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& output) const;
 
-    //! Attempts conversion to XlRef and returns Excel4 error code.
+    //! Attempts conversion to XlRef and returns Excel error code.
     virtual int ConvertToRef(const XlfOper &xlfOper, XlfRef& value) const throw();
-    //! Attempts conversion to XlRef and returns Excel4 error code.
+    //! Attempts conversion to XlRef and returns Excel error code.
     virtual int ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw();
 
     virtual DWORD xltype(const XlfOper &xlfOper) const;

@@ -193,7 +193,7 @@ int XlfOper12::ConvertToDouble(double& d) const throw()
 };
 
 /*!
-Attempts to convert the implict object to a an array.
+Attempts to convert the implict object to an array.
 Does this by calling AsDoubleVector.
 If pxlret is
 not null the method won't throw and the Excel return code will be returned
@@ -854,6 +854,17 @@ char * XlfOper12::AsString(const std::string& ErrorId, int * pxlret) const
       ThrowOnError(xlret,ErrorId+" conversion to char* failed");
   return s;
 };
+std::wstring XlfOper12::AsWstring(int * pxlret) const
+{
+	std::wstring s;
+  int xlret = ConvertToWstring(s);
+  if (pxlret)
+    *pxlret=xlret;
+  else
+    ThrowOnError(xlret);
+  return s;
+};
+
 int XlfOper12::ConvertToString(char *& s) const throw()
 {
   int xlret;
@@ -865,7 +876,7 @@ int XlfOper12::ConvertToString(char *& s) const throw()
   {
     size_t n = lpxloper_->val.str[0];
     s = XlfExcel::Instance().GetMemory(n + 1);
-    memcpy(s, lpxloper_->val.str + 1, n);
+    wcstombs(s, lpxloper_->val.str + 1, n);
     s[n] = 0;
     xlret = xlretSuccess;
   }
@@ -880,6 +891,37 @@ int XlfOper12::ConvertToString(char *& s) const throw()
     xlret = Coerce(xltypeStr,cast);
     if (xlret == xlretSuccess)
       xlret = cast.ConvertToString(s);
+  }
+  return xlret;
+}
+
+int XlfOper12::ConvertToWstring(std::wstring &w) const throw()
+{
+  int xlret;
+
+  if (lpxloper_ == 0)
+    return xlretInvXloper;
+
+  if (lpxloper_->xltype & xltypeStr)
+  {
+    size_t n = lpxloper_->val.str[0];
+    wchar_t *s = reinterpret_cast<wchar_t*>(XlfExcel::Instance().GetMemory(n*2+1));
+    memcpy(s, lpxloper_->val.str + 1, n*2);
+	s[n] = 0;
+	w = std::wstring(s);
+    xlret = xlretSuccess;
+  }
+  else
+  {
+    // see AsDouble
+    XLOPER12 tmp;
+    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+    // so that the memory which Excel allocates to that variable (the string) is freed
+    // when the variable goes out of scope.
+    XlfOper12 cast(&tmp);
+    xlret = Coerce(xltypeStr,cast);
+    if (xlret == xlretSuccess)
+      xlret = cast.ConvertToWstring(w);
   }
   return xlret;
 }
@@ -982,7 +1024,10 @@ XlfOper12& XlfOper12::Set(const CellMatrix& cells)
                 lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(cells(i,j).NumericValue());
             else
                 if (cells(i,j).IsAString())
-                    lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(cells(i,j).StringValue().c_str());
+                    lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(cells(i,j).StringValue());
+                else
+                if (cells(i,j).IsAWstring())
+                    lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(cells(i,j).WstringValue());
                 else
                     if (cells(i,j).IsBoolean())
                             lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(cells(i,j).BooleanValue());
@@ -1096,14 +1141,26 @@ XlfOper12& XlfOper12::Set(const char *value)
   if (lpxloper_)
   {
     int len = strlen(value);
-    lpxloper_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory((len+1)*2);
+    lpxloper_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(len*2+2);
     if (lpxloper_->val.str) {
         lpxloper_->xltype = xltypeStr;
-        mbstowcs(lpxloper_->val.str + 1, value, len);
+        mbstowcs(lpxloper_->val.str + 1, value, len*2);
         lpxloper_->val.str[0] = len;
     } else {
         lpxloper_ = 0;
     }
+  }
+  return *this;
+}
+
+XlfOper12& XlfOper12::Set(const std::wstring &value)
+{
+  if (lpxloper_)
+  {
+    lpxloper_->xltype = xltypeStr;
+    lpxloper_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(value.length()*2+2);
+    wcsncpy(lpxloper_->val.str + 1, value.c_str(), value.length());
+    lpxloper_->val.str[0] = value.length();
   }
   return *this;
 }

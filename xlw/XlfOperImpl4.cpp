@@ -629,6 +629,38 @@ int XlfOperImpl4::ConvertToString(const XlfOper &xlfOper, char *& s) const throw
   return xlret;
 }
 
+int XlfOperImpl4::ConvertToWstring(const XlfOper &xlfOper, std::wstring &s) const throw()
+{
+
+  int xlret;
+
+  if (xlfOper.lpxloper4_ == 0)
+    return xlretInvXloper;
+
+  if (xlfOper.lpxloper4_->xltype & xltypeStr)
+  {
+    size_t n = (unsigned char) xlfOper.lpxloper4_->val.str[0];
+    wchar_t *c = reinterpret_cast<wchar_t*>(XlfExcel::Instance().GetMemory(n*2+2));
+	mbstowcs(c, xlfOper.lpxloper4_->val.str + 1, n*2);
+	c[n]=0;
+	s = std::wstring(c);
+    xlret = xlretSuccess;
+  }
+  else
+  {
+    // see AsDouble
+    XLOPER tmp;
+    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+    // so that the memory which Excel allocates to that variable (the string) is freed
+    // when the variable goes out of scope.
+    XlfOper cast(&tmp);
+    xlret = Coerce(xlfOper, xltypeStr, cast);
+    if (xlret == xlretSuccess)
+      xlret = cast.ConvertToWstring(s);
+  }
+  return xlret;
+}
+
 int XlfOperImpl4::ConvertToRef(const XlfOper &xlfOper, XlfRef& r) const throw()
 {
   int xlret;
@@ -807,7 +839,7 @@ XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const char *value) const
 {
   if (xlfOper.lpxloper4_)
   {
-    int n = static_cast<unsigned int>(strlen(value));
+    unsigned int n = static_cast<unsigned int>(strlen(value));
 
     if (n > 254)
     {
@@ -839,7 +871,33 @@ XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const char *value) const
 
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const std::wstring &value) const
 {
-  throw("Unable to set Excel 4 datatype to unicode string - operation not yet implemented");
+  if (xlfOper.lpxloper4_)
+  {
+
+    unsigned int n;
+    if (value.length() > 255)
+    {
+      std::cerr << XLW__HERE__ << "String truncated to 255 bytes" << std::endl;
+      n = 255;
+	} else {
+		n = value.length();
+	}
+
+    // One byte more for the string length (convention used by Excel)
+    LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 1));
+    if (str == 0)
+    {
+      xlfOper.lpxloper4_=0;
+    }
+    else
+    {
+      wcstombs(str + 1, value.c_str(), n);
+      xlfOper.lpxloper4_->val.str = str;
+      xlfOper.lpxloper4_->val.str[0] = (BYTE)(n);
+      xlfOper.lpxloper4_->xltype = xltypeStr;
+    }
+  }
+  return xlfOper;
 }
 
 /*!

@@ -81,7 +81,7 @@ double XlfOper::AsDouble(const std::string& ErrorId, int *pxlret) const
 };
 
 /*!
-Attempts to convert the implict object to a an array.
+Attempts to convert the implict object to an array.
 Does this by calling AsDoubleVector.
 If pxlret is
 not null the method won't throw and the Excel return code will be returned
@@ -284,6 +284,17 @@ char *XlfOper::AsString(const std::string& ErrorId, int *pxlret) const
     *pxlret=xlret;
   else
       ThrowOnError(xlret,ErrorId + " conversion to char* failed");
+  return s;
+};
+
+std::wstring XlfOper::AsWstring(int *pxlret) const
+{
+  std::wstring s;
+  int xlret = ConvertToWstring(s);
+  if (pxlret)
+    *pxlret=xlret;
+  else
+    ThrowOnError(xlret);
   return s;
 };
 

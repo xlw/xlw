@@ -72,6 +72,7 @@ protected:
   int DoRegister(const std::string& dllName) const;
   //! Unregisters the function (template method).
   int DoUnregister(const std::string& dllName) const;
+  virtual std::string argType() const;
 
 private:
   //! Copy ctor is declared private but not defined.
@@ -87,6 +88,30 @@ private:
   //bool live_;
   //! Index into our list of UDFs (not used?)
   //int index_;
+};
+
+class EXCEL32_API XlfFuncDesc4 : public XlfFuncDesc
+{
+public:
+  //! Ctor
+  XlfFuncDesc4(const std::string& name, const std::string& alias,
+              const std::string& comment, const std::string& category,
+              RecalcPolicy recalcPolicy = NotVolatile, bool Threadsafe = false)
+			  : XlfFuncDesc(name, alias, comment, category, recalcPolicy, Threadsafe) {}
+private:
+  std::string argType() const;
+};
+
+class EXCEL32_API XlfFuncDesc12 : public XlfFuncDesc
+{
+public:
+  //! Ctor
+  XlfFuncDesc12(const std::string& name, const std::string& alias,
+              const std::string& comment, const std::string& category,
+              RecalcPolicy recalcPolicy = NotVolatile, bool Threadsafe = false)
+			  : XlfFuncDesc(name, alias, comment, category, recalcPolicy, Threadsafe) {}
+private:
+  std::string argType() const;
 };
 
 #endif

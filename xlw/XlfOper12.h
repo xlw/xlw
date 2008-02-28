@@ -76,11 +76,13 @@ public:
   XlfOper12(const char *value);
   //!  string ctor.
   XlfOper12(const std::string& value);
-  //! CellMatrix ctor
+  //!  wstring ctor.
+  XlfOper12(const std::wstring& value);
+  //! CellMatrix ctor.
   XlfOper12(const CellMatrix& value);
-  //! MyMatrix ctor
+  //! MyMatrix ctor.
   XlfOper12(const MyMatrix& value);
-  //! MyArray ctor
+  //! MyArray ctor.
   XlfOper12(const MyArray& value);
   //! XlfRef ctor.
   XlfOper12(const XlfRef& range);
@@ -158,25 +160,27 @@ public:
 
   //! Converts to a bool.
   bool AsBool(int * pxlret = 0) const;
-  //! Converts to a bool with error identifer..
+  //! Converts to a bool with error identifer.
   bool AsBool(const std::string& ErrorId,int * pxlret = 0) const;
 
   //! Converts to an int.
   int AsInt(int * pxlret = 0) const;
- //! Converts to an int with error identifer..
+ //! Converts to an int with error identifer.
   int AsInt(const std::string& ErrorId,int * pxlret = 0) const;
 
   //! Converts to a char *.
   char * AsString(int * pxlret = 0) const;
- //! Converts to a char * with error identifer..
+ //! Converts to a char * with error identifer.
   char * AsString(const std::string& ErrorId,int * pxlret = 0) const;
+  //! Converts to a wstring.
+  std::wstring AsWstring(int * pxlret = 0) const;
 
-  //! Converts to a cell Matrix
+  //! Converts to a cell Matrix.
   CellMatrix AsCellMatrix( int * pxlret=0) const;
   //! Converts to a cell Matrix with error identifer.
   CellMatrix AsCellMatrix( const std::string& ErrorId,int * pxlret=0) const;
 
-  //! Converts to a matrix
+  //! Converts to a matrix.
   MyMatrix AsMatrix( int * pxlret=0) const;
   //! Converts to a matrix with error identifer.
   MyMatrix AsMatrix( const std::string& ErrorId,int * pxlret=0) const;
@@ -188,31 +192,33 @@ public:
   //! Gets the internal LPXLOPER12.
   LPXLOPER12 GetLPXLOPER() const;
 
-  //! Set the underlying XLOPER * to lpxloper
+  //! Set the underlying XLOPER * to lpxloper.
   XlfOper12& Set(LPXLOPER12 lpxloper);
-  //! Set to a a double
+  //! Set to a double.
   XlfOper12& Set(double value);
-  //! Set to a a short
+  //! Set to a short.
   XlfOper12& Set(short value);
-  //! Set to a a boolean
+  //! Set to a boolean.
   XlfOper12& Set(bool value);
-  //! Set to a a zero-terminated character string
+  //! Set to a zero-terminated character string.
   XlfOper12& Set(const char *value);
-  //! Set to a cell matrix
+  //! Set to a wstring.
+  XlfOper12& Set(const std::wstring &value);
+  //! Set to a cell matrix.
   XlfOper12& Set(const CellMatrix& cells);
-  //! Set to a  matrix
+  //! Set to a  matrix.
   XlfOper12& Set(const MyMatrix& matrix);
-  //! Set to an array
+  //! Set to an array.
   XlfOper12& Set(const MyArray& values);
-  //! Set to a range
+  //! Set to a range.
   XlfOper12& Set(const XlfRef& range);
-  //! Set to a short or error, bool for disambiguation
+  //! Set to a short or error, bool for disambiguation.
   XlfOper12& Set(short value, bool Error);
-  //! Set to an error value
+  //! Set to an error value.
   XlfOper12& SetError(WORD error);
-  //! Cast to XLOPER12 *
+  //! Cast to XLOPER12 *.
   operator LPXLOPER12();
-  //! Set to an array
+  //! Set to an array.
   /*!
   \param r number of rows in the array
   \param c number of columns in the array
@@ -250,32 +256,34 @@ private:
   //! Throws an exception when critical errors occur.
   int ThrowOnError(int) const;
 
-  //! Throws an exception when critical errors occur but passes on an identifier to help track it down
+  //! Throws an exception when critical errors occur but passes on an identifier to help track it down.
   int ThrowOnError(int, const std::string& identifier) const;
 
   //! Internally used to flag XLOPER returned by Excel.
   static int xlbitFreeAuxMem;
 
-  //! Attempts conversion to double and returns Excel4 error code.
+  //! Attempts conversion to double and returns Excel error code.
   int ConvertToDoubleVector(std::vector<double>&, DoubleVectorConvPolicy policy = UniDimensional) const;
-  //! Attempts conversion to double and returns Excel4 error code.
+  //! Attempts conversion to double and returns Excel error code.
   int ConvertToDouble(double&) const throw();
-  //! Attempts conversion to short and returns Excel4 error code.
+  //! Attempts conversion to short and returns Excel error code.
   int ConvertToShort(short&) const throw();
-  //! Attempts conversion to bool and returns Excel4 error code.
+  //! Attempts conversion to bool and returns Excel error code.
   int ConvertToBool(bool&) const throw();
-  //! Attempts conversion to int and returns Excel4 error code.
+  //! Attempts conversion to int and returns Excel error code.
   int ConvertToInt(int&) const throw();
-  //! Attempts conversion to string and returns Excel4 error code.
+  //! Attempts conversion to string and returns Excel error code.
   int ConvertToString(char *&) const throw();
-  //! Attempts conversion to CellMatrix and returns Excel4 error code
+  //! Attempts conversion to wstring and returns Excel error code.
+  int ConvertToWstring(std::wstring &) const throw();
+  //! Attempts conversion to CellMatrix and returns Excel error code.
   int ConvertToCellMatrix( CellMatrix& output) const;
-  //! Attempts conversion to Matrix and returns Excel4 error code
+  //! Attempts conversion to Matrix and returns Excel error code.
   int ConvertToMatrix( MyMatrix& output) const;
 
-  //! Attempts conversion to XlRef and returns Excel4 error code.
+  //! Attempts conversion to XlRef and returns Excel error code.
   int ConvertToRef(XlfRef&) const throw();
-  //! Attempts conversion to XlRef and returns Excel4 error code.
+  //! Attempts conversion to XlRef and returns Excel error code.
   int XlfOper12::ConvertToErr(WORD& e) const throw();
 
 
