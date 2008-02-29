@@ -1,3 +1,7 @@
+
+2008-03-?? eric ehlers
+support for Excel 2007
+
 2006-11-26 mark joshi
 a large number of changes for xlwplus
 

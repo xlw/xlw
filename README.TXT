@@ -7,3 +7,5 @@ moved the project to SourceForge for further development: http://xlw.sf.net
 
 Mark Joshi updated it various ways and added automatic interface generation.
 
+Eric Ehlers added support for Excel 2007.
+
