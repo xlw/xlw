@@ -18,6 +18,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RunInterfaceGenerator", "Ru
 		{C2CD945C-BFFA-48E9-A1C2-BB39D014581D} = {C2CD945C-BFFA-48E9-A1C2-BB39D014581D}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlwExample", "xlwExample\xlwExample.vcproj", "{EFB27940-60B1-4EA4-BE89-4214EB4231C0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF0259A5-FE0B-4B45-84E3-87D8822F51EC} = {EF0259A5-FE0B-4B45-84E3-87D8822F51EC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -42,6 +47,10 @@ Global
 		{C7C8EB2B-A31A-4219-8CF7-4F69DD4890EF}.Debug.Build.0 = Debug|Win32
 		{C7C8EB2B-A31A-4219-8CF7-4F69DD4890EF}.Release.ActiveCfg = Release|Win32
 		{C7C8EB2B-A31A-4219-8CF7-4F69DD4890EF}.Release.Build.0 = Release|Win32
+		{EFB27940-60B1-4EA4-BE89-4214EB4231C0}.Debug.ActiveCfg = Debug|Win32
+		{EFB27940-60B1-4EA4-BE89-4214EB4231C0}.Debug.Build.0 = Debug|Win32
+		{EFB27940-60B1-4EA4-BE89-4214EB4231C0}.Release.ActiveCfg = Release|Win32
+		{EFB27940-60B1-4EA4-BE89-4214EB4231C0}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
