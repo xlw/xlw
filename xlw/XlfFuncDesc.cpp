@@ -23,7 +23,6 @@
 // $Id$
 
 #include <xlw/XlfFuncDesc.h>
-#include <xlw/XlfExcel.h>
 #include <xlw/XlfException.h>
 #include <xlw/XlfOper4.h>
 
@@ -59,8 +58,8 @@ XlfAbstractCmdDesc::XlfAbstractCmdDesc.
 */
 XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias,
                          const std::string& comment, const std::string& category,
-                         RecalcPolicy recalcPolicy, bool Threadsafe)
-    :XlfAbstractCmdDesc(name, alias, comment), impl_(0)
+                         RecalcPolicy recalcPolicy, bool Threadsafe, const std::string &returnTypeCode)
+    : XlfAbstractCmdDesc(name, alias, comment), impl_(0), returnTypeCode_(returnTypeCode)
 {
   impl_ = new XlfFuncDescImpl(recalcPolicy,Threadsafe,category);
 }
@@ -136,7 +135,7 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
     XlfArgDescList& arguments = impl_->arguments_;
 
     size_t nbargs = arguments.size();
-    std::string args(argType());
+    std::string args = returnTypeCode_;
     std::string argnames;
 
     XlfArgDescList::const_iterator it = arguments.begin();
@@ -186,19 +185,3 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
     delete[] rgx;
     return err;
 }
-
-std::string XlfFuncDesc::argType() const
-{
-    return XlfExcel::Instance().xlfOperType();
-}
-
-std::string XlfFuncDesc4::argType() const
-{
-    return "P";
-}
-
-std::string XlfFuncDesc12::argType() const
-{
-    return "Q";
-}
-

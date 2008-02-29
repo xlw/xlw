@@ -26,6 +26,7 @@
 // $Id$
 
 #include <xlw/XlfAbstractCmdDesc.h>
+#include <xlw/XlfExcel.h>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -52,7 +53,8 @@ public:
   //! Ctor
   XlfFuncDesc(const std::string& name, const std::string& alias,
               const std::string& comment, const std::string& category,
-              RecalcPolicy recalcPolicy = NotVolatile, bool Threadsafe = false);
+              RecalcPolicy recalcPolicy = NotVolatile, bool Threadsafe = false,
+              const std::string &returnTypeCode = XlfExcel::Instance().xlfOperType());
   //! Dtor.
   ~XlfFuncDesc();
 
@@ -62,9 +64,9 @@ public:
   const std::string& GetCategory() const;
   //! Sets the arguments definition.
   void SetArguments(const XlfArgDescList& arguments);
-  //! Gets the index into our list of UDFs (not used?)
+  //! Gets the index into our list of UDFs (not used?).
   //int GetIndex() const;
-  //! Sets in the index into our list of UDFs (not used?)
+  //! Sets in the index into our list of UDFs (not used?).
   //void SetIndex(int i_);
 
 protected:
@@ -72,7 +74,6 @@ protected:
   int DoRegister(const std::string& dllName) const;
   //! Unregisters the function (template method).
   int DoUnregister(const std::string& dllName) const;
-  virtual std::string argType() const;
 
 private:
   //! Copy ctor is declared private but not defined.
@@ -84,34 +85,12 @@ private:
   //! Shared registration code
   int RegisterAs(const std::string& dllName, double mode_, double* funcId = NULL) const;
   //! Is this function currently live, or has it been faux-unregistered?
-  // commented out - seems unused, forces DoRegister/DoUnregister to be non-const
+  // commented out - seems unused, forces DoRegister/DoUnregister to be non-const.
   //bool live_;
-  //! Index into our list of UDFs (not used?)
+  //! Index into our list of UDFs (not used?).
   //int index_;
-};
-
-class EXCEL32_API XlfFuncDesc4 : public XlfFuncDesc
-{
-public:
-  //! Ctor
-  XlfFuncDesc4(const std::string& name, const std::string& alias,
-              const std::string& comment, const std::string& category,
-              RecalcPolicy recalcPolicy = NotVolatile, bool Threadsafe = false)
-			  : XlfFuncDesc(name, alias, comment, category, recalcPolicy, Threadsafe) {}
-private:
-  std::string argType() const;
-};
-
-class EXCEL32_API XlfFuncDesc12 : public XlfFuncDesc
-{
-public:
-  //! Ctor
-  XlfFuncDesc12(const std::string& name, const std::string& alias,
-              const std::string& comment, const std::string& category,
-              RecalcPolicy recalcPolicy = NotVolatile, bool Threadsafe = false)
-			  : XlfFuncDesc(name, alias, comment, category, recalcPolicy, Threadsafe) {}
-private:
-  std::string argType() const;
+  //! Excel code for the datatype of this function's return value.
+  std::string returnTypeCode_;
 };
 
 #endif
