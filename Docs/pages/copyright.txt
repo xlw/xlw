@@ -1,4 +1,6 @@
+
 /*!
+
 \page copyright Copyright and License
 Copyright &copy; 1998, 1999, 2001, 2002, 2003 Jérôme Lecomte<br>
 All rights reserved.
@@ -29,7 +31,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <hr>
-\subsection licensecomments Comments on Copyright and License
+\section licensecomments Comments on Copyright and License
 
 %XLW is Non-Copylefted Free Software [1] released under the modified BSD
 License [2] (also know as XFree86-style license).
@@ -51,4 +53,6 @@ proprietary extensions to be commercialized.
 [4] http://www.opensource.org/docs/certification_mark.html<br>
 [5] http://www.opensource.org<br>
 [6] http://www.gnu.org/philosophy/bsd.html
+
 */
+

@@ -21,8 +21,8 @@
 
 void PushBack(std::string& str, char c);
 std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& functionDescriptions, 
-									std::string inputfileName,
-									std::string LibraryName);
+                                    std::string inputfileName,
+                                    std::string LibraryName);
 
 #endif
 

@@ -21,20 +21,20 @@
 class Token
 {
 public:
-	enum TokenType
-	{
-		 comma, left, right, ampersand,  semicolon, curlyleft, curlyright, comment,
-		  preprocessor,  identifier, 
-	};
+    enum TokenType
+    {
+         comma, left, right, ampersand,  semicolon, curlyleft, curlyright, comment,
+          preprocessor,  identifier, 
+    };
 
-	Token(TokenType TheType, const std::string& value);
-	TokenType GetType() const;
-	std::string GetValue() const;
+    Token(TokenType TheType, const std::string& value);
+    TokenType GetType() const;
+    std::string GetValue() const;
 
 private:
 
-	TokenType TheType;
-	std::string Value;
+    TokenType TheType;
+    std::string Value;
 
 };
 

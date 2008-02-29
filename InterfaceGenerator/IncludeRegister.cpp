@@ -1,6 +1,6 @@
 //
 //
-//																IncludeRegistry.cpp
+//                                                                IncludeRegistry.cpp
 //
 //
 /*
@@ -26,29 +26,29 @@
 
 void IncludeRegistry::Register(const std::string& arg, const std::string& include)
 {
-	if (include =="")
-		return;
+    if (include =="")
+        return;
 
-	ArgInclude.insert(std::make_pair(arg,include));
-	ArgUsed.insert(std::make_pair(arg,false));
+    ArgInclude.insert(std::make_pair(arg,include));
+    ArgUsed.insert(std::make_pair(arg,false));
 }
 
 std::set<std::string> IncludeRegistry::GetIncludes() const
 {
-	std::set<std::string> includes;
-	
-	for (std::map<std::string,bool>::const_iterator it = ArgUsed.begin(); it!=ArgUsed.end(); ++it)
-	{
-		if (it->second)
-			includes.insert(ArgInclude.find(it->first)->second);
-	}
+    std::set<std::string> includes;
+    
+    for (std::map<std::string,bool>::const_iterator it = ArgUsed.begin(); it!=ArgUsed.end(); ++it)
+    {
+        if (it->second)
+            includes.insert(ArgInclude.find(it->first)->second);
+    }
 
-	return includes;
+    return includes;
 }
 
 void IncludeRegistry::UseArg(const std::string& arg)
 {
-	std::map<std::string,bool>::iterator it = ArgUsed.find(arg);	
-	if (it != ArgUsed.end())
-		it->second =true;
+    std::map<std::string,bool>::iterator it = ArgUsed.find(arg);    
+    if (it != ArgUsed.end())
+        it->second =true;
 }

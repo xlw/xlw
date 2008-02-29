@@ -23,217 +23,226 @@
 
 namespace
 {
-	template<class T>
-	T mini(T a, T b)
-	{
-		return a < b ? a : b;
-	}
+    template<class T>
+    T mini(T a, T b)
+    {
+        return a < b ? a : b;
+    }
 }
 std::string LeftString(std::string input, unsigned long i)
 {
-	i = mini<unsigned long>(static_cast<unsigned long>(input.size()), i);
-	std::string ret(input.begin(), input.begin()+i);
-	return ret;
+    i = mini<unsigned long>(static_cast<unsigned long>(input.size()), i);
+    std::string ret(input.begin(), input.begin()+i);
+    return ret;
 }
 
 FunctionModel FunctionFind(std::vector<Token>::const_iterator& it, std::vector<Token>::const_iterator end, bool TimeDefault)
 {
-	// we should be at start of function
+    // we should be at start of function
 
-	std::string returnType = it->GetValue();
-	++it;
-	bool Volatile = false;
-	bool time =TimeDefault;
+    std::string returnType = it->GetValue();
+    ++it;
+    bool Volatile = false;
+    bool time =TimeDefault;
+    bool threadsafe = false;
 
-	if (it == end)
-		throw("function half declared at end of file");
+    if (it == end)
+        throw("function half declared at end of file");
 
-	std::string functionDesc("too lazy to comment this function");
+    std::string functionDesc("too lazy to comment this function");
 
-	if (it->GetType() == Token::comment)
-	{
-		functionDesc = it->GetValue();
-		++it;
-	}
+    if (it->GetType() == Token::comment)
+    {
+        functionDesc = it->GetValue();
+        ++it;
+    }
 
-	if (it == end)
-		throw("function half declared at end of file");
+    if (it == end)
+        throw("function half declared at end of file");
 
-	while (it->GetType() == Token::comment)
-	{
-		std::string commentString = it->GetValue();
+    while (it->GetType() == Token::comment)
+    {
+        std::string commentString = it->GetValue();
 
-		if (LeftString(commentString,5UL) != "<xlw:")
-			throw("unexpected comment in function definition before function name");
+        if (LeftString(commentString,5UL) != "<xlw:")
+            throw("unexpected comment in function definition before function name");
 
-		bool found = false;
-		if (commentString == "<xlw:volatile")
-		{
-			Volatile =true;
-			++it;
-			found = true;
-			if (it == end)
-				throw("function half declared at end of file");
-		}
-		if (commentString == "<xlw:time")
-		{
-			time = true;
-			++it;
-			found = true;
-			if (it == end)
-				throw("function half declared at end of file");
-		}
-		if (!found)
-			throw("unknown xlw command: "+commentString);
-	}
+        bool found = false;
+        if (commentString == "<xlw:volatile")
+        {
+            Volatile =true;
+            ++it;
+            found = true;
+            if (it == end)
+                throw("function half declared at end of file");
+        }
+        if (commentString == "<xlw:time")
+        {
+            time = true;
+            ++it;
+            found = true;
+            if (it == end)
+                throw("function half declared at end of file");
+        }
+        if (commentString == "<xlw:threadsafe")
+        {
+            threadsafe = true;
+            ++it;
+            found = true;
+            if (it == end)
+                throw("function half declared at end of file");
+        }
+        if (!found)
+            throw("unknown xlw command: "+commentString);
+    }
 
-	if (it->GetType() != Token::identifier)
-		throw("function name expected after return type");
-	
-	std::string functionName(it->GetValue());
+    if (it->GetType() != Token::identifier)
+        throw("function name expected after return type");
+    
+    std::string functionName(it->GetValue());
 
-	FunctionModel theFunction(returnType,functionName,functionDesc,Volatile,time);
+    FunctionModel theFunction(returnType,functionName,functionDesc,Volatile,time,threadsafe);
 
-	++it;
-	if (it == end)
-		throw("function half declared at end of file");
+    ++it;
+    if (it == end)
+        throw("function half declared at end of file");
 
-	if ( it->GetType() != Token::left)
-		throw("left parenthesis expected after function name :"+functionName);
+    if ( it->GetType() != Token::left)
+        throw("left parenthesis expected after function name: "+functionName);
 
-	++it;
-	if (it == end)
-		throw("function half declared at end of file"+functionName);
+    ++it;
+    if (it == end)
+        throw("function half declared at end of file "+functionName);
 
-	while ( it->GetType() != Token::right)
-	{
-		if (it->GetType() != Token::identifier)
-			throw("return type expected in arg list "+functionName);
+    while ( it->GetType() != Token::right)
+    {
+        if (it->GetType() != Token::identifier)
+            throw("return type expected in arg list "+functionName);
 
-		std::string argType = it->GetValue(); 
+        std::string argType = it->GetValue(); 
 
-		++it;
-		if (it == end)
-	    	throw("function half declared at end of file "+functionName);
+        ++it;
+        if (it == end)
+            throw("function half declared at end of file "+functionName);
 
-		if (it->GetType() != Token::identifier)
-			throw("argument name expected in arg list "+functionName);
+        if (it->GetType() != Token::identifier)
+            throw("argument name expected in arg list "+functionName);
 
-		std::string argName = it->GetValue(); 
+        std::string argName = it->GetValue(); 
 
-		++it;
-		if (it == end)
-	    	throw("function half declared at end of file "+functionName);
+        ++it;
+        if (it == end)
+            throw("function half declared at end of file "+functionName);
 
-		std::string argComment("too lazy to comment this one");
+        std::string argComment("too lazy to comment this one");
 
-		if (it->GetType() == Token::comment)
-		{
-			argComment = it->GetValue();
-			++it;
-			if (it == end)
-				throw("function half declared at end of file "+functionName);
-		}
+        if (it->GetType() == Token::comment)
+        {
+            argComment = it->GetValue();
+            ++it;
+            if (it == end)
+                throw("function half declared at end of file "+functionName);
+        }
 
-		// ok got this argument's data
+        // ok got this argument's data
 
-		theFunction.AddArgument(argType,argName,argComment);
+        theFunction.AddArgument(argType,argName,argComment);
 
-		if (it->GetType() == Token::comma)
-		{
-			++it;
-			if (it == end)
-				throw("function half declared at end of file "+functionName);
-		}
+        if (it->GetType() == Token::comma)
+        {
+            ++it;
+            if (it == end)
+                throw("function half declared at end of file "+functionName);
+        }
 
-	}
-	++it; // get past final right bracket
-	return theFunction;
+    }
+    ++it; // get past final right bracket
+    return theFunction;
 
 }
 
 std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& input, std::string& LibraryName)
 {
-	std::vector<FunctionModel> output;
-	bool timeDefault=false;
+    std::vector<FunctionModel> output;
+    bool timeDefault=false;
 
-	std::vector<Token>::const_iterator it = input.begin();
+    std::vector<Token>::const_iterator it = input.begin();
 
-	while (it != input.end())
-	{
-		Token ThisToken = *it;
+    while (it != input.end())
+    {
+        Token ThisToken = *it;
 
-		switch (ThisToken.GetType())
-		{
-			case Token::preprocessor :
-				++it;
-				break; // ignore preprocessor directives
-			case Token::curlyleft :
-				throw("curly bracket found, only functions can be coped with");
-				break;
-			case Token::curlyright :
-				throw("curly bracket found, only functions can be coped with");
-				break;
-			case Token::ampersand :
-				throw("unexpected ampersand found, return type expected");
-				break;
-			case Token::comma :
-				throw("unexpected comma found, return type expected");
-				break;
-			case Token::right :
-				throw("unexpected ) found, return type expected");
-				break;
-			case Token::left :
-				throw("unexpected ( found, return type expected");
-				break;
-			case Token::semicolon :
-				++it;
-				break;
-			case Token::comment :
-				{
-					std::string val = it->GetValue();
-					if (LeftString(val,5) == "<xlw:")
-					{
-						bool found = false;
+        switch (ThisToken.GetType())
+        {
+            case Token::preprocessor :
+                ++it;
+                break; // ignore preprocessor directives
+            case Token::curlyleft :
+                throw("curly bracket found, only functions can be coped with");
+                break;
+            case Token::curlyright :
+                throw("curly bracket found, only functions can be coped with");
+                break;
+            case Token::ampersand :
+                throw("unexpected ampersand found, return type expected");
+                break;
+            case Token::comma :
+                throw("unexpected comma found, return type expected");
+                break;
+            case Token::right :
+                throw("unexpected ) found, return type expected");
+                break;
+            case Token::left :
+                throw("unexpected ( found, return type expected");
+                break;
+            case Token::semicolon :
+                ++it;
+                break;
+            case Token::comment :
+                {
+                    std::string val = it->GetValue();
+                    if (LeftString(val,5) == "<xlw:")
+                    {
+                        bool found = false;
 
-						if (val.size()>= 19 && val.substr(0,17) == "<xlw:libraryname=")
-						{
-							LibraryName = val.substr(17,val.size());
-							found =true;
-						}
+                        if (val.size()>= 19 && val.substr(0,17) == "<xlw:libraryname=")
+                        {
+                            LibraryName = val.substr(17,val.size());
+                            found =true;
+                        }
 
-						if (LeftString(val,12) == "<xlw:timeall")
-						{
-							timeDefault = true;
-							found =true;
+                        if (LeftString(val,12) == "<xlw:timeall")
+                        {
+                            timeDefault = true;
+                            found =true;
 
-						}
+                        }
 
-						if (LeftString(val,13) == "<xlw:timenone")
-						{
-							timeDefault = false;
-							found =true;
+                        if (LeftString(val,13) == "<xlw:timenone")
+                        {
+                            timeDefault = false;
+                            found =true;
 
-						}
+                        }
 
-						if (!found)
-							std::cout << "Unknown xlw command "+val+"\n";
+                        if (!found)
+                            std::cout << "Unknown xlw command "+val+"\n";
 
-					}
-					++it; //ignore comment unless in function definition
-				}
-				break;
-			case Token::identifier :
-				output.push_back(FunctionFind(it,input.end(),timeDefault));
-				break;
-			default:
-				throw("unknown token type found");
-		}
+                    }
+                    ++it; //ignore comment unless in function definition
+                }
+                break;
+            case Token::identifier :
+                output.push_back(FunctionFind(it,input.end(),timeDefault));
+                break;
+            default:
+                throw("unknown token type found");
+        }
 
 
 
-	}
+    }
 
-	return output;
+    return output;
 
 }

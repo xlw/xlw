@@ -1,9 +1,0 @@
-
-/*! \page platforms Supported platforms
-
-    As of now only Microsoft Visual C++ 6.0 is supported.
-    If you can help with Borland, gcc on CygWin, MinGW, MetroWerks or
-    with Excel for Apple please get in touch: xlw-users@lists.sourceforge.net
-
-*/
-

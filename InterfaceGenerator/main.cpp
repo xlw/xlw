@@ -1,6 +1,6 @@
 //
 //
-//									main.cpp
+//                                    main.cpp
 //
 //
 /*
@@ -38,96 +38,96 @@ int main(int argc, char *argv[])
 {
 try
 {
-	//cout << "Input file name \n";
-	//std::string inputfile("Test.h");
-//	cin>> inputfile;
+    //cout << "Input file name \n";
+    //std::string inputfile("Test.h");
+    //cin>> inputfile;
 
-	if (argc == 1 || argc > 3)
-		throw("usage is inputfile outputfile (outputfile is optional)");
-	std::string inputfile(argv[1]);
+    if (argc == 1 || argc > 3)
+        throw("usage is inputfile outputfile (outputfile is optional)");
+    std::string inputfile(argv[1]);
 
-//	cout << "Output file name \n";
-//	std::string outputfile("C:\\tmp.cpp");
-	//cin>> outputfile;
+    //cout << "Output file name \n";
+    //std::string outputfile("C:\\tmp.cpp");
+    //cin>> outputfile;
 
-	std::string outputfile;
+    std::string outputfile;
 
-	if (argc == 3)
-		outputfile = std::string(argv[2]);
-	else
-	{	
-		outputfile = "xlw";
-		for (unsigned long i=0; i < inputfile.size(); i++)
-		{
-			if (inputfile[i] == '.')
-				break;
-			PushBack(outputfile,inputfile[i]);
-		}
+    if (argc == 3)
+        outputfile = std::string(argv[2]);
+    else
+    {    
+        outputfile = "xlw";
+        for (unsigned long i=0; i < inputfile.size(); i++)
+        {
+            if (inputfile[i] == '.')
+                break;
+            PushBack(outputfile,inputfile[i]);
+        }
 
-		outputfile += ".cpp";
-	}
+        outputfile += ".cpp";
+    }
 
-	ifstream input(inputfile.c_str());
-	if (!input)
-		throw("input file not found :"+inputfile+"\n");
+    ifstream input(inputfile.c_str());
+    if (!input)
+        throw("input file not found :"+inputfile+"\n");
 
-	std::vector<char> inputvector;
+    std::vector<char> inputvector;
 
-	char c;
-	while (input.get(c))
-	{
-		int i = static_cast<int>(c);
-		if (i<32 && c!='\n')
-			c=' '; // strip out special characters
-		inputvector.push_back(c);
-	}
-	std::cout << "file has been read in\n";
+    char c;
+    while (input.get(c))
+    {
+        int i = static_cast<int>(c);
+        if (i<32 && c!='\n')
+            c=' '; // strip out special characters
+        inputvector.push_back(c);
+    }
+    std::cout << "file has been read in\n";
 
-	std::vector<Token> tokenVector1(Tokenize(inputvector));
-	std::cout << "file has been tokenized\n";
+    std::vector<Token> tokenVector1(Tokenize(inputvector));
+    std::cout << "file has been tokenized\n";
 
-	std::vector<Token> tokenVector2(Strip(tokenVector1));
-	std::cout << "file has been stripped\n";
+    std::vector<Token> tokenVector2(Strip(tokenVector1));
+    std::cout << "file has been stripped\n";
 
-	std::string LibraryName(inputfile);// use input file name as default library name
+    std::string LibraryName(inputfile);// use input file name as default library name
 
-	std::vector<FunctionModel> modelVector(ConvertToFunctionModel(tokenVector2,LibraryName));
+    std::vector<FunctionModel> modelVector(ConvertToFunctionModel(tokenVector2,LibraryName));
 
-	std::cout << "file has been function modeled\n";
+    std::cout << "file has been function modeled\n";
 
-	std::vector<FunctionDescription> functionVector(FunctionTyper(modelVector));
+    std::vector<FunctionDescription> functionVector(FunctionTyper(modelVector));
 
-	std::cout << "file has been function described\n";
+    std::cout << "file has been function described\n";
 
     std::vector<char> outputVector(OutputFileCreator(functionVector,  
-														inputfile,LibraryName)); 
-	std::cout << "new file is a vector\n";
+                                                        inputfile,LibraryName)); 
+    std::cout << "new file is a vector\n";
 
-	ofstream output(outputfile.c_str());
-	if (!output)
-		throw("output file not created");
+    ofstream output(outputfile.c_str());
+    if (!output)
+        throw("output file not created");
 
-	std::vector<char>::const_iterator it= outputVector.begin();
-	while (it != outputVector.end())
-	{
-		output.put(*it);
-		++it;
-	}
+    std::vector<char>::const_iterator it= outputVector.begin();
+    while (it != outputVector.end())
+    {
+        output.put(*it);
+        ++it;
+    }
 
-	std::cout << "all done\n";
-	
+    std::cout << "all done\n";
+    
 }
 catch (const char *c)
 {
-	std::cout << c;
+    std::cout << "***ERROR***\n" << c << "\n***ERROR***\n";
 }
 catch (std::string c)
 {
-	std::cout << c;
+    std::cout << "***ERROR***\n" << c << "\n***ERROR***\n";
 }
 catch (...)
 {
-	std::cout << "exception thrown";
+    std::cout << "***ERROR***\n" << "exception thrown" << "\n***ERROR***\n";
 }
 //char d;
 //std::cin >> d;

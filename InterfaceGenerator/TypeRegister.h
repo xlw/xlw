@@ -1,6 +1,6 @@
 //
 //
-//							TypeRegister.h
+//                            TypeRegister.h
 //
 //
 /*
@@ -29,72 +29,72 @@ class TypeRegistry : public Singleton<TypeRegistry>
 {
 public: 
     friend class Singleton<TypeRegistry>;
-	
-	struct regData
-	{
-	public:
-		regData(std::string NewType,
-						std::string OldType,
-						std::string Converter,
-						bool IsAMethod,
-						bool TakesIdentifier,
-						std::string ExcelKey,
-						std::string IncludeFile);
+    
+    struct regData
+    {
+    public:
+        regData(std::string NewType,
+                        std::string OldType,
+                        std::string Converter,
+                        bool IsAMethod,
+                        bool TakesIdentifier,
+                        std::string ExcelKey,
+                        std::string IncludeFile);
 
-		std::string NewType;
-						std::string OldType;
-						std::string Converter;
-						bool IsAMethod;
-						bool TakesIdentifier;
-						std::string ExcelKey;
-						std::string IncludeFile;
-	};
+        std::string NewType;
+        std::string OldType;
+        std::string Converter;
+        bool IsAMethod;
+        bool TakesIdentifier;
+        std::string ExcelKey;
+        std::string IncludeFile;
+    };
 
-	void Register(const regData& data);
+    void Register(const regData& data);
 
-	void BuildLists() const;
+    void BuildLists() const;
 
 
-	const regData& GetRegistration(const std::string key) const; 
+    const regData& GetRegistration(const std::string key) const; 
 
-	const std::map<std::string, regData>& GetRegistrations() const
-	{
-		return Registrations;
-	}
-	const std::vector<std::string>& TypeRegistry::GetChain(std::string x) const;
+    const std::map<std::string, regData>& GetRegistrations() const
+    {
+        return Registrations;
+    }
+    const std::vector<std::string>& TypeRegistry::GetChain(std::string x) const;
 
-	
-	bool TypeRegistry::IsOfBaseType(const std::string & id) const;
+    
+    bool TypeRegistry::IsOfBaseType(const std::string & id) const;
 
-	class Helper
-	{
-	public:
-		Helper(std::string NewType,
-			   std::string OldType,
-			   std::string ConversionCommand,
-			   bool IsAMethod,
-			   bool TakesAnIdentifier,
-			   std::string ExcelKey ="", // should be empty unless OldType is XlfOper
-			   std::string IncludeFile=""
-			   );
-	private:
+    class Helper
+    {
+    public:
+        Helper(std::string NewType,
+               std::string OldType,
+               std::string ConversionCommand,
+               bool IsAMethod,
+               bool TakesAnIdentifier,
+               std::string ExcelKey ="",
+               std::string IncludeFile=""
+               );
+    private:
 
-		std::string NewType_;
-	};
+        std::string NewType_;
+    };
 
 
 
 private:
-	TypeRegistry()
-	{}
-	TypeRegistry(const TypeRegistry&)
-	{}
+    TypeRegistry()
+    {}
+    TypeRegistry(const TypeRegistry&)
+    {}
 
-	std::map<std::string, regData> Registrations;
+    std::map<std::string, regData> Registrations;
 
-	mutable std::map<std::string, std::vector<std::string> > DeductionChains;
+    mutable std::map<std::string, std::vector<std::string> > DeductionChains;
 
-	mutable bool ListsBuilt;
+    mutable bool ListsBuilt;
 
 };
 #endif

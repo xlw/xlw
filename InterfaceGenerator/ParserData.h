@@ -1,5 +1,7 @@
+
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -22,17 +24,17 @@ class  FunctionArgumentType
 {
 public:       
      FunctionArgumentType(std::string NameIdentifier,
-						  const std::vector<std::string>& ConversionChain,
-                          char EXCELKey);
+                          const std::vector<std::string>& ConversionChain,
+                          const std::string& EXCELKey);
      
      const std::string& GetNameIdentifier() const;
-	 const std::vector<std::string>& GetConversionChain() const;
-     char GetEXCELKey() const;
+     const std::vector<std::string>& GetConversionChain() const;
+     const std::string &GetEXCELKey() const;
      
 private:
      std::string NameIdentifier;
      std::vector<std::string> ConversionChain;            
-     char EXCELKey; 
+     std::string EXCELKey; 
             
 };
 
@@ -58,29 +60,32 @@ class FunctionDescription
 public:
      FunctionDescription(std::string FunctionName_,
                          std::string FunctionHelpDescription_,
-						 std::string ReturnType,
-						 char ExcelKey,
+                         std::string ReturnType,
+                         const std::string& ExcelKey,
                          const std::vector<FunctionArgument>& Arguments_, 
-						 bool Volatile_,
-						 bool Time_);
+                         bool Volatile_,
+                         bool Time_, 
+                         bool Threadsafe_);
      
      std::string GetFunctionName() const;
      std::string GetFunctionDescription() const;
-	 char GetExcelKey() const;
-	 std::string GetReturnType() const;
+     std::string GetExcelKey() const;
+     std::string GetReturnType() const;
      const FunctionArgument& GetArgument(unsigned long ArgumentNumber) const;
      unsigned long NumberOfArguments() const;
-	 bool GetVolatile() const;
-	 bool DoTime() const;
+     bool GetVolatile() const;
+     bool DoTime() const;
+     bool GetThreadsafe() const;
             
 private:
      std::string FunctionName;
      std::string FunctionHelpDescription;
-	 std::string ReturnType;
-	 char ExcelKey;
+     std::string ReturnType;
+     std::string ExcelKey;
      std::vector<FunctionArgument> Arguments;
-	 bool Volatile;
-	 bool Time;
+     bool Volatile;
+     bool Time;
+     bool Threadsafe;
      
       
 };

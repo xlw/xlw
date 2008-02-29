@@ -1,10 +1,11 @@
 //
 //
 //
-//										TypeRegistrations.cpp
+//                                        TypeRegistrations.cpp
 //
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Eric Ehlers
  
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -29,141 +30,153 @@ namespace
 {
 // fundamental types
 
-TypeRegistry::Helper XlfOperReg("XlfOper", // new type
-			   "LPXLOPER", // old type
-			   "", // converter name, we just pass into the constructor as a declaration
-			   false, // is a method
-			   false // takes identifier
-			   );
+TypeRegistry::Helper XlfOperReg("XlfOper", // New type
+               "LPXLFOPER",     // Old type
+               "",              // Converter name, we just pass into the constructor as a declaration
+               false,           // Is a method
+               false,           // Takes identifier
+               "XLF_OPER"       // Type code
+               );
 
-TypeRegistry::Helper doubleFundamentalReg("double", // new type
-			   "double", // old type, EXCEL understands doubles so this is simply a copy
-			   "", // converter name, we just pass into the constructor as a declaration
-			   false, // is a method
-			   false, // takes identifier
-			   "B"
-			   );
+TypeRegistry::Helper doubleFundamentalReg("double", // New type
+               "double",        // Old type, EXCEL understands doubles so this is simply a copy
+               "",              // Converter name, we just pass into the constructor as a declaration
+               false,           // Is a method
+               false,           // Takes identifier
+               "B"              // Type code
+               );
 
-TypeRegistry::Helper arrayFundamentalReg("NEMatrix", // new type
-			   "LPXLARRAY", // old type, EXCEL understands doubles so this is simply a copy
-			   "GetMatrix", // converter name, we just pass into the constructor as a declaration
-			   false, // is a method
-			   false, // takes identifier
-			   "K",
-			   "<xlw/xlarray.h>"
-			   );
+TypeRegistry::Helper arrayFundamentalReg("NEMatrix", // New type
+               "LPXLARRAY",     // Old type
+               "GetMatrix",     // Converter name, we just pass into the constructor as a declaration
+               false,           // Is a method
+               false,           // Takes identifier
+               "K",             // Type code
+               "<xlw/xlarray.h>"// Include file
+               );
 
-TypeRegistry::Helper shortreg("short", // new type
-			   "XlfOper", // old type
-			   "AsShort", // converter name
-			   true, // is a method
-			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
-			   );
+TypeRegistry::Helper shortreg("short", // New type
+               "XlfOper",       // Old type
+               "AsShort",       // Converter name
+               true,            // Is a method
+               true,            // Takes identifier
+               "XLF_OPER"       // Type code
+               );
 
-/* we are passing doubles now directly rather than via LPXLOPERs
-TypeRegistry::Helper doublereg("double", // new type
-			   "XlfOper", // old type
-			   "AsDouble", // converter name
-			   true, // is a method
-			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
-			   );
-*/
+TypeRegistry::Helper arrayreg("MyArray", // New type
+               "XlfOper",       // Old type
+               "AsArray",       // Converter name
+               true,            // Is a method
+               true,            // Takes identifier
+               "XLF_OPER"       // Type code
+               );
 
-TypeRegistry::Helper arrayreg("MyArray", // new type
-			   "XlfOper", // old type
-			   "AsArray", // converter name
-			   true, // is a method
-			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
-			   );
+TypeRegistry::Helper matrixreg("MyMatrix", // New type
+               "XlfOper",       // Old type
+               "AsMatrix",      // Converter name
+               true,            // Is a method
+               true,            // Takes identifier
+               "XLF_OPER"       // Type code
+               );
 
+TypeRegistry::Helper cellsreg("CellMatrix", // New type
+               "XlfOper",       // Old type
+               "AsCellMatrix",  // Converter name
+               true,            // Is a method
+               true,            // Takes identifier
+               "XLF_OPER"       // Type code
+               );
 
-TypeRegistry::Helper matrixreg("MyMatrix", // new type
-			   "XlfOper", // old type
-			   "AsMatrix", // converter name
-			   true, // is a method
-			   true, // takes identifier
-			   "P" // should be empty unless OldType is XlfOper
-			   );
+TypeRegistry::Helper stringreg("string", // New type
+               "XlfOper",       // Old type
+               "AsString",      // Converter name
+               true,            // Is a method
+               true,            // Takes identifier
+               "XLF_OPER"       // Type code
+               );
 
-TypeRegistry::Helper cellsreg("CellMatrix", // new type
-			   "XlfOper", // old type
-			   "AsCellMatrix", // converter name
-			   true, // is a method
-			   true, // takes identifier
-			   "P" // should be empty unless OldType is XlfOper
-			   );
+TypeRegistry::Helper sstringreg("std::string", // New type
+               "XlfOper",       // Old type
+               "AsString",      // Converter name
+               true,            // Is a method
+               true,            // Takes identifier
+               "XLF_OPER"       // Type code
+               );
 
-TypeRegistry::Helper stringreg("string", // new type
-			   "XlfOper", // old type
-			   "AsString", // converter name
-			   true, // is a method
-			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
-			   );
+// Special processing of std::wstring depending on Excel version
+TypeRegistry::Helper swstringreg("XLWSTR", // New type - a typedef to void*
+               "XLWSTR",        // Old type
+               "",              // Converter name
+               false,           // Is a method
+               false,           // Takes identifier
+               "XLW_WSTR"       // Type code
+               );
 
-TypeRegistry::Helper sstringreg("std::string", // new type
-			   "XlfOper", // old type
-			   "AsString", // converter name
-			   true, // is a method
-			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
-			   );
+TypeRegistry::Helper boolreg("bool", // New type
+               "XlfOper",       // Old type
+               "AsBool",        // Converter name
+               true,            // Is a method
+               true,            // Takes identifier
+               "XLF_OPER"       // Type code
+               );
 
-
-TypeRegistry::Helper boolreg("bool", // new type
-			   "XlfOper", // old type
-			   "AsBool", // converter name
-			   true, // is a method
-			   true, // takes identifier
-			   "R" // should be empty unless OldType is XlfOper
-			   );
+// Usually XlfOper is registered as type XLF_OPER   which equates to either P (OPER)   or Q (OPER12)
+// Here    XlfOper is registered as type XLF_XLOPER which equates to either R (XLOPER) or U (XLOPER12)
+TypeRegistry::Helper RefTestReg("reftest", // New type
+               "LPXLFOPER",     // Old type
+               "",              // Converter name, we just pass into the constructor as a declaration
+               false,           // Is a method
+               false,           // Takes identifier
+               "XLF_XLOPER"     // Type code
+               );
 
 // extended types
 
-TypeRegistry::Helper ULreg("unsigned long", // new type
-			   "double", // old type
-			   "static_cast<unsigned long>", // converter name
-			   false, // is a method
-			   false 
-			   );
+TypeRegistry::Helper ULreg("unsigned long", // New type
+               "double",        // Old type
+               "static_cast<unsigned long>", // Converter name
+               false,           // Is a method
+               false            // Takes identifier
+               );
 
+TypeRegistry::Helper intreg("int", // New type
+               "double",        // Old type
+               "static_cast<int>", // Converter name
+               false,           // Is a method
+               false            // Takes identifier
+               );
 
-TypeRegistry::Helper intreg("int", // new type
-			   "double", // old type
-			   "static_cast<int>", // converter name
-			   false, // is a method
-			   false 
-			   );
+// Special processing of std::wstring depending on Excel version
+TypeRegistry::Helper wstrreg("std::wstring", // New type
+               "XLWSTR",        // Old type
+               "voidToWstr",    // Converter name
+               false,           // Is a method
+               false            // Takes identifier
+               );
 
+TypeRegistry::Helper DONreg("DoubleOrNothing", // New type
+               "CellMatrix",    // Old type
+               "DoubleOrNothing", // Converter name
+               false,           // Is a method
+               true             // Takes identifier 
+               );
 
-TypeRegistry::Helper DONreg("DoubleOrNothing", // new type
-			   "CellMatrix", // old type
-			   "DoubleOrNothing", // converter name
-			   false, // is a method
-			   true // takes identifier 
-			   );
+TypeRegistry::Helper arglistreg("ArgumentList", // New type
+               "CellMatrix",    // Old type
+               "ArgumentList",  // Converter name
+               false,           // Is a method
+               true,            // Takes identifier 
+               "",              // No key
+               "<xlw/ArgList.h>"// Include file
+               );
 
-
-TypeRegistry::Helper arglistreg("ArgumentList", // new type
-			   "CellMatrix", // old type
-			   "ArgumentList", // converter name
-			   false, // is a method
-			   true, // takes identifier 
-			   "", // no key
-			   "<xlw/ArgList.h>"
-			   );
-
-TypeRegistry::Helper payoffreg("Wrapper<PayOff>", // new type
-			   "ArgumentList", // old type
-			   "GetFromFactory<PayOff>", // converter name
-			   false, // is a method
-			   false, // takes identifier 
-			   "" , // no key
-			  "<xlw/ArgListFactory.h>"
-			   );
-
+TypeRegistry::Helper payoffreg("Wrapper<PayOff>", // New type
+               "ArgumentList",  // Old type
+               "GetFromFactory<PayOff>", // Converter name
+               false,           // Is a method
+               false,           // Takes identifier 
+               "" ,             // No key
+              "<xlw/ArgListFactory.h>" // Include file
+               );
 
 }
