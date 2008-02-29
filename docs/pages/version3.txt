@@ -1,0 +1,149 @@
+
+/*! \page version3 Excel 2007 Support
+
+\section v3_summary Summary
+
+xlw is upgraded to support new features of Excel 2007 such as
+
+\li longer strings
+\li Unicode
+\li larger spreadsheets
+\li multithreading
+\li additional function arguments
+
+Certain new features of Excel 2007 such as larger spreadsheets and
+long/Unicode strings can be exposed by xlw to its client applications with no
+change to the xlw interface. When the Addin is loaded, the core xlw library
+detects the version of Excel under which the XLL is being run, and dynamically
+supports the new features where possible with no need for changes to legacy
+source code of xlw client applications. Other new Excel 2007 features such as
+multithreading necessitate enhancements to the xlw interface and modifications
+must be made to source code of client applications in order to exploit these
+new features.
+
+\section v3_terms Terms
+
+Excel version 4 introduced the Excel C API, which remained largely unchanged
+through Excel version 11 (also known as Excel 2003). Excel version 12 (Excel
+2007) introduces fundamental enhancements to the API. Hereafter Excel 12
+refers to Excel 2007 and Excel 4 refers collectively to all versions of Excel
+prior to Excel 2007.
+
+\section v3_objectives Objectives
+
+The screenshots below summarize the main objectives of the xlw version 3
+release:
+
+\subsection v3_ss4 Excel 4
+
+\image html screenshot4.jpg
+
+\subsection v3_ss12 Excel 12
+
+\image html screenshot12.jpg
+
+\subsection v3_explanation Explanation
+
+The screenshots above display the output from a single xlw XLL which is
+compiled from a single source code base and is compatible both with Excel 4
+and Excel 12.
+
+The application implements three variations of a "Concat()" function. Each
+variation of the function is called once with ASCII input (supported by Excel
+4 and 12) and once with Unicode input (supported by Excel 12 only).
+
+<table>
+<tr>
+<td><b>Function</b></td><td><b>Description</b> </td></tr>
+<tr>
+<td><b>Concat()</b></td><td><ul>
+<li>Functions both with Excel 4 and 12</li>
+<li>Supports Unicode if run under Excel 12</li>
+</ul>
+</td></tr>
+<tr>
+<td><b>Concat4()</b></td><td><ul>
+<li>Functions both with Excel 4 and 12</li>
+<li>Retains Excel 4 behavior (no Unicode support) even when run under Excel 12</li>
+</ul>
+</td></tr>
+<tr>
+<td><b>Concat12()</b></td><td><ul>
+<li>Supports Unicode</li>
+<li>Available only in Excel 12</li>
+</ul>
+</td></tr>
+</table>
+
+Function Concat() reflects the primary objectives for the xlw upgrade. The
+function retains old Excel 4 compatible behavior if run under Excel 4, but
+when called from Excel 12 the same function picks up new Excel 12
+functionality, in this case Unicode support.
+
+The flexibility in function Concat() incurs a performance overhead at run
+time. This overhead is avoided in functions Concat4() and Concat12() which
+target specific versions of Excel.
+
+\section v3_xlfoper Class XlfOper
+
+The crux of the xlw design is that class XlfOper, the wrapper for Excel's
+XLOPER datatype, shares the same memory footprint as LPXLOPER (XLOPER*).
+XlfOper declares a single data member of type LPXLOPER such that
+sizeof(XlfOper) = sizeof(LPXLOPER).
+
+\code
+class XlfOper {
+    LPXLOPER lpxloper_;
+public:
+    std::string AsString();
+    ...
+};
+\endcode
+
+LPXLOPERs passed from Excel to the Addin are received by Addin functions into
+arguments of type XlfOper. Consider xlw example function xlConcat(), which
+accepts as input two strings which are concatenated and returned. This
+function is registered with Excel such that Excel thinks the datatype of the
+input parameters is LPXLOPER.
+
+\code
+LPXLOPER xlConcat(LPXLOPER xlStr1, LPXLOPER xlStr2);
+\endcode
+
+In fact the function is declared as accepting input parameters of type
+XlfOper.
+
+\code
+LPXLOPER xlConcat(XlfOper xlStr1, XlfOper xlStr2);
+\endcode
+
+Excel passes arguments of type LPXLOPER, which are received by the function
+into parameters of type XlfOper.  The LPXLOPER value passed by Excel populates
+the LPXLOPER data member of the XlfOper argument. XlfOper's member functions
+then serve as functionality bound to that reference, and the implementation of
+xlConcat() accesses the LPXLOPER via its XlfOper wrapper.
+
+\code
+std::string str1 = xlStr1.AsString();
+\endcode
+
+The operation above exploits the fact that no type checking is performed in 
+this call across DLL boundaries.  The XlfOper constructor is not invoked.
+This is undefined behavior, which happens to work when compiled by Visual C++,
+but not all compilers support it.  For example the mingw compiler stores PODs
+(such as LPXLOPER) differently than user defined types (such as XlfOper), and
+when compiled with mingw the above code crashes at runtime.
+
+An additional conversion is required to achive type safety.
+
+\code
+LPXLOPER xlConcat(LPXLOPER xlStr1, LPXLOPER xlStr2) {
+    XlfOper xlfStr1(xlStr1);
+    XlfOper xlfStr2(xlStr2);
+    std::string str1 = xlfStr1.AsString();
+    ...
+}
+\endcode
+
+*/
+
