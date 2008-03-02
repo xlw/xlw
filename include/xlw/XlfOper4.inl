@@ -28,9 +28,6 @@
 #define INLINE
 #endif
 
-/*!
-Calls Allocate
-*/
 INLINE XlfOper4::XlfOper4()
 {
   Allocate();
@@ -41,117 +38,66 @@ INLINE XlfOper4::XlfOper4(const XlfOper4& oper)
   *this = oper;
 };
 
-/*!
-See XlfOper4::Set(double)
-*/
 INLINE XlfOper4::XlfOper4(double value)
 {
   Allocate();
   Set(value);
 }
 
-/*!
-See XlfOper4::Set(short)
-*/
 INLINE XlfOper4::XlfOper4(short value)
 {
   Allocate();
   Set(value);
 }
 
-/*!
-See XlfOper4::Set(short,bool)
-*/
 INLINE XlfOper4::XlfOper4(short value, bool error)
 {
   Allocate();
   Set(value,error);
 }
 
-/*!
-See XlfOper4::Set(bool)
-*/
 INLINE XlfOper4::XlfOper4(bool value)
 {
   Allocate();
   Set(value);
 }
 
-/*!
-See XlfOper4::Set(const char *)
-*/
 INLINE XlfOper4::XlfOper4(const char *value)
 {
   Allocate();
   Set(value);
 }
 
-/*!
-See XlfOper4::Set(const std::string& value))
-*/
 INLINE XlfOper4::XlfOper4(const std::string& value)
 {
   Allocate();
   Set(value.c_str());
 }
 
-/*!
-See XlfOper4::Set(const CellMatrix& )
-*/
 INLINE XlfOper4::XlfOper4(const CellMatrix& value)
 {
   Allocate();
   Set(value);
 }
 
-/*!
-See XlfOper4::Set(const MyMatrix& )
-*/
 INLINE XlfOper4::XlfOper4(const MyMatrix& value)
 {
   Allocate();
   Set(value);
 }
 
-/*!
-See XlfOper4::Set(const MyArray& )
-*/
 INLINE XlfOper4::XlfOper4(const MyArray& value)
 {
   Allocate();
   Set(value);
 }
 
-/*!
-See XlfOper4::Set(const XlfRef&)
-
-\sa XlfRef
-*/
 INLINE XlfOper4::XlfOper4(const XlfRef& range)
 {
   Allocate();
   Set(range);
 }
 
-/*!
-Unlike other XlfOper4, the return value is not allocated on the internal
-buffer to avoid allocating more memory. Instead it is allocated on a
-shared static XLOPER.
-
-\arg error One of the values listed bellow and defined in xlcall32.h
-
-\code
-#define xlerrNull    0    // No info
-#define xlerrDiv0    7        // Division by 0
-#define xlerrValue   15        // Bad value
-#define xlerrRef     23        // Bad reference
-#define xlerrName    29        // Bad name
-#define xlerrNum     36        // Bad number
-#define xlerrNA      42        // Not available
-\endcode
-
-\sa XlfOper4::SetError(WORD)
-*/
 INLINE XlfOper4 XlfOper4::Error(WORD xlerr)
 {
     //static XLOPER oper;
@@ -224,9 +170,6 @@ INLINE bool XlfOper4::IsInt() const
   return lpxloper_->xltype & xltypeInt;
 }
 
-/*!
-Forwards to XlfOper4::AsDouble.
-*/
 INLINE int XlfOper4::AsInt(int * pxlret) const
 {
   return static_cast<int>(AsDouble(pxlret));
@@ -237,9 +180,6 @@ INLINE LPXLOPER XlfOper4::GetLPXLOPER() const
   return lpxloper_;
 }
 
-/*!
-Do nothing. May be implemented later to avoid overload of the internal
-buffer by temporary XLOPER allocated by the XLL.
-*/
 INLINE void XlfOper4::Deallocate()
 {}
+

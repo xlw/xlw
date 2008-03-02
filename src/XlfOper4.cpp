@@ -40,32 +40,11 @@
 #include <xlw/XlfOper4.inl>
 #endif
 
-/*!
-This bit is currently unused by Microsoft Excel. We set it
-to indicate that the LPXLOPER (passed by Excel) holds some extra
-memory to be freed.
-
-This bit is controled in ~XlfOper4 to know if the DLL should release
-auxiliary memory or not by a call to FreeAuxiliaryMemory.
-*/
 int XlfOper4::xlbitFreeAuxMem = 0x8000;
 
-/*!
-Shallow copy of a pointer to XLOPER.
-\param lpxloper Pointer to XLOPER.
-Excel or by the XLL (default is true).
-*/
 XlfOper4::XlfOper4(LPXLOPER lpxloper): lpxloper_(lpxloper)
 {}
 
-/*!
-Calls Deallocate() to free the XLOPER allocated by the XLL. XLOPER allocated
-by Excel remain under Excel responsability.
-
-Calls FreeAuxiliaryMemory if the XLOPER is marked by XlfOper4::Call as an
-XLOPER returned by MS Excel and if the type matches one of xltypeStr,
-xltypeRef, xltypeMulti, xltypeBigData.
-*/
 XlfOper4::~XlfOper4()
 {
   if (! lpxloper_)
@@ -73,13 +52,6 @@ XlfOper4::~XlfOper4()
 
   int type = lpxloper_->xltype;
 
-//  Only the types bellow can be flagged xlFreeAuxMem, thus the test is
-//  actually redundant: we don't need to re-check the type of the oper.
-//
-//  bool canHaveAuxMem = (type & xltypeStr ||
-//                        type & xltypeRef ||
-//                        type & xltypeMulti ||
-//                        type & xltypeBigData);
   if (type & xlbitFreeAuxMem)
   {
     // switch back the bit as it was originally
@@ -90,21 +62,6 @@ XlfOper4::~XlfOper4()
   return;
 }
 
-/*!
-Allocates 16 bits (size of a XLOPER) on the temporary buffer
-stored by XlfExcel with a call to XlfExcel::GetMemory().
-
-\warning Each XlfOper4 allocation causes a call to Allocate which in turn
-reserve the necessary number of bytes in the internal buffer. The
-problem is that even temporary XlfOper4 used inside the xll function use
-this internal buffer. This buffer is not freed before the next call to
-the xll to ensure Excel can use the data before they are freed. This
-causes a bottleneck if the function uses many temporary XlfOper4 (see
-Deallocate()).
-
-\return \c xlretSuccess or \c xlretInvXloper if no memory is could
-be allocated.
-*/
 int XlfOper4::Allocate()
 {
   lpxloper_ = (LPXLOPER)XlfExcel::Instance().GetMemory(sizeof(XLOPER));
@@ -122,10 +79,6 @@ void XlfOper4::FreeAuxiliaryMemory() const
   return;
 }
 
-/*!
-\param type is an integer indicating the target type we want to coerce to.
-\param result is the XLOPER where to store the output.
-*/
 int XlfOper4::Coerce(short type, XlfOper4& result) const
 {
   XlfOper4 xlType(type);
@@ -133,13 +86,6 @@ int XlfOper4::Coerce(short type, XlfOper4& result) const
   return xlret;
 }
 
-/*!
-Attempts to convert the implict object to a double. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
-
-\sa XlfOper4::ConvertToDouble.
-*/
 double XlfOper4::AsDouble(int * pxlret) const
 {
   double d;
@@ -192,14 +138,6 @@ int XlfOper4::ConvertToDouble(double& d) const throw()
   return xlret;
 };
 
-/*!
-Attempts to convert the implict object to an array.
-Does this by calling AsDoubleVector.
-If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
-
-*/
 MyArray XlfOper4::AsArray(DoubleVectorConvPolicy policy, int * pxlret) const
 {
     std::vector<double> tmp(AsDoubleVector(policy,pxlret));
@@ -220,13 +158,6 @@ MyArray XlfOper4::AsArray(const std::string& ErrorId,DoubleVectorConvPolicy poli
     return result;
 }
 
-/*!
-Attempts to convert the implict object to a vector of double. If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
-
-\sa XlfOper4::ConvertToDoubleVector.
-*/
 std::vector<double> XlfOper4::AsDoubleVector(DoubleVectorConvPolicy policy, int * pxlret) const
 {
   std::vector<double> v;
@@ -248,16 +179,6 @@ std::vector<double> XlfOper4::AsDoubleVector(const std::string& ErrorId, DoubleV
   return v;
 }
 
-/*!
-Converts the data in the range in a vector of double according to the specified policy.
-
-\pre All values in the range should be convertible to a double.
-
-\return xlretFailed if the policy is UniDimensional and the range is not uni dimensional
-and xlretSuccess otherwise or whatever error occurs during coercing the data to double.
-
-\sa DoubleVectorConvPolicy
-*/
 int XlfOper4::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolicy policy) const
 {
     if (lpxloper_->xltype == xltypeMissing)
@@ -353,13 +274,6 @@ int XlfOper4::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPoli
   return xlret;
 };
 
-/*!
-Attempts to convert the implict object to a short. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
-
-\sa XlfOper4::ConvertToShort.
-*/
 short XlfOper4::AsShort(int * pxlret) const
 {
   short s;
@@ -407,13 +321,6 @@ int XlfOper4::ConvertToShort(short& s) const throw()
   return xlret;
 };
 
-/*!
-Attempts to convert the implict object to a bool. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
-
-\sa XlfOper4::ConvertToBool.
-*/
 bool XlfOper4::AsBool(int * pxlret) const
 {
   bool b;
@@ -424,6 +331,7 @@ bool XlfOper4::AsBool(int * pxlret) const
     ThrowOnError(xlret);
   return b;
 };
+
 bool XlfOper4::AsBool(const std::string& ErrorId, int * pxlret) const
 {
   bool b;
@@ -434,6 +342,7 @@ bool XlfOper4::AsBool(const std::string& ErrorId, int * pxlret) const
     ThrowOnError(xlret,ErrorId+" conversion to bool failed");
   return b;
 };
+
 int XlfOper4::ConvertToBool(bool& b) const throw()
 {
   int xlret;
@@ -458,13 +367,6 @@ int XlfOper4::ConvertToBool(bool& b) const throw()
   return xlret;
 };
 
-/*!
-Attempts to convert the implict object to a matrix. If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
-
-\sa XlfOper4::ConvertToMatrix.
-*/
 MyMatrix XlfOper4::AsMatrix( int * pxlret) const
 {
   MyMatrix output; // will be resized anyway
@@ -487,10 +389,6 @@ MyMatrix XlfOper4::AsMatrix( const std::string& ErrorId, int * pxlret) const
   return output;
 }
 
-/*! converts the XlfOper4 to a matrix, since if its a valid matrix
-its also a valid cellmatrix we convert to cell matrix first,
-note this necessitates passing as a P not an R
-*/
 int XlfOper4::ConvertToMatrix(MyMatrix& value) const
 {
     // deal with empty case first
@@ -519,13 +417,6 @@ int XlfOper4::ConvertToMatrix(MyMatrix& value) const
     return xlretSuccess;
 }
 
-/*!
-Attempts to convert the implict object to a cell matrix. If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
-
-\sa XlfOper4::ConvertToCellMatrix.
-*/
 CellMatrix XlfOper4::AsCellMatrix( int * pxlret) const
 {
   CellMatrix output(1,1); // will be resized anyway
@@ -547,6 +438,7 @@ CellMatrix XlfOper4::AsCellMatrix( const std::string& ErrorId, int * pxlret) con
     ThrowOnError(xlret,ErrorId+" conversion to cell matrix failed");
   return output;
 }
+
 int XlfOper4::ConvertToCellMatrix(CellMatrix& output) const
 {
 
@@ -818,17 +710,6 @@ int XlfOper4::ConvertToErr(WORD& e) const throw()
   return xlret;
 };
 
-/*!
-Attempts to convert the implict object to a char string. If pxlret is not
-null the method won't throw and the Excel return code will be returned in
-this variable.
-
-\sa XlfOper4::ConvertToString.
-
-The XLL allocates the memory on its own buffer. This buffer is automatically
-freed when a function of the XLL is called again. Note that coerce to
-a char string is the slowest cast of all.
-*/
 char * XlfOper4::AsString(int * pxlret) const
 {
   char * s;
@@ -883,13 +764,6 @@ int XlfOper4::ConvertToString(char *& s) const throw()
   return xlret;
 }
 
-/*!
-Attempts to convert the implict object to an XlfRef. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
-
-\sa XlfOper4::ConvertToRef.
-*/
 XlfRef XlfOper4::AsRef(int * pxlret) const
 {
   XlfRef r;
@@ -946,6 +820,7 @@ XlfOper4& XlfOper4::Set(const MyMatrix& values)
             tmp(i,j) = Element(values,i,j);
     return Set(tmp);
 }
+
 XlfOper4& XlfOper4::Set(const MyArray& values)
 {
     if (values.size() ==0)
@@ -1053,10 +928,6 @@ XlfOper4& XlfOper4::Set(bool value)
   return *this;
 }
 
-/*!
-If no memory can be allocated on xlw internal buffer, the XlfOper4 is set
-to an invalid state and the XlfRef is not copied.
-*/
 XlfOper4& XlfOper4::Set(const XlfRef& range)
 {
   if (lpxloper_)
@@ -1083,22 +954,6 @@ XlfOper4& XlfOper4::Set(const XlfRef& range)
   return *this;
 }
 
-/*!
-If no memory can be allocated on xlw internal buffer, the XlfOper4 is set
-to an invalid state and the string is not copied.
-
-The Excel API supports strings of 256 bytes.  The 0th byte holds the length
-of the string and the remaining 255 bytes hold the string data which is not
-null terminated.
-
-Here xlw uses the 0th byte for the string length, then at the 1st byte
-starts a string which _is_ null terminated.  In theory this allows a pointer
-to the 1st byte to be passed to C string functions requiring null termination
-e.g. strcpy.
-
-\note A string longer than 254 characters is truncated. A warning
-is issued in debug mode.
-*/
 XlfOper4& XlfOper4::Set(const char *value)
 {
   if (lpxloper_)
@@ -1132,9 +987,6 @@ XlfOper4& XlfOper4::Set(const char *value)
   return *this;
 }
 
-/*!
-\sa XlfOper4::Error(WORD)
-*/
 XlfOper4& XlfOper4::SetError(WORD error)
 {
   if (lpxloper_)
@@ -1145,15 +997,6 @@ XlfOper4& XlfOper4::SetError(WORD error)
   return *this;
 }
 
-/*!
-Throws an exception if the argument is anything other than xlretSuccess.
-
-Events that require an immediate return to excel (uncalculated cell, abort,
-stack overflow and invalid OPER (potential memory exhaustion)) throw an
-XlfException.
-
-Other events throw std::runtime_error.
-*/
 int XlfOper4::ThrowOnError(int xlret) const
 {
   if (xlret == xlretSuccess)
@@ -1178,17 +1021,6 @@ int XlfOper4::ThrowOnError(int xlret) const
   return xlret;
 }
 
-
-/*!
-Throws an exception if the argument is anything other than xlretSuccess.
-
-Events that require an immediate return to excel (uncalculated cell, abort,
-stack overflow and invalid OPER (potential memory exhaustion)) throw an
-XlfException.
-
-Other events throw std::runtime_error. The Identifier is tagged on to the error message to help track down
-problems.
-*/
 int XlfOper4::ThrowOnError(int xlret, const std::string& Identifier) const
 {
   if (xlret == xlretSuccess)

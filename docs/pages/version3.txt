@@ -11,23 +11,22 @@ xlw is upgraded to support new features of Excel 2007 such as
 \li multithreading
 \li additional function arguments
 
-Certain new features of Excel 2007 such as larger spreadsheets and
-long/Unicode strings can be exposed by xlw to its client applications with no
-change to the xlw interface. When the Addin is loaded, the core xlw library
-detects the version of Excel under which the XLL is being run, and dynamically
-supports the new features where possible with no need for changes to legacy
-source code of xlw client applications. Other new Excel 2007 features such as
-multithreading necessitate enhancements to the xlw interface and modifications
-must be made to source code of client applications in order to exploit these
-new features.
+Certain new features of Excel 2007 such as larger spreadsheets and long/Unicode
+strings can be exposed by xlw to its client applications with no change to the
+xlw interface. When the Addin is loaded, the core xlw library detects the
+version of Excel under which the XLL is being run, and dynamically supports the
+new features where possible with no need for changes to legacy source code of
+xlw client applications. Other new Excel 2007 features such as multithreading
+necessitate enhancements to the xlw interface and modifications must be made to
+source code of client applications in order to exploit these new features.
 
 \section v3_terminology Terminology
 
 Excel version 4 introduced the Excel C API, which remained largely unchanged
 through Excel version 11 (also known as Excel 2003). Excel version 12 (Excel
-2007) introduces fundamental enhancements to the API. Hereafter Excel 12
-refers to Excel 2007 and Excel 4 refers collectively to all versions of Excel
-prior to Excel 2007.
+2007) introduces fundamental enhancements to the API. Hereafter Excel 12 refers
+to Excel 2007 and Excel 4 refers collectively to all versions of Excel prior to
+Excel 2007.
 
 \section v3_objectives Objectives
 
@@ -45,12 +44,12 @@ release.
 \subsection v3_explanation Explanation
 
 The screenshots above display the output from a single xlw XLL which is
-compiled from a single source code base and is compatible both with Excel 4
-and Excel 12.
+compiled from a single source code base and is compatible both with Excel 4 and
+Excel 12.
 
 The application implements three variations of a "Concat()" function. Each
-variation of the function is called once with ASCII input (supported by Excel
-4 and 12) and once with Unicode input (supported by Excel 12 only).
+variation of the function is called once with ASCII input (supported by Excel 4
+and 12) and once with Unicode input (supported by Excel 12 only).
 
 <table>
 <tr>
@@ -76,15 +75,15 @@ variation of the function is called once with ASCII input (supported by Excel
 </table>
 
 Function Concat() reflects the primary objectives for the xlw upgrade. The
-function retains old Excel 4 compatible behavior if run under Excel 4, but
-when called from Excel 12 the same function picks up new Excel 12
-functionality, in this case Unicode support.
+function retains old Excel 4 compatible behavior if run under Excel 4, but when
+called from Excel 12 the same function picks up new Excel 12 functionality, in
+this case Unicode support.
 
-The flexibility in function Concat() incurs a performance overhead at run
-time. This overhead is avoided in functions Concat4() and Concat12() which
-target specific versions of Excel.
+The flexibility in function Concat() incurs a performance overhead at run time.
+This overhead is avoided in functions Concat4() and Concat12() which target
+specific versions of Excel.
 
-\section v3_xlfoper Class XlfOper
+\section v3_xlfoper Class XlfOper - Original Design
 
 The crux of the xlw design is that class XlfOper, the wrapper for Excel's
 XLOPER datatype, shares the same memory footprint as LPXLOPER (XLOPER*).
@@ -102,16 +101,15 @@ public:
 
 LPXLOPERs passed from Excel to the Addin are received by Addin functions into
 arguments of type XlfOper. Consider xlw example function xlConcat(), which
-accepts as input two strings which are concatenated and returned. This
-function is registered with Excel such that Excel thinks the datatype of the
-input parameters is LPXLOPER.
+accepts as input two strings which are concatenated and returned. This function
+is registered with Excel such that Excel thinks the datatype of the input
+parameters is LPXLOPER.
 
 \code
 LPXLOPER xlConcat(LPXLOPER xlStr1, LPXLOPER xlStr2);
 \endcode
 
-In fact the function is declared as accepting input parameters of type
-XlfOper.
+In fact the function is declared as accepting input parameters of type XlfOper.
 
 \code
 LPXLOPER xlConcat(XlfOper xlStr1, XlfOper xlStr2);
@@ -130,10 +128,11 @@ std::string str1 = xlStr1.AsString();
 
 The operation above exploits the fact that no type checking is performed in
 this call across DLL boundaries.  This is undefined behavior, which happens to
-work when compiled by Visual C++, but not all compilers support it.  For
-example the mingw compiler stores PODs (such as LPXLOPER) differently than
-user defined types (such as XlfOper), and when compiled with mingw the above
-code crashes at runtime.
+work with all versions of Visual C++ (so far) but there is no guarantee that
+any compiler should support this feature and in particular MinGW (gcc) does
+not.  Mingw stores PODs (such as LPXLOPER) differently than user defined types
+(such as XlfOper), and when compiled with MinGW the above code crashes at
+runtime.
 
 An additional conversion is required to achive type safety.
 
@@ -142,6 +141,7 @@ LPXLOPER xlConcat(LPXLOPER xlStr1, LPXLOPER xlStr2) {
     XlfOper xlfStr1(xlStr1);
     XlfOper xlfStr2(xlStr2);
     std::string str1 = xlfStr1.AsString();
+    std::string str2 = xlfStr2.AsString();
     //...
 }
 \endcode
@@ -169,7 +169,7 @@ Additional features of Excel 12 such as multithreading are exposed by xlw
 through additional properties in the xlw interface and xlw client apps require
 enhancement to invoke such new features.
 
-\section v3_newdesign New Design - XlfOper
+\section v3_newdesign Class XlfOper - New Design
 
 Class XlfOper is enhanced to allow it to occupy the memory footprint of either
 LPXLOPER or LPXLOPER12.
@@ -307,28 +307,20 @@ interfaces.
 <table>
 <tr>
 <td><b>Class</b></td><td><b><center>+</center></b></td><td><b><center>-</center></b></td></tr>
-<tr>
-<td><b>XlfOper</b></td><td><ul>
+<tr><td><b>XlfOper</b></td><td><ul>
 <li>Automatically encapsulates either LPXLOPER or LPXLOPER12</li>
 <li>Backward compatible with old XlfOper class</li></ul></td><td><ul>
-<li>Incurs a run time overhead. Each member function forwards its call to a virtual function in the XlfOperImpl singleton.</li>
-</ul></td></tr>
-<tr>
-<td><b>XlfOper4</b></td><td><ul>
+<li>Incurs a run time overhead. Each member function forwards its call to a virtual function in the XlfOperImpl singleton.</li></ul></td></tr>
+<tr><td><b>XlfOper4</b></td><td><ul>
 <li>Backward compatible with old XlfOper class</li>
 <li>No performance overhead compared to old XlfOper
 class</li></ul></td><td><ul>
 <li>Encapsulates LPXLOPER only</li>
-<li>Supported by Excel 12 but invokes none of Excel 12's new features</li>
-</ul>
-</td></tr>
-<tr>
-<td><b>XlfOper12</b></td><td><ul>
-<li>No performance overhead compared to old XlfOper
-class</li></ul></td><td><ul>
+<li>Supported by Excel 12 but invokes none of Excel 12's new features</li></ul></td></tr>
+<tr><td><b>XlfOper12</b></td><td><ul>
+<li>No performance overhead compared to old XlfOper class</li></ul></td><td><ul>
 <li>Encapsulates LPXLOPER12 only</li>
-<li>Not supported by Excel 4</li>
-</ul></td></tr>
+<li>Not supported by Excel 4</li></ul></td></tr>
 </table>
 
 \section v3_references References
