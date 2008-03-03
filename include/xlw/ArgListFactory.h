@@ -5,12 +5,6 @@
 //
 #ifndef ARG_LIST_FACTORY_H
 #define ARG_LIST_FACTORY_H
-#ifdef _MSC_VER
-#if _MSC_VER < 1250
-#pragma warning(disable:4786)
-#define VC6
-#endif
-#endif
 
 #include <xlw/ArgList.h>
 #include <map>
@@ -19,23 +13,11 @@
 template<class T>
 class ArgListFactory;
 
-// friend rather than method to avoid bug in VC6.0 with static data in member template functions
-template<class T>
-ArgListFactory<T>& FactoryInstance()
-{
-    static ArgListFactory<T> object;
-    return object;
-}
-
 template<typename T>
 class ArgListFactory
 {
 public:
-#ifndef VC6
     friend ArgListFactory<T>& FactoryInstance<>();
-#else
-    friend ArgListFactory<T>& FactoryInstance();
-#endif
     typedef T* (*CreateTFunction)(const ArgumentList& );
    void RegisterClass(std::string ClassId, CreateTFunction);
     T* CreateT(ArgumentList args);

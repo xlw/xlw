@@ -250,9 +250,10 @@ ArgumentList::ArgumentList(CellMatrix cells,
                     GenerateThrow("No space where data expected below name", row, column);
 
                 cells(row,column).clear();
-// weird syntax to satisfy VC6
-                CellValue* belowPtr = &cells(row+1,column);
-                CellValue& cellBelow = *belowPtr;
+                // weird syntax to satisfy VC6
+                //CellValue* belowPtr = &cells(row+1,column);
+                //CellValue& cellBelow = *belowPtr;
+                CellValue& cellBelow = cells(row+1,column);
 
                 if (cellBelow.IsEmpty())
                     GenerateThrow("Data expected below name", row, column);
