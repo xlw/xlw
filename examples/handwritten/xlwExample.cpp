@@ -198,7 +198,7 @@ extern "C"
     XlfArgDesc concat4_str2("string2","Second string","P");
     // xlConcat function description as concat.
     XlfFuncDesc concat4("xlConcat4","Concat4","Concatenate two strings in one","xlw Example",
-        XlfFuncDesc::RecalcPolicy::NotVolatile,false,"P");
+        XlfFuncDesc::NotVolatile,false,"P");
     // Set the arguments for the function. Note how you create a XlfArgDescList from
     // two or more XlfArgDesc (operator+). You can not push the XlfArgDesc one by one.
     concat4.SetArguments(concat4_str1+concat4_str2);
@@ -211,7 +211,7 @@ extern "C"
     XlfArgDesc concat12_str2("string2","Second string","Q");
     // xlConcat function description as concat.
     XlfFuncDesc concat12("xlConcat12","Concat12","Concatenate two strings in one","xlw Example",
-        XlfFuncDesc::RecalcPolicy::NotVolatile,false,"Q");
+        XlfFuncDesc::NotVolatile,false,"Q");
     // Set the arguments for the function. Note how you create a XlfArgDescList from
     // two or more XlfArgDesc (operator+). You can not push the XlfArgDesc one by one.
     concat12.SetArguments(concat12_str1+concat12_str2);

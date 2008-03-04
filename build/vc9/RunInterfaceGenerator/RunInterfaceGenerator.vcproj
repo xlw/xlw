@@ -44,8 +44,8 @@
 			<Tool
 				Name="VCNMakeTool"
 				BuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc ENVIRON=Release"
-				ReBuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc /a ENVIRON=Releas"
-				CleanCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc clean ENVIRON=Releas"
+				ReBuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc /a ENVIRON=Release"
+				CleanCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc clean ENVIRON=Release"
 				Output=""
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				IncludeSearchPath=""

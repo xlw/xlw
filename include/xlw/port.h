@@ -40,7 +40,7 @@ are not used in excel32 framework.
     #include <xlw/config.mgw.h>
 //#if   defined(__BORLANDC__)         // Borland C++
 //    #include <xlw/config.bcc.h>
-#else                            // other compiler not supported
+#else                               // other compiler not supported
     #error Unsupported compiler - please contact the XLW team
 #endif
 

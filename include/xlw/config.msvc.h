@@ -3,7 +3,7 @@
  Copyright (c) 2002, 2003, 2004 Ferdinando Ametrano
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (c) 2006 Mark Joshi
- Copyright (c) 2007 Eric Ehlers
+ Copyright (c) 2007, 2008 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -36,9 +36,18 @@
 #elif (_MSC_VER == 1310)
 // move inside here configs specific to VC++ .Net 2003
 #  define XLW_LIB_TOOLSET "vc71"
+#  pragma warning (disable : 4800)  // forcing value to bool 'true' or 'false'
+#  pragma warning (disable : 4267)  // conversion from 'size_t' to 'type', possible loss of data
+#  pragma warning (disable : 4244)  // conversion from 'type1' to 'type2', possible loss of data
+#  pragma warning (disable : 4311)  // pointer truncation from 'type' to 'type'
 #elif (_MSC_VER == 1400)
 // move inside here configs specific to VC++ .Net 2005
 #  define XLW_LIB_TOOLSET "vc80"
+#  pragma warning (disable : 4800)  // forcing value to bool 'true' or 'false'
+#elif (_MSC_VER == 1500)
+// move inside here configs specific to VC++ .Net 2008
+#  define XLW_LIB_TOOLSET "vc90"
+#  pragma warning (disable : 4800)  // forcing value to bool 'true' or 'false'
 #else
 #  define XLW_LIB_TOOLSET "vcxx"
 #endif
