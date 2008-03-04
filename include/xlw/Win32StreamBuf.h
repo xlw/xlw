@@ -15,7 +15,7 @@
 
 /*!
  * \file Win32StreamBuf.h
- * \brief Declares class Win32StreamBuf
+ * \brief Class Win32StreamBuf - Forward stream to Win32 debugger
  * \ingroup utils
  */
 
@@ -33,20 +33,22 @@ Use iostream::rdbuf method to set Win32StreamBuf.
 class Win32StreamBuf: public std::streambuf
 {
 public:
-  Win32StreamBuf() {}
-  ~Win32StreamBuf() {}
-
+    //! \name Structors and static members
+    //@{
+    Win32StreamBuf() {}
+    ~Win32StreamBuf() {}
+    //@}
 protected:
-  int_type overflow(int_type ch);
-  int sync();
+    int_type overflow(int_type ch);
+    int sync();
 
 private:
-  void SendToDebugWindow();
-  std::string buf_;
+    void SendToDebugWindow();
+    std::string buf_;
 
-  // not defined
-  Win32StreamBuf(const Win32StreamBuf&);
-  Win32StreamBuf& operator=(const Win32StreamBuf&);
+    // not defined
+    Win32StreamBuf(const Win32StreamBuf&);
+    Win32StreamBuf& operator=(const Win32StreamBuf&);
 };
 
 #ifdef NDEBUG
@@ -54,3 +56,4 @@ private:
 #endif
 
 #endif // INC_Win32StreamBuf_H
+

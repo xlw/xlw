@@ -18,7 +18,7 @@
 
 /*!
 \file macros.h
-\brief I am not a big fan of macros, but these make life easier.
+\brief Some macros to consolidate XLW code.
 */
 
 // $Id$
@@ -94,7 +94,6 @@ interface to recompile.
 } catch (...) { \
     return XlfOper::Error(xlerrValue); \
 }
-
 */
 
 #define __HERE__ __FILE__ "(" _MAKESTRING(__LINE__) "): "

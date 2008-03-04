@@ -18,3 +18,4 @@
 #include <xlw/XlfOperImpl.h>
 
 XlfOperImpl *XlfOperImpl::instance_ = 0;
+

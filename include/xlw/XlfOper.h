@@ -47,6 +47,7 @@ because the library heavily relies on the fact that LPXLOPER and
 XlfOper have the same size. It allows the library to interpret any
 LPXLOPER sent by Excel as an XlfOper.
 */
+
 class EXCEL32_API XlfOper
 {
     friend class XlfOperImpl;
@@ -55,7 +56,8 @@ class EXCEL32_API XlfOper
     friend class XlfExcel;
 
 public:
-
+    //! \name Structors and static members
+    //@{
     //! Default ctor.
     XlfOper();
     //! Copy ctor.
@@ -91,16 +93,32 @@ public:
         Allocate();
         Set(rows, cols, start);
     }
-
+    //! Destructor
+    ~XlfOper() { XlfOperImpl::instance().destroy(*this); }
     //! Constructs an Excel error.
     static XlfOper Error(WORD word);
-    //! Dtor
-    ~XlfOper() { XlfOperImpl::instance().destroy(*this); }
+    //@}
+
+    //! \name Memory management
+    //@{
     //! Free auxiliary memory associated with the XLOPER
     void FreeAuxiliaryMemory() const  { return XlfOperImpl::instance().FreeAuxiliaryMemory(*this); }
+    //@}
+
+    //! \name Operators
+    //@{
     //! Assignment operator
     XlfOper& operator=(const XlfOper& xloper)  { return XlfOperImpl::instance().assignment_operator(*this, xloper); }
+    //! Cast to XLOPER *.
+    operator LPXLOPER() { return XlfOperImpl::instance().operator_LPXLOPER(*this); }
+    //! Cast to XLOPER12 *.
+    operator LPXLOPER12() { return XlfOperImpl::instance().operator_LPXLOPER12(*this); }
+    //! Cast to LPXLFOPER.
+    operator LPXLFOPER() { return XlfOperImpl::instance().operator_LPXLFOPER(*this); }
+    //@}
 
+    //! \name Inspectors
+    //@{
     //! Is the data missing ?
     bool IsMissing() const { return XlfOperImpl::instance().IsMissing(*this); }
     //! Is the data an error ?
@@ -122,6 +140,14 @@ public:
     //! Is the data an integer ?
     bool IsInt() const { return XlfOperImpl::instance().IsInt(*this); }
 
+    //! The excel code for the underlying datatype
+    DWORD xltype() const { return XlfOperImpl::instance().xltype(*this); }
+    //! String representation of the excel code for the underlying datatype
+    std::string xltypeName () const;
+    //@}
+
+    //! \name Conversions
+    //@{
     //! Converts to a double.
     double AsDouble(int *pxlret = 0) const;
     //! Converts to a double with error identifer.
@@ -170,10 +196,16 @@ public:
 
     //! Converts to a XlfRef.
     XlfRef AsRef(int *pxlret = 0) const;
+    //@}
 
+    //! \name Manage reference to underlying XLOPER
+    //@{
     //! Gets the internal LPXLFOPER.
     LPXLFOPER GetLPXLFOPER() const { return XlfOperImpl::instance().GetLPXLFOPER(*this); }
+    //@}
 
+    //! \name Set the value of the underlying reference
+    //@{
     //! Set the underlying XLOPER * to lpxloper.
     XlfOper& Set(LPXLFOPER lpxlfoper) { return XlfOperImpl::instance().Set(*this, lpxlfoper); }
     //! Set to a double.
@@ -212,40 +244,47 @@ public:
 
     //! Set to an error value.
     XlfOper& SetError(WORD error) { return XlfOperImpl::instance().SetError(*this, error); }
-
-    //! Cast to XLOPER *.
-    operator LPXLOPER() { return XlfOperImpl::instance().operator_LPXLOPER(*this); }
-    //! Cast to XLOPER12 *.
-    operator LPXLOPER12() { return XlfOperImpl::instance().operator_LPXLOPER12(*this); }
-    //! Cast to LPXLFOPER.
-    operator LPXLFOPER() { return XlfOperImpl::instance().operator_LPXLFOPER(*this); }
-
-    DWORD xltype() const { return XlfOperImpl::instance().xltype(*this); }
-    std::string xltypeName () const;
+    //@}
 
 private:
-
+    //! \name Manage reference to underlying XLOPER
+    //@{
     //! Internal LPXLOPER.
     union {
         LPXLOPER lpxloper4_;
         LPXLOPER12 lpxloper12_;
     };
+    //@}
 
+    //! \name Coercion
+    //@{
     //! Coerce method is called by conversion operators if needed (never by the user).
     int Coerce(short type, XlfOper& res) const { return XlfOperImpl::instance().Coerce(*this, type, res); }
+    //@}
 
+    //! \name Memory management
+    //@{
     //! Reserves memory in XLL buffer (garbage collected).
     int Allocate() { return XlfOperImpl::instance().Allocate(*this); }
+    //@}
 
+    //! \name Error handling
+    //@{
     //! Throws an exception when critical errors occur.
     int ThrowOnError(int value) const;
 
     //! Throws an exception when critical errors occur but passes on an identifier to help track it down.
     int ThrowOnError(int value, const std::string& identifier) const;
+    //@}
 
+    //! \name Memory management
+    //@{
     //! Internally used to flag XLOPER returned by Excel.
     static int xlbitFreeAuxMem;
+    //@}
 
+    //! \name Private implementations of conversion routines
+    //@{
     //! Attempts conversion to double and returns Excel error code.
     int ConvertToDoubleVector(std::vector<double>& value, XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional) const
          { return XlfOperImpl::instance().ConvertToDoubleVector(*this, value, policy); }
@@ -280,6 +319,7 @@ private:
     //! Attempts conversion to XlRef and returns Excel error code.
     int ConvertToErr(WORD& e) const throw() {
         return XlfOperImpl::instance().ConvertToErr(*this, e); }
+    //@}
 
 };
 
@@ -288,3 +328,4 @@ private:
 #endif
 
 #endif
+

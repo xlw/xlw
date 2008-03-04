@@ -106,3 +106,4 @@ INLINE LPSTR XlfExcel::GetMemory(size_t bytes) {
     // should never get to this point...
     return 0;
 }
+

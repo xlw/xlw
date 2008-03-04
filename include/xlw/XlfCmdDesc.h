@@ -19,7 +19,7 @@
 
 /*!
 \file XlfCmdDesc.h
-\brief Declares class XlfCmdDesc.
+\brief Class XlfCmdDesc - Encapsulates Excel C macro command
 */
 
 // $Id$
@@ -36,28 +36,36 @@
 
 //! Encapsulates Excel C macro command.
 /*!
-Commands can be called from the tool bar and do not take any argument
+Commands can be called from the tool bar and do not take any arguments
 */
 class EXCEL32_API XlfCmdDesc: public XlfAbstractCmdDesc
 {
 public:
-  //! Ctor.
-  XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden);
-  //! Dtor.
-  ~XlfCmdDesc();
-  //! Adds the command to an Excel menu bar.
-  int AddToMenuBar(const std::string& menu, const std::string& text);
-  //! Is the command already in a menu bar?
-  bool IsAddedToMenuBar();
-  //! Activates/Desactivates the check box next to the command menu.
-  int Check(bool) const;
+    //! \name Structors and static members
+    //@{
+    //! Ctor.
+    XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden);
+    //! Dtor.
+    ~XlfCmdDesc();
+    //@}
 
+    //! \name Management of command properties
+    //@{
+    //! Adds the command to an Excel menu bar.
+    int AddToMenuBar(const std::string& menu, const std::string& text);
+    //! Is the command already in a menu bar?
+    bool IsAddedToMenuBar();
+    //! Activates/Deactivates the check box next to the command menu.
+    int Check(bool) const;
+    //@}
 protected:
-  //! Registers the command to Excel
-  int DoRegister(const std::string& dllName) const;
-  //! Unregisters the function (template method).
-  int DoUnregister(const std::string& dllName) const;
-
+    //! \name Registration
+    //@{
+    //! Registers the command to Excel
+    int DoRegister(const std::string& dllName) const;
+    //! Unregisters the function (template method).
+    int DoUnregister(const std::string& dllName) const;
+    //@}
 private:
   //! Menu in which the command is to be displayed.
   std::string menu_;

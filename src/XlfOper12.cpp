@@ -68,26 +68,26 @@ xltypeRef, xltypeMulti, xltypeBigData.
 */
 XlfOper12::~XlfOper12()
 {
-  if (! lpxloper_)
+    if (! lpxloper_)
+        return;
+
+    int type = lpxloper_->xltype;
+
+    //  Only the types bellow can be flagged xlFreeAuxMem, thus the test is
+    //  actually redundant: we don't need to re-check the type of the oper.
+    //
+    //bool canHaveAuxMem = (type & xltypeStr ||
+    //                      type & xltypeRef ||
+    //                      type & xltypeMulti ||
+    //                      type & xltypeBigData);
+    if (type & xlbitFreeAuxMem)
+    {
+        // switch back the bit as it was originally
+        lpxloper_->xltype &= ~xlbitFreeAuxMem;
+        FreeAuxiliaryMemory();
+    }
+    Deallocate();
     return;
-
-  int type = lpxloper_->xltype;
-
-//  Only the types bellow can be flagged xlFreeAuxMem, thus the test is
-//  actually redundant: we don't need to re-check the type of the oper.
-//
-//  bool canHaveAuxMem = (type & xltypeStr ||
-//                        type & xltypeRef ||
-//                        type & xltypeMulti ||
-//                        type & xltypeBigData);
-  if (type & xlbitFreeAuxMem)
-  {
-    // switch back the bit as it was originally
-    lpxloper_->xltype &= ~xlbitFreeAuxMem;
-    FreeAuxiliaryMemory();
-  }
-  Deallocate();
-  return;
 }
 
 /*!
@@ -107,19 +107,19 @@ be allocated.
 */
 int XlfOper12::Allocate()
 {
-  lpxloper_ = (LPXLOPER12)XlfExcel::Instance().GetMemory(sizeof(XLOPER12));
-  if (!lpxloper_)
-    return xlretInvXloper;
-  lpxloper_->xltype = xltypeNil;
-  return xlretSuccess;
+    lpxloper_ = (LPXLOPER12)XlfExcel::Instance().GetMemory(sizeof(XLOPER12));
+    if (!lpxloper_)
+        return xlretInvXloper;
+    lpxloper_->xltype = xltypeNil;
+    return xlretSuccess;
 }
 
 void XlfOper12::FreeAuxiliaryMemory() const
 {
-  int err = XlfExcel::Instance().XlfExcel::Instance().Call(xlFree, NULL, 1, (LPXLOPER12)lpxloper_);
-  if (err != xlretSuccess)
-    std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
-  return;
+    int err = XlfExcel::Instance().XlfExcel::Instance().Call(xlFree, NULL, 1, (LPXLOPER12)lpxloper_);
+    if (err != xlretSuccess)
+        std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
+    return;
 }
 
 /*!
@@ -128,9 +128,9 @@ void XlfOper12::FreeAuxiliaryMemory() const
 */
 int XlfOper12::Coerce(short type, XlfOper12& result) const
 {
-  XlfOper12 xlType(type);
-  int xlret = XlfExcel::Instance().Call(xlCoerce, (LPXLOPER12)result, 2, (LPXLOPER12)lpxloper_, (LPXLOPER12)xlType);
-  return xlret;
+    XlfOper12 xlType(type);
+    int xlret = XlfExcel::Instance().Call(xlCoerce, (LPXLOPER12)result, 2, (LPXLOPER12)lpxloper_, (LPXLOPER12)xlType);
+    return xlret;
 }
 
 /*!
@@ -142,54 +142,54 @@ variable.
 */
 double XlfOper12::AsDouble(int * pxlret) const
 {
-  double d;
-  int xlret = ConvertToDouble(d);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return d;
+    double d;
+    int xlret = ConvertToDouble(d);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return d;
 };
 double XlfOper12::AsDouble(const std::string& ErrorId, int * pxlret) const
 {
-  double d;
-  int xlret = ConvertToDouble(d);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError( xlret,"Conversion to double "+ErrorId);
-  return d;
+    double d;
+    int xlret = ConvertToDouble(d);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError( xlret,"Conversion to double "+ErrorId);
+    return d;
 };
 
 int XlfOper12::ConvertToDouble(double& d) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (lpxloper_ == 0)
-    return xlretInvXloper;
+    if (lpxloper_ == 0)
+        return xlretInvXloper;
 
-  if (lpxloper_->xltype & xltypeInt)
-  {
-    d = lpxloper_->val.w;
-    xlret=xlretSuccess;
-  }
-  else if (lpxloper_->xltype & xltypeNum)
-  {
-    d = lpxloper_->val.num;
-    xlret=xlretSuccess;
-  }
-  else
-  {
-    // Allocates tmp on the stack to avoid filling the internal buffer.
-    XLOPER12 tmp;
-    // Creates a XlfOper12 based on tmp.
-    XlfOper12 cast(&tmp);
-    // Coerces to numeric type.
-    xlret = Coerce(xltypeNum,cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToDouble(d);
-  }
-  return xlret;
+    if (lpxloper_->xltype & xltypeInt)
+    {
+        d = lpxloper_->val.w;
+        xlret=xlretSuccess;
+    }
+    else if (lpxloper_->xltype & xltypeNum)
+    {
+        d = lpxloper_->val.num;
+        xlret=xlretSuccess;
+    }
+    else
+    {
+        // Allocates tmp on the stack to avoid filling the internal buffer.
+        XLOPER12 tmp;
+        // Creates a XlfOper12 based on tmp.
+        XlfOper12 cast(&tmp);
+        // Coerces to numeric type.
+        xlret = Coerce(xltypeNum,cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToDouble(d);
+    }
+    return xlret;
 };
 
 /*!
@@ -229,23 +229,23 @@ in this variable.
 */
 std::vector<double> XlfOper12::AsDoubleVector(DoubleVectorConvPolicy policy, int * pxlret) const
 {
-  std::vector<double> v;
-  int xlret = ConvertToDoubleVector(v, policy);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return v;
+    std::vector<double> v;
+    int xlret = ConvertToDoubleVector(v, policy);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return v;
 }
 std::vector<double> XlfOper12::AsDoubleVector(const std::string& ErrorId, DoubleVectorConvPolicy policy, int * pxlret) const
 {
-  std::vector<double> v;
-  int xlret = ConvertToDoubleVector(v, policy);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret,ErrorId+" conversion to double vector");
-  return v;
+    std::vector<double> v;
+    int xlret = ConvertToDoubleVector(v, policy);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId+" conversion to double vector");
+    return v;
 }
 
 /*!
@@ -319,38 +319,38 @@ int XlfOper12::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPol
         return xlretSuccess;
     }
 
-  XlfRef ref;
+    XlfRef ref;
 
-  int xlret = ConvertToRef(ref);
-  if (xlret != xlretSuccess)
-    return xlret;
-
-  size_t nbRows = ref.GetNbRows();
-  size_t nbCols = ref.GetNbCols();
-
-  bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
-  if (policy == UniDimensional && ! isUniDimRange)
-    // not a vector we return a failure
-    return xlretFailed;
-
-  size_t n = nbRows*nbCols;
-  v.resize(n);
-
-  for (size_t i = 0; i < nbRows; ++i)
-  {
-    for (size_t j = 0; j < nbCols; ++j)
-    {
-      if (policy == RowMajor)
-        // C-like dense matrix storage
-        xlret = ref.element<XlfOper12>(i,j).ConvertToDouble(v[i*nbCols+j]);
-      else
-        // Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
-        xlret = ref.element<XlfOper12>(i,j).ConvertToDouble(v[j*nbRows+i]);
-      if (xlret != xlretSuccess)
+    int xlret = ConvertToRef(ref);
+    if (xlret != xlretSuccess)
         return xlret;
+
+    size_t nbRows = ref.GetNbRows();
+    size_t nbCols = ref.GetNbCols();
+
+    bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
+    if (policy == UniDimensional && ! isUniDimRange)
+        // not a vector we return a failure
+        return xlretFailed;
+
+    size_t n = nbRows*nbCols;
+    v.resize(n);
+
+    for (size_t i = 0; i < nbRows; ++i)
+    {
+        for (size_t j = 0; j < nbCols; ++j)
+        {
+            if (policy == RowMajor)
+                // C-like dense matrix storage
+                xlret = ref.element<XlfOper12>(i,j).ConvertToDouble(v[i*nbCols+j]);
+            else
+                // Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
+                xlret = ref.element<XlfOper12>(i,j).ConvertToDouble(v[j*nbRows+i]);
+            if (xlret != xlretSuccess)
+                return xlret;
+        }
     }
-  }
-  return xlret;
+    return xlret;
 };
 
 /*!
@@ -362,49 +362,50 @@ variable.
 */
 short XlfOper12::AsShort(int * pxlret) const
 {
-  short s;
-  int xlret = ConvertToShort(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return s;
+    short s;
+    int xlret = ConvertToShort(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return s;
 };
 
 short XlfOper12::AsShort(const std::string& ErrorId, int * pxlret) const
 {
-  short s;
-  int xlret = ConvertToShort(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret,ErrorId+" conversion to short failed");
-  return s;
+    short s;
+    int xlret = ConvertToShort(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId+" conversion to short failed");
+    return s;
 };
+
 int XlfOper12::ConvertToShort(short& s) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (lpxloper_ == 0)
-    return xlretInvXloper;
+    if (lpxloper_ == 0)
+        return xlretInvXloper;
 
-  if (lpxloper_->xltype & xltypeNum)
-  {
-    s = static_cast<short>(lpxloper_->val.num);
-    xlret=xlretSuccess;
-  }
-  else
-  {
-    // Allocates tmp on the stack to avoid filling the internal buffer.
-    XLOPER12 tmp;
-    // Creates a XlfOper12 based on tmp.
-    XlfOper12 cast(&tmp);
-    // Coerces to numeric type.
-    xlret = Coerce(xltypeNum,cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToShort(s);
-  }
-  return xlret;
+    if (lpxloper_->xltype & xltypeNum)
+    {
+        s = static_cast<short>(lpxloper_->val.num);
+        xlret=xlretSuccess;
+    }
+    else
+    {
+        // Allocates tmp on the stack to avoid filling the internal buffer.
+        XLOPER12 tmp;
+        // Creates a XlfOper12 based on tmp.
+        XlfOper12 cast(&tmp);
+        // Coerces to numeric type.
+        xlret = Coerce(xltypeNum,cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToShort(s);
+    }
+    return xlret;
 };
 
 /*!
@@ -416,46 +417,46 @@ variable.
 */
 bool XlfOper12::AsBool(int * pxlret) const
 {
-  bool b;
-  int xlret = ConvertToBool(b);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return b;
+    bool b;
+    int xlret = ConvertToBool(b);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return b;
 };
 bool XlfOper12::AsBool(const std::string& ErrorId, int * pxlret) const
 {
-  bool b;
-  int xlret = ConvertToBool(b);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret,ErrorId+" conversion to bool failed");
-  return b;
+    bool b;
+    int xlret = ConvertToBool(b);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId+" conversion to bool failed");
+    return b;
 };
 int XlfOper12::ConvertToBool(bool& b) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (lpxloper_ == 0)
-    return xlretInvXloper;
+    if (lpxloper_ == 0)
+        return xlretInvXloper;
 
-  if (lpxloper_->xltype & xltypeBool)
-  {
-    b = (lpxloper_->val.xbool != 0);
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see ConvertToDouble
-    XLOPER12 tmp;
-    XlfOper12 cast(&tmp);
-    xlret = Coerce(xltypeBool,cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToBool(b);
-  }
-  return xlret;
+    if (lpxloper_->xltype & xltypeBool)
+    {
+        b = (lpxloper_->val.xbool != 0);
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see ConvertToDouble
+        XLOPER12 tmp;
+        XlfOper12 cast(&tmp);
+        xlret = Coerce(xltypeBool,cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToBool(b);
+    }
+    return xlret;
 };
 
 /*!
@@ -467,24 +468,24 @@ in this variable.
 */
 MyMatrix XlfOper12::AsMatrix( int * pxlret) const
 {
-  MyMatrix output; // will be resized anyway
-  int xlret = ConvertToMatrix(output);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret," conversion to matrix failed");
-  return output;
+    MyMatrix output; // will be resized anyway
+    int xlret = ConvertToMatrix(output);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret," conversion to matrix failed");
+    return output;
 }
 
 MyMatrix XlfOper12::AsMatrix( const std::string& ErrorId, int * pxlret) const
 {
-  MyMatrix output; // will be resized anyway
-  int xlret = ConvertToMatrix(output);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret,ErrorId+" conversion to matrix failed");
-  return output;
+    MyMatrix output; // will be resized anyway
+    int xlret = ConvertToMatrix(output);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId+" conversion to matrix failed");
+    return output;
 }
 
 /*! converts the XlfOper12 to a matrix, since if its a valid matrix
@@ -497,8 +498,8 @@ int XlfOper12::ConvertToMatrix(MyMatrix& value) const
     if (lpxloper_->xltype == xltypeMissing || lpxloper_->xltype == xltypeNil )
     {
 
-       MyMatrix tmp;
-       value = tmp;
+        MyMatrix tmp;
+        value = tmp;
 
         return xlretSuccess;
     }
@@ -528,24 +529,24 @@ in this variable.
 */
 CellMatrix XlfOper12::AsCellMatrix( int * pxlret) const
 {
-  CellMatrix output(1,1); // will be resized anyway
-  int xlret = ConvertToCellMatrix(output);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret," conversion to cell matrix failed");
-  return output;
+    CellMatrix output(1,1); // will be resized anyway
+    int xlret = ConvertToCellMatrix(output);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret," conversion to cell matrix failed");
+    return output;
 }
 
 CellMatrix XlfOper12::AsCellMatrix( const std::string& ErrorId, int * pxlret) const
 {
-  CellMatrix output(1,1); // will be resized anyway
-  int xlret = ConvertToCellMatrix(output);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret,ErrorId+" conversion to cell matrix failed");
-  return output;
+    CellMatrix output(1,1); // will be resized anyway
+    int xlret = ConvertToCellMatrix(output);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId+" conversion to cell matrix failed");
+    return output;
 }
 int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 {
@@ -567,8 +568,6 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 
         output = tmp;
 
-
-
         return xlretSuccess;
     }
 
@@ -579,7 +578,6 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
         tmp(0,0) = (lpxloper_->val.xbool >0);
 
         output = tmp;
-
 
         return xlretSuccess;
     }
@@ -800,26 +798,26 @@ int XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 
 int XlfOper12::ConvertToErr(WORD& e) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (lpxloper_ == 0)
-    return xlretInvXloper;
+    if (lpxloper_ == 0)
+        return xlretInvXloper;
 
-  if (lpxloper_->xltype & xltypeErr)
-  {
-    e = lpxloper_->val.err ;
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see ConvertToDouble
-    XLOPER12 tmp;
-    XlfOper12 cast(&tmp);
-    xlret = Coerce(xltypeErr,cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToErr(e);
-  }
-  return xlret;
+    if (lpxloper_->xltype & xltypeErr)
+    {
+        e = lpxloper_->val.err ;
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see ConvertToDouble
+        XLOPER12 tmp;
+        XlfOper12 cast(&tmp);
+        xlret = Coerce(xltypeErr,cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToErr(e);
+    }
+    return xlret;
 };
 
 /*!
@@ -835,95 +833,95 @@ a char string is the slowest cast of all.
 */
 char * XlfOper12::AsString(int * pxlret) const
 {
-  char * s;
-  int xlret = ConvertToString(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return s;
+    char * s;
+    int xlret = ConvertToString(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return s;
 };
 
 char * XlfOper12::AsString(const std::string& ErrorId, int * pxlret) const
 {
-  char * s;
-  int xlret = ConvertToString(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-      ThrowOnError(xlret,ErrorId+" conversion to char* failed");
-  return s;
+    char * s;
+    int xlret = ConvertToString(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId+" conversion to char* failed");
+    return s;
 };
 std::wstring XlfOper12::AsWstring(int * pxlret) const
 {
-	std::wstring s;
-  int xlret = ConvertToWstring(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return s;
+    std::wstring s;
+    int xlret = ConvertToWstring(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return s;
 };
 
 int XlfOper12::ConvertToString(char *& s) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (lpxloper_ == 0)
-    return xlretInvXloper;
+    if (lpxloper_ == 0)
+        return xlretInvXloper;
 
-  if (lpxloper_->xltype & xltypeStr)
-  {
-    size_t n = lpxloper_->val.str[0];
-    s = XlfExcel::Instance().GetMemory(n + 1);
-    wcstombs(s, lpxloper_->val.str + 1, n);
-    s[n] = 0;
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see AsDouble
-    XLOPER12 tmp;
-    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
-    // so that the memory which Excel allocates to that variable (the string) is freed
-    // when the variable goes out of scope.
-    XlfOper12 cast(&tmp);
-    xlret = Coerce(xltypeStr,cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToString(s);
-  }
-  return xlret;
+    if (lpxloper_->xltype & xltypeStr)
+    {
+        size_t n = lpxloper_->val.str[0];
+        s = XlfExcel::Instance().GetMemory(n + 1);
+        wcstombs(s, lpxloper_->val.str + 1, n);
+        s[n] = 0;
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see AsDouble
+        XLOPER12 tmp;
+        // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+        // so that the memory which Excel allocates to that variable (the string) is freed
+        // when the variable goes out of scope.
+        XlfOper12 cast(&tmp);
+        xlret = Coerce(xltypeStr,cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToString(s);
+    }
+    return xlret;
 }
 
 int XlfOper12::ConvertToWstring(std::wstring &w) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (lpxloper_ == 0)
-    return xlretInvXloper;
+    if (lpxloper_ == 0)
+        return xlretInvXloper;
 
-  if (lpxloper_->xltype & xltypeStr)
-  {
-    size_t n = lpxloper_->val.str[0];
-    wchar_t *s = reinterpret_cast<wchar_t*>(XlfExcel::Instance().GetMemory(n*2+1));
-    memcpy(s, lpxloper_->val.str + 1, n*2);
-	s[n] = 0;
-	w = std::wstring(s);
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see AsDouble
-    XLOPER12 tmp;
-    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
-    // so that the memory which Excel allocates to that variable (the string) is freed
-    // when the variable goes out of scope.
-    XlfOper12 cast(&tmp);
-    xlret = Coerce(xltypeStr,cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToWstring(w);
-  }
-  return xlret;
+    if (lpxloper_->xltype & xltypeStr)
+    {
+        size_t n = lpxloper_->val.str[0];
+        wchar_t *s = reinterpret_cast<wchar_t*>(XlfExcel::Instance().GetMemory(n*2+1));
+        memcpy(s, lpxloper_->val.str + 1, n*2);
+        s[n] = 0;
+        w = std::wstring(s);
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see AsDouble
+        XLOPER12 tmp;
+        // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+        // so that the memory which Excel allocates to that variable (the string) is freed
+        // when the variable goes out of scope.
+        XlfOper12 cast(&tmp);
+        xlret = Coerce(xltypeStr,cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToWstring(w);
+    }
+    return xlret;
 }
 
 /*!
@@ -935,45 +933,45 @@ variable.
 */
 XlfRef XlfOper12::AsRef(int * pxlret) const
 {
-  XlfRef r;
-  int xlret = ConvertToRef(r);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return r;
+    XlfRef r;
+    int xlret = ConvertToRef(r);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return r;
 }
 
 int XlfOper12::ConvertToRef(XlfRef& r) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (lpxloper_ == 0)
-    return xlretInvXloper;
+    if (lpxloper_ == 0)
+        return xlretInvXloper;
 
-  if (lpxloper_->xltype & xltypeRef)
-  {
-    const XLREF12& ref=lpxloper_->val.mref.lpmref->reftbl[0];
-    r = XlfRef (ref.rwFirst,  // top
-                ref.colFirst, // left
-                ref.rwLast,   // bottom
-                ref.colLast,  // right
-                lpxloper_->val.mref.idSheet); // sheet id
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see AsDouble
-    XLOPER12 tmp;
-    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
-    // so that the memory which Excel allocates to that variable (the reference) is freed
-    // when the variable goes out of scope.
-    XlfOper12 cast(&tmp);
-    xlret = Coerce(xltypeRef,cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToRef(r);
-  }
-  return xlret;
+    if (lpxloper_->xltype & xltypeRef)
+    {
+        const XLREF12& ref=lpxloper_->val.mref.lpmref->reftbl[0];
+        r = XlfRef (ref.rwFirst,  // top
+                    ref.colFirst, // left
+                    ref.rwLast,   // bottom
+                    ref.colLast,  // right
+                    lpxloper_->val.mref.idSheet); // sheet id
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see AsDouble
+        XLOPER12 tmp;
+        // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+        // so that the memory which Excel allocates to that variable (the reference) is freed
+        // when the variable goes out of scope.
+        XlfOper12 cast(&tmp);
+        xlret = Coerce(xltypeRef,cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToRef(r);
+    }
+    return xlret;
 }
 
 XlfOper12& XlfOper12::Set(const MyMatrix& values)
@@ -1045,58 +1043,58 @@ XlfOper12& XlfOper12::Set(const CellMatrix& cells)
 
 XlfOper12& XlfOper12::Set(LPXLOPER12 lpxloper)
 {
-  assert(lpxloper != 0);
-  lpxloper_ = lpxloper;
-  return *this;
+    assert(lpxloper != 0);
+    lpxloper_ = lpxloper;
+    return *this;
 }
 
 XlfOper12& XlfOper12::Set(double value)
 {
-  if (lpxloper_)
-  {
-    lpxloper_->xltype = xltypeNum;
-    lpxloper_->val.num = value;
-  }
-  return *this;
+    if (lpxloper_)
+    {
+        lpxloper_->xltype = xltypeNum;
+        lpxloper_->val.num = value;
+    }
+    return *this;
 }
 
 XlfOper12& XlfOper12::Set(short value)
 {
-  if (lpxloper_)
-  {
-    lpxloper_->xltype = xltypeInt;
-    lpxloper_->val.w = value;
-  }
-  return *this;
+    if (lpxloper_)
+    {
+        lpxloper_->xltype = xltypeInt;
+        lpxloper_->val.w = value;
+    }
+    return *this;
 }
 
 //! bool for disambiguation
 XlfOper12& XlfOper12::Set(short value, bool Error)
 {
-  if (lpxloper_)
-  {
-    if (Error)
+    if (lpxloper_)
     {
-        lpxloper_->xltype = xltypeErr;
-        lpxloper_->val.err =value;
+        if (Error)
+        {
+            lpxloper_->xltype = xltypeErr;
+            lpxloper_->val.err =value;
+        }
+        else
+        {
+            lpxloper_->xltype = xltypeInt;
+            lpxloper_->val.w = value;
+        }
     }
-    else
-    {
-        lpxloper_->xltype = xltypeInt;
-        lpxloper_->val.w = value;
-    }
-  }
-  return *this;
+    return *this;
 }
 
 XlfOper12& XlfOper12::Set(bool value)
 {
-  if (lpxloper_)
-  {
-    lpxloper_->xltype = xltypeBool;
-    lpxloper_->val.xbool = value;
-  }
-  return *this;
+    if (lpxloper_)
+    {
+        lpxloper_->xltype = xltypeBool;
+        lpxloper_->val.xbool = value;
+    }
+    return *this;
 }
 
 /*!
@@ -1105,28 +1103,28 @@ to an invalid state and the XlfRef is not copied.
 */
 XlfOper12& XlfOper12::Set(const XlfRef& range)
 {
-  if (lpxloper_)
-  {
-    lpxloper_->xltype = xltypeRef;
-    XLMREF12 * pmRef = reinterpret_cast<XLMREF12 *>(XlfExcel::Instance().GetMemory(sizeof(XLMREF12)));
-    // if no memory is available
-    if (pmRef == 0)
+    if (lpxloper_)
     {
-      // set XlfOper12 to an invalid state
-      lpxloper_=0;
+        lpxloper_->xltype = xltypeRef;
+        XLMREF12 * pmRef = reinterpret_cast<XLMREF12 *>(XlfExcel::Instance().GetMemory(sizeof(XLMREF12)));
+        // if no memory is available
+        if (pmRef == 0)
+        {
+            // set XlfOper12 to an invalid state
+            lpxloper_=0;
+        }
+        else
+        {
+            pmRef->count=1;
+            pmRef->reftbl[0].rwFirst = range.GetRowBegin();
+            pmRef->reftbl[0].rwLast = range.GetRowEnd()-1;
+            pmRef->reftbl[0].colFirst = range.GetColBegin();
+            pmRef->reftbl[0].colLast = range.GetColEnd()-1;
+            lpxloper_->val.mref.lpmref = pmRef;
+            lpxloper_->val.mref.idSheet = range.GetSheetId();
+        }
     }
-    else
-    {
-      pmRef->count=1;
-      pmRef->reftbl[0].rwFirst = range.GetRowBegin();
-      pmRef->reftbl[0].rwLast = range.GetRowEnd()-1;
-      pmRef->reftbl[0].colFirst = range.GetColBegin();
-      pmRef->reftbl[0].colLast = range.GetColEnd()-1;
-      lpxloper_->val.mref.lpmref = pmRef;
-      lpxloper_->val.mref.idSheet = range.GetSheetId();
-    }
-  }
-  return *this;
+    return *this;
 }
 
 /*!
@@ -1138,31 +1136,31 @@ is issued in debug mode.
 */
 XlfOper12& XlfOper12::Set(const char *value)
 {
-  if (lpxloper_)
-  {
-    int len = strlen(value);
-    lpxloper_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(len*2+2);
-    if (lpxloper_->val.str) {
-        lpxloper_->xltype = xltypeStr;
-        mbstowcs(lpxloper_->val.str + 1, value, len*2);
-        lpxloper_->val.str[0] = len;
-    } else {
-        lpxloper_ = 0;
+    if (lpxloper_)
+    {
+        int len = strlen(value);
+        lpxloper_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(len*2+2);
+        if (lpxloper_->val.str) {
+            lpxloper_->xltype = xltypeStr;
+            mbstowcs(lpxloper_->val.str + 1, value, len*2);
+            lpxloper_->val.str[0] = len;
+        } else {
+            lpxloper_ = 0;
+        }
     }
-  }
-  return *this;
+    return *this;
 }
 
 XlfOper12& XlfOper12::Set(const std::wstring &value)
 {
-  if (lpxloper_)
-  {
-    lpxloper_->xltype = xltypeStr;
-    lpxloper_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(value.length()*2+2);
-    wcsncpy(lpxloper_->val.str + 1, value.c_str(), value.length());
-    lpxloper_->val.str[0] = value.length();
-  }
-  return *this;
+    if (lpxloper_)
+    {
+        lpxloper_->xltype = xltypeStr;
+        lpxloper_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(value.length()*2+2);
+        wcsncpy(lpxloper_->val.str + 1, value.c_str(), value.length());
+        lpxloper_->val.str[0] = value.length();
+    }
+    return *this;
 }
 
 /*!
@@ -1170,12 +1168,12 @@ XlfOper12& XlfOper12::Set(const std::wstring &value)
 */
 XlfOper12& XlfOper12::SetError(WORD error)
 {
-  if (lpxloper_)
-  {
-    lpxloper_->xltype = xltypeErr;
-    lpxloper_->val.err = error;
-  }
-  return *this;
+    if (lpxloper_)
+    {
+        lpxloper_->xltype = xltypeErr;
+        lpxloper_->val.err = error;
+    }
+    return *this;
 }
 
 /*!
@@ -1189,26 +1187,26 @@ Other events throw std::runtime_error.
 */
 int XlfOper12::ThrowOnError(int xlret) const
 {
-  if (xlret == xlretSuccess)
-    return xlret;
+    if (xlret == xlretSuccess)
+        return xlret;
 
-  if (xlret & xlretUncalced)
-    throw XlfExceptionUncalculated();
-  if (xlret & xlretAbort)
-    throw XlfExceptionAbort();
-  if (xlret & xlretStackOvfl)
-    throw XlfExceptionStackOverflow();
-  if (xlret & xlretInvXloper)
-    throw XlfException("invalid OPER structure (memory could be exhausted)");
-  if (xlret & xlretFailed)
-    throw std::runtime_error("command failed");
-  if (xlret & xlretInvCount)
-    throw std::runtime_error("invalid number of argument");
-  if (xlret & xlretInvXlfn)
-    throw std::runtime_error("invalid function number");
-  // should never get there.
-  assert(0);
-  return xlret;
+    if (xlret & xlretUncalced)
+        throw XlfExceptionUncalculated();
+    if (xlret & xlretAbort)
+        throw XlfExceptionAbort();
+    if (xlret & xlretStackOvfl)
+        throw XlfExceptionStackOverflow();
+    if (xlret & xlretInvXloper)
+        throw XlfException("invalid OPER structure (memory could be exhausted)");
+    if (xlret & xlretFailed)
+        throw std::runtime_error("command failed");
+    if (xlret & xlretInvCount)
+        throw std::runtime_error("invalid number of argument");
+    if (xlret & xlretInvXlfn)
+        throw std::runtime_error("invalid function number");
+    // should never get there.
+    assert(0);
+    return xlret;
 }
 
 
@@ -1224,26 +1222,26 @@ problems.
 */
 int XlfOper12::ThrowOnError(int xlret, const std::string& Identifier) const
 {
-  if (xlret == xlretSuccess)
-    return xlret;
+    if (xlret == xlretSuccess)
+        return xlret;
 
-  if (xlret & xlretUncalced)
-    throw XlfExceptionUncalculated();
-  if (xlret & xlretAbort)
-    throw XlfExceptionAbort();
-  if (xlret & xlretStackOvfl)
-    throw XlfExceptionStackOverflow();
-  if (xlret & xlretInvXloper)
-    throw XlfException("invalid OPER structure (memory could be exhausted),"+Identifier);
-  if (xlret & xlretFailed)
-    throw std::runtime_error("command failed, "+Identifier);
-  if (xlret & xlretInvCount)
-    throw std::runtime_error("invalid number of argument, "+Identifier);
-  if (xlret & xlretInvXlfn)
-    throw std::runtime_error("invalid function number, "+Identifier);
-  // should never get there.
-  assert(0);
-  return xlret;
+    if (xlret & xlretUncalced)
+        throw XlfExceptionUncalculated();
+    if (xlret & xlretAbort)
+        throw XlfExceptionAbort();
+    if (xlret & xlretStackOvfl)
+        throw XlfExceptionStackOverflow();
+    if (xlret & xlretInvXloper)
+        throw XlfException("invalid OPER structure (memory could be exhausted),"+Identifier);
+    if (xlret & xlretFailed)
+        throw std::runtime_error("command failed, "+Identifier);
+    if (xlret & xlretInvCount)
+        throw std::runtime_error("invalid number of argument, "+Identifier);
+    if (xlret & xlretInvXlfn)
+        throw std::runtime_error("invalid function number, "+Identifier);
+    // should never get there.
+    assert(0);
+    return xlret;
 }
 
 DWORD XlfOper12::xltype() const {
@@ -1252,3 +1250,4 @@ DWORD XlfOper12::xltype() const {
     else
         return 0;
 }
+

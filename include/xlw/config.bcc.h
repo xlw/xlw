@@ -19,9 +19,6 @@
 #ifndef xlw_config_bcc_h
 #define xlw_config_bcc_h
 
-
-
-
 //! Partial support of member templates (if defined inline).
 //#define PORT_PARTIAL_MEMBER_TEMPLATE
 //! Imports symbol if exist, for shared library.

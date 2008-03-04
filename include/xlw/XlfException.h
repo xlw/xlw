@@ -19,7 +19,7 @@
 
 /*!
 \file XlfException.h
-\brief Declares XlfException class hierarchy.
+\brief Class XlfException - Excel emergency exceptions
 */
 
 // $Id$
@@ -40,7 +40,7 @@ class EXCEL32_API XlfOper;
 
 //! Excel emergency exceptions
 /*!
-It is important to distinguish exception thrown as XlfException
+It is important to distinguish exceptions thrown as XlfException
 from others because they will be caught differently by the wrapper.
 See EXCEL_END.
 
@@ -52,12 +52,12 @@ for example XlfExceptionUncalculated.
 class EXCEL32_API XlfException : public std::exception
 {
 public:
-  //! Message string ctor.
-  XlfException(const std::string& what = "");
-  //! std::exception interface
-  const char* what () const throw ();
-  //! the automatically generated destructor would not have the throw specifier.
-  ~XlfException () throw () {}
+    //! Message string ctor.
+    XlfException(const std::string& what = "");
+    //! std::exception interface
+    const char* what () const throw ();
+    //! the automatically generated destructor would not have the throw specifier.
+    ~XlfException () throw () {}
 private:
     std::string what_;
 };
@@ -84,14 +84,14 @@ Usually thrown by the user after XlfExcel::IsEscPressed had return true.
 class EXCEL32_API XlfExceptionAbort: public XlfException
 {
 public:
-  XlfExceptionAbort(): XlfException("abort") {}
+    XlfExceptionAbort(): XlfException("abort") {}
 };
 
 //! Stack overflow.
 class EXCEL32_API XlfExceptionStackOverflow: public XlfException
 {
 public:
-  XlfExceptionStackOverflow(): XlfException("stack overflow") {}
+    XlfExceptionStackOverflow(): XlfException("stack overflow") {}
 };
 
 #ifdef NDEBUG

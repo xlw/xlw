@@ -34,46 +34,46 @@ are not used in excel32 framework.
 #endif
 
 
-#if   defined(__BORLANDC__)      // Borland C++ 5.5
-    #include <xlw/config.bcc.h>
-#elif defined(_MSC_VER)          // Microsoft Visual C++
+#if defined(_MSC_VER)               // Microsoft Visual C++
     #include <xlw/config.msvc.h>
-#elif defined(__MINGW32__)       // Minimalistic GNU for Windows
+#elif defined(__MINGW32__)          // Minimalistic GNU for Windows
     #include <xlw/config.mgw.h>
+//#if   defined(__BORLANDC__)         // Borland C++
+//    #include <xlw/config.bcc.h>
 #else                            // other compiler not supported
     #error Unsupported compiler - please contact the XLW team
 #endif
 
 
-//! namespace work-around for compiler who don't support it.
+//! namespace work-around for compilers which don't support it.
 #ifdef PORT_NO_NAMESPACE
 #define PORT_BEGIN_NAMESPACE(X)
 #else
 #define PORT_BEGIN_NAMESPACE(X) namespace X {
 #endif
 
-//! namespace work-around for compiler who don't support it.
+//! namespace work-around for compilers which don't support it.
 #ifdef PORT_NO_NAMESPACE
 #define PORT_END_NAMESPACE
 #else
 #define PORT_END_NAMESPACE }
 #endif
 
-//! namespace work-around for compiler who don't support it.
+//! namespace work-around for compilers which don't support it.
 #ifdef PORT_NO_NAMESPACE
 #define PORT_USING_NAMESPACE(X)
 #else
 #define PORT_USING_NAMESPACE(X) using namespace X
 #endif
 
-//! namespace work-around for compiler who don't support it.
+//! namespace work-around for compilers which don't support it.
 #ifdef PORT_NO_NAMESPACE
 #define PORT_USING(X)
 #else
 #define PORT_USING(X) using X
 #endif
 
-//! namespace work-around for compiler who don't support it.
+//! namespace work-around for compilers which don't support it.
 #if defined(PORT_NO_NAMESPACE) && !defined(std)
 #define std
 #endif

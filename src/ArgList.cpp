@@ -275,7 +275,7 @@ ArgumentList::ArgumentList(CellMatrix cells,
 
                         cellBelow=empty;
                     }
-                    else // ok its a string
+                    else // ok it's a string
                     {
                         std::string stringVal = cellBelow.StringValueLowerCase();
 
@@ -320,7 +320,7 @@ ArgumentList::ArgumentList(CellMatrix cells,
                             rowsDown = maxi(rowsDown,extracted.RowsInStructure()+2);
                             column+= extracted.ColumnsInStructure();
                         }
-                        else // ok its an array or boring string
+                        else // ok it's an array or boring string
                         {
                             if (cellBelow.StringValueLowerCase() == "array"
                                 ||cellBelow.StringValueLowerCase() == "vector" )

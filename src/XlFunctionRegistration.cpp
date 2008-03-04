@@ -158,3 +158,4 @@ ExcelFunctionRegistrationRegistry::ExcelFunctionRegistrationRegistry()
 ExcelFunctionRegistrationRegistry::ExcelFunctionRegistrationRegistry(const ExcelFunctionRegistrationRegistry& original)
 { // declared to make private
 }
+

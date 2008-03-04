@@ -29,33 +29,34 @@ std::streambuf * oldStreamBuf;
 extern "C"
 {
 
-  long EXCEL_EXPORT xlAutoOpen()
-  {
-      try {
+    long EXCEL_EXPORT xlAutoOpen()
+    {
+        try {
 
-        oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
-        std::cerr << XLW__HERE__ << "std::cerr redirected to MSVC debugger" << std::endl;
+            oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
+            std::cerr << XLW__HERE__ << "std::cerr redirected to MSVC debugger" << std::endl;
 
-        // Displays a message in the status bar.
-        XlfExcel::Instance().SendMessage("Registering library...");
+            // Displays a message in the status bar.
+            XlfExcel::Instance().SendMessage("Registering library...");
+            
+            XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheRegistrations();
 
-        XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheRegistrations();
+            // Clears the status bar.
+            XlfExcel::Instance().SendMessage();
+            return 1;
 
-        // Clears the status bar.
-        XlfExcel::Instance().SendMessage();
+        } catch(...) {
+            return 0;
+        }
+    }
+
+    long EXCEL_EXPORT xlAutoClose()
+    {
+        std::cerr << XLW__HERE__ << "Releasing ressources" << std::endl;
+        delete &XlfExcel::Instance();
+        std::cerr.rdbuf(oldStreamBuf);
         return 1;
-
-      } catch(...) {
-        return 0;
-      }
-  }
-
-  long EXCEL_EXPORT xlAutoClose()
-  {
-    std::cerr << XLW__HERE__ << "Releasing ressources" << std::endl;
-    delete &XlfExcel::Instance();
-    std::cerr.rdbuf(oldStreamBuf);
-    return 1;
-  }
+    }
 
 }
+

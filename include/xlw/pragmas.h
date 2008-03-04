@@ -21,7 +21,7 @@
 \brief Pragmas directives are to be included before any header.
 
 There is not much about this file, it mainly deactives the warning C4251,
-C4275 and C4786. The later also guards against a bug in MSVC 6.0 that
+C4275 and C4786. The latter also guards against a bug in MSVC 6.0 that
 causes C4786 to reappear even though you already deactivated it. see
 http://www.deja.com for more information about C4786.
 */

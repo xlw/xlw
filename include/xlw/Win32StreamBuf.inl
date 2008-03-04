@@ -46,7 +46,7 @@ INLINE int Win32StreamBuf::overflow(int ch)
 {
     if (!traits_type::eq_int_type(traits_type::eof(), ch))
     {
-        buf_.append(1, traits_type::to_char_type(ch));         // 1
+        buf_.append(1, traits_type::to_char_type(ch));
     }
     else
     {

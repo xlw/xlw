@@ -107,8 +107,8 @@ const std::string& XlfAbstractCmdDesc::GetComment() const
 }
 
 /*!
-The new arguments replace all the old one (if any set). You can not
-push back the arguments one by one.
+The new arguments overwrite any existing ones that have previously been set.
+You cannot push back the arguments one by one.
 */
 void XlfAbstractCmdDesc::SetArguments(const XlfArgDescList& arguments)
 {

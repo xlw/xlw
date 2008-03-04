@@ -47,92 +47,118 @@ Instance() method.
 class EXCEL32_API XlfExcel
 {
 public:
-  //! Used to obtain instance on XlfExcel object.
-  static XlfExcel& Instance();
-  //! Sends an Excel message box
-  static void MsgBox(const char *, const char *title = 0);
-  //! Dtor.
-  ~XlfExcel();
-  //! Allocates memory in the framework temporary buffer
-  LPSTR GetMemory(size_t bytes);
-  //! Frees temporary memory used by the XLL
-  void FreeMemory(bool finished=false);
-  //! Gets XLL name
-  std::string GetName() const;
-  //! Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel)
-  int __cdecl Call(int xlfn, LPXLFOPER pxResult, int count, ...) const;
-  int __cdecl Call4(int xlfn, LPXLOPER pxResult, int count, ...) const;
-  int __cdecl Call12(int xlfn, LPXLOPER12 pxResult, int count, ...) const;
-  //! Same as above but with an argument array instead of the variable length argument list
-  int Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const;
-  int Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
-  int Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdata[]) const;
+    //! \name Structors and static members
+    //@{
+    //! Used to obtain instance on XlfExcel object.
+    static XlfExcel& Instance();
+    //! Sends an Excel message box
+    static void MsgBox(const char *, const char *title = 0);
+    //! Dtor.
+    ~XlfExcel();
+    //@}
 
-  // Wrapped functions that are often needed and/or painful to code
+    //! \name Memory management
+    //@{
+    //! Allocates memory in the framework temporary buffer
+    LPSTR GetMemory(size_t bytes);
+    //! Frees temporary memory used by the XLL
+    void FreeMemory(bool finished=false);
+    //@}
 
-  //! Sends a message in Excel status bar.
-  void SendMessage(const char * msg=0);
-  //! Was the Esc key pressed ?
-  bool IsEscPressed() const;
-  //! Is the function being calculated currently called by the Function Wizard ?
-  bool IsCalledByFuncWiz() const;
+    //! \name Inspectors
+    //@{
+    //! Gets XLL name
+    std::string GetName() const;
+    //@}
 
-  bool excel12() const { return excel12_; }
-  std::string xlfOperType() const { return xlfOperType_; }
-  std::string xlfXloperType() const { return xlfXloperType_; }
-  std::string wStrType() const { return wStrType_; }
+    //! \name Wrappers for Excel Call function
+    //@{
+    //! Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel)
+    int __cdecl Call(int xlfn, LPXLFOPER pxResult, int count, ...) const;
+    int __cdecl Call4(int xlfn, LPXLOPER pxResult, int count, ...) const;
+    int __cdecl Call12(int xlfn, LPXLOPER12 pxResult, int count, ...) const;
+    //! Same as above but with an argument array instead of the variable length argument list
+    int Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const;
+    int Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
+    int Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdata[]) const;
+    //@}
+
+    //! \name Wrappers for selected Excel operations
+    //@{
+    /*!
+    Wrapped functions that are often needed and/or painful to code
+    */
+    //! Sends a message in Excel status bar.
+    void SendMessage(const char * msg=0);
+    //! Was the Esc key pressed ?
+    bool IsEscPressed() const;
+    //! Is the function being calculated currently called by the Function Wizard ?
+    bool IsCalledByFuncWiz() const;
+    //@}
+
+    //! \name Information about the running version of Excel
+    //@{
+    //! Boolean differentiating Excel 12 (2007) from previous versions
+    bool excel12() const { return excel12_; }
+    //! The OPER type in use by this version of Excel
+    std::string xlfOperType() const { return xlfOperType_; }
+    //! The OPER type in use by this version of Excel
+    std::string xlfXloperType() const { return xlfXloperType_; }
+    //! The string type in use by this version of Excel
+    std::string wStrType() const { return wStrType_; }
+    //@}
 
 private:
-  //! Static pointer to the unique instance of XlfExcel object.
-  static XlfExcel *this_;
+    //! Static pointer to the unique instance of XlfExcel object.
+    static XlfExcel *this_;
 
-  //! Memory buffer used to store data that are passed to Excel
-  /*!
-  When we pass XLOPER from the XLL towards Excel we should not use
-  XLL local variables as it would be freed before MSExcel could get
-  the data.
+    //! Memory buffer used to store data that are passed to Excel
+    /*!
+    When we pass XLOPER from the XLL towards Excel we should not use
+    XLL local variables as it would be freed before MSExcel could get
+    the data.
 
-  Therefore the framework C library that comes with \ref XLSDK97 "Excel
-  97 developer's kit" suggests to use a static area where the XlfOper
-  are stored (see XlfExcel::GetMemory) and still available to
-  Excel when we exit the XLL routine. This array is then reset
-  by a call to XlfExcel::FreeMemory at the begining of each new
-  call of one of the XLL functions.
+    Therefore the framework C library that comes with \ref XLSDK97 "Excel
+    97 developer's kit" suggests to use a static area where the XlfOper
+    are stored (see XlfExcel::GetMemory) and still available to
+    Excel when we exit the XLL routine. This array is then reset
+    by a call to XlfExcel::FreeMemory at the begining of each new
+    call of one of the XLL functions.
 
-  \sa XlfExcel::GetMemory, XlfExcel::FreeMemory
-  */
-  struct XlfBuffer
-  {
-    //! Size of the buffer.
-    size_t size;
-    //! Start address.
-    char * start;
-  };
+    \sa XlfExcel::GetMemory, XlfExcel::FreeMemory
+    */
+    struct XlfBuffer
+    {
+        //! Size of the buffer.
+        size_t size;
+        //! Start address.
+        char * start;
+    };
 
-  typedef std::list<XlfBuffer> BufferList;
-  //! Internal memory buffer holding memory to be referenced by Excel (excluded from the pimpl to allow inlining).
-  BufferList freeList_;
-  //! Pointer to next free area (excluded from the pimpl to allow inlining).
-  size_t offset_;
+    typedef std::list<XlfBuffer> BufferList;
+    //! Internal memory buffer holding memory to be referenced by Excel (excluded from the pimpl to allow inlining).
+    BufferList freeList_;
+    //! Pointer to next free area (excluded from the pimpl to allow inlining).
+    size_t offset_;
 
-  //! Pointer to internal implementation (pimpl idiom, see \ref HS).
-  struct XlfExcelImpl * impl_;
+    //! Pointer to internal implementation (pimpl idiom, see \ref HS).
+    struct XlfExcelImpl * impl_;
 
-  //! Ctor.
-  XlfExcel();
-  //! Copy ctor is not defined.
-  XlfExcel(const XlfExcel&);
-  //! Assignment operator is not defined.
-  XlfExcel& operator=(const XlfExcel&);
-  //! Initialize the C++ framework.
-  void InitLibrary();
-  //! Creates a new static buffer and add it to the free list.
-  void PushNewBuffer(size_t);
+    //! Ctor.
+    XlfExcel();
+    //! Copy ctor is not defined.
+    XlfExcel(const XlfExcel&);
+    //! Assignment operator is not defined.
+    XlfExcel& operator=(const XlfExcel&);
+    //! Initialize the C++ framework.
+    void InitLibrary();
+    //! Creates a new static buffer and add it to the free list.
+    void PushNewBuffer(size_t);
 
-  bool excel12_;
-  std::string xlfOperType_;
-  std::string xlfXloperType_;
-  std::string wStrType_;
+    bool excel12_;
+    std::string xlfOperType_;
+    std::string xlfXloperType_;
+    std::string wStrType_;
 };
 
 #ifdef NDEBUG
@@ -140,3 +166,4 @@ private:
 #endif
 
 #endif
+

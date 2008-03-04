@@ -19,9 +19,6 @@
 #ifndef xlw_config_mgw_h
 #define xlw_config_mgw_h
 
-
-
-
 //! Partial support of member templates (if defined inline).
 //#define PORT_PARTIAL_MEMBER_TEMPLATE
 //! Imports symbol if exist, for shared library.
@@ -29,5 +26,5 @@
 //! Exports symbol if exist, for shared library.
 #define PORT_EXPORT_SYMBOL __declspec(dllexport)
 
-
 #endif
+

@@ -34,9 +34,6 @@
 #endif
 
 //! Experimental treatment of long strings for Excel 2007.
-/*!
-xxx
-*/
 
 typedef void* XLWSTR;
 

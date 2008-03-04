@@ -29,13 +29,11 @@ unsigned long maxi(unsigned long a, unsigned long b)
 bool CellValue::IsAString() const
 {
     return Type == string;
-    //return Type == string || Type == wstring;
 }
 
 bool CellValue::IsAWstring() const
 {
     return Type == wstring;
-    //return Type == string || Type == wstring;
 }
 
 bool CellValue::IsANumber() const
@@ -67,7 +65,6 @@ bool CellValue::IsEmpty() const
 CellValue::operator std::string() const
 {
     if (Type != string)
-    //if (Type != string && Type != wstring)
         throw("non string cell asked to be a string");
     return ValueAsString;
 
@@ -76,7 +73,6 @@ CellValue::operator std::string() const
 CellValue::operator std::wstring() const
 {
     if (Type != wstring)
-    //if (Type != string && Type != wstring)
         throw("non string cell asked to be a string");
     return ValueAsWstring;
 
@@ -179,13 +175,6 @@ ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false),
 {
 }
 
-//const std::string& CellValue::StringValue() const
-//{
-//    if (Type != string)
-//    //if (Type != string && Type != wstring)
-//        throw("non string cell asked to be a string");
-//    return ValueAsString;
-//}
 std::string CellValue::StringValue() const
 {
     if (Type == string) {
@@ -199,7 +188,6 @@ std::string CellValue::StringValue() const
 const std::wstring& CellValue::WstringValue() const
 {
     if (Type != wstring)
-    //if (Type != string && Type != wstring)
         throw("non wstring cell asked to be a wstring");
     return ValueAsWstring;
 }
@@ -240,11 +228,6 @@ unsigned long CellValue::ErrorValue() const
 
 std::string CellValue::StringValueLowerCase() const
 {
-    //if (Type != string)
-        //throw("non string cell asked to be a string");
-    //std::string tmp(ValueAsString);
-    //std::transform(tmp.begin(),tmp.end(),tmp.begin(),tolower);
-    //return tmp;
 
     if (Type == string) {
         std::string tmp(ValueAsString);

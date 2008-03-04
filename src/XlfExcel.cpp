@@ -327,3 +327,4 @@ bool XlfExcel::IsCalledByFuncWiz() const {
     }
     return false;    //safe case: Return false if not sure
 }
+

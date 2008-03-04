@@ -38,7 +38,7 @@ INLINE XlfOper::XlfOper()
 
 INLINE XlfOper::XlfOper(const XlfOper& oper)
 {
-  *this = oper;
+    *this = oper;
 };
 
 /*!
@@ -46,8 +46,8 @@ See XlfOper::Set(double)
 */
 INLINE XlfOper::XlfOper(double value)
 {
-  Allocate();
-  Set(value);
+    Allocate();
+    Set(value);
 }
 
 /*!
@@ -55,8 +55,8 @@ See XlfOper::Set(short)
 */
 INLINE XlfOper::XlfOper(short value)
 {
-  Allocate();
-  Set(value);
+    Allocate();
+    Set(value);
 }
 
 /*!
@@ -64,8 +64,8 @@ See XlfOper::Set(short, bool)
 */
 INLINE XlfOper::XlfOper(short value, bool error)
 {
-  Allocate();
-  Set(value, error);
+    Allocate();
+    Set(value, error);
 }
 
 /*!
@@ -73,8 +73,8 @@ See XlfOper::Set(bool)
 */
 INLINE XlfOper::XlfOper(bool value)
 {
-  Allocate();
-  Set(value);
+    Allocate();
+    Set(value);
 }
 
 /*!
@@ -82,8 +82,8 @@ See XlfOper::Set(const char *)
 */
 INLINE XlfOper::XlfOper(const char *value)
 {
-  Allocate();
-  Set(value);
+    Allocate();
+    Set(value);
 }
 
 /*!
@@ -91,8 +91,8 @@ See XlfOper::Set(const std::string& value)
 */
 INLINE XlfOper::XlfOper(const std::string& value)
 {
-  Allocate();
-  Set(value.c_str());
+    Allocate();
+    Set(value.c_str());
 }
 
 /*!
@@ -100,8 +100,8 @@ See XlfOper::Set(const std::wstring& value)
 */
 INLINE XlfOper::XlfOper(const std::wstring& value)
 {
-  Allocate();
-  Set(value);
+    Allocate();
+    Set(value);
 }
 
 /*!
@@ -109,8 +109,8 @@ See XlfOper::Set(const CellMatrix&)
 */
 INLINE XlfOper::XlfOper(const CellMatrix& value)
 {
-  Allocate();
-  Set(value);
+    Allocate();
+    Set(value);
 }
 
 /*!
@@ -118,8 +118,8 @@ See XlfOper::Set(const MyMatrix&)
 */
 INLINE XlfOper::XlfOper(const MyMatrix& value)
 {
-  Allocate();
-  Set(value);
+    Allocate();
+    Set(value);
 }
 
 /*!
@@ -127,8 +127,8 @@ See XlfOper::Set(const MyArray&)
 */
 INLINE XlfOper::XlfOper(const MyArray& value)
 {
-  Allocate();
-  Set(value);
+    Allocate();
+    Set(value);
 }
 
 /*!
@@ -138,8 +138,8 @@ See XlfOper::Set(const XlfRef&)
 */
 INLINE XlfOper::XlfOper(const XlfRef& range)
 {
-  Allocate();
-  Set(range);
+    Allocate();
+    Set(range);
 }
 
 /*!
@@ -151,12 +151,12 @@ shared static XLOPER.
 
 \code
 #define xlerrNull    0      // No info
-#define xlerrDiv0    7        // Division by 0
-#define xlerrValue   15        // Bad value
-#define xlerrRef     23        // Bad reference
-#define xlerrName    29        // Bad name
-#define xlerrNum     36        // Bad number
-#define xlerrNA      42        // Not available
+#define xlerrDiv0    7      // Division by 0
+#define xlerrValue   15     // Bad value
+#define xlerrRef     23     // Bad reference
+#define xlerrName    29     // Bad name
+#define xlerrNum     36     // Bad number
+#define xlerrNA      42     // Not available
 \endcode
 
 \sa XlfOper::SetError(WORD)
@@ -176,7 +176,7 @@ Forwards to XlfOper::AsDouble.
 */
 INLINE int XlfOper::AsInt(int *pxlret) const
 {
-  return static_cast<int>(AsDouble(pxlret));
+    return static_cast<int>(AsDouble(pxlret));
 }
 
 /*!
@@ -184,5 +184,6 @@ Forwards to XlfOper::AsDouble.
 */
 INLINE int XlfOper::AsInt(const std::string& ErrorId, int *pxlret) const
 {
-  return static_cast<int>(AsDouble(ErrorId, pxlret));
+    return static_cast<int>(AsDouble(ErrorId, pxlret));
 }
+

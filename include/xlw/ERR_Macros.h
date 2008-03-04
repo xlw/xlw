@@ -99,10 +99,6 @@ after it's been catched by a catch block.
     \sa ERR_LOG()
 */
 
-
-
-
-
 #define ERR_THROW_MSG(except, message) if (true) \
 { \
     char tmp__[1024]; \
@@ -111,9 +107,6 @@ after it's been catched by a catch block.
     ERR_LOG("EXCEPTION (" #except ") : " << message); \
     throw except(tmp__); \
 } else
-
-
-
 
 //! Wrapper for throw of an exception without message.
 #define ERR_THROW(exception) { throw exception(); }
@@ -163,3 +156,4 @@ These assertions \b still \b hold for \e release versions.
 #endif // DEBUG
 
 #endif
+

@@ -48,25 +48,25 @@ xltypeRef, xltypeMulti, xltypeBigData.
 */
 void XlfOperImpl4::destroy(const XlfOper &xlfOper) const
 {
-  if (!xlfOper.lpxloper4_)
+    if (!xlfOper.lpxloper4_)
+        return;
+
+    int type = xlfOper.lpxloper4_->xltype;
+
+    //  Only the types below can be flagged xlFreeAuxMem, thus the test is
+    //  actually redundant: we don't need to re-check the type of the oper.
+    //
+    //bool canHaveAuxMem = (type & xltypeStr ||
+    //                      type & xltypeRef ||
+    //                      type & xltypeMulti ||
+    //                      type & xltypeBigData);
+    if (type & XlfOper::xlbitFreeAuxMem)
+    {
+        // switch back the bit as it was originally
+        xlfOper.lpxloper4_->xltype &= ~XlfOper::xlbitFreeAuxMem;
+        FreeAuxiliaryMemory(xlfOper);
+    }
     return;
-
-  int type = xlfOper.lpxloper4_->xltype;
-
-//  Only the types below can be flagged xlFreeAuxMem, thus the test is
-//  actually redundant: we don't need to re-check the type of the oper.
-//
-//  bool canHaveAuxMem = (type & xltypeStr ||
-//                        type & xltypeRef ||
-//                        type & xltypeMulti ||
-//                        type & xltypeBigData);
-  if (type & XlfOper::xlbitFreeAuxMem)
-  {
-    // switch back the bit as it was originally
-    xlfOper.lpxloper4_->xltype &= ~XlfOper::xlbitFreeAuxMem;
-    FreeAuxiliaryMemory(xlfOper);
-  }
-  return;
 }
 
 /*!
@@ -86,19 +86,19 @@ be allocated.
 */
 int XlfOperImpl4::Allocate(XlfOper &xlfOper) const
 {
-  xlfOper.lpxloper4_ = (LPXLOPER)XlfExcel::Instance().GetMemory(sizeof(XLOPER));
-  if (!xlfOper.lpxloper4_)
-    return xlretInvXloper;
-  xlfOper.lpxloper4_->xltype = xltypeNil;
-  return xlretSuccess;
+    xlfOper.lpxloper4_ = (LPXLOPER)XlfExcel::Instance().GetMemory(sizeof(XLOPER));
+    if (!xlfOper.lpxloper4_)
+        return xlretInvXloper;
+    xlfOper.lpxloper4_->xltype = xltypeNil;
+    return xlretSuccess;
 }
 
 void XlfOperImpl4::FreeAuxiliaryMemory(const XlfOper &xlfOper) const
 {
-  int err = XlfExcel::Instance().XlfExcel::Instance().Call(xlFree, NULL, 1, (LPXLFOPER)xlfOper.lpxloper4_);
-  if (err != xlretSuccess)
-    std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
-  return;
+    int err = XlfExcel::Instance().XlfExcel::Instance().Call(xlFree, NULL, 1, (LPXLFOPER)xlfOper.lpxloper4_);
+    if (err != xlretSuccess)
+        std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
+    return;
 }
 
 /*!
@@ -107,41 +107,41 @@ void XlfOperImpl4::FreeAuxiliaryMemory(const XlfOper &xlfOper) const
 */
 int XlfOperImpl4::Coerce(const XlfOper &xlfOper, short type, XlfOper& result) const
 {
-  XlfOper xlType(type);
-  // FIXME call4?
-  int xlret = XlfExcel::Instance().Call(xlCoerce, (LPXLFOPER)result, 2, (LPXLFOPER)xlfOper.lpxloper4_, (LPXLFOPER)xlType);
-  return xlret;
+    XlfOper xlType(type);
+    // FIXME call4?
+    int xlret = XlfExcel::Instance().Call(xlCoerce, (LPXLFOPER)result, 2, (LPXLFOPER)xlfOper.lpxloper4_, (LPXLFOPER)xlType);
+    return xlret;
 }
 
 int XlfOperImpl4::ConvertToDouble(const XlfOper &xlfOper, double& d) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (xlfOper.lpxloper4_ == 0)
-    return xlretInvXloper;
+    if (xlfOper.lpxloper4_ == 0)
+        return xlretInvXloper;
 
-  if (xlfOper.lpxloper4_->xltype & xltypeInt)
-  {
-    d = xlfOper.lpxloper4_->val.w;
-    xlret=xlretSuccess;
-  }
-  else if (xlfOper.lpxloper4_->xltype & xltypeNum)
-  {
-    d = xlfOper.lpxloper4_->val.num;
-    xlret=xlretSuccess;
-  }
-  else
-  {
-    // Allocates tmp on the stack to avoid filling the internal buffer.
-    XLOPER tmp;
-    // Creates a XlfOper based on tmp.
-    XlfOper cast(&tmp);
-    // Coerces to numeric type.
-    xlret = Coerce(xlfOper, xltypeNum, cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToDouble(d);
-  }
-  return xlret;
+    if (xlfOper.lpxloper4_->xltype & xltypeInt)
+    {
+        d = xlfOper.lpxloper4_->val.w;
+        xlret=xlretSuccess;
+    }
+    else if (xlfOper.lpxloper4_->xltype & xltypeNum)
+    {
+        d = xlfOper.lpxloper4_->val.num;
+        xlret=xlretSuccess;
+    }
+    else
+    {
+        // Allocates tmp on the stack to avoid filling the internal buffer.
+        XLOPER tmp;
+        // Creates a XlfOper based on tmp.
+        XlfOper cast(&tmp);
+        // Coerces to numeric type.
+        xlret = Coerce(xlfOper, xltypeNum, cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToDouble(d);
+    }
+    return xlret;
 };
 
 /*!
@@ -217,84 +217,84 @@ int XlfOperImpl4::ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<doub
         return xlretSuccess;
     }
 
-  XlfRef ref;
+    XlfRef ref;
 
-  int xlret = ConvertToRef(xlfOper, ref);
-  if (xlret != xlretSuccess)
-    return xlret;
-
-  size_t nbRows = ref.GetNbRows();
-  size_t nbCols = ref.GetNbCols();
-
-  bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
-  if (policy == UniDimensional && ! isUniDimRange)
-    // not a vector we return a failure
-    return xlretFailed;
-
-  size_t n = nbRows*nbCols;
-  v.resize(n);
-
-  for (size_t i = 0; i < nbRows; ++i)
-  {
-    for (size_t j = 0; j < nbCols; ++j)
-    {
-      if (policy == RowMajor)
-        // C-like dense matrix storage
-        xlret = ref.element<XlfOper>(i,j).ConvertToDouble(v[i*nbCols+j]);
-      else
-        // Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
-        xlret = ref.element<XlfOper>(i,j).ConvertToDouble(v[j*nbRows+i]);
-      if (xlret != xlretSuccess)
+    int xlret = ConvertToRef(xlfOper, ref);
+    if (xlret != xlretSuccess)
         return xlret;
+
+    size_t nbRows = ref.GetNbRows();
+    size_t nbCols = ref.GetNbCols();
+
+    bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
+    if (policy == UniDimensional && ! isUniDimRange)
+        // not a vector we return a failure
+        return xlretFailed;
+
+    size_t n = nbRows*nbCols;
+    v.resize(n);
+
+    for (size_t i = 0; i < nbRows; ++i)
+    {
+        for (size_t j = 0; j < nbCols; ++j)
+        {
+        if (policy == RowMajor)
+            // C-like dense matrix storage
+            xlret = ref.element<XlfOper>(i,j).ConvertToDouble(v[i*nbCols+j]);
+        else
+            // Fortran-like dense matrix storage. Does not matter if the policy is UniDimensional
+            xlret = ref.element<XlfOper>(i,j).ConvertToDouble(v[j*nbRows+i]);
+        if (xlret != xlretSuccess)
+            return xlret;
+        }
     }
-  }
-  return xlret;
+    return xlret;
 };
 
 int XlfOperImpl4::ConvertToShort(const XlfOper &xlfOper, short& s) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (xlfOper.lpxloper4_ == 0)
-    return xlretInvXloper;
+    if (xlfOper.lpxloper4_ == 0)
+        return xlretInvXloper;
 
-  if (xlfOper.lpxloper4_->xltype & xltypeNum)
-  {
-    s = static_cast<short>(xlfOper.lpxloper4_->val.num);
-    xlret=xlretSuccess;
-  }
-  else
-  {
-    // Allocates tmp on the stack to avoid filling the internal buffer.
-    XLOPER tmp;
-    // Creates a XlfOper based on tmp.
-    XlfOper cast(&tmp);
-    // Coerces to numeric type.
-    xlret = Coerce(xlfOper, xltypeNum, cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToShort(s);
-  }
-  return xlret;
+    if (xlfOper.lpxloper4_->xltype & xltypeNum)
+    {
+        s = static_cast<short>(xlfOper.lpxloper4_->val.num);
+        xlret=xlretSuccess;
+    }
+    else
+    {
+        // Allocates tmp on the stack to avoid filling the internal buffer.
+        XLOPER tmp;
+        // Creates a XlfOper based on tmp.
+        XlfOper cast(&tmp);
+        // Coerces to numeric type.
+        xlret = Coerce(xlfOper, xltypeNum, cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToShort(s);
+    }
+    return xlret;
 };
 
 int XlfOperImpl4::ConvertToBool(const XlfOper &xlfOper, bool& b) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (xlfOper.lpxloper4_ == 0)
-    return xlretInvXloper;
+    if (xlfOper.lpxloper4_ == 0)
+        return xlretInvXloper;
 
-  if (xlfOper.lpxloper4_->xltype & xltypeBool)
-  {
-    b = (xlfOper.lpxloper4_->val.xbool != 0);
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see ConvertToDouble
-    XLOPER tmp;
-    XlfOper cast(&tmp);
-    xlret = Coerce(xlfOper, xltypeBool, cast);
+    if (xlfOper.lpxloper4_->xltype & xltypeBool)
+    {
+        b = (xlfOper.lpxloper4_->val.xbool != 0);
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see ConvertToDouble
+        XLOPER tmp;
+        XlfOper cast(&tmp);
+        xlret = Coerce(xlfOper, xltypeBool, cast);
     if (xlret == xlretSuccess)
       xlret = cast.ConvertToBool(b);
   }
@@ -575,122 +575,122 @@ int XlfOperImpl4::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& output
 
 int XlfOperImpl4::ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (xlfOper.lpxloper4_ == 0)
-    return xlretInvXloper;
+    if (xlfOper.lpxloper4_ == 0)
+        return xlretInvXloper;
 
-  if (xlfOper.lpxloper4_->xltype & xltypeErr)
-  {
-    e = xlfOper.lpxloper4_->val.err ;
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see ConvertToDouble
-    XLOPER tmp;
-    XlfOper cast(&tmp);
-    xlret = Coerce(xlfOper, xltypeErr, cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToErr(e);
-  }
-  return xlret;
+    if (xlfOper.lpxloper4_->xltype & xltypeErr)
+    {
+        e = xlfOper.lpxloper4_->val.err ;
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see ConvertToDouble
+        XLOPER tmp;
+        XlfOper cast(&tmp);
+        xlret = Coerce(xlfOper, xltypeErr, cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToErr(e);
+    }
+    return xlret;
 };
 
 int XlfOperImpl4::ConvertToString(const XlfOper &xlfOper, char *& s) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (xlfOper.lpxloper4_ == 0)
-    return xlretInvXloper;
+    if (xlfOper.lpxloper4_ == 0)
+        return xlretInvXloper;
 
-  if (xlfOper.lpxloper4_->xltype & xltypeStr)
-  {
-    // Must use datatype unsigned char (BYTE) to process 0th byte
-    // otherwise numbers greater than 128 are incorrect
-    size_t n = (unsigned char) xlfOper.lpxloper4_->val.str[0];
-    s = XlfExcel::Instance().GetMemory(n + 1);
-    memcpy(s, xlfOper.lpxloper4_->val.str + 1, n);
-    s[n] = 0;
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see AsDouble
-    XLOPER tmp;
-    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
-    // so that the memory which Excel allocates to that variable (the string) is freed
-    // when the variable goes out of scope.
-    XlfOper cast(&tmp);
-    xlret = Coerce(xlfOper, xltypeStr, cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToString(s);
-  }
-  return xlret;
+    if (xlfOper.lpxloper4_->xltype & xltypeStr)
+    {
+        // Must use datatype unsigned char (BYTE) to process 0th byte
+        // otherwise numbers greater than 128 are incorrect
+        size_t n = (unsigned char) xlfOper.lpxloper4_->val.str[0];
+        s = XlfExcel::Instance().GetMemory(n + 1);
+        memcpy(s, xlfOper.lpxloper4_->val.str + 1, n);
+        s[n] = 0;
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see AsDouble
+        XLOPER tmp;
+        // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+        // so that the memory which Excel allocates to that variable (the string) is freed
+        // when the variable goes out of scope.
+        XlfOper cast(&tmp);
+        xlret = Coerce(xlfOper, xltypeStr, cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToString(s);
+    }
+    return xlret;
 }
 
 int XlfOperImpl4::ConvertToWstring(const XlfOper &xlfOper, std::wstring &s) const throw()
 {
 
-  int xlret;
+    int xlret;
 
-  if (xlfOper.lpxloper4_ == 0)
-    return xlretInvXloper;
+    if (xlfOper.lpxloper4_ == 0)
+        return xlretInvXloper;
 
-  if (xlfOper.lpxloper4_->xltype & xltypeStr)
-  {
-    size_t n = (unsigned char) xlfOper.lpxloper4_->val.str[0];
-    wchar_t *c = reinterpret_cast<wchar_t*>(XlfExcel::Instance().GetMemory(n*2+2));
-	mbstowcs(c, xlfOper.lpxloper4_->val.str + 1, n*2);
-	c[n]=0;
-	s = std::wstring(c);
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see AsDouble
-    XLOPER tmp;
-    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
-    // so that the memory which Excel allocates to that variable (the string) is freed
-    // when the variable goes out of scope.
-    XlfOper cast(&tmp);
-    xlret = Coerce(xlfOper, xltypeStr, cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToWstring(s);
-  }
-  return xlret;
+    if (xlfOper.lpxloper4_->xltype & xltypeStr)
+    {
+        size_t n = (unsigned char) xlfOper.lpxloper4_->val.str[0];
+        wchar_t *c = reinterpret_cast<wchar_t*>(XlfExcel::Instance().GetMemory(n*2+2));
+        mbstowcs(c, xlfOper.lpxloper4_->val.str + 1, n*2);
+        c[n]=0;
+        s = std::wstring(c);
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see AsDouble
+        XLOPER tmp;
+        // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+        // so that the memory which Excel allocates to that variable (the string) is freed
+        // when the variable goes out of scope.
+        XlfOper cast(&tmp);
+        xlret = Coerce(xlfOper, xltypeStr, cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToWstring(s);
+    }
+    return xlret;
 }
 
 int XlfOperImpl4::ConvertToRef(const XlfOper &xlfOper, XlfRef& r) const throw()
 {
-  int xlret;
+    int xlret;
 
-  if (xlfOper.lpxloper4_ == 0)
-    return xlretInvXloper;
+    if (xlfOper.lpxloper4_ == 0)
+        return xlretInvXloper;
 
-  if (xlfOper.lpxloper4_->xltype & xltypeRef)
-  {
-    const XLREF& ref=xlfOper.lpxloper4_->val.mref.lpmref->reftbl[0];
-    r = XlfRef (ref.rwFirst,  // top
-                ref.colFirst, // left
-                ref.rwLast,   // bottom
-                ref.colLast,  // right
-                xlfOper.lpxloper4_->val.mref.idSheet); // sheet id
-    xlret = xlretSuccess;
-  }
-  else
-  {
-    // see AsDouble
-    XLOPER tmp;
-    // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
-    // so that the memory which Excel allocates to that variable (the reference) is freed
-    // when the variable goes out of scope.
-    XlfOper cast(&tmp);
-    xlret = Coerce(xlfOper, xltypeRef, cast);
-    if (xlret == xlretSuccess)
-      xlret = cast.ConvertToRef(r);
-  }
-  return xlret;
+    if (xlfOper.lpxloper4_->xltype & xltypeRef)
+    {
+        const XLREF& ref=xlfOper.lpxloper4_->val.mref.lpmref->reftbl[0];
+        r = XlfRef (ref.rwFirst,  // top
+                    ref.colFirst, // left
+                    ref.rwLast,   // bottom
+                    ref.colLast,  // right
+                    xlfOper.lpxloper4_->val.mref.idSheet); // sheet id
+        xlret = xlretSuccess;
+    }
+    else
+    {
+        // see AsDouble
+        XLOPER tmp;
+        // Function Coerce calls function Call which sets bit xlbitFreeAuxMem of variable cast,
+        // so that the memory which Excel allocates to that variable (the reference) is freed
+        // when the variable goes out of scope.
+        XlfOper cast(&tmp);
+        xlret = Coerce(xlfOper, xltypeRef, cast);
+        if (xlret == xlretSuccess)
+            xlret = cast.ConvertToRef(r);
+    }
+    return xlret;
 }
 
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const CellMatrix& cells) const
@@ -735,58 +735,58 @@ XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const CellMatrix& cells) const
 
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, LPXLFOPER lpxlfoper) const
 {
-  assert(lpxlfoper != 0);
-  xlfOper.lpxloper4_ = reinterpret_cast<LPXLOPER>(lpxlfoper);
-  return xlfOper;
+    assert(lpxlfoper != 0);
+    xlfOper.lpxloper4_ = reinterpret_cast<LPXLOPER>(lpxlfoper);
+    return xlfOper;
 }
 
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, double value) const
 {
-  if (xlfOper.lpxloper4_)
-  {
-    xlfOper.lpxloper4_->xltype = xltypeNum;
-    xlfOper.lpxloper4_->val.num = value;
-  }
-  return xlfOper;
+    if (xlfOper.lpxloper4_)
+    {
+        xlfOper.lpxloper4_->xltype = xltypeNum;
+        xlfOper.lpxloper4_->val.num = value;
+    }
+    return xlfOper;
 }
 
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, short value) const
 {
-  if (xlfOper.lpxloper4_)
-  {
-    xlfOper.lpxloper4_->xltype = xltypeInt;
-    xlfOper.lpxloper4_->val.w = value;
-  }
-  return xlfOper;
+    if (xlfOper.lpxloper4_)
+    {
+        xlfOper.lpxloper4_->xltype = xltypeInt;
+        xlfOper.lpxloper4_->val.w = value;
+    }
+    return xlfOper;
 }
 
 //! bool for disambiguation
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, short value, bool Error) const
 {
-  if (xlfOper.lpxloper4_)
-  {
-    if (Error)
+    if (xlfOper.lpxloper4_)
     {
-        xlfOper.lpxloper4_->xltype = xltypeErr;
-        xlfOper.lpxloper4_->val.err =value;
+        if (Error)
+        {
+            xlfOper.lpxloper4_->xltype = xltypeErr;
+            xlfOper.lpxloper4_->val.err =value;
+        }
+        else
+        {
+            xlfOper.lpxloper4_->xltype = xltypeInt;
+            xlfOper.lpxloper4_->val.w = value;
+        }
     }
-    else
-    {
-        xlfOper.lpxloper4_->xltype = xltypeInt;
-        xlfOper.lpxloper4_->val.w = value;
-    }
-  }
-  return xlfOper;
+    return xlfOper;
 }
 
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, bool value) const
 {
-  if (xlfOper.lpxloper4_)
-  {
-    xlfOper.lpxloper4_->xltype = xltypeBool;
-    xlfOper.lpxloper4_->val.xbool = value;
-  }
-  return xlfOper;
+    if (xlfOper.lpxloper4_)
+    {
+        xlfOper.lpxloper4_->xltype = xltypeBool;
+        xlfOper.lpxloper4_->val.xbool = value;
+    }
+    return xlfOper;
 }
 
 /*!
@@ -795,28 +795,28 @@ to an invalid state and the XlfRef is not copied.
 */
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const XlfRef& range) const
 {
-  if (xlfOper.lpxloper4_)
-  {
-    xlfOper.lpxloper4_->xltype = xltypeRef;
-    XLMREF * pmRef = reinterpret_cast<XLMREF *>(XlfExcel::Instance().GetMemory(sizeof(XLMREF)));
-    // if no memory is available
-    if (pmRef == 0)
+    if (xlfOper.lpxloper4_)
     {
-      // set XlfOper to an invalid state
-      xlfOper.lpxloper4_=0;
+        xlfOper.lpxloper4_->xltype = xltypeRef;
+        XLMREF * pmRef = reinterpret_cast<XLMREF *>(XlfExcel::Instance().GetMemory(sizeof(XLMREF)));
+        // if no memory is available
+        if (pmRef == 0)
+        {
+            // set XlfOper to an invalid state
+            xlfOper.lpxloper4_=0;
+        }
+        else
+        {
+            pmRef->count=1;
+            pmRef->reftbl[0].rwFirst = range.GetRowBegin();
+            pmRef->reftbl[0].rwLast = range.GetRowEnd()-1;
+            pmRef->reftbl[0].colFirst = range.GetColBegin();
+            pmRef->reftbl[0].colLast = range.GetColEnd()-1;
+            xlfOper.lpxloper4_->val.mref.lpmref = pmRef;
+            xlfOper.lpxloper4_->val.mref.idSheet = range.GetSheetId();
+        }
     }
-    else
-    {
-      pmRef->count=1;
-      pmRef->reftbl[0].rwFirst = range.GetRowBegin();
-      pmRef->reftbl[0].rwLast = range.GetRowEnd()-1;
-      pmRef->reftbl[0].colFirst = range.GetColBegin();
-      pmRef->reftbl[0].colLast = range.GetColEnd()-1;
-      xlfOper.lpxloper4_->val.mref.lpmref = pmRef;
-      xlfOper.lpxloper4_->val.mref.idSheet = range.GetSheetId();
-    }
-  }
-  return xlfOper;
+    return xlfOper;
 }
 
 /*!
@@ -837,67 +837,67 @@ is issued in debug mode.
 */
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const char *value) const
 {
-  if (xlfOper.lpxloper4_)
-  {
-    unsigned int n = static_cast<unsigned int>(strlen(value));
+    if (xlfOper.lpxloper4_)
+    {
+        unsigned int n = static_cast<unsigned int>(strlen(value));
 
-    if (n > 254)
-    {
-      std::cerr << XLW__HERE__ << "String truncated to 254 bytes" << std::endl;
-      n = 254;
-    }
-    // One byte more for the string length (convention used by Excel)
-    // and one for the NULL terminal char (allow use of strcpy)
-    LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 2));
-    if (str == 0)
-    {
-      xlfOper.lpxloper4_=0;
-    }
-    else
-    {
+        if (n > 254)
+        {
+            std::cerr << XLW__HERE__ << "String truncated to 254 bytes" << std::endl;
+            n = 254;
+        }
+        // One byte more for the string length (convention used by Excel)
+        // and one for the NULL terminal char (allow use of strcpy)
+        LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 2));
+        if (str == 0)
+        {
+            xlfOper.lpxloper4_=0;
+        }
+        else
+        {
 #ifdef _MSC_VER
 #pragma warning(disable:4996)
 #endif
-      strncpy(str + 1, value, n);
-      str[n + 1] = 0;
+            strncpy(str + 1, value, n);
+            str[n + 1] = 0;
 
-      xlfOper.lpxloper4_->val.str = str;
-      xlfOper.lpxloper4_->val.str[0] = (BYTE)(n + 1);
-      xlfOper.lpxloper4_->xltype = xltypeStr;
+            xlfOper.lpxloper4_->val.str = str;
+            xlfOper.lpxloper4_->val.str[0] = (BYTE)(n + 1);
+            xlfOper.lpxloper4_->xltype = xltypeStr;
+        }
     }
-  }
-  return xlfOper;
+    return xlfOper;
 }
 
 XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const std::wstring &value) const
 {
-  if (xlfOper.lpxloper4_)
-  {
+    if (xlfOper.lpxloper4_)
+    {
 
-    unsigned int n;
-    if (value.length() > 255)
-    {
-      std::cerr << XLW__HERE__ << "String truncated to 255 bytes" << std::endl;
-      n = 255;
-	} else {
-		n = value.length();
-	}
+        unsigned int n;
+        if (value.length() > 255)
+        {
+            std::cerr << XLW__HERE__ << "String truncated to 255 bytes" << std::endl;
+            n = 255;
+        } else {
+            n = value.length();
+        }
 
-    // One byte more for the string length (convention used by Excel)
-    LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 1));
-    if (str == 0)
-    {
-      xlfOper.lpxloper4_=0;
+        // One byte more for the string length (convention used by Excel)
+        LPSTR str = reinterpret_cast<LPSTR>(XlfExcel::Instance().GetMemory(n + 1));
+        if (str == 0)
+        {
+            xlfOper.lpxloper4_=0;
+        }
+        else
+        {
+            wcstombs(str + 1, value.c_str(), n);
+            xlfOper.lpxloper4_->val.str = str;
+            xlfOper.lpxloper4_->val.str[0] = (BYTE)(n);
+            xlfOper.lpxloper4_->xltype = xltypeStr;
+        }
     }
-    else
-    {
-      wcstombs(str + 1, value.c_str(), n);
-      xlfOper.lpxloper4_->val.str = str;
-      xlfOper.lpxloper4_->val.str[0] = (BYTE)(n);
-      xlfOper.lpxloper4_->xltype = xltypeStr;
-    }
-  }
-  return xlfOper;
+    return xlfOper;
 }
 
 /*!
@@ -905,89 +905,89 @@ XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const std::wstring &value) const
 */
 XlfOper& XlfOperImpl4::SetError(XlfOper &xlfOper, WORD error) const
 {
-  if (xlfOper.lpxloper4_)
-  {
-    xlfOper.lpxloper4_->xltype = xltypeErr;
-    xlfOper.lpxloper4_->val.err = error;
-  }
-  return xlfOper;
+    if (xlfOper.lpxloper4_)
+    {
+        xlfOper.lpxloper4_->xltype = xltypeErr;
+        xlfOper.lpxloper4_->val.err = error;
+    }
+    return xlfOper;
 }
 
 XlfOper& XlfOperImpl4::assignment_operator(XlfOper &xlfOper, const XlfOper &rhs) const
 {
-  //if (xlfOper != &rhs) FIXME
-    xlfOper.lpxloper4_ = rhs.lpxloper4_;
-  return xlfOper;
+    //if (xlfOper != &rhs) FIXME
+        xlfOper.lpxloper4_ = rhs.lpxloper4_;
+    return xlfOper;
 }
 
 LPXLOPER XlfOperImpl4::operator_LPXLOPER(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_;
+    return xlfOper.lpxloper4_;
 }
 
 LPXLOPER12 XlfOperImpl4::operator_LPXLOPER12(const XlfOper &xlfOper) const
 {
-  throw("Unable to convert Excel 4 datatype to Excel 12 datatype - operation not yet implemented");
+    throw("Unable to convert Excel 4 datatype to Excel 12 datatype - operation not yet implemented");
 }
 
 LPXLFOPER XlfOperImpl4::operator_LPXLFOPER(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_;
+    return xlfOper.lpxloper4_;
 }
 
 bool XlfOperImpl4::IsMissing(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeMissing;
+    return xlfOper.lpxloper4_->xltype & xltypeMissing;
 }
 
 bool XlfOperImpl4::IsError(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeErr;
+    return xlfOper.lpxloper4_->xltype & xltypeErr;
 }
 
 bool XlfOperImpl4::IsRef(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeRef;
+    return xlfOper.lpxloper4_->xltype & xltypeRef;
 }
 
 bool XlfOperImpl4::IsSRef(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeSRef;
+    return xlfOper.lpxloper4_->xltype & xltypeSRef;
 }
 
 bool XlfOperImpl4::IsMulti(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeMulti;
+    return xlfOper.lpxloper4_->xltype & xltypeMulti;
 }
 
 bool XlfOperImpl4::IsNumber(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeNum;
+    return xlfOper.lpxloper4_->xltype & xltypeNum;
 }
 
 bool XlfOperImpl4::IsString(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeStr;
+    return xlfOper.lpxloper4_->xltype & xltypeStr;
 }
 
 bool XlfOperImpl4::IsNil(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeNil;
+    return xlfOper.lpxloper4_->xltype & xltypeNil;
 }
 
 bool XlfOperImpl4::IsBool(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeBool;
+    return xlfOper.lpxloper4_->xltype & xltypeBool;
 }
 
 bool XlfOperImpl4::IsInt(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_->xltype & xltypeInt;
+    return xlfOper.lpxloper4_->xltype & xltypeInt;
 }
 
 LPXLFOPER XlfOperImpl4::GetLPXLFOPER(const XlfOper &xlfOper) const
 {
-  return xlfOper.lpxloper4_;
+    return xlfOper.lpxloper4_;
 }
 
 DWORD XlfOperImpl4::xltype(const XlfOper &xlfOper) const {
@@ -996,3 +996,4 @@ DWORD XlfOperImpl4::xltype(const XlfOper &xlfOper) const {
     else
         return 0;
 }
+

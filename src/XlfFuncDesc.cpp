@@ -34,18 +34,18 @@
 //! Internal implementation of XlfFuncDesc.
 struct XlfFuncDescImpl
 {
-  //! Ctor.
-  XlfFuncDescImpl(XlfFuncDesc::RecalcPolicy recalcPolicy, bool Threadsafe,
-      const std::string& category): recalcPolicy_(recalcPolicy), Threadsafe_(Threadsafe), category_(category)
-  {}
-  //! Recalculation policy
-  XlfFuncDesc::RecalcPolicy recalcPolicy_;
-  //! Category where the function is displayed in the function wizard.
-  std::string category_;
-  //! List of the argument descriptions of the function.
-  XlfArgDescList arguments_;
-  //! Flag indicating whether this function is threadsafe in Excel 2007.
-  bool Threadsafe_;
+    //! Ctor.
+    XlfFuncDescImpl(XlfFuncDesc::RecalcPolicy recalcPolicy, bool Threadsafe,
+        const std::string& category): recalcPolicy_(recalcPolicy), Threadsafe_(Threadsafe), category_(category)
+        {}
+    //! Recalculation policy
+    XlfFuncDesc::RecalcPolicy recalcPolicy_;
+    //! Category where the function is displayed in the function wizard.
+    std::string category_;
+    //! List of the argument descriptions of the function.
+    XlfArgDescList arguments_;
+    //! Flag indicating whether this function is threadsafe in Excel 2007.
+    bool Threadsafe_;
 };
 
 /*!
@@ -55,18 +55,20 @@ struct XlfFuncDescImpl
 XlfAbstractCmdDesc::XlfAbstractCmdDesc.
 \param category Category in which the function should appear.
 \param recalcPolicy Policy to recalculate the cell.
+\param Threadsafe Whether this function should be registered threadsafe under Excel 12
+\param returnTypeCode The excel code for the datatype of the return value
 */
 XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias,
                          const std::string& comment, const std::string& category,
                          RecalcPolicy recalcPolicy, bool Threadsafe, const std::string &returnTypeCode)
     : XlfAbstractCmdDesc(name, alias, comment), impl_(0), returnTypeCode_(returnTypeCode)
 {
-  impl_ = new XlfFuncDescImpl(recalcPolicy,Threadsafe,category);
+    impl_ = new XlfFuncDescImpl(recalcPolicy,Threadsafe,category);
 }
 
 XlfFuncDesc::~XlfFuncDesc()
 {
-  delete impl_;
+    delete impl_;
 }
 
 /*!
@@ -75,7 +77,7 @@ push back the arguments one by one.
 */
 void XlfFuncDesc::SetArguments(const XlfArgDescList& arguments)
 {
-  impl_->arguments_ = arguments;
+    impl_->arguments_ = arguments;
 }
 
 //int XlfFuncDesc::GetIndex() const
@@ -94,16 +96,16 @@ Registers the function as a function in excel.
 */
 int XlfFuncDesc::DoRegister(const std::string& dllName) const
 {
-  //live_ = true;
-  return RegisterAs(dllName, 1);
+    //live_ = true;
+    return RegisterAs(dllName, 1);
 }
 
 int XlfFuncDesc::DoUnregister(const std::string& dllName) const
 {
-  //live_ = false;
+    //live_ = false;
 
-  XlfArgDescList arguments = GetArguments();
-  size_t nbargs = arguments.size();
+    XlfArgDescList arguments = GetArguments();
+    size_t nbargs = arguments.size();
     std::string args(XlfExcel::Instance().xlfOperType());
     std::string argnames;
 
@@ -118,14 +120,14 @@ int XlfFuncDesc::DoUnregister(const std::string& dllName) const
     }
 
     double funcId;
-  int err = RegisterAs(dllName, 0, &funcId);
+    int err = RegisterAs(dllName, 0, &funcId);
 
-  XlfOper unreg;
-  //err = Excel4(xlfUnregister, unreg, 1, XlfOper(funcId));
-  //err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, XlfOper(funcId)));
-  err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, static_cast<LPXLOPER>(XlfOper(funcId))));
+    XlfOper unreg;
+    //err = Excel4(xlfUnregister, unreg, 1, XlfOper(funcId));
+    //err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, XlfOper(funcId)));
+    err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, static_cast<LPXLOPER>(XlfOper(funcId))));
 
-  return err;
+    return err;
 }
 
 int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* funcId) const
@@ -171,10 +173,10 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
     (*px++) = XlfOper4("");
     (*px++) = XlfOper4(GetComment().c_str());
     for (it = arguments.begin(); it != arguments.end(); ++it)
-  {
+    {
         (*px++) = XlfOper4((*it).GetComment().c_str());
-  }
-  XLOPER res;
+    }
+    XLOPER res;
     int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, &res, 10 + nbargs, rgx));
 
     if(funcId != NULL)
@@ -185,3 +187,4 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
     delete[] rgx;
     return err;
 }
+

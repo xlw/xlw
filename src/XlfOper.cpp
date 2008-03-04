@@ -60,24 +60,24 @@ variable.
 */
 double XlfOper::AsDouble(int *pxlret) const
 {
-  double d;
-  int xlret = ConvertToDouble(d);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return d;
+    double d;
+    int xlret = ConvertToDouble(d);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return d;
 };
 
 double XlfOper::AsDouble(const std::string& ErrorId, int *pxlret) const
 {
-  double d;
-  int xlret = ConvertToDouble(d);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError( xlret,"Conversion to double " + ErrorId);
-  return d;
+    double d;
+    int xlret = ConvertToDouble(d);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError( xlret,"Conversion to double " + ErrorId);
+    return d;
 };
 
 /*!
@@ -118,24 +118,24 @@ in this variable.
 */
 std::vector<double> XlfOper::AsDoubleVector(XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
 {
-  std::vector<double> v;
-  int xlret = ConvertToDoubleVector(v, policy);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return v;
+    std::vector<double> v;
+    int xlret = ConvertToDoubleVector(v, policy);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return v;
 }
 
 std::vector<double> XlfOper::AsDoubleVector(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
 {
-  std::vector<double> v;
-  int xlret = ConvertToDoubleVector(v, policy);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret,ErrorId + " conversion to double vector");
-  return v;
+    std::vector<double> v;
+    int xlret = ConvertToDoubleVector(v, policy);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId + " conversion to double vector");
+    return v;
 }
 
 /*!
@@ -147,24 +147,24 @@ variable.
 */
 short XlfOper::AsShort(int *pxlret) const
 {
-  short s;
-  int xlret = ConvertToShort(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return s;
+    short s;
+    int xlret = ConvertToShort(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return s;
 };
 
 short XlfOper::AsShort(const std::string& ErrorId, int *pxlret) const
 {
-  short s;
-  int xlret = ConvertToShort(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret, ErrorId + " conversion to short failed");
-  return s;
+    short s;
+    int xlret = ConvertToShort(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret, ErrorId + " conversion to short failed");
+    return s;
 };
 
 /*!
@@ -176,24 +176,24 @@ variable.
 */
 bool XlfOper::AsBool(int *pxlret) const
 {
-  bool b;
-  int xlret = ConvertToBool(b);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return b;
+    bool b;
+    int xlret = ConvertToBool(b);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return b;
 };
 
 bool XlfOper::AsBool(const std::string& ErrorId, int *pxlret) const
 {
-  bool b;
-  int xlret = ConvertToBool(b);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret,ErrorId + " conversion to bool failed");
-  return b;
+    bool b;
+    int xlret = ConvertToBool(b);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId + " conversion to bool failed");
+    return b;
 };
 
 /*!
@@ -205,24 +205,24 @@ in this variable.
 */
 MyMatrix XlfOper::AsMatrix(int *pxlret) const
 {
-  MyMatrix output; // will be resized anyway
-  int xlret = ConvertToMatrix(output);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret," conversion to matrix failed");
-  return output;
+    MyMatrix output; // will be resized anyway
+    int xlret = ConvertToMatrix(output);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret," conversion to matrix failed");
+    return output;
 }
 
 MyMatrix XlfOper::AsMatrix(const std::string& ErrorId, int *pxlret) const
 {
-  MyMatrix output; // will be resized anyway
-  int xlret = ConvertToMatrix(output);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret,ErrorId + " conversion to matrix failed");
-  return output;
+    MyMatrix output; // will be resized anyway
+    int xlret = ConvertToMatrix(output);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId + " conversion to matrix failed");
+    return output;
 }
 
 /*!
@@ -234,24 +234,24 @@ in this variable.
 */
 CellMatrix XlfOper::AsCellMatrix(int *pxlret) const
 {
-  CellMatrix output(1,1); // will be resized anyway
-  int xlret = ConvertToCellMatrix(output);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret," conversion to cell matrix failed");
-  return output;
+    CellMatrix output(1,1); // will be resized anyway
+    int xlret = ConvertToCellMatrix(output);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret," conversion to cell matrix failed");
+    return output;
 }
 
 CellMatrix XlfOper::AsCellMatrix(const std::string& ErrorId, int *pxlret) const
 {
-  CellMatrix output(1,1); // will be resized anyway
-  int xlret = ConvertToCellMatrix(output);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret,ErrorId + " conversion to cell matrix failed");
-  return output;
+    CellMatrix output(1,1); // will be resized anyway
+    int xlret = ConvertToCellMatrix(output);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId + " conversion to cell matrix failed");
+    return output;
 }
 
 /*!
@@ -267,35 +267,35 @@ a char string is the slowest cast of all.
 */
 char *XlfOper::AsString(int *pxlret) const
 {
-  char * s;
-  int xlret = ConvertToString(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return s;
+    char * s;
+    int xlret = ConvertToString(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return s;
 };
 
 char *XlfOper::AsString(const std::string& ErrorId, int *pxlret) const
 {
-  char * s;
-  int xlret = ConvertToString(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-      ThrowOnError(xlret,ErrorId + " conversion to char* failed");
-  return s;
+    char * s;
+    int xlret = ConvertToString(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret,ErrorId + " conversion to char* failed");
+    return s;
 };
 
 std::wstring XlfOper::AsWstring(int *pxlret) const
 {
-  std::wstring s;
-  int xlret = ConvertToWstring(s);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return s;
+    std::wstring s;
+    int xlret = ConvertToWstring(s);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return s;
 };
 
 /*!
@@ -307,13 +307,13 @@ variable.
 */
 XlfRef XlfOper::AsRef(int *pxlret) const
 {
-  XlfRef r;
-  int xlret = ConvertToRef(r);
-  if (pxlret)
-    *pxlret=xlret;
-  else
-    ThrowOnError(xlret);
-  return r;
+    XlfRef r;
+    int xlret = ConvertToRef(r);
+    if (pxlret)
+        *pxlret=xlret;
+    else
+        ThrowOnError(xlret);
+    return r;
 }
 
 XlfOper& XlfOper::Set(const MyMatrix& values)
@@ -353,26 +353,26 @@ Other events throw std::runtime_error.
 */
 int XlfOper::ThrowOnError(int xlret) const
 {
-  if (xlret == xlretSuccess)
-    return xlret;
+    if (xlret == xlretSuccess)
+        return xlret;
 
-  if (xlret & xlretUncalced)
-    throw XlfExceptionUncalculated();
-  if (xlret & xlretAbort)
-    throw XlfExceptionAbort();
-  if (xlret & xlretStackOvfl)
-    throw XlfExceptionStackOverflow();
-  if (xlret & xlretInvXloper)
-    throw XlfException("invalid OPER structure (memory could be exhausted)");
-  if (xlret & xlretFailed)
-    throw std::runtime_error("command failed");
-  if (xlret & xlretInvCount)
-    throw std::runtime_error("invalid number of arguments");
-  if (xlret & xlretInvXlfn)
-    throw std::runtime_error("invalid function number");
-  // should never get there.
-  assert(0);
-  return xlret;
+    if (xlret & xlretUncalced)
+        throw XlfExceptionUncalculated();
+    if (xlret & xlretAbort)
+        throw XlfExceptionAbort();
+    if (xlret & xlretStackOvfl)
+        throw XlfExceptionStackOverflow();
+    if (xlret & xlretInvXloper)
+        throw XlfException("invalid OPER structure (memory could be exhausted)");
+    if (xlret & xlretFailed)
+        throw std::runtime_error("command failed");
+    if (xlret & xlretInvCount)
+        throw std::runtime_error("invalid number of arguments");
+    if (xlret & xlretInvXlfn)
+        throw std::runtime_error("invalid function number");
+    // should never get here.
+    assert(0);
+    return xlret;
 }
 
 /*!
@@ -382,31 +382,31 @@ Events that require an immediate return to excel (uncalculated cell, abort,
 stack overflow and invalid OPER (potential memory exhaustion)) throw an
 XlfException.
 
-Other events throw std::runtime_error. The Identifier is tagged on to the error message to help track down
-problems.
+Other events throw std::runtime_error. The Identifier is tagged on to the error
+message to help track down problems.
 */
 int XlfOper::ThrowOnError(int xlret, const std::string& Identifier) const
 {
-  if (xlret == xlretSuccess)
-    return xlret;
+    if (xlret == xlretSuccess)
+        return xlret;
 
-  if (xlret & xlretUncalced)
-    throw XlfExceptionUncalculated();
-  if (xlret & xlretAbort)
-    throw XlfExceptionAbort();
-  if (xlret & xlretStackOvfl)
-    throw XlfExceptionStackOverflow();
-  if (xlret & xlretInvXloper)
-    throw XlfException("invalid OPER structure (memory could be exhausted)," + Identifier);
-  if (xlret & xlretFailed)
-    throw std::runtime_error("command failed, " + Identifier);
-  if (xlret & xlretInvCount)
-    throw std::runtime_error("invalid number of argument, " + Identifier);
-  if (xlret & xlretInvXlfn)
-    throw std::runtime_error("invalid function number, " + Identifier);
-  // should never get there.
-  assert(0);
-  return xlret;
+    if (xlret & xlretUncalced)
+        throw XlfExceptionUncalculated();
+    if (xlret & xlretAbort)
+        throw XlfExceptionAbort();
+    if (xlret & xlretStackOvfl)
+        throw XlfExceptionStackOverflow();
+    if (xlret & xlretInvXloper)
+        throw XlfException("invalid OPER structure (memory could be exhausted)," + Identifier);
+    if (xlret & xlretFailed)
+        throw std::runtime_error("command failed, " + Identifier);
+    if (xlret & xlretInvCount)
+        throw std::runtime_error("invalid number of argument, " + Identifier);
+    if (xlret & xlretInvXlfn)
+        throw std::runtime_error("invalid function number, " + Identifier);
+    // should never get here.
+    assert(0);
+    return xlret;
 }
 
 std::string XlfOper::xltypeName() const {
@@ -434,3 +434,4 @@ std::string XlfOper::xltypeName() const {
     else
         return "unknown";
 }
+
