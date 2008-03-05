@@ -35,6 +35,11 @@
 #pragma DEBUG_HEADERS
 #endif
 
+//! Namespace for the classes in the xlw (Excel Wrapper) library
+/*!
+xlw is a wrapper for the Excel C API.  xlw implements an object oriented interface
+in support of Excel Addins implementing worksheet functions and menu commands.
+*/
 namespace xlw {
 
     //! Wrapper for XLOPER/XLOPER12 Excel data structure
@@ -51,7 +56,6 @@ namespace xlw {
     LPXLOPER/LPXLOPER12 have the same size. It allows the library to interpret any
     LPXLOPER/LPXLOPER12 sent by Excel as an XlfOper.
     */
-
     class EXCEL32_API XlfOper
     {
         friend class XlfOperImpl;
