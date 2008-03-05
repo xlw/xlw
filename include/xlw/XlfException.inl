@@ -27,7 +27,10 @@
 #define INLINE
 #endif
 
-INLINE XlfException::XlfException(const std::string& what) : what_(what) {}
+namespace xlw {
 
-INLINE const char* XlfException::what() const throw () { return what_.c_str(); }
+    INLINE XlfException::XlfException(const std::string& what) : what_(what) {}
 
+    INLINE const char* XlfException::what() const throw () { return what_.c_str(); }
+
+}

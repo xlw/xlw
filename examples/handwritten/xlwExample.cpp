@@ -23,6 +23,8 @@
 #include <vector>
 #include <xlw/Win32StreamBuf.h>
 
+using namespace xlw;
+
 Win32StreamBuf debuggerStreamBuf;
 std::streambuf *oldStreamBuf;
 

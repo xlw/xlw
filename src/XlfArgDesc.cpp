@@ -32,14 +32,14 @@
 #pragma hdrstop
 #endif
 
-void XlfArgDesc::CheckNameLength()
+void xlw::XlfArgDesc::CheckNameLength()
 {
     if (name_.length() >= 19)
         std::cerr << XLW__HERE__ << "Argument name \"" << name_.c_str()
         << "\" may be too long to fit the in the function wizard" << std::endl;
 };
 
-void XlfArgDesc::CheckDescEnd()
+void xlw::XlfArgDesc::CheckDescEnd()
 {
     std::string::size_type n = comment_.length();
     static std::string mandatoryEnding(". ");
@@ -47,7 +47,7 @@ void XlfArgDesc::CheckDescEnd()
         comment_ += mandatoryEnding;
 }
 
-XlfArgDesc::XlfArgDesc()
+xlw::XlfArgDesc::XlfArgDesc()
 {}
 
 /*!
@@ -56,7 +56,7 @@ XlfArgDesc::XlfArgDesc()
 \param type Argument type  - The type defaults to the XLOPER type corresponding
 to the version (4 or 12) of the running instance of Excel.
 */
-XlfArgDesc::XlfArgDesc(const std::string& name,
+xlw::XlfArgDesc::XlfArgDesc(const std::string& name,
                        const std::string& comment,
                        const std::string& type)
     : name_(name), comment_(comment), type_(type)
@@ -65,32 +65,32 @@ XlfArgDesc::XlfArgDesc(const std::string& name,
     CheckDescEnd();
 }
 
-XlfArgDesc::~XlfArgDesc()
+xlw::XlfArgDesc::~XlfArgDesc()
 {}
 
-void XlfArgDesc::SetName(const std::string& name)
+void xlw::XlfArgDesc::SetName(const std::string& name)
 {
     name_ = name;
     CheckNameLength();
 }
 
-const std::string& XlfArgDesc::GetName() const
+const std::string& xlw::XlfArgDesc::GetName() const
 {
     return name_;
 }
 
-void XlfArgDesc::SetComment(const std::string& comment)
+void xlw::XlfArgDesc::SetComment(const std::string& comment)
 {
     comment_ = comment;
     CheckDescEnd();
 }
 
-const std::string& XlfArgDesc::GetComment() const
+const std::string& xlw::XlfArgDesc::GetComment() const
 {
     return comment_;
 }
 
-std::string XlfArgDesc::GetType() const
+std::string xlw::XlfArgDesc::GetType() const
 {
     if (type_ == "XLF_OPER") {
         return XlfExcel::Instance().xlfOperType();

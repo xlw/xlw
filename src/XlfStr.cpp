@@ -29,7 +29,7 @@
 #pragma hdrstop
 #endif
 
-std::wstring voidToWstr(XLWSTR xlwstr) {
+std::wstring xlw::voidToWstr(XLWSTR xlwstr) {
     if (XlfExcel::Instance().excel12()) {
         return std::wstring(static_cast<wchar_t*>(xlwstr));
     } else {

@@ -28,164 +28,167 @@
 #define INLINE
 #endif
 
-INLINE XlfOper12::XlfOper12()
-{
-    Allocate();
+namespace xlw {
+
+    INLINE XlfOper12::XlfOper12()
+    {
+        Allocate();
+    }
+
+    INLINE XlfOper12::XlfOper12(const XlfOper12& oper)
+    {
+        *this = oper;
+    };
+
+    INLINE XlfOper12::XlfOper12(double value)
+    {
+        Allocate();
+        Set(value);
+    }
+
+    INLINE XlfOper12::XlfOper12(short value)
+    {
+        Allocate();
+        Set(value);
+    }
+
+    INLINE XlfOper12::XlfOper12(short value, bool error)
+    {
+        Allocate();
+        Set(value,error);
+    }
+
+    INLINE XlfOper12::XlfOper12(bool value)
+    {
+        Allocate();
+        Set(value);
+    }
+
+    INLINE XlfOper12::XlfOper12(const char *value)
+    {
+        Allocate();
+        Set(value);
+    }
+
+    INLINE XlfOper12::XlfOper12(const std::string& value)
+    {
+        Allocate();
+        Set(value.c_str());
+    }
+
+    INLINE XlfOper12::XlfOper12(const std::wstring& value)
+    {
+        Allocate();
+        Set(value);
+    }
+
+    INLINE XlfOper12::XlfOper12(const CellMatrix& value)
+    {
+        Allocate();
+        Set(value);
+    }
+
+    INLINE XlfOper12::XlfOper12(const MyMatrix& value)
+    {
+        Allocate();
+        Set(value);
+    }
+
+    INLINE XlfOper12::XlfOper12(const MyArray& value)
+    {
+        Allocate();
+        Set(value);
+    }
+
+    INLINE XlfOper12::XlfOper12(const XlfRef& range)
+    {
+        Allocate();
+        Set(range);
+    }
+
+    INLINE XlfOper12 XlfOper12::Error(WORD xlerr)
+    {
+        //static XLOPER12 oper;
+        //XlfOper12 ret(&oper);
+        // The above is not thread safe.
+        XlfOper12 ret;
+        ret.SetError(xlerr);
+        return ret;
+    }
+
+    INLINE XlfOper12& XlfOper12::operator=(const XlfOper12& rhs)
+    {
+        if (this != &rhs)
+            lpxloper_ = rhs.lpxloper_;
+        return *this;
+    }
+
+    INLINE XlfOper12::operator LPXLOPER12()
+    {
+        return lpxloper_;
+    }
+
+    INLINE bool XlfOper12::IsMissing() const
+    {
+        return lpxloper_->xltype & xltypeMissing;
+    }
+
+    INLINE bool XlfOper12::IsError() const
+    {
+        return lpxloper_->xltype & xltypeErr;
+    }
+
+    INLINE bool XlfOper12::IsRef() const
+    {
+        return lpxloper_->xltype & xltypeRef;
+    }
+
+    INLINE bool XlfOper12::IsSRef() const
+    {
+        return lpxloper_->xltype & xltypeSRef;
+    }
+
+    INLINE bool XlfOper12::IsMulti() const
+    {
+        return lpxloper_->xltype & xltypeMulti;
+    }
+
+    INLINE bool XlfOper12::IsNumber() const
+    {
+        return lpxloper_->xltype & xltypeNum;
+    }
+
+    INLINE bool XlfOper12::IsString() const
+    {
+        return lpxloper_->xltype & xltypeStr;
+    }
+
+    INLINE bool XlfOper12::IsNil() const
+    {
+        return lpxloper_->xltype & xltypeNil;
+    }
+
+    INLINE bool XlfOper12::IsBool() const
+    {
+        return lpxloper_->xltype & xltypeBool;
+    }
+
+    INLINE bool XlfOper12::IsInt() const
+    {
+        return lpxloper_->xltype & xltypeInt;
+    }
+
+    INLINE int XlfOper12::AsInt(int * pxlret) const
+    {
+        return static_cast<int>(AsDouble(pxlret));
+    }
+
+    INLINE LPXLOPER12 XlfOper12::GetLPXLOPER() const
+    {
+        return lpxloper_;
+    }
+
+    INLINE void XlfOper12::Deallocate()
+    {}
+
 }
-
-INLINE XlfOper12::XlfOper12(const XlfOper12& oper)
-{
-    *this = oper;
-};
-
-INLINE XlfOper12::XlfOper12(double value)
-{
-    Allocate();
-    Set(value);
-}
-
-INLINE XlfOper12::XlfOper12(short value)
-{
-    Allocate();
-    Set(value);
-}
-
-INLINE XlfOper12::XlfOper12(short value, bool error)
-{
-    Allocate();
-    Set(value,error);
-}
-
-INLINE XlfOper12::XlfOper12(bool value)
-{
-    Allocate();
-    Set(value);
-}
-
-INLINE XlfOper12::XlfOper12(const char *value)
-{
-    Allocate();
-    Set(value);
-}
-
-INLINE XlfOper12::XlfOper12(const std::string& value)
-{
-    Allocate();
-    Set(value.c_str());
-}
-
-INLINE XlfOper12::XlfOper12(const std::wstring& value)
-{
-    Allocate();
-    Set(value);
-}
-
-INLINE XlfOper12::XlfOper12(const CellMatrix& value)
-{
-    Allocate();
-    Set(value);
-}
-
-INLINE XlfOper12::XlfOper12(const MyMatrix& value)
-{
-    Allocate();
-    Set(value);
-}
-
-INLINE XlfOper12::XlfOper12(const MyArray& value)
-{
-    Allocate();
-    Set(value);
-}
-
-INLINE XlfOper12::XlfOper12(const XlfRef& range)
-{
-    Allocate();
-    Set(range);
-}
-
-INLINE XlfOper12 XlfOper12::Error(WORD xlerr)
-{
-    //static XLOPER12 oper;
-    //XlfOper12 ret(&oper);
-    // The above is not thread safe.
-    XlfOper12 ret;
-    ret.SetError(xlerr);
-    return ret;
-}
-
-INLINE XlfOper12& XlfOper12::operator=(const XlfOper12& rhs)
-{
-    if (this != &rhs)
-        lpxloper_ = rhs.lpxloper_;
-    return *this;
-}
-
-INLINE XlfOper12::operator LPXLOPER12()
-{
-    return lpxloper_;
-}
-
-INLINE bool XlfOper12::IsMissing() const
-{
-    return lpxloper_->xltype & xltypeMissing;
-}
-
-INLINE bool XlfOper12::IsError() const
-{
-    return lpxloper_->xltype & xltypeErr;
-}
-
-INLINE bool XlfOper12::IsRef() const
-{
-    return lpxloper_->xltype & xltypeRef;
-}
-
-INLINE bool XlfOper12::IsSRef() const
-{
-    return lpxloper_->xltype & xltypeSRef;
-}
-
-INLINE bool XlfOper12::IsMulti() const
-{
-    return lpxloper_->xltype & xltypeMulti;
-}
-
-INLINE bool XlfOper12::IsNumber() const
-{
-    return lpxloper_->xltype & xltypeNum;
-}
-
-INLINE bool XlfOper12::IsString() const
-{
-    return lpxloper_->xltype & xltypeStr;
-}
-
-INLINE bool XlfOper12::IsNil() const
-{
-    return lpxloper_->xltype & xltypeNil;
-}
-
-INLINE bool XlfOper12::IsBool() const
-{
-    return lpxloper_->xltype & xltypeBool;
-}
-
-INLINE bool XlfOper12::IsInt() const
-{
-    return lpxloper_->xltype & xltypeInt;
-}
-
-INLINE int XlfOper12::AsInt(int * pxlret) const
-{
-    return static_cast<int>(AsDouble(pxlret));
-}
-
-INLINE LPXLOPER12 XlfOper12::GetLPXLOPER() const
-{
-    return lpxloper_;
-}
-
-INLINE void XlfOper12::Deallocate()
-{}
-

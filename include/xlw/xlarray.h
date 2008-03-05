@@ -8,18 +8,22 @@
 #include "xlcall32.h"
 #include "MyContainers.h"
 
-struct xlarray
-{
-    WORD rows;
-    WORD columns;
-    double data[1];
-};
+namespace xlw {
+
+    struct xlarray
+    {
+        WORD rows;
+        WORD columns;
+        double data[1];
+    };
 
 
-typedef xlarray* LPXLARRAY;
+    typedef xlarray* LPXLARRAY;
 
 
-NEMatrix GetMatrix(LPXLARRAY);
+    NEMatrix GetMatrix(LPXLARRAY);
+
+}
 
 #endif
 

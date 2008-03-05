@@ -35,19 +35,19 @@
 
 /*! \e see XlfAbstractCmdDesc::XlfAbstractCmdDesc(const std::string&, const std::string&, const std::string&)
 */
-XlfCmdDesc::XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden)
+xlw::XlfCmdDesc::XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden)
     :XlfAbstractCmdDesc(name, alias, comment), menu_(), hidden_(hidden)
 {}
 
-XlfCmdDesc::~XlfCmdDesc()
+xlw::XlfCmdDesc::~XlfCmdDesc()
 {}
 
-bool XlfCmdDesc::IsAddedToMenuBar()
+bool xlw::XlfCmdDesc::IsAddedToMenuBar()
 {
   return !menu_.empty();
 }
 
-int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
+int xlw::XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
 {
     XLOPER xMenu;
     LPXLOPER pxMenu;
@@ -82,7 +82,7 @@ int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
     return err;
 }
 
-int XlfCmdDesc::Check(bool ERR_CHECK) const
+int xlw::XlfCmdDesc::Check(bool ERR_CHECK) const
 {
     if (menu_.empty())
     {
@@ -103,7 +103,7 @@ int XlfCmdDesc::Check(bool ERR_CHECK) const
 Registers the command as a macro in excel.
 \sa XlfExcel, XlfFuncDesc.
 */
-int XlfCmdDesc::DoRegister(const std::string& dllName) const
+int xlw::XlfCmdDesc::DoRegister(const std::string& dllName) const
 {
 
     XlfArgDescList arguments = GetArguments();
@@ -172,7 +172,7 @@ int XlfCmdDesc::DoRegister(const std::string& dllName) const
 
 }
 
-int XlfCmdDesc::DoUnregister(const std::string& dllName) const
+int xlw::XlfCmdDesc::DoUnregister(const std::string& dllName) const
 {
     return xlretSuccess;
 }

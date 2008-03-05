@@ -20,7 +20,7 @@
 
 /*!
 \file XlfStr.h
-\brief Declares the XlfStr class.
+\brief Experimental treatment of long strings for Excel 2007
 */
 
 // $Id: XlfRef.h 395 2007-11-30 15:36:29Z ericehlers $
@@ -33,11 +33,15 @@
 #pragma once
 #endif
 
-//! Experimental treatment of long strings for Excel 2007.
+namespace xlw {
 
-typedef void* XLWSTR;
+    //! Experimental treatment of long strings for Excel 2007.
 
-std::wstring voidToWstr(XLWSTR xlwstr);
+    typedef void* XLWSTR;
+
+    std::wstring voidToWstr(XLWSTR xlwstr);
+
+}
 
 #endif
 

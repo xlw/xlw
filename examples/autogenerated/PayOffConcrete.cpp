@@ -7,7 +7,7 @@
 #include "PayOffConcrete.h"
 #include <xlw/ArgListFactory.h>
 
-PayOffCall::PayOffCall(ArgumentList args) 
+PayOffCall::PayOffCall(xlw::ArgumentList args) 
 {
     if (args.GetStructureName() != "payoff") // must be lower case here
         throw("payoff structure expected in PayOffCall class");
@@ -37,7 +37,7 @@ double PayOffPut::operator () (double Spot) const
 ;
 }
 
-PayOffPut::PayOffPut(ArgumentList args)
+PayOffPut::PayOffPut(xlw::ArgumentList args)
 {
         if (args.GetStructureName() != "payoff") // must be lower case here
         throw("payoff structure expected in PayOffCall class");
@@ -62,7 +62,7 @@ double PayOffSpread::operator () (double Spot) const
 ;
 }
 
-PayOffSpread::PayOffSpread(ArgumentList args)
+PayOffSpread::PayOffSpread(xlw::ArgumentList args)
 {
         if (args.GetStructureName() != "payoff") // must be lower case here
         throw("payoff structure expected in PayOffCall class");
@@ -76,8 +76,8 @@ PayOffSpread::PayOffSpread(ArgumentList args)
     if (!args.GetIfPresent("Volume2",Volume2))
         Volume2= -1.0;
 
-    OptionOne = Wrapper<PayOff>(GetFromFactory<PayOff>(args.GetArgumentListArgumentValue("optionone")));
-    OptionTwo = Wrapper<PayOff>(GetFromFactory<PayOff>(args.GetArgumentListArgumentValue("optiontwo")));
+    OptionOne = xlw::Wrapper<PayOff>(xlw::GetFromFactory<PayOff>(args.GetArgumentListArgumentValue("optionone")));
+    OptionTwo = xlw::Wrapper<PayOff>(xlw::GetFromFactory<PayOff>(args.GetArgumentListArgumentValue("optiontwo")));
 
     args.CheckAllUsed("PayOffSpread");
 }

@@ -15,7 +15,7 @@ class PayOffCall : public PayOff
 {
 public:
 
-    PayOffCall(ArgumentList args);
+    PayOffCall(xlw::ArgumentList args);
 
     virtual double operator()(double Spot) const;
     virtual ~PayOffCall(){}
@@ -32,7 +32,7 @@ class PayOffPut : public PayOff
 {
 public:
 
-    PayOffPut(ArgumentList args);
+    PayOffPut(xlw::ArgumentList args);
 
     virtual double operator()(double Spot) const;
     virtual ~PayOffPut(){}
@@ -49,15 +49,15 @@ class PayOffSpread : public PayOff
 {
 public:
 
-    PayOffSpread(ArgumentList args);
+    PayOffSpread(xlw::ArgumentList args);
 
     virtual double operator()(double Spot) const;
     virtual ~PayOffSpread(){}
     virtual PayOff* clone() const;
 
 private:
-    Wrapper<PayOff> OptionOne;
-    Wrapper<PayOff> OptionTwo;
+    xlw::Wrapper<PayOff> OptionOne;
+    xlw::Wrapper<PayOff> OptionTwo;
     double Volume1;
     double Volume2;
 

@@ -17,5 +17,5 @@
 
 #include <xlw/XlfOperImpl.h>
 
-XlfOperImpl *XlfOperImpl::instance_ = 0;
+xlw::XlfOperImpl *xlw::XlfOperImpl::instance_ = 0;
 

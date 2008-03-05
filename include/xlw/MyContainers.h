@@ -32,16 +32,19 @@
 #include "MJMatrices.h"
 #include <vector>
 
-// uncomment the next line if your matrix class uses round brackets
-//#define USE_PARENTHESESES
-// change the typedefs to your favourite container classes
-typedef MJMatrix MyMatrix;
-typedef std::vector<double> MyArray;
-typedef MyMatrix NEMatrix;
+namespace xlw {
 
-double Element(const MyMatrix& A, unsigned long i , unsigned long j);
+    // uncomment the next line if your matrix class uses round brackets
+    //#define USE_PARENTHESESES
+    // change the typedefs to your favourite container classes
+    typedef MJMatrix MyMatrix;
+    typedef std::vector<double> MyArray;
+    typedef MyMatrix NEMatrix;
 
-double& ChangingElement(MyMatrix& A, unsigned long i , unsigned long j);
+    double Element(const MyMatrix& A, unsigned long i , unsigned long j);
 
+    double& ChangingElement(MyMatrix& A, unsigned long i , unsigned long j);
+
+}
 
 #endif

@@ -23,6 +23,7 @@
 #include <xlw/xlfFuncDesc.h>
 #include <xlw/xlfArgDescList.h>
 
+using namespace xlw;
 using namespace XLRegistration;
 
 XLFunctionRegistrationData::XLFunctionRegistrationData(const std::string& FunctionName_,

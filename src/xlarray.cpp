@@ -4,7 +4,7 @@
 
 #include <xlw/xlarray.h>
 
-NEMatrix GetMatrix(LPXLARRAY input)
+xlw::NEMatrix xlw::GetMatrix(LPXLARRAY input)
 {
     int rows = input->rows;
     int cols = input->columns;

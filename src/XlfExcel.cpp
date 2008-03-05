@@ -52,10 +52,10 @@ extern "C"
     int (__stdcall *Excel4v_)(int xlfn, LPXLOPER operRes, int count, LPXLOPER far opers[]);
 }
 
-XlfExcel *XlfExcel::this_ = 0;
+xlw::XlfExcel *xlw::XlfExcel::this_ = 0;
 
 //! Internal implementation of XlfExcel.
-struct XlfExcelImpl {
+struct xlw::XlfExcelImpl {
     //! Ctor.
     XlfExcelImpl(): handle_(0) {}
     //! Handle to the DLL module.
@@ -68,7 +68,7 @@ a reference. By returning a reference and declaring the copy ctor and the
 assignment otor private, we limit the risk of a wrong use of XlfExcel
 (typically duplication).
 */
-XlfExcel& XlfExcel::Instance() {
+xlw::XlfExcel& xlw::XlfExcel::Instance() {
     if (!this_) {
         this_ = new XlfExcel;
         // intialize library first because log displays
@@ -81,7 +81,7 @@ XlfExcel& XlfExcel::Instance() {
 /*!
 If no title is specified, the message is assumed to be an error log
 */
-void XlfExcel::MsgBox(const char *errmsg, const char *title) {
+void xlw::XlfExcel::MsgBox(const char *errmsg, const char *title) {
     LPVOID lpMsgBuf;
     // retrieve message error from system err code
     if (!title) {
@@ -108,7 +108,7 @@ void XlfExcel::MsgBox(const char *errmsg, const char *title) {
 /*!
 If msg is 0, the status bar is cleared.
 */
-void XlfExcel::SendMessage(const char *msg) {
+void xlw::XlfExcel::SendMessage(const char *msg) {
     if (msg)
         Call(xlcMessage, 0, 2, (LPXLFOPER)XlfOper(true), (LPXLFOPER)XlfOper(msg));
     else
@@ -116,18 +116,18 @@ void XlfExcel::SendMessage(const char *msg) {
     return;
 }
 
-bool XlfExcel::IsEscPressed() const {
+bool xlw::XlfExcel::IsEscPressed() const {
     XlfOper ret;
     Call(xlAbort, ret, 1, (LPXLFOPER)XlfOper(false));
     return ret.AsBool();
 }
 
-XlfExcel::XlfExcel(): impl_(0), offset_(0) {
+xlw::XlfExcel::XlfExcel(): impl_(0), offset_(0) {
     impl_ = new XlfExcelImpl();
     return;
 }
 
-XlfExcel::~XlfExcel() {
+xlw::XlfExcel::~XlfExcel() {
     FreeMemory(true);
     delete impl_;
     this_ = 0;
@@ -149,7 +149,7 @@ bool set_excel12() {
 Load \c XlfCALL32.DLL to interface excel (this library is shipped with Excel)
 and link it to the XLL.
 */
-void XlfExcel::InitLibrary() {
+void xlw::XlfExcel::InitLibrary() {
     HINSTANCE handle = LoadLibrary("XLCALL32.DLL");
     if (handle == 0)
         throw std::runtime_error("Could not load library XLCALL32.DLL");
@@ -177,7 +177,7 @@ void XlfExcel::InitLibrary() {
     return;
 }
 
-std::string XlfExcel::GetName() const {
+std::string xlw::XlfExcel::GetName() const {
     std::string ret;
     XlfOper xName;
     int err = Call(xlGetName, (LPXLFOPER)xName, 0);
@@ -189,9 +189,9 @@ std::string XlfExcel::GetName() const {
 }
 
 #ifdef __MINGW32__
-int __cdecl XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, ...) const
+int __cdecl xlw::XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, ...) const
 #else
-int cdecl XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, ...) const
+int cdecl xlw::XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, ...) const
 #endif
 {
     if (excel12_)
@@ -200,11 +200,11 @@ int cdecl XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, ...) const
         return Call4v(xlfn, (LPXLOPER)pxResult, count, (LPXLOPER *)(&count + 1));
 }
 
-int __cdecl XlfExcel::Call4(int xlfn, LPXLOPER pxResult, int count, ...) const {
+int __cdecl xlw::XlfExcel::Call4(int xlfn, LPXLOPER pxResult, int count, ...) const {
     return Call4v(xlfn, pxResult, count, (LPXLOPER *)(&count + 1));
 }
 
-int __cdecl XlfExcel::Call12(int xlfn, LPXLOPER12 pxResult, int count, ...) const {
+int __cdecl xlw::XlfExcel::Call12(int xlfn, LPXLOPER12 pxResult, int count, ...) const {
     return Call12v(xlfn, pxResult, count, (LPXLOPER12 *)(&count + 1));
 }
 
@@ -217,14 +217,14 @@ with XlfOper::xlbitCallFreeAuxMem.
 
 \sa XlfOper::~XlfOper
 */
-int XlfExcel::Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const {
+int xlw::XlfExcel::Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const {
     if (excel12_)
         return Call12v(xlfn, (LPXLOPER12)pxResult, count, (LPXLOPER12*)pxdata);
     else
         return Call4v(xlfn, (LPXLOPER)pxResult, count, (LPXLOPER*)pxdata);
 }
 
-int XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const {
+int xlw::XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const {
 #ifndef NDEBUG
     for (size_t i = 0; i<size_t(count);++i)
     if (!pxdata[i]) {
@@ -253,7 +253,7 @@ int XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) 
     return xlret;
 }
 
-int XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdata[]) const {
+int xlw::XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdata[]) const {
 #ifndef NDEBUG
     for (size_t i = 0; i<size_t(count); ++i)
         if (!pxdata[i]) {
@@ -315,7 +315,7 @@ bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
 
 } // empty namespace
 
-bool XlfExcel::IsCalledByFuncWiz() const {
+bool xlw::XlfExcel::IsCalledByFuncWiz() const {
     XLOPER xHwndMain;
     EnumStruct enm;
 

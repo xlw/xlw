@@ -28,52 +28,52 @@
 #pragma hdrstop
 #endif
 
-XlfArgDescList::XlfArgDescList()
+xlw::XlfArgDescList::XlfArgDescList()
 {}
 
-XlfArgDescList::XlfArgDescList(const XlfArgDescList& list)
+xlw::XlfArgDescList::XlfArgDescList(const XlfArgDescList& list)
 {
   arguments_ = list.arguments_;
 }
 
-XlfArgDescList::XlfArgDescList(const XlfArgDesc& first)
+xlw::XlfArgDescList::XlfArgDescList(const XlfArgDesc& first)
 {
   arguments_.push_back(first);
 }
 
-XlfArgDescList& XlfArgDescList::operator+(const XlfArgDesc& newarg)
+xlw::XlfArgDescList& xlw::XlfArgDescList::operator+(const XlfArgDesc& newarg)
 {
   arguments_.push_back(newarg);
   return *this;
 }
 
-XlfArgDescList::iterator XlfArgDescList::begin()
+xlw::XlfArgDescList::iterator xlw::XlfArgDescList::begin()
 {
   return arguments_.begin();
 }
 
-XlfArgDescList::const_iterator XlfArgDescList::begin() const
+xlw::XlfArgDescList::const_iterator xlw::XlfArgDescList::begin() const
 {
   return arguments_.begin();
 }
 
-XlfArgDescList::iterator XlfArgDescList::end()
+xlw::XlfArgDescList::iterator xlw::XlfArgDescList::end()
 {
   return arguments_.end();
 }
 
-XlfArgDescList::const_iterator XlfArgDescList::end() const
+xlw::XlfArgDescList::const_iterator xlw::XlfArgDescList::end() const
 {
   return arguments_.end();
 }
 
-size_t XlfArgDescList::size() const
+size_t xlw::XlfArgDescList::size() const
 {
   return arguments_.size();
 }
 
-XlfArgDescList operator+(const XlfArgDesc& lhs, const XlfArgDesc& rhs)
+xlw::XlfArgDescList xlw::operator+(const xlw::XlfArgDesc& lhs, const xlw::XlfArgDesc& rhs)
 {
-  return XlfArgDescList(lhs)+rhs;
+    return XlfArgDescList(lhs)+rhs;
 }
 

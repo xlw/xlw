@@ -23,7 +23,7 @@
 #include <xlw/XlFunctionRegistration.h>
 #include <xlw/CellMatrix.h>
 
-Win32StreamBuf debuggerStreamBuf;
+xlw::Win32StreamBuf debuggerStreamBuf;
 std::streambuf * oldStreamBuf;
 
 extern "C"
@@ -37,12 +37,12 @@ extern "C"
             std::cerr << XLW__HERE__ << "std::cerr redirected to MSVC debugger" << std::endl;
 
             // Displays a message in the status bar.
-            XlfExcel::Instance().SendMessage("Registering library...");
+            xlw::XlfExcel::Instance().SendMessage("Registering library...");
             
-            XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheRegistrations();
+            xlw::XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheRegistrations();
 
             // Clears the status bar.
-            XlfExcel::Instance().SendMessage();
+            xlw::XlfExcel::Instance().SendMessage();
             return 1;
 
         } catch(...) {
@@ -53,7 +53,7 @@ extern "C"
     long EXCEL_EXPORT xlAutoClose()
     {
         std::cerr << XLW__HERE__ << "Releasing ressources" << std::endl;
-        delete &XlfExcel::Instance();
+        delete &xlw::XlfExcel::Instance();
         std::cerr.rdbuf(oldStreamBuf);
         return 1;
     }

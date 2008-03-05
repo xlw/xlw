@@ -8,6 +8,6 @@
 
 #include <xlw/XlfOper.h>
 
-typedef XlfOper reftest;
+typedef xlw::XlfOper reftest;
 
 #endif

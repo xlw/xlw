@@ -38,7 +38,7 @@
 #pragma hdrstop
 #endif
 
-void XlfOperImpl12::destroy(const XlfOper &xlfOper) const
+void xlw::XlfOperImpl12::destroy(const XlfOper &xlfOper) const
 {
     if (!xlfOper.lpxloper12_)
         return;
@@ -61,7 +61,7 @@ void XlfOperImpl12::destroy(const XlfOper &xlfOper) const
     return;
 }
 
-int XlfOperImpl12::Allocate(XlfOper &xlfOper) const
+int xlw::XlfOperImpl12::Allocate(XlfOper &xlfOper) const
 {
     xlfOper.lpxloper12_ = (LPXLOPER12)XlfExcel::Instance().GetMemory(sizeof(XLOPER12));
     if (!xlfOper.lpxloper12_)
@@ -70,7 +70,7 @@ int XlfOperImpl12::Allocate(XlfOper &xlfOper) const
     return xlretSuccess;
 }
 
-void XlfOperImpl12::FreeAuxiliaryMemory(const XlfOper &xlfOper) const
+void xlw::XlfOperImpl12::FreeAuxiliaryMemory(const XlfOper &xlfOper) const
 {
     // FIXME call Call12() instead?
     int err = XlfExcel::Instance().XlfExcel::Instance().Call(xlFree, NULL, 1, (LPXLFOPER)xlfOper.lpxloper12_);
@@ -79,7 +79,7 @@ void XlfOperImpl12::FreeAuxiliaryMemory(const XlfOper &xlfOper) const
     return;
 }
 
-int XlfOperImpl12::Coerce(const XlfOper &xlfOper, short type, XlfOper& result) const
+int xlw::XlfOperImpl12::Coerce(const XlfOper &xlfOper, short type, XlfOper& result) const
 {
     XlfOper xlType(type);
     // FIXME call Call12() instead?
@@ -87,7 +87,7 @@ int XlfOperImpl12::Coerce(const XlfOper &xlfOper, short type, XlfOper& result) c
     return xlret;
 }
 
-int XlfOperImpl12::ConvertToDouble(const XlfOper &xlfOper, double& d) const throw()
+int xlw::XlfOperImpl12::ConvertToDouble(const XlfOper &xlfOper, double& d) const throw()
 {
     int xlret;
 
@@ -118,7 +118,7 @@ int XlfOperImpl12::ConvertToDouble(const XlfOper &xlfOper, double& d) const thro
     return xlret;
 };
 
-int XlfOperImpl12::ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<double>& v, DoubleVectorConvPolicy policy) const
+int xlw::XlfOperImpl12::ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<double>& v, DoubleVectorConvPolicy policy) const
 {
     if (xlfOper.lpxloper12_->xltype == xltypeMissing)
     {
@@ -215,7 +215,7 @@ int XlfOperImpl12::ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<dou
     return xlret;
 };
 
-int XlfOperImpl12::ConvertToShort(const XlfOper &xlfOper, short& s) const throw()
+int xlw::XlfOperImpl12::ConvertToShort(const XlfOper &xlfOper, short& s) const throw()
 {
     int xlret;
 
@@ -241,7 +241,7 @@ int XlfOperImpl12::ConvertToShort(const XlfOper &xlfOper, short& s) const throw(
         return xlret;
 };
 
-int XlfOperImpl12::ConvertToBool(const XlfOper &xlfOper, bool& b) const throw()
+int xlw::XlfOperImpl12::ConvertToBool(const XlfOper &xlfOper, bool& b) const throw()
 {
     int xlret;
 
@@ -265,7 +265,7 @@ int XlfOperImpl12::ConvertToBool(const XlfOper &xlfOper, bool& b) const throw()
     return xlret;
 };
 
-int XlfOperImpl12::ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& value) const
+int xlw::XlfOperImpl12::ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& value) const
 {
     // deal with empty case first
     if (xlfOper.lpxloper12_->xltype == xltypeMissing || xlfOper.lpxloper12_->xltype == xltypeNil )
@@ -293,7 +293,7 @@ int XlfOperImpl12::ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& value) cons
     return xlretSuccess;
 }
 
-int XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& output) const
+int xlw::XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& output) const
 {
 
     if (xlfOper.lpxloper12_->xltype == xltypeMissing || xlfOper.lpxloper12_->xltype == xltypeNil)
@@ -533,7 +533,7 @@ int XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& outpu
 
 }
 
-int XlfOperImpl12::ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw()
+int xlw::XlfOperImpl12::ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw()
 {
     int xlret;
 
@@ -557,7 +557,7 @@ int XlfOperImpl12::ConvertToErr(const XlfOper &xlfOper, WORD& e) const throw()
     return xlret;
 };
 
-int XlfOperImpl12::ConvertToString(const XlfOper &xlfOper, char *& s) const throw()
+int xlw::XlfOperImpl12::ConvertToString(const XlfOper &xlfOper, char *& s) const throw()
 {
     int xlret;
 
@@ -587,7 +587,7 @@ int XlfOperImpl12::ConvertToString(const XlfOper &xlfOper, char *& s) const thro
     return xlret;
 }
 
-int XlfOperImpl12::ConvertToWstring(const XlfOper &xlfOper, std::wstring &s) const throw()
+int xlw::XlfOperImpl12::ConvertToWstring(const XlfOper &xlfOper, std::wstring &s) const throw()
 {
     int xlret;
 
@@ -618,7 +618,7 @@ int XlfOperImpl12::ConvertToWstring(const XlfOper &xlfOper, std::wstring &s) con
     return xlret;
 }
 
-int XlfOperImpl12::ConvertToRef(const XlfOper &xlfOper, XlfRef& r) const throw()
+int xlw::XlfOperImpl12::ConvertToRef(const XlfOper &xlfOper, XlfRef& r) const throw()
 {
     int xlret;
 
@@ -650,7 +650,7 @@ int XlfOperImpl12::ConvertToRef(const XlfOper &xlfOper, XlfRef& r) const throw()
     return xlret;
 }
 
-XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const CellMatrix& cells) const
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, const CellMatrix& cells) const
 {
     int r = cells.RowsInStructure();
     int c = cells.ColumnsInStructure();
@@ -693,14 +693,14 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const CellMatrix& cells) const
 
 }
 
-XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, LPXLFOPER lpxlfoper) const
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, LPXLFOPER lpxlfoper) const
 {
     assert(lpxlfoper != 0);
     xlfOper.lpxloper12_ = reinterpret_cast<LPXLOPER12>(lpxlfoper);
     return xlfOper;
 }
 
-XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, double value) const
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, double value) const
 {
     if (xlfOper.lpxloper12_)
     {
@@ -710,7 +710,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, double value) const
     return xlfOper;
 }
 
-XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, short value) const
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, short value) const
 {
     if (xlfOper.lpxloper12_)
     {
@@ -720,7 +720,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, short value) const
     return xlfOper;
 }
 
-XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, short value, bool Error) const
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, short value, bool Error) const
 {
     if (xlfOper.lpxloper12_)
     {
@@ -738,7 +738,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, short value, bool Error) const
     return xlfOper;
 }
 
-XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, bool value) const
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, bool value) const
 {
     if (xlfOper.lpxloper12_)
     {
@@ -748,7 +748,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, bool value) const
     return xlfOper;
 }
 
-XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const XlfRef& range) const
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, const XlfRef& range) const
 {
     if (xlfOper.lpxloper12_)
     {
@@ -774,7 +774,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const XlfRef& range) const
     return xlfOper;
 }
 
-XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const char *value) const
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, const char *value) const
 {
     if (xlfOper.lpxloper12_)
     {
@@ -791,7 +791,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const char *value) const
     return xlfOper;
 }
 
-XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const std::wstring &value) const
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, const std::wstring &value) const
 {
     if (xlfOper.lpxloper12_)
     {
@@ -803,7 +803,7 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const std::wstring &value) const
     return xlfOper;
 }
 
-XlfOper& XlfOperImpl12::SetError(XlfOper &xlfOper, WORD error) const
+xlw::XlfOper& xlw::XlfOperImpl12::SetError(XlfOper &xlfOper, WORD error) const
 {
     if (xlfOper.lpxloper12_)
     {
@@ -813,84 +813,84 @@ XlfOper& XlfOperImpl12::SetError(XlfOper &xlfOper, WORD error) const
     return xlfOper;
 }
 
-XlfOper& XlfOperImpl12::assignment_operator(XlfOper &xlfOper, const XlfOper &rhs) const
+xlw::XlfOper& xlw::XlfOperImpl12::assignment_operator(XlfOper &xlfOper, const XlfOper &rhs) const
 {
     //if (xlfOper != &rhs) FIXME
         xlfOper.lpxloper12_ = rhs.lpxloper12_;
     return xlfOper;
 }
 
-LPXLOPER XlfOperImpl12::operator_LPXLOPER(const XlfOper &xlfOper) const
+LPXLOPER xlw::XlfOperImpl12::operator_LPXLOPER(const XlfOper &xlfOper) const
 {
     throw("Unable to convert Excel 12 datatype to Excel 4 datatype - operation not yet implemented");
 }
 
-LPXLOPER12 XlfOperImpl12::operator_LPXLOPER12(const XlfOper &xlfOper) const
+LPXLOPER12 xlw::XlfOperImpl12::operator_LPXLOPER12(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_;
 }
 
-LPXLFOPER XlfOperImpl12::operator_LPXLFOPER(const XlfOper &xlfOper) const
+xlw::LPXLFOPER xlw::XlfOperImpl12::operator_LPXLFOPER(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_;
 }
 
-bool XlfOperImpl12::IsMissing(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsMissing(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeMissing;
 }
 
-bool XlfOperImpl12::IsError(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsError(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeErr;
 }
 
-bool XlfOperImpl12::IsRef(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsRef(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeRef;
 }
 
-bool XlfOperImpl12::IsSRef(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsSRef(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeSRef;
 }
 
-bool XlfOperImpl12::IsMulti(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsMulti(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeMulti;
 }
 
-bool XlfOperImpl12::IsNumber(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsNumber(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeNum;
 }
 
-bool XlfOperImpl12::IsString(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsString(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeStr;
 }
 
-bool XlfOperImpl12::IsNil(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsNil(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeNil;
 }
 
-bool XlfOperImpl12::IsBool(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsBool(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeBool;
 }
 
-bool XlfOperImpl12::IsInt(const XlfOper &xlfOper) const
+bool xlw::XlfOperImpl12::IsInt(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_->xltype & xltypeInt;
 }
 
-LPXLFOPER XlfOperImpl12::GetLPXLFOPER(const XlfOper &xlfOper) const
+xlw::LPXLFOPER xlw::XlfOperImpl12::GetLPXLFOPER(const XlfOper &xlfOper) const
 {
     return xlfOper.lpxloper12_;
 }
 
-DWORD XlfOperImpl12::xltype(const XlfOper &xlfOper) const {
+DWORD xlw::XlfOperImpl12::xltype(const XlfOper &xlfOper) const {
     if (xlfOper.lpxloper12_)
         return xlfOper.lpxloper12_->xltype;
     else

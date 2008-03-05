@@ -35,46 +35,50 @@
 #pragma DEBUG_HEADERS
 #endif
 
-//! Encapsulates Excel C macro command.
-/*!
-Commands can be called from the tool bar and do not take any arguments
-*/
-class EXCEL32_API XlfCmdDesc: public XlfAbstractCmdDesc
-{
-public:
-    //! \name Structors
-    //@{
-    //! Ctor.
-    XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden);
-    //! Dtor.
-    ~XlfCmdDesc();
-    //@}
+namespace xlw {
 
-    //! \name Management of command properties
-    //@{
-    //! Adds the command to an Excel menu bar.
-    int AddToMenuBar(const std::string& menu, const std::string& text);
-    //! Is the command already in a menu bar?
-    bool IsAddedToMenuBar();
-    //! Activates/Deactivates the check box next to the command menu.
-    int Check(bool) const;
-    //@}
-protected:
-    //! \name Registration
-    //@{
-    //! Registers the command with Excel.
-    int DoRegister(const std::string& dllName) const;
-    //! Unregisters the command with Excel.
-    int DoUnregister(const std::string& dllName) const;
-    //@}
-private:
-  //! Menu in which the command is to be displayed.
-  std::string menu_;
-  //! Text in the menu.
-  std::string text_;
-  //! Hidden flag
-  bool hidden_;
-};
+    //! Encapsulates Excel C macro command.
+    /*!
+    Commands can be called from the tool bar and do not take any arguments
+    */
+    class EXCEL32_API XlfCmdDesc: public XlfAbstractCmdDesc
+    {
+    public:
+        //! \name Structors
+        //@{
+        //! Ctor.
+        XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden);
+        //! Dtor.
+        ~XlfCmdDesc();
+        //@}
+
+        //! \name Management of command properties
+        //@{
+        //! Adds the command to an Excel menu bar.
+        int AddToMenuBar(const std::string& menu, const std::string& text);
+        //! Is the command already in a menu bar?
+        bool IsAddedToMenuBar();
+        //! Activates/Deactivates the check box next to the command menu.
+        int Check(bool) const;
+        //@}
+    protected:
+        //! \name Registration
+        //@{
+        //! Registers the command with Excel.
+        int DoRegister(const std::string& dllName) const;
+        //! Unregisters the command with Excel.
+        int DoUnregister(const std::string& dllName) const;
+        //@}
+    private:
+      //! Menu in which the command is to be displayed.
+      std::string menu_;
+      //! Text in the menu.
+      std::string text_;
+      //! Hidden flag
+      bool hidden_;
+    };
+
+}
 
 #endif
 

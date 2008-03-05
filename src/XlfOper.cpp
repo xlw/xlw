@@ -49,16 +49,16 @@ memory to be freed.
 This bit is controled in ~XlfOper to know if the DLL should release
 auxiliary memory or not by a call to FreeAuxiliaryMemory.
 */
-int XlfOper::xlbitFreeAuxMem = 0x8000;
+int xlw::XlfOper::xlbitFreeAuxMem = 0x8000;
 
 /*!
 Attempts to convert the implict object to a double. If pxlret is not null
 the method won't throw and the Excel return code will be returned in this
 variable.
 
-\sa XlfOper::ConvertToDouble.
+\sa xlw::XlfOper::ConvertToDouble.
 */
-double XlfOper::AsDouble(int *pxlret) const
+double xlw::XlfOper::AsDouble(int *pxlret) const
 {
     double d;
     int xlret = ConvertToDouble(d);
@@ -69,7 +69,7 @@ double XlfOper::AsDouble(int *pxlret) const
     return d;
 };
 
-double XlfOper::AsDouble(const std::string& ErrorId, int *pxlret) const
+double xlw::XlfOper::AsDouble(const std::string& ErrorId, int *pxlret) const
 {
     double d;
     int xlret = ConvertToDouble(d);
@@ -85,7 +85,7 @@ Attempts to convert the implict object to an array.  Does this by calling
 AsDoubleVector.  If pxlret is not null the method won't throw and the Excel
 return code will be returned in this variable.
 */
-MyArray XlfOper::AsArray(XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
+xlw::MyArray xlw::XlfOper::AsArray(XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
 {
     std::vector<double> tmp(AsDoubleVector(policy,pxlret));
     MyArray result(tmp.size());
@@ -95,7 +95,7 @@ MyArray XlfOper::AsArray(XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret
     return result;
 }
 
-MyArray XlfOper::AsArray(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret ) const
+xlw::MyArray xlw::XlfOper::AsArray(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret ) const
 {
     std::vector<double> tmp(AsDoubleVector(ErrorId,policy,pxlret));
     MyArray result(tmp.size());
@@ -110,9 +110,9 @@ Attempts to convert the implict object to a vector of double. If pxlret is
 not null the method won't throw and the Excel return code will be returned
 in this variable.
 
-\sa XlfOper::ConvertToDoubleVector.
+\sa xlw::XlfOper::ConvertToDoubleVector.
 */
-std::vector<double> XlfOper::AsDoubleVector(XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
+std::vector<double> xlw::XlfOper::AsDoubleVector(XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
 {
     std::vector<double> v;
     int xlret = ConvertToDoubleVector(v, policy);
@@ -123,7 +123,7 @@ std::vector<double> XlfOper::AsDoubleVector(XlfOperImpl::DoubleVectorConvPolicy 
     return v;
 }
 
-std::vector<double> XlfOper::AsDoubleVector(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
+std::vector<double> xlw::XlfOper::AsDoubleVector(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
 {
     std::vector<double> v;
     int xlret = ConvertToDoubleVector(v, policy);
@@ -138,9 +138,9 @@ std::vector<double> XlfOper::AsDoubleVector(const std::string& ErrorId, XlfOperI
 Attempts to convert the implict object to a short. If pxlret is not null the
 method won't throw and the Excel return code will be returned in this variable.
 
-\sa XlfOper::ConvertToShort.
+\sa xlw::XlfOper::ConvertToShort.
 */
-short XlfOper::AsShort(int *pxlret) const
+short xlw::XlfOper::AsShort(int *pxlret) const
 {
     short s;
     int xlret = ConvertToShort(s);
@@ -151,7 +151,7 @@ short XlfOper::AsShort(int *pxlret) const
     return s;
 };
 
-short XlfOper::AsShort(const std::string& ErrorId, int *pxlret) const
+short xlw::XlfOper::AsShort(const std::string& ErrorId, int *pxlret) const
 {
     short s;
     int xlret = ConvertToShort(s);
@@ -166,9 +166,9 @@ short XlfOper::AsShort(const std::string& ErrorId, int *pxlret) const
 Attempts to convert the implict object to a bool. If pxlret is not null the
 method won't throw and the Excel return code will be returned in this variable.
 
-\sa XlfOper::ConvertToBool.
+\sa xlw::XlfOper::ConvertToBool.
 */
-bool XlfOper::AsBool(int *pxlret) const
+bool xlw::XlfOper::AsBool(int *pxlret) const
 {
     bool b;
     int xlret = ConvertToBool(b);
@@ -179,7 +179,7 @@ bool XlfOper::AsBool(int *pxlret) const
     return b;
 };
 
-bool XlfOper::AsBool(const std::string& ErrorId, int *pxlret) const
+bool xlw::XlfOper::AsBool(const std::string& ErrorId, int *pxlret) const
 {
     bool b;
     int xlret = ConvertToBool(b);
@@ -194,9 +194,9 @@ bool XlfOper::AsBool(const std::string& ErrorId, int *pxlret) const
 Attempts to convert the implict object to a matrix. If pxlret is not null the
 method won't throw and the Excel return code will be returned in this variable.
 
-\sa XlfOper::ConvertToMatrix.
+\sa xlw::XlfOper::ConvertToMatrix.
 */
-MyMatrix XlfOper::AsMatrix(int *pxlret) const
+xlw::MyMatrix xlw::XlfOper::AsMatrix(int *pxlret) const
 {
     MyMatrix output; // will be resized anyway
     int xlret = ConvertToMatrix(output);
@@ -207,7 +207,7 @@ MyMatrix XlfOper::AsMatrix(int *pxlret) const
     return output;
 }
 
-MyMatrix XlfOper::AsMatrix(const std::string& ErrorId, int *pxlret) const
+xlw::MyMatrix xlw::XlfOper::AsMatrix(const std::string& ErrorId, int *pxlret) const
 {
     MyMatrix output; // will be resized anyway
     int xlret = ConvertToMatrix(output);
@@ -223,9 +223,9 @@ Attempts to convert the implict object to a cell matrix. If pxlret is not null
 the method won't throw and the Excel return code will be returned in this
 variable.
 
-\sa XlfOper::ConvertToCellMatrix.
+\sa xlw::XlfOper::ConvertToCellMatrix.
 */
-CellMatrix XlfOper::AsCellMatrix(int *pxlret) const
+xlw::CellMatrix xlw::XlfOper::AsCellMatrix(int *pxlret) const
 {
     CellMatrix output(1,1); // will be resized anyway
     int xlret = ConvertToCellMatrix(output);
@@ -236,7 +236,7 @@ CellMatrix XlfOper::AsCellMatrix(int *pxlret) const
     return output;
 }
 
-CellMatrix XlfOper::AsCellMatrix(const std::string& ErrorId, int *pxlret) const
+xlw::CellMatrix xlw::XlfOper::AsCellMatrix(const std::string& ErrorId, int *pxlret) const
 {
     CellMatrix output(1,1); // will be resized anyway
     int xlret = ConvertToCellMatrix(output);
@@ -252,13 +252,13 @@ Attempts to convert the implict object to a char string. If pxlret is not
 null the method won't throw and the Excel return code will be returned in
 this variable.
 
-\sa XlfOper::ConvertToString.
+\sa xlw::XlfOper::ConvertToString.
 
 The XLL allocates the memory on its own buffer. This buffer is automatically
 freed when a function of the XLL is called again. Note that coerce to
 a char string is the slowest cast of all.
 */
-char *XlfOper::AsString(int *pxlret) const
+char *xlw::XlfOper::AsString(int *pxlret) const
 {
     char * s;
     int xlret = ConvertToString(s);
@@ -269,7 +269,7 @@ char *XlfOper::AsString(int *pxlret) const
     return s;
 };
 
-char *XlfOper::AsString(const std::string& ErrorId, int *pxlret) const
+char *xlw::XlfOper::AsString(const std::string& ErrorId, int *pxlret) const
 {
     char * s;
     int xlret = ConvertToString(s);
@@ -280,7 +280,7 @@ char *XlfOper::AsString(const std::string& ErrorId, int *pxlret) const
     return s;
 };
 
-std::wstring XlfOper::AsWstring(int *pxlret) const
+std::wstring xlw::XlfOper::AsWstring(int *pxlret) const
 {
     std::wstring s;
     int xlret = ConvertToWstring(s);
@@ -296,9 +296,9 @@ Attempts to convert the implict object to an XlfRef. If pxlret is not null
 the method won't throw and the Excel return code will be returned in this
 variable.
 
-\sa XlfOper::ConvertToRef.
+\sa xlw::XlfOper::ConvertToRef.
 */
-XlfRef XlfOper::AsRef(int *pxlret) const
+xlw::XlfRef xlw::XlfOper::AsRef(int *pxlret) const
 {
     XlfRef r;
     int xlret = ConvertToRef(r);
@@ -309,7 +309,7 @@ XlfRef XlfOper::AsRef(int *pxlret) const
     return r;
 }
 
-XlfOper& XlfOper::Set(const MyMatrix& values)
+xlw::XlfOper& xlw::XlfOper::Set(const MyMatrix& values)
 {
     if (values.rows() ==0 || values.columns() ==0)
     {
@@ -323,7 +323,7 @@ XlfOper& XlfOper::Set(const MyMatrix& values)
     return Set(tmp);
 }
 
-XlfOper& XlfOper::Set(const MyArray& values)
+xlw::XlfOper& xlw::XlfOper::Set(const MyArray& values)
 {
     if (values.size() ==0)
     {
@@ -344,7 +344,7 @@ XlfException.
 
 Other events throw std::runtime_error.
 */
-int XlfOper::ThrowOnError(int xlret) const
+int xlw::XlfOper::ThrowOnError(int xlret) const
 {
     if (xlret == xlretSuccess)
         return xlret;
@@ -378,7 +378,7 @@ XlfException.
 Other events throw std::runtime_error. The Identifier is tagged on to the error
 message to help track down problems.
 */
-int XlfOper::ThrowOnError(int xlret, const std::string& Identifier) const
+int xlw::XlfOper::ThrowOnError(int xlret, const std::string& Identifier) const
 {
     if (xlret == xlretSuccess)
         return xlret;
@@ -402,7 +402,7 @@ int XlfOper::ThrowOnError(int xlret, const std::string& Identifier) const
     return xlret;
 }
 
-std::string XlfOper::xltypeName() const {
+std::string xlw::XlfOper::xltypeName() const {
     DWORD type = xltype();
     if (type == xltypeNum)
         return "xltypeNum";

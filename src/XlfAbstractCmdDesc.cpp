@@ -40,13 +40,13 @@
 \param alias Alias in Excel for the command.
 \param comment Help string associated with the comment
 */
-XlfAbstractCmdDesc::XlfAbstractCmdDesc(const std::string& name,
+xlw::XlfAbstractCmdDesc::XlfAbstractCmdDesc(const std::string& name,
                                        const std::string& alias,
                                        const std::string& comment)
     :name_(name), alias_(alias), comment_(comment)
 {}
 
-XlfAbstractCmdDesc::~XlfAbstractCmdDesc()
+xlw::XlfAbstractCmdDesc::~XlfAbstractCmdDesc()
 {}
 
 /*!
@@ -54,7 +54,7 @@ Performs the parts of the Registration that are common to all the subclasses of
 XlfAbstractCmdDesc. It then calls the pure virtual method DoRegister for the
 subclass dependant parts of the algorithm.
 */
-void XlfAbstractCmdDesc::Register() const
+void xlw::XlfAbstractCmdDesc::Register() const
 {
   std::string dllName = XlfExcel::Instance().GetName();
   if (dllName.empty())
@@ -70,7 +70,7 @@ Performs the parts of the Unregistration that are common to all the subclasses
 of XlfAbstractCmdDesc. It then calls the pure virtual method DoUnregister for
 the subclass dependent parts of the algorithm.
 */
-void XlfAbstractCmdDesc::Unregister() const
+void xlw::XlfAbstractCmdDesc::Unregister() const
 {
   std::string dllName = XlfExcel::Instance().GetName();
   if (dllName.empty())
@@ -81,32 +81,32 @@ void XlfAbstractCmdDesc::Unregister() const
   return;
 }
 
-void XlfAbstractCmdDesc::SetName(const std::string& name)
+void xlw::XlfAbstractCmdDesc::SetName(const std::string& name)
 {
   name_ = name;
 }
 
-const std::string& XlfAbstractCmdDesc::GetName() const
+const std::string& xlw::XlfAbstractCmdDesc::GetName() const
 {
   return name_;
 }
 
-void XlfAbstractCmdDesc::SetAlias(const std::string& alias)
+void xlw::XlfAbstractCmdDesc::SetAlias(const std::string& alias)
 {
   alias_ = alias;
 }
 
-const std::string& XlfAbstractCmdDesc::GetAlias() const
+const std::string& xlw::XlfAbstractCmdDesc::GetAlias() const
 {
   return alias_;
 }
 
-void XlfAbstractCmdDesc::SetComment(const std::string& comment)
+void xlw::XlfAbstractCmdDesc::SetComment(const std::string& comment)
 {
   comment_ = comment;
 }
 
-const std::string& XlfAbstractCmdDesc::GetComment() const
+const std::string& xlw::XlfAbstractCmdDesc::GetComment() const
 {
   return comment_;
 }
@@ -115,12 +115,12 @@ const std::string& XlfAbstractCmdDesc::GetComment() const
 The new arguments overwrite any existing ones that have previously been set.
 You cannot push back the arguments one by one.
 */
-void XlfAbstractCmdDesc::SetArguments(const XlfArgDescList& arguments)
+void xlw::XlfAbstractCmdDesc::SetArguments(const XlfArgDescList& arguments)
 {
   arguments_ = arguments;
 }
 
-const XlfArgDescList& XlfAbstractCmdDesc::GetArguments() const
+const xlw::XlfArgDescList& xlw::XlfAbstractCmdDesc::GetArguments() const
 {
   return arguments_;
 }

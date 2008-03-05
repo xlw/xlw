@@ -21,7 +21,7 @@
 #include <xlw/DoubleOrNothing.h>
 #include <xlw/CellMatrix.h>
 
-DoubleOrNothing::DoubleOrNothing(const CellMatrix& cells, const std::string& identifier)
+xlw::DoubleOrNothing::DoubleOrNothing(const CellMatrix& cells, const std::string& identifier)
 {
     if (cells.ColumnsInStructure() != 1 || cells.RowsInStructure() != 1)
         throw("Multiple values given where one expected for DoubleOrNothing " +identifier);
@@ -35,12 +35,12 @@ DoubleOrNothing::DoubleOrNothing(const CellMatrix& cells, const std::string& ide
 
 }
 
-bool DoubleOrNothing::IsEmpty() const
+bool xlw::DoubleOrNothing::IsEmpty() const
 {
     return Empty;
 }
 
-double DoubleOrNothing::GetValueOrDefault(double defaultValue) const
+double xlw::DoubleOrNothing::GetValueOrDefault(double defaultValue) const
 {
     return Empty ? defaultValue : Value;
 }

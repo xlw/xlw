@@ -19,24 +19,29 @@
 */
 #ifndef DOUBLE_OR_NOTHING_H
 #define DOUBLE_OR_NOTHING_H
-class CellMatrix;
+
 #include <xlw/port.h>
 #include <string>
 
-class DoubleOrNothing
-{
-public:
-    DoubleOrNothing(const CellMatrix& cells, const std::string& identifier);
+namespace xlw {
 
-    bool IsEmpty() const;
-    double GetValueOrDefault(double defaultValue) const;
+    class CellMatrix;
+    class DoubleOrNothing
+    {
+    public:
+        DoubleOrNothing(const CellMatrix& cells, const std::string& identifier);
+
+        bool IsEmpty() const;
+        double GetValueOrDefault(double defaultValue) const;
 
 
 
-private:
-    bool Empty;
-    double Value;
+    private:
+        bool Empty;
+        double Value;
 
-};
+    };
+
+}
 
 #endif

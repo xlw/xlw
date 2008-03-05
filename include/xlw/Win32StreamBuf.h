@@ -27,38 +27,42 @@
 
 #include <streambuf>
 
-//! Forwards stream to Win32 debugger.
-/*!
-Use iostream::rdbuf method to set Win32StreamBuf.
-*/
-class Win32StreamBuf: public std::streambuf
-{
-public:
-    //! \name Structors
-    //@{
-    //! Default constructor
-    Win32StreamBuf() {}
-    //! Empty destructor
-    ~Win32StreamBuf() {}
-    //@}
-protected:
-    //! \name Implementation
-    //@{
-    //! Write to the buffer.
-    int_type overflow(int_type ch);
-    //! Synchronize the buffer.
-    int sync();
-    //@}
-private:
-    //! Redirect output to compiler debug window
-    void SendToDebugWindow();
-    std::string buf_;
+namespace xlw {
 
-    //! Copy ctor not implemented to prevent use
-    Win32StreamBuf(const Win32StreamBuf&);
-    //! Assignment otor not implemented to prevent use
-    Win32StreamBuf& operator=(const Win32StreamBuf&);
-};
+    //! Forwards stream to Win32 debugger.
+    /*!
+    Use iostream::rdbuf method to set Win32StreamBuf.
+    */
+    class Win32StreamBuf: public std::streambuf
+    {
+    public:
+        //! \name Structors
+        //@{
+        //! Default constructor
+        Win32StreamBuf() {}
+        //! Empty destructor
+        ~Win32StreamBuf() {}
+        //@}
+    protected:
+        //! \name Implementation
+        //@{
+        //! Write to the buffer.
+        int_type overflow(int_type ch);
+        //! Synchronize the buffer.
+        int sync();
+        //@}
+    private:
+        //! Redirect output to compiler debug window
+        void SendToDebugWindow();
+        std::string buf_;
+
+        //! Copy ctor not implemented to prevent use
+        Win32StreamBuf(const Win32StreamBuf&);
+        //! Assignment otor not implemented to prevent use
+        Win32StreamBuf& operator=(const Win32StreamBuf&);
+    };
+
+}
 
 #ifdef NDEBUG
 #include "Win32StreamBuf.inl"

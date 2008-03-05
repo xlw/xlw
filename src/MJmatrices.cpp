@@ -21,8 +21,8 @@
 #include <xlw/MJmatrices.h>
 #include <algorithm>
 
-MJMatrix&
-MJMatrix::resize(unsigned long rows, unsigned long columns)
+xlw::MJMatrix&
+xlw::MJMatrix::resize(unsigned long rows, unsigned long columns)
 {
   if(rows==Rows && columns == Columns)
     return *this;
@@ -41,7 +41,7 @@ MJMatrix::resize(unsigned long rows, unsigned long columns)
 
 
 
-void MJMatrix::Create()
+void xlw::MJMatrix::Create()
 {
     if (Rows*Columns>0)
     {
@@ -60,7 +60,7 @@ void MJMatrix::Create()
 }
 
 
-void MJMatrix::Create(unsigned long rows, unsigned long cols)
+void xlw::MJMatrix::Create(unsigned long rows, unsigned long cols)
 {
   Rows = rows;
   Columns = cols;
@@ -68,14 +68,14 @@ void MJMatrix::Create(unsigned long rows, unsigned long cols)
 }
 
 
-MJMatrix::MJMatrix(unsigned long Rows_, unsigned long Columns_)
+xlw::MJMatrix::MJMatrix(unsigned long Rows_, unsigned long Columns_)
                 :       Rows(Rows_),
                         Columns(Columns_)
 {
     Create();
 }
 
-MJMatrix::MJMatrix(const MJMatrix& original)
+xlw::MJMatrix::MJMatrix(const MJMatrix& original)
                 :       Rows(original.Rows),
                         Columns(original.Columns)
 {
@@ -85,7 +85,7 @@ MJMatrix::MJMatrix(const MJMatrix& original)
 
 }
 
-MJMatrix& MJMatrix::operator=(const MJMatrix& original)
+xlw::MJMatrix& xlw::MJMatrix::operator=(const MJMatrix& original)
 {
     if (this != &original)
     {
@@ -110,7 +110,7 @@ MJMatrix& MJMatrix::operator=(const MJMatrix& original)
 }
 
 
-MJMatrix::~MJMatrix()
+xlw::MJMatrix::~MJMatrix()
 {
     if (Start >0)
     {

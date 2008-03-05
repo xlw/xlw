@@ -29,81 +29,84 @@
 #endif
 #include <iostream>
 
-struct XlwMutex {
-    HANDLE hMutex;
-    XlwMutex() {
-        hMutex = CreateMutex(NULL, FALSE, "xlw_mutex");
-        WaitForSingleObject(hMutex, INFINITE);
-    }
-    ~XlwMutex() {
-        ReleaseMutex(hMutex);
-    }
-};
+namespace xlw {
 
-/*!
-The macro EXCEL_BEGIN includes a call to XlfExcel::FreeMemory.
-
-FreeMemory frees *all* memory previously allocated by the
-framework. Keeps the biggest buffer allocated (front one) so far
-for subsequent calls.
-
-\sa XlfBuffer.
-*/
-INLINE void XlfExcel::FreeMemory(bool finished) {
-    XlwMutex xlwMutex;
-    size_t nbBuffersToKeep = 1;
-    if (finished)
-        nbBuffersToKeep = 0;
-    while (freeList_.size() > nbBuffersToKeep) {
-        delete[] freeList_.back().start;
-        freeList_.pop_back();
-    }
-    offset_ = 0;
-}
-
-/*!
-Allocates a \c new[] buffer and pushes it in front of the list of buffers.
-\arg size Size of the new buffer in bytes.
-*/
-INLINE void XlfExcel::PushNewBuffer(size_t size) {
-    XlfBuffer newBuffer;
-    newBuffer.size = size;
-    newBuffer.start = new char[size];
-    freeList_.push_front(newBuffer);
-    offset_=0;
-#if !defined(NDEBUG)
-    std::cerr << "xlw is allocating a new buffer of " << size << " bytes" << std::endl;
-#endif
-    return;
-}
-
-/*!
-\param bytes is the size of the chunk required in bytes.
-\return the address of the chunk.
-
-Check if the buffer has enough memory, and move the offset of the static
-buffer of the ammount of memory requested. If the buffer is full, a new
-buffer is allocated whose size is 150% of the one we just filled.
-
-\sa XlfBuffer, XlfExcel::PushNewBuffer(size_t)
-*/
-INLINE LPSTR XlfExcel::GetMemory(size_t bytes) {
-    XlwMutex xlwMutex;
-
-    if (freeList_.empty())
-        PushNewBuffer(8192);
-    while (1) {
-        XlfBuffer& buffer = freeList_.front();
-        if (offset_ + bytes < buffer.size) {
-            int temp = static_cast<int>(offset_);
-            offset_ += bytes;
-            LPSTR ret = buffer.start + temp;
-            return ret;
-        } else {
-            PushNewBuffer(size_t(buffer.size*1.5));
+    struct XlwMutex {
+        HANDLE hMutex;
+        XlwMutex() {
+            hMutex = CreateMutex(NULL, FALSE, "xlw_mutex");
+            WaitForSingleObject(hMutex, INFINITE);
         }
-    }
-    // should never get to this point...
-    return 0;
-}
+        ~XlwMutex() {
+            ReleaseMutex(hMutex);
+        }
+    };
 
+    /*!
+    The macro EXCEL_BEGIN includes a call to XlfExcel::FreeMemory.
+
+    FreeMemory frees *all* memory previously allocated by the
+    framework. Keeps the biggest buffer allocated (front one) so far
+    for subsequent calls.
+
+    \sa XlfBuffer.
+    */
+    INLINE void XlfExcel::FreeMemory(bool finished) {
+        XlwMutex xlwMutex;
+        size_t nbBuffersToKeep = 1;
+        if (finished)
+            nbBuffersToKeep = 0;
+        while (freeList_.size() > nbBuffersToKeep) {
+            delete[] freeList_.back().start;
+            freeList_.pop_back();
+        }
+        offset_ = 0;
+    }
+
+    /*!
+    Allocates a \c new[] buffer and pushes it in front of the list of buffers.
+    \arg size Size of the new buffer in bytes.
+    */
+    INLINE void XlfExcel::PushNewBuffer(size_t size) {
+        XlfBuffer newBuffer;
+        newBuffer.size = size;
+        newBuffer.start = new char[size];
+        freeList_.push_front(newBuffer);
+        offset_=0;
+    #if !defined(NDEBUG)
+        std::cerr << "xlw is allocating a new buffer of " << size << " bytes" << std::endl;
+    #endif
+        return;
+    }
+
+    /*!
+    \param bytes is the size of the chunk required in bytes.
+    \return the address of the chunk.
+
+    Check if the buffer has enough memory, and move the offset of the static
+    buffer of the ammount of memory requested. If the buffer is full, a new
+    buffer is allocated whose size is 150% of the one we just filled.
+
+    \sa XlfBuffer, XlfExcel::PushNewBuffer(size_t)
+    */
+    INLINE LPSTR XlfExcel::GetMemory(size_t bytes) {
+        XlwMutex xlwMutex;
+
+        if (freeList_.empty())
+            PushNewBuffer(8192);
+        while (1) {
+            XlfBuffer& buffer = freeList_.front();
+            if (offset_ + bytes < buffer.size) {
+                int temp = static_cast<int>(offset_);
+                offset_ += bytes;
+                LPSTR ret = buffer.start + temp;
+                return ret;
+            } else {
+                PushNewBuffer(size_t(buffer.size*1.5));
+            }
+        }
+        // should never get to this point...
+        return 0;
+    }
+
+}

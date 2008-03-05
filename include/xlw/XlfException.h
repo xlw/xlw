@@ -36,63 +36,67 @@
 #pragma DEBUG_HEADERS
 #endif
 
-class EXCEL32_API XlfOper;
+namespace xlw {
 
-//! Excel emergency exceptions
-/*!
-It is important to distinguish exceptions thrown as XlfException
-from others because they will be caught differently by the wrapper.
-See EXCEL_END.
+    class EXCEL32_API XlfOper;
 
-\warning These exceptions don't necessarly correspond to errors, see
-for example XlfExceptionUncalculated.
+    //! Excel emergency exceptions
+    /*!
+    It is important to distinguish exceptions thrown as XlfException
+    from others because they will be caught differently by the wrapper.
+    See EXCEL_END.
 
-\sa ThrowOnError
-*/
-class EXCEL32_API XlfException : public std::exception
-{
-public:
-    //! Message string ctor.
-    XlfException(const std::string& what = "");
-    //! std::exception interface
-    const char* what () const throw ();
-    //! the automatically generated destructor would not have the throw specifier.
-    ~XlfException () throw () {}
-private:
-    std::string what_;
-};
+    \warning These exceptions don't necessarly correspond to errors, see
+    for example XlfExceptionUncalculated.
 
-//! Argument cell not calculated.
-/*!
-A cell was requested whose value has been invalidated.
+    \sa ThrowOnError
+    */
+    class EXCEL32_API XlfException : public std::exception
+    {
+    public:
+        //! Message string ctor.
+        XlfException(const std::string& what = "");
+        //! std::exception interface
+        const char* what () const throw ();
+        //! the automatically generated destructor would not have the throw specifier.
+        ~XlfException () throw () {}
+    private:
+        std::string what_;
+    };
 
-When it occurs, the framework should return immediately
-to excel to let it calculate the cell. Excel will then
-call again the function immediately after the argument
-was re-calculated.
+    //! Argument cell not calculated.
+    /*!
+    A cell was requested whose value has been invalidated.
 
-No message is passed to XlfException to speed up return
-to MS Excel.
-*/
-class EXCEL32_API XlfExceptionUncalculated: public XlfException
-{};
+    When it occurs, the framework should return immediately
+    to excel to let it calculate the cell. Excel will then
+    call again the function immediately after the argument
+    was re-calculated.
 
-//! Abort requested.
-/*!
-Usually thrown by the user after XlfExcel::IsEscPressed had return true.
-*/
-class EXCEL32_API XlfExceptionAbort: public XlfException
-{
-public:
-    XlfExceptionAbort(): XlfException("abort") {}
-};
+    No message is passed to XlfException to speed up return
+    to MS Excel.
+    */
+    class EXCEL32_API XlfExceptionUncalculated: public XlfException
+    {};
 
-//! Stack overflow.
-class EXCEL32_API XlfExceptionStackOverflow: public XlfException
-{
-public:
-    XlfExceptionStackOverflow(): XlfException("stack overflow") {}
-};
+    //! Abort requested.
+    /*!
+    Usually thrown by the user after XlfExcel::IsEscPressed had return true.
+    */
+    class EXCEL32_API XlfExceptionAbort: public XlfException
+    {
+    public:
+        XlfExceptionAbort(): XlfException("abort") {}
+    };
+
+    //! Stack overflow.
+    class EXCEL32_API XlfExceptionStackOverflow: public XlfException
+    {
+    public:
+        XlfExceptionStackOverflow(): XlfException("stack overflow") {}
+    };
+
+}
 
 #ifdef NDEBUG
 #include <xlw/XlfException.inl>

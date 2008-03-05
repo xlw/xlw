@@ -19,7 +19,6 @@
 
 extern "C"
 {
-
   long EXCEL_EXPORT xlAutoOpen();
   long EXCEL_EXPORT xlAutoClose();
 }

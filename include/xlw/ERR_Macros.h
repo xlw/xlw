@@ -81,24 +81,28 @@ if (...)
 
 //! Wrapper for the try keyword.
 #define ERR_TRY try
+
 //! Wrapper for catch keyword.
 #define ERR_CATCH catch
+
 //! Wrapper for throw keyword without argument.
 /*!
 You might use it to forward an exception further up in the call stack
 after it's been catched by a catch block.
 */
 #define ERR_RETHROW throw
+
 //! Wrapper for cathing an exception and forward it immediately
 #define ERR_CATCH_AND_THROW { }
+
 //! Wrapper for a catch of all exceptions.
 #define ERR_CATCH_ALL catch (...)
+
 //! Wrapper for the throw of an exception with message.
 /*! Adds the name of the exception thrown and calls ERR_LOG() macro
     with the message.
     \sa ERR_LOG()
 */
-
 #define ERR_THROW_MSG(except, message) if (true) \
 { \
     char tmp__[1024]; \
@@ -110,6 +114,7 @@ after it's been catched by a catch block.
 
 //! Wrapper for throw of an exception without message.
 #define ERR_THROW(exception) { throw exception(); }
+
 //! Wrapper for assertion test.
 /*!
 Checks if \e condition is \c true. If not, calls ERR_THROW_MSG() with

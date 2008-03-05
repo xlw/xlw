@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003 Jérôme Lecomte
 
@@ -27,31 +28,35 @@
 #define INLINE
 #endif
 
-/*!
-This method is called to dump stuff in the put area out to the file.
-We intercept it to send to debug window.
-*/
-INLINE int Win32StreamBuf::sync()
-{
-    SendToDebugWindow();
-    buf_.erase();
-    return 0;
-}
+namespace xlw {
 
-/*!
-This method is called to dump stuff in the put area out to the file.
-We intercept it to send to debug window.
-*/
-INLINE int Win32StreamBuf::overflow(int ch)
-{
-    if (!traits_type::eq_int_type(traits_type::eof(), ch))
+    /*!
+    This method is called to dump stuff in the put area out to the file.
+    We intercept it to send to debug window.
+    */
+    INLINE int Win32StreamBuf::sync()
     {
-        buf_.append(1, traits_type::to_char_type(ch));
+        SendToDebugWindow();
+        buf_.erase();
+        return 0;
     }
-    else
+
+    /*!
+    This method is called to dump stuff in the put area out to the file.
+    We intercept it to send to debug window.
+    */
+    INLINE int Win32StreamBuf::overflow(int ch)
     {
-        return sync();
+        if (!traits_type::eq_int_type(traits_type::eof(), ch))
+        {
+            buf_.append(1, traits_type::to_char_type(ch));
+        }
+        else
+        {
+            return sync();
+        }
+        return traits_type::not_eof(ch);
     }
-    return traits_type::not_eof(ch);
+
 }
 

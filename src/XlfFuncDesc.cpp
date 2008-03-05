@@ -32,14 +32,14 @@
 #endif
 
 //! Internal implementation of XlfFuncDesc.
-struct XlfFuncDescImpl
+struct xlw::XlfFuncDescImpl
 {
     //! Ctor.
-    XlfFuncDescImpl(XlfFuncDesc::RecalcPolicy recalcPolicy, bool Threadsafe,
+    XlfFuncDescImpl(xlw::XlfFuncDesc::RecalcPolicy recalcPolicy, bool Threadsafe,
         const std::string& category): recalcPolicy_(recalcPolicy), Threadsafe_(Threadsafe), category_(category)
         {}
     //! Recalculation policy.
-    XlfFuncDesc::RecalcPolicy recalcPolicy_;
+    xlw::XlfFuncDesc::RecalcPolicy recalcPolicy_;
     //! Category where the function is displayed in the function wizard.
     std::string category_;
     //! List of the argument descriptions of the function.
@@ -58,7 +58,7 @@ XlfAbstractCmdDesc::XlfAbstractCmdDesc.
 \param Threadsafe Whether this function should be registered threadsafe under Excel 12
 \param returnTypeCode The excel code for the datatype of the return value
 */
-XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias,
+xlw::XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias,
                          const std::string& comment, const std::string& category,
                          RecalcPolicy recalcPolicy, bool Threadsafe, const std::string &returnTypeCode)
     : XlfAbstractCmdDesc(name, alias, comment), impl_(0), returnTypeCode_(returnTypeCode)
@@ -66,7 +66,7 @@ XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias,
     impl_ = new XlfFuncDescImpl(recalcPolicy,Threadsafe,category);
 }
 
-XlfFuncDesc::~XlfFuncDesc()
+xlw::XlfFuncDesc::~XlfFuncDesc()
 {
     delete impl_;
 }
@@ -75,17 +75,17 @@ XlfFuncDesc::~XlfFuncDesc()
 The new arguments overwrite any old ones that have been previously set. You
 cannot push back the arguments one by one.
 */
-void XlfFuncDesc::SetArguments(const XlfArgDescList& arguments)
+void xlw::XlfFuncDesc::SetArguments(const XlfArgDescList& arguments)
 {
     impl_->arguments_ = arguments;
 }
 
-//int XlfFuncDesc::GetIndex() const
+//int xlw::XlfFuncDesc::GetIndex() const
 //{
 //  return index_;
 //}
 
-//void XlfFuncDesc::SetIndex(int i_)
+//void xlw::XlfFuncDesc::SetIndex(int i_)
 //{
 //  index_ = i_;
 //}
@@ -94,13 +94,13 @@ void XlfFuncDesc::SetArguments(const XlfArgDescList& arguments)
 Registers the function as a function in excel.
 \sa XlfExcel, XlfCmdDesc.
 */
-int XlfFuncDesc::DoRegister(const std::string& dllName) const
+int xlw::XlfFuncDesc::DoRegister(const std::string& dllName) const
 {
     //live_ = true;
     return RegisterAs(dllName, 1);
 }
 
-int XlfFuncDesc::DoUnregister(const std::string& dllName) const
+int xlw::XlfFuncDesc::DoUnregister(const std::string& dllName) const
 {
     //live_ = false;
 
@@ -130,7 +130,7 @@ int XlfFuncDesc::DoUnregister(const std::string& dllName) const
     return err;
 }
 
-int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* funcId) const
+int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* funcId) const
 {
 
     // alias arguments
@@ -149,7 +149,7 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
         if (it != arguments.end())
             argnames+=", ";
     }
-    if (impl_->recalcPolicy_ == XlfFuncDesc::Volatile)
+    if (impl_->recalcPolicy_ == xlw::XlfFuncDesc::Volatile)
     {
         args+="!";
     }
