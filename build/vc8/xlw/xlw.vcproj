@@ -276,6 +276,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\include\xlw\ArgListFactory.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\xlw\ArgListFactoryHelper.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\include\xlw\CellMatrix.h"
 				>
 			</File>
