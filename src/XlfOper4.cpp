@@ -974,9 +974,6 @@ XlfOper4& XlfOper4::Set(const char *value)
         }
         else
         {
-#ifdef _MSC_VER
-#pragma warning(disable:4996)
-#endif
             strncpy(str + 1, value, n);
             str[n + 1] = 0;
 

@@ -794,9 +794,6 @@ XlfOper& XlfOperImpl4::Set(XlfOper &xlfOper, const char *value) const
         }
         else
         {
-#ifdef _MSC_VER
-#pragma warning(disable:4996)
-#endif
             strncpy(str + 1, value, n);
             str[n + 1] = 0;
 
