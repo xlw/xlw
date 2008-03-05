@@ -2,7 +2,9 @@
 /*!
 \mainpage XLW (Excel32 C++ Wrapper)
 
-\author <a href=mailto:xlw@ifrance.com>J&eacute;r&ocirc;me Lecomte</a>(\ref copyright)
+\author <a href=mailto:xlw@ifrance.com>J&eacute;r&ocirc;me Lecomte</a>
+\author Mark Joshi
+\author <a href=mailto:eric.ehlers@nazcatech.be>Eric Ehlers</a>
 
 Have you ever programmed an algorithm in C or C++ you needed to test on a
 large number of values? Did you ever want to quickly calibrate the arguments
@@ -13,9 +15,9 @@ and integrate your work in a word document with even less effort?  If you do
 The XLW package wraps the C API described in \ref XLSDK97 in a few classes
 that make API programming with Excel much, much simpler.  This simple (a few
 lines of code as demonstrated in the \ref gettingstarted section), yet
-powerful interface will empower your C or C++ numerics by embeding them in
-Excel (just like the built in functions); and let you benefit from its
-powerful functionality, including graphs, solvers, or integration with the
+powerful interface empowers your C or C++ numerics by embeding them in
+Excel (just like the built in functions); and lets you benefit from its
+powerful functionality, including graphs, solvers, and integration with the
 rest of the Microsoft office suite.  These classes are thoroughly documented
 and \ref download "downloadable" free of charge as long as you retain the \ref
 copyright "copyright notice".
