@@ -40,6 +40,8 @@
 #endif
 
 class XlfOper;
+class XlfOperImpl4;
+class XlfOperImpl12;
 class XlfRef;
 class CellMatrix;
 
@@ -59,7 +61,20 @@ The interface for this class is otherwise the same as that for class XlfOper.
 */
 class EXCEL32_API XlfOperImpl
 {
+    friend class XlfOper;
+    friend class XlfOperImpl4;
+    friend class XlfOperImpl12;
+
 public:
+
+    enum DoubleVectorConvPolicy
+    {
+        UniDimensional,
+        RowMajor,
+        ColumnMajor
+    };
+
+private:
 
     static const XlfOperImpl &instance() { return *instance_; }
     XlfOperImpl() { instance_ = this; }
@@ -78,13 +93,6 @@ public:
     virtual bool IsNil(const XlfOper &xlfOper) const = 0;
     virtual bool IsBool(const XlfOper &xlfOper) const = 0;
     virtual bool IsInt(const XlfOper &xlfOper) const = 0;
-
-    enum DoubleVectorConvPolicy
-    {
-        UniDimensional,
-        RowMajor,
-        ColumnMajor
-    };
 
     virtual LPXLFOPER GetLPXLFOPER(const XlfOper &xlfOper) const = 0;
 
@@ -168,8 +176,6 @@ public:
 		}
     }
 #endif
-
-private:
 
     static XlfOperImpl *instance_;
 
