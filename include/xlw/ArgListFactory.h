@@ -13,19 +13,15 @@
 template<class T>
 class ArgListFactory;
 
-// friend rather than method to avoid bug in VC6.0 with static data in member template functions
-template<class T>
-ArgListFactory<T>& FactoryInstance()
-{
-	static ArgListFactory<T> object;
-	return object;
-}
-
 template<typename T>
 class ArgListFactory
 {
 public:
-    friend ArgListFactory<T>& FactoryInstance<>();
+    static ArgListFactory<T>& FactoryInstance()
+    {
+	    static ArgListFactory<T> object;
+	    return object;
+    }
     typedef T* (*CreateTFunction)(const ArgumentList& );
     void RegisterClass(std::string ClassId, CreateTFunction);
     T* CreateT(ArgumentList args);
@@ -71,6 +67,6 @@ T* ArgListFactory<T>::CreateT(ArgumentList args)
 template<class T>
 T* GetFromFactory(const ArgumentList& args)
 {
-    return FactoryInstance<T>().CreateT(args);
+    return ArgListFactory<T>::FactoryInstance().CreateT(args);
 }
 #endif
