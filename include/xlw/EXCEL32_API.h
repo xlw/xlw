@@ -28,15 +28,15 @@
 */
 
 //! version hexadecimal number
-#define XLW_HEX_VERSION 0x010203a0
+#define XLW_HEX_VERSION 0x030000b0
 //! version string for output lib name
-#define XLW_LIB_VERSION "1_2_3"
+#define XLW_LIB_VERSION "3_0_0"
 
 //! version string
 #ifndef NDEBUG
-    #define XLW_VERSION "1.2.3a0-cvs-debug"
+    #define XLW_VERSION "3.0.0b0-debug"
 #else
-    #define XLW_VERSION "1.2.3a0-cvs"
+    #define XLW_VERSION "3.0.0b0"
 #endif
 
 //! global trace level (may be superseded locally by a greater value)
