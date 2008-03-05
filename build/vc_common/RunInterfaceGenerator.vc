@@ -5,6 +5,11 @@
 #     build\vc?\RunInterfaceGenerator
 # Where ? is 7, 8 or 9 depending on the version of VC.  This makefile is stored
 # separately from the VC project files since it is shared by all 3 of them.
+#
+# This makefile detects changes to the inputs of InterfaceGenerator.exe and
+# re-runs the utility as necessary.  InterfaceGenerator.exe parses the header
+# file of the example application and autogenerates source code for the
+# corresponding xlw addin.
 
 MAKEFILE=..\..\vc_common\RunInterfaceGenerator.vc
 BUILDFLAG=$(ENVIRON)\buildflag
