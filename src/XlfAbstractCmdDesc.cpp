@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007, 2008 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -49,10 +50,9 @@ XlfAbstractCmdDesc::~XlfAbstractCmdDesc()
 {}
 
 /*!
-Performs the parts of the Registration that are common to a registration
-of all the subclasses of XlfAbstractCmdDesc. It then calls the pure
-virtual method DoRegister for the subclass dependant parts of the
-algorithm.
+Performs the parts of the Registration that are common to all the subclasses of
+XlfAbstractCmdDesc. It then calls the pure virtual method DoRegister for the
+subclass dependant parts of the algorithm.
 */
 void XlfAbstractCmdDesc::Register() const
 {
@@ -65,6 +65,11 @@ void XlfAbstractCmdDesc::Register() const
   return;
 }
 
+/*!
+Performs the parts of the Unregistration that are common to all the subclasses
+of XlfAbstractCmdDesc. It then calls the pure virtual method DoUnregister for
+the subclass dependent parts of the algorithm.
+*/
 void XlfAbstractCmdDesc::Unregister() const
 {
   std::string dllName = XlfExcel::Instance().GetName();

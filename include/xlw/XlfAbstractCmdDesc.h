@@ -19,7 +19,7 @@
 
 /*!
 \file XlfAbstractCmdDesc.h
-\brief Class XlfAbstractCmdDesc - Abstract command
+\brief Class XlfAbstractCmdDesc - Consolidate some properties common to multiple command classes
 */
 
 // $Id$
@@ -36,11 +36,11 @@
 #pragma DEBUG_HEADERS
 #endif
 
-//! Abstract command.
+//! Consolidate some properties common to multiple command classes.
 class EXCEL32_API XlfAbstractCmdDesc
 {
 public:
-    //! \name Structors and static members
+    //! \name Structors
     //@{
     //! Ctor.
     XlfAbstractCmdDesc(const std::string& name, const std::string& alias, const std::string& comment);

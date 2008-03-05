@@ -69,17 +69,17 @@ public:
     const std::string& GetCategory() const;
     //! Sets the arguments definition.
     void SetArguments(const XlfArgDescList& arguments);
-    //! Gets the index into our list of UDFs (not used?).
+    // Gets the index into our list of UDFs (not used?).
     //int GetIndex() const;
-    //! Sets in the index into our list of UDFs (not used?).
+    // Sets in the index into our list of UDFs (not used?).
     //void SetIndex(int i_);
     //@}
 protected:
     //! \name Concrete implementation of function registration
     //@{
-    //! Registers the function (template method).
+    //! Registers the function.
     int DoRegister(const std::string& dllName) const;
-    //! Unregisters the function (template method).
+    //! Unregisters the function.
     int DoUnregister(const std::string& dllName) const;
     //@}
 
@@ -92,10 +92,10 @@ private:
     struct XlfFuncDescImpl * impl_;
     //! Shared registration code
     int RegisterAs(const std::string& dllName, double mode_, double* funcId = NULL) const;
-    //! Is this function currently live, or has it been faux-unregistered?
+    // Is this function currently live, or has it been faux-unregistered?
     // commented out - seems unused, forces DoRegister/DoUnregister to be non-const.
     //bool live_;
-    //! Index into our list of UDFs (not used?).
+    // Index into our list of UDFs (not used?).
     //int index_;
     //! Excel code for the datatype of this function's return value.
     std::string returnTypeCode_;

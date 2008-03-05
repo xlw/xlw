@@ -71,16 +71,24 @@ public:
     std::string GetName() const;
     //@}
 
-    //! \name Wrappers for Excel Call function
+    /** \name Wrappers for Excel Call function
+    Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel).\n
+    The Call() functions accept a variable length argument list,
+    the Callv() functions accept an argument array.
+    */
     //@{
-    //! Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel)
-    int __cdecl Call(int xlfn, LPXLFOPER pxResult, int count, ...) const;
+    //! Wrap the Call function for Excel version 4.
     int __cdecl Call4(int xlfn, LPXLOPER pxResult, int count, ...) const;
+    //! Wrap the Call function for Excel version 12.
     int __cdecl Call12(int xlfn, LPXLOPER12 pxResult, int count, ...) const;
-    //! Same as above but with an argument array instead of the variable length argument list
-    int Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const;
+    //! Invoke Call4 or Call12 depending on which version of Excel is running.
+    int __cdecl Call(int xlfn, LPXLFOPER pxResult, int count, ...) const;
+    //! Wrap the Callv function for Excel version 4.
     int Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
+    //! Wrap the Callv function for Excel version 12.
     int Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdata[]) const;
+    //! Invoke Callv4 or Callv12 depending on which version of Excel is running.
+    int Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const;
     //@}
 
     //! \name Wrappers for selected Excel operations
@@ -102,12 +110,11 @@ public:
     bool excel12() const { return excel12_; }
     //! The OPER type in use by this version of Excel
     std::string xlfOperType() const { return xlfOperType_; }
-    //! The OPER type in use by this version of Excel
+    //! The XLOPER type in use by this version of Excel
     std::string xlfXloperType() const { return xlfXloperType_; }
     //! The string type in use by this version of Excel
     std::string wStrType() const { return wStrType_; }
     //@}
-
 private:
     //! Static pointer to the unique instance of XlfExcel object.
     static XlfExcel *this_;
@@ -152,7 +159,7 @@ private:
     XlfExcel& operator=(const XlfExcel&);
     //! Initialize the C++ framework.
     void InitLibrary();
-    //! Creates a new static buffer and add it to the free list.
+    //! Create a new static buffer and add it to the free list.
     void PushNewBuffer(size_t);
 
     bool excel12_;

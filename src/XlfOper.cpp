@@ -81,12 +81,9 @@ double XlfOper::AsDouble(const std::string& ErrorId, int *pxlret) const
 };
 
 /*!
-Attempts to convert the implict object to an array.
-Does this by calling AsDoubleVector.
-If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
-
+Attempts to convert the implict object to an array.  Does this by calling
+AsDoubleVector.  If pxlret is not null the method won't throw and the Excel
+return code will be returned in this variable.
 */
 MyArray XlfOper::AsArray(XlfOperImpl::DoubleVectorConvPolicy policy, int *pxlret) const
 {
@@ -107,7 +104,6 @@ MyArray XlfOper::AsArray(const std::string& ErrorId, XlfOperImpl::DoubleVectorCo
 
     return result;
 }
-
 
 /*!
 Attempts to convert the implict object to a vector of double. If pxlret is
@@ -139,9 +135,8 @@ std::vector<double> XlfOper::AsDoubleVector(const std::string& ErrorId, XlfOperI
 }
 
 /*!
-Attempts to convert the implict object to a short. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
+Attempts to convert the implict object to a short. If pxlret is not null the
+method won't throw and the Excel return code will be returned in this variable.
 
 \sa XlfOper::ConvertToShort.
 */
@@ -168,9 +163,8 @@ short XlfOper::AsShort(const std::string& ErrorId, int *pxlret) const
 };
 
 /*!
-Attempts to convert the implict object to a bool. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
+Attempts to convert the implict object to a bool. If pxlret is not null the
+method won't throw and the Excel return code will be returned in this variable.
 
 \sa XlfOper::ConvertToBool.
 */
@@ -197,9 +191,8 @@ bool XlfOper::AsBool(const std::string& ErrorId, int *pxlret) const
 };
 
 /*!
-Attempts to convert the implict object to a matrix. If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
+Attempts to convert the implict object to a matrix. If pxlret is not null the
+method won't throw and the Excel return code will be returned in this variable.
 
 \sa XlfOper::ConvertToMatrix.
 */
@@ -226,9 +219,9 @@ MyMatrix XlfOper::AsMatrix(const std::string& ErrorId, int *pxlret) const
 }
 
 /*!
-Attempts to convert the implict object to a cell matrix. If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
+Attempts to convert the implict object to a cell matrix. If pxlret is not null
+the method won't throw and the Excel return code will be returned in this
+variable.
 
 \sa XlfOper::ConvertToCellMatrix.
 */

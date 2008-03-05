@@ -20,7 +20,7 @@
 
 /*!
 \file XlfOper.h
-\brief Declares class XlfOper.
+\brief Class XlfOper - Wrapper for XLOPER/XLOPER12 Excel data structure
 */
 
 // $Id$
@@ -35,17 +35,19 @@
 #pragma DEBUG_HEADERS
 #endif
 
-//! Wrapper around a pointer to the XLOPER Excel data structure.
+//! Wrapper for XLOPER/XLOPER12 Excel data structure
 /*!
-This class eases the work of marshalling and unmarshalling data to
-the Excel XLOPER format (including memory).
+Class XlfOper contains a union of LPXLOPER and LPXLOPER12.  XlfOper is initialized
+with a LPXLFOPER (void*) which is accessed via the union, with either LPXLOPER or
+LPXLOPER12 depending on whether the addin is running under Excel 4 or Excel 12.
 
-XlfOper holds a pointer to a XLOPER.
+The logic to dereference LPXLOPER/LPXLOPER12 is implemented in class XlfOperImpl
+and XlfOper forwards all of its calls to XlfOperImpl.
 
-\warning It is important \e not to add any data members to this class
-because the library heavily relies on the fact that LPXLOPER and
-XlfOper have the same size. It allows the library to interpret any
-LPXLOPER sent by Excel as an XlfOper.
+\warning It is important \e not to add any data members or virtual functions to
+this class because the library heavily relies on the fact that XlfOper and
+LPXLOPER/LPXLOPER12 have the same size. It allows the library to interpret any
+LPXLOPER/LPXLOPER12 sent by Excel as an XlfOper.
 */
 
 class EXCEL32_API XlfOper
@@ -62,7 +64,7 @@ public:
     XlfOper();
     //! Copy ctor.
     XlfOper(const XlfOper& oper);
-    //! XLOPER * ctor.
+    //! LPXLOPER/LPXLOPER12 ctor.
     XlfOper(LPXLFOPER lpxloper) : lpxloper4_(reinterpret_cast<LPXLOPER>(lpxloper)) {}
     //! double ctor.
     XlfOper(double value);
@@ -140,9 +142,9 @@ public:
     //! Is the data an integer ?
     bool IsInt() const { return XlfOperImpl::instance().IsInt(*this); }
 
-    //! The excel code for the underlying datatype
+    //! The Excel code for the underlying datatype
     DWORD xltype() const { return XlfOperImpl::instance().xltype(*this); }
-    //! String representation of the excel code for the underlying datatype
+    //! String representation of the Excel code for the underlying datatype
     std::string xltypeName () const;
     //@}
 
@@ -155,10 +157,12 @@ public:
 
     //! Converts to a std::vector<double>.
     std::vector<double> AsDoubleVector(XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
+    //! Converts to a std::vector<double>.
     std::vector<double> AsDoubleVector(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
 
     //! Converts to an array.
     MyArray AsArray(XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
+    //! Converts to an array.
     MyArray AsArray(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
 
     //! Converts to a short.
@@ -241,15 +245,14 @@ public:
     {
         return XlfOperImpl::instance().Set(*this, rows, cols, it);
     }
-
     //! Set to an error value.
     XlfOper& SetError(WORD error) { return XlfOperImpl::instance().SetError(*this, error); }
     //@}
 
 private:
-    //! \name Manage reference to underlying XLOPER
+    //! \name Manage reference to the underlying XLOPER
     //@{
-    //! Internal LPXLOPER.
+    //! Internal LPXLOPER/LPXLOPER12.
     union {
         LPXLOPER lpxloper4_;
         LPXLOPER12 lpxloper12_;
@@ -272,7 +275,6 @@ private:
     //@{
     //! Throws an exception when critical errors occur.
     int ThrowOnError(int value) const;
-
     //! Throws an exception when critical errors occur but passes on an identifier to help track it down.
     int ThrowOnError(int value, const std::string& identifier) const;
     //@}
@@ -297,7 +299,7 @@ private:
     //! Attempts conversion to bool and returns Excel error code.
     int ConvertToBool(bool& value) const throw() {
         return XlfOperImpl::instance().ConvertToBool(*this, value); }
-    //! Attempts conversion to int and returns Excel error code.
+    // Attempts conversion to int and returns Excel error code.
     //int ConvertToInt(int& value) const throw() {
     //    return XlfOperImpl::instance().ConvertToInt(*this, value); }
     //! Attempts conversion to string and returns Excel error code.

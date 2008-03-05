@@ -38,7 +38,7 @@ struct XlfFuncDescImpl
     XlfFuncDescImpl(XlfFuncDesc::RecalcPolicy recalcPolicy, bool Threadsafe,
         const std::string& category): recalcPolicy_(recalcPolicy), Threadsafe_(Threadsafe), category_(category)
         {}
-    //! Recalculation policy
+    //! Recalculation policy.
     XlfFuncDesc::RecalcPolicy recalcPolicy_;
     //! Category where the function is displayed in the function wizard.
     std::string category_;
@@ -72,8 +72,8 @@ XlfFuncDesc::~XlfFuncDesc()
 }
 
 /*!
-The new arguments replace all the old one (if any set). You can not
-push back the arguments one by one.
+The new arguments overwrite any old ones that have been previously set. You
+cannot push back the arguments one by one.
 */
 void XlfFuncDesc::SetArguments(const XlfArgDescList& arguments)
 {

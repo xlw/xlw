@@ -87,12 +87,12 @@ void XlfExcel::MsgBox(const char *errmsg, const char *title) {
     if (!title) {
         DWORD err = GetLastError();
         FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-                  NULL,
-                  err,
-                  MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-                  (LPTSTR) &lpMsgBuf,
-                  0,
-                  NULL);
+            NULL,
+            err,
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+            (LPTSTR) &lpMsgBuf,
+            0,
+            NULL);
         // Process any inserts in lpMsgBuf.
         char completeMessage[255];
         sprintf(completeMessage,"%s due to error %d :\n%s", errmsg, err, (LPCSTR)lpMsgBuf);
@@ -209,8 +209,8 @@ int __cdecl XlfExcel::Call12(int xlfn, LPXLOPER12 pxResult, int count, ...) cons
 }
 
 /*!
-If one (or more) cells refered as argument is(are) uncalculated, the framework
-throw an exception and return immediately to Excel.
+If one (or more) cells referred as argument is(are) uncalculated, the framework
+throws an exception and returns immediately to Excel.
 
 If \c pxResult is not 0 and has auxilliary memory, flags it for deletion
 with XlfOper::xlbitCallFreeAuxMem.
@@ -312,11 +312,12 @@ bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
     // no luck - continue the enumeration
     return true;
 }
+
 } // empty namespace
 
 bool XlfExcel::IsCalledByFuncWiz() const {
     XLOPER xHwndMain;
-    EnumStruct    enm;
+    EnumStruct enm;
 
     if (Excel4_(xlGetHwnd, &xHwndMain, 0) == xlretSuccess) {
         enm.bFuncWiz = false;

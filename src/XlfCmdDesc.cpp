@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007, 2008 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -55,13 +56,13 @@ int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
     menu_ = menu;
     text_ = text;
 
-    // This is a small trick to allocate an array 5 XlfOper
-    // One must first allocate the array with XLOPER
+    // This is a small trick to allocate an array of XlfOpers
+    // One must first allocate the array with XLOPERs...
     //px = pxMenu = (LPXLOPER)new XLOPER[5];
     px = pxMenu = new XLOPER[5];
-    // and then assign the XLOPER to XlfOper specifying false
-    // to tell the Framework that the data is not owned by
-    // Excel and that it should not call xlFree when destroyed
+    // ...and then assign the XLOPERs to XlfOpers, specifying false to tell the
+    // Framework that the data is not owned by Excel and not to call xlFree
+    // during destruction
     XlfOper(px++).Set(text_.c_str());
     XlfOper(px++).Set(GetAlias().c_str());
     XlfOper(px++).Set("");
@@ -105,12 +106,12 @@ Registers the command as a macro in excel.
 int XlfCmdDesc::DoRegister(const std::string& dllName) const
 {
 
-  XlfArgDescList arguments = GetArguments();
+    XlfArgDescList arguments = GetArguments();
 
-  // 2 = normal macro, 0 = hidden command
-  double type = hidden_ ? 0 : 2;
+    // 2 = normal macro, 0 = hidden command
+    double type = hidden_ ? 0 : 2;
 
-  /*
+    /*
     //ERR_LOG("Registering command \"" << alias_.c_str() << "\" from \"" << name_.c_str() << "\" in \"" << dllname.c_str() << "\"");
     int err = XlfExcel::Instance().Call(
         xlfRegister, NULL, 7,
@@ -131,7 +132,7 @@ int XlfCmdDesc::DoRegister(const std::string& dllName) const
         (LPXLFOPER)XlfOper(type),
         (LPXLFOPER)XlfOper(""));
     return err;
-  */
+    */
 
     size_t nbargs = arguments.size();
     std::string args("A");
@@ -173,6 +174,6 @@ int XlfCmdDesc::DoRegister(const std::string& dllName) const
 
 int XlfCmdDesc::DoUnregister(const std::string& dllName) const
 {
-  return xlretSuccess;
+    return xlretSuccess;
 }
 

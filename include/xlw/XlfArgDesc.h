@@ -38,13 +38,16 @@
 
 //! Encapsulates the argument definition.
 /*!
-Stores the name, the type (defaults to R), and a comment line to be displayed in
-the function wizard.
+Stores the name, the type, and a comment line to be displayed in the function
+wizard.
+
+The type defaults to the XLOPER type corresponding to the version (4 or 12) of
+the running instance of Excel.
 */
 class EXCEL32_API XlfArgDesc
 {
 public:
-    //! \name Structors and static members
+    //! \name Structors
     //@{
     //! Default ctor.
     XlfArgDesc();

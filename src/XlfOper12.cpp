@@ -40,32 +40,11 @@
 #include <xlw/XlfOper12.inl>
 #endif
 
-/*!
-This bit is currently unused by Microsoft Excel. We set it
-to indicate that the LPXLOPER12 (passed by Excel) holds some extra
-memory to be freed.
-
-This bit is controled in ~XlfOper12 to know if the DLL should release
-auxiliary memory or not by a call to FreeAuxiliaryMemory.
-*/
 int XlfOper12::xlbitFreeAuxMem = 0x8000;
 
-/*!
-Shallow copy of a pointer to XLOPER.
-\param lpxloper Pointer to XLOPER.
-Excel or by the XLL (default is true).
-*/
 XlfOper12::XlfOper12(LPXLOPER12 lpxloper): lpxloper_(lpxloper)
 {}
 
-/*!
-Calls Deallocate() to free the XLOPER allocated by the XLL. XLOPER allocated
-by Excel remain under Excel responsability.
-
-Calls FreeAuxiliaryMemory if the XLOPER is marked by XlfOper12::Call as an
-XLOPER returned by MS Excel and if the type matches one of xltypeStr,
-xltypeRef, xltypeMulti, xltypeBigData.
-*/
 XlfOper12::~XlfOper12()
 {
     if (! lpxloper_)
@@ -90,21 +69,6 @@ XlfOper12::~XlfOper12()
     return;
 }
 
-/*!
-Allocates 16 bits (size of a XLOPER) on the temporary buffer
-stored by XlfExcel with a call to XlfExcel::GetMemory().
-
-\warning Each XlfOper12 allocation causes a call to Allocate which in turn
-reserve the necessary number of bytes in the internal buffer. The
-problem is that even temporary XlfOper12 used inside the xll function use
-this internal buffer. This buffer is not freed before the next call to
-the xll to ensure Excel can use the data before they are freed. This
-causes a bottleneck if the function uses many temporary XlfOper12 (see
-Deallocate()).
-
-\return \c xlretSuccess or \c xlretInvXloper if no memory is could
-be allocated.
-*/
 int XlfOper12::Allocate()
 {
     lpxloper_ = (LPXLOPER12)XlfExcel::Instance().GetMemory(sizeof(XLOPER12));
@@ -122,10 +86,6 @@ void XlfOper12::FreeAuxiliaryMemory() const
     return;
 }
 
-/*!
-\param type is an integer indicating the target type we want to coerce to.
-\param result is the XLOPER where to store the output.
-*/
 int XlfOper12::Coerce(short type, XlfOper12& result) const
 {
     XlfOper12 xlType(type);
@@ -133,13 +93,6 @@ int XlfOper12::Coerce(short type, XlfOper12& result) const
     return xlret;
 }
 
-/*!
-Attempts to convert the implict object to a double. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
-
-\sa XlfOper12::ConvertToDouble.
-*/
 double XlfOper12::AsDouble(int * pxlret) const
 {
     double d;
@@ -192,14 +145,6 @@ int XlfOper12::ConvertToDouble(double& d) const throw()
     return xlret;
 };
 
-/*!
-Attempts to convert the implict object to an array.
-Does this by calling AsDoubleVector.
-If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
-
-*/
 MyArray XlfOper12::AsArray(DoubleVectorConvPolicy policy, int * pxlret) const
 {
     std::vector<double> tmp(AsDoubleVector(policy,pxlret));
@@ -220,13 +165,6 @@ MyArray XlfOper12::AsArray(const std::string& ErrorId,DoubleVectorConvPolicy pol
     return result;
 }
 
-/*!
-Attempts to convert the implict object to a vector of double. If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
-
-\sa XlfOper12::ConvertToDoubleVector.
-*/
 std::vector<double> XlfOper12::AsDoubleVector(DoubleVectorConvPolicy policy, int * pxlret) const
 {
     std::vector<double> v;
@@ -248,16 +186,6 @@ std::vector<double> XlfOper12::AsDoubleVector(const std::string& ErrorId, Double
     return v;
 }
 
-/*!
-Converts the data in the range in a vector of double according to the specified policy.
-
-\pre All values in the range should be convertible to a double.
-
-\return xlretFailed if the policy is UniDimensional and the range is not uni dimensional
-and xlretSuccess otherwise or whatever error occurs during coercing the data to double.
-
-\sa DoubleVectorConvPolicy
-*/
 int XlfOper12::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPolicy policy) const
 {
     if (lpxloper_->xltype == xltypeMissing)
@@ -353,13 +281,6 @@ int XlfOper12::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorConvPol
     return xlret;
 };
 
-/*!
-Attempts to convert the implict object to a short. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
-
-\sa XlfOper12::ConvertToShort.
-*/
 short XlfOper12::AsShort(int * pxlret) const
 {
     short s;
@@ -408,13 +329,6 @@ int XlfOper12::ConvertToShort(short& s) const throw()
     return xlret;
 };
 
-/*!
-Attempts to convert the implict object to a bool. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
-
-\sa XlfOper12::ConvertToBool.
-*/
 bool XlfOper12::AsBool(int * pxlret) const
 {
     bool b;
@@ -425,6 +339,7 @@ bool XlfOper12::AsBool(int * pxlret) const
         ThrowOnError(xlret);
     return b;
 };
+
 bool XlfOper12::AsBool(const std::string& ErrorId, int * pxlret) const
 {
     bool b;
@@ -435,6 +350,7 @@ bool XlfOper12::AsBool(const std::string& ErrorId, int * pxlret) const
         ThrowOnError(xlret,ErrorId+" conversion to bool failed");
     return b;
 };
+
 int XlfOper12::ConvertToBool(bool& b) const throw()
 {
     int xlret;
@@ -459,13 +375,6 @@ int XlfOper12::ConvertToBool(bool& b) const throw()
     return xlret;
 };
 
-/*!
-Attempts to convert the implict object to a matrix. If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
-
-\sa XlfOper12::ConvertToMatrix.
-*/
 MyMatrix XlfOper12::AsMatrix( int * pxlret) const
 {
     MyMatrix output; // will be resized anyway
@@ -488,10 +397,6 @@ MyMatrix XlfOper12::AsMatrix( const std::string& ErrorId, int * pxlret) const
     return output;
 }
 
-/*! converts the XlfOper12 to a matrix, since if its a valid matrix
-its also a valid cellmatrix we convert to cell matrix first,
-note this necessitates passing as a P not an R
-*/
 int XlfOper12::ConvertToMatrix(MyMatrix& value) const
 {
     // deal with empty case first
@@ -520,13 +425,6 @@ int XlfOper12::ConvertToMatrix(MyMatrix& value) const
     return xlretSuccess;
 }
 
-/*!
-Attempts to convert the implict object to a cell matrix. If pxlret is
-not null the method won't throw and the Excel return code will be returned
-in this variable.
-
-\sa XlfOper12::ConvertToCellMatrix.
-*/
 CellMatrix XlfOper12::AsCellMatrix( int * pxlret) const
 {
     CellMatrix output(1,1); // will be resized anyway
@@ -820,17 +718,6 @@ int XlfOper12::ConvertToErr(WORD& e) const throw()
     return xlret;
 };
 
-/*!
-Attempts to convert the implict object to a char string. If pxlret is not
-null the method won't throw and the Excel return code will be returned in
-this variable.
-
-\sa XlfOper12::ConvertToString.
-
-The XLL allocates the memory on its own buffer. This buffer is automatically
-freed when a function of the XLL is called again. Note that coerce to
-a char string is the slowest cast of all.
-*/
 char * XlfOper12::AsString(int * pxlret) const
 {
     char * s;
@@ -924,13 +811,6 @@ int XlfOper12::ConvertToWstring(std::wstring &w) const throw()
     return xlret;
 }
 
-/*!
-Attempts to convert the implict object to an XlfRef. If pxlret is not null
-the method won't throw and the Excel return code will be returned in this
-variable.
-
-\sa XlfOper12::ConvertToRef.
-*/
 XlfRef XlfOper12::AsRef(int * pxlret) const
 {
     XlfRef r;
@@ -1068,7 +948,6 @@ XlfOper12& XlfOper12::Set(short value)
     return *this;
 }
 
-//! bool for disambiguation
 XlfOper12& XlfOper12::Set(short value, bool Error)
 {
     if (lpxloper_)
@@ -1097,10 +976,6 @@ XlfOper12& XlfOper12::Set(bool value)
     return *this;
 }
 
-/*!
-If no memory can be allocated on xlw internal buffer, the XlfOper12 is set
-to an invalid state and the XlfRef is not copied.
-*/
 XlfOper12& XlfOper12::Set(const XlfRef& range)
 {
     if (lpxloper_)
@@ -1127,13 +1002,6 @@ XlfOper12& XlfOper12::Set(const XlfRef& range)
     return *this;
 }
 
-/*!
-If no memory can be allocated on xlw internal buffer, the XlfOper12 is set
-to an invalid state and the string is not copied.
-
-\note String longer than 255 characters are truncated. A warning
-is issued in debug mode.
-*/
 XlfOper12& XlfOper12::Set(const char *value)
 {
     if (lpxloper_)
@@ -1163,9 +1031,6 @@ XlfOper12& XlfOper12::Set(const std::wstring &value)
     return *this;
 }
 
-/*!
-\sa XlfOper12::Error(WORD)
-*/
 XlfOper12& XlfOper12::SetError(WORD error)
 {
     if (lpxloper_)
@@ -1176,15 +1041,6 @@ XlfOper12& XlfOper12::SetError(WORD error)
     return *this;
 }
 
-/*!
-Throws an exception if the argument is anything other than xlretSuccess.
-
-Events that require an immediate return to excel (uncalculated cell, abort,
-stack overflow and invalid OPER (potential memory exhaustion)) throw an
-XlfException.
-
-Other events throw std::runtime_error.
-*/
 int XlfOper12::ThrowOnError(int xlret) const
 {
     if (xlret == xlretSuccess)
@@ -1204,22 +1060,11 @@ int XlfOper12::ThrowOnError(int xlret) const
         throw std::runtime_error("invalid number of argument");
     if (xlret & xlretInvXlfn)
         throw std::runtime_error("invalid function number");
-    // should never get there.
+    // should never get here.
     assert(0);
     return xlret;
 }
 
-
-/*!
-Throws an exception if the argument is anything other than xlretSuccess.
-
-Events that require an immediate return to excel (uncalculated cell, abort,
-stack overflow and invalid OPER (potential memory exhaustion)) throw an
-XlfException.
-
-Other events throw std::runtime_error. The Identifier is tagged on to the error message to help track down
-problems.
-*/
 int XlfOper12::ThrowOnError(int xlret, const std::string& Identifier) const
 {
     if (xlret == xlretSuccess)
@@ -1239,7 +1084,7 @@ int XlfOper12::ThrowOnError(int xlret, const std::string& Identifier) const
         throw std::runtime_error("invalid number of argument, "+Identifier);
     if (xlret & xlretInvXlfn)
         throw std::runtime_error("invalid function number, "+Identifier);
-    // should never get there.
+    // should never get here.
     assert(0);
     return xlret;
 }

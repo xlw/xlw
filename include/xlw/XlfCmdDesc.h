@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2007, 2008 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -41,7 +42,7 @@ Commands can be called from the tool bar and do not take any arguments
 class EXCEL32_API XlfCmdDesc: public XlfAbstractCmdDesc
 {
 public:
-    //! \name Structors and static members
+    //! \name Structors
     //@{
     //! Ctor.
     XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden);
@@ -61,9 +62,9 @@ public:
 protected:
     //! \name Registration
     //@{
-    //! Registers the command to Excel
+    //! Registers the command with Excel.
     int DoRegister(const std::string& dllName) const;
-    //! Unregisters the function (template method).
+    //! Unregisters the command with Excel.
     int DoUnregister(const std::string& dllName) const;
     //@}
 private:

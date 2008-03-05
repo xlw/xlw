@@ -34,17 +34,17 @@
 
 void XlfArgDesc::CheckNameLength()
 {
-  if (name_.length() >= 19)
-    std::cerr << XLW__HERE__ << "Argument name \"" << name_.c_str()
-    << "\" may be too long to fit the in the function wizard" << std::endl;
+    if (name_.length() >= 19)
+        std::cerr << XLW__HERE__ << "Argument name \"" << name_.c_str()
+        << "\" may be too long to fit the in the function wizard" << std::endl;
 };
 
 void XlfArgDesc::CheckDescEnd()
 {
-  std::string::size_type n = comment_.length();
-  static std::string mandatoryEnding(". ");
-  if (comment_.length() < 2 || comment_.substr(n-2) != mandatoryEnding)
-      comment_ += mandatoryEnding;
+    std::string::size_type n = comment_.length();
+    static std::string mandatoryEnding(". ");
+    if (comment_.length() < 2 || comment_.substr(n-2) != mandatoryEnding)
+        comment_ += mandatoryEnding;
 }
 
 XlfArgDesc::XlfArgDesc()
@@ -53,18 +53,16 @@ XlfArgDesc::XlfArgDesc()
 /*!
 \param name Name of the argument.
 \param comment Help string associated to the argument.
-\param type Argument type (defaults to R for XLOPER *). Other argument
-type can be found in Excel documentation under the keyword \e register.
-Note that B stands for double or date, I for 16 bits integer, J for
-32 bits integer. I rarely use the other types.
+\param type Argument type  - The type defaults to the XLOPER type corresponding
+to the version (4 or 12) of the running instance of Excel.
 */
 XlfArgDesc::XlfArgDesc(const std::string& name,
                        const std::string& comment,
                        const std::string& type)
     : name_(name), comment_(comment), type_(type)
 {
-  CheckNameLength();
-  CheckDescEnd();
+    CheckNameLength();
+    CheckDescEnd();
 }
 
 XlfArgDesc::~XlfArgDesc()
@@ -72,24 +70,24 @@ XlfArgDesc::~XlfArgDesc()
 
 void XlfArgDesc::SetName(const std::string& name)
 {
-  name_ = name;
-  CheckNameLength();
+    name_ = name;
+    CheckNameLength();
 }
 
 const std::string& XlfArgDesc::GetName() const
 {
-  return name_;
+    return name_;
 }
 
 void XlfArgDesc::SetComment(const std::string& comment)
 {
-  comment_ = comment;
-  CheckDescEnd();
+    comment_ = comment;
+    CheckDescEnd();
 }
 
 const std::string& XlfArgDesc::GetComment() const
 {
-  return comment_;
+    return comment_;
 }
 
 std::string XlfArgDesc::GetType() const

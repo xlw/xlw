@@ -38,14 +38,6 @@
 #pragma hdrstop
 #endif
 
-/*!
-Calls Deallocate() to free the XLOPER allocated by the XLL. XLOPER allocated
-by Excel remain under Excel responsibility.
-
-Calls FreeAuxiliaryMemory if the XLOPER is marked by XlfOper::Call as an
-XLOPER returned by MS Excel and if the type matches one of xltypeStr,
-xltypeRef, xltypeMulti, xltypeBigData.
-*/
 void XlfOperImpl12::destroy(const XlfOper &xlfOper) const
 {
     if (!xlfOper.lpxloper12_)
@@ -69,21 +61,6 @@ void XlfOperImpl12::destroy(const XlfOper &xlfOper) const
     return;
 }
 
-/*!
-Allocates 32 bytes (size of an XLOPER12) on the temporary buffer
-stored by XlfExcel with a call to XlfExcel::GetMemory().
-
-\warning Each XlfOper allocation causes a call to Allocate which in turn
-reserves the necessary number of bytes in the internal buffer. The
-problem is that even temporary XlfOper used inside the xll function uses
-this internal buffer. This buffer is not freed before the next call to
-the xll to ensure Excel can use the data before they are freed. This
-causes a bottleneck if the function uses many temporary XlfOper (see
-Deallocate()).
-
-\return \c xlretSuccess or \c xlretInvXloper if no memory could
-be allocated.
-*/
 int XlfOperImpl12::Allocate(XlfOper &xlfOper) const
 {
     xlfOper.lpxloper12_ = (LPXLOPER12)XlfExcel::Instance().GetMemory(sizeof(XLOPER12));
@@ -95,19 +72,17 @@ int XlfOperImpl12::Allocate(XlfOper &xlfOper) const
 
 void XlfOperImpl12::FreeAuxiliaryMemory(const XlfOper &xlfOper) const
 {
+    // FIXME call Call12() instead?
     int err = XlfExcel::Instance().XlfExcel::Instance().Call(xlFree, NULL, 1, (LPXLFOPER)xlfOper.lpxloper12_);
     if (err != xlretSuccess)
         std::cerr << XLW__HERE__ << "Call to xlFree failed" << std::endl;
     return;
 }
 
-/*!
-\param type is an integer indicating the target type we want to coerce to.
-\param result is the XLOPER where to store the output.
-*/
 int XlfOperImpl12::Coerce(const XlfOper &xlfOper, short type, XlfOper& result) const
 {
     XlfOper xlType(type);
+    // FIXME call Call12() instead?
     int xlret = XlfExcel::Instance().Call(xlCoerce, (LPXLFOPER)result, 2, (LPXLFOPER)xlfOper.lpxloper12_, (LPXLFOPER)xlType);
     return xlret;
 }
@@ -143,16 +118,6 @@ int XlfOperImpl12::ConvertToDouble(const XlfOper &xlfOper, double& d) const thro
     return xlret;
 };
 
-/*!
-Converts the data in the range in a vector of double according to the specified policy.
-
-\pre All values in the range should be convertible to a double.
-
-\return xlretFailed if the policy is UniDimensional and the range is not uni dimensional
-and xlretSuccess otherwise or whatever error occurs during coercing the data to double.
-
-\sa DoubleVectorConvPolicy
-*/
 int XlfOperImpl12::ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<double>& v, DoubleVectorConvPolicy policy) const
 {
     if (xlfOper.lpxloper12_->xltype == xltypeMissing)
@@ -300,10 +265,6 @@ int XlfOperImpl12::ConvertToBool(const XlfOper &xlfOper, bool& b) const throw()
     return xlret;
 };
 
-/*! Converts the XlfOper to a matrix, since if it's a valid matrix
-it's also a valid cellmatrix we convert to cell matrix first,
-note this necessitates passing as a P not an R
-*/
 int XlfOperImpl12::ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& value) const
 {
     // deal with empty case first
@@ -759,7 +720,6 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, short value) const
     return xlfOper;
 }
 
-//! bool for disambiguation
 XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, short value, bool Error) const
 {
     if (xlfOper.lpxloper12_)
@@ -788,10 +748,6 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, bool value) const
     return xlfOper;
 }
 
-/*!
-If no memory can be allocated on xlw internal buffer, the XlfOper is set
-to an invalid state and the XlfRef is not copied.
-*/
 XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const XlfRef& range) const
 {
     if (xlfOper.lpxloper12_)
@@ -818,10 +774,6 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const XlfRef& range) const
     return xlfOper;
 }
 
-/*!
-If no memory can be allocated on xlw internal buffer, the XlfOper is set
-to an invalid state and the string is not copied.
-*/
 XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const char *value) const
 {
     if (xlfOper.lpxloper12_)
@@ -851,9 +803,6 @@ XlfOper& XlfOperImpl12::Set(XlfOper &xlfOper, const std::wstring &value) const
     return xlfOper;
 }
 
-/*!
-\sa XlfOper::Error(WORD)
-*/
 XlfOper& XlfOperImpl12::SetError(XlfOper &xlfOper, WORD error) const
 {
     if (xlfOper.lpxloper12_)

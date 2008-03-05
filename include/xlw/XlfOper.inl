@@ -143,9 +143,9 @@ INLINE XlfOper::XlfOper(const XlfRef& range)
 }
 
 /*!
-Unlike other XlfOper, the return value is not allocated on the internal
-buffer to avoid allocating more memory. Instead it is allocated on a
-shared static XLOPER.
+Unlike other XlfOper constructors, here the return value is not allocated on
+the internal buffer to avoid allocating more memory. Instead it is allocated on
+a shared static XLOPER.
 
 \arg error One of the values listed below and defined in xlcall32.h
 

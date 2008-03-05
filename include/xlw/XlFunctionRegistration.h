@@ -92,7 +92,7 @@ private:
 };
 
 
-//! singleton pattern, cf the Factory
+// singleton pattern, cf the Factory
 class ExcelFunctionRegistrationRegistry
 {
 public:

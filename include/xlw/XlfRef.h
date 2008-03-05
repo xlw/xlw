@@ -52,7 +52,7 @@ a reference to a single range in a single spreadsheet. It is intended to
 be a helper class to refer to ranges through XlfOper.
 
 \note It is currently not possible for XlfRef to handle union of range
-in the same way other Excel function can. This feature remains to be
+in the same way other Excel functions can. This feature remains to be
 implemented.
 */
 
@@ -67,11 +67,11 @@ public:
     XlfRef(INT32 top, INT32 left, INT32 bottom, INT32 right, DWORD sheetId = 0);
     //! Absolute reference ctor, to a single cell.
     XlfRef(INT32 row, INT32 col, DWORD sheetId = 0);
-    //! Gets the first row of the range (0 based).
     //@}
 
     //! \name Get and set class properties
     //@{
+    //! Gets the first row of the range (0 based).
     INT32 GetRowBegin() const;
     //! Gets passed the last row of the range (0 based).
     INT32 GetRowEnd() const;

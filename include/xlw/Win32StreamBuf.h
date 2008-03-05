@@ -1,5 +1,6 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003 Jérôme Lecomte
+ Copyright (C) 2007, 2008 Eric Ehlers
 
  This file is part of xlw, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -33,21 +34,29 @@ Use iostream::rdbuf method to set Win32StreamBuf.
 class Win32StreamBuf: public std::streambuf
 {
 public:
-    //! \name Structors and static members
+    //! \name Structors
     //@{
+    //! Default constructor
     Win32StreamBuf() {}
+    //! Empty destructor
     ~Win32StreamBuf() {}
     //@}
 protected:
+    //! \name Implementation
+    //@{
+    //! Write to the buffer.
     int_type overflow(int_type ch);
+    //! Synchronize the buffer.
     int sync();
-
+    //@}
 private:
+    //! Redirect output to compiler debug window
     void SendToDebugWindow();
     std::string buf_;
 
-    // not defined
+    //! Copy ctor not implemented to prevent use
     Win32StreamBuf(const Win32StreamBuf&);
+    //! Assignment otor not implemented to prevent use
     Win32StreamBuf& operator=(const Win32StreamBuf&);
 };
 

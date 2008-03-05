@@ -169,6 +169,7 @@ std::vector<double> XlfOper4::AsDoubleVector(DoubleVectorConvPolicy policy, int 
         ThrowOnError(xlret);
     return v;
 }
+
 std::vector<double> XlfOper4::AsDoubleVector(const std::string& ErrorId, DoubleVectorConvPolicy policy, int * pxlret) const
 {
     std::vector<double> v;
@@ -900,7 +901,6 @@ XlfOper4& XlfOper4::Set(short value)
     return *this;
 }
 
-//! bool for disambiguation
 XlfOper4& XlfOper4::Set(short value, bool Error)
 {
     if (lpxloper_)
@@ -1017,7 +1017,7 @@ int XlfOper4::ThrowOnError(int xlret) const
         throw std::runtime_error("invalid number of argument");
     if (xlret & xlretInvXlfn)
         throw std::runtime_error("invalid function number");
-    // should never get there.
+    // should never get here.
     assert(0);
     return xlret;
 }
