@@ -1,7 +1,7 @@
 [Project]
 FileName=xlw.dev
 Name=xlw
-UnitCount=71
+UnitCount=72
 Type=2
 Ver=1
 ObjFiles=
@@ -743,6 +743,15 @@ BuildCmd=
 [Unit71]
 FileName=..\..\include\xlw\XlfOper.inl
 Folder=include
+Compile=0
+Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit72]
+FileName=README.TXT
+Folder=xlw
 Compile=0
 Link=0
 Priority=1000
