@@ -74,7 +74,7 @@ int XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
     xMenu.val.array.columns = 5;
 
     //int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)&xMenu);
-    int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_.c_str()), (LPXLFOPER)&xMenu);
+    int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_), (LPXLFOPER)&xMenu);
     if (err != xlretSuccess)
     std::cerr << XLW__HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
     delete[] pxMenu;
@@ -89,7 +89,7 @@ int XlfCmdDesc::Check(bool ERR_CHECK) const
         return xlretFailed;
     }
     //int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)XlfOper(text_.c_str()), (LPXLOPER)XlfOper(ERR_CHECK));
-    int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_.c_str()), (LPXLFOPER)XlfOper(text_.c_str()), (LPXLFOPER)XlfOper(ERR_CHECK));
+    int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_), (LPXLFOPER)XlfOper(text_), (LPXLFOPER)XlfOper(ERR_CHECK));
     if (err != xlretSuccess)
     {
         std::cerr << XLW__HERE__ << "Registration of " << GetAlias().c_str() << " failed" << std::endl;
@@ -150,19 +150,19 @@ int XlfCmdDesc::DoRegister(const std::string& dllName) const
     LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
     LPXLOPER *px = rgx;
 
-    (*px++) = XlfOper4(dllName.c_str());
-    (*px++) = XlfOper4(GetName().c_str());
-    (*px++) = XlfOper4(args.c_str());
-    (*px++) = XlfOper4(GetAlias().c_str());
-    (*px++) = XlfOper4(argnames.c_str());
+    (*px++) = XlfOper4(dllName);
+    (*px++) = XlfOper4(GetName());
+    (*px++) = XlfOper4(args);
+    (*px++) = XlfOper4(GetAlias());
+    (*px++) = XlfOper4(argnames);
     (*px++) = XlfOper4(type);
     (*px++) = XlfOper4("");
     (*px++) = XlfOper4("");
     (*px++) = XlfOper4("");
-    (*px++) = XlfOper4(GetComment().c_str());
+    (*px++) = XlfOper4(GetComment());
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
-        (*px++) = XlfOper4((*it).GetComment().c_str());
+        (*px++) = XlfOper4((*it).GetComment());
     }
 
     int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, NULL, 10 + nbargs, rgx));

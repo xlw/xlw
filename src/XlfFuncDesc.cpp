@@ -162,19 +162,19 @@ int XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* fu
 
     LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
     LPXLOPER *px = rgx;
-    (*px++) = XlfOper4(dllName.c_str());
-    (*px++) = XlfOper4(GetName().c_str());
-    (*px++) = XlfOper4(args.c_str());
-    (*px++) = XlfOper4(GetAlias().c_str());
-    (*px++) = XlfOper4(argnames.c_str());
+    (*px++) = XlfOper4(dllName);
+    (*px++) = XlfOper4(GetName());
+    (*px++) = XlfOper4(args);
+    (*px++) = XlfOper4(GetAlias());
+    (*px++) = XlfOper4(argnames);
     (*px++) = XlfOper4(mode_);
-    (*px++) = XlfOper4(impl_->category_.c_str());
+    (*px++) = XlfOper4(impl_->category_);
     (*px++) = XlfOper4("");
     (*px++) = XlfOper4("");
-    (*px++) = XlfOper4(GetComment().c_str());
+    (*px++) = XlfOper4(GetComment());
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
-        (*px++) = XlfOper4((*it).GetComment().c_str());
+        (*px++) = XlfOper4((*it).GetComment());
     }
     XLOPER res;
     int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, &res, 10 + nbargs, rgx));
