@@ -38,6 +38,7 @@
 
 namespace xlw {
 
+    //! Interpreted as LPXLOPER (Excel 4) or LPXLOPER12 (Excel 12).
     typedef void* LPXLFOPER;
 
     //! Interface between excel and the framework.
@@ -144,6 +145,7 @@ namespace xlw {
             char * start;
         };
 
+        //! A list of buffers.
         typedef std::list<XlfBuffer> BufferList;
         //! Internal memory buffer holding memory to be referenced by Excel (excluded from the pimpl to allow inlining).
         BufferList freeList_;

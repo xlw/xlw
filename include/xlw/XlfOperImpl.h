@@ -47,8 +47,6 @@ namespace xlw {
     class XlfRef;
     class CellMatrix;
 
-    typedef void* LPXLFOPER;
-
     //! Abstract implementation of class XlfOper.
     /*!
     This class defines the implementation of class XlfOper.  This class is an

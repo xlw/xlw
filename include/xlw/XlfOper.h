@@ -44,17 +44,20 @@ namespace xlw {
 
     //! Wrapper for XLOPER/XLOPER12 Excel data structure
     /*!
-    Class XlfOper contains a union of LPXLOPER and LPXLOPER12.  XlfOper is initialized
-    with a LPXLFOPER (void*) which is accessed via the union, with either LPXLOPER or
-    LPXLOPER12 depending on whether the addin is running under Excel 4 or Excel 12.
+    Class XlfOper implements a sole data member, a union of LPXLOPER and
+    LPXLOPER12.  XlfOper may be initialized with a value of type LPXLFOPER
+    (void*) received from Excel.  XlfOper dereferences this pointer via the
+    union, depending on which version of Excel is running: The value is
+    interpreted as type LPXLOPER under Excel 4, and LPXLOPER12 under Excel 12.
 
-    The logic to dereference LPXLOPER/LPXLOPER12 is implemented in class XlfOperImpl
-    and XlfOper forwards all of its calls to XlfOperImpl.
+    The logic to dereference LPXLOPER/LPXLOPER12 is implemented in class
+    XlfOperImpl and XlfOper forwards all of its calls to XlfOperImpl.
 
-    \warning It is important \e not to add any data members or virtual functions to
-    this class because the library heavily relies on the fact that XlfOper and
-    LPXLOPER/LPXLOPER12 have the same size. It allows the library to interpret any
-    LPXLOPER/LPXLOPER12 sent by Excel as an XlfOper.
+    \warning It is important \e not to add any data members or virtual
+    functions to this class.  The design of xlw relies on the fact that class
+    XlfOper has the same size as LPXLOPER/LPXLOPER12, this assumption allows
+    values of those types received from Excel to be interpreted by the library
+    as instances of XlfOper.
     */
     class EXCEL32_API XlfOper
     {
