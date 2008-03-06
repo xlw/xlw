@@ -17,9 +17,9 @@
 			ConfigurationType="0">
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc ENVIRON=Debug"
-				ReBuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc /a ENVIRON=Debug"
-				CleanCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc clean ENVIRON=Debug"/>
+				BuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.nmake ENVIRON=Debug"
+				ReBuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.nmake /a ENVIRON=Debug"
+				CleanCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.nmake clean ENVIRON=Debug"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -28,16 +28,16 @@
 			ConfigurationType="0">
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc ENVIRON=Release"
-				ReBuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc /a ENVIRON=Release"
-				CleanCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.vc clean ENVIRON=Release"/>
+				BuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.nmake ENVIRON=Release"
+				ReBuildCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.nmake /a ENVIRON=Release"
+				CleanCommandLine="NMAKE /f ..\..\vc_common\RunInterfaceGenerator.nmake clean ENVIRON=Release"/>
 		</Configuration>
 	</Configurations>
 	<References>
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\vc_common\RunInterfaceGenerator.vc">
+			RelativePath="..\..\vc_common\RunInterfaceGenerator.nmake">
 		</File>
 	</Files>
 	<Globals>
