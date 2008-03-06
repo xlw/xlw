@@ -14,8 +14,6 @@
 #include "reftest.h"
 #include <xlw/Wrapper.h>
 
-using namespace xlw;
-
 //<xlw:libraryname=MyTestLibrary
 std::string // tests empty args
 EmptyArgFunction();
