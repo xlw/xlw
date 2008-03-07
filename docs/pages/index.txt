@@ -4,7 +4,7 @@
 
 \author <a href=mailto:xlw@ifrance.com>J&eacute;r&ocirc;me Lecomte</a>
 \author Mark Joshi
-\author <a href=mailto:eric.ehlers@nazcatech.be>Eric Ehlers</a>
+\author Eric Ehlers
 
 Have you ever programmed an algorithm in C or C++ you needed to test on a
 large number of values? Did you ever want to quickly calibrate the arguments
@@ -37,4 +37,5 @@ the the documentation by clicking on <a href="pages.html">Related Pages</a>.
 \endhtmlonly
 
 */
+
 
