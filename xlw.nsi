@@ -33,6 +33,8 @@
 ;Interface Settings
 
     !define MUI_ABORTWARNING
+    !define MUI_ICON "docs\images\xlw_16x16.ico"
+    !define MUI_UNICON "docs\images\xlw_16x16.ico"
 
 ;--------------------------------
 ;Pages
@@ -83,7 +85,7 @@ Section
     SetOutPath "$INSTDIR\docs"
 
     File "docs\${APP_VER}-docs.chm"
-    ;File "docs\xlwplus2.pdf"
+    File "docs\xlwplus2\xlwplus2.pdf"
 
     SetOutPath "$INSTDIR\examples"
 
