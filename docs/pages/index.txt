@@ -6,34 +6,34 @@
 \author Mark Joshi
 \author Eric Ehlers
 
-Have you ever programmed an algorithm in C or C++ you needed to test on a
-large number of values? Did you ever want to quickly calibrate the arguments
-of your estimation? Did you ever wish you could graph your output in no time
-and integrate your work in a word document with even less effort?  If you do
-(or did), you might be interested in the XLW package.
+Have you ever programmed an algorithm in C or C++ you needed to test on a large
+number of values? Did you ever want to quickly calibrate the arguments of your
+estimation? Did you ever wish you could graph your output in no time and
+integrate your work in a word document with even less effort?  If you do (or
+did), you might be interested in the XLW package.
 
-The XLW package wraps the C API described in \ref XLSDK97 in a few classes
-that make API programming with Excel much, much simpler.  This simple (a few
-lines of code as demonstrated in the \ref gettingstarted section), yet
-powerful interface empowers your C or C++ numerics by embeding them in
-Excel (just like the built in functions); and lets you benefit from its
-powerful functionality, including graphs, solvers, and integration with the
-rest of the Microsoft office suite.  These classes are thoroughly documented
-and \ref download "downloadable" free of charge as long as you retain the \ref
-copyright "copyright notice".
+The XLW package wraps the C API described in \ref XLSDK97 in a few classes that
+make API programming with Excel much, much simpler.  This simple (a few lines
+of code as demonstrated in the \ref gettingstarted section), yet powerful
+interface empowers your C or C++ numerics by embeding them in Excel (just like
+the built in functions); and lets you benefit from its powerful functionality,
+including graphs, solvers, and integration with the rest of the Microsoft
+office suite.  These classes are thoroughly documented and \ref download
+"downloadable" free of charge as long as you retain the \ref copyright
+"copyright notice".
 
 The XLW development is hosted on SourceForge at
-http://xlw.sf.net
+http://xlw.sourceforge.net/
 Early versions of this package have been used for years and tested under
 Windows 9X/NT with Visual C++ 6.0 and Excel 97 \ref sr1 "SR-1 & SR-2" with
 minor problems (see \ref knownbugs) The package is not perfect but certainly
 has reached a stage where it can be useful. If you have any comment, you can
-email to xlw-users@list.sourceforge.net Suggestions, improvements and critics
-to the software and/or the documentation are heartily welcome.
+email to xlw-users@lists.sourceforge.net Suggestions, improvements and
+criticisms of the software and/or documentation are welcome.
 
 \htmlonly
 If you are interested in knowing more about the C++ wrapper, you can browse
-the the documentation by clicking on <a href="pages.html">Related Pages</a>.
+the documentation by clicking on <a href="pages.html">Related Pages</a>.
 \endhtmlonly
 
 */
