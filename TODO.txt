@@ -1,16 +1,3 @@
 
+At present no todo list is maintained.
 
-add example of option parameter
-where is the mopdule name ??
-error message available on request
-XlfOper.asVector
-
-add contributors in documentation
-
-activate cvs mailing list
-
-add advanced example
-un-frame documentation if framed
-fix Borland support
-add the know bugs to sf bug tracker
-pragma.h into config.msvc.h ?

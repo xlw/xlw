@@ -1,7 +1,4 @@
 
-XLW now supports VC7, VC8 and VC9. The xlw library generated are named
-xlw+toolset+threading+runtime+version.lib, where toolset can be -vc71 / -vc80 /
--vc90, threading can be -mt or nothing, runtime can be -s for static or nothing
-(with a trailing gd for debug runtime and debug enabled code), and version is
-3_0_0
+For a summary of activity on the XLW project, please visit
+http://xlw.sourceforge.net/history.shtml
 

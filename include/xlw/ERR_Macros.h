@@ -53,14 +53,14 @@ use your own error handling mechanism.
 
 //! Converts a data stream to a 0-terminated string and passes it the LOG macro.
 /*!
-\param message Whatever type (or serie of types) that has a stream
+\param message Whatever type (or series of types) that has a stream
 operator defined. For instance, you could use it like
 \code double f=0.0;
 ERR_LOG("Here the value of f is \"" << f << "\"");
 \endcode
 
 \warning The buffer has a limited size set to 1024 bytes.
-The line might be troncated if it is too long.
+The line might be truncated if it is too long.
 
 The enclosing
 \code if (true) { ... } else \endcode
@@ -88,11 +88,11 @@ if (...)
 //! Wrapper for throw keyword without argument.
 /*!
 You might use it to forward an exception further up in the call stack
-after it's been catched by a catch block.
+after it's been caught by a catch block.
 */
 #define ERR_RETHROW throw
 
-//! Wrapper for cathing an exception and forward it immediately
+//! Wrapper for catching an exception and forward it immediately
 #define ERR_CATCH_AND_THROW { }
 
 //! Wrapper for a catch of all exceptions.
@@ -121,7 +121,6 @@ Checks if \e condition is \c true. If not, calls ERR_THROW_MSG() with
 \e exception and \e message as arguments.
 These assertions are \e not \e removed for \e release versions.
 \sa ERR_THROW_MSG()
-\bug In conditional statement, see ERR_LOG().
 */
 #define ERR_CHECKX(condition, exception, message) if (!(condition)) \
 { ERR_THROW_MSG(exception, message); }
@@ -129,7 +128,6 @@ These assertions are \e not \e removed for \e release versions.
 //! Wrapper for warning message sending.
 /*! Forward the message to ERR_LOG() prefixed by the text "WARNING :".
     \sa ERR_LOG()
-    \bug In conditional statement, see ERR_LOG().
 */
 #define ERR_LOGW(message) { ERR_LOG("WARNING : " << message); }
 
@@ -139,7 +137,6 @@ Checks if \e condition is \c true. If not, calls ERR_LOGW() with
 \e message as arguments.
 These assertions \b still \b hold for \e release versions.
 \sa ERR_LOGW().
-\bug In conditional statement, see ERR_LOG().
 */
 #define ERR_CHECKW(condition, msg) if (!(condition)) \
 { ERR_LOGW(msg); }

@@ -3,14 +3,19 @@
 
 \page copyright Copyright and License
 
-Copyright &copy; 1998, 1999, 2001, 2002, 2003, 2004 J&eacute;r&ocirc;me Lecomte\n
-Copyright &copy; 2002, 2003, 2004 Ferdinando Ametrano\n
-Copyright &copy; 2002, 2003, 2004 Jos&eacute; Fonseca\n
-Copyright &copy; 2006 Mark Joshi\n
-Copyright &copy; 2007, 2008 Eric Ehlers\n
+XLW is
+\verbatim
+Copyright © 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+Copyright © 2002, 2003, 2004 Ferdinando Ametrano
+Copyright © 2002, 2003, 2004 José Fonseca
+Copyright © 2006 Mark Joshi
+Copyright © 2007, 2008 Eric Ehlers
 
 All rights reserved.
+\endverbatim
 
+XLW is released under the modified BSD license.
+\verbatim
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 
@@ -21,7 +26,7 @@ list of conditions and the following disclaimer.
 this list of conditions and the following disclaimer in the documentation
 and/or other materials provided with the distribution.
 
-- Neither the names of the copyright holders nor the names of the %XLW
+- Neither the names of the copyright holders nor the names of the XLW
 Group and its contributors may be used to endorse or promote products derived
 from this software without specific prior written permission.
 
@@ -35,30 +40,7 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-<hr>
-\section licensecomments Comments on Copyright and License
-
-%XLW is Non-Copylefted Free Software [1] released under the modified BSD
-License [2] (also know as XFree86-style license).
-
-%XLW is Open Source [3] because of its license: it is OSI Certified Open
-Source Software [4]. OSI Certified is a certification mark of the Open Source
-Initiative [5].
-
-The modified BSD License is GPL compatible as confirmed by the Free Software
-Foundation [6].
-
-This license has been adopted to allow free use of %XLW and its source, to
-make %XLW flourish as a free-software/open-source project. It allows
-proprietary extensions to be commercialized.
-
-[1] http://www.gnu.org/philosophy/categories.html#Non-CopyleftedFreeSoftware<br>
-[2] http://www.opensource.org/licenses/bsd-license.html<br>
-[3] http://www.opensource.org/docs/definition.html<br>
-[4] http://www.opensource.org/docs/certification_mark.html<br>
-[5] http://www.opensource.org<br>
-[6] http://www.gnu.org/philosophy/bsd.html
+\endverbatim
 
 */
 

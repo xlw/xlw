@@ -1,4 +1,7 @@
 
+For more info visit
+http://xlw.sourceforge.net/history.shtml
+
 2008-03-?? version 3.0.0
 
 2007-04-22 version 2.1.0
