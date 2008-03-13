@@ -3,39 +3,46 @@
 
 \page bibliography Bibliography
 
+\section XLLS Financial Applications Using Excel Add-in Development in C/C++
+Steve Dalton.
+<I>Financial Applications Using Excel Add-in Development in C/C++</I>,
+John Wiley & Sons, 2007.
+
 \section DP Design Patterns
 Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides.
-<I>Design patterns : Elements of reusable object-oriented design</I>,
-Addison-Wesley, 1994. The book exists as a CD too.
+<I>Design patterns</I>,
+Addison-Wesley, 2005.
 
 \section HS Exceptional C++
 Herb Sutter.
 <I>Exceptional C++</I>,
-Addison-Wesley, 2000.
+Addison-Wesley, 1999.
 
-\section Ec Effective C++ CD
-Scott Meyers
-<I>Effective C++ CD</I>, Addison-Wesley, 1999
+\section Ec Effective C++
+Scott Meyers.
+<I>Effective C++: 55 Specific Ways to Improve Your Programs and Designs (3rd Edition)</I>,
+Addison-Wesley, 2005
 
 \section SOUS3 The C++ Programming Language
-Bjarne Soustrup.
-<I>The C++ Programming Language (3rd edition)</I>,
-Addison-Wesley, 1998.
+Bjarne Stroustrup.
+<I>The C++ Programming Language: Special Edition (3rd Edition)</I>,
+Addison-Wesley, 2000.
 
 \section XLSDK97 Microsoft Excel 97 Developer's Kit
-Baarns Consulting Group
+Baarns Consulting Group.
 <I>Microsoft Excel 97 Developer's kit</I>,
-Microsoft Press, 1997. This book is
-also available online under
-http://msdn.microsoft.com/library/officedev/office97/sfacb.htm
+Microsoft Press, 1997. This book is available online at
+<a href="http://msdn.microsoft.com/archive/default.asp?url=/archive/en-us/office97/html/SF7D9.asp">http://msdn.microsoft.com/archive/default.asp?url=/archive/en-us/office97/html/SF7D9.asp</a>.
 
-\section CppFaqLite C++ FAQ-Lite
-Marshall Cline, <I>C++ Frequently Asked Question lite</I>,
-http://marshall-cline.att.net/cpp-faq-lite.
+\section CppFaqLite C++ FAQ LITE
+Marshall Cline.
+<I>C++ FAQ LITE</I>,
+<a href="http://www.parashift.com/c++-faq-lite/">http://www.parashift.com/c++-faq-lite/</a>.
 
-\section longre Macros XLL et l'API C
-Laurent Longre, <I>Macros XLL et programmation de l'API C</I> (francais),
-http://longre.free.fr/pages/prog/api-c.html
+\section longre Macros XLL et programmation de l'API-C
+Laurent Longre.
+<I>Macros XLL et programmation de l'API-C</I>,
+<a href="http://xcell05.free.fr/pages/prog/api-c.htm">http://xcell05.free.fr/pages/prog/api-c.htm</a>.
 
 */
 
