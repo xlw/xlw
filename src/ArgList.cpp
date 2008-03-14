@@ -5,6 +5,7 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Tim Brunne
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -306,7 +307,7 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells,
                                 if (nonNumeric)
                                     throw("Non numerical value in matrix argument :"+thisName+ " "+ErrorId);
 
-                                MJMatrix value(extracted.RowsInStructure(),extracted.ColumnsInStructure());
+                                MyMatrix value(extracted.RowsInStructure(),extracted.ColumnsInStructure());
 
                                 for (unsigned long i=0; i < extracted.RowsInStructure(); i++)
                                     for (unsigned long j=0; j < extracted.ColumnsInStructure(); j++)
@@ -456,11 +457,11 @@ xlw::MyArray xlw::ArgumentList::GetArrayArgumentValue(const std::string& Argumen
 
 }
 
-xlw::MJMatrix xlw::ArgumentList::GetMatrixArgumentValue(const std::string& ArgumentName_)
+xlw::MyMatrix xlw::ArgumentList::GetMatrixArgumentValue(const std::string& ArgumentName_)
 {
     std::string ArgumentName(ArgumentName_);
     MakeLowerCase(ArgumentName);
-    std::map<std::string, MJMatrix>::const_iterator it = MatrixArguments.find(ArgumentName);
+    std::map<std::string, MyMatrix>::const_iterator it = MatrixArguments.find(ArgumentName);
 
     if (it == MatrixArguments.end())
         throw(StructureName+std::string(" unknown matrix argument asked for :")+ArgumentName);
@@ -567,16 +568,16 @@ xlw::CellMatrix xlw::ArgumentList::AllData() const
          results.PushBottom(tmp);
     }}
 
-    {for (std::map<std::string,MJMatrix>::const_iterator it= MatrixArguments.begin();
+    {for (std::map<std::string,MyMatrix>::const_iterator it= MatrixArguments.begin();
             it != MatrixArguments.end(); it++)
     {
-        CellMatrix tmp(3+it->second.rows(),maxi(2UL,it->second.columns()));
+         CellMatrix tmp(3+it->second.size1(),maxi(2UL, static_cast<unsigned long>(it->second.size2())));
          tmp(0,0) = it->first;
          tmp(1,0) = std::string("matrix");
-         tmp(2,0) = static_cast<double>(it->second.rows());
-         tmp(2,1) = static_cast<double>(it->second.columns());
-         for (unsigned long i=0; i < it->second.rows(); i++)
-             for (unsigned long j=0; j < it->second.columns(); j++)
+         tmp(2,0) = static_cast<double>(it->second.size1());
+         tmp(2,1) = static_cast<double>(it->second.size2());
+         for (unsigned long i=0; i < it->second.size1(); i++)
+             for (unsigned long j=0; j < it->second.size2(); j++)
                  tmp(i+3,j)=Element(it->second,i,j);
          results.PushBottom(tmp);
     }}

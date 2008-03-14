@@ -9,6 +9,7 @@ Copyright © 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 Copyright © 2002, 2003, 2004 Ferdinando Ametrano
 Copyright © 2002, 2003, 2004 José Fonseca
 Copyright © 2006 Mark Joshi
+Copyright © 2007 Tim Brunne
 Copyright © 2007, 2008 Eric Ehlers
 
 All rights reserved.

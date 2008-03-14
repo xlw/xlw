@@ -44,6 +44,7 @@
 // move inside here configs specific to VC++ .Net 2005
 #  define XLW_LIB_TOOLSET "vc80"
 #  pragma warning (disable : 4800)  // forcing value to bool 'true' or 'false'
+#  pragma warning (disable : 4996)  // deprecated function
 #elif (_MSC_VER == 1500)
 // move inside here configs specific to VC++ .Net 2008
 #  define XLW_LIB_TOOLSET "vc90"

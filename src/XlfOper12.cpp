@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+ Copyright (C) 2007 Tim Brunne
  Copyright (C) 2007, 2008 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -856,14 +857,14 @@ int xlw::XlfOper12::ConvertToRef(XlfRef& r) const throw()
 
 xlw::XlfOper12& xlw::XlfOper12::Set(const MyMatrix& values)
 {
-    if (values.rows() ==0 || values.columns() ==0)
+    if (values.size1() ==0 || values.size2() ==0)
     {
         return *this;
     }
 
-    CellMatrix tmp(values.rows(), values.columns());
-    for (unsigned long i=0; i < values.rows(); i++)
-        for (unsigned long j=0; j < values.columns(); j++)
+    CellMatrix tmp(values.size1(), values.size2());
+    for (unsigned long i=0; i < values.size1(); i++)
+        for (unsigned long j=0; j < values.size2(); j++)
             tmp(i,j) = Element(values,i,j);
     return Set(tmp);
 }

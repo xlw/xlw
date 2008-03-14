@@ -4,7 +4,8 @@
 
 \b Authors: J&eacute;r&ocirc;me Lecomte, Mark Joshi, Eric Ehlers
 
-\b Contributors: Ferdinando Ametrano, Luigi Ballabio, Jos&eacute; Fonseca
+\b Contributors: Ferdinando Ametrano, Luigi Ballabio, Tim Brunne, Jos&eacute;
+Fonseca
 
 Have you ever programmed in C or C++ an algorithm that you needed to test on a
 large number of values?  Have you ever wanted to quickly calibrate the

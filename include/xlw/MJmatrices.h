@@ -5,6 +5,7 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Tim Brunne
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -45,6 +46,8 @@ namespace xlw {
 
         inline unsigned long rows() const;
         inline unsigned long columns() const;
+        inline unsigned long size1() const;
+        inline unsigned long size2() const;
 
         inline MJMatrix& operator+=(const MJMatrix& addend);
 
@@ -116,6 +119,16 @@ namespace xlw {
     }
 
     inline unsigned long MJMatrix::columns() const
+    {
+        return Columns;
+    }
+
+    inline unsigned long MJMatrix::size1() const
+    {
+        return Rows;
+    }
+
+    inline unsigned long MJMatrix::size2() const
     {
         return Columns;
     }

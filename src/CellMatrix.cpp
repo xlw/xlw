@@ -5,6 +5,7 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2007 Tim Brunne
  Copyright (C) 2007, 2008 Eric Ehlers
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -289,11 +290,11 @@ xlw::CellMatrix::CellMatrix(const MyArray& data) : Cells(data.size()),
     for (unsigned long i=0; i < data.size(); ++i)
         Cells[i].push_back(CellValue(data[i]));
 }
-xlw::CellMatrix::CellMatrix(const MyMatrix& data): Cells(data.rows()),
-    Rows(data.rows()), Columns(data.columns())
+xlw::CellMatrix::CellMatrix(const MyMatrix& data): Cells(data.size1()),
+    Rows(data.size1()), Columns(data.size2())
 {
-    for (unsigned long i=0; i < data.rows(); ++i)
-        for (unsigned long j=0; j < data.columns(); ++j)
+    for (unsigned long i=0; i < data.size1(); ++i)
+        for (unsigned long j=0; j < data.size2(); ++j)
             Cells[i].push_back(CellValue(Element(data,i,j)));
 }
 
