@@ -49,6 +49,7 @@
 // move inside here configs specific to VC++ .Net 2008
 #  define XLW_LIB_TOOLSET "vc90"
 #  pragma warning (disable : 4800)  // forcing value to bool 'true' or 'false'
+#  pragma warning (disable : 4996)  // deprecated function
 #else
 #  define XLW_LIB_TOOLSET "vcxx"
 #endif
