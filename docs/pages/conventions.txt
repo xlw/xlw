@@ -5,16 +5,16 @@
 
 \section conv_vernum Version Numbers
 
-The convention for XLW version numbers is xx.yy.zzln where:
+The convention for XLW version numbers is xx.yy.zzsn where:
 
 xx is the major number \n
 yy is the minor number \n
 zz is the minor-minor number \n
-l  can be a, b, or f for alpha, beta, final \n
+s  is a letter indicating the status of the release: a(lpha)/b(eta)/f(inal) \n
 n  is an ordinal number \n
 
 The corresponding branch in the subversion repository is named
-Rxxyyzzln-branch, where R stands for release.  For example, here is the link
+Rxxyyzzsn-branch, where R stands for release.  For example, here is the link
 to the branch in the subversion repository that corresponds to XLW release
 2.0.0f0:
 
