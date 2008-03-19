@@ -80,7 +80,7 @@ Section
     File /r "build\*.nmake"
     File /r "build\*.sln"
     File /r "build\*.vcproj"
-    File "build\devcpp\README.TXT"
+    File /r "build\*.TXT"
 
     SetOutPath "$INSTDIR\docs"
 
