@@ -31,7 +31,7 @@ xlw-users@lists.sourceforge.net.  Suggestions, improvements and criticisms of
 the software and documentation are always welcome.
 
 \htmlonly
-If you are interested in knowing more about the C++ wrapper, you can browse
+If you're interested in knowing more about the C++ wrapper, you can browse
 the documentation by clicking on <a href="pages.html">Related Pages</a>.
 \endhtmlonly
 
