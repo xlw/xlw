@@ -289,13 +289,13 @@ interfaces.
 <li>Backward compatible with old XlfOper class</li></ul></td><td><ul>
 <li>Incurs a run time overhead. Each member function forwards its call to a virtual function in the XlfOperImpl singleton.</li></ul></td></tr>
 <tr><td><b>XlfOper4</b></td><td><ul>
-<li>Backward compatible with old XlfOper class</li>
-<li>No performance overhead compared to old XlfOper
-class</li></ul></td><td><ul>
+<li>No performance overhead compared to old XlfOper class</li>
+<li>Backward compatible with old XlfOper class</li></ul></td><td><ul>
 <li>Encapsulates LPXLOPER only</li>
 <li>Supported by Excel 12 but invokes none of Excel 12's new features</li></ul></td></tr>
 <tr><td><b>XlfOper12</b></td><td><ul>
-<li>No performance overhead compared to old XlfOper class</li></ul></td><td><ul>
+<li>No performance overhead compared to old XlfOper class</li>
+<li>Supports new features of Excel 12</li></ul></td><td><ul>
 <li>Encapsulates LPXLOPER12 only</li>
 <li>Not supported by Excel 4</li></ul></td></tr>
 </table>
