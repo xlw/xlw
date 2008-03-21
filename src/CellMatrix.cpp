@@ -68,7 +68,6 @@ xlw::CellValue::operator std::string() const
     if (Type != string)
         throw("non string cell asked to be a string");
     return ValueAsString;
-
 }
 
 xlw::CellValue::operator std::wstring() const
@@ -76,7 +75,6 @@ xlw::CellValue::operator std::wstring() const
     if (Type != wstring)
         throw("non string cell asked to be a string");
     return ValueAsWstring;
-
 }
 
 xlw::CellValue::operator bool() const
@@ -98,8 +96,6 @@ xlw::CellValue::operator double() const
     if (Type != number)
         throw("non number cell asked to be a number");
     return ValueAsNumeric;
-
-
 }
 
 xlw::CellValue::operator unsigned long() const
@@ -107,7 +103,6 @@ xlw::CellValue::operator unsigned long() const
     if (Type != number)
         throw("non number cell asked to be a number");
     return static_cast<unsigned long>(ValueAsNumeric);
-
 }
 
 void xlw::CellValue::clear()
@@ -168,7 +163,6 @@ xlw::CellValue::CellValue(const XlfOper &xlfOper)
  : Type(xlw::CellValue::xlfoper),
 ValueAsString(""), ValueAsWstring(L""), ValueAsNumeric(0.0), ValueAsBool(false), ValueAsXlfOper(xlfOper), ValueAsErrorCode(0)
 {
-
 }
 
 xlw::CellValue::CellValue(): Type(xlw::CellValue::empty),
@@ -186,6 +180,7 @@ std::string xlw::CellValue::StringValue() const
         throw("non string cell asked to be a string");
     }
 }
+
 const std::wstring& xlw::CellValue::WstringValue() const
 {
     if (Type != wstring)
@@ -229,7 +224,6 @@ unsigned long xlw::CellValue::ErrorValue() const
 
 std::string xlw::CellValue::StringValueLowerCase() const
 {
-
     if (Type == string) {
         std::string tmp(ValueAsString);
         std::transform(tmp.begin(),tmp.end(),tmp.begin(),tolower);
@@ -240,12 +234,10 @@ std::string xlw::CellValue::StringValueLowerCase() const
     } else {
         throw("non string cell asked to be a string");
     }
-
 }
 
 std::wstring xlw::CellValue::WstringValueLowerCase() const
 {
-
     if (Type == string) {
         std::string s(StringValueLowerCase());
         return std::wstring(s.begin(), s.end());
@@ -256,7 +248,6 @@ std::wstring xlw::CellValue::WstringValueLowerCase() const
     } else {
         throw("non string cell asked to be a string");
     }
-
 }
 
 xlw::CellMatrix::CellMatrix() : Cells(0), Rows(0), Columns(0)
@@ -267,10 +258,12 @@ xlw::CellMatrix::CellMatrix(double x): Cells(1), Rows(1), Columns(1)
 {
     Cells[0].push_back(CellValue(x));
 }
+
 xlw::CellMatrix::CellMatrix(std::string x): Cells(1), Rows(1), Columns(1)
 {
     Cells[0].push_back(CellValue(x));
 }
+
 xlw::CellMatrix::CellMatrix(std::wstring x): Cells(1), Rows(1), Columns(1)
 {
     Cells[0].push_back(CellValue(x));
@@ -281,15 +274,13 @@ xlw::CellMatrix::CellMatrix(const char* x): Cells(1), Rows(1), Columns(1)
     Cells[0].push_back(CellValue(x));
 }
 
-
-
-
 xlw::CellMatrix::CellMatrix(const MyArray& data) : Cells(data.size()),
     Rows(data.size()), Columns(1)
 {
     for (unsigned long i=0; i < data.size(); ++i)
         Cells[i].push_back(CellValue(data[i]));
 }
+
 xlw::CellMatrix::CellMatrix(const MyMatrix& data): Cells(data.size1()),
     Rows(data.size1()), Columns(data.size2())
 {
@@ -350,7 +341,6 @@ xlw::CellMatrix xlw::MergeCellMatrices(const CellMatrix& Top, const CellMatrix& 
         for (unsigned long j=0; j < Bottom.RowsInStructure(); j++)
             merged(j+Top.RowsInStructure(),i) = Bottom(j,i);
 
-
     return merged;
 }
 
@@ -372,7 +362,4 @@ void xlw::CellMatrix::PushBottom(const CellMatrix& newRows)
 
     Rows = static_cast<unsigned long>(Cells.size());
     Columns = newColumns;
-
-
-
 }

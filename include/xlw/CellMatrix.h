@@ -18,6 +18,7 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
+
 #ifndef CELL_MATRIX_H
 #define CELL_MATRIX_H
 
@@ -36,12 +37,10 @@ namespace xlw {
         bool IsAString() const;
         bool IsAWstring() const;
         bool IsANumber() const;
-          bool IsBoolean() const;
-          bool IsXlfOper() const;
+        bool IsBoolean() const;
+        bool IsXlfOper() const;
         bool IsError() const;
-
         bool IsEmpty() const;
-
 
         CellValue(const std::string&);
         CellValue(const std::wstring&);
@@ -54,7 +53,6 @@ namespace xlw {
 
         CellValue();
 
-        //const std::string& StringValue() const;
         std::string StringValue() const;
         const std::wstring& WstringValue() const;
         const char* CharPtrValue() const;
@@ -80,7 +78,6 @@ namespace xlw {
 
         void clear();
 
-
     private:
         ValueType Type;
 
@@ -90,7 +87,6 @@ namespace xlw {
         bool ValueAsBool;
         XlfOper ValueAsXlfOper;
         unsigned long ValueAsErrorCode;
-
 
     };
 
@@ -117,8 +113,6 @@ namespace xlw {
 
         void PushBottom(const CellMatrix& newRows);
 
-
-
     private:
 
         std::vector<std::vector<CellValue> > Cells;
@@ -126,7 +120,6 @@ namespace xlw {
         unsigned long Columns;
 
     };
-
 
     CellMatrix MergeCellMatrices(const CellMatrix& Top, const CellMatrix& Bottom);
 
