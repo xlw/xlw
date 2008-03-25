@@ -33,8 +33,8 @@
 ;Interface Settings
 
     !define MUI_ABORTWARNING
-    !define MUI_ICON "docs\images\xlw_16x16.ico"
-    !define MUI_UNICON "docs\images\xlw_16x16.ico"
+    !define MUI_ICON "docs\images\xlw_32x32.ico"
+    !define MUI_UNICON "docs\images\xlw_32x32.ico"
 
 ;--------------------------------
 ;Pages
