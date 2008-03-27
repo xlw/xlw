@@ -28,19 +28,9 @@
 #define INLINE
 #endif
 #include <iostream>
+#include <xlw/XlfMutex.h>
 
 namespace xlw {
-
-    struct XlwMutex {
-        HANDLE hMutex;
-        XlwMutex() {
-            hMutex = CreateMutex(NULL, FALSE, "xlw_mutex");
-            WaitForSingleObject(hMutex, INFINITE);
-        }
-        ~XlwMutex() {
-            ReleaseMutex(hMutex);
-        }
-    };
 
     /*!
     The macro EXCEL_BEGIN includes a call to XlfExcel::FreeMemory.
@@ -52,7 +42,7 @@ namespace xlw {
     \sa XlfBuffer.
     */
     INLINE void XlfExcel::FreeMemory(bool finished) {
-        XlwMutex xlwMutex;
+        XlfMutex xlfMutex;
         size_t nbBuffersToKeep = 1;
         if (finished)
             nbBuffersToKeep = 0;
@@ -90,7 +80,7 @@ namespace xlw {
     \sa XlfBuffer, XlfExcel::PushNewBuffer(size_t)
     */
     INLINE LPSTR XlfExcel::GetMemory(size_t bytes) {
-        XlwMutex xlwMutex;
+        XlfMutex xlfMutex;
 
         if (freeList_.empty())
             PushNewBuffer(8192);

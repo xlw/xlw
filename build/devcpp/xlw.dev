@@ -1,7 +1,7 @@
 [Project]
 FileName=xlw.dev
 Name=xlw
-UnitCount=72
+UnitCount=73
 Type=2
 Ver=1
 ObjFiles=
@@ -754,6 +754,16 @@ FileName=README.TXT
 Folder=xlw
 Compile=0
 Link=0
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit73]
+FileName=..\..\include\xlw\XlfMutex.h
+CompileCpp=1
+Folder=include
+Compile=1
+Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=

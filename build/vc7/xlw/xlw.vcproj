@@ -273,6 +273,9 @@
 				RelativePath="..\..\..\include\xlw\XlfFuncDesc.h">
 			</File>
 			<File
+				RelativePath="..\..\..\include\xlw\XlfMutex.h">
+			</File>
+			<File
 				RelativePath="..\..\..\include\xlw\XlfOper.h">
 			</File>
 			<File
