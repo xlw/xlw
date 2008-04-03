@@ -72,10 +72,14 @@ namespace xlw {
         XlfOper4(const MyArray& value);
         XlfOper4(const XlfRef& range);
         template <class FwdIt>
-        XlfOper4(WORD rows, BYTE cols, FwdIt start)
+        XlfOper4(WORD rows, WORD cols, FwdIt start)
         {
             Allocate();
             Set(rows,cols,start);
+        }
+        XlfOper4(WORD rows, WORD cols) {
+            Allocate();
+            Set(rows,cols);
         }
         static XlfOper4 Error(WORD);
         ~XlfOper4();
@@ -84,6 +88,7 @@ namespace xlw {
 
         XlfOper4& operator=(const XlfOper4& xloper);
         operator LPXLOPER();
+        XlfOper4 operator()(WORD row, WORD col);
 
         bool IsMissing() const;
         bool IsError() const;
@@ -136,7 +141,7 @@ namespace xlw {
         XlfOper4& Set(short value, bool Error);
         XlfOper4& SetError(WORD error);
         template<class FwdIt>
-        XlfOper4& Set(WORD r, BYTE c, FwdIt it)
+        XlfOper4& Set(WORD r, WORD c, FwdIt it)
         {
             lpxloper_->xltype = xltypeMulti;
             lpxloper_->val.array.rows = r;
@@ -146,6 +151,11 @@ namespace xlw {
                 lpxloper_->val.array.lparray[i] = *(LPXLOPER)XlfOper4(*it);
             return *this;
         }
+        XlfOper4& Set(WORD r, WORD c);
+        void SetElement(WORD r, WORD c, double value);
+
+        WORD rows();
+        WORD columns();
 
     private:
         LPXLOPER lpxloper_;

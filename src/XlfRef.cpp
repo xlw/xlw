@@ -36,7 +36,7 @@
 #endif
 
 /*!
-\note In debug build, generates a message if the request is in the range.
+\note In debug build, generates a message if the request is not in the range.
 */
 //XlfOper XlfRef::operator()(INT32 r, INT32 c) const
 //{

@@ -164,6 +164,65 @@ extern "C"
         EXCEL_END;
     }
 
+    LPXLFOPER EXCEL_EXPORT test1_old()
+    {
+        EXCEL_BEGIN;
+
+        CellMatrix cm(2, 2);
+        cm(0, 0) = XlfOper("abc");
+        cm(0, 1) = XlfOper((short)42);
+        cm(1, 0) = XlfOper(1.23);
+        cm(1, 1) = XlfOper::Error(xlerrValue);
+        return XlfOper(cm);
+
+        EXCEL_END;
+    }
+
+    LPXLFOPER EXCEL_EXPORT test2_old(XlfOper xlInput)
+    {
+        EXCEL_BEGIN;
+
+        double sum = 0.;
+        CellMatrix matrix = xlInput.AsMatrix();
+        for(unsigned int i = 0; i < matrix.RowsInStructure(); i++)
+            for(unsigned int j = 0; j < matrix.ColumnsInStructure(); j++)
+                sum += matrix(i, j).NumericValue();
+        return XlfOper(sum);
+
+        EXCEL_END;
+    }
+
+    LPXLOPER EXCEL_EXPORT test1_new()
+    {
+        EXCEL_BEGIN;
+
+        XlfOper4 xm((WORD)2, (WORD)2);
+        //xm.SetElement(0, 0, "abc");
+        //xm.SetElement(0, 1, 42);
+        //xm.SetElement(1, 0, 1.23);
+        //xm.SetElement(1, 1, XlfOper::Error(xlerrValue));
+        xm.SetElement(0, 0, 1.23);
+        xm.SetElement(0, 1, 2.34);
+        xm.SetElement(1, 0, 3.45);
+        xm.SetElement(1, 1, 4.56);
+        return xm;
+
+        EXCEL_END;
+    }
+
+    LPXLOPER EXCEL_EXPORT test2_new(XlfOper4 xlInput)
+    {
+        EXCEL_BEGIN;
+
+        double sum = 0.;
+        for(unsigned int i = 0; i < xlInput.rows(); i++)
+            for(unsigned int j = 0; j < xlInput.columns(); j++)
+                sum += xlInput(i, j).AsDouble();
+        return XlfOper4(sum);
+
+        EXCEL_END;
+    }
+
     long EXCEL_EXPORT xlAutoOpen()
     {
         oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
@@ -253,6 +312,24 @@ extern "C"
             "since the xll was loaded (volatile)", "xlw Example",
             XlfFuncDesc::Volatile);
         nbCalls.Register();
+
+        XlfFuncDesc test1_old("test1_old", "test1_old", "test1_old desc", "xlw Example");
+        test1_old.Register();
+
+        XlfFuncDesc test2_old("test2_old", "test2_old", "test2_old desc", "xlw Example");
+        XlfArgDesc test2_old_arg0("Input", "Input");
+        test2_old.SetArguments(test2_old_arg0);
+        test2_old.Register();
+
+        XlfFuncDesc test1_new("test1_new", "test1_new", "test1_new desc", "xlw Example",
+            XlfFuncDesc::NotVolatile, false, "P");
+        test1_new.Register();
+
+        XlfFuncDesc test2_new("test2_new", "test2_new", "test2_new desc", "xlw Example",
+            XlfFuncDesc::NotVolatile, false, "P");
+        XlfArgDesc test2_new_arg0("Input", "Input", "P");
+        test2_new.SetArguments(test2_new_arg0);
+        test2_new.Register();
 
         // Clears the status bar.
         XlfExcel::Instance().SendMessage();

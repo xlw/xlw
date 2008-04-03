@@ -865,7 +865,7 @@ xlw::XlfOper4& xlw::XlfOper4::Set(const CellMatrix& cells)
                             lpxloper_->val.array.lparray[k] = *(LPXLOPER)XlfOper4(cells(i,j).BooleanValue());
                     else
                         if (cells(i,j).IsError())
-                             lpxloper_->val.array.lparray[k] = *(LPXLOPER)XlfOper4(static_cast<WORD>(cells(i,j).ErrorValue()),true);
+                             lpxloper_->val.array.lparray[k] = *(LPXLOPER)XlfOper4(static_cast<short>(cells(i,j).ErrorValue()),true);
                         else
                                 lpxloper_->val.array.lparray[k] = *(LPXLOPER)XlfOper4("");
         }
@@ -1050,4 +1050,43 @@ WORD xlw::XlfOper4::xltype() const {
     else
         return 0;
 }
+
+xlw::XlfOper4 xlw::XlfOper4::operator()(WORD row, WORD col) {
+    if (!(lpxloper_->xltype & xltypeMulti))
+        throw XlfException("not an xltypeMulti");
+    return XlfOper4(&lpxloper_->val.array.lparray[row * lpxloper_->val.array.columns + col]);
+}
+
+WORD xlw::XlfOper4::rows() {
+    if (!(lpxloper_->xltype & xltypeMulti))
+        throw XlfException("not an xltypeMulti");
+    return lpxloper_->val.array.rows;
+}
+
+WORD xlw::XlfOper4::columns() {
+    if (!(lpxloper_->xltype & xltypeMulti))
+        throw XlfException("not an xltypeMulti");
+    return lpxloper_->val.array.columns;
+}
+
+xlw::XlfOper4& xlw::XlfOper4::Set(WORD r, WORD c)
+{
+    lpxloper_->xltype = xltypeMulti;
+    lpxloper_->val.array.rows = r;
+    lpxloper_->val.array.columns = c;
+    lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
+    for (size_t i = 0; i < size_t(r*c); ++i)
+        lpxloper_->val.array.lparray[i].xltype = xltypeNil;
+    return *this;
+}
+
+void xlw::XlfOper4::SetElement(WORD row, WORD col, double value)
+{
+    if (!(lpxloper_->xltype & xltypeMulti))
+        throw XlfException("not an xltypeMulti");
+    WORD idx = row * lpxloper_->val.array.columns + col;
+    lpxloper_->val.array.lparray[idx].xltype = xltypeNum;
+    lpxloper_->val.array.lparray[idx].val.num = value;
+}
+
 
