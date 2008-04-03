@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-gd-3_0_0.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib User32.lib xlw-vc80-mt-gd-3_0_0.lib"
 				OutputFile="..\..\..\examples\handwritten\ExampleHandwritten-vc80-mt-gd-3_0_0.xll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\lib"
@@ -140,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-3_0_0.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib User32.lib xlw-vc80-mt-3_0_0.lib"
 				OutputFile="..\..\..\examples\handwritten\ExampleHandwritten-vc80-mt-3_0_0.xll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\lib"
