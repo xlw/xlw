@@ -64,7 +64,7 @@ extern "C"
         // Returns the concatenation of the 2 string as an XlfOper.
         std::string ret = str1+str2;
         return XlfOper4(ret);
-        EXCEL_END;
+        EXCEL_END_4;
     }
 
     LPXLOPER12 EXCEL_EXPORT xlConcat12(XlfOper12 xlStr1, XlfOper12 xlStr2)
@@ -76,7 +76,7 @@ extern "C"
         // Returns the concatenation of the 2 string as an XlfOper.
         std::wstring ret = str1+str2;
         return XlfOper12(ret);
-        EXCEL_END;
+        EXCEL_END_12;
     }
 
     /*LPXLOPER*/ LPXLFOPER EXCEL_EXPORT xlStats(XlfOper xlTargetRange)
@@ -207,7 +207,7 @@ extern "C"
         xm.SetElement(1, 1, 4.56);
         return xm;
 
-        EXCEL_END;
+        EXCEL_END_4;
     }
 
     LPXLOPER EXCEL_EXPORT test2_new(XlfOper4 xlInput)
@@ -220,7 +220,7 @@ extern "C"
                 sum += xlInput(i, j).AsDouble();
         return XlfOper4(sum);
 
-        EXCEL_END;
+        EXCEL_END_4;
     }
 
     long EXCEL_EXPORT xlAutoOpen()
