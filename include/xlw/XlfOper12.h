@@ -69,17 +69,21 @@ namespace xlw {
         XlfOper12(const MyMatrix& value);
         XlfOper12(const MyArray& value);
         XlfOper12(const XlfRef& range);
-
+        XlfOper12(RW rows, COL cols);
         template <class FwdIt>
-        XlfOper12(WORD rows, BYTE cols, FwdIt start)
+        XlfOper12(RW rows, COL cols, FwdIt start)
         {
             Allocate();
-            Set(rows,cols,start);
+            Set(rows, cols, start);
         }
         static XlfOper12 Error(WORD);
         ~XlfOper12();
+
         void FreeAuxiliaryMemory() const;
+
         XlfOper12& operator=(const XlfOper12& xloper);
+        XlfOper12 operator()(RW row, COL col);
+        operator LPXLOPER12();
 
         bool IsMissing() const;
         bool IsError() const;
@@ -91,6 +95,9 @@ namespace xlw {
         bool IsNil() const;
         bool IsBool() const;
         bool IsInt() const;
+
+        RW rows() const;
+        COL columns() const;
 
         double AsDouble(int * pxlret = 0) const;
         double AsDouble(const std::string& ErrorId, int * pxlret = 0) const;
@@ -132,10 +139,8 @@ namespace xlw {
         XlfOper12& Set(const MyArray& values);
         XlfOper12& Set(const XlfRef& range);
         XlfOper12& Set(short value, bool Error);
-        XlfOper12& SetError(WORD error);
-        operator LPXLOPER12();
         template<class FwdIt>
-        XlfOper12& Set(WORD r, BYTE c, FwdIt it)
+        XlfOper12& Set(RW r, COL c, FwdIt it)
         {
             lpxloper_->xltype = xltypeMulti;
             lpxloper_->val.array.rows = r;
@@ -145,6 +150,9 @@ namespace xlw {
                 lpxloper_->val.array.lparray[i] = *(LPXLOPER12)XlfOper12(*it);
             return *this;
         }
+        XlfOper12& Set(RW r, COL c);
+        XlfOper12& SetElement(RW r, COL c, const XlfOper12 &value);
+        XlfOper12& SetError(WORD error);
 
         DWORD xltype() const;
 

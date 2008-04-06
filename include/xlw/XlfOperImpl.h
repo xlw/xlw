@@ -81,7 +81,12 @@ namespace xlw {
 
         virtual void destroy(const XlfOper& xlfOper) const = 0;
         virtual void FreeAuxiliaryMemory(const XlfOper& xlfOper) const = 0;
-        virtual XlfOper& assignment_operator(XlfOper &xlfOper, const XlfOper& rhs) const = 0;
+
+        virtual XlfOper& operator_assignment(XlfOper &xlfOper, const XlfOper& rhs) const = 0;
+        virtual XlfOper operator_subscript(XlfOper &xlfOper, RW row, COL col) const = 0;
+        virtual LPXLOPER operator_LPXLOPER(const XlfOper &xlfOper) const = 0;
+        virtual LPXLOPER12 operator_LPXLOPER12(const XlfOper &xlfOper) const = 0;
+        virtual LPXLFOPER operator_LPXLFOPER(const XlfOper &xlfOper) const = 0;
 
         virtual bool IsMissing(const XlfOper &xlfOper) const = 0;
         virtual bool IsError(const XlfOper &xlfOper) const = 0;
@@ -94,6 +99,9 @@ namespace xlw {
         virtual bool IsBool(const XlfOper &xlfOper) const = 0;
         virtual bool IsInt(const XlfOper &xlfOper) const = 0;
 
+        virtual RW rows(XlfOper &xlfOper) const = 0;
+        virtual COL columns(XlfOper &xlfOper) const = 0;
+
         virtual LPXLFOPER GetLPXLFOPER(const XlfOper &xlfOper) const = 0;
 
         virtual XlfOper& Set(XlfOper &xlfOper, LPXLFOPER lpxlfoper) const = 0;
@@ -105,21 +113,21 @@ namespace xlw {
         virtual XlfOper& Set(XlfOper &xlfOper, const CellMatrix& cells) const = 0;
         virtual XlfOper& Set(XlfOper &xlfOper, const XlfRef& range) const = 0;
         virtual XlfOper& Set(XlfOper &xlfOper, short value, bool Error) const = 0;
+        virtual XlfOper& Set(XlfOper &xlfOper, RW r, COL c) const = 0;
+        virtual XlfOper& SetElement(XlfOper &xlfOper, RW r, COL c, const XlfOper &value) const = 0;
         virtual XlfOper& SetError(XlfOper &xlfOper, WORD error) const = 0;
-        virtual LPXLOPER operator_LPXLOPER(const XlfOper &xlfOper) const = 0;
-        virtual LPXLOPER12 operator_LPXLOPER12(const XlfOper &xlfOper) const = 0;
-        virtual LPXLFOPER operator_LPXLFOPER(const XlfOper &xlfOper) const = 0;
 
         virtual int Coerce(const XlfOper &xlfOper, short type, XlfOper& res) const = 0;
 
         virtual int Allocate(XlfOper &xlfOper) const = 0;
 
-        virtual int ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<double>& value, DoubleVectorConvPolicy policy = UniDimensional) const = 0;
+        virtual int ConvertToDoubleVector(const XlfOper &xlfOper, std::vector<double>& value,
+            DoubleVectorConvPolicy policy = UniDimensional) const = 0;
         virtual int ConvertToDouble(const XlfOper &xlfOper, double& value) const throw() = 0;
         virtual int ConvertToShort(const XlfOper &xlfOper, short& value) const throw() = 0;
         virtual int ConvertToBool(const XlfOper &xlfOper, bool& value) const throw() = 0;
         virtual int ConvertToString(const XlfOper &xlfOper, char *& value) const throw() = 0;
-	    virtual int ConvertToWstring(const XlfOper &xlfOper, std::wstring &value) const throw() = 0;
+        virtual int ConvertToWstring(const XlfOper &xlfOper, std::wstring &value) const throw() = 0;
         virtual int ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& output) const = 0;
         virtual int ConvertToMatrix(const XlfOper &xlfOper, MyMatrix& output) const = 0;
 
@@ -130,52 +138,52 @@ namespace xlw {
 
         // FIXME this template doesn't compile under MinGW.
         // For the moment it is not used by the MinGW examples.
-    #if defined(_MSC_VER)
+#if defined(_MSC_VER)
         template <class FwdIt>
         XlfOper& Set(XlfOper& xlfOper, RW rows, COL cols, FwdIt it) const
         {
-		    if (XlfExcel::Instance().excel12()) {
+            if (XlfExcel::Instance().excel12()) {
 
-			    xlfOper.lpxloper12_->xltype = xltypeMulti;
-			    xlfOper.lpxloper12_->val.array.rows = rows;
-			    xlfOper.lpxloper12_->val.array.columns = cols;
-			    xlfOper.lpxloper12_->val.array.lparray =
-				    (LPXLOPER12)XlfExcel::Instance().GetMemory(rows * cols * sizeof(XLOPER12));
-			    for (int i = 0; i < rows * cols; ++i, ++it)
-				    xlfOper.lpxloper12_->val.array.lparray[i] = *(LPXLOPER12)XlfOper(*it);
-			    return xlfOper;
+                xlfOper.lpxloper12_->xltype = xltypeMulti;
+                xlfOper.lpxloper12_->val.array.rows = rows;
+                xlfOper.lpxloper12_->val.array.columns = cols;
+                xlfOper.lpxloper12_->val.array.lparray =
+                    (LPXLOPER12)XlfExcel::Instance().GetMemory(rows * cols * sizeof(XLOPER12));
+                for (int i = 0; i < rows * cols; ++i, ++it)
+                    xlfOper.lpxloper12_->val.array.lparray[i] = *(LPXLOPER12)XlfOper(*it);
+                return xlfOper;
 
-		    } else {
+            } else {
 
-			    // Excel 4 stores rows as type WORD and columns as type BYTE.
-			    // Excel 12 stores rows as type RW and columns as type COL.
-			    // Since this function supports both platforms, the arguments are declared with
-			    // the Excel 12 types and bounds checking for Excel 4 is done at run time:
+                // Excel 4 stores rows as type WORD and columns as type BYTE.
+                // Excel 12 stores rows as type RW and columns as type COL.
+                // Since this function supports both platforms, the arguments are declared with
+                // the Excel 12 types and bounds checking for Excel 4 is done at run time:
 
-			    if (rows > USHRT_MAX) {
-				    std::ostringstream err;
-				    err << "Matrix row count " << rows << " exceeds Excel4 max " << USHRT_MAX;
-				    throw(err.str());
-			    }
+                if (rows > USHRT_MAX) {
+                    std::ostringstream err;
+                    err << "Matrix row count " << rows << " exceeds Excel4 max " << USHRT_MAX;
+                    throw(err.str());
+                }
 
-			    if (cols > USHRT_MAX) {
-				    std::ostringstream err;
-				    err << "Matrix col count " << cols << " exceeds Excel4 max " << USHRT_MAX;
-				    throw(err.str());
-			    }
+                if (cols > USHRT_MAX) {
+                    std::ostringstream err;
+                    err << "Matrix col count " << cols << " exceeds Excel4 max " << USHRT_MAX;
+                    throw(err.str());
+                }
 
-			    xlfOper.lpxloper4_->xltype = xltypeMulti;
-			    xlfOper.lpxloper4_->val.array.rows = rows;
-			    xlfOper.lpxloper4_->val.array.columns = cols;
-			    xlfOper.lpxloper4_->val.array.lparray =
-				    (LPXLOPER)XlfExcel::Instance().GetMemory(rows * cols * sizeof(XLOPER));
-			    for (int i = 0; i < rows*cols; ++i, ++it)
-				    xlfOper.lpxloper4_->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
-			    return xlfOper;
+                xlfOper.lpxloper4_->xltype = xltypeMulti;
+                xlfOper.lpxloper4_->val.array.rows = rows;
+                xlfOper.lpxloper4_->val.array.columns = cols;
+                xlfOper.lpxloper4_->val.array.lparray =
+                    (LPXLOPER)XlfExcel::Instance().GetMemory(rows * cols * sizeof(XLOPER));
+                for (int i = 0; i < rows*cols; ++i, ++it)
+                    xlfOper.lpxloper4_->val.array.lparray[i] = *(LPXLOPER)XlfOper(*it);
+                return xlfOper;
 
-		    }
+            }
         }
-    #endif
+#endif
 
         static XlfOperImpl *instance_;
 

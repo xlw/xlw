@@ -680,11 +680,8 @@ xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, const CellMatrix& cells)
                     if (cells(i,j).IsBoolean())
                             xlfOper.lpxloper12_->val.array.lparray[k] = *(LPXLOPER12)XlfOper(cells(i,j).BooleanValue());
                     else
-                        if (cells(i,j).IsXlfOper())
-                             xlfOper.lpxloper12_->val.array.lparray[k] = *(LPXLOPER12)XlfOper(cells(i,j).XlfOperValue().GetLPXLFOPER());
-                        else
                         if (cells(i,j).IsError())
-                             xlfOper.lpxloper12_->val.array.lparray[k] = *(LPXLOPER12)XlfOper(static_cast<WORD>(cells(i,j).ErrorValue()),true);
+                             xlfOper.lpxloper12_->val.array.lparray[k] = *(LPXLOPER12)XlfOper(static_cast<short>(cells(i,j).ErrorValue()),true);
                         else
                                 xlfOper.lpxloper12_->val.array.lparray[k] = *(LPXLOPER12)XlfOper("");
         }
@@ -803,6 +800,41 @@ xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, const std::wstring &valu
     return xlfOper;
 }
 
+xlw::XlfOper& xlw::XlfOperImpl12::Set(XlfOper &xlfOper, RW r, COL c) const
+{
+    xlfOper.lpxloper12_->xltype = xltypeMulti;
+    xlfOper.lpxloper12_->val.array.rows = r;
+    xlfOper.lpxloper12_->val.array.columns = c;
+    xlfOper.lpxloper12_->val.array.lparray = (LPXLOPER12)XlfExcel::Instance().GetMemory(r * c * sizeof(XLOPER12));
+    for (size_t i = 0; i < r * c; ++i)
+        xlfOper.lpxloper12_->val.array.lparray[i].xltype = xltypeNil;
+    return xlfOper;
+}
+
+xlw::XlfOper& xlw::XlfOperImpl12::SetElement(XlfOper &xlfOper, RW r, COL c, const XlfOper &value) const
+{
+    if (!(xlfOper.lpxloper12_->xltype & xltypeMulti))
+        throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + xlfOper.lpxloper12_->xltype);
+    xloper12 &element = xlfOper.lpxloper12_->val.array.lparray[r * xlfOper.lpxloper12_->val.array.columns + c];
+    if (value.lpxloper12_->xltype == xltypeNum) {
+        element.val.num = value.lpxloper12_->val.num;
+    } else if (value.lpxloper12_->xltype == xltypeStr) {
+        size_t n = (value.lpxloper12_->val.str[0] + 1) * 2;
+        element.val.str = reinterpret_cast<wchar_t*>(XlfExcel::Instance().GetMemory(n));
+        memcpy(element.val.str, value.lpxloper12_->val.str, n);
+    } else if (value.lpxloper12_->xltype == xltypeBool) {
+        element.val.xbool = value.lpxloper12_->val.xbool;
+    } else if (value.lpxloper12_->xltype == xltypeErr) {
+        element.val.err = value.lpxloper12_->val.err;
+    } else if (value.lpxloper12_->xltype == xltypeInt) {
+        element.val.w = value.lpxloper12_->val.w;
+    } else {
+        throw XlfException("attempt to set a matrix element to a value of type " + value.lpxloper12_->xltype);
+    }
+    element.xltype = value.lpxloper12_->xltype;
+    return xlfOper;
+}
+
 xlw::XlfOper& xlw::XlfOperImpl12::SetError(XlfOper &xlfOper, WORD error) const
 {
     if (xlfOper.lpxloper12_)
@@ -813,11 +845,18 @@ xlw::XlfOper& xlw::XlfOperImpl12::SetError(XlfOper &xlfOper, WORD error) const
     return xlfOper;
 }
 
-xlw::XlfOper& xlw::XlfOperImpl12::assignment_operator(XlfOper &xlfOper, const XlfOper &rhs) const
+xlw::XlfOper& xlw::XlfOperImpl12::operator_assignment(XlfOper &xlfOper, const XlfOper &rhs) const
 {
     //if (xlfOper != &rhs) FIXME
         xlfOper.lpxloper12_ = rhs.lpxloper12_;
     return xlfOper;
+}
+
+xlw::XlfOper xlw::XlfOperImpl12::operator_subscript(XlfOper &xlfOper, RW row, COL col) const
+{
+    if (!(xlfOper.lpxloper12_->xltype & xltypeMulti))
+        throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + xlfOper.lpxloper12_->xltype);
+    return XlfOper(&xlfOper.lpxloper12_->val.array.lparray[row * xlfOper.lpxloper12_->val.array.columns + col]);
 }
 
 LPXLOPER xlw::XlfOperImpl12::operator_LPXLOPER(const XlfOper &xlfOper) const
@@ -896,4 +935,19 @@ DWORD xlw::XlfOperImpl12::xltype(const XlfOper &xlfOper) const {
     else
         return 0;
 }
+
+RW xlw::XlfOperImpl12::rows(XlfOper &xlfOper) const
+{
+    if (!(xlfOper.lpxloper12_->xltype & xltypeMulti))
+        throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + xlfOper.lpxloper12_->xltype);
+    return xlfOper.lpxloper12_->val.array.rows;
+}
+
+COL xlw::XlfOperImpl12::columns(XlfOper &xlfOper) const
+{
+    if (!(xlfOper.lpxloper12_->xltype & xltypeMulti))
+        throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + xlfOper.lpxloper12_->xltype);
+    return xlfOper.lpxloper12_->val.array.columns;
+}
+
 

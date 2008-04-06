@@ -144,6 +144,18 @@ namespace xlw {
         Set(range);
     }
 
+
+    /*!
+    See XlfOper::Set(RW rows, COL cols)
+
+    \sa XlfRef
+    */
+    INLINE XlfOper::XlfOper(RW rows, COL cols)
+    {
+        Allocate();
+        Set(rows, cols);
+    }
+
     /*!
     Unlike other XlfOper constructors, here the return value is not allocated on
     the internal buffer to avoid allocating more memory. Instead it is allocated on

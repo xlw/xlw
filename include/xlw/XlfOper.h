@@ -97,6 +97,8 @@ namespace xlw {
         XlfOper(const MyArray& value);
         //! XlfRef ctor.
         XlfOper(const XlfRef& range);
+        //! XlfMulti ctor.
+        XlfOper(RW rows, COL cols);
         //! Container ctor.
         template <class FwdIt>
         XlfOper(RW rows, COL cols, FwdIt start)
@@ -119,7 +121,9 @@ namespace xlw {
         //! \name Operators
         //@{
         //! Assignment operator
-        XlfOper& operator=(const XlfOper& xloper)  { return XlfOperImpl::instance().assignment_operator(*this, xloper); }
+        XlfOper& operator=(const XlfOper& xloper)  { return XlfOperImpl::instance().operator_assignment(*this, xloper); }
+        //! Function call operator, used here to subscript two dimensional array
+        XlfOper operator()(RW row, COL col) { return XlfOperImpl::instance().operator_subscript(*this, row, col); }
         //! Cast to XLOPER *.
         operator LPXLOPER() { return XlfOperImpl::instance().operator_LPXLOPER(*this); }
         //! Cast to XLOPER12 *.
@@ -151,10 +155,15 @@ namespace xlw {
         //! Is the data an integer ?
         bool IsInt() const { return XlfOperImpl::instance().IsInt(*this); }
 
+        //! Number of rows in matrix.
+        RW rows() { return XlfOperImpl::instance().rows(*this); }
+        //! Number of columns in matrix.
+        COL columns() { return XlfOperImpl::instance().columns(*this); }
+
         //! The Excel code for the underlying datatype
         DWORD xltype() const { return XlfOperImpl::instance().xltype(*this); }
         //! String representation of the Excel code for the underlying datatype
-        std::string xltypeName () const;
+        std::string xltypeName() const;
         //@}
 
         //! \name Conversions
@@ -165,14 +174,17 @@ namespace xlw {
         double AsDouble(const std::string& ErrorId, int *pxlret = 0) const;
 
         //! Converts to a std::vector<double>.
-        std::vector<double> AsDoubleVector(XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
+        std::vector<double> AsDoubleVector(XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional,
+            int *pxlret = 0) const;
         //! Converts to a std::vector<double>.
-        std::vector<double> AsDoubleVector(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
+        std::vector<double> AsDoubleVector(const std::string& ErrorId,
+            XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
 
         //! Converts to an array.
         MyArray AsArray(XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
         //! Converts to an array.
-        MyArray AsArray(const std::string& ErrorId, XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
+        MyArray AsArray(const std::string& ErrorId,
+            XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional, int *pxlret = 0) const;
 
         //! Converts to a short.
         short AsShort(int *pxlret = 0) const;
@@ -254,6 +266,11 @@ namespace xlw {
         {
             return XlfOperImpl::instance().Set(*this, rows, cols, it);
         }
+        //! Set to an array of the specified dimensions.
+        XlfOper& Set(RW r, COL c) { return XlfOperImpl::instance().Set(*this, r, c); }
+        //! Set the value of array element with specified subscript.
+        XlfOper& SetElement(RW r, COL c, const XlfOper &value)
+            { return XlfOperImpl::instance().SetElement(*this, r, c, value); }
         //! Set to an error value.
         XlfOper& SetError(WORD error) { return XlfOperImpl::instance().SetError(*this, error); }
         //@}
@@ -297,8 +314,9 @@ namespace xlw {
         //! \name Private implementations of conversion routines
         //@{
         //! Attempts conversion to double and returns Excel error code.
-        int ConvertToDoubleVector(std::vector<double>& value, XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional) const
-             { return XlfOperImpl::instance().ConvertToDoubleVector(*this, value, policy); }
+        int ConvertToDoubleVector(std::vector<double>& value,
+            XlfOperImpl::DoubleVectorConvPolicy policy = XlfOperImpl::UniDimensional) const
+            { return XlfOperImpl::instance().ConvertToDoubleVector(*this, value, policy); }
         //! Attempts conversion to double and returns Excel error code.
         int ConvertToDouble(double& value) const throw() {
             return XlfOperImpl::instance().ConvertToDouble(*this, value); }
@@ -323,7 +341,6 @@ namespace xlw {
         //! Attempts conversion to Matrix and returns Excel error code.
         int ConvertToMatrix(MyMatrix& output) const {
             return XlfOperImpl::instance().ConvertToMatrix(*this, output); }
-
         //! Attempts conversion to XlRef and returns Excel error code.
         int ConvertToRef(XlfRef& ref) const throw() {
             return XlfOperImpl::instance().ConvertToRef(*this, ref); }

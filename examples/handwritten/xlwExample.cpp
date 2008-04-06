@@ -164,63 +164,117 @@ extern "C"
         EXCEL_END;
     }
 
-    LPXLFOPER EXCEL_EXPORT test1_old()
+    //LPXLFOPER EXCEL_EXPORT test1_old()
+    //{
+    //    EXCEL_BEGIN;
+
+    //    CellMatrix ret(3, 2);
+    //    ret(0, 0) = XlfOper("abc");
+    //    ret(0, 1) = XlfOper((short)42);
+    //    ret(1, 0) = XlfOper(1.23);
+    //    ret(1, 1) = XlfOper::Error(xlerrValue);
+    //    ret(2, 0) = XlfOper(true);
+    //    return XlfOper(ret);
+
+    //    EXCEL_END;
+    //}
+
+    LPXLFOPER EXCEL_EXPORT test1_new()
     {
         EXCEL_BEGIN;
 
-        CellMatrix cm(2, 2);
-        cm(0, 0) = XlfOper("abc");
-        cm(0, 1) = XlfOper((short)42);
-        cm(1, 0) = XlfOper(1.23);
-        cm(1, 1) = XlfOper::Error(xlerrValue);
-        return XlfOper(cm);
+        XlfOper ret((WORD)3, (WORD)2);
+        ret.SetElement(0, 0, "abc");
+        ret.SetElement(0, 1, (short)42);
+        ret.SetElement(1, 0, 1.23);
+        ret.SetElement(1, 1, XlfOper::Error(xlerrValue));
+        ret.SetElement(2, 0, true);
+        return ret;
 
         EXCEL_END;
     }
 
-    LPXLFOPER EXCEL_EXPORT test2_old(XlfOper xlInput)
+    LPXLOPER EXCEL_EXPORT test1_new4()
+    {
+        EXCEL_BEGIN;
+
+        XlfOper4 ret((WORD)3, (WORD)2);
+        ret.SetElement(0, 0, "abc");
+        ret.SetElement(0, 1, (short)42);
+        ret.SetElement(1, 0, 1.23);
+        ret.SetElement(1, 1, XlfOper4::Error(xlerrValue));
+        ret.SetElement(2, 0, true);
+        return ret;
+
+        EXCEL_END_4;
+    }
+
+    LPXLOPER12 EXCEL_EXPORT test1_new12()
+    {
+        EXCEL_BEGIN;
+
+        XlfOper12 ret((WORD)3, (WORD)2);
+        ret.SetElement(0, 0, "abc");
+        ret.SetElement(0, 1, (short)122);
+        ret.SetElement(1, 0, 1.23);
+        ret.SetElement(1, 1, XlfOper12::Error(xlerrValue));
+        ret.SetElement(2, 0, true);
+        return ret;
+
+        EXCEL_END_12;
+    }
+
+    //LPXLFOPER EXCEL_EXPORT test2_old(XlfOper xlInput)
+    //{
+    //    EXCEL_BEGIN;
+
+    //    double sum = 0.;
+    //    CellMatrix matrix = xlInput.AsMatrix();
+    //    for (unsigned int i = 0; i < matrix.RowsInStructure(); i++)
+    //        for (unsigned int j = 0; j < matrix.ColumnsInStructure(); j++)
+    //            sum += matrix(i, j).NumericValue();
+    //    return XlfOper(sum);
+
+    //    EXCEL_END;
+    //}
+
+    LPXLFOPER EXCEL_EXPORT test2_new(XlfOper xlInput)
     {
         EXCEL_BEGIN;
 
         double sum = 0.;
-        CellMatrix matrix = xlInput.AsMatrix();
-        for(unsigned int i = 0; i < matrix.RowsInStructure(); i++)
-            for(unsigned int j = 0; j < matrix.ColumnsInStructure(); j++)
-                sum += matrix(i, j).NumericValue();
+        for (RW i = 0; i < xlInput.rows(); i++)
+            for (COL j = 0; j < xlInput.columns(); j++)
+                sum += xlInput(i, j).AsDouble();
         return XlfOper(sum);
 
         EXCEL_END;
     }
 
-    LPXLOPER EXCEL_EXPORT test1_new()
-    {
-        EXCEL_BEGIN;
-
-        XlfOper4 xm((WORD)2, (WORD)2);
-        //xm.SetElement(0, 0, "abc");
-        //xm.SetElement(0, 1, 42);
-        //xm.SetElement(1, 0, 1.23);
-        //xm.SetElement(1, 1, XlfOper::Error(xlerrValue));
-        xm.SetElement(0, 0, 1.23);
-        xm.SetElement(0, 1, 2.34);
-        xm.SetElement(1, 0, 3.45);
-        xm.SetElement(1, 1, 4.56);
-        return xm;
-
-        EXCEL_END_4;
-    }
-
-    LPXLOPER EXCEL_EXPORT test2_new(XlfOper4 xlInput)
+    LPXLOPER EXCEL_EXPORT test2_new4(XlfOper4 xlInput)
     {
         EXCEL_BEGIN;
 
         double sum = 0.;
-        for(unsigned int i = 0; i < xlInput.rows(); i++)
-            for(unsigned int j = 0; j < xlInput.columns(); j++)
+        for (WORD i = 0; i < xlInput.rows(); i++)
+            for (WORD j = 0; j < xlInput.columns(); j++)
                 sum += xlInput(i, j).AsDouble();
         return XlfOper4(sum);
 
         EXCEL_END_4;
+    }
+
+    LPXLOPER12 EXCEL_EXPORT test2_new12(XlfOper12 xlInput)
+    {
+        EXCEL_BEGIN;
+
+        double sum = 0.;
+        for (RW i = 0; i < xlInput.rows(); i++)
+            for (COL j = 0; j < xlInput.columns(); j++)
+                sum += xlInput(i, j).AsDouble();
+        return XlfOper12(sum);
+
+        EXCEL_END_12;
     }
 
     long EXCEL_EXPORT xlAutoOpen()
@@ -313,23 +367,41 @@ extern "C"
             XlfFuncDesc::Volatile);
         nbCalls.Register();
 
-        XlfFuncDesc test1_old("test1_old", "test1_old", "test1_old desc", "xlw Example");
-        test1_old.Register();
+        //XlfFuncDesc test1_old("test1_old", "test1_old", "test1_old desc", "xlw Example");
+        //test1_old.Register();
 
-        XlfFuncDesc test2_old("test2_old", "test2_old", "test2_old desc", "xlw Example");
-        XlfArgDesc test2_old_arg0("Input", "Input");
-        test2_old.SetArguments(test2_old_arg0);
-        test2_old.Register();
-
-        XlfFuncDesc test1_new("test1_new", "test1_new", "test1_new desc", "xlw Example",
-            XlfFuncDesc::NotVolatile, false, "P");
+        XlfFuncDesc test1_new("test1_new", "test1_new", "test1_new desc", "xlw Example");
         test1_new.Register();
 
-        XlfFuncDesc test2_new("test2_new", "test2_new", "test2_new desc", "xlw Example",
+        XlfFuncDesc test1_new4("test1_new4", "test1_new4", "test1_new4 desc", "xlw Example",
             XlfFuncDesc::NotVolatile, false, "P");
-        XlfArgDesc test2_new_arg0("Input", "Input", "P");
+        test1_new4.Register();
+
+        XlfFuncDesc test1_new12("test1_new12", "test1_new12", "test1_new12 desc", "xlw Example",
+            XlfFuncDesc::NotVolatile, false, "Q");
+        test1_new12.Register();
+
+        //XlfFuncDesc test2_old("test2_old", "test2_old", "test2_old desc", "xlw Example");
+        //XlfArgDesc test2_old_arg0("Input", "Input");
+        //test2_old.SetArguments(test2_old_arg0);
+        //test2_old.Register();
+
+        XlfFuncDesc test2_new("test2_new", "test2_new", "test2_new desc", "xlw Example");
+        XlfArgDesc test2_new_arg0("Input", "Input");
         test2_new.SetArguments(test2_new_arg0);
         test2_new.Register();
+
+        XlfFuncDesc test2_new4("test2_new4", "test2_new4", "test2_new4 desc", "xlw Example",
+            XlfFuncDesc::NotVolatile, false, "P");
+        XlfArgDesc test2_new4_arg0("Input", "Input", "P");
+        test2_new4.SetArguments(test2_new4_arg0);
+        test2_new4.Register();
+
+        XlfFuncDesc test2_new12("test2_new12", "test2_new12", "test2_new12 desc", "xlw Example",
+            XlfFuncDesc::NotVolatile, false, "Q");
+        XlfArgDesc test2_new12_arg0("Input", "Input", "Q");
+        test2_new12.SetArguments(test2_new12_arg0);
+        test2_new12.Register();
 
         // Clears the status bar.
         XlfExcel::Instance().SendMessage();

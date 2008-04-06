@@ -71,24 +71,21 @@ namespace xlw {
         XlfOper4(const MyMatrix& value);
         XlfOper4(const MyArray& value);
         XlfOper4(const XlfRef& range);
+        XlfOper4(WORD rows, WORD cols);
         template <class FwdIt>
         XlfOper4(WORD rows, WORD cols, FwdIt start)
         {
             Allocate();
             Set(rows,cols,start);
         }
-        XlfOper4(WORD rows, WORD cols) {
-            Allocate();
-            Set(rows,cols);
-        }
-        static XlfOper4 Error(WORD);
         ~XlfOper4();
+        static XlfOper4 Error(WORD);
 
         void FreeAuxiliaryMemory() const;
 
         XlfOper4& operator=(const XlfOper4& xloper);
-        operator LPXLOPER();
         XlfOper4 operator()(WORD row, WORD col);
+        operator LPXLOPER();
 
         bool IsMissing() const;
         bool IsError() const;
@@ -102,6 +99,9 @@ namespace xlw {
         bool IsInt() const;
         WORD xltype() const;
 
+        WORD rows() const;
+        WORD columns() const;
+
         double AsDouble(int * pxlret = 0) const;
         double AsDouble(const std::string& ErrorId, int * pxlret = 0) const;
         enum DoubleVectorConvPolicy
@@ -111,9 +111,11 @@ namespace xlw {
             ColumnMajor
         };
         std::vector<double> AsDoubleVector(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
-        std::vector<double> AsDoubleVector(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+        std::vector<double> AsDoubleVector(const std::string& ErrorId,
+            DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
         MyArray AsArray(DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
-        MyArray AsArray(const std::string& ErrorId,DoubleVectorConvPolicy policy = UniDimensional, int * pxlret = 0) const;
+        MyArray AsArray(const std::string& ErrorId, DoubleVectorConvPolicy policy = UniDimensional,
+            int * pxlret = 0) const;
         short AsShort(int * pxlret = 0) const;
         short AsShort(const std::string& ErrorId, int * pxlret = 0) const;
         bool AsBool(int * pxlret = 0) const;
@@ -139,7 +141,6 @@ namespace xlw {
         XlfOper4& Set(const MyArray& values);
         XlfOper4& Set(const XlfRef& range);
         XlfOper4& Set(short value, bool Error);
-        XlfOper4& SetError(WORD error);
         template<class FwdIt>
         XlfOper4& Set(WORD r, WORD c, FwdIt it)
         {
@@ -152,10 +153,8 @@ namespace xlw {
             return *this;
         }
         XlfOper4& Set(WORD r, WORD c);
-        void SetElement(WORD r, WORD c, double value);
-
-        WORD rows();
-        WORD columns();
+        XlfOper4& SetElement(WORD r, WORD c, const XlfOper4 &value);
+        XlfOper4& SetError(WORD error);
 
     private:
         LPXLOPER lpxloper_;

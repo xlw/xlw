@@ -100,6 +100,11 @@ namespace xlw {
         Set(range);
     }
 
+    INLINE XlfOper4::XlfOper4(WORD rows, WORD cols) {
+        Allocate();
+        Set(rows, cols);
+    }
+
     INLINE XlfOper4 XlfOper4::Error(WORD xlerr)
     {
         //static XLOPER oper;

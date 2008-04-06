@@ -909,7 +909,7 @@ xlw::XlfOper4& xlw::XlfOper4::Set(short value, bool Error)
         if (Error)
         {
             lpxloper_->xltype = xltypeErr;
-            lpxloper_->val.err =value;
+            lpxloper_->val.err = value;
         }
         else
         {
@@ -986,6 +986,41 @@ xlw::XlfOper4& xlw::XlfOper4::Set(const char *value)
     return *this;
 }
 
+xlw::XlfOper4& xlw::XlfOper4::Set(WORD r, WORD c)
+{
+    lpxloper_->xltype = xltypeMulti;
+    lpxloper_->val.array.rows = r;
+    lpxloper_->val.array.columns = c;
+    lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r * c * sizeof(XLOPER));
+    for (size_t i = 0; i < r * c; ++i)
+        lpxloper_->val.array.lparray[i].xltype = xltypeNil;
+    return *this;
+}
+
+xlw::XlfOper4& xlw::XlfOper4::SetElement(WORD r, WORD c, const XlfOper4 &value)
+{
+    if (!(lpxloper_->xltype & xltypeMulti))
+        throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + lpxloper_->xltype);
+    xloper &element = lpxloper_->val.array.lparray[r * lpxloper_->val.array.columns + c];
+    if (value.lpxloper_->xltype == xltypeNum) {
+        element.val.num = value.lpxloper_->val.num;
+    } else if (value.lpxloper_->xltype == xltypeStr) {
+        size_t n = (unsigned char)value.lpxloper_->val.str[0] + 1;
+        element.val.str = XlfExcel::Instance().GetMemory(n);
+        memcpy(element.val.str, value.lpxloper_->val.str, n);
+    } else if (value.lpxloper_->xltype == xltypeBool) {
+        element.val.xbool = value.lpxloper_->val.xbool;
+    } else if (value.lpxloper_->xltype == xltypeErr) {
+        element.val.err = value.lpxloper_->val.err;
+    } else if (value.lpxloper_->xltype == xltypeInt) {
+        element.val.w = value.lpxloper_->val.w;
+    } else {
+        throw XlfException("attempt to set a matrix element to a value of type " + value.lpxloper_->xltype);
+    }
+    element.xltype = value.lpxloper_->xltype;
+    return *this;
+}
+
 xlw::XlfOper4& xlw::XlfOper4::SetError(WORD error)
 {
     if (lpxloper_)
@@ -1053,40 +1088,18 @@ WORD xlw::XlfOper4::xltype() const {
 
 xlw::XlfOper4 xlw::XlfOper4::operator()(WORD row, WORD col) {
     if (!(lpxloper_->xltype & xltypeMulti))
-        throw XlfException("not an xltypeMulti");
+        throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + lpxloper_->xltype);
     return XlfOper4(&lpxloper_->val.array.lparray[row * lpxloper_->val.array.columns + col]);
 }
 
-WORD xlw::XlfOper4::rows() {
+WORD xlw::XlfOper4::rows() const {
     if (!(lpxloper_->xltype & xltypeMulti))
-        throw XlfException("not an xltypeMulti");
+        throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + lpxloper_->xltype);
     return lpxloper_->val.array.rows;
 }
 
-WORD xlw::XlfOper4::columns() {
+WORD xlw::XlfOper4::columns() const {
     if (!(lpxloper_->xltype & xltypeMulti))
-        throw XlfException("not an xltypeMulti");
+        throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + lpxloper_->xltype);
     return lpxloper_->val.array.columns;
 }
-
-xlw::XlfOper4& xlw::XlfOper4::Set(WORD r, WORD c)
-{
-    lpxloper_->xltype = xltypeMulti;
-    lpxloper_->val.array.rows = r;
-    lpxloper_->val.array.columns = c;
-    lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
-    for (size_t i = 0; i < size_t(r*c); ++i)
-        lpxloper_->val.array.lparray[i].xltype = xltypeNil;
-    return *this;
-}
-
-void xlw::XlfOper4::SetElement(WORD row, WORD col, double value)
-{
-    if (!(lpxloper_->xltype & xltypeMulti))
-        throw XlfException("not an xltypeMulti");
-    WORD idx = row * lpxloper_->val.array.columns + col;
-    lpxloper_->val.array.lparray[idx].xltype = xltypeNum;
-    lpxloper_->val.array.lparray[idx].val.num = value;
-}
-
-
