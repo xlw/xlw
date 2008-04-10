@@ -300,5 +300,73 @@ interfaces.
 <li>Not supported by Excel 4</li></ul></td></tr>
 </table>
 
+\section v3_register Registering Functions
+
+A quick review of how XLW registers user defined addin functions with Excel.
+
+\subsection v3_register_old The Old Way
+
+From XLW version 1.  Deprecated, but still supported.
+
+\code
+XlfArgDesc diameter("diameter", "Diameter of the circle", "B");
+XlfFuncDesc circ("xlCirc", "Circ", "Computes the circumference of a circle", "xlw Example");
+circ.SetArguments(diameter);
+circ.Register();
+\endcode
+
+\subsection v3_register_new The New Way
+
+Easier method, introduced in XLW version 2, and used in code created by the
+InterfaceGenerator utility.
+
+\code
+XLRegistration::Arg CircArgs[] = {
+    { "Diameter", "Diameter of the circle", "B"}
+};
+XLRegistration::XLFunctionRegistrationHelper registerCirc(
+    "xlCirc", "Circ", "Computes the circumference of a circle",
+    "xlw Example", CircArgs, 1, false);
+\endcode
+
+\section v3_usage_summary Usage Summary
+
+The table below summarizes various declarations required in addin code
+depending on which XlfOper class is in use.
+
+<table>
+<tr><td><b>Feature</b></td><td><b><center>XlfOper</center></b></td><td><b><center>XlfOper4</center></b></td><td><b><center>XlfOper12</center></b></td></tr>
+<tr><td><b>Value Type</b></td><td>XLF_OPER</td><td>P (OPER *)</td><td>Q (OPER12 *)</td></tr>
+<tr><td><b>Reference Type</b></td><td>XLF_XLOPER</td><td>R (XLOPER *)</td><td>U (XLOPER12 *)</td></tr>
+<tr><td><b>Return Value</b></td><td>LPXLFOPER (void *)</td><td>LPXLOPER (XLOPER *)</td><td>LPXLOPER12 (XLOPER12 *)</td></tr>
+<tr><td><b>Memory Management Macros</b></td><td>EXCEL_BEGIN / EXCEL_END</td><td>EXCEL_BEGIN / EXCEL_END_4</td><td>EXCEL_BEGIN / EXCEL_END_12</td></tr>
+</table>
+
+Value Type and Reference Type are codes recognized by XlfArgDesc (deprecated)
+and XLRegistration::Arg to register the inputs of a user defined addin
+function.
+
+<ul>
+<li><b>Value Type</b>: For these types, Excel automatically coerces range
+references, so the addin function receives the values contained in the range
+rather than the range reference itself. XLF_OPER is automatically interpreted
+by XLW as either P or Q depending on the version of Excel detected at
+startup.</li>
+<li><b>Reference Type</b>: For these types, Excel preserves range references.
+This is seldom useful for user defined worksheet formulas.  XLF_XLOPER is
+automatically interpreted by XLW as either R or U depending on the version of
+Excel detected at startup.</li>
+<li><b>Return Value</b>: In the function implementation, use the return type
+which corresponds to the XlfOper type returned by the function. LPXLFOPER is
+automatically interpreted by XLW as either LPXLOPER or LPXLOPER12 depending on
+the version of Excel detected at startup.</li>
+<li><b>Memory Management Macros</b>: Addin functions should be wrapped in
+these preprocessor macros.  Choose the flavor of EXCEL_END which corresponds to
+the XlfOper type used for the function's return value.</li>
+</ul>
+
+For more information, please see the definitions of the above terms in the
+Reference Manual, and refer to the example applications.
+
 */
 

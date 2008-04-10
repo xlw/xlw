@@ -10,7 +10,7 @@
 ;Definitions
 
     !define APP "xlw"
-    !define VER_NUMBER "3.0.0b0"
+    !define VER_NUMBER "3.0.0f0"
     !define APP_VER ${APP}-${VER_NUMBER}
 
 ;--------------------------------

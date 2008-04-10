@@ -40,6 +40,9 @@ namespace xlw {
     /*!
     By registering your function, you make it available under Excel in
     any spreadsheet as well as in the function wizard.
+
+    \deprecated Consider using XLRegistration::XLFunctionRegistrationHelper
+    instead.
     */
     class EXCEL32_API XlfFuncDesc: public XlfAbstractCmdDesc
     {

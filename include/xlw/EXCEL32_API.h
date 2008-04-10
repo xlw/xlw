@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 
@@ -28,20 +29,19 @@
 */
 
 //! version hexadecimal number
-#define XLW_HEX_VERSION 0x030000b0
+#define XLW_HEX_VERSION 0x030000f0
 //! version string for output lib name
 #define XLW_LIB_VERSION "3_0_0"
 
 //! version string
 #ifndef NDEBUG
-    #define XLW_VERSION "3.0.0b0-debug"
+    #define XLW_VERSION "3.0.0f0-debug"
 #else
-    #define XLW_VERSION "3.0.0b0"
+    #define XLW_VERSION "3.0.0f0"
 #endif
 
 //! global trace level (may be superseded locally by a greater value)
 #define XLW_TRACE_LEVEL 0
-
 
 #if defined(DEBUG_HEADERS)
     #pragma DEBUG_HEADERS

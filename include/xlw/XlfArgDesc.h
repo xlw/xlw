@@ -45,6 +45,8 @@ namespace xlw {
 
     The type defaults to the XLOPER type corresponding to the version (4 or 12) of
     the running instance of Excel.
+
+    \deprecated Consider using XLRegistration::Arg instead.
     */
     class EXCEL32_API XlfArgDesc
     {
