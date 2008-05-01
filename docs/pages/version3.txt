@@ -112,7 +112,7 @@ LPXLOPER xlConcat(LPXLOPER xlStr1, LPXLOPER xlStr2);
 In fact the function is declared as accepting input parameters of type XlfOper.
 
 \code
-LPXLOPER xlConcat(XlfOper xlStr1, XlfOper xlStr2);
+LPXLOPER xlConcat(XlfOper xlfStr1, XlfOper xlfStr2);
 \endcode
 
 Excel passes arguments of type LPXLOPER, which are received by the function
@@ -123,7 +123,7 @@ bound to that reference, and the implementation of xlConcat() accesses the
 LPXLOPER via its XlfOper wrapper.
 
 \code
-std::string str1 = xlStr1.AsString();
+std::string str1 = xlfStr1.AsString();
 \endcode
 
 The operation above exploits the fact that no type checking is performed in
@@ -213,8 +213,8 @@ double XlfOper::AsDouble() {
 Consider legacy code from XLW client applications:
 
 \code
-LPXLOPER xlCirc(XlfOper xlDiam) {
-    double diam = xlDiam.AsDouble();
+LPXLOPER xlCirc(XlfOper xlfDiam) {
+    double diam = xlfDiam.AsDouble();
     //...
 }
 \endcode
@@ -223,8 +223,8 @@ Or the alternative implementation where MinGW support is required:
 
 \code
 LPXLOPER xlCirc(LPXLOPER xlDiam) {
-    XlfOper xlDiam2(xlDiam);
-    double diam = xlDiam2.AsDouble();
+    XlfOper xlfDiam(xlDiam);
+    double diam = xlfDiam.AsDouble();
     //...
 }
 \endcode
@@ -250,8 +250,8 @@ The function may then be implemented as
 
 \code
 LPXLFOPER xlCirc(LPXLFOPER xlDiam) {
-    XlfOper xlDiam2(xlDiam);
-    double diam = xlDiam2.AsDouble();
+    XlfOper xlfDiam(xlDiam);
+    double diam = xlfDiam.AsDouble();
     //...
 }
 \endcode
@@ -265,8 +265,8 @@ dynamically picks up support for Excel 12 features.
 Where MinGW compatibility is not a concern, the code can be simplified to
 
 \code
-LPXLFOPER xlCirc(XlfOper xlDiam) {
-    double diam = xlDiam.AsDouble();
+LPXLFOPER xlCirc(XlfOper xlfDiam) {
+    double diam = xlfDiam.AsDouble();
     //...
 }
 \endcode
