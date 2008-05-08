@@ -14,6 +14,7 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
+
 #if !defined(REGISTER_XL_FUNCTION_H)
 #define REGISTER_XL_FUNCTION_H
 
@@ -21,6 +22,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <xlw/XlfExcel.h>
 
 namespace xlw {
 
@@ -38,8 +40,9 @@ namespace xlw {
                          const std::string& Library_,
                          const Arg Arguments[],
                          int NoOfArguments_,
-                         bool Volatile_=false,
-                         bool Threadsafe_=false);
+                         bool Volatile_,
+                         bool Threadsafe_,
+                         const std::string &ReturnTypeCode_);
 
         std::string GetFunctionName() const;
         std::string GetExcelFunctionName() const;
@@ -60,6 +63,7 @@ namespace xlw {
             return Threadsafe;
         }
 
+        std::string GetReturnTypeCode() const;
     private:
 
         std::string FunctionName;
@@ -72,6 +76,7 @@ namespace xlw {
         std::vector<std::string> ArgumentTypes;
         bool Volatile;
         bool Threadsafe;
+        std::string ReturnTypeCode;
 
 
     };
@@ -84,10 +89,11 @@ namespace xlw {
                          const std::string& ExcelFunctionName,
                          const std::string& FunctionDescription,
                          const std::string& Library,
-                         const Arg Args[],
-                         int NoOfArguments,
-                         bool Volatile=false,
-                         bool Threadsafe=false);
+                         const Arg Args[] = 0,
+                         int NoOfArguments = 0,
+                         bool Volatile = false,
+                         bool Threadsafe = false,
+                         const std::string &ReturnTypeCode_ = "");
 
     private:
 

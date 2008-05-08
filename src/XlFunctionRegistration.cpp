@@ -18,6 +18,7 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
+
 #include <xlw/pragmas.h>
 #include <xlw/XlFunctionRegistration.h>
 #include <xlw/xlfFuncDesc.h>
@@ -33,14 +34,16 @@ XLFunctionRegistrationData::XLFunctionRegistrationData(const std::string& Functi
                      const Arg Arguments[],
                      int NoOfArguments_,
                      bool Volatile_,
-                     bool Threadsafe_)
+                     bool Threadsafe_,
+                     const std::string& ReturnTypeCode_)
     :                FunctionName(FunctionName_),
                      ExcelFunctionName(ExcelFunctionName_),
                      FunctionDescription(FunctionDescription_),
                      Library(Library_),
                      NoOfArguments(NoOfArguments_),
                      Volatile(Volatile_),
-                     Threadsafe(Threadsafe_)
+                     Threadsafe(Threadsafe_),
+                     ReturnTypeCode(ReturnTypeCode_)
 {
 
     ArgumentNames.reserve(NoOfArguments);
@@ -67,6 +70,17 @@ std::string XLFunctionRegistrationData::GetFunctionDescription() const
     return FunctionDescription;
 }
 
+std::string XLFunctionRegistrationData::GetReturnTypeCode() const
+{
+    // Would prefer to specify XlfExcel::Instance().xlfOperType() as the
+    // default value of parameter ReturnTypeCode in the XLFunctionRegistrationHelper
+    // constructor but that doesn't work as the object may be constructed during
+    // static initialization before the XlfExcel singleton can be instantiated.
+    if (ReturnTypeCode.empty())
+        return XlfExcel::Instance().xlfOperType();
+    else
+        return ReturnTypeCode;
+}
 
 std::string XLFunctionRegistrationData::GetLibrary() const
 {
@@ -100,7 +114,8 @@ XLFunctionRegistrationHelper::XLFunctionRegistrationHelper(const std::string& Fu
                      const Arg Args[],
                      int NoOfArguments,
                      bool Volatile,
-                     bool Threadsafe)
+                     bool Threadsafe,
+                     const std::string& returnTypeCode)
 {
     XLFunctionRegistrationData tmp(FunctionName,
                                                                 ExcelFunctionName,
@@ -109,7 +124,8 @@ XLFunctionRegistrationHelper::XLFunctionRegistrationHelper(const std::string& Fu
                                                                 Args,
                                                                 NoOfArguments,
                                                                 Volatile,
-                                                                Threadsafe);
+                                                                Threadsafe,
+                                                                returnTypeCode);
 
     ExcelFunctionRegistrationRegistry::Instance().AddFunction(tmp);
 }
@@ -122,6 +138,7 @@ ExcelFunctionRegistrationRegistry& ExcelFunctionRegistrationRegistry::Instance()
 
 void ExcelFunctionRegistrationRegistry::DoTheRegistrations() const
 {
+
     for (std::list<XLFunctionRegistrationData>::const_iterator it = RegistrationData.begin(); it !=  RegistrationData.end(); ++it)
     {
         XlfFuncDesc::RecalcPolicy policy = it->GetVolatile() ? XlfFuncDesc::Volatile : XlfFuncDesc::NotVolatile;
@@ -130,7 +147,8 @@ void ExcelFunctionRegistrationRegistry::DoTheRegistrations() const
                                                     it->GetFunctionDescription(),
                                                     it->GetLibrary(),
                                                     policy,
-                                                    it->GetThreadsafe());
+                                                    it->GetThreadsafe(),
+                                                    it->GetReturnTypeCode());
         XlfArgDescList xlFunctionArgs;
 
         for (int i=0; i < it->GetNoOfArguments(); ++i)
