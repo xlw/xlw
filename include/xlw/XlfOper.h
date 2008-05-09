@@ -122,8 +122,6 @@ namespace xlw {
         //@{
         //! Assignment operator
         XlfOper& operator=(const XlfOper& xloper)  { return XlfOperImpl::instance().operator_assignment(*this, xloper); }
-        //! Function call operator, used here to subscript two dimensional array
-        XlfOper operator()(RW row, COL col) { return XlfOperImpl::instance().operator_subscript(*this, row, col); }
         //! Cast to XLOPER *.
         operator LPXLOPER() { return XlfOperImpl::instance().operator_LPXLOPER(*this); }
         //! Cast to XLOPER12 *.
@@ -155,15 +153,38 @@ namespace xlw {
         //! Is the data an integer ?
         bool IsInt() const { return XlfOperImpl::instance().IsInt(*this); }
 
-        //! Number of rows in matrix.
-        RW rows() { return XlfOperImpl::instance().rows(*this); }
-        //! Number of columns in matrix.
-        COL columns() { return XlfOperImpl::instance().columns(*this); }
-
         //! The Excel code for the underlying datatype
         DWORD xltype() const { return XlfOperImpl::instance().xltype(*this); }
         //! String representation of the Excel code for the underlying datatype
         std::string xltypeName() const;
+        //@}
+
+        /*! \name Array Inspectors / Operators
+        These functions are used to access the elements of an array in an XlfOper 
+        whose underlying <tt>LPXLOPER/LPXLOPER12</tt> has <tt>xltype = xltypeMulti</tt>.
+
+        Here is an example of how this interface can be used to inspect
+        a value received from Excel as an input to an addin function.
+        \code
+        LPXLFOPER EXCEL_EXPORT test_sum(XlfOper xlInput) {
+            EXCEL_BEGIN;
+
+            double sum = 0.;
+            for (RW i = 0; i < xlInput.rows(); i++)
+                for (COL j = 0; j < xlInput.columns(); j++)
+                    sum += xlInput(i, j).AsDouble();
+            return XlfOper(sum);
+
+            EXCEL_END;
+        }
+        \endcode
+        */
+        //! Number of rows in matrix.
+        RW rows() { return XlfOperImpl::instance().rows(*this); }
+        //! Number of columns in matrix.
+        COL columns() { return XlfOperImpl::instance().columns(*this); }
+        //! Function call operator, used here to subscript a two dimensional array.
+        XlfOper operator()(RW row, COL col) { return XlfOperImpl::instance().operator_subscript(*this, row, col); }
         //@}
 
         //! \name Conversions
@@ -269,6 +290,21 @@ namespace xlw {
         //! Set to an array of the specified dimensions.
         XlfOper& Set(RW r, COL c) { return XlfOperImpl::instance().Set(*this, r, c); }
         //! Set the value of array element with specified subscript.
+        /*!
+        This function is used to access the elements of an array in an XlfOper 
+        whose underlying <tt>LPXLOPER/LPXLOPER12</tt> has <tt>xltype = xltypeMulti</tt>.
+
+        Here is an example of how this interface can be used to populate an array
+        to be returned to Excel from an addin function.
+        \code
+        XlfOper ret((WORD)3, (WORD)2);
+        ret.SetElement(0, 0, "abc");
+        ret.SetElement(0, 1, (short)42);
+        ret.SetElement(1, 0, 1.23);
+        ret.SetElement(1, 1, XlfOper::Error(xlerrValue));
+        ret.SetElement(2, 0, true);
+        \endcode
+        */
         XlfOper& SetElement(RW r, COL c, const XlfOper &value)
             { return XlfOperImpl::instance().SetElement(*this, r, c, value); }
         //! Set to an error value.
