@@ -19,8 +19,8 @@ lines of code as demonstrated in the \ref gettingstarted section) interface
 empowers your C or C++ numerics by embedding them in Excel just like the built
 in functions, allowing you to exploit Excel features such as graphs, solvers,
 and integration with the rest of the Microsoft Office suite.  The package
-includes documentation and examples and is \ref download "downloadable" free
-of charge provided that you retain the \ref copyright "copyright notice".
+includes documentation and examples and is downloadable free of charge provided
+that you retain the \ref copyright "copyright notice".
 
 The XLW project is hosted on SourceForge at
 <a href="http://xlw.sourceforge.net/">http://xlw.sourceforge.net/</a>.
