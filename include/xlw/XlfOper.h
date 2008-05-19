@@ -159,7 +159,7 @@ namespace xlw {
         std::string xltypeName() const;
         //@}
 
-        /*! \name Array Inspectors / Operators
+        /*! \name Array Accessors / Operators
         These functions are used to access the elements of an array in an XlfOper 
         whose underlying <tt>LPXLOPER/LPXLOPER12</tt> has <tt>xltype = xltypeMulti</tt>.
 
@@ -178,6 +178,17 @@ namespace xlw {
             EXCEL_END;
         }
         \endcode
+
+        Here is an example of how this interface can be used to populate an array
+        to be returned to Excel from an addin function.
+        \code
+        XlfOper ret((WORD)3, (WORD)2);
+        ret.SetElement(0, 0, "abc");
+        ret.SetElement(0, 1, (short)42);
+        ret.SetElement(1, 0, 1.23);
+        ret.SetElement(1, 1, XlfOper::Error(xlerrValue));
+        ret.SetElement(2, 0, true);
+        \endcode
         */
         //! Number of rows in matrix.
         RW rows() { return XlfOperImpl::instance().rows(*this); }
@@ -185,6 +196,9 @@ namespace xlw {
         COL columns() { return XlfOperImpl::instance().columns(*this); }
         //! Function call operator, used here to subscript a two dimensional array.
         XlfOper operator()(RW row, COL col) { return XlfOperImpl::instance().operator_subscript(*this, row, col); }
+        //! Set the value of array element with specified subscript.
+        XlfOper& SetElement(RW r, COL c, const XlfOper &value)
+            { return XlfOperImpl::instance().SetElement(*this, r, c, value); }
         //@}
 
         //! \name Conversions
@@ -289,24 +303,6 @@ namespace xlw {
         }
         //! Set to an array of the specified dimensions.
         XlfOper& Set(RW r, COL c) { return XlfOperImpl::instance().Set(*this, r, c); }
-        //! Set the value of array element with specified subscript.
-        /*!
-        This function is used to access the elements of an array in an XlfOper 
-        whose underlying <tt>LPXLOPER/LPXLOPER12</tt> has <tt>xltype = xltypeMulti</tt>.
-
-        Here is an example of how this interface can be used to populate an array
-        to be returned to Excel from an addin function.
-        \code
-        XlfOper ret((WORD)3, (WORD)2);
-        ret.SetElement(0, 0, "abc");
-        ret.SetElement(0, 1, (short)42);
-        ret.SetElement(1, 0, 1.23);
-        ret.SetElement(1, 1, XlfOper::Error(xlerrValue));
-        ret.SetElement(2, 0, true);
-        \endcode
-        */
-        XlfOper& SetElement(RW r, COL c, const XlfOper &value)
-            { return XlfOperImpl::instance().SetElement(*this, r, c, value); }
         //! Set to an error value.
         XlfOper& SetError(WORD error) { return XlfOperImpl::instance().SetError(*this, error); }
         //@}
