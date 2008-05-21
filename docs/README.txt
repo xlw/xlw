@@ -1,6 +1,20 @@
 
 $Id$
 
+The doxygen utility is used to generate the documentation based on comments extracted from the source code.  The current configuration relies on doxygen version 1.5.5.
+
+To build the documentation under Linux, do 'make'.  This uses configuration
+xlw.linux.doxy and writes the docs in html format to the html subdirectory.
+
+To build the documentation under Windows, use the DOS batch file run_doxygen.bat.  This uses configuration xlw.windows.doxy, in addition to html a chm file is produced.
+
+The html directory should be kept in synch with the refman directory on the website.
+
+Refer to the xlwplus2 subdirectory for documentation relating to the InterfaceGenerator utility and other features.
+
+Below are some older comments which remain largely relevant.
+============================================================
+
 The documentation is automatically extracted from the source code using
 DoxyGen (http://www.stack.nl/~dimitri/doxygen/).
 The current version we're using is 1.2.11.1
