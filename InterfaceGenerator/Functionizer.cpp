@@ -233,7 +233,21 @@ std::vector<FunctionModel> ConvertToFunctionModel(const std::vector<Token>& inpu
                 }
                 break;
             case Token::identifier :
-                output.push_back(FunctionFind(it,input.end(),timeDefault));
+
+                if (it->GetValue() == "using") {
+                    // Ignore 'using namespace xxx;'
+                    ++it;
+                    if (it == input.end() || it->GetType() != Token::identifier || it->GetValue() != "namespace")
+                        throw("invalid syntax for declaration : 'using namespace xxx;'");
+                    ++it;
+                    if (it == input.end() || it->GetType() != Token::identifier)
+                        throw("invalid syntax for declaration : 'using namespace xxx;'");
+                    ++it;
+                } else {
+                    // Process a function declaration
+                    output.push_back(FunctionFind(it,input.end(),timeDefault));
+                }
+
                 break;
             default:
                 throw("unknown token type found");
