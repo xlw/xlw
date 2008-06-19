@@ -300,6 +300,8 @@ std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& fu
   AddLine(output, "////");
   AddLine(output,"");
   AddLine(output,"#include <xlw/pragmas.h>");
+  
+  AddLine(output,"#include <clw/Dispatcher.h>");
   AddLine(output,"#include <xlw/MyContainers.h>");
   AddLine(output,"#include <xlw/CellMatrix.h>");
   AddLine(output, "#include \""+strip(inputFileName)+"\"");
@@ -509,9 +511,15 @@ std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& fu
 
     AddLine(output,"");
     AddLine(output,"");
+
+    //register with dispatcher
+    AddLine(output, "clw::DispatcherHelper clhelper"+name+"(\""+name+"\",&cl"+name+");");
+
     AddLine(output,"");
     AddLine(output,"//////////////////////////");
     AddLine(output,"");
+
+    
 
   }
 
