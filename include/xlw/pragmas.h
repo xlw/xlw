@@ -54,9 +54,8 @@ http://www.deja.com for more information about C4786.
 // in the debug information
 // You should include the pragmas.h *before* any STL header. This trick
 // warns you if you fail to include it first.
-#if defined(_YVALS)
-#pragma message(__FILE__ "(37) : USER WARNING : pragma.h included too late to deactivate warning 4786.")
-#endif
+
+// deleted pragma warning since VC6 no longer supported and it's just annoying
 #pragma warning( disable : 4786 )
 #include <yvals.h>
 #pragma warning( default : 4786 )
