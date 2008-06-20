@@ -24,5 +24,10 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
                                     std::string inputfileName,
                                     std::string LibraryName);
 
+
+std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& functionDescriptions, 
+                                    std::string inputfileName
+                                    );
+
 #endif
 
