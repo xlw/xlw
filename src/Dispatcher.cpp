@@ -15,11 +15,11 @@ clw
   {
     std::string Id = args.GetStructureName();
 
-
+    xlw::MakeLowerCase(Id);
     if  (DispatchMap.find(Id) == DispatchMap.end())
     {
       std::string message(Id+" is an unknown function. Known functions are "+KnownFunctions);
-      return message;
+      throw message;
     }
 
     return (DispatchMap.find(Id)->second)(args);
@@ -29,6 +29,7 @@ clw
 
   void Dispatcher::RegisterFunction(std::string FunctionId, FunctionToCall function)
   {
+    xlw::MakeLowerCase(FunctionId);
     KnownFunctions+=" "+FunctionId;
 
     DispatchMap.insert(std::pair<std::string,FunctionToCall>(FunctionId,function));
