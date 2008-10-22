@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2008 Winfried Kromen
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -53,6 +54,7 @@ namespace xlw {
         }
         ~XlfMutex() {
             ReleaseMutex(hMutex);
+            CloseHandle(hMutex);
         }
     };
 
