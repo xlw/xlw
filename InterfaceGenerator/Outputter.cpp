@@ -64,6 +64,8 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
   AddLine(output, "#include <stdexcept>");
   AddLine(output,"#include <xlw/XlOpenClose.h>");
   AddLine(output,"#include <ctime>");
+  AddLine(output,"using namespace xlw;");
+
 
   const std::set<std::string>& includes = IncludeRegistry::Instance().GetIncludes();
   for (std::set<std::string>::const_iterator it = includes.begin(); it!= includes.end(); ++it)

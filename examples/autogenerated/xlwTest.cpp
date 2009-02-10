@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <xlw/XlOpenClose.h>
 #include <ctime>
+using namespace xlw;
 #include <xlw/ArgList.h>
 
 #include <xlw/ArgListFactory.h>
