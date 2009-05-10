@@ -1,0 +1,113 @@
+
+SUFFIXES=.o .cpp .so .a .dll .d
+
+.SUFFIXES: $(SUFFIXES)
+
+export SEP = \\
+# export  SEP := /
+
+ifndef BUILD
+export BUILD=DEBUG
+endif
+LIBLINK=SHARE
+
+ifndef LIBTYPE
+LIBTYPE=SHARE
+endif
+
+ifndef SRC_DIR
+SRC_DIR=.
+endif
+export SRC_DIR
+
+
+
+export INSTALL_BIN=$(BUILD)\\BIN
+export INSTALL_LIB=$(BUILD)\\LIB
+export INSTALL_DLL=$(BUILD)\\DLL
+export INSTALL_OBJ=OBJECTS\\$(BUILD)
+
+# Installed target permissions.
+READ_PERMISSION=444
+WRITE_PERMISSION=666
+EXECUTE_PERMISSION=555
+
+# Default extensions
+export EXT_BIN = exe
+ifndef EXT_SHARE
+export EXT_SHARE = dll
+endif
+export EXT_STATIC= a
+
+ifeq ($(EXT_SHARE),xll)
+LIBPREFIX=
+else
+LIBPREFIX=lib
+endif
+
+
+LINK_STATIC := -static
+LINK_DYNAMIC := -shared
+
+########################################################
+#	C++ language section.
+########################################################
+
+CXX= g++
+
+CXXPIC= 
+CXXSO= $(CXX)  $(LINK_DYNAMIC)
+DLLWRAP=dllwrap.exe
+
+
+ifeq ($(BUILD),DEBUG)
+CPPFLAGSINC := $(INCLUDE_DIR:%=-I%)
+CPPFLAGS= $(CPPFLAGSINC)  -g3
+endif 
+ifeq ($(BUILD),RELEASE)
+CPPFLAGSINC := $(INCLUDE_DIR:%=-I%)
+CPPFLAGS= $(CPPFLAGSINC)  -O3
+endif 
+
+COMPILE= $(CXX)  $(CXXFLAGS) $(CPPFLAGS) -c
+
+
+LINK= $(CXX)  
+
+
+.cpp:
+	$(LINK) -o $@ $< $(LDLIBS)
+.cpp.o:
+	$(COMPILE) -o $@ $<
+	
+
+$(INSTALL_OBJ)/%.o:$(SRC_DIR)/%.cpp
+	$(COMPILE)  $(CXXPIC)  $< -o $@ 
+
+########################################################
+#	Linker section.
+########################################################
+
+ifeq ($(LIBLINK),SHARE)
+export LDL=-L. -L$(INSTALL_DLL)
+else
+export LDL=-L. -L$(INSTALL_LIB)
+endif
+
+ifndef LDLIBS
+LDLIBS=
+endif 
+
+ifdef LIBDIRS
+LDLIBS+=$(LIBDIRS:%=-L%)
+endif
+
+ifdef LIBS
+LDLIBS+=$(LIBS:%=-l%)
+endif
+
+export LDFLAGS= $(LDL) $(LDLIBS) 
+
+
+
+

@@ -1,0 +1,17 @@
+
+ifeq ($(DEV),devcpp)
+makefile=Makefile.win
+target=clean all
+else
+makefile=Makefile
+target=rebuild
+endif 
+
+
+.PHONY : all
+
+
+all:  
+	cd C:\\TEMP\\xlwTemplateProjects\\$(DEV)  && $(MAKE) -f $(makefile) BUILD=DEBUG $(target) >> $(XLW)\\BatchBuild\\xlwTemplate_$(DEV)_Debug.log 2>&1  
+	cd C:\\TEMP\\xlwTemplateProjects\\$(DEV)  && $(MAKE) -f $(makefile) BUILD=RELEASE $(target) >> $(XLW)\\BatchBuild\\xlwTemplate_$(DEV)_Release.log 2>&1  
+	

@@ -1,0 +1,160 @@
+
+
+MAKEFILE = Makefile
+
+
+
+BUILD_TARGETS =  directories  install
+
+build :: $(BUILD_TARGETS)
+
+REBUILD_TARGETS = clean  directories  install
+rebuild ::$(REBUILD_TARGETS)
+
+
+
+#####################################################
+#######   Section responsible for building libraries
+ifdef LIBRARY
+
+ifndef LIBVER
+LIBVER = 0.0
+endif
+
+
+ifeq ($(LIBTYPE),SHARE)
+LIBP=$(EXT_SHARE)
+else
+LIBP=$(EXT_STATIC)
+endif
+
+
+
+ifndef INSTALL_DIR
+ifeq ($(LIBTYPE),SHARE)
+IDIR=$(INSTALL_DLL)
+else
+IDIR=$(INSTALL_LIB)
+endif
+else
+IDIR = $(INSTALL_DIR)
+endif 
+
+
+install:: $(IDIR)/$(LIBPREFIX)$(LIBRARY).$(LIBP) 
+	  
+LIBOBJ := $(LIBSRC:%.cpp=$(INSTALL_OBJ)/%.o)
+OBJECTS += $(LIBSRC:%.cpp=$(INSTALL_OBJ)/%.o)
+TARGET = $(IDIR)/$(LIBPREFIX)$(LIBRARY).$(LIBP) 
+
+
+
+$(IDIR)/lib$(LIBRARY).a::$(LIBOBJ)
+	@-$(RM) $@
+	ar -rs $@  $(LIBOBJ) 
+	
+#$(TARGET)::$(LIBOBJ)
+#	$(DLLWRAP) --output-def $(IDIR)/$(LIBPREFIX)$(LIBRARY).def \
+#	           --driver-name c++ \
+#			   --implib $(IDIR)/$(LIBPREFIX)$(LIBRARY).lib \
+#			    $(LIBOBJ) $(LDFLAGS) -o $@
+	
+$(TARGET)::$(LIBOBJ)
+	@-$(RM) $@	
+	$(CXXSO) $(CXXPIC) -o  $@ \
+    -Wl,--out-implib=$(IDIR)/$(LIBPREFIX)$(LIBRARY).lib \
+   	-Wl,--export-all-symbols \
+   	-Wl,--enable-auto-import \
+	 $(LIBOBJ)\
+   	-Wl,--no-whole-archive $(LDFLAGS)
+
+#$(IDIR)/lib$(LIBRARY).so::$(LIBOBJ)
+#	@-$(RM) $@	
+#	$(CXXSO) $(CXXPIC) -o $@ $(LIBOBJ) $(LDFLAGS) $(LDFLAGS)
+	
+
+endif
+
+
+#####################################################
+#######   Section responsible for Programs
+ifdef PROGRAM
+
+
+ifndef INSTALL_DIR
+IDIR=$(INSTALL_BIN)
+else
+IDIR=$(INSTALL_DIR)
+endif 
+
+install:: $(IDIR)/$(PROGRAM).$(EXT_BIN)
+	  
+
+CXXPIC :=
+
+
+PRGOBJ := $(PRGSRC:%.cpp=$(INSTALL_OBJ)/%.o)
+OBJECTS += $(PRGSRC:%.cpp=$(INSTALL_OBJ)/%.o)
+TARGET = $(IDIR)/$(PROGRAM).$(EXT_BIN) 
+
+ifndef INSTALL_DIR
+BDIR = $(INSTALL_BIN)
+else
+BDIR = $(INSTALL_DIR)
+endif
+
+
+
+
+$(TARGET):: $(PRGOBJ)  
+	$(RM) $@ 
+	$(LINK)  $(PRGOBJ)  $(LDFLAGS) -o $(TARGET)
+	
+endif
+
+##############################################################
+################## GERNERIC Section #########################
+##############################################################
+
+SOURCE = $(LIBSRC) $(PRGSRC)
+
+directories :: $(INSTALL_BIN) $(INSTALL_LIB) $(INSTALL_DLL) $(INSTALL_OBJ) 
+
+
+clean:: clean_target clean_objects 
+
+
+clean_objects::
+	@echo Removing $(notdir $(OBJECTS))
+	@$(RM) $(OBJECTS)
+
+clean_target::
+	@echo Removing $(notdir $(TARGET))
+	@$(RM) $(TARGET)
+
+
+
+$(INSTALL_BIN) :
+	@echo Creating $@ .....
+	-mkdir  $(INSTALL_BIN) 
+$(INSTALL_LIB):
+	@echo Creating $@ .....
+	-mkdir  $(INSTALL_LIB) 
+$(INSTALL_DLL):
+	@echo Creating $@ .....
+	-mkdir  $(INSTALL_DLL) 
+$(INSTALL_OBJ):
+	@echo Creating $@ .....
+	-mkdir  $(INSTALL_OBJ) 
+$(INSTALL_DEPEND):
+	@echo Creating $@ .....
+	-mkdir  $(INSTALL_DEPEND) 
+
+	
+
+
+
+
+
+
+

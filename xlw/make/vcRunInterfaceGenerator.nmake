@@ -1,0 +1,18 @@
+
+
+BUILDFLAG=$(ENVIRON)\buildflag
+IFACE_EXE=$(XLW)\xlw\build\$(VC)\$(ENVIRON)\InterfaceGenerator.exe
+IFACE_INPUT=source\cppinterface.h
+IFACE_OUTPUT=source\xlwWrapper.cpp
+
+INPUTS = $(MAKEFILE) $(IFACE_EXE) $(IFACE_INPUT)
+
+ALL : $(BUILDFLAG)
+
+$(BUILDFLAG) : $(INPUTS)
+    $(IFACE_EXE) $(IFACE_INPUT) $(IFACE_OUTPUT)
+	ECHO flagged > $@
+
+CLEAN :
+	-@ if EXIST $(BUILDFLAG) del $(BUILDFLAG)
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="RunInterfaceGenerator" />
+		<Option makefile="RunInterfaceGenerator.mak" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="build_DEBUG" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<MakeCommands>
+					<Build command="$make -f $makefile BUILD=DEBUG" />
+					<CompileFile command="$make -f $makefile BUILD=DEBUG" />
+					<Clean command="$make -f $makefile BUILD=DEBUG clean" />
+					<DistClean command="$make -f $makefile BUILD=DEBUG clean" />
+				</MakeCommands>
+			</Target>
+			<Target title="Release">
+				<Option output="build_RELEASE" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj\Release\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+				<MakeCommands>
+					<Build command="$make -f $makefile BUILD=RELEASE" />
+					<CompileFile command="$make -f $makefile BUILD=RELEASE" />
+					<Clean command="$make -f $makefile BUILD=RELEASE clean" />
+					<DistClean command="$make -f $makefile BUILD=RELEASE clean" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="RunInterfaceGenerator.mak">
+			<Option weight="0" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

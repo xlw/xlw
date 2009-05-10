@@ -1,0 +1,106 @@
+
+/*!
+
+\page faq Frequently Asked Questions
+
+\section faq_new New FAQ
+
+These are FAQs that have arisen since the release of XLW version 3.0.
+
+- \ref NumArgs
+
+\section faq_old Old FAQ
+
+This is the original FAQ that accompanied XLW version 1.0.
+
+- \ref WhenCom
+- \ref WhenNotCom
+- \ref IsItCpp
+- \ref Legacy
+- \ref diffxlldll
+- \ref sr1
+
+\section NumArgs How Many Arguments Are Supported For Addin Functions?
+
+Excel 2007 (and XLW 3.0) support user defined functions with up to 255
+arguments.
+
+Excel versions up to and including 2003 have a limit of 30 function arguments.
+But there is an effective limit of 20 arguments for user defined functions.
+This is because you must register your function by calling xlfRegister, which
+is itself limited to 30 arguments.  xlfRegister uses 10 of its arguments to
+register the function, leaving 20 slots for the descriptions of the arguments
+to your addin function.  XLW ought to raise an exception on an attempt to
+register a function with more than 20 arguments under Excel <= 2003, but it
+doesn't - the error is forwarded to Excel, which silently fails to register
+the function.
+
+It is in fact possible to register a user defined function with up to 30
+arguments, by omitting descriptions for arguments beyond the 20th.  The 21st
+and later arguments are valid but appear in the Function Wizard with no
+descriptions.  XLW doesn't support this trick.
+
+The limit can be circumvented in any case with an argument list.
+
+\section WhenCom When should I use COM?
+The COM interface based on former OLE 2.0 offers a different approach than the
+one used by the C API. A full discussion is beyond the scope of this document
+and you should certainly read \ref XLSDK97. I will give though a couple of
+elements to help you in your choice:
+- The Excel C API is particular to Excel, don't expect to make it run with
+anything else (even not MS Access). On the contrary, COM is a protocol that
+goes beyond MS by now.
+- The Excel C API can not persist data between calls. You will be forced to
+name the variable and reference them via key strings. On the contrary, COM
+allows you to build components which can store data between calls.
+- In the same idea, your C API based XLL is not able to determine when to
+call a callback in excel. Your XLL behaves as a dumb slave, unable to do
+anything unless Excel asked it to do so. Some constraints exist with COM
+but they are certainly not as drastic as those involved by the C API.
+
+\section WhenNotCom When shouldn't I use COM?
+When you only want to extend the built-in Excel functions with your own
+routines. It is much faster to develop it with the C++ framework than going
+through the development of a new COM component.
+
+I also found the code much easier to debug and maintain than using COM,
+where a lot goes under cover.
+
+If performance is an issue for you, you are likely to observe a degradation
+with COM and OLE due to the overhead of the protocol. It is certainly not
+as big as one might think, but the C API can \e not be any slower than COM,
+expecially if you manipulate plain data type like double or integer.
+
+\section IsItCpp Is the Excel API in C or in C++?
+In C. The C++ framework is actually a wrapper around the C framework that you
+find in the file xlcall32.h. A lot of work is saved by using the
+C++ framework. It hides much the complexity with no additional work
+beyond what you would have done in any case with a bare C API. This is
+particularly true with regard to character string and ranges of cells,
+that are really messy to handle.
+
+\section Legacy Isn't Excel C API a technology of the past?
+This technology looks a little bit out-dated with the avenment of the
+component technologies like COM, Corba, or Java beans.
+On the other hand, this technique works for me and serves me very well for
+what I want to do. It is still supported by Microsoft 2000 and will remain
+a part of Excel as long as Excel will live according to Microsoft
+(see \ref XLSDK97). Why bother then?
+
+\section diffxlldll What's the difference between an xll and a dll?
+You just said it: the name extension. Dlls dedicated to excel are often
+renamed xll to emphasize their purpose and make them easily recognizable
+by the extension pattern of the Excel file dialog box which looks by
+default for xl? files.
+
+\section sr1 Excel crashes when I run the demo xll !
+Check that your are running a patched version of Excel (SR-1 or SR-2).
+The original Excel97 is known to be buggy with regard to the C API. In
+particular Excel causes a global protection fault after
+- a call to xlCoerce on a cell containing a character string.
+- a call to xlCoerce on a cell containing =ran().<p>
+
+Special thanks to Laurent Longre for his page: \ref longre.
+
+*/
+

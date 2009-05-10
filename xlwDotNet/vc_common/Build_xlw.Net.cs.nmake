@@ -1,0 +1,11 @@
+
+
+
+BUILD :
+        $(MSBUILDPATH)\msbuild xlw.Net.cs.sln /p:Configuration=$(ENVIRON) /t:build
+
+CLEAN :
+	$(MSBUILDPATH)\msbuild  xlw.Net.cs.sln /p:Configuration=$(ENVIRON) /t:clean
+
+REBUILD :
+	$(MSBUILDPATH)\msbuild  xlw.Net.cs.sln /p:Configuration=$(ENVIRON) /t:rebuild

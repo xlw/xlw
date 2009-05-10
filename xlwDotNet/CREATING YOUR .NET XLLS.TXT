@@ -1,0 +1,241 @@
+
+
+YOUR OWN XLL
+===============
+
+   1 Obtaining the Template Project
+   ---------------------------------
+
+   In directory xlwnet\xlwNet\DotNet\Template you will find 2 sub-directories :
+       VS9 
+       VS8
+
+   Copy the directory corresponding to your Visual Studio environment to wherever you would like to place
+   the source code for your new xll project. Preferably do not make it a sub directory of the xlw source tree.
+
+   2 Naming your Library
+   ----------------------
+   
+   The name of you xll addin and associated libraries, will be taken from the names of the Visual Studio Solutions NOT the
+   constituent Visual Studio Projects.
+   We will change the name in 3 places.
+
+   i.   Change the name of the directory you have just copied in 4.1 from VS* to MyLib, replacing MyLib 
+        with the name of your Library.
+   
+   ii.  In this directory  You will find a C# Solution file called Template.sln, change the name to MyLib.sln
+        replacing MyLib  with the name of your Library.
+
+   iii. Also in this directory you will find a sub-directory Addin, in this sub directory you will see a C++ Solution file
+        Template.sln. Change the name of this to MyLib.Sln  replacing MyLib  with the name of your Library.
+
+   iv.  You can now open with Visual Studio the original renamed Solution file (i.e the one u renamed in (ii) )
+        Build this  Solution to see if everything is ok. If not check your variable XLW is set correctly.
+
+   3 Setting the Path 
+   -------------------
+   In the directory xlwnet\xlwNet\DotNet\Example\VS*\Debug (where * corresponds to your Visual Studio environment)
+   you should see, amongst others, the following files 
+
+       Example.NET.dll
+       ExampleC.dll
+       Example.xll
+       xlwDotNet-vc**-mt-gd.dll
+
+
+   Some of these DLLs have to be found by excel at runtime. so will add the directory to the path.
+   Append xlwnet\xlwNet\DotNet\Example\VS*_***\Debug to the Path variable.
+  
+
+   4 Adding your own functions
+   -----------------------------
+
+   The parameter and return types of you functions can be :
+
+     MyMatrix
+     MyArray
+     double[]
+     double[,]
+     string
+     double
+     int
+     CellMatrix
+     ArgumentList
+
+
+   When you write your functions :
+
+   i.   Decorate each function with the attribute
+        [ExcelExport("function description goes here")]
+
+   ii.  Decorate each parameter with the attribute
+        [Parameter("parameter description goes here ")]
+
+   iii. Ensure the function is public and static. Ensure that the
+        method is in a Public class.
+
+   iv.  The C# Assembley containing the code is a Class Library
+ 
+
+   A function would then look like this :
+
+        [ExcelExport("returns the diff of two cell ranges")]
+        public static CellMatrix DiffRange(
+                 [Parameter("The first  Cell Range")] CellMatrix A,
+                 [Parameter("The second Cell Range")] CellMatrix B
+                   )
+          {
+            ....
+          }
+  
+   
+   Your functions must be Public & static and in a Public class.
+
+.......................................................................................................................
+Steps 4 only has to be done after the first build, then you can continue to work with your code and
+building the xll without having to do those steps. 
+The only time you will have to repeat steps 3 & 4 are when :
+
+1.  You Do a Release Build. ( since you will want the Release directory on your Path not the Debug )
+
+2.  You build the xll under a different VS enviroment ( for similar reason to 1)
+
+.............................................................................................................................
+
+
+
+Thats it for now
+
+ENJOY !!!!
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+5. TroubleShooting 
+==================
+
+1. Everytime you open the xll in Excel it complains that it cannot recognise the format of the file.
+
+   Firstly ensure that directoru into which your DLLs and XLL are bult is on your Path. If you have already got
+   Excel open , close it and re-open it otherwise the new value for the Path is not seen. 
+   I tend to get this error ( almost always ) when one of the Dlls that your XLL relies on cannot be found, and 
+   this is the directory containg it is not on the Path.
+
+2. You Open Excel, open you XLL addin and everything seem to work fine. You can even see all your addin functions
+   in the function List under the Category with the same name as your Library. BUT if you try to evaluate any function, 
+   Excel crashes.
+
+   Most likely Excel can not find your Assemblies. 
+   Ensure all the dependant Assemblies are in the same directory as the XLL 
+
+
+3. You addin just refuses to load. 
+   Some versions of Excel do not load the correct .NET Runtime. We are
+   using .NET 3.5 and I believe Excel 2002 does not load this at startup,
+   where as Excel 2007 does. There is a work around for this.
+   Create a file called Excel.exe.config with contents :
+   
+    <?xml version="1.0"?>
+    <configuration>
+	<startup>
+		<supportedRuntime version="v2.0.50727" />
+	</startup>
+    </configuration>
+
+   and put it in the same directory as the excel executable.
+   Some other reading on this issue 
+
+   http://stackoverflow.com/questions/436958/-net-app-config-question
+   http://krgreenlee.blogspot.com/2006/01/software-running-excel-with-net-11.html
+   http://msdn.microsoft.com/en-us/library/w4atty68.aspx
+      
+
+
+    
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+Copyright (C) 2008 2009  Narinder Claire
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+
+    Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+    Neither the names of the copyright holders nor the names of the XLW
+    Group and its contributors may be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
