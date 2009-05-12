@@ -5,11 +5,11 @@ import sys
 import os
 
 destinationPaths = ['../xlw/examples',
-					'../xlw/Template Projects',
+					'../xlw/Template_Projects',
 					'../xlwDotNet/Build/VS8',
 					'../xlwDotNet/Build/VS9',
 					'../xlwDotNet/XtraExamples',
-					'../xlwDotNet/Template Projects',
+					'../xlwDotNet/Template_Projects',
 					'../xlwDotNet/Example'
 				   ]
 

@@ -12,7 +12,7 @@ ResourceIncludes=
 MakeIncludes=RunInterfaceGenerator.mak
 Compiler=-DBUILDING_DLL=1_@@_
 CppCompiler=-DBUILDING_DLL=1  _@@_-g3_@@_
-Linker=--add-stdcall-alias _@@_../../../lib/XlOpenClose.o_@@_-lxlw-devcpp-gcc-s-gd-4_Dev20090505_@@__@@_
+Linker=--add-stdcall-alias _@@_../../../lib/XlOpenClose.o_@@_-lxlw-devcpp-gcc-s-gd-4_0_0b0_@@__@@_
 IsCpp=1
 Icon=
 ExeOutput=.\Debug

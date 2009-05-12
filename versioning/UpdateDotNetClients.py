@@ -8,7 +8,7 @@ destinationPaths = [
 					'../xlwDotNet/Build/VS8/DotNetInterfaceGenerator',
 					'../xlwDotNet/Build/VS9/DotNetInterfaceGenerator',
 					'../xlwDotNet/XtraExamples',
-					'../xlwDotNet/Template Projects',
+					'../xlwDotNet/Template_Projects',
 					'../xlwDotNet/Example'
 				   ]
 
