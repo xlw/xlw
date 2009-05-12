@@ -340,16 +340,13 @@ SubSection "xlw" xlw
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\xlw-vc71*.lib"
 			File  "xlw\lib\xlw-vc71*.pdb"
-			!insertmacro projectfiles "xlw\Template_Projects\vc7"
-			!insertmacro sourcefiles  "xlw\Template_Projects\vc7"
+			
 		SectionEnd
 		
 		Section "VS2005" VS2005
 			SetOutPath "$INSTDIR\xlw\lib"
 			File "xlw\lib\xlw-vc80*.lib"
 			File "xlw\lib\xlw-vc80*.pdb"
-			!insertmacro projectfiles "xlw\Template_Projects\vc8"
-			!insertmacro sourcefiles  "xlw\Template_Projects\vc8"
 		SectionEnd
 		
 		Section "VS2008" VS2008
@@ -357,8 +354,6 @@ SubSection "xlw" xlw
 			File  "xlw\lib\xlw-vc90*.lib"
 			File  "xlw\lib\xlw-vc90*.pdb"
 			File "xlw\lib\xlw-vc80*.pdb"
-			!insertmacro projectfiles "xlw\Template_Projects\vc9"
-			!insertmacro sourcefiles  "xlw\Template_Projects\vc9"
 		SectionEnd
 		
 		Section "Dev-C++" DEVCPP
@@ -367,22 +362,16 @@ SubSection "xlw" xlw
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\XlOpenClose*.o"
 			File "xlw\lib\xlw-vc80*.pdb"
-			!insertmacro projectfiles "xlw\Template_Projects\devcpp"
-			!insertmacro sourcefiles  "xlw\Template_Projects\devcpp"
 		SectionEnd
 		
 		Section "Code::Blocks(mingw)" CODEBLOCKS
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\libxlw-gcc*.a"
-			!insertmacro projectfiles "xlw\Template_Projects\codeblocks-gcc"
-			!insertmacro sourcefiles  "xlw\Template_Projects\codeblocks-gcc"
 		SectionEnd
 		
 		Section "make(mingw)" GCCMAKE
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\libxlw-gcc*.a"
-			!insertmacro projectfiles "xlw\Template_Projects\gcc-make"
-			!insertmacro sourcefiles  "xlw\Template_Projects\gcc-make"
 		SectionEnd
 		
 	SectionGroupEnd
@@ -402,28 +391,40 @@ SubSection "xlw" xlw
 
 		Section "VS2003" VS2003_SRC
 			!insertmacro buildfiles "vc7"
+			!insertmacro projectfiles "xlw\Template_Projects\vc7"
+			!insertmacro sourcefiles  "xlw\Template_Projects\vc7"
 
 		SectionEnd
 		
 		Section "VS2005" VS2005_SRC
 			!insertmacro buildfiles "vc8"
+			!insertmacro projectfiles "xlw\Template_Projects\vc8"
+			!insertmacro sourcefiles  "xlw\Template_Projects\vc8"
 		SectionEnd
 		
 		
 		Section "VS2008" VS2008_SRC
 			!insertmacro buildfiles "vc9"
+			!insertmacro projectfiles "xlw\Template_Projects\vc9"
+			!insertmacro sourcefiles  "xlw\Template_Projects\vc9"
 		SectionEnd
 		
 		Section "Dev-C++" DEVCPP_SRC
 			!insertmacro buildfiles "devcpp"
+			!insertmacro projectfiles "xlw\Template_Projects\devcpp"
+			!insertmacro sourcefiles  "xlw\Template_Projects\devcpp"
 		SectionEnd
 		
 		Section "Code::Blocks(mingw)" CODEBLOCKS_SRC
 			!insertmacro buildfiles "codeblocks-gcc"
+			!insertmacro projectfiles "xlw\Template_Projects\codeblocks-gcc"
+			!insertmacro sourcefiles  "xlw\Template_Projects\codeblocks-gcc"
 		SectionEnd
 		
 		Section "make(mingw)" GCCMAKE_SRC
 			!insertmacro buildfiles "gcc-make"
+			!insertmacro projectfiles "xlw\Template_Projects\gcc-make"
+			!insertmacro sourcefiles  "xlw\Template_Projects\gcc-make"
 		SectionEnd
 		
 	SectionGroupEnd
@@ -442,12 +443,7 @@ SubSection "xlwDotNet" xlwDotNet
 			File "xlwDotNet\lib\xlwDotNet-vc80*.dll"
 			File "xlwDotNet\lib\xlwDotNet-vc80*.pdb"
 			!insertmacro DotNetLibraries VS8
-			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS8"
-			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS8"
-			${If} VS2005PRO_CSharp_INST != ""  
-				!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS8_PRO"
-				!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS8_PRO"
-			${EndIf}
+
 
 		SectionEnd
 		
@@ -458,10 +454,7 @@ SubSection "xlwDotNet" xlwDotNet
 			!insertmacro DotNetLibraries VS9
 			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS9"
 			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS9"
-			${If} VS2008PRO_CSharp_INST != ""  
-				!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS9_PRO"
-				!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS9_PRO"
-			${EndIf}
+
 		SectionEnd
 		
 
@@ -486,12 +479,22 @@ SubSection "xlwDotNet" xlwDotNet
 			!insertmacro DotNetbuildfiles "VS8"
 			!insertmacro DotNetHeaders
 			!insertmacro dotNetInterfaceGenSource
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS8"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS8"
+			${If} VS2005PRO_CSharp_INST != ""  
+				!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS8_PRO"
+				!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS8_PRO"
+			${EndIf}
 		SectionEnd
 		
 		Section "VS2008" VS2008DotNet_SRC
 			!insertmacro DotNetbuildfiles "VS9"
 			!insertmacro DotNetHeaders
 			!insertmacro dotNetInterfaceGenSource
+			${If} VS2008PRO_CSharp_INST != ""  
+				!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS9_PRO"
+				!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS9_PRO"
+			${EndIf}
 		SectionEnd
 		
 
