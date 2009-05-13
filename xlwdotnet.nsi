@@ -530,6 +530,9 @@ Section "Uninstall"
 	DeleteRegKey HKCU "Environment\XLW"
     ; make sure windows knows about the change
     SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
+	
+	RMDir /r "$SMPROGRAMS\XLW\${APP_VER}"
+	RMDir  "$SMPROGRAMS\XLW"
     
 
 SectionEnd
@@ -857,8 +860,4 @@ Function .OnInstSuccess
 
 FunctionEnd
 
- Function un.onInit
- 
-
- FunctionEnd
 
