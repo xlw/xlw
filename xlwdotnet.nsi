@@ -10,6 +10,7 @@
     !include "MUI2.nsh"
 	!include ".\version.nsh"
 	!include "LogicLib.nsh"
+	!include "winmessages.nsh"
 
 
 ;------------------------------------------------------------------------------------------------------------------------
@@ -27,21 +28,26 @@
     ;Name and file
     Name "${APP}"
     OutFile "${APP_VER}.exe"
+
+
 	
 	LicenseForceSelection radiobuttons "I Accept" "I Decline"
 	BrandingText "${APP_VER}  ${DEV_OR_RELEASE}"
 
     ;Default installation folder
-    ;InstallDir $PROGRAMFILES\${APP_VER}
-    InstallDir C:\TEMP\${APP_VER}
+    InstallDir $PROGRAMFILES\XLW\${APP_VER}
+    ;InstallDir C:\TEMP\${APP_VER}
 
     ;Get installation folder from registry if available
-    ;InstallDirRegKey HKCU "Software\${APP_VER}" ""
+    InstallDirRegKey HKCU "Software\XLW\${XLW_VERSION}" "InstallDir"
 
-
+	
 	
     ;Request application privileges for Windows Vista
     RequestExecutionLevel user
+	
+	
+	
 
 ;------------------------------------------------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------------------------------------------------
@@ -322,11 +328,22 @@ Section #
 		File /r "xlw\include\*.inl"
 		
 		SetOutPath "$INSTDIR\xlw\make"
-		File /r "xlw\make\*.*"
+		File  "xlw\make\*.*"
+		
+		SetOutPath "$INSTDIR\TemplateExtractors"
+		File  ".\xlwTemplateExtractor.exe"
+		File  ".\xlwDotNetTemplateExtractor.exe"
 		
 		!insertmacro xlwDotNetReadMes
+		
+		WriteUninstaller $INSTDIR\Uninstall.exe
+		
+		CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Extract XLW xll template.lnk " "$INSTDIR\TemplateExtractors\xlwTemplateExtractor.exe"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Uninstall XLW.lnk " "$INSTDIR\Uninstall.exe"
 	
-
+		
+	
 SectionEnd
 
 ;--------------------------------------------------
@@ -443,7 +460,7 @@ SubSection "xlwDotNet" xlwDotNet
 			File "xlwDotNet\lib\xlwDotNet-vc80*.dll"
 			File "xlwDotNet\lib\xlwDotNet-vc80*.pdb"
 			!insertmacro DotNetLibraries VS8
-
+			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
 
 		SectionEnd
 		
@@ -454,7 +471,7 @@ SubSection "xlwDotNet" xlwDotNet
 			!insertmacro DotNetLibraries VS9
 			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS9"
 			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS9"
-
+			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
 		SectionEnd
 		
 
@@ -508,6 +525,12 @@ SubSectionEnd
 
 Section "Uninstall"
 
+	Delete $INSTDIR\Uninstall.exe
+	RMDir /r $INSTDIR
+	DeleteRegKey HKCU "Environment\XLW"
+    ; make sure windows knows about the change
+    SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
+    
 
 SectionEnd
 
@@ -523,8 +546,6 @@ Function .onInit
     advsplash::show 1000 1000 2000 0xFF6410 $TEMP\logo
 
     Delete $INSTDIR\Temp\logo.bmp
-	
-	
 
 FunctionEnd
 
@@ -825,5 +846,19 @@ Function PlatformSDK
 
 FunctionEnd
 
+ !define env_hkcu 'HKCU "Environment"'  
+   
+Function .OnInstSuccess
 
+   
+   WriteRegExpandStr HKCU "Environment" "XLW" $INSTDIR
+   ; make sure windows knows about the change
+   SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
+
+FunctionEnd
+
+ Function un.onInit
+ 
+
+ FunctionEnd
 
