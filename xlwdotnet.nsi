@@ -202,7 +202,7 @@
 			File  /r "xlwDotNet\DotNetInterfaceGenerator\*.cs"
 	!macroend	
 	
-	!macro DotNetLibraries  dir
+	!macro DotNetInterfaceGenerator  dir
 			SetOutPath "$INSTDIR\xlwDotNet\build\${dir}\Debug"
 			File  "xlwDotNet\build\${dir}\Debug\*.dll"
 			File  "xlwDotNet\build\${dir}\Debug\*.exe"
@@ -213,6 +213,16 @@
 			File  "xlwDotNet\build\${dir}\Release\*.exe"
 			
 			!insertmacro DotNetHeaders
+	!macroend
+	
+	!macro InterfaceGenerator  dir
+			SetOutPath "$INSTDIR\xlw\build\${dir}\Debug"
+			File  "xlw\build\${dir}\Debug\*.exe"
+			File  "xlw\build\${dir}\Debug\*.pdb"
+			
+			SetOutPath "$INSTDIR\xlw\build\${dir}\Release"
+			File  "xlw\build\${dir}\Release\*.exe"
+			
 	!macroend
 	
 	!macro doExamplVCHelper dir
@@ -357,6 +367,7 @@ SubSection "xlw" xlw
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\xlw-vc71*.lib"
 			File  "xlw\lib\xlw-vc71*.pdb"
+			!insertmacro InterfaceGenerator vc7
 			
 		SectionEnd
 		
@@ -364,13 +375,15 @@ SubSection "xlw" xlw
 			SetOutPath "$INSTDIR\xlw\lib"
 			File "xlw\lib\xlw-vc80*.lib"
 			File "xlw\lib\xlw-vc80*.pdb"
+			!insertmacro InterfaceGenerator vc8
 		SectionEnd
 		
 		Section "VS2008" VS2008
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\xlw-vc90*.lib"
 			File  "xlw\lib\xlw-vc90*.pdb"
-			File "xlw\lib\xlw-vc80*.pdb"
+			File  "xlw\lib\xlw-vc80*.pdb"
+			!insertmacro InterfaceGenerator vc9
 		SectionEnd
 		
 		Section "Dev-C++" DEVCPP
@@ -378,17 +391,23 @@ SubSection "xlw" xlw
 			File  "xlw\lib\libxlw-devcpp*.a"
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\XlOpenClose*.o"
-			File "xlw\lib\xlw-vc80*.pdb"
+			File  "xlw\lib\xlw-vc80*.pdb"
+			SetOutPath "$INSTDIR\xlw\build\devcpp"
+			File /r "xlw\build\devcpp\*.exe"
 		SectionEnd
 		
 		Section "Code::Blocks(mingw)" CODEBLOCKS
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\libxlw-gcc*.a"
+			SetOutPath "$INSTDIR\xlw\build\codeblocks-gcc\bin"
+			File /r "xlw\build\codeblocks-gcc\bin\*.exe"
 		SectionEnd
 		
 		Section "make(mingw)" GCCMAKE
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\libxlw-gcc*.a"
+			SetOutPath "$INSTDIR\xlw\build\gcc-make"
+			File /r "xlw\build\gcc-make\*.exe"
 		SectionEnd
 		
 	SectionGroupEnd
@@ -459,7 +478,7 @@ SubSection "xlwDotNet" xlwDotNet
 			SetOutPath "$INSTDIR\xlwDotNet\lib"
 			File "xlwDotNet\lib\xlwDotNet-vc80*.dll"
 			File "xlwDotNet\lib\xlwDotNet-vc80*.pdb"
-			!insertmacro DotNetLibraries VS8
+			!insertmacro DotNetInterfaceGenerator VS8
 			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
 
 		SectionEnd
@@ -468,7 +487,7 @@ SubSection "xlwDotNet" xlwDotNet
 			SetOutPath "$INSTDIR\xlwDotNet\lib"
 			File "xlwDotNet\lib\xlwDotNet-vc90*.dll"
 			File "xlwDotNet\lib\xlwDotNet-vc90*.pdb"
-			!insertmacro DotNetLibraries VS9
+			!insertmacro DotNetInterfaceGenerator VS9
 			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS9"
 			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS9"
 			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"

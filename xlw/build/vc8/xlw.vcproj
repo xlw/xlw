@@ -5,7 +5,7 @@
 	<ToolFiles>
 	</ToolFiles>
 	<Configurations>
-		<Configuration ConfigurationType="4" IntermediateDirectory="$(ConfigurationName)" Name="Debug|Win32" OutputDirectory="$(SolutionDir)$(ConfigurationName)">
+		<Configuration ConfigurationType="4" IntermediateDirectory="$(ConfigurationName)\Objects\$(ProjectName)" Name="Debug|Win32" OutputDirectory="$(SolutionDir)$(ConfigurationName)">
 			<Tool Name="VCPreBuildEventTool"/>
 			<Tool Name="VCCustomBuildTool"/>
 			<Tool Name="VCXMLDataGeneratorTool"/>
@@ -22,7 +22,7 @@
 			<Tool Name="VCFxCopTool"/>
 			<Tool Name="VCPostBuildEventTool"/>
 		</Configuration>
-		<Configuration ConfigurationType="4" IntermediateDirectory="$(ConfigurationName)" Name="Release|Win32" OutputDirectory="$(SolutionDir)$(ConfigurationName)">
+		<Configuration ConfigurationType="4" IntermediateDirectory="$(ConfigurationName)\Objects\$(ProjectName)" Name="Release|Win32" OutputDirectory="$(SolutionDir)$(ConfigurationName)">
 			<Tool Name="VCPreBuildEventTool"/>
 			<Tool Name="VCCustomBuildTool"/>
 			<Tool Name="VCXMLDataGeneratorTool"/>
