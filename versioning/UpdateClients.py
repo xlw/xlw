@@ -28,7 +28,7 @@ def dirwalk(dir):
             for x in dirwalk(fullpath):  # recurse into subdir
                 yield x
         else:
-			if effectedFiles.count(os.path.splitext(fullpath)[1])>0 or os.path.basename(fullpath).lower()=="makefile" :
+			if effectedFiles.count(os.path.splitext(fullpath)[1])>0 or os.path.basename(fullpath).lower()=="makefile" or os.path.basename(fullpath).lower()=="makefile.win":
 				yield os.path.abspath(fullpath)
 
 

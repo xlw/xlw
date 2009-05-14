@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 	<VisualStudioProject
-			Name="4_0_0b0"
+			Name="4_0_0alpha0"
 			RootNamespace="dev20090504"
 			ProjectType="Visual C++"
 			Keyword="Win32Proj"
@@ -13,21 +13,21 @@
 		<Configurations>
 			<Configuration
 					Name="Debug|Win32"
+					ConfigurationType="4"
 					CharacterSet="2"
-					OutputDirectory="Debug"
 					IntermediateDirectory="Debug"
-					ConfigurationType="4">
+					OutputDirectory="Debug">
 				<Tool
 						Name="VCCLCompilerTool"
 						PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
-						RuntimeLibrary="3"
+						Detect64BitPortabilityProblems="TRUE"
 						AdditionalIncludeDirectories="..\..\include"
 						DebugInformationFormat="3"
 						ProgramDataBaseFileName="$(TargetDir)/$(TargetName).pdb"
 						Optimization="0"
 						MinimalRebuild="TRUE"
 						WarningLevel="3"
-						Detect64BitPortabilityProblems="TRUE"
+						RuntimeLibrary="3"
 						UsePrecompiledHeader="0"
 						BasicRuntimeChecks="3"/>
 				<Tool
@@ -56,18 +56,18 @@
 			</Configuration>
 			<Configuration
 					Name="Release|Win32"
+					ConfigurationType="4"
 					CharacterSet="2"
-					OutputDirectory="Release"
 					IntermediateDirectory="Release"
-					ConfigurationType="4">
+					OutputDirectory="Release">
 				<Tool
 						Name="VCCLCompilerTool"
 						PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-						RuntimeLibrary="2"
+						Detect64BitPortabilityProblems="TRUE"
 						AdditionalIncludeDirectories="..\..\include"
 						DebugInformationFormat="3"
 						WarningLevel="3"
-						Detect64BitPortabilityProblems="TRUE"
+						RuntimeLibrary="2"
 						UsePrecompiledHeader="0"/>
 				<Tool
 						Name="VCCustomBuildTool"/>

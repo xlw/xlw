@@ -19,7 +19,7 @@
 				</Compiler>
 				<Linker>
 					<Add library="user32" />
-					<Add library="$(XLW)\xlw\lib\libxlw-gcc-s-gd-4_0_0b0.a" />
+					<Add library="$(XLW)\xlw\lib\libxlw-gcc-s-gd-4_0_0alpha00a00a00a0.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -37,7 +37,7 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="user32" />
-					<Add library="$(XLW)\xlw\lib\libxlw-gcc-s-4_0_0b0.a" />
+					<Add library="$(XLW)\xlw\lib\libxlw-gcc-s-4_0_0alpha00a00a00a0.a" />
 				</Linker>
 			</Target>
 		</Build>

@@ -8,9 +8,9 @@ EXT_SHARE=xll
 #Describes the Linker details
 LIBDIRS = $(XLW)\xlw\lib
 ifeq ($(BUILD),DEBUG)
-LIBS=xlw-gcc-s-gd-4_0_0b0
+LIBS=xlw-gcc-s-gd-4_0_0alpha0
 else
-LIBS=xlw-gcc-s-4_0_0b0
+LIBS=xlw-gcc-s-4_0_0alpha0
 endif 
 
 #Describes the Compiler details
