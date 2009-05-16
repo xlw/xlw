@@ -242,6 +242,7 @@
 			
 			SetOutPath "$INSTDIR\${dir}"
 			File  /nonfatal /r "${dir}\*.xls"
+			File  /nonfatal /r "${dir}\*.txt"
 			
 			SetOutPath "$INSTDIR\${dir}\common_source"
 			File  /nonfatal /r "${dir}\common_source\*.cpp"
@@ -298,6 +299,7 @@
 			
 			SetOutPath "$INSTDIR\${dir}"
 			File  /nonfatal /r "${dir}\*.xls"
+			File  /nonfatal /r "${dir}\*.txt"
 			
 			SetOutPath "$INSTDIR\${dir}\common_source"
 			File  /nonfatal /r "${dir}\common_source\*.cs"
@@ -330,7 +332,6 @@
 
 Section #
         SetOutPath "$INSTDIR\xlw"
-
 		File "xlw\*.txt"
     
 		SetOutPath "$INSTDIR\xlw\include"
@@ -344,13 +345,23 @@ Section #
 		File  ".\xlwTemplateExtractor.exe"
 		File  ".\xlwDotNetTemplateExtractor.exe"
 		
+		SetOutPath "$INSTDIR"
+		File "xlwLICENSE.rtf"
+		
+		SetOutPath "$INSTDIR"
+		File "Doc-4.0.0alpha0.TXT"
+		
+		
 		!insertmacro xlwDotNetReadMes
 		
 		WriteUninstaller $INSTDIR\Uninstall.exe
 		
-		CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}"
-		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Extract XLW xll template.lnk " "$INSTDIR\TemplateExtractors\xlwTemplateExtractor.exe"
+		CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}\xlw"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlw\Extract XLW xll template.lnk " "$INSTDIR\TemplateExtractors\xlwTemplateExtractor.exe"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\XLW License.lnk " "$INSTDIR\xlwLICENSE.rtf"
 		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Uninstall XLW.lnk " "$INSTDIR\Uninstall.exe"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Getting Started.lnk " "$INSTDIR\Doc-4.0.0alpha0.TXT"
+		
 	
 		
 	
@@ -418,6 +429,7 @@ SubSection "xlw" xlw
 	
 		!insertmacro doExample "xlw\examples\Example"
 		!insertmacro doExample "xlw\examples\Handwritten"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlw\Examples.lnk " "$INSTDIR\xlw\Examples"
 	SectionEnd
 	
 	; vanilla xlw sources
@@ -479,7 +491,8 @@ SubSection "xlwDotNet" xlwDotNet
 			File "xlwDotNet\lib\xlwDotNet-vc80*.dll"
 			File "xlwDotNet\lib\xlwDotNet-vc80*.pdb"
 			!insertmacro DotNetInterfaceGenerator VS8
-			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
+			CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet"
+			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
 
 		SectionEnd
 		
@@ -490,7 +503,8 @@ SubSection "xlwDotNet" xlwDotNet
 			!insertmacro DotNetInterfaceGenerator VS9
 			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS9"
 			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS9"
-			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
+			CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet"
+			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
 		SectionEnd
 		
 
@@ -505,6 +519,8 @@ SubSection "xlwDotNet" xlwDotNet
 		!insertmacro doDotNetExample "xlwDotNet\XtraExamples\NonPassive"
 		!insertmacro doDotNetExample "xlwDotNet\XtraExamples\Python"
 		!insertmacro doDotNetExample "xlwDotNet\XtraExamples\RTDExample"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet\Examples.lnk " "$INSTDIR\xlwDotNet\Example"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet\More Examples.lnk " "$INSTDIR\xlwDotNet\XtraExamples"
 		
 	SectionEnd
 	

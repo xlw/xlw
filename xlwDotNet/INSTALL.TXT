@@ -1,7 +1,14 @@
 
+**************
+**************  NOW OUTDATED
+************** NEED NEW DOCS for 4.0.0
+
+
 
 ** These are premliminary INSTALL notes for use by XLW developers and for testing **
 08 Apr 09
+
+
 Narinder Claire
 
 

@@ -139,6 +139,7 @@ FunctionEnd
 	${If} ${STATEFLAG} ==  ${BST_CHECKED}
 			!insertmacro projectfiles ${TDIR}
 			!insertmacro sourcefiles  ${TDIR}
+			 Exec "explorer.exe $INSTDIR" 
 	${Endif}
 
 

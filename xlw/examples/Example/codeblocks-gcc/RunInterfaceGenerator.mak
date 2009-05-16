@@ -13,5 +13,5 @@ all: ../common_source/xlwTest.cpp
 		@echo OK > build_$(BUILD)
 
 clean :
-		@$(RM) source/xlwTest.cpp
+		@$(RM) ../common_source/xlwTest.cpp
 		@$(RM) build_$(BUILD)

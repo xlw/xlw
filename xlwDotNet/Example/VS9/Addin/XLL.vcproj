@@ -6,6 +6,7 @@
 	ProjectGUID="{DE8A087D-EF7B-4777-A464-F47096EE968C}"
 	RootNamespace="ExampleXll"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform
@@ -67,6 +68,7 @@
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\..\xlw\lib;..\$(ConfigurationName)"
+				DelayLoadDLLs="$(SolutionName)C.dll"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="2"
@@ -89,9 +91,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -147,6 +146,7 @@
 				OutputFile="$(OutDir)/$(SolutionName).xll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\..\xlw\lib;..\$(ConfigurationName)"
+				DelayLoadDLLs="$(SolutionName)C.dll"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -170,9 +170,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"

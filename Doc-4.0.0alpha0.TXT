@@ -1,0 +1,139 @@
+
+
+This is an alpha version for xlw 4.0.0
+THe look & feel of xlw4 is drastically different from previous verions
+at least on the surface and thus there is a need for new documentation.
+New documentation will be included in the final release xlw-4.0.0f0.
+
+PLEASE REFER TO THE LICENSE FILE.
+
+
+Getting Started
+===============
+
+If you have installed this from the self-extracting installer
+the should be in the menu a link to the examples. This is probably the best 
+place to start.
+There are also menu items for Template Extractors which you can use to create a
+new fresh xll project, either under xlw(vanilla) or xlwDotNet.
+
+At this stage the most important factor to s peedy release versio is feedback from the users
+Please email xlw-users@lists.sourceforge.net.
+
+
+
+===================================================================================================
+---------------------------------------------------------------------------------------------------
+===================================================================================================
+
+
+
+ 1.  Visual Studio 2005 Express Edition (VS8_EXPRESS)
+     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+     Visual C++ 2005 Express is not shipped with the Microsoft Platform SDK.
+     This is a pre-requisite for developing with xlw.
+
+     It can be downloaded from 
+
+	http://www.microsoft.com/downloads/details.aspx?FamilyId=A55B6B43-E24F-4EA3-A93E-40C0EC4F68E5&displaylang=en
+
+     If you are using the Express edition of Visual C++ 2005, you need to install this first.
+
+     The standard package will install to C:\Program Files\Microsoft SDKs\Windows.
+
+     You need to set the environment Variable PSDK to the path of the SDK. 
+     For me  the variable PSDK is set to 
+
+                  C:\Program Files\Microsoft SDKs\Windows\v6.1
+
+     on one machine and set to 
+
+
+                  C:\Program Files\Microsoft SDKs\Windows\v6.0A
+
+     on a different machine.
+
+
+    If you already had Visual Studio open when you set the environment variable PSDK
+    you have to close it and re-open it for the new environment variable to be recognised.
+
+    These extra few steps are only neccassary for the EXPRESS edition of VC 2005.
+    They are NOT neccassary for Visual C++ 2005 Professional.
+ 
+ 
+ 2. Building an XLL with xlwDotNet
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+   2.1 Obtaining the Template Project
+   ---------------------------------
+	
+	Obtain a template project from the template extractor in the XLW submenu of Start 
+
+   2.2 Naming your Library
+   ----------------------
+   
+   The name of you xll addin and associated libraries, will be taken from the names of the Visual Studio Solutions NOT the
+   constituent Visual Studio Projects.
+   We will change the name in 3 places.
+
+   i.   Change the name of your Template directory from XLL_Project to  MyLib, replacing MyLib 
+        with the name of your Library.
+   
+   ii.  In this directory  You will find a C# Solution file called Template.sln, change the name to MyLib.sln
+        replacing MyLib  with the name of your Library.
+
+   iii. Also in this directory you will find a sub-directory Addin, in this sub directory you will see a C++ Solution file
+        Template.sln. Change the name of this to MyLib.Sln  replacing MyLib  with the name of your Library.
+
+   iv.  You can now open with Visual Studio the original renamed Solution file (i.e the one u renamed in (ii) )
+        Build this  Solution to see if everything is ok. If not check your variable XLW is set correctly.
+
+   
+
+   2.3 Adding your own functions
+   -----------------------------
+
+   The parameter and return types of you functions can be :
+
+     MyMatrix
+     MyArray
+     double[]
+     double[,]
+     string
+     double
+     int
+     CellMatrix
+     ArgumentList
+
+
+   When you write your functions :
+
+   i.   Decorate each function with the attribute
+        [ExcelExport("function description goes here")]
+
+   ii.  Decorate each parameter with the attribute
+        [Parameter("parameter description goes here ")]
+
+   iii. Ensure the function is public and static. Ensure that the
+        method is in a Public class.
+
+   A function would then look like this :
+
+        [ExcelExport("returns the diff of two cell ranges")]
+        public static CellMatrix DiffRange(
+                 [Parameter("The first  Cell Range")] CellMatrix A,
+                 [Parameter("The second Cell Range")] CellMatrix B
+                   )
+          {
+            ....
+          }
+  
+   
+   Your functions must be Public & static and in a Public class.
+
+ 
+ 
+ 
+ 
+ 
+ 

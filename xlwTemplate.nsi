@@ -169,6 +169,7 @@ Var DIR
 
 			!insertmacro projectfiles ${TDIR}
 			!insertmacro sourcefiles  ${TDIR}
+			 Exec "explorer.exe $INSTDIR" 
 	${Endif}
 
 

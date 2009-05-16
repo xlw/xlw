@@ -9,3 +9,6 @@ Mark Joshi updated it various ways and added automatic interface generation.
 
 Eric Ehlers added support for Excel 2007.
 
+Narinder Claire added support for .NET & C# enabling the building
+of xlls in C#. Also added Template projects for easy creating of new
+projects by users
