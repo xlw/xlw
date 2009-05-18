@@ -44,7 +44,7 @@
 	
 	
     ;Request application privileges for Windows Vista
-    RequestExecutionLevel user
+    RequestExecutionLevel admin
 	
 	
 	
@@ -274,6 +274,7 @@
 			${If} $0 == "1"
 				SetOutPath "$INSTDIR\${dir}\codeblocks-gcc"
 				File  /nonfatal /r "${dir}\codeblocks-gcc\*.cbp"
+				File  /nonfatal /r "${dir}\codeblocks-gcc\*.mak"
 				File  /nonfatal /r "${dir}\codeblocks-gcc\*.workspace"
 			${EndIf}
 			
@@ -578,12 +579,12 @@ SectionEnd
 Function .onInit 
 	
     InitPluginsDir
-	SetOutPath $INSTDIR\Temp
+	SetOutPath $TEMP
     File /oname=logo.bmp "xlw\docs\images\logo.bmp"
 
     advsplash::show 1000 1000 2000 0xFF6410 $TEMP\logo
 
-    Delete $INSTDIR\Temp\logo.bmp
+    Delete $TEMP\logo.bmp
 
 FunctionEnd
 
@@ -823,7 +824,7 @@ Function SetUpInfo
 	
 	${If} $VS2005PRO_CPP_INST == "" 
 		${If} $VS2005EXP_CPP_INST == ""  
-			SectionSetFlags ${VS2008} 0
+			SectionSetFlags ${VS2005} 0
 			SectionSetFlags ${VS2005DotNet} 0
 		${EndIf}
 	${EndIf}
