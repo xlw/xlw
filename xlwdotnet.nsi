@@ -350,7 +350,7 @@ Section #
 		File "xlwLICENSE.rtf"
 		
 		SetOutPath "$INSTDIR"
-		File "Doc-4.0.0alpha0.TXT"
+		File "Doc-4.0.0alpha1.TXT"
 		
 		
 		!insertmacro xlwDotNetReadMes
@@ -359,9 +359,9 @@ Section #
 		
 		CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}\xlw"
 		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlw\Extract XLW xll template.lnk " "$INSTDIR\TemplateExtractors\xlwTemplateExtractor.exe"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Getting Started.lnk " "$INSTDIR\Doc-4.0.0alpha0.TXT"
 		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\XLW License.lnk " "$INSTDIR\xlwLICENSE.rtf"
 		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Uninstall XLW.lnk " "$INSTDIR\Uninstall.exe"
-		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Getting Started.lnk " "$INSTDIR\Doc-4.0.0alpha0.TXT"
 		
 	
 		
@@ -516,7 +516,7 @@ SubSection "xlwDotNet" xlwDotNet
 	Section "Examples" xlwDotNextExamples
 	
 		!insertmacro xlwDotNetReadMes
-		!insertmacro doDotNetExample "xlwDotNet\Example"
+		!insertmacro doDotNetExample "xlwDotNet\Example" 
 		!insertmacro doDotNetExample "xlwDotNet\XtraExamples\NonPassive"
 		!insertmacro doDotNetExample "xlwDotNet\XtraExamples\Python"
 		!insertmacro doDotNetExample "xlwDotNet\XtraExamples\RTDExample"

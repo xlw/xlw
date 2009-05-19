@@ -17,7 +17,7 @@ place to start.
 There are also menu items for Template Extractors which you can use to create a
 new fresh xll project, either under xlw(vanilla) or xlwDotNet.
 
-At this stage the most important factor to s peedy release versio is feedback from the users
+At this stage the most important factor to s peedy release version is feedback from the users
 Please email xlw-users@lists.sourceforge.net.
 
 
@@ -59,17 +59,28 @@ Please email xlw-users@lists.sourceforge.net.
 
     These extra few steps are only neccassary for the EXPRESS edition of VC 2005.
     They are NOT neccassary for Visual C++ 2005 Professional.
- 
- 
- 2. Building an XLL with xlwDotNet
+	
+2. Building an XLL with xlw (C++)
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
    2.1 Obtaining the Template Project
    ---------------------------------
 	
-	Obtain a template project from the template extractor in the XLW submenu of Start 
+	Obtain a template project from the xlw template extractor in the XLW submenu of Start 
 
    2.2 Naming your Library
+   ----------------------
+ 
+ 
+ 3. Building an XLL with xlwDotNet (C#)
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+   3.1 Obtaining the Template Project
+   ---------------------------------
+	
+	Obtain a template project from the xlwDotNet template extractor in the XLW submenu of Start 
+
+   3.2 Naming your Library
    ----------------------
    
    The name of you xll addin and associated libraries, will be taken from the names of the Visual Studio Solutions NOT the
@@ -90,7 +101,7 @@ Please email xlw-users@lists.sourceforge.net.
 
    
 
-   2.3 Adding your own functions
+   3.3 Adding your own functions
    -----------------------------
 
    The parameter and return types of you functions can be :
