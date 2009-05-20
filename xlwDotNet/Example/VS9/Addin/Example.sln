@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+# Visual C++ Express 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLL", "DLL.vcproj", "{A0ABD763-74BE-48DF-8B5D-50E9FCB79C5B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1115BBB6-8140-40EF-8805-DF2E41D1330E} = {1115BBB6-8140-40EF-8805-DF2E41D1330E}
