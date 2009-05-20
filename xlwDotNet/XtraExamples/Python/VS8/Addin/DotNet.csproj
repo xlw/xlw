@@ -87,7 +87,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"$(DevEnvDir)..\..\VC\vcpackages\vcbuild"  $(SolutionDir)Addin\$(SolutionName).sln    "$(Configuration)|Win32"</PostBuildEvent>
+    <PostBuildEvent>"$(DevEnvDir)..\..\VC\vcpackages\vcbuild"  "$(SolutionDir)Addin\$(SolutionName).sln"    "$(Configuration)|Win32"</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
