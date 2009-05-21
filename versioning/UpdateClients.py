@@ -51,11 +51,11 @@ for dir in destinationPaths:
 	
 reObject = re.compile('xlw-[a-zA-Z0-9_]*?-gcc-s-[a-zA-Z0-9,_]*?(?=_@@_)|xlw-.*?-gcc-s-gd-[a-zA-Z0-9_]*?(?=_@@_)|'
 				                    'xlw-[a-zA-Z0-9_]*?-gcc-s-[a-zA-Z0-9,_]*?(?=\s)|xlw-.*?-gcc-s-gd-[a-zA-Z0-9_]*?(?=\s)|'
-									'xlw-[a-zA-Z0-9_]*?-gcc-s-[a-zA-Z0-9,_]*?(?=.a)|xlw-.*?-gcc-s-gd-[a-zA-Z0-9_]*?(?=.a)|'
+									'xlw-[a-zA-Z0-9_]*?-gcc-s-[a-zA-Z0-9,_]*?(?=\.a)|xlw-.*?-gcc-s-gd-[a-zA-Z0-9_]*?(?=\.a)|'
 									'xlw-gcc-s-[a-zA-Z0-9,_]*?(?=_@@_)|xlw-gcc-s-gd-[a-zA-Z0-9_]*?(?=_@@_)|'
 				                    'xlw-gcc-s-[a-zA-Z0-9,_]*?(?=\s)|xlw-gcc-s-gd-[a-zA-Z0-9_]*?(?=\s)|'
-									'xlw-gcc-s-[a-zA-Z0-9,_]*?(?=.a)|xlw-gcc-s-gd-[a-zA-Z0-9_]*?(?=.a)|'
-									'xlw-vc[7-9][0-9]-mt.*?(?=.lib)')# stupid devcpp with the _@@_
+									'xlw-gcc-s-[a-zA-Z0-9,_]*?(?=\.a)|xlw-gcc-s-gd-[a-zA-Z0-9_]*?(?=\.a)|'
+									'xlw-vc[7-9][0-9]-mt.*?(?=\.lib)')# stupid devcpp with the _@@_
 
 with open("UpdateClients.log",'w') as theLogFile:
 	for  f in allfiles:

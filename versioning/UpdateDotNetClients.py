@@ -48,8 +48,8 @@ allfiles = []
 for dir in destinationPaths:
 	allfiles = allfiles + [f for f in dirwalk(dir)]
 	
-reObject = re.compile('xlwDotNet-vc[8-9][0-9]-mt-.*?(?=.dll)|xlwDotNet-vc[8-9][0-9]-mt-gd-.*?(?=.dll)|'
-                      'xlwDotNet-vc[8-9][0-9]-mt\$\(gdconfig\)-.*?(?=.dll)')
+reObject = re.compile('xlwDotNet-vc[8-9][0-9]-mt-.*?(?=\.dll)|xlwDotNet-vc[8-9][0-9]-mt-gd-.*?(?=\.dll)|'
+                      'xlwDotNet-vc[8-9][0-9]-mt\$\(gdconfig\)-.*?(?=\.dll)')
 
 with open("UpdateDotNetClients.log",'w') as theLogFile:
 	for  f in allfiles:
