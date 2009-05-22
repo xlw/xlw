@@ -17,9 +17,9 @@
 			ConfigurationType="0">
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc7"
-				ReBuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake /a ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc7 "
-				CleanCommandLine="NMAKE /f RunInterfaceGenerator.nmake clean ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc7 "/>
+				BuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc7 ALL"
+				ReBuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc7 REBUILD "
+				CleanCommandLine="NMAKE /f RunInterfaceGenerator.nmake  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc7 CLEAN "/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -28,9 +28,9 @@
 			ConfigurationType="0">
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) VC=vc7"
-				ReBuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake /a ENVIRON=Release LIBRARY=$(SolutionName) VC=vc7"
-				CleanCommandLine="NMAKE /f RunInterfaceGenerator.nmake clean ENVIRON=Release LIBRARY=$(SolutionName) VC=vc7"/>
+				BuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) VC=vc7 ALL "
+				ReBuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) VC=vc7  REBUILD "
+				CleanCommandLine="NMAKE /f RunInterfaceGenerator.nmake  ENVIRON=Release LIBRARY=$(SolutionName) VC=vc7 CLEAN "/>
 		</Configuration>
 	</Configurations>
 	<References>

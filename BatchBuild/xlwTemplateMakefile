@@ -12,6 +12,6 @@ endif
 
 
 all:  
-	cd C:\\TEMP\\xlwTemplateProjects\\$(DEV)  && $(MAKE) -f $(makefile) BUILD=DEBUG $(target) >> $(XLW)\\BatchBuild\\xlwTemplate_$(DEV)_Debug.log 2>&1  
-	cd C:\\TEMP\\xlwTemplateProjects\\$(DEV)  && $(MAKE) -f $(makefile) BUILD=RELEASE $(target) >> $(XLW)\\BatchBuild\\xlwTemplate_$(DEV)_Release.log 2>&1  
+	cd "C:\\TEMP\\xlwTemplate Projects\\$(DEV)"  && $(MAKE) -f $(makefile) BUILD=DEBUG $(target) >> "$(XLW)\\BatchBuild\\xlwTemplate_$(DEV)_Debug.log" 2>&1  
+	cd "C:\\TEMP\\xlwTemplate Projects\\$(DEV)"  && $(MAKE) -f $(makefile) BUILD=RELEASE $(target) >> "$(XLW)\\BatchBuild\\xlwTemplate_$(DEV)_Release.log" 2>&1  
 	

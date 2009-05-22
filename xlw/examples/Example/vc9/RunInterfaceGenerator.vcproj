@@ -24,9 +24,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9"
-				ReBuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake /a ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9 "
-				CleanCommandLine="NMAKE /f RunInterfaceGenerator.nmake clean ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9 "
+				BuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9  ALL "
+				ReBuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9  REBUILD "
+				CleanCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9  CLEAN "
 				Output=""
 				PreprocessorDefinitions=""
 				IncludeSearchPath=""
@@ -44,9 +44,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9"
-				ReBuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake /a ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9"
-				CleanCommandLine="NMAKE /f RunInterfaceGenerator.nmake clean ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9"
+				BuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9 ALL "
+				ReBuildCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9 REBUILD "
+				CleanCommandLine="NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9 CLEAN "
 				Output=""
 				PreprocessorDefinitions=""
 				IncludeSearchPath=""

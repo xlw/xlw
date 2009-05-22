@@ -22,3 +22,4 @@ CLEAN :
 	-@ if EXIST $(HEADER)    del $(HEADER) 
 	-@ if EXIST $(SOURCE)    del $(SOURCE)
 
+REBUILD : CLEAN ALL
