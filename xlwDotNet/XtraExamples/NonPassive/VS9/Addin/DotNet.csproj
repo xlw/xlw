@@ -50,7 +50,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="xlwDotNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e6c495227a9be340, processorArchitecture=x86">
-      <HintPath>$(XLW)\xlwDotNet\lib\xlwDotNet-vc90-mt$(gdconfig)-4_0_0alpha2.dll</HintPath>
+      <HintPath>$(XLW)\xlwDotNet\lib\xlwDotNet-vc90-mt$(gdconfig)-4_0_0alpha3.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
