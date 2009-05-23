@@ -105,14 +105,23 @@
 	Var Dialog
 	Var Label
 	Var ListBox
+	
 	Var VS2008PRO_CPP_INST
 	Var VS2008PRO_CSharp_INST
+	Var VS2008PRO_VisualBasic_INST
+	
 	Var VS2008EXP_CPP_INST
 	Var VS2008EXP_CSharp_INST
+	Var VS2008EXP_VisualBasic_INST
+	
 	Var VS2005PRO_CPP_INST
 	Var VS2005PRO_CSharp_INST
+	Var VS2005PRO_VisualBasic_INST
+	
 	Var VS2005EXP_CPP_INST
 	Var VS2005EXP_CSharp_INST
+	Var VS2005EXP_VisualBasic_INST
+	
 	Var VS2003PRO_CPP_INST
 	Var CodeBlocks_INST
 	Var DEVCPP_INST
@@ -127,6 +136,7 @@
 		SetOutPath "$INSTDIR\${dir}"
 		File /nonfatal /r "${dir}\*.vcproj"
 		File /nonfatal /r "${dir}\*.csproj"
+		File /nonfatal /r "${dir}\*.vbproj"
 		File /nonfatal /r "${dir}\*.sln"
 		File /nonfatal /r "${dir}\*.mak"
 		File /nonfatal /r "${dir}\Makefile.RELEASE"
@@ -144,6 +154,7 @@
 		File /nonfatal /r "${dir}\*.h"
 		File /nonfatal /r "${dir}\*.cs"
 		File /nonfatal /r "${dir}\*.snk"
+		File /nonfatal /r "${dir}\*.vb"
 	!macroend
 	
 	!macro addsource
@@ -492,6 +503,12 @@ SubSection "xlwDotNet" xlwDotNet
 			File "xlwDotNet\lib\xlwDotNet-vc80*.dll"
 			File "xlwDotNet\lib\xlwDotNet-vc80*.pdb"
 			!insertmacro DotNetInterfaceGenerator VS8
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS8"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS8"
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\VisualBasic\VB2005"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VisualBasic\VB2005"
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS8_PRO"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS8_PRO"
 			CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet"
 			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
 
@@ -504,6 +521,10 @@ SubSection "xlwDotNet" xlwDotNet
 			!insertmacro DotNetInterfaceGenerator VS9
 			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS9"
 			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS9"
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\VisualBasic\VB2008"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VisualBasic\VB2008"
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS9_PRO"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS9_PRO"
 			CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet"
 			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet\Extract XLW .NET xll template.lnk " "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
 		SectionEnd
@@ -534,6 +555,8 @@ SubSection "xlwDotNet" xlwDotNet
 			!insertmacro dotNetInterfaceGenSource
 			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS8"
 			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS8"
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\VisualBasic\VB2005"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VisualBasic\VB2005"
 			${If} VS2005PRO_CSharp_INST != ""  
 				!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS8_PRO"
 				!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS8_PRO"
@@ -544,6 +567,10 @@ SubSection "xlwDotNet" xlwDotNet
 			!insertmacro DotNetbuildfiles "VS9"
 			!insertmacro DotNetHeaders
 			!insertmacro dotNetInterfaceGenSource
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS9"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS9"
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\VisualBasic\VB2008"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VisualBasic\VB2008"
 			${If} VS2008PRO_CSharp_INST != ""  
 				!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS9_PRO"
 				!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS9_PRO"
@@ -693,6 +720,10 @@ Function DevEnvironFinder
 	!insertmacro FINDENV HKLM "Software\Microsoft\VisualStudio\8.0\InstalledProducts\Microsoft Visual C#" "Package"  "Visual Studio 2005 C#"
 	Pop $VS2005PRO_CSharp_INST
 	
+	!insertmacro FINDENV HKLM "Software\Microsoft\VisualStudio\8.0\InstalledProducts\Microsoft Visual Basic" "Package"  "Visual Studio 2005 VisualBasic"
+	Pop $VS2005PRO_VisualBasic_INST
+	
+	
 	# Visual Studio 2008
 	
 	!insertmacro FINDENV HKLM "Software\Microsoft\VisualStudio\9.0\InstalledProducts\Microsoft Visual C++" "Package"  "Visual Studio 2008 C++"
@@ -700,6 +731,10 @@ Function DevEnvironFinder
 	
 	!insertmacro FINDENV HKLM "Software\Microsoft\VisualStudio\9.0\InstalledProducts\Microsoft Visual C#" "Package"  "Visual Studio 2008 C#"
 	Pop $VS2008PRO_CSharp_INST
+	
+	!insertmacro FINDENV HKLM "Software\Microsoft\VisualStudio\9.0\InstalledProducts\Microsoft Visual Basic" "Package"  "Visual Studio 2008 VisualBasic"
+	Pop $VS2008PRO_VisualBasic_INST
+	
 	
 	# Visual Studio Express 2005 
 	
@@ -714,6 +749,9 @@ Function DevEnvironFinder
 		Pop $PSDK
 	${EndIf}
 	
+	!insertmacro FINDENV HKLM "SOFTWARE\Microsoft\VBExpress\8.0\InstalledProducts\Microsoft Visual Basic" "Package"  "Visual Studio Express 2005 VisualBasic"
+	Pop $VS2005EXP_VisualBasic_INST
+	
 	# Visual Studio Express 2008 
 	
 	!insertmacro FINDENV HKLM "Software\Microsoft\VCExpress\9.0\InstalledProducts\Microsoft Visual C++" "Package"  "Visual Studio Express 2008 C++"
@@ -721,6 +759,10 @@ Function DevEnvironFinder
 	
 	!insertmacro FINDENV HKLM "Software\Microsoft\VCSExpress\9.0\InstalledProducts\Microsoft Visual C#" "Package"  "Visual Studio Express 2008 C#"
 	Pop $VS2008EXP_CSharp_INST
+	
+	!insertmacro FINDENV HKLM "Software\Microsoft\VBExpress\9.0\InstalledProducts\Microsoft Visual Basic" "Package"  "Visual Studio Express 2008 VisualBasic"
+	Pop $VS2008EXP_VisualBasic_INST
+	
 	
 
 	# gcc
@@ -730,7 +772,6 @@ Function DevEnvironFinder
 	
 	!insertmacro FINDENV HKCU "Software\CodeBlocks\Components" "MinGW Compiler Suite"  "Code::Blocks(MingW)"
 	Pop $CodeBlocks_INST
-
 
 	nsDialogs::Show
 
@@ -802,14 +843,22 @@ Function SetUpInfo
 	
 	${If} $VS2008PRO_CSharp_INST == "" 
 		${If} $VS2008EXP_CSharp_INST == ""  
-			SectionSetFlags ${VS2008DotNet} 0
+			${If} $VS2008PRO_VisualBasic_INST == "" 
+				${If} $VS2008EXP_VisualBasic_INST == ""  
+					SectionSetFlags ${VS2008DotNet} 0
+				${EndIf}
+			${EndIf}
 		${EndIf}
 	${EndIf}
 	
 
 	${If} $VS2005PRO_CSharp_INST == "" 
 		${If} $VS2005EXP_CSharp_INST == ""  
-			SectionSetFlags ${VS2005DotNet} 0
+			${If} $VS2005PRO_VisualBasic_INST == "" 
+				${If} $VS2005EXP_VisualBasic_INST == ""  
+					SectionSetFlags ${VS2005DotNet} 0
+				${EndIf}
+			${EndIf}
 		${EndIf}
 	${EndIf}
 

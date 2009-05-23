@@ -72,7 +72,7 @@ Please email xlw-users@lists.sourceforge.net.
    ----------------------
  
  
- 3. Building an XLL with xlwDotNet (C#)
+ 3. Building an XLL with xlwDotNet (C# or VisualBasic) 
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
    3.1 Obtaining the Template Project
@@ -90,7 +90,7 @@ Please email xlw-users@lists.sourceforge.net.
    i.   Change the name of your Template directory from XLL_Project to  MyLib, replacing MyLib 
         with the name of your Library.
    
-   ii.  In this directory  You will find a C# Solution file called Template.sln, change the name to MyLib.sln
+   ii.  In this directory  You will find a Visual Studio Solution file called Template.sln, change the name to MyLib.sln
         replacing MyLib  with the name of your Library.
 
    iii. Also in this directory you will find a sub-directory Addin, in this sub directory you will see a C++ Solution file
@@ -101,8 +101,8 @@ Please email xlw-users@lists.sourceforge.net.
 
    
 
-   3.3 Adding your own functions
-   -----------------------------
+   3.3 Adding your own functions in C#
+   ----------------------------------
 
    The parameter and return types of you functions can be :
 
@@ -143,8 +143,28 @@ Please email xlw-users@lists.sourceforge.net.
    Your functions must be Public & static and in a Public class.
 
  
- 
- 
+    3.4 Adding your own functions in VisualBasic
+   ---------------------------------------------	
+   
+    <ExcelExport("returns the diff of two cell ranges")> _
+        Public Shared  DiffRange( _
+                 [Parameter("The first  Cell Range")] CellMatrix A, _
+                 [Parameter("The second Cell Range")] CellMatrix B  _
+                   ) as xlwTypes.CellMatrix
+          {
+            ....
+          }
+	
+  4. Tweaking Visual Studio Express
+    '''''''''''''''''''''''''''''''
+	
+	The default install of Visual Studio ( C++, C# or VisualBasic) does not show the
+    the build configuration at the top as is the case for the Professional Edition.
+    This can be changed by going to Tools->Options then checking the box 'Show All Settings'.
+    Then from the menu in the list on the left select 'Projects and Solutions -> General'
+    then check boxes "Show advanced build configurations' and 	
+	'Show Output window when build starts'
+	
  
  
  
