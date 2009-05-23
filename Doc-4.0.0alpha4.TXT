@@ -165,6 +165,31 @@ Please email xlw-users@lists.sourceforge.net.
     then check boxes "Show advanced build configurations' and 	
 	'Show Output window when build starts'
 	
+	
+  5. If Your .NET Addin Just refuses to load or you cannot see your functions. 
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+	
+   Some versions of Excel do not load the correct .NET Runtime. We are
+   using .NET 3.5 and I believe Excel 2002 does not load this at startup,
+   where as Excel 2007 does. There is a work around for this.
+   Create a file called Excel.exe.config with contents :
+   
+    <?xml version="1.0"?>
+    <configuration>
+	<startup>
+		<supportedRuntime version="v2.0.50727" />
+	</startup>
+    </configuration>
+
+   and put it in the same directory as the excel executable.
+   Some other reading on this issue 
+
+   http://stackoverflow.com/questions/436958/-net-app-config-question
+   http://krgreenlee.blogspot.com/2006/01/software-running-excel-with-net-11.html
+   http://msdn.microsoft.com/en-us/library/w4atty68.aspx
+      
+
+   
  
  
  
