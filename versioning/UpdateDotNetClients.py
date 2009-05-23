@@ -25,7 +25,7 @@ destinationPaths = [
 					'../xlwDotNet/Example'
 				   ]
 
-effectedFiles = ['.vcproj','.csproj','vbproj']
+effectedFiles = ['.vcproj','.csproj','.vbproj']
 
 with open("./XLWVERSION",'r') as versionfile:
 	xlwversion = versionfile.readlines()
