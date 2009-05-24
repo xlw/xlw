@@ -8,8 +8,8 @@ RES  =
 OBJ  = ./Release/Objects/source.o $(RES)
 LINKOBJ  = ./Release/Objects/source.o $(RES)
 LIBS =  -L"$(XLW)/xlw/lib" --no-export-all-symbols --add-stdcall-alias  ./Release/Objects/xlwWrapper.o "$(XLW)/xlw/lib/XlOpenClose.o"   -lxlw-gcc-s-4_0_0alpha4  
-INCS = 
-CXXINCS = 
+INCS =  -I"./source" 
+CXXINCS =  -I"./source" 
 BIN  = Release/Template.xll
 CXXFLAGS = $(CXXINCS) -DBUILDING_DLL=1  -O3 -I"$(XLW)\xlw\include"   -fno-access-control -fexceptions
 CFLAGS = $(INCS) -DBUILDING_DLL=1   -fno-access-control -fexceptions

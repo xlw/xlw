@@ -52,6 +52,7 @@
 		</Build>
 		<Compiler>
 			<Add directory="$(XLW)\xlw\include" />
+			<Add directory=".\source" />
 		</Compiler>
 		<Linker>
 			<Add directory="..\..\..\lib" />
