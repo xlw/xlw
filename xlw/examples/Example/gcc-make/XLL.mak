@@ -6,7 +6,7 @@ LIBPREFIX=
 EXT_SHARE=xll
 
 #Describes the Linker details
-LIBDIRS = ..\..\..\lib
+LIBDIRS = ../../../lib
 ifeq ($(BUILD),DEBUG)
 LIBS=xlw-gcc-s-gd-4_0_0alpha5
 else
@@ -14,18 +14,18 @@ LIBS=xlw-gcc-s-4_0_0alpha5
 endif 
 
 #Describes the Compiler details
-INCLUDE_DIR =..\common_source  ..\..\..\include
+INCLUDE_DIR =../common_source  ../../../include
 CXXFLAGS = -DBUILDING_DLL=1  -fexceptions 
 
 
 #The source
-SRC_DIR=..\common_source
-LIBSRC = Payoff.cpp \
-		 PayoffConcrete.cpp \
-		 PayoffRegistration.cpp \
+SRC_DIR=../common_source
+LIBSRC = PayOff.cpp \
+		 PayOffConcrete.cpp \
+		 PayOffRegistration.cpp \
 		 Test.cpp \
 		 xlwTest.cpp 
 		
-MAKEDIR = ..\..\..\make
+MAKEDIR = ../../../make
 include $(MAKEDIR)/make.rules
 include $(MAKEDIR)/make.targets

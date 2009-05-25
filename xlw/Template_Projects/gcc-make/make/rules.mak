@@ -25,8 +25,8 @@ ifndef SRC_DIR
 SRC_DIR=.
 endif
 
-INSTALL_DLL = $(BUILD)\\XLL
-INSTALL_OBJ = $(INSTALL_DLL)\\OBJECTS
+INSTALL_DLL = $(BUILD)/XLL
+INSTALL_OBJ = $(INSTALL_DLL)/OBJECTS
 
 ########################################################
 #	C++ language section.

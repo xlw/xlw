@@ -29,16 +29,16 @@ LIBTYPE=SHARE
 endif
 
 ifndef SRC_DIR
-SRC_DIR=.
+SRC_DIR=./
 endif
 export SRC_DIR
 
 
 
-export INSTALL_BIN=$(BUILD)\\BIN
-export INSTALL_LIB=$(BUILD)\\LIB
-export INSTALL_DLL=$(BUILD)\\DLL
-export INSTALL_OBJ=OBJECTS\\$(BUILD)
+export INSTALL_BIN=$(BUILD)/BIN
+export INSTALL_LIB=$(BUILD)/LIB
+export INSTALL_DLL=$(BUILD)/DLL
+export INSTALL_OBJ=OBJECTS/$(BUILD)
 
 # Installed target permissions.
 READ_PERMISSION=444

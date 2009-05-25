@@ -54,6 +54,7 @@ IDIR = $(INSTALL_DIR)
 endif 
 
 
+
 install:: $(IDIR)/$(LIBPREFIX)$(LIBRARY).$(LIBP) 
 	  
 LIBOBJ := $(LIBSRC:%.cpp=$(INSTALL_OBJ)/%.o)
