@@ -405,7 +405,6 @@ SubSection "xlw" xlw
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\xlw-vc90*.lib"
 			File  "xlw\lib\xlw-vc90*.pdb"
-			File  "xlw\lib\xlw-vc80*.pdb"
 			!insertmacro InterfaceGenerator vc9
 		SectionEnd
 		
@@ -414,7 +413,6 @@ SubSection "xlw" xlw
 			File  "xlw\lib\libxlw-devcpp*.a"
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\XlOpenClose*.o"
-			File  "xlw\lib\xlw-vc80*.pdb"
 			SetOutPath "$INSTDIR\xlw\build\devcpp"
 			File /r "xlw\build\devcpp\*.exe"
 		SectionEnd
