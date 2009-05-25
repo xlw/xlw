@@ -25,6 +25,8 @@ ifndef SRC_DIR
 SRC_DIR=.
 endif
 
+SEP:=$(strip \)
+
 INSTALL_DLL = $(BUILD)/XLL
 INSTALL_OBJ = $(INSTALL_DLL)/OBJECTS
 
@@ -115,7 +117,7 @@ $(TARGET)::$(LIBOBJ)
 ##############################################################
 
 
-directories :: $(INSTALL_DLL) $(INSTALL_OBJ) 
+directories :: $(BUILD) $(INSTALL_DLL) $(INSTALL_OBJ) 
 
 
 clean:: clean_target clean_objects 
@@ -129,14 +131,20 @@ clean_target::
 	@echo Removing $(notdir $(TARGET))
 	@$(RM) $(TARGET)
 
+$(BUILD):
+	@echo Creating $@ .....
+	@-mkdir  $(subst /,$(SEP)$(SEP),$(BUILD))
+		
 
 $(INSTALL_DLL):
 	@echo Creating $@ .....
-	-mkdir  $(INSTALL_DLL) 
+	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_DLL))
+
 	
 $(INSTALL_OBJ):
 	@echo Creating $@ .....
-	-mkdir  $(INSTALL_OBJ) 
+	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_OBJ)) 
+
 
 	
 

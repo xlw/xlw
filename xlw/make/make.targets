@@ -132,7 +132,7 @@ endif
 
 SOURCE = $(LIBSRC) $(PRGSRC)
 
-directories :: $(INSTALL_BIN) $(INSTALL_LIB) $(INSTALL_DLL) $(INSTALL_OBJ) 
+directories :: $(BUILD) $(INSTALL_BIN) $(INSTALL_LIB) $(INSTALL_DLL) $(INSTALL_OBJ) 
 
 
 clean:: clean_target clean_objects 
@@ -146,23 +146,28 @@ clean_target::
 	@echo Removing $(notdir $(TARGET))
 	@$(RM) $(TARGET)
 
+SEP:=$(strip \)
 
+$(BUILD):
+	@echo Creating $@ .....
+	@-mkdir  OBJECTS
+	@-mkdir  $(subst /,$(SEP)$(SEP),$(BUILD))
 
 $(INSTALL_BIN) :
 	@echo Creating $@ .....
-	-mkdir  $(INSTALL_BIN) 
+	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_BIN) )
 $(INSTALL_LIB):
 	@echo Creating $@ .....
-	-mkdir  $(INSTALL_LIB) 
+	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_LIB)) 
 $(INSTALL_DLL):
 	@echo Creating $@ .....
-	-mkdir  $(INSTALL_DLL) 
+	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_DLL)) 
 $(INSTALL_OBJ):
 	@echo Creating $@ .....
-	-mkdir  $(INSTALL_OBJ) 
+	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_OBJ) )
 $(INSTALL_DEPEND):
 	@echo Creating $@ .....
-	-mkdir  $(INSTALL_DEPEND) 
+	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_DEPEND) )
 
 	
 

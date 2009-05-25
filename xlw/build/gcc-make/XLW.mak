@@ -1,4 +1,4 @@
-include .\XLWVERSION.mak
+include ./XLWVERSION.mak
 
 ifeq ($(BUILD),DEBUG)
 LIBRARY = xlw-gcc-s-gd-$(XLWVERSION)
@@ -8,7 +8,7 @@ LIBRARY = xlw-gcc-s-$(XLWVERSION)
 endif
 
 
-INSTALL_DIR = ..\..\lib
+INSTALL_DIR = ../../lib
 
 
 
@@ -16,11 +16,11 @@ LIBTYPE=STATIC
 
 
 
-INCLUDE_DIR = ..\..\include
+INCLUDE_DIR = ../../include
 CXXFLAGS = -DBUILDING_DLL=1  -fexceptions
 
 
-SRC_DIR = ..\..\src
+SRC_DIR = ../../src
 LIBSRC = ArgList.cpp \
          CellMatrix.cpp \
          Dispatcher.cpp \
@@ -49,6 +49,6 @@ LIBSRC = ArgList.cpp \
          xlcall.cpp \
          XlOpenClose.cpp   
 
-MAKEDIR = ..\..\make
+MAKEDIR = ../../make
 include $(MAKEDIR)/make.rules
 include $(MAKEDIR)/make.targets

@@ -16,9 +16,6 @@ SUFFIXES=.o .cpp .so .a .dll .d
 
 .SUFFIXES: $(SUFFIXES)
 
-export SEP = \\
-# export  SEP := /
-
 ifndef BUILD
 export BUILD=DEBUG
 endif
