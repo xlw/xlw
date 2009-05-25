@@ -5,31 +5,31 @@ CPP  = g++.exe
 CC   = gcc.exe
 WINDRES = windres.exe
 RES  = 
-OBJ  = ./Release/Objects/source.o $(RES)
-LINKOBJ  = ./Release/Objects/source.o $(RES)
-LIBS =  -L"$(XLW)/xlw/lib" --no-export-all-symbols --add-stdcall-alias  ./Release/Objects/xlwWrapper.o "$(XLW)/xlw/lib/XlOpenClose.o"   -lxlw-devcpp-gcc-s-4_0_0alpha5  
+OBJ  = ./Debug/Objects/source.o $(RES)
+LINKOBJ  = ./Debug/Objects/source.o $(RES)
+LIBS =  -L"$(XLW)/xlw/lib" --no-export-all-symbols --add-stdcall-alias  ./Debug/Objects/xlwWrapper.o "$(XLW)/xlw/lib/XlOpenClose.o"  -lxlw-devcpp-gcc-s-gd-4_0_0alpha5  
 INCS =  -I"./source" 
 CXXINCS =  -I"./source" 
-BIN  = Release/Template.xll
-CXXFLAGS = $(CXXINCS) -DBUILDING_DLL=1  -O3 -I"$(XLW)\xlw\include"   -fno-access-control -fexceptions
+BIN  = Debug/Template.xll
+CXXFLAGS = $(CXXINCS) -DBUILDING_DLL=1  -g3 -I"$(XLW)\xlw\include"   -fno-access-control -fexceptions
 CFLAGS = $(INCS) -DBUILDING_DLL=1   -fno-access-control -fexceptions
 RM = rm -f
 
 .PHONY: all all-before all-after clean clean-custom
 
-all: all-before Release/Template.xll all-after
+all: all-before Debug/Template.xll all-after
 
-include Generators/RunInterfaceGenerator_RELEASE.mak
+include Generators/RunInterfaceGenerator.mak
 
 clean: clean-custom
 	${RM} $(OBJ) $(BIN)
 
 DLLWRAP=dllwrap.exe
-DEFFILE=Release/libTemplate.def
-STATICLIB=Release/libTemplate.a
+DEFFILE=Debug/libTemplate.def
+STATICLIB=Debug/libTemplate.a
 
 $(BIN): $(LINKOBJ)
 	$(DLLWRAP) --output-def $(DEFFILE) --driver-name c++ --implib $(STATICLIB) $(LINKOBJ) $(LIBS) -o $(BIN)
 
-./Release/Objects/source.o: source/source.cpp
-	$(CPP) -c source/source.cpp -o ./Release/Objects/source.o $(CXXFLAGS)
+./Debug/Objects/source.o: source/source.cpp
+	$(CPP) -c source/source.cpp -o ./Debug/Objects/source.o $(CXXFLAGS)
