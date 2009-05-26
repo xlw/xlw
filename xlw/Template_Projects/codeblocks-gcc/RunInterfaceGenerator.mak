@@ -9,7 +9,7 @@ endif
 all: source/xlwWrapper.cpp
 
 source/xlwWrapper.cpp : source/cppinterface.h
-		"$(XLW)/xlw/build/codeblocks-gcc/bin/$(BUILD)/InterfaceGenerator.exe" source/cppinterface.h source/xlwWrapper.cpp
+		"$(subst $(strip \),/,$(XLW))/xlw/build/codeblocks-gcc/bin/$(BUILD)/InterfaceGenerator.exe" source/cppinterface.h source/xlwWrapper.cpp
 		@echo OK > build_$(BUILD)
 
 clean :
