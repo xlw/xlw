@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+# Visual C++ Express 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XLL", "XLL.vcproj", "{15F2EBE8-BD3A-43A3-B11D-7BE769F5FABB}"
 EndProject
 Global
