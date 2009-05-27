@@ -139,6 +139,7 @@
 		File /nonfatal /r "${dir}\*.vbproj"
 		File /nonfatal /r "${dir}\*.sln"
 		File /nonfatal /r "${dir}\*.mak"
+		File /nonfatal /r "${dir}\*.nmake"
 		File /nonfatal /r "${dir}\Makefile.RELEASE"
 		File /nonfatal /r "${dir}\Makefile"
 		File /nonfatal /r "${dir}\*.dev"
@@ -364,7 +365,7 @@ Section #
 		File  ".\xlwDotNetTemplateExtractor.exe"
 		
 		SetOutPath "$INSTDIR"
-		File "xlwLICENSE.rtf"
+		File "xlwLICENSE.TXT"
 		
 		SetOutPath "$INSTDIR"
 		File "Doc-${XLW_VERSION}.TXT"
@@ -376,8 +377,8 @@ Section #
 		
 		CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}\xlw"
 		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlw\Extract XLW xll template.lnk " "$INSTDIR\TemplateExtractors\xlwTemplateExtractor.exe"
-		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Getting Started.lnk " "$INSTDIR\${XLW_VERSION}.TXT"
-		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\XLW License.lnk " "$INSTDIR\xlwLICENSE.rtf"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Getting Started.lnk " "$INSTDIR\Doc-${XLW_VERSION}.TXT"
+		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\XLW License.lnk " "$INSTDIR\xlwLICENSE.TXT"
 		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\Uninstall XLW.lnk " "$INSTDIR\Uninstall.exe"
 		
 	

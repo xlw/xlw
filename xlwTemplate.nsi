@@ -144,6 +144,7 @@ Var DIR
 		File /nonfatal /r "xlw\Template_Projects\${dir}\*.csproj"
 		File /nonfatal /r "xlw\Template_Projects\${dir}\*.sln"
 		File /nonfatal /r "xlw\Template_Projects\${dir}\*.mak"
+		File /nonfatal /r "xlw\Template_Projects\${dir}\*.nmake"
 		File /nonfatal /r "xlw\Template_Projects\${dir}\Makefile.RELEASE"
 		File /nonfatal /r "xlw\Template_Projects\${dir}\Makefile"
 		File /nonfatal /r "xlw\Template_Projects\${dir}\*.dev"

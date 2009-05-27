@@ -24,9 +24,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f &quot;$(XLW)\xlw\make\vcRunInterfaceGenerator.nmake&quot;  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9  ALL "
-				ReBuildCommandLine="NMAKE /f &quot;$(XLW)\xlw\make\vcRunInterfaceGenerator.nmake&quot;  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9  REBUILD "
-				CleanCommandLine="NMAKE /f &quot;$(XLW)\xlw\make\vcRunInterfaceGenerator.nmake&quot;  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9  CLEAN "
+				BuildCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot;  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9  ALL "
+				ReBuildCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot;  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9  REBUILD "
+				CleanCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot;  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc9  CLEAN "
 				Output=""
 				PreprocessorDefinitions=""
 				IncludeSearchPath=""
@@ -45,9 +45,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f &quot;$(XLW)\xlw\make\vcRunInterfaceGenerator.nmake&quot; ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9  ALL "
-				ReBuildCommandLine="NMAKE /f &quot;$(XLW)\xlw\make\vcRunInterfaceGenerator.nmake&quot; ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9 REBUILD "
-				CleanCommandLine="NMAKE /f &quot;$(XLW)\xlw\make\vcRunInterfaceGenerator.nmake&quot;  ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9 CLEAN "
+				BuildCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot; ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9  ALL "
+				ReBuildCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot; ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9 REBUILD "
+				CleanCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot;  ENVIRON=Release LIBRARY=$(SolutionName) VC=vc9 CLEAN "
 				Output=""
 				PreprocessorDefinitions=""
 				IncludeSearchPath=""
@@ -61,6 +61,10 @@
 	<References>
 	</References>
 	<Files>
+		<File
+			RelativePath=".\RunInterfaceGenerator.nmake"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
