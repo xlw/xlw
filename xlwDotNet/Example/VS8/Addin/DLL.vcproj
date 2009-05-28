@@ -50,7 +50,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				ForcedUsingFiles="..\..\..\lib\xlwDotNet-vc80-mt-gd-4_0_0alpha7.dll;$(OutDir)\$(SolutionName).NET.dll"
+				ForcedUsingFiles="..\..\..\lib\xlwDotNet-vc80-mt-gd-4_0_0beta0.dll;$(OutDir)\$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -63,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-gd-4_0_0alpha7.lib"
+				AdditionalDependencies="xlw-vc80-mt-gd-4_0_0beta0.lib"
 				OutputFile="$(OutDir)\$(SolutionName)C.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\..\xlw\lib;$(PSDK)\Lib"
@@ -135,7 +135,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				ForcedUsingFiles="..\..\..\lib\xlwDotNet-vc80-mt-4_0_0alpha7.dll;$(OutDir)\$(SolutionName).NET.dll"
+				ForcedUsingFiles="..\..\..\lib\xlwDotNet-vc80-mt-4_0_0beta0.dll;$(OutDir)\$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -148,7 +148,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-4_0_0alpha7.lib"
+				AdditionalDependencies="xlw-vc80-mt-4_0_0beta0.lib"
 				OutputFile="$(OutDir)/$(SolutionName)C.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\..\xlw\lib;$(PSDK)\Lib"
