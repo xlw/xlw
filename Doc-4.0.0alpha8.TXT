@@ -1,10 +1,12 @@
 
 
-This is a Beta version for xlw 4.0.0
+This is an Alpha version for xlw 4.0.0
 THe look & feel of xlw4 is considerably different from previous verions
 at least on the surface and thus there is a need for new documentation.
 New and more extensive documentation will be included in the 
 final release xlw-4.0.0f0.
+
+Please post feedback to xlw-users@sourceforge.net
 
 PLEASE REFER TO THE LICENSE FILE.
 

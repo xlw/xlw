@@ -21,7 +21,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-<gdconfig>-gd</gdconfig>
+    <gdconfig>-gd</gdconfig>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -32,7 +32,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-<gdconfig>
+    <gdconfig>
     </gdconfig>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -63,11 +63,8 @@
       <HintPath>..\..\..\..\..\..\..\Program Files\IronPython 2.0.1\Microsoft.Scripting.ExtensionAttribute.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="xlwDotNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e6c495227a9be340, processorArchitecture=x86">
-      <HintPath>$(XLW)\xlwDotNet\lib\xlwDotNet-vc80-mt$(gdconfig)-4_0_0beta0.dll</HintPath>
+      <HintPath>$(XLW)\xlwDotNet\lib\xlwDotNet-vc80-mt$(gdconfig)-4_0_0alpha8.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>

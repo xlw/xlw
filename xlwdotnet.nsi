@@ -1,6 +1,6 @@
 
 
-	!define DEV_OR_RELEASE "- This is a development version - beta release"  ; uncomment on development version
+	!define DEV_OR_RELEASE "- This is a development version - alpha release"  ; uncomment on development version
 	;!define DEV_OR_RELEASE ""                                ; uncomment on release version
 
 ;------------------------------------------------------------------------------------------------------------------------

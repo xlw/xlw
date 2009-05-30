@@ -12,7 +12,7 @@ ResourceIncludes=
 MakeIncludes=Generators\RunInterfaceGenerator.mak
 Compiler=-DBUILDING_DLL=1_@@_
 CppCompiler=-DBUILDING_DLL=1  -g3_@@_-I"$(XLW)\xlw\include"_@@_
-Linker=--no-export-all-symbols --add-stdcall-alias_@@_ .\Debug\Objects\xlwWrapper.o_@@_"$(XLW)\xlw\lib\XlOpenClose.o"_@@_ -lxlw-devcpp-gcc-s-gd-4_0_0beta0_@@_
+Linker=--no-export-all-symbols --add-stdcall-alias_@@_ .\Debug\Objects\xlwWrapper.o_@@_"$(XLW)\xlw\lib\XlOpenClose.o"_@@_ -lxlw-devcpp-gcc-s-gd-4_0_0alpha8_@@_
 IsCpp=1
 Icon=
 ExeOutput=.\Debug

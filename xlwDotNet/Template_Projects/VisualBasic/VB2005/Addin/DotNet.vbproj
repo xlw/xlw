@@ -41,11 +41,11 @@
     <DefineTrace>true</DefineTrace>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-   <ItemGroup>
+  <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
-	<Reference Include="xlwDotNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e6c495227a9be340, processorArchitecture=x86">
-      <HintPath>$(XLW)\xlwDotNet\lib\xlwDotNet-vc80-mt$(gdconfig)-4_0_0beta0.dll</HintPath>
+    <Reference Include="xlwDotNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e6c495227a9be340, processorArchitecture=x86">
+      <HintPath>$(XLW)\xlwDotNet\lib\xlwDotNet-vc80-mt$(gdconfig)-4_0_0alpha8.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
@@ -59,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="VBFunctions.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
