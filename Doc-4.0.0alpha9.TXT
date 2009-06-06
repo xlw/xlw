@@ -97,10 +97,12 @@ Please email xlw-users@lists.sourceforge.net.
         replacing MyLib  with the name of your Library.
 
    iii. Also in this directory you will find a sub-directory Addin, in this sub directory you will see a C++ Solution file
-        Template.sln. Change the name of this to MyLib.Sln  replacing MyLib  with the name of your Library.
+        Template.sln ( unless you are building a Hybrid project).  
+		Change the name of this to MyLib.Sln  replacing MyLib  with the name of your Library.
 
    iv.  You can now open with Visual Studio the original renamed Solution file (i.e the one u renamed in (ii) )
         Build this  Solution to see if everything is ok. If not check your variable XLW is set correctly.
+		You may have to restart you Visual Studio.
 
    
 
