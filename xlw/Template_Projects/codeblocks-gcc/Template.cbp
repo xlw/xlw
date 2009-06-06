@@ -20,7 +20,7 @@
 				</Compiler>
 				<Linker>
 					<Add library="user32" />
-					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-gd-4_0_0alpha8.a&quot;' />
+					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-gd-4_0_0alpha9.a&quot;' />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak" />
@@ -42,7 +42,7 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="user32" />
-					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-4_0_0alpha8.a&quot;' />
+					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-4_0_0alpha9.a&quot;' />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak BUILD=Release" />

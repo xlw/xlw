@@ -74,6 +74,7 @@
 	Page custom DevEnvironFinder ;Custom page
 	Page custom PlatformSDK ;Custom page
     !insertmacro MUI_PAGE_COMPONENTS
+	Page custom ExcelPatchPage ;Custom page
     !insertmacro MUI_PAGE_DIRECTORY
     !insertmacro MUI_PAGE_INSTFILES
 
@@ -513,6 +514,59 @@ SubSection "xlwDotNet" xlwDotNet
     ; vanilla xlw
 	SectionGroup "Libraries" xlwDotNetLibraries
 	
+	Section #
+	 
+		${If} $EXCEL97_SEL  ==  ${BST_CHECKED}
+				IfFileExists "$EXCEL97\Excel.exe.config" Warn97 Install97 
+				Install97:
+					SetOutPath "$EXCEL97"
+					File  "ExcelPatch\Excel.exe.config"
+					Goto Do2000
+				Warn97:
+				MessageBox MB_OK "$EXCEL97\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
+
+		${EndIF}
+		
+		Do2000:
+		${If} $EXCEL2000_SEL ==  ${BST_CHECKED} 
+				IfFileExists "$EXCEL2000\Excel.exe.config"  Warn2000 Install2000
+				Install2000:
+					SetOutPath "$EXCEL2000"
+					File  "ExcelPatch\Excel.exe.config"
+					Goto Do2002
+				Warn2000:
+				MessageBox MB_OK "$EXCEL2000\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
+		${EndIF}
+
+		Do2002:
+		${If} $EXCEL2002_SEL ==  ${BST_CHECKED} 
+				IfFileExists "$EXCEL2002\Excel.exe.config" Warn2002 Install2002
+				Install2002:
+					SetOutPath "$EXCEL2002"
+					File  "ExcelPatch\Excel.exe.config"
+					Goto Do2003
+				Warn2002:
+				MessageBox MB_OK "$EXCEL2002\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
+		${EndIF}
+
+		Do2003:
+		${If} $EXCEL2003_SEL ==  ${BST_CHECKED}
+				IfFileExists "$EXCEL2003\Excel.exe.config" Warn2003 Install2003
+				Install2003:
+					SetOutPath "$EXCEL2003"
+					File  "ExcelPatch\Excel.exe.config"
+					Goto FINISH
+				Warn2003:
+				MessageBox MB_OK "$EXCEL2003\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
+		${EndIF}
+		
+		FINISH:
+
+SectionEnd 
+
+
+
+	
 		Section "VS2005" VS2005DotNet
 			SetOutPath "$INSTDIR\xlwDotNet\lib"
 			File "xlwDotNet\lib\xlwDotNet-vc80*.dll"
@@ -602,35 +656,35 @@ SubSectionEnd
 ;----------------------------------------------------------------------------------------------------------------------
 ;Section Descriptions
 
-LangString DESC_Libraries ${LANG_ENGLISH} "xlw Libraries Description TODO."
+LangString DESC_Libraries ${LANG_ENGLISH} "The static xlw libraries & Tools."
 
-LangString DESC_VS2003 ${LANG_ENGLISH} "VS2003  Description TODO."
-LangString DESC_VS2005 ${LANG_ENGLISH} "VS2005  Description TODO"
-LangString DESC_VS2008 ${LANG_ENGLISH} "VS2008  Description TODO."
-LangString DESC_DEVCPP ${LANG_ENGLISH} "Dev-C++ Description TODO."
-LangString DESC_CODEBLOCKS ${LANG_ENGLISH} "Code::Blocks Description TODO."
-LangString DESC_GCCMAKE ${LANG_ENGLISH} "gcc/make Description TODO."
+LangString DESC_VS2003 ${LANG_ENGLISH} "VS2003  xll C++ build enviroment for Visual Studio 2003 (VS7.1)."
+LangString DESC_VS2005 ${LANG_ENGLISH} "VS2005  xll C++ build enviroment for Visual Studio 2005 (VS8)."
+LangString DESC_VS2008 ${LANG_ENGLISH} "VS2008  xll C++ build enviroment for Visual Studio 2008 (VS9)."
+LangString DESC_DEVCPP ${LANG_ENGLISH} "Dev-C++ xll C++ build enviroment for Dev-C++ for MinGW. The support for Dev-C++ is deprecated and will be discontinued in future versions of XLW. Consider using Code::Blocks."
+LangString DESC_CODEBLOCKS ${LANG_ENGLISH} "Code::Blocks xll C++ build enviroment Code::Blocks ( MinGW only )."
+LangString DESC_GCCMAKE ${LANG_ENGLISH} "gcc/make xll C++ build enviroment with support of GNU-MAKE. This uses makefiles"
 
-LangString DESC_Source ${LANG_ENGLISH} "xlw source Description TODO."
+LangString DESC_Source ${LANG_ENGLISH} " You can install the source code for the xlw libraries including all appropriates project files."
 
-LangString DESC_xlwExamples ${LANG_ENGLISH} "xlw Examples Description TODO."
+LangString DESC_xlwExamples ${LANG_ENGLISH} "xlw Examples"
 
-LangString DESC_VS2003_SRC ${LANG_ENGLISH} "xlw VS2003 source Description TODO."
-LangString DESC_VS2005_SRC ${LANG_ENGLISH} "xlw VS2005 source  Description TODO."
-LangString DESC_VS2008_SRC ${LANG_ENGLISH} "xlw VS2008 source  Description TODO."
-LangString DESC_DEVCPP_SRC ${LANG_ENGLISH} "Dev-C++ source Description TODO."
-LangString DESC_CODEBLOCKS_SRC ${LANG_ENGLISH} "Code::Blocks source Description TODO."
-LangString DESC_GCCMAKE_SRC ${LANG_ENGLISH} "gcc/make source Description TODO."
+LangString DESC_VS2003_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2003 (VS7.1) project files for building the xlw libraries & Tools."
+LangString DESC_VS2005_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2005 (VS8) project files for building the xlw libraries & Tools.."
+LangString DESC_VS2008_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2008 (VS9) project files for building the xlw libraries & Tools.."
+LangString DESC_DEVCPP_SRC ${LANG_ENGLISH} "Source code and Dev-C++ project files forbuilding  the xlw libraries & Tools."
+LangString DESC_CODEBLOCKS_SRC ${LANG_ENGLISH} "Source code and Code::Blocks  project files for building the xlw libraries & Tools."
+LangString DESC_GCCMAKE_SRC ${LANG_ENGLISH} "Source code and and gnu-make makefiles for building the xlw libraries & Tools."
 
-LangString DESC_xlwDotNetLibraries ${LANG_ENGLISH} "xlwDotNet Libraries Description TODO."
+LangString DESC_xlwDotNetLibraries ${LANG_ENGLISH} "The xlwDotNet .NET Assemblies & Tools. xlls reference these assemblies when they are built. The Assemblies are built for CLR 2 supporting .NET Frameworks 2.0, 3.0 & 3.5 "
 
-LangString DESC_VS2005DotNet ${LANG_ENGLISH} "VS2005 .Net  Description TODO"
-LangString DESC_VS2008DotNet ${LANG_ENGLISH} "VS2008 .Net  Description TODO."
+LangString DESC_VS2005DotNet ${LANG_ENGLISH} "xlwDotNet .NET Assemblies  & Tools to build for xlls with Visual Studio 2005 (VS8)"
+LangString DESC_VS2008DotNet ${LANG_ENGLISH} "xlwDotNet .NET Assemblies  & Tools to build for xlls with Visual Studio 2008 (VS9)"
 
-LangString DESC_DotNetSource ${LANG_ENGLISH} "xlwDotNet source Description TODO."
+LangString DESC_DotNetSource ${LANG_ENGLISH} " You can install the source code for the xlwDotNet libraries & Tools including all appropriates project files."
 
-LangString DESC_VS2005DotNet_SRC ${LANG_ENGLISH} "VS2005 .Net  source Description TODO."
-LangString DESC_VS2008DotNet_SRC ${LANG_ENGLISH} "VS2008 .Net  source Description TODO."
+LangString DESC_VS2005DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2005 (VS8) project files for building the xlwDotNet Assemblies & Tools."
+LangString DESC_VS2008DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2008 (VS9) project files for building the xlwDotNet Assemblies & Tools."
 
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
@@ -1087,6 +1141,156 @@ Function .OnInstSuccess
    SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
 
 FunctionEnd
+
+
+
+
+Var DIALOG_PATCH
+
+Var BUTTON_PATCH
+
+Var EXCEL97
+Var EXCEL2000
+Var EXCEL2002
+Var EXCEL2003
+
+
+Var EXCEL97_CHECK
+Var EXCEL2000_CHECK
+Var EXCEL2002_CHECK
+Var EXCEL2003_CHECK
+
+Var EXCEL97_SEL
+Var EXCEL2000_SEL
+Var EXCEL2002_SEL
+Var EXCEL2003_SEL
+
+
+
+Function ExcelPatchPage
+
+	!insertmacro MUI_HEADER_TEXT "XLW .NET Template Extractor"  "Select the Dev environment for which the template project is to be extracted"
+
+	StrCpy $2 0
+	
+	ReadRegStr $EXCEL97   HKLM "Software\Microsoft\Office\8.0\Excel\InstallRoot" "Path"  
+	${If} $EXCEL97 != "" 
+		IntOp $2 $2 + 1
+	${EndIF}
+	ReadRegStr $EXCEL2000 HKLM "Software\Microsoft\Office\9.0\Excel\InstallRoot" "Path"
+	${If} $EXCEL2000 != "" 
+		IntOp $2 $2 + 1
+	${EndIF}	
+	ReadRegStr $EXCEL2002 HKLM "Software\Microsoft\Office\10.0\Excel\InstallRoot" "Path"  
+	${If} $EXCEL2002 != "" 
+		IntOp $2 $2 + 1
+	${EndIF}
+	ReadRegStr $EXCEL2003 HKLM "Software\Microsoft\Office\11.0\Excel\InstallRoot" "Path" 
+	${If} $EXCEL2003 != "" 
+		IntOp $2 $2 + 1
+	${EndIF}
+	
+	${If} $2 != 0
+	
+			GetDlgItem $0 $HWNDPARENT 1
+			EnableWindow $0 1
+
+			nsDialogs::Create 1018
+			Pop $DIALOG_PATCH
+			
+			
+			${NSD_CreateLabel} 5 2 100% 17% "Detected the following of version(s) of Excel that do not correctly load .NET CLR 2 at startup. Select the Excel(s) that you would like the installer to patch, else leave unselected to either patch manualy later or if you only intend to write C++ xlls."
+			Pop $2
+			${NSD_CreateLabel} 5 50 100% 10% "Note : .NET xlls will not work without the correct CLR being loaded at Excel startup"  
+			Pop $2
+			
+			GetFunctionAddress $0 CheckChanged
+			StrCpy $1 70
+			
+			
+			${If} $EXCEL97 != "" 
+				${NSD_CreateCheckBox} 170 $1 100% 10% "Excel 97"    
+				Pop $EXCEL97_CHECK
+				nsDialogs::OnClick   $EXCEL97_CHECK $0
+				IntOp $1 $1 + 30
+			${EndIF}
+			
+
+			${If} $EXCEL2000 != "" 
+				${NSD_CreateCheckBox} 170 $1 100% 10% "Excel 2000"     
+				Pop $EXCEL2000_CHECK
+				nsDialogs::OnClick   $EXCEL2000_CHECK $0
+				IntOp $1 $1 + 30
+			${EndIF}
+			
+
+			${If} $EXCEL2002 != "" 
+				${NSD_CreateCheckBox} 170 $1 100% 10% "Excel XP (2002)"     
+				Pop $EXCEL2002_CHECK
+				nsDialogs::OnClick   $EXCEL2002_CHECK $0
+				IntOp $1 $1 + 30
+			${EndIF}
+			
+		 
+			${If} $EXCEL2003 != "" 
+				${NSD_CreateCheckBox} 170 $1 100% 10% "Excel 2003"      
+				Pop $EXCEL2003_CHECK
+				nsDialogs::OnClick   $EXCEL2003_CHECK $0
+				IntOp $1 $1 + 30
+			${EndIF}
+				
+
+			${NSD_CreateButton} 170 200 30% 10% "Tell Me More ..."
+			Pop $BUTTON_PATCH
+			
+			GetFunctionAddress $0 OnClick_PATCH
+			nsDialogs::OnClick $BUTTON_PATCH $0
+
+
+			nsDialogs::Show
+			
+	${EndIF}
+
+FunctionEnd
+
+
+
+Function CheckChanged
+	Pop $0 # dir hwnd
+	
+	${NSD_GetState} $EXCEL97_CHECK $EXCEL97_SEL
+	${NSD_GetState} $EXCEL2000_CHECK $EXCEL2000_SEL
+	${NSD_GetState} $EXCEL2002_CHECK $EXCEL2002_SEL
+	${NSD_GetState} $EXCEL2003_CHECK $EXCEL2003_SEL
+
+
+FunctionEnd
+
+Function OnClick_PATCH
+
+	Pop $0 # HWND
+	
+	StrCpy $0   " Some versions of Excel do not load the correct .NET Runtime at startup. C# and other .NET xlls built by XLW require$\r$\n"
+	StrCpy $0 "$0 CLR 2, the runtime for .NET 2.0, .NET 3.0 and .NET 3.5 Frameworks. Excel can be forced to load v2 of the runtime (CLR), $\r$\n"
+	StrCpy $0 "$0 by placing a small xml file  'Excel.exe.config' :$\r$\n"
+	StrCpy $0 "$0 $\r$\n$\r$\n"
+	StrCpy $0 '$0            <?xml version="1.0"?>$\r$\n'
+	StrCpy $0 "$0                <configuration>$\r$\n"
+	StrCpy $0 "$0                   <startup>$\r$\n"
+	StrCpy $0 '$0                       <supportedRuntime version="v2.0.50727" /> $\r$\n'
+	StrCpy $0 "$0                   <startup>$\r$\n"
+	StrCpy $0 "$0                <configuration>"
+	StrCpy $0 "$0 $\r$\n$\r$\n"
+	StrCpy $0 "$0 into the same directory as the Excel executable.$\r$\n"
+	StrCpy $0 "$0 This can either be done by the installer or manualy by the user after installation. For the installer to carry out this$\r$\n"
+	StrCpy $0 "$0 workaround just tick the checkboxes alongside the Excel version you would like to patch.$\r$\n$\r$\n"
+	StrCpy $0 "$0 See MSDN documentation for more information $\r$\n$\r$\n"
+	StrCpy $0 "$0 http://msdn.microsoft.com/en-us/library/w4atty68.aspx $\r$\n"
+	MessageBox MB_OK $0
+  
+
+FunctionEnd
+
 
 
 

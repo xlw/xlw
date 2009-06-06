@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><VisualStudioProject Keyword="Win32Proj" Name="4_0_0alpha8" ProjectGUID="{8DC33132-DEC5-488D-B16F-F5C40C970CBA}" ProjectType="Visual C++" RootNamespace="xlwDotNet" Version="8.00">
+<?xml version="1.0" ?><VisualStudioProject Keyword="Win32Proj" Name="4_0_0alpha9" ProjectGUID="{8DC33132-DEC5-488D-B16F-F5C40C970CBA}" ProjectType="Visual C++" RootNamespace="xlwDotNet" Version="8.00">
 	<Platforms>
 		<Platform Name="Win32"/>
 	</Platforms>
@@ -15,7 +15,7 @@
 			<Tool Name="VCManagedResourceCompilerTool"/>
 			<Tool Name="VCResourceCompilerTool"/>
 			<Tool Name="VCPreLinkEventTool"/>
-			<Tool AdditionalDependencies="xlw-vc80-mt-gd-4_0_0alpha8.lib odbc32.lib odbccp32.lib User32.lib" AdditionalLibraryDirectories="../../../../xlw/lib;$(PSDK)/Lib" AssemblyDebug="1" CLRUnmanagedCodeCheck="false" GenerateDebugInformation="true" KeyFile="../../../xlwDotNet/xlwDotNet.snk" LinkIncremental="2" ModuleDefinitionFile="" Name="VCLinkerTool" OutputFile="$(OutDir)\xlwDotNet-vc80-mt-gd-$(ProjectName).dll" SubSystem="2" TargetMachine="1" Version="0.0.0.0"/>
+			<Tool AdditionalDependencies="xlw-vc80-mt-gd-4_0_0alpha9.lib odbc32.lib odbccp32.lib User32.lib" AdditionalLibraryDirectories="../../../../xlw/lib;$(PSDK)/Lib" AssemblyDebug="1" CLRUnmanagedCodeCheck="false" GenerateDebugInformation="true" KeyFile="../../../xlwDotNet/xlwDotNet.snk" LinkIncremental="2" ModuleDefinitionFile="" Name="VCLinkerTool" OutputFile="$(OutDir)\xlwDotNet-vc80-mt-gd-$(ProjectName).dll" SubSystem="2" TargetMachine="1" Version="0.0.0.0"/>
 			<Tool Name="VCALinkTool"/>
 			<Tool Name="VCManifestTool"/>
 			<Tool Name="VCXDCMakeTool"/>
@@ -35,7 +35,7 @@
 			<Tool Name="VCManagedResourceCompilerTool"/>
 			<Tool Name="VCResourceCompilerTool"/>
 			<Tool Name="VCPreLinkEventTool"/>
-			<Tool AdditionalDependencies="xlw-vc80-mt-4_0_0alpha8.lib" AdditionalLibraryDirectories="../../../../xlw/lib;../../../../xlw/lib;$(PSDK)/Lib" EnableCOMDATFolding="2" GenerateDebugInformation="false" KeyFile="../../../xlwDotNet/xlwDotNet.snk" LinkIncremental="1" ModuleDefinitionFile="" Name="VCLinkerTool" OptimizeReferences="2" OutputFile="$(OutDir)\xlwDotNet-vc80-mt-$(ProjectName).dll" SubSystem="2" TargetMachine="1" Version="1.0.0.0"/>
+			<Tool AdditionalDependencies="xlw-vc80-mt-4_0_0alpha9.lib" AdditionalLibraryDirectories="../../../../xlw/lib;../../../../xlw/lib;$(PSDK)/Lib" EnableCOMDATFolding="2" GenerateDebugInformation="false" KeyFile="../../../xlwDotNet/xlwDotNet.snk" LinkIncremental="1" ModuleDefinitionFile="" Name="VCLinkerTool" OptimizeReferences="2" OutputFile="$(OutDir)\xlwDotNet-vc80-mt-$(ProjectName).dll" SubSystem="2" TargetMachine="1" Version="1.0.0.0"/>
 			<Tool Name="VCALinkTool"/>
 			<Tool Name="VCManifestTool"/>
 			<Tool Name="VCXDCMakeTool"/>

@@ -58,7 +58,7 @@
     <Reference Include="System.Data" />
     <Reference Include="xlwDotNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e6c495227a9be340, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\xlwDotNet-vc90-mt$(gdconfig)-4_0_0alpha8.dll</HintPath>
+      <HintPath>..\..\..\lib\xlwDotNet-vc90-mt$(gdconfig)-4_0_0alpha9.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
