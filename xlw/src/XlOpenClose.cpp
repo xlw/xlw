@@ -55,7 +55,7 @@ extern "C"
 			oldStreamBuf = std::cerr.rdbuf(&debuggerStreamBuf);
 			std::cerr << XLW__HERE__ << "std::cerr redirected to MSVC debugger" << std::endl;
 
-			dwRet = VirtualQuery (((LPCVOID) (&oldStreamBuf)), &theInfo,((DWORD) (sizeof (MEMORY_BASIC_INFORMATION))));
+			dwRet = static_cast<DWORD>(VirtualQuery (((LPCVOID) (&oldStreamBuf)), &theInfo,(static_cast<DWORD> (sizeof (MEMORY_BASIC_INFORMATION)))));
 			if (dwRet)
 			{
 				theHandle = ((HMODULE) (theInfo.AllocationBase));

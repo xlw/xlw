@@ -20,7 +20,6 @@
 #ifndef DOUBLE_OR_NOTHING_H
 #define DOUBLE_OR_NOTHING_H
 
-#include <xlw/port.h>
 #include <string>
 
 namespace xlw {

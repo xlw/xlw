@@ -2,7 +2,8 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
-
+ Copyright (C) 2009 Narinder S Claire
+ 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
 
@@ -64,7 +65,7 @@ namespace xlw {
         freeList_.push_front(newBuffer);
         offset_=0;
     #if !defined(NDEBUG)
-        std::cerr << "xlw is allocating a new buffer of " << size << " bytes" << std::endl;
+        std::cerr << "xlw is allocating a new buffer of " << static_cast<unsigned int>(size) << " bytes" << std::endl;
     #endif
         return;
     }

@@ -1,6 +1,7 @@
 2009-05-16 narinder s claire
 xlwDotNet support for .NET and C#.
-Creationg of Template Projects.
+New installer.
+Creating of Template Projects.
 
 2008-03-19 eric ehlers
 support for Excel 2007

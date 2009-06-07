@@ -3,6 +3,8 @@
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007 Tim Brunne
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009 Narinder S Claire
+
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -25,12 +27,12 @@
 
 #include <xlw/XlfOper4.h>
 #include <xlw/XlfException.h>
-#include <xlw/defines.h>
 #include <cassert>
 #include <iostream>
 #include <stdexcept>
 #include <xlw/CellMatrix.h>
 #include <algorithm>
+#include <xlw/macros.h>
 
 // Stop header precompilation
 #ifdef _MSC_VER
@@ -249,8 +251,8 @@ int xlw::XlfOper4::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorCon
     if (xlret != xlretSuccess)
         return xlret;
 
-    size_t nbRows = ref.GetNbRows();
-    size_t nbCols = ref.GetNbCols();
+    int nbRows = ref.GetNbRows();
+    int nbCols = ref.GetNbCols();
 
     bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
     if (policy == UniDimensional && ! isUniDimRange)
@@ -260,9 +262,9 @@ int xlw::XlfOper4::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorCon
     size_t n = nbRows*nbCols;
     v.resize(n);
 
-    for (size_t i = 0; i < nbRows; ++i)
+    for (int i = 0; i < nbRows; ++i)
     {
-        for (size_t j = 0; j < nbCols; ++j)
+        for (int j = 0; j < nbCols; ++j)
         {
             if (policy == RowMajor)
             // C-like dense matrix storage
@@ -838,23 +840,23 @@ xlw::XlfOper4& xlw::XlfOper4::Set(const MyArray& values)
 
 xlw::XlfOper4& xlw::XlfOper4::Set(const CellMatrix& cells)
 {
-    int r= cells.RowsInStructure();
-    int c= cells.ColumnsInStructure();
+    size_t r= cells.RowsInStructure();
+    size_t c= cells.ColumnsInStructure();
 
     c= c<  255 ? c :255;
 
 
     lpxloper_->xltype = xltypeMulti;
-    lpxloper_->val.array.rows = r;
-    lpxloper_->val.array.columns = c;
+    lpxloper_->val.array.rows = static_cast<WORD>(r);
+    lpxloper_->val.array.columns = static_cast<WORD>(c);
 
     lpxloper_->val.array.lparray
             = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
 
-    for (int i=0; i < r; i++)
-        for (int j=0; j < c; j++)
+    for (size_t i=0; i < r; i++)
+        for (size_t j=0; j < c; j++)
         {
-            int k = i*c +j;
+            size_t k = i*c +j;
             if (cells(i,j).IsANumber())
                 lpxloper_->val.array.lparray[k] = *(LPXLOPER)XlfOper4(cells(i,j).NumericValue());
             else
@@ -992,7 +994,7 @@ xlw::XlfOper4& xlw::XlfOper4::Set(WORD r, WORD c)
     lpxloper_->val.array.rows = r;
     lpxloper_->val.array.columns = c;
     lpxloper_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r * c * sizeof(XLOPER));
-    for (size_t i = 0; i < r * c; ++i)
+    for (size_t i = 0; i < static_cast<size_t>(r * c); ++i)
         lpxloper_->val.array.lparray[i].xltype = xltypeNil;
     return *this;
 }

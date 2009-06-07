@@ -6,6 +6,8 @@
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009 Narinder S Claire
+
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -22,7 +24,6 @@
 #ifndef CELL_MATRIX_H
 #define CELL_MATRIX_H
 
-#include <xlw/port.h>
 #include <string>
 #include <vector>
 #include <xlw/MyContainers.h>
@@ -89,7 +90,7 @@ namespace xlw {
     {
     public:
 
-        CellMatrix(unsigned long rows, unsigned long columns);
+        CellMatrix(size_t rows, size_t columns);
         CellMatrix();
         CellMatrix(double x);
         CellMatrix(std::string x);
@@ -100,19 +101,19 @@ namespace xlw {
         CellMatrix(unsigned long i);
         CellMatrix(int i);
 
-        const CellValue& operator()(unsigned long i, unsigned long j) const;
-        CellValue& operator()(unsigned long i, unsigned long j);
+        const CellValue& operator()(size_t i, size_t j) const;
+        CellValue& operator()(size_t i, size_t j);
 
-        unsigned long RowsInStructure() const;
-        unsigned long ColumnsInStructure() const;
+        size_t RowsInStructure() const;
+        size_t ColumnsInStructure() const;
 
         void PushBottom(const CellMatrix& newRows);
 
     private:
 
         std::vector<std::vector<CellValue> > Cells;
-        unsigned long Rows;
-        unsigned long Columns;
+        size_t Rows;
+        size_t Columns;
 
     };
 

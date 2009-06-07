@@ -5,6 +5,7 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2009 Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -22,7 +23,7 @@
 #include <algorithm>
 
 xlw::MJMatrix&
-xlw::MJMatrix::resize(unsigned long rows, unsigned long columns)
+xlw::MJMatrix::resize(size_t rows, size_t columns)
 {
   if(rows==Rows && columns == Columns)
     return *this;
@@ -60,7 +61,7 @@ void xlw::MJMatrix::Create()
 }
 
 
-void xlw::MJMatrix::Create(unsigned long rows, unsigned long cols)
+void xlw::MJMatrix::Create(size_t rows, size_t cols)
 {
   Rows = rows;
   Columns = cols;
@@ -68,7 +69,7 @@ void xlw::MJMatrix::Create(unsigned long rows, unsigned long cols)
 }
 
 
-xlw::MJMatrix::MJMatrix(unsigned long Rows_, unsigned long Columns_)
+xlw::MJMatrix::MJMatrix(size_t Rows_, size_t Columns_)
                 :       Rows(Rows_),
                         Columns(Columns_)
 {

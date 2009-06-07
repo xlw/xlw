@@ -2,7 +2,8 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
-
+ Copyright (C) 2009 Narinder S Claire
+ 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
 
@@ -135,52 +136,52 @@ namespace xlw {
 
     INLINE bool XlfOper12::IsMissing() const
     {
-        return lpxloper_->xltype & xltypeMissing;
+		return (lpxloper_->xltype & xltypeMissing) == 0 ? false : true ;
     }
 
     INLINE bool XlfOper12::IsError() const
     {
-        return lpxloper_->xltype & xltypeErr;
+        return (lpxloper_->xltype & xltypeErr) == 0 ? false : true ;
     }
 
     INLINE bool XlfOper12::IsRef() const
     {
-        return lpxloper_->xltype & xltypeRef;
+        return (lpxloper_->xltype & xltypeRef) == 0 ? false : true ;
     }
 
     INLINE bool XlfOper12::IsSRef() const
     {
-        return lpxloper_->xltype & xltypeSRef;
+        return (lpxloper_->xltype & xltypeSRef) == 0 ? false : true ;
     }
 
     INLINE bool XlfOper12::IsMulti() const
     {
-        return lpxloper_->xltype & xltypeMulti;
+        return (lpxloper_->xltype & xltypeMulti) == 0 ? false : true ;
     }
 
     INLINE bool XlfOper12::IsNumber() const
     {
-        return lpxloper_->xltype & xltypeNum;
+        return (lpxloper_->xltype & xltypeNum) == 0 ? false : true ;
     }
 
     INLINE bool XlfOper12::IsString() const
     {
-        return lpxloper_->xltype & xltypeStr;
+        return (lpxloper_->xltype & xltypeStr) == 0 ? false : true ;
     }
 
     INLINE bool XlfOper12::IsNil() const
     {
-        return lpxloper_->xltype & xltypeNil;
+        return (lpxloper_->xltype & xltypeNil) == 0 ? false : true ;
     }
 
     INLINE bool XlfOper12::IsBool() const
     {
-        return lpxloper_->xltype & xltypeBool;
+        return (lpxloper_->xltype & xltypeBool) == 0 ? false : true ;
     }
 
     INLINE bool XlfOper12::IsInt() const
     {
-        return lpxloper_->xltype & xltypeInt;
+        return (lpxloper_->xltype & xltypeInt) == 0 ? false : true ;
     }
 
     INLINE int XlfOper12::AsInt(int * pxlret) const

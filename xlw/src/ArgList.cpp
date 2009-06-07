@@ -6,6 +6,7 @@
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007 Tim Brunne
+ Copyright (C) 2009 Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -55,8 +56,8 @@ std::string ConvertToString(unsigned long Number)
 
 
 xlw::CellMatrix ExtractCells(xlw::CellMatrix& cells,
-                        unsigned long row,
-                        unsigned long column,
+                        size_t row,
+                        size_t column,
                         std::string ErrorId,
                         std::string thisName,
                         bool nonNumeric)
@@ -68,8 +69,11 @@ xlw::CellMatrix ExtractCells(xlw::CellMatrix& cells,
     if (!cells(row,column+1).IsANumber())
         throw(ErrorId+" "+thisName+" rows and columns expected.");
 
-    unsigned long numberRows = cells(row,column);
-    unsigned long numberColumns = cells(row,column+1);
+    unsigned long numberRows_UL = cells(row,column);
+    unsigned long numberColumns_UL = cells(row,column+1);
+
+	size_t numberRows = static_cast<size_t>(numberRows_UL);
+    size_t numberColumns = static_cast<size_t>(numberColumns_UL);
 
     cells(row,column).clear();
     cells(row,column+1).clear();
@@ -82,8 +86,8 @@ xlw::CellMatrix ExtractCells(xlw::CellMatrix& cells,
     if (numberColumns +column>cells.ColumnsInStructure())
         throw(ErrorId+" "+thisName+" insufficient columns in structure");
 
-    for (unsigned long i=0; i < numberRows; i++)
-        for (unsigned long j=0; j < numberColumns; j++)
+    for (size_t i=0; i < numberRows; i++)
+        for (size_t j=0; j < numberColumns; j++)
         {
             result(i,j) = cells(row+1+i,column+j);
             cells(row+1+i,column+j).clear();
@@ -188,8 +192,8 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells,
                            std::string ErrorId)
 {
     CellValue empty;
-    unsigned long rows = cells.RowsInStructure();
-    unsigned long columns = cells.ColumnsInStructure();
+    size_t rows = cells.RowsInStructure();
+    size_t columns = cells.ColumnsInStructure();
 
     if (rows == 0)
         throw(std::string("Argument List requires non empty cell matix ")+ErrorId);
@@ -204,24 +208,24 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells,
     }
 
 
-    {for (unsigned long i=1; i < columns; i++)
+    {for (size_t i=1; i < columns; i++)
         if (!cells(0,i).IsEmpty() )
             throw("An argument list should only have the structure name on the first line: "+StructureName+ " " + ErrorId);
     }
 
     ErrorId +=" "+StructureName;
 
-    {for (unsigned long i=1; i < rows; i++)
-        for (unsigned long j=0; j < columns; j++)
+    {for (size_t i=1; i < rows; i++)
+        for (size_t j=0; j < columns; j++)
             if (cells(i,j).IsError())
                 GenerateThrow("Error Cell passed in ",i,j);}
 
-    unsigned long row=1UL;
+    size_t row=1UL;
 
     while (row < rows)
     {
-        unsigned long rowsDown=1;
-        unsigned column = 0;
+        size_t rowsDown=1;
+        size_t column = 0;
 
         while (column < columns)
         {
@@ -309,8 +313,8 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells,
 
                                 MyMatrix value(extracted.RowsInStructure(),extracted.ColumnsInStructure());
 
-                                for (unsigned long i=0; i < extracted.RowsInStructure(); i++)
-                                    for (unsigned long j=0; j < extracted.ColumnsInStructure(); j++)
+                                for (size_t i=0; i < extracted.RowsInStructure(); i++)
+                                    for (size_t j=0; j < extracted.ColumnsInStructure(); j++)
                                         ChangingElement(value,i,j) = extracted(i,j);
 
                                 add(thisName,value);
@@ -331,7 +335,7 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells,
                                 if (row+2>= rows)
                                     throw(ErrorId+" data expected below array "+thisName);
 
-                                unsigned long size = cells(row+2,column);
+                                size_t size = static_cast<size_t>((unsigned long)cells(row+2,column));
                                 cells(row+2,column).clear();
 
                                 if (row+2+size>=rows)
@@ -340,7 +344,7 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells,
 
                                 MyArray theArray(size);
 
-                                for (unsigned long i=0; i < size; i++)
+                                for (size_t i=0; i < size; i++)
                                 {
                                     theArray[i] = cells(row+3+i,column);
                                     cells(row+3+i,column).clear();
@@ -370,8 +374,8 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells,
 
     }
 
-    {for (unsigned long i=0; i < rows; i++)
-        for (unsigned long j=0; j < columns; j++)
+    {for (size_t i=0; i < rows; i++)
+        for (size_t j=0; j < columns; j++)
             if (!cells(i,j).IsEmpty())
             {
                GenerateThrow("extraneous data "+ErrorId,i,j);
@@ -532,9 +536,9 @@ void xlw::ArgumentList::CheckAllUsed(const std::string& ErrorId) const
 
 }
 
-void xlw::ArgumentList::GenerateThrow(std::string message, unsigned long row, unsigned long column)
+void xlw::ArgumentList::GenerateThrow(std::string message, size_t row, size_t column)
 {
-    throw(StructureName+" "+message+" row:"+ConvertToString(row)+"; column:"+ConvertToString(column)+".");
+    throw(StructureName+" "+message+" row:"+ConvertToString(static_cast<unsigned long>(row))+"; column:"+ConvertToString(static_cast<unsigned long>(column))+".");
 }
 
 xlw::ArgumentList::ArgumentList(std::string name) : StructureName(name)
@@ -559,11 +563,11 @@ xlw::CellMatrix xlw::ArgumentList::AllData() const
     {for (std::map<std::string,MyArray>::const_iterator it= ArrayArguments.begin();
             it != ArrayArguments.end(); it++)
     {
-        CellMatrix tmp(static_cast<unsigned long>(3+it->second.size()),1);
+        CellMatrix tmp(3+it->second.size(),1);
          tmp(0,0) = it->first;
          tmp(1,0) = std::string("array");
          tmp(2,0) = static_cast<double>(it->second.size());
-         for (unsigned long i=0; i < it->second.size(); i++)
+         for (size_t i=0; i < it->second.size(); i++)
              tmp(i+3,0)=it->second[i];
          results.PushBottom(tmp);
     }}
@@ -571,13 +575,13 @@ xlw::CellMatrix xlw::ArgumentList::AllData() const
     {for (std::map<std::string,MyMatrix>::const_iterator it= MatrixArguments.begin();
             it != MatrixArguments.end(); it++)
     {
-         CellMatrix tmp(3+it->second.size1(),maxi(2UL, static_cast<unsigned long>(it->second.size2())));
+         CellMatrix tmp(3+it->second.size1(),maxi(size_t(2), it->second.size2()));
          tmp(0,0) = it->first;
          tmp(1,0) = std::string("matrix");
          tmp(2,0) = static_cast<double>(it->second.size1());
          tmp(2,1) = static_cast<double>(it->second.size2());
-         for (unsigned long i=0; i < it->second.size1(); i++)
-             for (unsigned long j=0; j < it->second.size2(); j++)
+         for (size_t i=0; i < it->second.size1(); i++)
+             for (size_t j=0; j < it->second.size2(); j++)
                  tmp(i+3,j)=Element(it->second,i,j);
          results.PushBottom(tmp);
     }}
@@ -603,13 +607,13 @@ xlw::CellMatrix xlw::ArgumentList::AllData() const
     {for (std::map<std::string,CellMatrix>::const_iterator it= CellArguments.begin();
             it != CellArguments.end(); it++)
     {
-        CellMatrix tmp(3+it->second.RowsInStructure(),maxi(2UL,it->second.ColumnsInStructure()));
+        CellMatrix tmp(3+it->second.RowsInStructure(),maxi(size_t(2),it->second.ColumnsInStructure()));
          tmp(0,0) = it->first;
          tmp(1,0) = std::string("cells");
          tmp(2,0) = static_cast<double>(it->second.RowsInStructure());
          tmp(2,1) = static_cast<double>(it->second.ColumnsInStructure());
-         for (unsigned long i=0; i < it->second.RowsInStructure(); i++)
-             for (unsigned long j=0; j < it->second.ColumnsInStructure(); j++)
+         for (size_t i=0; i < it->second.RowsInStructure(); i++)
+             for (size_t j=0; j < it->second.ColumnsInStructure(); j++)
                  tmp(i+3,j)=it->second(i,j);
          results.PushBottom(tmp);
     }}
@@ -617,13 +621,13 @@ xlw::CellMatrix xlw::ArgumentList::AllData() const
     {for (std::map<std::string,CellMatrix>::const_iterator it= ListArguments.begin();
         it != ListArguments.end(); it++)
     {
-        CellMatrix tmp(3+it->second.RowsInStructure(),maxi(2UL,it->second.ColumnsInStructure()));
+        CellMatrix tmp(3+it->second.RowsInStructure(),maxi(size_t(2),it->second.ColumnsInStructure()));
          tmp(0,0) = it->first;
          tmp(1,0) = std::string("list");
          tmp(2,0) = static_cast<double>(it->second.RowsInStructure());
          tmp(2,1) = static_cast<double>(it->second.ColumnsInStructure());
-         for (unsigned long i=0; i < it->second.RowsInStructure(); i++)
-             for (unsigned long j=0; j < it->second.ColumnsInStructure(); j++)
+         for (size_t i=0; i < it->second.RowsInStructure(); i++)
+             for (size_t j=0; j < it->second.ColumnsInStructure(); j++)
                  tmp(i+3,j)=it->second(i,j);
          results.PushBottom(tmp);
     }}

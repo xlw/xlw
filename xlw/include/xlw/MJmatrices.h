@@ -6,7 +6,8 @@
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007 Tim Brunne
-
+ Copyright (C) 2009 Narinder S Claire
+ 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
 
@@ -28,7 +29,10 @@
 #ifndef MJMATRICES_H
 #define MJMATRICES_H
 
-#include <xlw/port.h>
+
+#include <cstddef>
+
+using std::size_t;
 
 namespace xlw {
 
@@ -36,7 +40,7 @@ namespace xlw {
     {
     public:
 
-        explicit MJMatrix(unsigned long Rows_=0, unsigned long Cols_=0);
+        explicit MJMatrix(size_t Rows_=0, size_t Cols_=0);
         MJMatrix(const MJMatrix& original);
 
         MJMatrix& operator=(const MJMatrix& original);
@@ -44,35 +48,35 @@ namespace xlw {
         ~MJMatrix();
 
 
-        inline unsigned long rows() const;
-        inline unsigned long columns() const;
-        inline unsigned long size1() const;
-        inline unsigned long size2() const;
+        inline size_t rows() const;
+        inline size_t columns() const;
+        inline size_t size1() const;
+        inline size_t size2() const;
 
         inline MJMatrix& operator+=(const MJMatrix& addend);
 
-        MJMatrix& resize(unsigned long rows, unsigned long columns);
+        MJMatrix& resize(size_t rows, size_t columns);
 
-        inline double* operator[](unsigned long i);
-        inline const double* const operator[](unsigned long i) const;
+        inline double* operator[](size_t i);
+        inline const double* const operator[](size_t i) const;
 
-        inline const double& operator()(unsigned long i, unsigned long j) const;
-        inline double& operator()(unsigned long i, unsigned long j);
+        inline const double& operator()(size_t i, size_t j) const;
+        inline double& operator()(size_t i, size_t j);
 
 
 
     private:
 
-        unsigned long Rows;
-        unsigned long Columns;
+        size_t Rows;
+        size_t Columns;
         double** RowStarts;
         double* Start;
 
         void Create();
-        void Create(unsigned long rows, unsigned long cols);
+        void Create(size_t rows, size_t cols);
     };
 
-    inline const double& MJMatrix::operator()(unsigned long i, unsigned long j) const
+    inline const double& MJMatrix::operator()(size_t i, size_t j) const
     {
 #ifdef _DEBUG
     if (i >= Rows || j >= Columns)
@@ -81,7 +85,7 @@ namespace xlw {
         return RowStarts[i][j];
     }
 
-    inline double& MJMatrix::operator()(unsigned long i, unsigned long j)
+    inline double& MJMatrix::operator()(size_t i, size_t j)
     {
 #ifdef _DEBUG
     if (i >= Rows || j >= Columns)
@@ -91,7 +95,7 @@ namespace xlw {
         return RowStarts[i][j];
     }
 
-    inline const double* const MJMatrix::operator[](unsigned long i) const
+    inline const double* const MJMatrix::operator[](size_t i) const
     {
 #ifdef _DEBUG
     if (i >= Rows )
@@ -103,7 +107,7 @@ namespace xlw {
 
 
 
-    inline double*  MJMatrix::operator[](unsigned long i)
+    inline double*  MJMatrix::operator[](size_t i)
     {
 #ifdef _DEBUG
     if (i >= Rows )
@@ -113,22 +117,22 @@ namespace xlw {
         return RowStarts[i];
     }
 
-    inline unsigned long MJMatrix::rows() const
+    inline size_t MJMatrix::rows() const
     {
         return Rows;
     }
 
-    inline unsigned long MJMatrix::columns() const
+    inline size_t MJMatrix::columns() const
     {
         return Columns;
     }
 
-    inline unsigned long MJMatrix::size1() const
+    inline size_t MJMatrix::size1() const
     {
         return Rows;
     }
 
-    inline unsigned long MJMatrix::size2() const
+    inline size_t MJMatrix::size2() const
     {
         return Columns;
     }

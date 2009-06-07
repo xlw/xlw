@@ -25,11 +25,9 @@
 #include <xlw/XlfAbstractCmdDesc.h>
 #include <xlw/XlfExcel.h>
 #include <xlw/XlfException.h>
-//#include <xlw/macros.h>
-#include <xlw/defines.h>
 #include <iostream>
 #include <stdexcept>
-
+#include <xlw/macros.h>
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop

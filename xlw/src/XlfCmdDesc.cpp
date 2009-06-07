@@ -2,6 +2,8 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009 Narinder S Claire
+
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -25,9 +27,8 @@
 #include <xlw/XlfCmdDesc.h>
 #include <xlw/XlfOper4.h>
 #include <xlw/XlfException.h>
-#include <xlw/defines.h>
 #include <iostream>
-
+#include <xlw/macros.h>
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop
@@ -134,7 +135,7 @@ int xlw::XlfCmdDesc::DoRegister(const std::string& dllName) const
     return err;
     */
 
-    size_t nbargs = arguments.size();
+    int nbargs = static_cast<int>(arguments.size());
     std::string args("A");
     std::string argnames;
 

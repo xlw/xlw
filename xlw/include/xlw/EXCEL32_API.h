@@ -1,6 +1,7 @@
 
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 2009 Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -28,16 +29,17 @@
     @{
 */
 
+
 //! version hexadecimal number
-#define XLW_HEX_VERSION 0x030000f0
+#define XLW_HEX_VERSION 0x040000f0
 //! version string for output lib name
-#define XLW_LIB_VERSION "3_0_0"
+#define XLW_LIB_VERSION "4_0_0"
 
 //! version string
 #ifndef NDEBUG
-    #define XLW_VERSION "3.0.0f0-debug"
+    #define XLW_VERSION "4.0.0f0-debug"
 #else
-    #define XLW_VERSION "3.0.0f0"
+    #define XLW_VERSION "4.0.0f0"
 #endif
 
 //! global trace level (may be superseded locally by a greater value)
@@ -50,15 +52,14 @@
 //! Place holder for import/export declaration
 #if defined (_DLL) && defined(XLW_IMPORTEXPORT)
     #ifdef EXCEL32_EXPORTS
-        #define EXCEL32_API PORT_EXPORT_SYMBOL
+        #define EXCEL32_API __declspec(dllexport)
     #else
-        #define EXCEL32_API PORT_IMPORT_SYMBOL
+        #define EXCEL32_API __declspec(dllimport)
     #endif
 #else
     #define EXCEL32_API
 #endif
 
-#include <xlw/port.h>
 
 /*! @}  */
 

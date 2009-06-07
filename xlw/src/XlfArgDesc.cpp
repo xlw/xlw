@@ -23,10 +23,9 @@
 // $Id: XlfArgDesc.cpp 474 2008-03-05 15:40:40Z ericehlers $
 
 #include <xlw/XlfArgDesc.h>
-#include <xlw/defines.h>
 #include <xlw/XlfExcel.h>
 #include <iostream>
-
+#include <xlw/macros.h>
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop

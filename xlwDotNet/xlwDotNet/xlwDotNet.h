@@ -22,7 +22,7 @@
 // Shouldn't really need this file, but I think theres an 
 // oversigt by the xlw people.
 
-#include<xlw/port.h>
+
 #include<xlw/MyContainers.h>
 #include<xlw/CellMatrix.h>
 #include<xlw/ArgList.h>

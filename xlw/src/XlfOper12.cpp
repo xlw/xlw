@@ -3,6 +3,8 @@
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007 Tim Brunne
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009 Narinder S Claire
+
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -25,12 +27,12 @@
 
 #include <xlw/XlfOper12.h>
 #include <xlw/XlfException.h>
-#include <xlw/defines.h>
 #include <cassert>
 #include <iostream>
 #include <stdexcept>
 #include <xlw/CellMatrix.h>
 #include <algorithm>
+#include <xlw/macros.h>
 
 // Stop header precompilation
 #ifdef _MSC_VER
@@ -250,24 +252,24 @@ int xlw::XlfOper12::ConvertToDoubleVector(std::vector<double>& v, DoubleVectorCo
 
     XlfRef ref;
 
-    int xlret = ConvertToRef(ref);
+    INT32 xlret = ConvertToRef(ref);
     if (xlret != xlretSuccess)
         return xlret;
 
-    size_t nbRows = ref.GetNbRows();
-    size_t nbCols = ref.GetNbCols();
+    INT32 nbRows = ref.GetNbRows();
+    INT32 nbCols = ref.GetNbCols();
 
     bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
     if (policy == UniDimensional && ! isUniDimRange)
         // not a vector we return a failure
         return xlretFailed;
 
-    size_t n = nbRows*nbCols;
+    INT32 n = nbRows*nbCols;
     v.resize(n);
 
-    for (size_t i = 0; i < nbRows; ++i)
+    for (INT32 i = 0; i < nbRows; ++i)
     {
-        for (size_t j = 0; j < nbCols; ++j)
+        for (INT32 j = 0; j < nbCols; ++j)
         {
             if (policy == RowMajor)
                 // C-like dense matrix storage
@@ -503,7 +505,7 @@ int xlw::XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 
 
         for(unsigned long k=0; k<len; ++k)
-            tmp[k]= ((*lpxloper_).val.str)[k+1];
+            tmp[k]= static_cast<char>(((*lpxloper_).val.str)[k+1]);
 
 
         tmpCell(0,0) = tmp;
@@ -540,7 +542,7 @@ int xlw::XlfOper12::ConvertToCellMatrix(CellMatrix& output) const
 
                           for(unsigned long k=0; k<len; ++k)
                             tmp[k]=
-                            ((*lpxloper_).val.array.lparray[i*columns+j].val.str)[k+1];
+                            static_cast<char>(((*lpxloper_).val.array.lparray[i*columns+j].val.str)[k+1]);
 
                           result(i,j) = tmp;
                     }
@@ -882,23 +884,23 @@ xlw::XlfOper12& xlw::XlfOper12::Set(const MyArray& values)
 
 xlw::XlfOper12& xlw::XlfOper12::Set(const CellMatrix& cells)
 {
-    int r= cells.RowsInStructure();
-    int c= cells.ColumnsInStructure();
+    size_t r= cells.RowsInStructure();
+    size_t c= cells.ColumnsInStructure();
 
     c= c<  255 ? c :255;
 
 
     lpxloper_->xltype = xltypeMulti;
-    lpxloper_->val.array.rows = r;
-    lpxloper_->val.array.columns = c;
+    lpxloper_->val.array.rows = static_cast<RW>(r);
+    lpxloper_->val.array.columns = static_cast<COL>(c);
 
     lpxloper_->val.array.lparray
             = (LPXLOPER12)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER12));
 
-    for (int i=0; i < r; i++)
-        for (int j=0; j < c; j++)
+    for (size_t i=0; i < r; i++)
+        for (size_t j=0; j < c; j++)
         {
-            int k = i*c +j;
+            size_t k = i*c +j;
             if (cells(i,j).IsANumber())
                 lpxloper_->val.array.lparray[k] = *(LPXLOPER12)XlfOper12(cells(i,j).NumericValue());
             else
@@ -1007,12 +1009,12 @@ xlw::XlfOper12& xlw::XlfOper12::Set(const char *value)
 {
     if (lpxloper_)
     {
-        int len = strlen(value);
+        size_t len = strlen(value);
         lpxloper_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(len*2+2);
         if (lpxloper_->val.str) {
             lpxloper_->xltype = xltypeStr;
             mbstowcs(lpxloper_->val.str + 1, value, len*2);
-            lpxloper_->val.str[0] = len;
+            lpxloper_->val.str[0] = static_cast<XCHAR>(len);
         } else {
             lpxloper_ = 0;
         }
@@ -1027,7 +1029,7 @@ xlw::XlfOper12& xlw::XlfOper12::Set(const std::wstring &value)
         lpxloper_->xltype = xltypeStr;
         lpxloper_->val.str = (XCHAR*)XlfExcel::Instance().GetMemory(value.length()*2+2);
         wcsncpy(lpxloper_->val.str + 1, value.c_str(), value.length());
-        lpxloper_->val.str[0] = value.length();
+        lpxloper_->val.str[0] = static_cast<XCHAR>(value.length());
     }
     return *this;
 }
@@ -1038,7 +1040,7 @@ xlw::XlfOper12& xlw::XlfOper12::Set(RW r, COL c)
     lpxloper_->val.array.rows = r;
     lpxloper_->val.array.columns = c;
     lpxloper_->val.array.lparray = (LPXLOPER12)XlfExcel::Instance().GetMemory(r * c * sizeof(XLOPER12));
-    for (size_t i = 0; i < r * c; ++i)
+    for (size_t i = 0; i < static_cast<size_t>(r * c); ++i)
         lpxloper_->val.array.lparray[i].xltype = xltypeNil;
     return *this;
 }

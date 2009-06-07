@@ -2,6 +2,8 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009 Narinder S Claire
+
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -23,18 +25,12 @@
 // $Id: XlfExcel.cpp 474 2008-03-05 15:40:40Z ericehlers $
 
 #include <xlw/XlfExcel.h>
-#ifdef PORT_USE_OLD_C_HEADERS
-    #include <stdio.h>
-#else
-    #include <cstdio>
-#endif
+#include <cstdio>
 #include <stdexcept>
 #include <xlw/XlfOper.h>
-#include <xlw/defines.h>
-
 #include <xlw/XlfOperImpl4.h>
 #include <xlw/XlfOperImpl12.h>
-
+#include <xlw/macros.h>
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop
@@ -226,7 +222,7 @@ int xlw::XlfExcel::Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxda
 
 int xlw::XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const {
 #ifndef NDEBUG
-    for (size_t i = 0; i<size_t(count);++i)
+    for (int i = 0; i<count;++i)
     if (!pxdata[i]) {
         if (xlfn & xlCommand)
             std::cerr << XLW__HERE__ << "xlCommand | " << (xlfn & 0x0FFF) << std::endl;
@@ -255,7 +251,7 @@ int xlw::XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdat
 
 int xlw::XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdata[]) const {
 #ifndef NDEBUG
-    for (size_t i = 0; i<size_t(count); ++i)
+    for (int i = 0; i<count; ++i)
         if (!pxdata[i]) {
             if (xlfn & xlCommand)
                 std::cerr << XLW__HERE__ << "xlCommand | " << (xlfn & 0x0FFF) << std::endl;
@@ -304,7 +300,7 @@ bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
         (LPSTR)rgsz,  (lstrlen((LPSTR)rgsz)>lstrlen("bosa_sdm_XL"))
         ? lstrlen("bosa_sdm_XL"):-1, "bosa_sdm_XL", -1)) {
 
-        if(LOWORD((DWORD) GetParent(hwnd)) == pEnum->hwndXLMain) {
+        if(LOWORD( GetParent(hwnd)) == pEnum->hwndXLMain) {
             pEnum->bFuncWiz = TRUE;
             return false;
         }

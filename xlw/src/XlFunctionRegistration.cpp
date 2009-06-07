@@ -19,7 +19,7 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-#include <xlw/pragmas.h>
+
 #include <xlw/XlFunctionRegistration.h>
 #include <xlw/xlfFuncDesc.h>
 #include <xlw/xlfArgDescList.h>

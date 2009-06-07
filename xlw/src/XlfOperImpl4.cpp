@@ -2,6 +2,7 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009 Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -26,13 +27,12 @@
 #include <xlw/XlfOperImpl4.h>
 #include <xlw/XlfException.h>
 #include <xlw/XlfRef.h>
-#include <xlw/defines.h>
 #include <cassert>
 #include <iostream>
 #include <stdexcept>
 #include <xlw/CellMatrix.h>
 #include <algorithm>
-
+#include <xlw/macros.h>
 // Stop header precompilation
 #ifdef _MSC_VER
 #pragma hdrstop
@@ -187,20 +187,20 @@ int xlw::XlfOperImpl4::ConvertToDoubleVector(const XlfOper &xlfOper, std::vector
     if (xlret != xlretSuccess)
         return xlret;
 
-    size_t nbRows = ref.GetNbRows();
-    size_t nbCols = ref.GetNbCols();
+    int nbRows = ref.GetNbRows();
+    int nbCols = ref.GetNbCols();
 
     bool isUniDimRange = ( nbRows == 1 || nbCols == 1 );
     if (policy == UniDimensional && ! isUniDimRange)
         // not a vector we return a failure
         return xlretFailed;
 
-    size_t n = nbRows*nbCols;
+    int n = nbRows*nbCols;
     v.resize(n);
 
-    for (size_t i = 0; i < nbRows; ++i)
+    for (int i = 0; i < nbRows; ++i)
     {
-        for (size_t j = 0; j < nbCols; ++j)
+        for (int  j = 0; j < nbCols; ++j)
         {
         if (policy == RowMajor)
             // C-like dense matrix storage
@@ -655,22 +655,22 @@ int xlw::XlfOperImpl4::ConvertToRef(const XlfOper &xlfOper, XlfRef& r) const thr
 
 xlw::XlfOper& xlw::XlfOperImpl4::Set(XlfOper &xlfOper, const CellMatrix& cells) const
 {
-    int r = cells.RowsInStructure();
-    int c = cells.ColumnsInStructure();
+    size_t r = cells.RowsInStructure();
+    size_t c = cells.ColumnsInStructure();
 
     c = c < 255 ? c : 255;
 
     xlfOper.lpxloper4_->xltype = xltypeMulti;
-    xlfOper.lpxloper4_->val.array.rows = r;
-    xlfOper.lpxloper4_->val.array.columns = c;
+    xlfOper.lpxloper4_->val.array.rows = static_cast<WORD>(r);
+    xlfOper.lpxloper4_->val.array.columns = static_cast<WORD>(c);
 
     xlfOper.lpxloper4_->val.array.lparray
             = (LPXLOPER)XlfExcel::Instance().GetMemory(r*c*sizeof(XLOPER));
 
-    for (int i=0; i < r; i++)
-        for (int j=0; j < c; j++)
+    for (size_t i=0; i < r; i++)
+        for (size_t j=0; j < c; j++)
         {
-            int k = i*c +j;
+            size_t k = i*c +j;
             if (cells(i,j).IsANumber())
                 xlfOper.lpxloper4_->val.array.lparray[k] = *(LPXLOPER)XlfOper(cells(i,j).NumericValue());
             else
@@ -807,7 +807,7 @@ xlw::XlfOper& xlw::XlfOperImpl4::Set(XlfOper &xlfOper, const std::wstring &value
     if (xlfOper.lpxloper4_)
     {
 
-        unsigned int n;
+        size_t n;
         if (value.length() > 255)
         {
             std::cerr << XLW__HERE__ << "String truncated to 255 bytes" << std::endl;
@@ -839,7 +839,7 @@ xlw::XlfOper& xlw::XlfOperImpl4::Set(XlfOper &xlfOper, RW r, COL c) const
     xlfOper.lpxloper4_->val.array.rows = r;
     xlfOper.lpxloper4_->val.array.columns = c;
     xlfOper.lpxloper4_->val.array.lparray = (LPXLOPER)XlfExcel::Instance().GetMemory(r * c * sizeof(XLOPER));
-    for (size_t i = 0; i < r * c; ++i)
+    for (size_t i = 0; i < static_cast<size_t>(r) * static_cast<size_t>(c); ++i)
         xlfOper.lpxloper4_->val.array.lparray[i].xltype = xltypeNil;
     return xlfOper;
 }
@@ -909,52 +909,52 @@ xlw::LPXLFOPER xlw::XlfOperImpl4::operator_LPXLFOPER(const XlfOper &xlfOper) con
 
 bool xlw::XlfOperImpl4::IsMissing(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeMissing;
+    return (xlfOper.lpxloper4_->xltype & xltypeMissing) == 0 ? false : true;
 }
 
 bool xlw::XlfOperImpl4::IsError(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeErr;
+    return (xlfOper.lpxloper4_->xltype & xltypeErr) == 0 ? false : true;
 }
 
 bool xlw::XlfOperImpl4::IsRef(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeRef;
+    return (xlfOper.lpxloper4_->xltype & xltypeRef) == 0 ? false : true;
 }
 
 bool xlw::XlfOperImpl4::IsSRef(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeSRef;
+    return (xlfOper.lpxloper4_->xltype & xltypeSRef) == 0 ? false : true;
 }
 
 bool xlw::XlfOperImpl4::IsMulti(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeMulti;
+    return (xlfOper.lpxloper4_->xltype & xltypeMulti) == 0 ? false : true;
 }
 
 bool xlw::XlfOperImpl4::IsNumber(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeNum;
+    return (xlfOper.lpxloper4_->xltype & xltypeNum) == 0 ? false : true;
 }
 
 bool xlw::XlfOperImpl4::IsString(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeStr;
+    return (xlfOper.lpxloper4_->xltype & xltypeStr) == 0 ? false : true;
 }
 
 bool xlw::XlfOperImpl4::IsNil(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeNil;
+    return (xlfOper.lpxloper4_->xltype & xltypeNil) == 0 ? false : true;
 }
 
 bool xlw::XlfOperImpl4::IsBool(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeBool;
+    return (xlfOper.lpxloper4_->xltype & xltypeBool) == 0 ? false : true;
 }
 
 bool xlw::XlfOperImpl4::IsInt(const XlfOper &xlfOper) const
 {
-    return xlfOper.lpxloper4_->xltype & xltypeInt;
+	return (xlfOper.lpxloper4_->xltype & xltypeInt) == 0 ? false : true;
 }
 
 xlw::LPXLFOPER xlw::XlfOperImpl4::GetLPXLFOPER(const XlfOper &xlfOper) const

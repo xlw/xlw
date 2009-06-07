@@ -126,7 +126,8 @@ functions.
 }
 //@}
 
-#define __HERE__ __FILE__ "(" _MAKESTRING(__LINE__) "): "
+
+#define XLW__HERE__ __FILE__ "(" _MAKESTRING(__LINE__) "): "
 #define _MAKESTRING(a) __MAKESTRING(a)
 #define __MAKESTRING(a) #a
 

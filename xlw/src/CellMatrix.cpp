@@ -7,6 +7,7 @@
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007 Tim Brunne
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009 Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -22,7 +23,7 @@
 #include <xlw/CellMatrix.h>
 #include <algorithm>
 
-unsigned long maxi(unsigned long a, unsigned long b)
+size_t maxi(size_t a, size_t b)
 {
     return a > b ? a : b;
 }
@@ -239,7 +240,7 @@ xlw::CellMatrix::CellMatrix(double x): Cells(1), Rows(1), Columns(1)
 xlw::CellMatrix::CellMatrix(std::string x): Cells(1), Rows(1), Columns(1)
 {
     Cells[0].push_back(CellValue(x));
-}
+}  
 
 xlw::CellMatrix::CellMatrix(std::wstring x): Cells(1), Rows(1), Columns(1)
 {
@@ -254,15 +255,15 @@ xlw::CellMatrix::CellMatrix(const char* x): Cells(1), Rows(1), Columns(1)
 xlw::CellMatrix::CellMatrix(const MyArray& data) : Cells(data.size()),
     Rows(data.size()), Columns(1)
 {
-    for (unsigned long i=0; i < data.size(); ++i)
+    for (size_t i=0; i < data.size(); ++i)
         Cells[i].push_back(CellValue(data[i]));
 }
 
 xlw::CellMatrix::CellMatrix(const MyMatrix& data): Cells(data.size1()),
     Rows(data.size1()), Columns(data.size2())
 {
-    for (unsigned long i=0; i < data.size1(); ++i)
-        for (unsigned long j=0; j < data.size2(); ++j)
+    for (size_t i=0; i < data.size1(); ++i)
+        for (size_t j=0; j < data.size2(); ++j)
             Cells[i].push_back(CellValue(Element(data,i,j)));
 }
 
@@ -277,45 +278,45 @@ xlw::CellMatrix::CellMatrix(int i): Cells(1), Rows(1), Columns(1)
     Cells[0].push_back(CellValue(static_cast<double>(i)));
 }
 
-xlw::CellMatrix::CellMatrix(unsigned long rows, unsigned long columns)
+xlw::CellMatrix::CellMatrix(size_t rows, size_t columns)
     : Cells(rows), Rows(rows), Columns(columns)
 {
-    for (unsigned long i=0; i < rows; i++)
+    for (size_t i=0; i < rows; i++)
         Cells[i].resize(columns);
 }
 
-const xlw::CellValue& xlw::CellMatrix::operator()(unsigned long i, unsigned long j) const
+const xlw::CellValue& xlw::CellMatrix::operator()(size_t i, size_t j) const
 {
     return Cells.at(i).at(j);
 
 }
-xlw::CellValue& xlw::CellMatrix::operator()(unsigned long i, unsigned long j)
+xlw::CellValue& xlw::CellMatrix::operator()(size_t i, size_t j)
 {
     return Cells.at(i).at(j);
 }
 
-unsigned long xlw::CellMatrix::RowsInStructure() const
+size_t xlw::CellMatrix::RowsInStructure() const
 {
     return Rows;
 }
-unsigned long xlw::CellMatrix::ColumnsInStructure() const
+size_t xlw::CellMatrix::ColumnsInStructure() const
 {
     return Columns;
 }
 
 xlw::CellMatrix xlw::MergeCellMatrices(const CellMatrix& Top, const CellMatrix& Bottom)
 {
-    unsigned long cols = maxi(Top.ColumnsInStructure(), Bottom.ColumnsInStructure());
-    unsigned long rows = Top.RowsInStructure()+Bottom.RowsInStructure();
+    size_t cols = maxi(Top.ColumnsInStructure(), Bottom.ColumnsInStructure());
+    size_t rows = Top.RowsInStructure()+Bottom.RowsInStructure();
 
     CellMatrix merged(rows,cols);
 
-    {for (unsigned long i=0; i < Top.ColumnsInStructure(); i++)
-        for (unsigned long j=0; j < Top.RowsInStructure(); j++)
+    {for (size_t i=0; i < Top.ColumnsInStructure(); i++)
+        for (size_t j=0; j < Top.RowsInStructure(); j++)
             merged(j,i) = Top(j,i);}
 
-    for (unsigned long i=0; i < Bottom.ColumnsInStructure(); i++)
-        for (unsigned long j=0; j < Bottom.RowsInStructure(); j++)
+    for (size_t i=0; i < Bottom.ColumnsInStructure(); i++)
+        for (size_t j=0; j < Bottom.RowsInStructure(); j++)
             merged(j+Top.RowsInStructure(),i) = Bottom(j,i);
 
     return merged;
@@ -324,19 +325,19 @@ xlw::CellMatrix xlw::MergeCellMatrices(const CellMatrix& Top, const CellMatrix& 
 void xlw::CellMatrix::PushBottom(const CellMatrix& newRows)
 {
     CellMatrix newRowsResize(newRows);
-    unsigned long newColumns = maxi(newRows.ColumnsInStructure(),Columns);
+    size_t newColumns = maxi(newRows.ColumnsInStructure(),Columns);
 
     if (newColumns > Columns)
-        for (unsigned long i=0; i < Rows; i++)
+        for (size_t i=0; i < Rows; i++)
             Cells[i].resize(newColumns);
 
     if (newColumns > newRows.Columns)
-        for (unsigned long i=0; i < newRowsResize.Rows; i++)
+        for (size_t i=0; i < newRowsResize.Rows; i++)
             newRowsResize.Cells[i].resize(newColumns);
 
-    for (unsigned long i=0; i < newRowsResize.Rows; i++)
+    for (size_t i=0; i < newRowsResize.Rows; i++)
         Cells.push_back(newRowsResize.Cells[i]);
 
-    Rows = static_cast<unsigned long>(Cells.size());
+    Rows = static_cast<size_t>(Cells.size());
     Columns = newColumns;
 }

@@ -6,6 +6,7 @@
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007 Tim Brunne
+ Copyright (C) 2009 Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -32,7 +33,7 @@
 // Uncomment the line below to use boost matrix
 //#define USE_XLW_WITH_BOOST_UBLAS
 
-#include <xlw/port.h>
+
 #include "MJMatrices.h"
 #include <vector>
 
@@ -65,9 +66,9 @@ namespace xlw {
 
 #endif
 
-    double Element(const MyMatrix& A, unsigned long i , unsigned long j);
+    double Element(const MyMatrix& A, size_t i , size_t j);
 
-    double& ChangingElement(MyMatrix& A, unsigned long i , unsigned long j);
+    double& ChangingElement(MyMatrix& A, size_t i , size_t j);
 
 }
 

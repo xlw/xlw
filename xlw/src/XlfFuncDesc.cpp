@@ -2,6 +2,8 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009 Narinder S Claire
+
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -136,7 +138,7 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, doubl
     // alias arguments
     XlfArgDescList& arguments = impl_->arguments_;
 
-    size_t nbargs = arguments.size();
+    int nbargs = static_cast<int>(arguments.size());
     std::string args = returnTypeCode_;
     std::string argnames;
 

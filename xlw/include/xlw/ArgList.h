@@ -5,7 +5,8 @@
 //
 /*
  Copyright (C) 2006 Mark Joshi
-
+ Copyright (C) 2009 Narinder S Claire
+ 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
 
@@ -21,7 +22,6 @@
 #ifndef ARG_LIST_H
 #define ARG_LIST_H
 
-#include <xlw/port.h>
 #include "CellMatrix.h"
 #include "MyContainers.h"
 #include <map>
@@ -117,7 +117,7 @@ namespace xlw {
 
         std::map<std::string,bool> ArgumentsUsed;
 
-        void GenerateThrow(std::string message, unsigned long row, unsigned long column);
+        void GenerateThrow(std::string message, size_t row, size_t column);
         void UseArgumentName(const std::string& ArgumentName); // private as no error checking performed
         void RegisterName(const std::string& ArgumentName, ArgumentType type);
     };

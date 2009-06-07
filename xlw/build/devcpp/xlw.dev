@@ -1,7 +1,7 @@
 [Project]
 FileName=xlw.dev
 Name=xlw
-UnitCount=93
+UnitCount=87
 Type=2
 Ver=1
 ObjFiles=
@@ -30,26 +30,6 @@ CompilerSet=0
 CompilerSettings=0000001000000000000000
 
 [Unit2]
-FileName=..\..\include\xlw\config.msvc.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit3]
-FileName=..\..\include\xlw\ERR_Macros.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit4]
 FileName=..\..\include\xlw\EXCEL32_API.h
 CompileCpp=1
 Folder=xlw/include
@@ -59,7 +39,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit5]
+[Unit3]
 FileName=..\..\include\xlw\macros.h
 CompileCpp=1
 Folder=xlw/include
@@ -69,27 +49,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit6]
-FileName=..\..\include\xlw\port.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit7]
-FileName=..\..\include\xlw\pragmas.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit8]
+[Unit4]
 FileName=..\..\src\Win32StreamBuf.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -99,7 +59,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit9]
+[Unit5]
 FileName=..\..\include\xlw\Win32StreamBuf.h
 CompileCpp=1
 Folder=xlw/include
@@ -109,7 +69,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit10]
+[Unit6]
 FileName=..\..\include\xlw\xlcall32.h
 CompileCpp=1
 Folder=xlw/include
@@ -119,7 +79,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit11]
+[Unit7]
 FileName=..\..\src\XlfAbstractCmdDesc.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -129,7 +89,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit12]
+[Unit8]
 FileName=..\..\include\xlw\XlfAbstractCmdDesc.h
 CompileCpp=1
 Folder=xlw/include
@@ -139,7 +99,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit13]
+[Unit9]
 FileName=..\..\src\XlfArgDesc.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -149,7 +109,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit14]
+[Unit10]
 FileName=..\..\include\xlw\XlfArgDesc.h
 CompileCpp=1
 Folder=xlw/include
@@ -159,7 +119,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit15]
+[Unit11]
 FileName=..\..\src\XlfArgDescList.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -169,7 +129,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit16]
+[Unit12]
 FileName=..\..\include\xlw\XlfArgDescList.h
 CompileCpp=1
 Folder=xlw/include
@@ -179,7 +139,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit17]
+[Unit13]
 FileName=..\..\src\XlfCmdDesc.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -189,7 +149,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit18]
+[Unit14]
 FileName=..\..\include\xlw\XlfCmdDesc.h
 CompileCpp=1
 Folder=xlw/include
@@ -199,7 +159,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit19]
+[Unit15]
 FileName=..\..\src\XlfExcel.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -209,7 +169,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit20]
+[Unit16]
 FileName=..\..\include\xlw\XlfExcel.h
 CompileCpp=1
 Folder=xlw/include
@@ -219,7 +179,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit21]
+[Unit17]
 FileName=..\..\src\XlfException.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -229,7 +189,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit22]
+[Unit18]
 FileName=..\..\include\xlw\XlfException.h
 CompileCpp=1
 Folder=xlw/include
@@ -239,7 +199,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit23]
+[Unit19]
 FileName=..\..\src\XlfFuncDesc.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -249,7 +209,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit24]
+[Unit20]
 FileName=..\..\include\xlw\XlfFuncDesc.h
 CompileCpp=1
 Folder=xlw/include
@@ -259,7 +219,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit25]
+[Unit21]
 FileName=..\..\src\XlfOper.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -269,7 +229,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit26]
+[Unit22]
 FileName=..\..\include\xlw\XlfOper.h
 CompileCpp=1
 Folder=xlw/include
@@ -279,7 +239,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit27]
+[Unit23]
 FileName=..\..\src\XlfRef.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -289,7 +249,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit28]
+[Unit24]
 FileName=..\..\include\xlw\XlfRef.h
 CompileCpp=1
 Folder=xlw/include
@@ -299,7 +259,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit29]
+[Unit25]
 FileName=..\..\include\xlw\xlw.h
 CompileCpp=1
 Folder=xlw/include
@@ -309,8 +269,48 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit26]
+FileName=..\..\src\CellMatrix.cpp
+CompileCpp=1
+Folder=xlw/src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit27]
+FileName=..\..\include\xlw\CellMatrix.h
+CompileCpp=1
+Folder=xlw/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit28]
+FileName=..\..\src\MJmatrices.cpp
+CompileCpp=1
+Folder=xlw/src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit29]
+FileName=..\..\include\xlw\MJmatrices.h
+CompileCpp=1
+Folder=xlw/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit30]
-FileName=..\..\include\xlw\config.bcc.h
+FileName=..\..\include\xlw\MyContainers.h
 CompileCpp=1
 Folder=xlw/include
 Compile=1
@@ -320,7 +320,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit31]
-FileName=..\..\src\CellMatrix.cpp
+FileName=..\..\src\XlFunctionRegistration.cpp
 CompileCpp=1
 Folder=xlw/src
 Compile=1
@@ -348,56 +348,6 @@ ProductVersion=
 AutoIncBuildNr=0
 
 [Unit33]
-FileName=..\..\src\MJmatrices.cpp
-CompileCpp=1
-Folder=xlw/src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit34]
-FileName=..\..\include\xlw\MJmatrices.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit35]
-FileName=..\..\include\xlw\MyContainers.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit36]
-FileName=..\..\src\XlFunctionRegistration.cpp
-CompileCpp=1
-Folder=xlw/src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit37]
-FileName=..\..\include\xlw\XlFunctionRegistration.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit38]
 FileName=..\..\include\xlw\XlOpenClose.h
 CompileCpp=1
 Folder=xlw/include
@@ -407,87 +357,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit45]
-FileName=..\..\src\DoubleOrNothing.cpp
-CompileCpp=1
-Folder=xlw/src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit46]
-FileName=..\..\include\xlw\DoubleOrNothing.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit44]
-FileName=..\..\include\xlw\defines.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit41]
-FileName=..\..\include\xlw\ArgList.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit42]
-FileName=..\..\include\xlw\ArgListFactory.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit43]
-FileName=..\..\include\xlw\ArgListFactoryHelper.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit1]
-FileName=..\..\include\xlw\config.mgw.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit32]
-FileName=..\..\include\xlw\CellMatrix.h
-CompileCpp=1
-Folder=xlw/include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit39]
+[Unit34]
 FileName=..\..\src\XlOpenClose.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -497,7 +367,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit40]
+[Unit35]
 FileName=..\..\src\ArgList.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -507,8 +377,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit47]
-FileName=..\..\include\xlw\wrapper.h
+[Unit36]
+FileName=..\..\include\xlw\ArgList.h
 CompileCpp=1
 Folder=xlw/include
 Compile=1
@@ -517,28 +387,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit48]
-FileName=..\..\src\MyContainers.cpp
-CompileCpp=1
-Folder=xlw/src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit49]
-FileName=..\..\src\xlarray.cpp
-CompileCpp=1
-Folder=xlw/src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit50]
-FileName=..\..\include\xlw\xlarray.h
+[Unit37]
+FileName=..\..\include\xlw\ArgListFactory.h
 CompileCpp=1
 Folder=xlw/include
 Compile=1
@@ -547,7 +397,17 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit51]
+[Unit38]
+FileName=..\..\include\xlw\ArgListFactoryHelper.h
+CompileCpp=1
+Folder=xlw/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit45]
 FileName=..\..\src\xlcall.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -557,7 +417,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit52]
+[Unit46]
 FileName=..\..\src\XlfOper4.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -567,7 +427,87 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit53]
+[Unit44]
+FileName=..\..\include\xlw\xlarray.h
+CompileCpp=1
+Folder=xlw/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit41]
+FileName=..\..\include\xlw\wrapper.h
+CompileCpp=1
+Folder=xlw/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit42]
+FileName=..\..\src\MyContainers.cpp
+CompileCpp=1
+Folder=xlw/src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit43]
+FileName=..\..\src\xlarray.cpp
+CompileCpp=1
+Folder=xlw/src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit1]
+FileName=..\..\include\xlw\ERR_Macros.h
+CompileCpp=1
+Folder=xlw/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit32]
+FileName=..\..\include\xlw\XlFunctionRegistration.h
+CompileCpp=1
+Folder=xlw/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit39]
+FileName=..\..\src\DoubleOrNothing.cpp
+CompileCpp=1
+Folder=xlw/src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit40]
+FileName=..\..\include\xlw\DoubleOrNothing.h
+CompileCpp=1
+Folder=xlw/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit47]
 FileName=..\..\include\xlw\XlfOper4.h
 CompileCpp=1
 Folder=xlw/include
@@ -577,7 +517,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit54]
+[Unit48]
 FileName=..\..\src\XlfOper12.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -587,7 +527,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit55]
+[Unit49]
 FileName=..\..\include\xlw\XlfOper12.h
 CompileCpp=1
 Folder=xlw/include
@@ -597,7 +537,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit56]
+[Unit50]
 FileName=..\..\src\XlfOperImpl4.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -607,7 +547,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit57]
+[Unit51]
 FileName=..\..\include\xlw\XlfOperImpl4.h
 CompileCpp=1
 Folder=xlw/include
@@ -617,7 +557,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit58]
+[Unit52]
 FileName=..\..\src\XlfOperImpl12.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -627,7 +567,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit59]
+[Unit53]
 FileName=..\..\include\xlw\XlfOperImpl12.h
 CompileCpp=1
 Folder=xlw/include
@@ -637,7 +577,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit60]
+[Unit54]
 FileName=..\..\src\XlfOperImpl.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -647,7 +587,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit61]
+[Unit55]
 FileName=..\..\include\xlw\XlfOperImpl.h
 CompileCpp=1
 Folder=xlw/include
@@ -657,7 +597,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit62]
+[Unit56]
 FileName=..\..\src\XlfStr.cpp
 CompileCpp=1
 Folder=xlw/src
@@ -667,7 +607,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit63]
+[Unit57]
 FileName=..\..\include\xlw\XlfStr.h
 CompileCpp=1
 Folder=xlw/include
@@ -677,8 +617,9 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit64]
+[Unit58]
 FileName=..\..\include\xlw\XlfRef.inl
+CompileCpp=1
 Folder=xlw/include
 Compile=0
 Link=0
@@ -686,8 +627,9 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit65]
+[Unit59]
 FileName=..\..\include\xlw\Win32StreamBuf.inl
+CompileCpp=1
 Folder=xlw/include
 Compile=0
 Link=0
@@ -695,8 +637,9 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit66]
+[Unit60]
 FileName=..\..\include\xlw\XlfAbstractCmdDesc.inl
+CompileCpp=1
 Folder=xlw/include
 Compile=0
 Link=0
@@ -704,8 +647,9 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit67]
+[Unit61]
 FileName=..\..\include\xlw\XlfExcel.inl
+CompileCpp=1
 Folder=xlw/include
 Compile=0
 Link=0
@@ -713,8 +657,9 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit68]
+[Unit62]
 FileName=..\..\include\xlw\XlfException.inl
+CompileCpp=1
 Folder=xlw/include
 Compile=0
 Link=0
@@ -722,8 +667,9 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit69]
+[Unit63]
 FileName=..\..\include\xlw\XlfOper4.inl
+CompileCpp=1
 Folder=xlw/include
 Compile=0
 Link=0
@@ -731,7 +677,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit70]
+[Unit64]
 FileName=..\..\include\xlw\XlfOper12.inl
 Folder=xlw/include
 Compile=0
@@ -740,7 +686,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit71]
+[Unit65]
 FileName=..\..\include\xlw\XlfOper.inl
 Folder=xlw/include
 Compile=0
@@ -749,7 +695,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit72]
+[Unit66]
 FileName=..\..\include\xlw\XlfMutex.h
 Folder=xlw/include
 Compile=1
@@ -759,67 +705,67 @@ OverrideBuildCmd=0
 BuildCmd=
 CompileCpp=1
 
-[Unit73]
+[Unit67]
 FileName=..\..\InterfaceGenerator\Functionizer.cpp
-CompileCpp=1
 Folder=InterfaceGenerator/source
 Compile=1
 Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+CompileCpp=1
 
-[Unit74]
+[Unit68]
 FileName=..\..\InterfaceGenerator\Functionizer.h
-CompileCpp=1
 Folder=InterfaceGenerator/include
 Compile=1
 Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+CompileCpp=1
 
-[Unit75]
+[Unit69]
 FileName=..\..\InterfaceGenerator\FunctionModel.cpp
-CompileCpp=1
 Folder=InterfaceGenerator/source
 Compile=1
 Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+CompileCpp=1
 
-[Unit76]
+[Unit70]
 FileName=..\..\InterfaceGenerator\FunctionModel.h
-CompileCpp=1
 Folder=InterfaceGenerator/include
 Compile=1
 Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
-
-[Unit77]
-FileName=..\..\InterfaceGenerator\FunctionType.cpp
 CompileCpp=1
+
+[Unit71]
+FileName=..\..\InterfaceGenerator\FunctionType.cpp
 Folder=InterfaceGenerator/source
 Compile=1
 Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
-
-[Unit78]
-FileName=..\..\InterfaceGenerator\FunctionType.h
 CompileCpp=1
+
+[Unit72]
+FileName=..\..\InterfaceGenerator\FunctionType.h
 Folder=InterfaceGenerator/include
 Compile=1
 Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+CompileCpp=1
 
-[Unit79]
+[Unit73]
 FileName=..\..\InterfaceGenerator\IncludeRegister.cpp
 CompileCpp=1
 Folder=InterfaceGenerator/source
@@ -829,7 +775,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit80]
+[Unit74]
 FileName=..\..\InterfaceGenerator\IncludeRegister.h
 CompileCpp=1
 Folder=InterfaceGenerator/include
@@ -839,7 +785,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit81]
+[Unit75]
 FileName=..\..\InterfaceGenerator\main.cpp
 CompileCpp=1
 Folder=InterfaceGenerator/source
@@ -849,7 +795,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit82]
+[Unit76]
 FileName=..\..\InterfaceGenerator\Outputter.cpp
 CompileCpp=1
 Folder=InterfaceGenerator/source
@@ -859,7 +805,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit83]
+[Unit77]
 FileName=..\..\InterfaceGenerator\Outputter.h
 CompileCpp=1
 Folder=InterfaceGenerator/include
@@ -869,7 +815,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit84]
+[Unit78]
 FileName=..\..\InterfaceGenerator\ParserData.cpp
 CompileCpp=1
 Folder=InterfaceGenerator/source
@@ -879,7 +825,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit85]
+[Unit79]
 FileName=..\..\InterfaceGenerator\ParserData.h
 CompileCpp=1
 Folder=InterfaceGenerator/include
@@ -889,7 +835,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit86]
+[Unit80]
 FileName=..\..\InterfaceGenerator\Singleton.h
 CompileCpp=1
 Folder=InterfaceGenerator/include
@@ -899,8 +845,68 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit87]
+[Unit81]
 FileName=..\..\InterfaceGenerator\Strip.cpp
+CompileCpp=1
+Folder=InterfaceGenerator/source
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit82]
+FileName=..\..\InterfaceGenerator\Strip.h
+CompileCpp=1
+Folder=InterfaceGenerator/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit83]
+FileName=..\..\InterfaceGenerator\Tokenizer.cpp
+CompileCpp=1
+Folder=InterfaceGenerator/source
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit84]
+FileName=..\..\InterfaceGenerator\Tokenizer.h
+CompileCpp=1
+Folder=InterfaceGenerator/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit85]
+FileName=..\..\InterfaceGenerator\TypeRegister.cpp
+CompileCpp=1
+Folder=InterfaceGenerator/source
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit86]
+FileName=..\..\InterfaceGenerator\TypeRegister.h
+CompileCpp=1
+Folder=InterfaceGenerator/include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit87]
+FileName=..\..\InterfaceGenerator\TypeRegistrations.cpp
 CompileCpp=1
 Folder=InterfaceGenerator/source
 Compile=1

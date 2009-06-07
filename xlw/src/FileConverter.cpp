@@ -1,8 +1,23 @@
 //
 //
-//            FileConverter.cpp
+//                        FileConverter.cpp
 //
 //
+/*
+ Copyright (C) 2006 Mark Joshi
+ Copyright (C) 2009 Narinder S Claire
+
+ This file is part of XLW, a free-software/open-source C++ wrapper of the
+ Excel C API - http://xlw.sourceforge.net/
+
+ XLW is free software: you can redistribute it and/or modify it under the
+ terms of the XLW license.  You should have received a copy of the
+ license along with this program; if not, please email xlw-users@lists.sf.net
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
 #include <clw/FileConverter.h>
 #include <xlw/CellMatrix.h>
 #include <xlw/ArgList.h>
@@ -93,10 +108,10 @@ namespace clw
     }
 
 
-    unsigned long rows =cellValues.size();
+    size_t rows =cellValues.size();
     std::vector<CellMatrix> cellMatrices;
 
-    unsigned long currentRow=0;
+    size_t currentRow=0;
 
 
     // now divide into CellMatrices
@@ -106,12 +121,12 @@ namespace clw
       while( currentRow < rows && cellValues[currentRow].size() == 0) 
         ++currentRow;
 
-      unsigned long startRow = currentRow;
+      size_t startRow = currentRow;
 
 
       if (currentRow < rows)
       {
-        unsigned long firstEmpty;
+        size_t firstEmpty;
         bool endNotFound = true;  
         do
         {
@@ -139,15 +154,15 @@ namespace clw
 
         if (startRow < firstEmpty)
         {
-          unsigned long maxColSize=0;
+          size_t maxColSize=0;
 
-          for (unsigned long j=startRow; j < firstEmpty; ++j)
-            maxColSize = std::max<unsigned long>(maxColSize, cellValues.size());
+          for (size_t j=startRow; j < firstEmpty; ++j)
+            maxColSize = std::max<size_t>(maxColSize, cellValues.size());
 
           CellMatrix thisOne(firstEmpty-startRow,maxColSize);
 
-          for (unsigned long i=startRow; i < firstEmpty; ++i)
-            for (unsigned long j=0; j < cellValues[i].size(); ++j)
+          for (size_t i=startRow; i < firstEmpty; ++i)
+            for (size_t j=0; j < cellValues[i].size(); ++j)
               thisOne(i-startRow,j) = cellValues[i][j];
 
           cellMatrices.push_back(thisOne);
