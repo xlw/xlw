@@ -1,6 +1,6 @@
 
 
-This is an Alpha version for xlw 4.0.0
+This is a Beta version for xlw 4.0.0
 THe look & feel of xlw4 is considerably different from previous verions
 at least on the surface and thus there is a need for new documentation.
 New and more extensive documentation will be included in the 
@@ -75,7 +75,7 @@ Please email xlw-users@lists.sourceforge.net.
    ----------------------
  
  
- 3. Building an XLL with xlwDotNet (C# or VisualBasic) 
+ 3. Building an XLL with xlwDotNet (C#, VisualBasic or Hybrid C#/C++) 
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
    3.1 Obtaining the Template Project
@@ -173,7 +173,7 @@ Please email xlw-users@lists.sourceforge.net.
 	
   5. If Your .NET Addin Just crashes Excel. 
     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-	< FOR ALPHA9 THIS STEP SHOULD BE TAKEN CARE OF BY THE INSTALLER >
+	<  THIS STEP SHOULD BE TAKEN CARE OF BY THE INSTALLER >
 	
    Some versions of Excel do not load the correct .NET Runtime.
    .NET 2.0, .NET 3.0 & .NET 3.5 are all shipped with CLR v2 (v2 of the runtime)

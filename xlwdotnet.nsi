@@ -1,6 +1,6 @@
 
 
-	!define DEV_OR_RELEASE "- This is a development version - alpha release"  ; uncomment on development version
+	!define DEV_OR_RELEASE "- This is a Beta Release"  ; uncomment on development version
 	;!define DEV_OR_RELEASE ""                                ; uncomment on release version
 
 ;------------------------------------------------------------------------------------------------------------------------
@@ -1270,7 +1270,7 @@ Function OnClick_PATCH
 
 	Pop $0 # HWND
 	
-	StrCpy $0   " Some versions of Excel do not load the correct .NET Runtime at startup. C# and other .NET xlls built by XLW require$\r$\n"
+	StrCpy $0    " Some versions of Excel do not load the correct .NET Runtime at startup. C# and other .NET xlls built by XLW require$\r$\n"
 	StrCpy $0 "$0 CLR 2, the runtime for .NET 2.0, .NET 3.0 and .NET 3.5 Frameworks. Excel can be forced to load v2 of the runtime (CLR), $\r$\n"
 	StrCpy $0 "$0 by placing a small xml file  'Excel.exe.config' :$\r$\n"
 	StrCpy $0 "$0 $\r$\n$\r$\n"
