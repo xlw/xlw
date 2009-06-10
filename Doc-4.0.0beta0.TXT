@@ -1,6 +1,6 @@
 
 
-This is a Beta version for xlw 4.0.0
+This is an Alpha version for xlw 4.0.0
 THe look & feel of xlw4 is considerably different from previous verions
 at least on the surface and thus there is a need for new documentation.
 New and more extensive documentation will be included in the 
@@ -196,6 +196,37 @@ Please email xlw-users@lists.sourceforge.net.
    http://msdn.microsoft.com/en-us/library/w4atty68.aspx
       
 
+   6. Debugging .NET xlls
+   '''''''''''''''''''''''
+   
+   In the directory Addin of your XLL project along with your project file
+   DotNet.csproj you may find the file DotNet.csproj.user, if not create it
+   with a text editor.  In that file put the following text :
+   
+   <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+      <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+       <StartAction>Program</StartAction>
+       <StartProgram>C:\Program Files\Microsoft Office\Office10\EXCEL.EXE</StartProgram>
+      </PropertyGroup>
+  </Project>
+  
+  But replace the  <StartProgram> ..... </StartProgram> with the path to your own
+  Excel executable. If you have your C# or VB.NET project open you will need to 
+  close it and reopen. Now you can set breakpoints in your .NET code and debugging will
+  start Excel. When Excel is started just open your xll addin .. and you should be debugging.
+  
+  see this blog of you need more details
+  http://through-the-interface.typepad.com/through_the_interface/2006/07/debugging_using.html
+
+  ( For hybrid projects debugging should be more straight forward )
+   
+   
+   
+   
+   
+   
+   
+   
    
  
  

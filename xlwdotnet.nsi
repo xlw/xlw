@@ -129,6 +129,33 @@
 	Var CPP_DETECTED
 	
 	Var CodeBlocks_FRMWK
+	
+	
+	
+	; Excel Patcher
+	
+	Var DIALOG_PATCH
+
+	Var BUTTON_PATCH
+
+	Var EXCEL97
+	Var EXCEL2000
+	Var EXCEL2002
+	Var EXCEL2003
+
+
+	Var EXCEL97_CHECK
+	Var EXCEL2000_CHECK
+	Var EXCEL2002_CHECK
+	Var EXCEL2003_CHECK
+
+	Var EXCEL97_SEL
+	Var EXCEL2000_SEL
+	Var EXCEL2002_SEL
+	Var EXCEL2003_SEL
+
+
+
 
 ;------------------------------------------------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------------------------------------------------
@@ -515,55 +542,53 @@ SubSection "xlwDotNet" xlwDotNet
 	SectionGroup "Libraries" xlwDotNetLibraries
 	
 	Section #
-	 
-		${If} $EXCEL97_SEL  ==  ${BST_CHECKED}
-				IfFileExists "$EXCEL97\Excel.exe.config" Warn97 Install97 
-				Install97:
-					SetOutPath "$EXCEL97"
-					File  "ExcelPatch\Excel.exe.config"
-					Goto Do2000
-				Warn97:
-				MessageBox MB_OK "$EXCEL97\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
+				${If} $EXCEL97_SEL  ==  ${BST_CHECKED}
+						IfFileExists "$EXCEL97\Excel.exe.config" Warn97 Install97 
+						Install97:
+							SetOutPath "$EXCEL97"
+							File  "ExcelPatch\Excel.exe.config"
+							Goto Do2000
+						Warn97:
+						MessageBox MB_OK "$EXCEL97\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
 
-		${EndIF}
-		
-		Do2000:
-		${If} $EXCEL2000_SEL ==  ${BST_CHECKED} 
-				IfFileExists "$EXCEL2000\Excel.exe.config"  Warn2000 Install2000
-				Install2000:
-					SetOutPath "$EXCEL2000"
-					File  "ExcelPatch\Excel.exe.config"
-					Goto Do2002
-				Warn2000:
-				MessageBox MB_OK "$EXCEL2000\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
-		${EndIF}
+				${EndIF}
+				
+				Do2000:
+				${If} $EXCEL2000_SEL ==  ${BST_CHECKED} 
+						IfFileExists "$EXCEL2000\Excel.exe.config"  Warn2000 Install2000
+						Install2000:
+							SetOutPath "$EXCEL2000"
+							File  "ExcelPatch\Excel.exe.config"
+							Goto Do2002
+						Warn2000:
+						MessageBox MB_OK "$EXCEL2000\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
+				${EndIF}
 
-		Do2002:
-		${If} $EXCEL2002_SEL ==  ${BST_CHECKED} 
-				IfFileExists "$EXCEL2002\Excel.exe.config" Warn2002 Install2002
-				Install2002:
-					SetOutPath "$EXCEL2002"
-					File  "ExcelPatch\Excel.exe.config"
-					Goto Do2003
-				Warn2002:
-				MessageBox MB_OK "$EXCEL2002\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
-		${EndIF}
+				Do2002:
+				${If} $EXCEL2002_SEL ==  ${BST_CHECKED} 
+						IfFileExists "$EXCEL2002\Excel.exe.config" Warn2002 Install2002
+						Install2002:
+							SetOutPath "$EXCEL2002"
+							File  "ExcelPatch\Excel.exe.config"
+							Goto Do2003
+						Warn2002:
+						MessageBox MB_OK "$EXCEL2002\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
+				${EndIF}
 
-		Do2003:
-		${If} $EXCEL2003_SEL ==  ${BST_CHECKED}
-				IfFileExists "$EXCEL2003\Excel.exe.config" Warn2003 Install2003
-				Install2003:
-					SetOutPath "$EXCEL2003"
-					File  "ExcelPatch\Excel.exe.config"
-					Goto FINISH
-				Warn2003:
-				MessageBox MB_OK "$EXCEL2003\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
-		${EndIF}
-		
-		FINISH:
+				Do2003:
+				${If} $EXCEL2003_SEL ==  ${BST_CHECKED}
+						IfFileExists "$EXCEL2003\Excel.exe.config" Warn2003 Install2003
+						Install2003:
+							SetOutPath "$EXCEL2003"
+							File  "ExcelPatch\Excel.exe.config"
+							Goto FINISH
+						Warn2003:
+						MessageBox MB_OK "$EXCEL2003\Excel.exe.config exists. Installer will not overwrite it. A manual patch maybe required"
+				${EndIF}
+				
+				FINISH:
 
-SectionEnd 
-
+		SectionEnd 
 
 
 	
@@ -1143,27 +1168,6 @@ Function .OnInstSuccess
 FunctionEnd
 
 
-
-
-Var DIALOG_PATCH
-
-Var BUTTON_PATCH
-
-Var EXCEL97
-Var EXCEL2000
-Var EXCEL2002
-Var EXCEL2003
-
-
-Var EXCEL97_CHECK
-Var EXCEL2000_CHECK
-Var EXCEL2002_CHECK
-Var EXCEL2003_CHECK
-
-Var EXCEL97_SEL
-Var EXCEL2000_SEL
-Var EXCEL2002_SEL
-Var EXCEL2003_SEL
 
 
 
