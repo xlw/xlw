@@ -32,7 +32,7 @@ Please email xlw-users@lists.sourceforge.net.
 
 
  1.  Visual Studio 2005 Express Edition (VS8_EXPRESS)
-     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+     '''''''''''''''''''''''''''''''''''''''''''''''''
      Visual C++ 2005 Express is not shipped with the Microsoft Platform SDK.
      This is a pre-requisite for developing with xlw.
 
@@ -221,7 +221,11 @@ Please email xlw-users@lists.sourceforge.net.
   ( For hybrid projects debugging should be more straight forward )
    
    
-   
+ 
+   7.Visual Studio 2005 Professional
+     '''''''''''''''''''''''''''''''
+   When building xll projects you may get a warning about non-existent environment
+   variable $PSDK. This warning can be ignored.   
    
    
    

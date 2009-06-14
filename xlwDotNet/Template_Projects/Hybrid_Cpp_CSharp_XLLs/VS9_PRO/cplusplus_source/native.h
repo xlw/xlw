@@ -1,7 +1,7 @@
 
 #ifndef NATIVE_H
 #define NATIVE_H
-#include <xlw/port.h>
+
 #include <xlw/MyContainers.h>
 #include <xlw/CellMatrix.h>
 #include <xlw/DoubleOrNothing.h>

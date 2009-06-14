@@ -2,7 +2,7 @@
 //// created by xlwplus
 ////
 
-#include <xlw/pragmas.h>
+
 #include <xlw/MyContainers.h>
 #include <xlw/CellMatrix.h>
 #include "cppinterface.h"
