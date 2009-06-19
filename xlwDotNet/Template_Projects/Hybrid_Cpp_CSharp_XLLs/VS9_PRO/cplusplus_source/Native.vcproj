@@ -52,7 +52,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc90-mt-gd-4_0_0alpha11.dll;$(OutDir)/$(SolutionName).NET.dll"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc90-mt-gd-4_0_0b0.dll;$(OutDir)/$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-gd-4_0_0alpha11.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-4_0_0b0.lib"
 				OutputFile="$(OutDir)\$(SolutionName)C.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib"
@@ -137,7 +137,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc90-mt-4_0_0alpha11.dll;$(OutDir)/$(SolutionName).NET.dll"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc90-mt-4_0_0b0.dll;$(OutDir)/$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -150,7 +150,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-4_0_0alpha11.lib"
+				AdditionalDependencies="xlw-vc90-mt-4_0_0b0.lib"
 				OutputFile="$(OutDir)\$(SolutionName)C.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib"

@@ -223,13 +223,26 @@ Please email xlw-users@lists.sourceforge.net.
    
  
    7.Visual Studio 2005 Professional
-     '''''''''''''''''''''''''''''''
+   '''''''''''''''''''''''''''''''''
    When building xll projects you may get a warning about non-existent environment
    variable $PSDK. This warning can be ignored.   
    
    
-   
-   
+   8. Some Useful Video Clips
+   ''''''''''''''''''''''''''
+	Creating a C++ XLL with Visual Studio 2008
+	http://www.youtube.com/watch?v=_mpw5_JW7T4
+
+	Creating a C# XLL with Visual Studio 2008
+	http://www.youtube.com/watch?v=1yLodcb32sI
+
+	Creating a hybrid C++/C# XLL with 
+	Visual Studio (Professional) 2008
+	http://www.youtube.com/watch?v=xJmKM4dwEEU
+
+	Debugging a C# XLL with Visual C# Express 2008
+	http://www.youtube.com/watch?v=Obtg8iVniQQ   
+	   
    
    
  
