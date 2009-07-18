@@ -343,7 +343,7 @@ int xlw::XlfOperImpl12::ConvertToCellMatrix(const XlfOper &xlfOper, CellMatrix& 
 
         unsigned long len = *((*xlfOper.lpxloper12_).val.str);
 
-        std::string tmp;
+        std::wstring tmp;
         tmp.resize(len);
 
         for(unsigned long k=0; k<len; ++k)
@@ -935,14 +935,14 @@ DWORD xlw::XlfOperImpl12::xltype(const XlfOper &xlfOper) const {
         return 0;
 }
 
-RW xlw::XlfOperImpl12::rows(XlfOper &xlfOper) const
+RW xlw::XlfOperImpl12::rows(const XlfOper &xlfOper) const
 {
     if (!(xlfOper.lpxloper12_->xltype & xltypeMulti))
         throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + xlfOper.lpxloper12_->xltype);
     return xlfOper.lpxloper12_->val.array.rows;
 }
 
-COL xlw::XlfOperImpl12::columns(XlfOper &xlfOper) const
+COL xlw::XlfOperImpl12::columns(const XlfOper &xlfOper) const
 {
     if (!(xlfOper.lpxloper12_->xltype & xltypeMulti))
         throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + xlfOper.lpxloper12_->xltype);

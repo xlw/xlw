@@ -2,6 +2,7 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009 Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -99,8 +100,8 @@ namespace xlw {
         virtual bool IsBool(const XlfOper &xlfOper) const = 0;
         virtual bool IsInt(const XlfOper &xlfOper) const = 0;
 
-        virtual RW rows(XlfOper &xlfOper) const = 0;
-        virtual COL columns(XlfOper &xlfOper) const = 0;
+        virtual RW rows(const XlfOper &xlfOper) const = 0;
+        virtual COL columns(const XlfOper &xlfOper) const = 0;
 
         virtual LPXLFOPER GetLPXLFOPER(const XlfOper &xlfOper) const = 0;
 

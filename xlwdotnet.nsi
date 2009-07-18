@@ -28,8 +28,6 @@
     Name "${APP}"
     OutFile "${APP_VER}.exe"
 
-
-	
 	LicenseForceSelection radiobuttons "I Accept" "I Decline"
 	BrandingText "${APP_VER}  ${DEV_OR_RELEASE}"
 
@@ -38,7 +36,7 @@
     ;InstallDir C:\TEMP\${APP_VER}
 
     ;Get installation folder from registry if available
-    InstallDirRegKey HKCU "Software\XLW\${XLW_VERSION}" "InstallDir"
+    InstallDirRegKey HKLM "Software\XLW\${XLW_VERSION}" "InstallDir"
 
 	
 	
@@ -397,6 +395,9 @@ Section #
 		
 		SetOutPath "$INSTDIR"
 		File "Doc-${XLW_VERSION}.TXT"
+		
+		SetOutPath "$INSTDIR\utils"
+		File "MinGW_Installer\xlw-MinGW-Installer.exe"
 		
 		
 		!insertmacro xlwDotNetReadMes
@@ -961,11 +962,13 @@ Function DevEnvironFinder
 		ReadRegStr $CodeBlocks_INST  HKCU "Software\CodeBlocks\Components"  "MinGW Compiler Suite" 
 		${If} $CodeBlocks_INST != ""
 			${NSD_LB_AddString} $ListBox_right "...... Detected MinGW Compiler Suite for Code::Blocks"
+			${NSD_LB_AddString} $ListBox_right "...... XLW requires MinGW with GCC4.4. Your Code::Blocks"
+			${NSD_LB_AddString} $ListBox_right "...... may have been installed with an older version of GCC."
+			${NSD_LB_AddString} $ListBox_right "...... You should install the required version of MinGW "
+            ${NSD_LB_AddString} $ListBox_right "...... and update the settings in your Code::Blocks environment."
 		${Else}
-			${NSD_LB_AddString} $ListBox_right "     - Unable to detect MinGW Compiler Suite for Code::Blocks"
-			${NSD_LB_AddString} $ListBox_right "       If you intend to install MinGW later or have it installed"
-			${NSD_LB_AddString} $ListBox_right "       and want to install support for support for Code::Blocks,"
-			${NSD_LB_AddString} $ListBox_right "       you must check the Code::Blocks check-box manualy on the next page."
+			${NSD_LB_AddString} $ListBox_right "     - With Code::Blocks, MinGW/GCC 4.4 will be required. You"
+			${NSD_LB_AddString} $ListBox_right "       will need to install it if not already installed."
 		${EndIf}
 		!insertmacro insertline
 	${EndIf}
@@ -1038,7 +1041,7 @@ Function SetUpInfo
 		StrCpy $CPP_DETECTED  "1"
 	${EndIf}
 	
-	${If} $CodeBlocks_INST != "" 
+	${If} $CodeBlocks_FRMWK != "" 
 		SectionSetFlags ${CODEBLOCKS} 1
 		StrCpy $CPP_DETECTED  "1"
 	${EndIf}
@@ -1156,12 +1159,11 @@ Function PlatformSDK
 
 FunctionEnd
 
- !define env_hkcu 'HKCU "Environment"'  
    
 Function .OnInstSuccess
 
    
-   WriteRegExpandStr HKCU "Environment" "XLW" $INSTDIR
+   WriteRegExpandStr HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment" "XLW" $INSTDIR
    ; make sure windows knows about the change
    SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
 

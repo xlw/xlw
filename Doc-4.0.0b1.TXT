@@ -1,6 +1,8 @@
 
+Corresponding to xlw-4.0.0b1.exe
 
-This is an Alpha version for xlw 4.0.0
+
+This is a Beta version for xlw 4.0.0
 THe look & feel of xlw4 is considerably different from previous verions
 at least on the surface and thus there is a need for new documentation.
 New and more extensive documentation will be included in the 
@@ -23,7 +25,8 @@ new fresh xll project, either under xlw(vanilla) or xlwDotNet.
 At this stage the most important factor to s peedy release version is feedback from the users
 Please email xlw-users@lists.sourceforge.net.
 
-
+If you will be using MinGW ( inc Code::Blocks & Dev-CPP ) then please also read the MinGW section of 
+the documentation below.
 
 ===================================================================================================
 ---------------------------------------------------------------------------------------------------
@@ -244,7 +247,98 @@ Please email xlw-users@lists.sourceforge.net.
 	http://www.youtube.com/watch?v=Obtg8iVniQQ   
 	   
    
-   
+===================================================================================================
+---------------------------------------------------------------------------------------------------
+===================================================================================================
+
+						MinGW Section 
+						=============
+
+	1. Getting the latest MinGW
+	----------------------------
+
+						
+Recently MinGW has updated its GCC compiler suite to GCC4.4. This version of XLW ( 4.0.0 beta 1 )
+has been updated to reflect this change in MinGW. The dependency in XLW on the earlier version of GCC (3.4.5)
+has been replaced by the dependency on the newer GCC shipped with the latest MinGW ( imminent).
+
+Unfortunatley the MinGW automatic installer has not been updated to install the new compiler suite and if used for
+installation will still install the older GCC, with which XLW will no longer work ( unless compiled from source).
+In this case the normal way around would be to install MinGW manualy without the automatical installer, however 
+this can be somewhat tedious.
+
+In order to keep the installation, usage and overall experience of XLW simple and painless we have built a MinGW
+installer that will download and install all the necessary MinGW components required for C/C++ compilation and
+to resolve XLW's dependency.
+
+You should find the MinGW installer, 'xlw-MinGW-Installer.exe' from the xlw sourceforge webpage under the download
+section for 'MingW Installer'. This will install all GCC4.4 & MSYS ( from the offical MinGW download site )and put the 
+appropriate Bin directories on the Path. It is however not necessary to use the installer to get the latest version
+of MinGW, another installer can be found
+here :
+	http://www.tdragon.net/recentgcc/
+	
+Also the necessary components can be downloaded manualy. The requirements are
+
+			    MinGW
+				-----
+			    gcc-core-4.4.0-mingw32-bin.tar.gz
+				gcc-core-4.4.0-mingw32-dll.tar.gz
+
+				mingw32-make-3.81-20080326-3.tar.gz
+				mingwrt-3.15.2-mingw32-dll.tar.gz
+				mingwrt-3.15.2-mingw32-dev.tar.gz
+				binutils-2.19.1-mingw32-bin.tar.gz
+
+				mpfr-2.4.1-mingw32-dll.tar.gz
+				pthreads-w32-2.8.0-mingw32-dll.tar.gz
+				gmp-4.2.4-mingw32-dll.tar.gz
+				w32api-3.13-mingw32-dev.tar.gz
+				libiconv-1.13-mingw32-dll-2.tar.gz
+
+				gcc-c++-4.4.0-mingw32-bin.tar.gz
+				gcc-c++-4.4.0-mingw32-dll.tar.gz
+
+			    MSYS
+				----
+				msysCORE-1.0.11-rc-1-bin.tar.gz
+
+
+	2. Code::Blocks
+	----------------
+	
+	On the Code::Blocks download site there are 2 installers available. One without MinGW and
+	one with. Previously it was advised to install the one with the MinGW. However now you 
+	should install the one WITHOUT MinGW, since the MinGW packaged in the Code::Blocks installer
+	is the older version. 
+	To setup Code::Blocks firstly install the latest MinGW ( GCC4.4 ) as described above. 
+	Then in Code::Blocks goto 'Settings->Compiler & Debugger -> Toolchain executables' and
+	set the Compilers installation directory to the bin directory of your MinGW installation
+	(if you used the xlw MinGW installer and installed to the default directory, this should be
+	 C:\GNU\MinGW\bin)
+	 
+	3. Dev-CPP
+	----------------
+
+	You should install the latest MinGW as decsribed above and then install the Dev-CPP package
+	without the inclusive MinGW software from the download page. 
+	 
+
+
+
+
+
+
+
+
+
+
+
+						
+						
+
+
+
  
  
  

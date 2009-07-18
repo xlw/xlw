@@ -969,14 +969,14 @@ DWORD xlw::XlfOperImpl4::xltype(const XlfOper &xlfOper) const {
         return 0;
 }
 
-RW xlw::XlfOperImpl4::rows(XlfOper &xlfOper) const
+RW xlw::XlfOperImpl4::rows(const XlfOper &xlfOper) const
 {
     if (!(xlfOper.lpxloper4_->xltype & xltypeMulti))
         throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + xlfOper.lpxloper4_->xltype);
     return xlfOper.lpxloper4_->val.array.rows;
 }
 
-COL xlw::XlfOperImpl4::columns(XlfOper &xlfOper) const
+COL xlw::XlfOperImpl4::columns(const XlfOper &xlfOper) const
 {
     if (!(xlfOper.lpxloper4_->xltype & xltypeMulti))
         throw XlfException("attempt to perform an xltypeMulti operation on a value of type " + xlfOper.lpxloper4_->xltype);

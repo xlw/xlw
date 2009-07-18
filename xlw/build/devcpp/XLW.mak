@@ -21,7 +21,7 @@ INCLUDE_DIR = ..\..\include
 CXXFLAGS = -DBUILDING_DLL=1  -fexceptions
 
 
-SRC_DIR = ..\..\src
+SRC_DIR = ../../src
 LIBSRC = ArgList.cpp \
          CellMatrix.cpp \
          Dispatcher.cpp \
@@ -50,6 +50,6 @@ LIBSRC = ArgList.cpp \
          xlcall.cpp
          #XlOpenClose.cpp   This gets included in the user code
 
-MAKEDIR = ..\..\make
+MAKEDIR = ../../make
 include $(MAKEDIR)/make.rules
 include $(MAKEDIR)/make.targets

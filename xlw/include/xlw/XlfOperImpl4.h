@@ -72,8 +72,8 @@ namespace xlw {
         virtual bool IsBool(const XlfOper &xlfOper) const;
         virtual bool IsInt(const XlfOper &xlfOper) const;
 
-        virtual RW rows(XlfOper &xlfOper) const;
-        virtual COL columns(XlfOper &xlfOper) const;
+        virtual RW rows(const XlfOper &xlfOper) const;
+        virtual COL columns(const XlfOper &xlfOper) const;
 
         virtual LPXLFOPER GetLPXLFOPER(const XlfOper &xlfOper) const;
 

@@ -177,7 +177,7 @@ namespace xlw {
         int ConvertToCellMatrix( CellMatrix& output) const;
         int ConvertToMatrix( MyMatrix& output) const;
         int ConvertToRef(XlfRef&) const throw();
-        int XlfOper4::ConvertToErr(WORD& e) const throw();
+        int ConvertToErr(WORD& e) const throw();
 
         friend class XlfExcel;
     };

@@ -63,7 +63,7 @@ TARGET = $(IDIR)/$(LIBPREFIX)$(LIBRARY).$(LIBP)
 
 
 
-$(IDIR)/lib$(LIBRARY).a::$(LIBOBJ)
+$(IDIR)/lib$(LIBRARY).a : $(LIBOBJ)
 	@-$(RM) $@
 	ar -rs $@  $(LIBOBJ) 
 	
@@ -73,7 +73,7 @@ $(IDIR)/lib$(LIBRARY).a::$(LIBOBJ)
 #			   --implib $(IDIR)/$(LIBPREFIX)$(LIBRARY).lib \
 #			    $(LIBOBJ) $(LDFLAGS) -o $@
 	
-$(TARGET)::$(LIBOBJ)
+$(IDIR)/$(LIBPREFIX)$(LIBRARY).%ll  : $(LIBOBJ)
 	@-$(RM) $@	
 	$(CXXSO) $(CXXPIC) -o  $@ \
     -Wl,--out-implib=$(IDIR)/$(LIBPREFIX)$(LIBRARY).lib \

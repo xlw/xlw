@@ -2,6 +2,7 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2009  Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -191,9 +192,9 @@ namespace xlw {
         \endcode
         */
         //! Number of rows in matrix.
-        RW rows() { return XlfOperImpl::instance().rows(*this); }
+        RW rows() const { return XlfOperImpl::instance().rows(*this); }
         //! Number of columns in matrix.
-        COL columns() { return XlfOperImpl::instance().columns(*this); }
+        COL columns() const { return XlfOperImpl::instance().columns(*this); }
         //! Function call operator, used here to subscript a two dimensional array.
         XlfOper operator()(RW row, COL col) { return XlfOperImpl::instance().operator_subscript(*this, row, col); }
         //! Set the value of array element with specified subscript.

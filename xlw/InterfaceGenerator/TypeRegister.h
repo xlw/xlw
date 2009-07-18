@@ -61,10 +61,10 @@ public:
     {
         return Registrations;
     }
-    const std::vector<std::string>& TypeRegistry::GetChain(std::string x) const;
+    const std::vector<std::string>& GetChain(std::string x) const;
 
     
-    bool TypeRegistry::IsOfBaseType(const std::string & id) const;
+    bool IsOfBaseType(const std::string & id) const;
 
     class Helper
     {
