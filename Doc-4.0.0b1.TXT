@@ -1,5 +1,8 @@
 
 Corresponding to xlw-4.0.0b1.exe
+Before installing:
+Please remove previous versions xlw4 ( xlw-4.0.0aX , xlw4.0.0b0)
+And please remove the environment variable XLW.
 
 
 This is a Beta version for xlw 4.0.0
