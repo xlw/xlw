@@ -15,7 +15,9 @@
 !define   PTHREADS          "pthreads-w32-2.8.0-mingw32-dll.tar.gz"
 !define   GMP               "gmp-4.2.4-mingw32-dll.tar.gz"
 !define   W32API            "w32api-3.13-mingw32-dev.tar.gz"
-!define   LIBICONV          "libiconv-1.13-mingw32-dll-2.tar.gz"
+!define   LIBICONV_DLL      "libiconv-1.13-mingw32-dll-2.tar.gz"
+!define   LIBICONV_DEV      "libiconv-1.13-mingw32-dev.tar.gz"
+!define   LIBICONV_BIN      "libiconv-1.13-mingw32-bin.tar.gz"
 
 !define   GPP_BIN           "gcc-c++-4.4.0-mingw32-bin.tar.gz"
 !define   GPP_DLL           "gcc-c++-4.4.0-mingw32-dll.tar.gz"
