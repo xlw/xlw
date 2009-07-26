@@ -2,7 +2,7 @@
 Corresponding to xlw-4.0.0b1.exe
 Before installing:
 Please remove previous versions xlw4 ( xlw-4.0.0aX , xlw4.0.0b0)
-And please remove the environment variable XLW.
+
 
 
 This is a Beta version for xlw 4.0.0
@@ -304,7 +304,11 @@ Also the necessary components can be downloaded manualy. The requirements are
 
 			    MSYS
 				----
-				msysCORE-1.0.11-rc-1-bin.tar.gz
+				msysCORE-1.0.11-bin.tar.gz
+				
+				GDB
+				----
+				gdb-6.8-mingw-3.tar.bz2
 
 
 	2. Code::Blocks
@@ -318,7 +322,7 @@ Also the necessary components can be downloaded manualy. The requirements are
 	Then in Code::Blocks goto 'Settings->Compiler & Debugger -> Toolchain executables' and
 	set the Compilers installation directory to the bin directory of your MinGW installation
 	(if you used the xlw MinGW installer and installed to the default directory, this should be
-	 C:\GNU\MinGW\bin)
+	 C:\GNU\MinGW)
 	 
 	3. Dev-CPP
 	----------------

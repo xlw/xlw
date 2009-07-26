@@ -200,6 +200,7 @@ Section
        !insertmacro Download ${LIBICONV_DLL}
        !insertmacro Download ${LIBICONV_BIN}
        !insertmacro Download ${MSYS}
+	   !insertmacro Download ${GDB}
 	   
 	   	SetOutPath "$INSTDIR\MinGW"
 	   !insertmacro Extract ${CORE_BIN}
@@ -217,6 +218,7 @@ Section
        !insertmacro Extract ${LIBICONV_DLL}
        !insertmacro Extract ${LIBICONV_BIN}
        !insertmacro Extract ${LIBICONV_DEV}
+	   !insertmacro Extract ${GDB}
 	   
 	   SetOutPath "$INSTDIR\MSYS"
        untgz::extract  -d "$INSTDIR\MSYS" "$INSTDIR\Download\$Mirror\${MSYS}"

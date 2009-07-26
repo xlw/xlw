@@ -760,7 +760,8 @@ Section "Uninstall"
 
 	Delete $INSTDIR\Uninstall.exe
 	RMDir /r $INSTDIR
-	DeleteRegKey HKCU "Environment\XLW"
+	DeleteRegValue HKCU "Environment" "XLW"
+	DeleteRegValue HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment" "XLW"
     ; make sure windows knows about the change
     SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
 	
@@ -1162,6 +1163,11 @@ FunctionEnd
    
 Function .OnInstSuccess
 
+   	DeleteRegValue HKCU "Environment" "XLW"
+	DeleteRegValue HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment" "XLW" 
+    ; make sure windows knows about the change
+    SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
+   
    
    WriteRegExpandStr HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment" "XLW" $INSTDIR
    ; make sure windows knows about the change
