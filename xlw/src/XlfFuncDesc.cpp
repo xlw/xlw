@@ -127,7 +127,7 @@ int xlw::XlfFuncDesc::DoUnregister(const std::string& dllName) const
     XlfOper unreg;
     //err = Excel4(xlfUnregister, unreg, 1, XlfOper(funcId));
     //err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, XlfOper(funcId)));
-    err = static_cast<int>(XlfExcel::Instance().Call4(xlfUnregister, unreg, 1, static_cast<LPXLOPER>(XlfOper(funcId))));
+    err = static_cast<int>(XlfExcel::Instance().Call(xlfUnregister, unreg, 1, static_cast<LPXLFOPER>(XlfOper(funcId))));
 
     return err;
 }
@@ -178,12 +178,13 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, doubl
     {
         (*px++) = XlfOper((*it).GetComment());
     }
-    XLOPER res;
-    int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, &res, 10 + nbargs, rgx));
+
+	XlfOper res;
+    int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, static_cast<LPXLFOPER>(res), 10 + nbargs, rgx));
 
     if(funcId != NULL)
     {
-        *funcId = res.val.num;
+		*funcId = res.AsDouble();
     }
 
     delete[] rgx;

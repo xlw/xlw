@@ -48,6 +48,8 @@ bool xlw::XlfCmdDesc::IsAddedToMenuBar()
   return !menu_.empty();
 }
 
+/// This function is using a naked XLOPER
+/// It needs updating for Excel 2007 - nc
 int xlw::XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
 {
     XLOPER xMenu;
@@ -76,7 +78,7 @@ int xlw::XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& te
     xMenu.val.array.columns = 5;
 
     //int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)&xMenu);
-    int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_), (LPXLFOPER)&xMenu);
+    int err = XlfExcel::Instance().Call4(xlfAddCommand, 0, 3, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_), (LPXLFOPER)&xMenu);
     if (err != xlretSuccess)
     std::cerr << XLW__HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
     delete[] pxMenu;

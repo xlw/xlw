@@ -23,7 +23,7 @@ place to start.
 There are also menu items for Template Extractors which you can use to create a
 new fresh xll project, either under xlw(vanilla) or xlwDotNet.
 
-At this stage the most important factor to s peedy release version is feedback from the users
+At this stage the most important factor to speedy release version is feedback from the users
 Please email xlw-users@lists.sourceforge.net.
 
 If you will be using MinGW ( inc Code::Blocks & Dev-CPP ) then please also read the MinGW section of 
@@ -48,6 +48,7 @@ PRE-REQUISITE
    5. Visual Studio 2003                          (VS7.1)
    6. Code::Blocks 8.02 (installer WITHOUT MinGW) + MinGW/GCC4.4.0 ( See section on MinGW below) (C::B/MinGW)
    7. Dev-C++ v5.0 beta 9.2 (Installer WITHOUT MinGW) + MinGW/GCC4.4.0 ( See section on MinGW below) (Dev-C++)
+   8. MinGW/GCC/Make enviroment (GCC/MAKE)
    
    C# XLLs
    --------
