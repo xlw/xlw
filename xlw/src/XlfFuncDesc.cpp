@@ -162,24 +162,24 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, doubl
 
     args+='\0'; // null termination for C string
 
-    LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
-    LPXLOPER *px = rgx;
-    (*px++) = XlfOper4(dllName);
-    (*px++) = XlfOper4(GetName());
-    (*px++) = XlfOper4(args);
-    (*px++) = XlfOper4(GetAlias());
-    (*px++) = XlfOper4(argnames);
-    (*px++) = XlfOper4(mode_);
-    (*px++) = XlfOper4(impl_->category_);
-    (*px++) = XlfOper4("");
-    (*px++) = XlfOper4("");
-    (*px++) = XlfOper4(GetComment());
+    LPXLFOPER *rgx = new LPXLFOPER[10 + nbargs];
+    LPXLFOPER *px = rgx;
+    (*px++) = XlfOper(dllName);
+    (*px++) = XlfOper(GetName());
+    (*px++) = XlfOper(args);
+    (*px++) = XlfOper(GetAlias());
+    (*px++) = XlfOper(argnames);
+    (*px++) = XlfOper(mode_);
+    (*px++) = XlfOper(impl_->category_);
+    (*px++) = XlfOper("");
+    (*px++) = XlfOper("");
+    (*px++) = XlfOper(GetComment());
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
-        (*px++) = XlfOper4((*it).GetComment());
+        (*px++) = XlfOper((*it).GetComment());
     }
     XLOPER res;
-    int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, &res, 10 + nbargs, rgx));
+    int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, &res, 10 + nbargs, rgx));
 
     if(funcId != NULL)
     {

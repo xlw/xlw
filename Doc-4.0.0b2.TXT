@@ -1,7 +1,5 @@
 
-Corresponding to xlw-4.0.0b1.exe
-Before installing:
-Please remove previous versions xlw4 ( xlw-4.0.0aX , xlw4.0.0b0)
+Corresponding to xlw-4.0.0b2.exe
 
 
 
@@ -34,6 +32,35 @@ the documentation below.
 ===================================================================================================
 ---------------------------------------------------------------------------------------------------
 ===================================================================================================
+
+PRE-REQUISITE
+=============
+
+   C++ XLLs
+   --------
+	
+   Developing C++ with XLW requires one of the following  environments :
+  
+   1. MicroSoft Visual Studio 2008 with both C++  (VS9_PRO) 
+   2. MicroSoft Visual Studio 2005 with both C++  (VS8_PRO) 
+   3. Visual Studio 2008 Express Editions C++     (VS9_EXPRESS)
+   4. Visual Studio 2005 Express Editions C++     (VS8_EXPRESS)
+   5. Visual Studio 2003                          (VS7.1)
+   6. Code::Blocks 8.02 (installer WITHOUT MinGW) + MinGW/GCC4.4.0 ( See section on MinGW below) (C::B/MinGW)
+   7. Dev-C++ v5.0 beta 9.2 (Installer WITHOUT MinGW) + MinGW/GCC4.4.0 ( See section on MinGW below) (Dev-C++)
+   
+   C# XLLs
+   --------
+   
+   Developing C# XLLs with XLW requires one of the following Microsoft Visual Studio environments :
+
+   1. MicroSoft Visual Studio 2008 with both C++ and C# installed.                      (VS9_PRO) 
+   2. MicroSoft Visual Studio 2005 with both C++ and C# installed.                      (VS8_PRO) 
+   3. Visual Studio 2008 Express Editions C++ & Visual Studio 2008 Express Editions C#  (VS9_EXPRESS)
+   4. Visual Studio 2005 Express Editions C++ & Visual Studio 2005 Express Editions C#  (VS8_EXPRESS)
+
+   There is no support for Visual Studio 2002 & 2003 and none is planned.
+   
 
 
 

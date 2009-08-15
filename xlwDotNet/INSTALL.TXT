@@ -1,9 +1,8 @@
 
 **************
-**************  NOW OUTDATED
+************** THESE NOTES ARE NOW OUTDATED
 ************** NEED NEW DOCS for 4.0.0
-
-
+**************
 
 ** These are premliminary INSTALL notes for use by XLW developers and for testing **
 08 Apr 09
@@ -37,7 +36,7 @@ Narinder Claire
 
      It can be downloaded from 
 
-	http://www.microsoft.com/downloads/details.aspx?FamilyId=A55B6B43-E24F-4EA3-A93E-40C0EC4F68E5&displaylang=en
+	 http://www.microsoft.com/downloads/details.aspx?FamilyId=A55B6B43-E24F-4EA3-A93E-40C0EC4F68E5&displaylang=en
 
      If you are using the Express edition of Visual C++ 2005, you need to install this first.
 

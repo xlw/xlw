@@ -39,7 +39,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc71-mt-gd-4_0_0b1.lib"
+				AdditionalDependencies="xlw-vc71-mt-gd-4_0_0b2.lib"
 				OutputFile=".\$(ConfigurationName)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -106,7 +106,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc71-mt-4_0_0b1.lib"
+				AdditionalDependencies="xlw-vc71-mt-4_0_0b2.lib"
 				OutputFile=".\$(ConfigurationName)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
