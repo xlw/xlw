@@ -132,6 +132,11 @@ int xlw::XlfFuncDesc::DoUnregister(const std::string& dllName) const
     return err;
 }
 
+// VERY Important :
+// In the following function we are using Excel4 instead of Excel12 ( hence also 
+// using XLOPER4 instead of XLOPER12. This is deliberate. Registering functions
+// Excel12(..) when the arguments add up to more then 255 char is problematic. the functions
+// will not register see  see BUG ID: 2834715 on sourceforge - nc
 int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, double* funcId) const
 {
 
@@ -162,25 +167,25 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, double mode_, doubl
 
     args+='\0'; // null termination for C string
 
-    LPXLFOPER *rgx = new LPXLFOPER[10 + nbargs];
-    LPXLFOPER *px = rgx;
-    (*px++) = XlfOper(dllName);
-    (*px++) = XlfOper(GetName());
-    (*px++) = XlfOper(args);
-    (*px++) = XlfOper(GetAlias());
-    (*px++) = XlfOper(argnames);
-    (*px++) = XlfOper(mode_);
-    (*px++) = XlfOper(impl_->category_);
-    (*px++) = XlfOper("");
-    (*px++) = XlfOper("");
-    (*px++) = XlfOper(GetComment());
+    LPXLOPER *rgx = new LPXLOPER[10 + nbargs];
+    LPXLOPER *px = rgx;
+    (*px++) = XlfOper4(dllName);
+    (*px++) = XlfOper4(GetName());
+    (*px++) = XlfOper4(args);
+    (*px++) = XlfOper4(GetAlias());
+    (*px++) = XlfOper4(argnames);
+    (*px++) = XlfOper4(mode_);
+    (*px++) = XlfOper4(impl_->category_);
+    (*px++) = XlfOper4("");
+    (*px++) = XlfOper4("");
+    (*px++) = XlfOper4(GetComment());
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
-        (*px++) = XlfOper((*it).GetComment());
+        (*px++) = XlfOper4((*it).GetComment());
     }
 
-	XlfOper res;
-    int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, static_cast<LPXLFOPER>(res), 10 + nbargs, rgx));
+	XlfOper4 res;
+    int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, static_cast<LPXLOPER>(res), 10 + nbargs, rgx));
 
     if(funcId != NULL)
     {

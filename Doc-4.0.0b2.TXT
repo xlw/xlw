@@ -187,8 +187,8 @@ PRE-REQUISITE
    
     <ExcelExport("returns the diff of two cell ranges")> _
         Public Shared  DiffRange( _
-                 [Parameter("The first  Cell Range")] CellMatrix A, _
-                 [Parameter("The second Cell Range")] CellMatrix B  _
+                 <Parameter("The first  Cell Range")> CellMatrix A, _
+                 <Parameter("The second Cell Range")> CellMatrix B  _
                    ) as xlwTypes.CellMatrix
           {
             ....
@@ -269,6 +269,9 @@ PRE-REQUISITE
 
 	Creating a C# XLL with Visual Studio 2008
 	http://www.youtube.com/watch?v=1yLodcb32sI
+	
+	Creating a C++ XLL with Code::Blocks & MinGW
+    http://www.youtube.com/watch?v=UmkSLesszqQ
 
 	Creating a hybrid C++/C# XLL with 
 	Visual Studio (Professional) 2008
