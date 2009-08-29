@@ -23,7 +23,7 @@ place to start.
 There are also menu items for Template Extractors which you can use to create a
 new fresh xll project, either under xlw(vanilla) or xlwDotNet.
 
-At this stage the most important factor to speedy release version is feedback from the users
+At this stage the most important factor to a speedy release version is feedback from the users
 Please email xlw-users@lists.sourceforge.net.
 
 If you will be using MinGW ( inc Code::Blocks & Dev-CPP ) then please also read the MinGW section of 
@@ -132,11 +132,11 @@ PRE-REQUISITE
 
    iii. Also in this directory you will find a sub-directory Addin, in this sub directory you will see a C++ Solution file
         Template.sln ( unless you are building a Hybrid project).  
-		Change the name of this to MyLib.Sln  replacing MyLib  with the name of your Library.
+        Change the name of this to MyLib.Sln  replacing MyLib  with the name of your Library.
 
    iv.  You can now open with Visual Studio the original renamed Solution file (i.e the one u renamed in (ii) )
         Build this  Solution to see if everything is ok. If not check your variable XLW is set correctly.
-		You may have to restart you Visual Studio.
+        You may have to restart you Visual Studio.
 
    
 
@@ -201,8 +201,8 @@ PRE-REQUISITE
     the build configuration at the top as is the case for the Professional Edition.
     This can be changed by going to Tools->Options then checking the box 'Show All Settings'.
     Then from the menu in the list on the left select 'Projects and Solutions -> General'
-    then check boxes "Show advanced build configurations' and 	
-	'Show Output window when build starts'
+    then check boxes "Show advanced build configurations' and 
+    'Show Output window when build starts'
 	
 	
   5. If Your .NET Addin Just crashes Excel. 
@@ -211,7 +211,7 @@ PRE-REQUISITE
 	
    Some versions of Excel do not load the correct .NET Runtime.
    .NET 2.0, .NET 3.0 & .NET 3.5 are all shipped with CLR v2 (v2 of the runtime)
-   An xll built by xlwDotNet is required to run on this runtime. To force Excel to
+   An xll built by xlwDotNet requires this runtime. To force Excel to
    to load this runtime at startup there is a work around.
    Create a file called Excel.exe.config with contents :
    
@@ -238,7 +238,7 @@ PRE-REQUISITE
    with a text editor.  In that file put the following text :
    
    <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-      <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+      <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
        <StartAction>Program</StartAction>
        <StartProgram>C:\Program Files\Microsoft Office\Office10\EXCEL.EXE</StartProgram>
       </PropertyGroup>
@@ -271,7 +271,7 @@ PRE-REQUISITE
 	http://www.youtube.com/watch?v=1yLodcb32sI
 	
 	Creating a C++ XLL with Code::Blocks & MinGW
-    http://www.youtube.com/watch?v=UmkSLesszqQ
+        http://www.youtube.com/watch?v=UmkSLesszqQ
 
 	Creating a hybrid C++/C# XLL with 
 	Visual Studio (Professional) 2008
@@ -292,7 +292,7 @@ PRE-REQUISITE
 	----------------------------
 
 						
-Recently MinGW has updated its GCC compiler suite to GCC4.4. This version of XLW ( 4.0.0 beta 1 )
+Recently MinGW has updated its GCC compiler suite to GCC4.4. This version of XLW ( 4.0.0 beta 2 )
 has been updated to reflect this change in MinGW. The dependency in XLW on the earlier version of GCC (3.4.5)
 has been replaced by the dependency on the newer GCC shipped with the latest MinGW ( imminent).
 
@@ -305,11 +305,11 @@ In order to keep the installation, usage and overall experience of XLW simple an
 installer that will download and install all the necessary MinGW components required for C/C++ compilation and
 to resolve XLW's dependency.
 
-You should find the MinGW installer, 'xlw-MinGW-Installer.exe' from the xlw sourceforge webpage under the download
+You will find the MinGW installer, 'xlw-MinGW-Installer.exe' on the xlw sourceforge webpage under the download
 section for 'MingW Installer'. This will install all GCC4.4 & MSYS ( from the offical MinGW download site )and put the 
-appropriate Bin directories on the Path. It is however not necessary to use the installer to get the latest version
-of MinGW, another installer can be found
-here :
+appropriate Bin directories on the Path. It is however not necessary to use THIS installer to get the latest version
+of MinGW, another installer is provided by TDM which can be found here :
+
 	http://www.tdragon.net/recentgcc/
 	
 Also the necessary components can be downloaded manualy. The requirements are
