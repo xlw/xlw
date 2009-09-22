@@ -223,6 +223,10 @@ Section
 	   SetOutPath "$INSTDIR\MSYS"
        untgz::extract  -d "$INSTDIR\MSYS" "$INSTDIR\Download\$Mirror\${MSYS}"
 	   
+	   SetOutPath "$DESKTOP"
+	   CreateShortcut "$DESKTOP\MSYS.lnk" "$INSTDIR\MSYS\msys.bat"  "" "$INSTDIR\MSYS\msys.ico"
+
+	   
 	   
 SectionEnd
 

@@ -1,13 +1,6 @@
 
-Corresponding to xlw-4.0.0b2.exe
 
-
-
-This is a Beta version for xlw 4.0.0
-THe look & feel of xlw4 is considerably different from previous verions
-at least on the surface and thus there is a need for new documentation.
-New and more extensive documentation will be included in the 
-final release xlw-4.0.0f0.
+For the latest documentation and news visit http://xlw.sourceforge.net/
 
 Please post feedback to xlw-users@sourceforge.net
 
@@ -318,20 +311,24 @@ Also the necessary components can be downloaded manualy. The requirements are
 				-----
 			    gcc-core-4.4.0-mingw32-bin.tar.gz
 				gcc-core-4.4.0-mingw32-dll.tar.gz
+				
+				gcc-c++-4.4.0-mingw32-bin.tar.gz
+				gcc-c++-4.4.0-mingw32-dll.tar.gz
+				
+				gcc-4.4.0-mingw32-notes.txt
 
 				mingw32-make-3.81-20080326-3.tar.gz
-				mingwrt-3.15.2-mingw32-dll.tar.gz
-				mingwrt-3.15.2-mingw32-dev.tar.gz
+				mingwrt-3.16-mingw32-dll.tar.gz
+				mingwrt-3.16-mingw32-dev.tar.gz
 				binutils-2.19.1-mingw32-bin.tar.gz
 
 				mpfr-2.4.1-mingw32-dll.tar.gz
 				pthreads-w32-2.8.0-mingw32-dll.tar.gz
 				gmp-4.2.4-mingw32-dll.tar.gz
 				w32api-3.13-mingw32-dev.tar.gz
-				libiconv-1.13-mingw32-dll-2.tar.gz
+				libiconv-1.13.1-1-mingw32-bin.tar.lzma
 
-				gcc-c++-4.4.0-mingw32-bin.tar.gz
-				gcc-c++-4.4.0-mingw32-dll.tar.gz
+
 
 			    MSYS
 				----

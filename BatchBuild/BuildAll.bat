@@ -1,3 +1,7 @@
+REM  CLEAN ALL
+
+python CleanAll.py
+
 
 REM BUILD THE LIBRRIES
 
