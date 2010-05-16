@@ -46,7 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="xlwDotNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e6c495227a9be340, processorArchitecture=x86">
-      <HintPath>$(XLW)\xlwDotNet\lib\xlwDotNet-vc80-mt$(gdconfig)-4_0_0f0.dll</HintPath>
+      <HintPath>$(XLW)\xlwDotNet\lib\xlwDotNet-vc80-mt$(gdconfig)-4_1_0a0.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
