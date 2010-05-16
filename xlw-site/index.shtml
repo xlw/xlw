@@ -1,0 +1,68 @@
+<!--#include virtual="header.inc"-->
+<h2>XLW - A Wrapper for the Excel API </h2>
+<div style ="margin-left:50px" id="navcontainer"><table width=500 border=1 bordercolor=green style="border-collapse:collapse"><tr><td>
+<font weight="bold" size=4pt  color=#2E3192> <marquee bgcolor=#8fa8c7> Develop Excel XLL Addins  &bull; C++ &bull; C# &bull; VB.NET &bull;  Excel 2007 Support &bull; Open Source &bull; Actively Developed & Supported since 2002 &bull; Support for Visual Studio &bull; Support for MinGW/GCC &bull; Support for Code::Blocks &bull; Template Projects  &bull; Hybrid C++/C# XLLs </marquee> </font>
+</td></tr></table></div>
+<br>
+<div id="download"><a class="imglink" id="imghover" href="http://downloads.sourceforge.net/xlw/xlw-3.0.0f0.exe" target="_blank"><img src="images/download_v3.jpg" alt="download" width=235 height=50 border=0 /></a></div>
+<div id="download"><a class="imglink" id="imghover" href="http://downloads.sourceforge.net/xlw/xlw-4.0.0b2.exe" target="_blank"><img src="images/download_v4.jpg" alt="download" width=235 height=50 border=0 /></a></div>
+<p>XLW is an <a href="license.shtml"><span class="bold">open source</span></a> application that wraps the Excel C API in simple C++, C# (XLW 4) or VB.NET (XLW 4) interfaces which you can use to customize Excel with your own worksheet functions and menu items.</p><br>
+</p>XLW developers include Financial Engineering practitioners with extensive experience of developing quantitative analytics in the finance industry including <a href="http://www.markjoshi.com/" target="_blank">Mark Joshi</a> the author of <a href="http://www.markjoshi.com/concepts/index.htm" target="_blank">The Concepts and Practice of Mathematical Finance</a> and <a href="http://www.markjoshi.com/design/index.htm" target="_blank">C++ Design Patterns and Derivatives Pricing</a>.
+<p>
+<br>
+<p>The project's interface generation system seamlessly parses your C++ header files ...
+
+<div class="fragment">
+<pre class="fragment">
+<span class="comment">// Test.h</span>
+
+<span class="preprocessor">#ifndef TEST_H</span>
+<span class="preprocessor">#define TEST_H</span>
+
+<span class="comment">//&lt;xlw:libraryname=MyTestLibrary</span>
+
+std::wstring <span class="comment">// Concatenate two strings</span>
+<span class="comment">//&lt;xlw:time</span>
+Concat(std::wstring str1,  <span class="comment">// First string</span>
+       std::wstring str2); <span class="comment">// Second string</span>
+
+<span class="keyword">double</span> <span class="comment">// Compute the circumference of a circle</span>
+<span class="comment">//&lt;xlw:time</span>
+Circ(<span class="keyword">double</span> Diameter); <span class="comment">// The circle's diameter</span>
+
+<span class="preprocessor">#endif</span>
+</pre></div>
+
+... and your C# (XLW 4) ... 
+<div class="fragment">
+<pre class="fragment">
+<span class="namespace">namespace</span> Example
+{
+  public <span class="class">class</span> Class1
+   {
+    [<span class="attribute">ExcelExport</span>(<span class="comment">"computes the circumference of a circle "</span>)]
+    <span class="keyword">public static</span> <span class="keyword">double</span> Circ(
+        [<span class="attribute">Parameter</span>(<span class="comment">"the circle's diameter"</span>)] <span class="keyword">double</span> Diameter)
+        {
+            <span class="keyword">return</span> Diameter * 3.14159;
+        }
+
+    [<span class="attribute">ExcelExport</span>(<span class="comment">"Concatenates two strings"</span>)]
+    <span class="keyword">public static</span> <span class="keyword">string</span> Concat(
+        [<span class="attribute">Parameter</span>(<span class="comment">"first string"</span>)] <span class="keyword">string</span> str1,
+        [<span class="attribute">Parameter</span>(<span class="comment">"second string"</span>)] <span class="keyword">string</span> str2)
+        {
+            <span class="keyword">return</span> str1+str2;
+        }
+
+    }
+}
+
+</pre></div>
+
+<p>...to automatically generate the corresponding XLW Excel addin (xll).</p>
+<div id="screenshot"><img src="images/screenshot.jpg" alt="screenshot" width=371 height=312></div>
+<div style ="margin-left:10px">
+<li>XLW 3 supports new features introduced by Excel 2007 such as multithreaded worksheet formulas, larger spreadsheets, and Unicode strings.</li>
+<li>XLW 4 supports the implementing of Excel Addin worksheet functions in C# and VB.NET in addition to C++. It comes with a new installer to make it even easier to install and create template projects to get you started.</li></div>
+<!--#include virtual="footer.inc"-->

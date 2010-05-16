@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="RunInterfaceGenerator"
+	ProjectGUID="{C7C8EB2B-A31A-4219-8CF7-4F69DD4890EF}"
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot; ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc7  ALL "
+				ReBuildCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot;  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc7  REBUILD "
+				CleanCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot;  ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc7  CLEAN "/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot; ENVIRON=Release LIBRARY=$(SolutionName) VC=vc7  ALL "
+				ReBuildCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot; ENVIRON=Release LIBRARY=$(SolutionName) VC=vc7 REBUILD "
+				CleanCommandLine="NMAKE /f &quot;.\RunInterfaceGenerator.nmake&quot; ENVIRON=Release LIBRARY=$(SolutionName) VC=vc7 CLEAN "/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<File
+			RelativePath=".\RunInterfaceGenerator.nmake">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

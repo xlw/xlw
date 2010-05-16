@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Template" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\$(PROJECT_NAME).xll" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj\Debug\" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-DBUILD_DLL" />
+				</Compiler>
+				<Linker>
+					<Add library="user32" />
+					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-gd-4_0_0f0.a&quot;' />
+				</Linker>
+				<ExtraCommands>
+					<Add before="make -f RunInterfaceGenerator.mak" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\$(PROJECT_NAME).xll" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj\Release\" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add option="-DBUILD_DLL" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="user32" />
+					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-4_0_0f0.a&quot;' />
+				</Linker>
+				<ExtraCommands>
+					<Add before="make -f RunInterfaceGenerator.mak BUILD=Release" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="$(XLW)\xlw\include" />
+			<Add directory=".\source" />
+		</Compiler>
+		<Linker>
+			<Add directory="..\..\..\lib" />
+		</Linker>
+		<Unit filename="source\cppinterface.h" />
+		<Unit filename="source\source.cpp" />
+		<Unit filename="source\xlwWrapper.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,71 @@
+<?xml version="1.0" ?><VisualStudioProject Keyword="Win32Proj" Name="4_0_0f0" ProjectGUID="{8DC33132-DEC5-488D-B16F-F5C40C970CBA}" ProjectType="Visual C++" RootNamespace="xlwDotNet" TargetFrameworkVersion="196613" Version="9.00">
+	<Platforms>
+		<Platform Name="Win32"/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration CharacterSet="1" ConfigurationType="2" IntermediateDirectory="$(ConfigurationName)" ManagedExtensions="1" Name="Debug|Win32" OutputDirectory="../../../lib">
+			<Tool CommandLine="" Name="VCPreBuildEventTool"/>
+			<Tool Name="VCCustomBuildTool"/>
+			<Tool Name="VCXMLDataGeneratorTool"/>
+			<Tool Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool Name="VCMIDLTool"/>
+			<Tool AdditionalIncludeDirectories="../../../../xlw/include" BasicRuntimeChecks="0" BrowseInformation="0" DebugInformationFormat="3" MinimalRebuild="false" Name="VCCLCompilerTool" Optimization="0" PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS" ProgramDataBaseFileName="$(IntDir)\vc80.pdb" RuntimeLibrary="3" UsePrecompiledHeader="0" WarningLevel="3"/>
+			<Tool Name="VCManagedResourceCompilerTool"/>
+			<Tool Name="VCResourceCompilerTool"/>
+			<Tool Name="VCPreLinkEventTool"/>
+			<Tool AdditionalDependencies="xlw-vc90-mt-gd-4_0_0f0.lib" AdditionalLibraryDirectories="../../../../xlw/lib" AssemblyDebug="1" CLRUnmanagedCodeCheck="false" GenerateDebugInformation="true" KeyFile="../../../xlwDotNet/xlwDotNet.snk" LinkIncremental="2" ModuleDefinitionFile="" Name="VCLinkerTool" OutputFile="$(OutDir)\xlwDotNet-vc90-mt-gd-$(ProjectName).dll" SubSystem="2" TargetMachine="1" Version="0.0.0.0"/>
+			<Tool Name="VCALinkTool"/>
+			<Tool Name="VCManifestTool"/>
+			<Tool Name="VCXDCMakeTool"/>
+			<Tool Name="VCBscMakeTool"/>
+			<Tool Name="VCFxCopTool"/>
+			<Tool Name="VCAppVerifierTool"/>
+			<Tool CommandLine="" Name="VCPostBuildEventTool"/>
+		</Configuration>
+		<Configuration CharacterSet="1" ConfigurationType="2" IntermediateDirectory="$(ConfigurationName)" ManagedExtensions="1" Name="Release|Win32" OutputDirectory="../../../lib" WholeProgramOptimization="1">
+			<Tool CommandLine="" Name="VCPreBuildEventTool"/>
+			<Tool Name="VCCustomBuildTool"/>
+			<Tool Name="VCXMLDataGeneratorTool"/>
+			<Tool Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool Name="VCMIDLTool"/>
+			<Tool AdditionalIncludeDirectories="../../../../xlw/include" DebugInformationFormat="3" EnableFunctionLevelLinking="true" EnableIntrinsicFunctions="true" Name="VCCLCompilerTool" Optimization="2" PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS" RuntimeLibrary="2" UsePrecompiledHeader="0" WarningLevel="3"/>
+			<Tool Name="VCManagedResourceCompilerTool"/>
+			<Tool Name="VCResourceCompilerTool"/>
+			<Tool Name="VCPreLinkEventTool"/>
+			<Tool AdditionalDependencies="xlw-vc90-mt-4_0_0f0.lib" AdditionalLibraryDirectories="../../../../xlw/lib" EnableCOMDATFolding="2" GenerateDebugInformation="false" KeyFile="../../../xlwDotNet/xlwDotNet.snk" LinkIncremental="1" ModuleDefinitionFile="" Name="VCLinkerTool" OptimizeReferences="2" OutputFile="$(OutDir)\xlwDotNet-vc90-mt-$(ProjectName).dll" SubSystem="2" TargetMachine="1" Version="1.0.0.0"/>
+			<Tool Name="VCALinkTool"/>
+			<Tool Name="VCManifestTool"/>
+			<Tool Name="VCXDCMakeTool"/>
+			<Tool Name="VCBscMakeTool"/>
+			<Tool Name="VCFxCopTool"/>
+			<Tool Name="VCAppVerifierTool"/>
+			<Tool CommandLine="" Name="VCPostBuildEventTool"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<File RelativePath="..\..\..\xlwDotNet\ExcelExportAttribute.cpp">
+		</File>
+		<File RelativePath="..\..\..\xlwDotNet\managedArgumentList.cpp">
+		</File>
+		<File RelativePath="..\..\..\xlwDotNet\managedCellMatrix.h">
+		</File>
+		<File RelativePath="..\..\..\xlwDotNet\managedMyArray.h">
+		</File>
+		<File RelativePath="..\..\..\xlwDotNet\managedMyMatrix.h">
+		</File>
+		<File RelativePath="..\..\..\xlwDotNet\managedString.cpp">
+		</File>
+		<File RelativePath="..\..\..\xlwDotNet\xdnException.cpp">
+		</File>
+		<File RelativePath="..\..\..\xlwDotNet\xlwDotNet.h">
+		</File>
+		<File RelativePath="..\..\..\xlwDotNet\xlwTypeBaseClass.h">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
