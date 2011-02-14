@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><VisualStudioProject Name="4_1_0a0" ProjectGUID="{B2CA3E14-BD4A-4186-9303-E1B6454630D5}" ProjectType="Visual C++" RootNamespace="xlw" TargetFrameworkVersion="131072" Version="9.00">
+<?xml version="1.0" ?><VisualStudioProject Name="5DEV" ProjectGUID="{B2CA3E14-BD4A-4186-9303-E1B6454630D5}" ProjectType="Visual C++" RootNamespace="xlw" TargetFrameworkVersion="131072" Version="9.00">
 	<Platforms>
 		<Platform Name="Win32"/>
 	</Platforms>

@@ -3,7 +3,7 @@ Copyright (C) 2006  Mark Joshi
 Copyright (C) 2007  Tim Brunne
 Copyright (C) 2007, 2008 Eric Ehlers
 Copyright (C) 2008  Winfried Kromen
-Copyright (C) 2008, 2009, 2010 Narinder S Claire
+Copyright (C) 2008, 2009, 2010, 2011 Narinder S Claire
 
 All rights reserved.
 

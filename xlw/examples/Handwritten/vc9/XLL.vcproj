@@ -74,7 +74,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-gd-4_1_0a0.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-5DEV.lib"
 				OutputFile=".\$(ConfigurationName)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -170,7 +170,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-4_1_0a0.lib"
+				AdditionalDependencies="xlw-vc90-mt-5DEV.lib"
 				OutputFile=".\$(ConfigurationName)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"

@@ -64,7 +64,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="xlw-vc90-mt-gd-4_1_0a0.lib $(SolutionName)C.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-5DEV.lib $(SolutionName)C.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib;../$(ConfigurationName)"
@@ -144,7 +144,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-4_1_0a0.lib $(SolutionName)C.lib"
+				AdditionalDependencies="xlw-vc90-mt-5DEV.lib $(SolutionName)C.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib;../$(ConfigurationName)"
