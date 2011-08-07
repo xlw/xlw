@@ -7,7 +7,7 @@
 !macroend
 
 ; uncomment on release version comment for dev builds
-; !define RELEASE_VERSION 1
+!define RELEASE_VERSION 1
 
 var DEV_OR_RELEASE
 var RELEASE_SHORT
