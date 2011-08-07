@@ -1,0 +1,15 @@
+<content xml:space="preserve">
+
+    <!-- exclude feedback -->
+    <item id="fb_Send"></item> 
+
+    <!-- Edit this to be whatever you want it to be -->
+    <item id="footer">Built with <a href="http://xlw.sourceforge.net/">Xlw</a>.<include item="copyright"/></item>
+
+    <!-- Change this to be whatever you need -->
+    <item id="copyright"><p/>(c) 2011 Xlw Team</item>
+
+    <!-- have Copy rather than Copy Code in syntax box -->
+    <item id="copyCode">Copy</item>
+
+</content>

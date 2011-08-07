@@ -30,12 +30,18 @@ SRC_DIR=./
 endif
 export SRC_DIR
 
+ifeq ($(PLATFORM), x64)
+BUILD_SUFFIX= _x64
+else
+BUILD_SUFFIX=
+endif
 
 
-export INSTALL_BIN=$(BUILD)/BIN
-export INSTALL_LIB=$(BUILD)/LIB
-export INSTALL_DLL=$(BUILD)/DLL
-export INSTALL_OBJ=OBJECTS/$(BUILD)
+export INSTALL_ROOT=$(BUILD)
+export INSTALL_BIN=$(INSTALL_ROOT)/BIN$(BUILD_SUFFIX)
+export INSTALL_LIB=$(INSTALL_ROOT)/LIB$(BUILD_SUFFIX)
+export INSTALL_DLL=$(INSTALL_ROOT)/DLL$(BUILD_SUFFIX)
+export INSTALL_OBJ=OBJECTS/$(INSTALL_ROOT)$(BUILD_SUFFIX)
 
 # Installed target permissions.
 READ_PERMISSION=444
@@ -49,10 +55,10 @@ export EXT_SHARE = dll
 endif
 export EXT_STATIC= a
 
-ifeq ($(EXT_SHARE),xll)
-LIBPREFIX=
-else
+ifeq ($(LIBTYPE),STATIC)
 LIBPREFIX=lib
+else
+LIBPREFIX=
 endif
 
 
@@ -63,26 +69,36 @@ LINK_DYNAMIC := -shared
 #	C++ language section.
 ########################################################
 
-CXX= g++
+ifeq ($(PLATFORM), x64)
+CROSS_PREFIX= x86_64-w64-mingw32-
+CCFLAGS64= -m64 -DWIN64
+else
+CROSS_PREFIX=
+CCFLAGS64=
+endif
 
-CXXPIC= 
+CXX=$(CROSS_PREFIX)g++
+
+CXXPIC=
 CXXSO= $(CXX)  $(LINK_DYNAMIC)
-DLLWRAP=dllwrap.exe
+DLLWRAP=$(CROSS_PREFIX)dllwrap.exe
 
 
 ifeq ($(BUILD),DEBUG)
 CPPFLAGSINC := $(INCLUDE_DIR:%=-I%)
-CPPFLAGS= $(CPPFLAGSINC)  -g3
-endif 
+CPPFLAGS= $(CPPFLAGSINC) $(CCFLAGS64) -g3 -Wall -D_DEBUG
+STRIP=
+endif
 ifeq ($(BUILD),RELEASE)
 CPPFLAGSINC := $(INCLUDE_DIR:%=-I%)
-CPPFLAGS= $(CPPFLAGSINC)  -O3
-endif 
+CPPFLAGS= $(CPPFLAGSINC) $(CCFLAGS64) -O3 -Wall -DNDEBUG
+STRIP=-s
+endif
 
 COMPILE= $(CXX)  $(CXXFLAGS) $(CPPFLAGS) -c
 
 
-LINK= $(CXX)  
+LINK= $(CXX)
 
 
 .cpp:
@@ -116,8 +132,4 @@ ifdef LIBS
 LDLIBS+=$(LIBS:%=-l%)
 endif
 
-export LDFLAGS= $(LDL) $(LDLIBS) 
-
-
-
-
+export LDFLAGS= $(LDL) $(LDLIBS) $(STRIP)

@@ -20,13 +20,7 @@
  * \ingroup utils
  */
 
-// $Id: Win32StreamBuf.inl 474 2008-03-05 15:40:40Z ericehlers $
-
-#ifdef NDEBUG
-#define INLINE inline
-#else
-#define INLINE
-#endif
+// $Id$
 
 namespace xlw {
 
@@ -34,7 +28,7 @@ namespace xlw {
     This method is called to dump stuff in the put area out to the file.
     We intercept it to send to debug window.
     */
-    INLINE int Win32StreamBuf::sync()
+    inline int Win32StreamBuf::sync()
     {
         SendToDebugWindow();
         buf_.erase();
@@ -45,7 +39,7 @@ namespace xlw {
     This method is called to dump stuff in the put area out to the file.
     We intercept it to send to debug window.
     */
-    INLINE int Win32StreamBuf::overflow(int ch)
+    inline Win32StreamBuf::int_type Win32StreamBuf::overflow(int_type ch)
     {
         if (!traits_type::eq_int_type(traits_type::eof(), ch))
         {

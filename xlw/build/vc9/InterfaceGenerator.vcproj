@@ -48,8 +48,7 @@
 				UsePrecompiledHeader="0"
 				ProgramDataBaseFileName="$(TargetDir)\$(TargetName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -183,19 +182,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\InterfaceGenerator\FunctionType.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\InterfaceGenerator\IncludeRegister.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\InterfaceGenerator\main.cpp"
 				>
 			</File>
 			<File
+				RelativePath="..\..\InterfaceGenerator\ManagedOutputter.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\InterfaceGenerator\Outputter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\InterfaceGenerator\OutputterHelper.cpp"
 				>
 			</File>
 			<File
@@ -241,7 +240,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\InterfaceGenerator\ManagedOutputter.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\InterfaceGenerator\Outputter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\InterfaceGenerator\OutputterHelper.h"
 				>
 			</File>
 			<File

@@ -1,16 +1,16 @@
 /*
- Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2008 2009 2011 Narinder S Claire
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLWDOTNET is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
- 
+
  XLW is free software: you can redistribute it and/or modify it under the
  terms of the XLW license.  You should have received a copy of the
  license along with this program; if not, please email xlw-users@lists.sf.net
- 
+
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
@@ -19,7 +19,7 @@
 #ifndef XLW_DOT_NET_H
 #define XLW_DOT_NET_H
 
-// Shouldn't really need this file, but I think theres an 
+// Shouldn't really need this file, but I think theres an
 // oversigt by the xlw people.
 
 
@@ -33,10 +33,13 @@
 
 
 #define DLLEXPORT __declspec(dllexport)
+
+#ifndef  ERRCELLS_NOT_REQUIRED
 namespace {
-	std::string errMessage;
-	xlw::CellMatrix errCells;
+    std::string errMessage;
+    xlw::CellMatrix errCells;
 }
+#endif 
 
 #define DOT_NET_EXCEL_BEGIN  try {
 #define DOT_NET_EXCEL_END \
@@ -62,7 +65,7 @@ namespace {
         theArg.add("StackTrace",std::string((const char*)(Marshal::StringToHGlobalAnsi(StackTrace).ToPointer())));\
         errCells = theArg.AllData();\
     throw(errCells);\
-} 
+}
 
 
 using namespace xlw;

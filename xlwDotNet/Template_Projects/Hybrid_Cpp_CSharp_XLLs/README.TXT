@@ -3,7 +3,7 @@
 HYBRID TEMPLATE
 ===============
 
-These Templates are for the Visual Studio Professional Editions ( 2005 & 2008).
+These Templates are for the Visual Studio Professional Editions ( 2005,2008 & 2010).
 They let you build C++,C# hybrid XLLs all in one Visual Studio Solution.
 
 In the Solution you will find a project called DotNet and a project called Native.
@@ -59,7 +59,7 @@ Anyway enjoy and have fun.
 
 -----------------------------------------------------------------------------
 
- Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2008 2009 2010 2011  Narinder S Claire
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/

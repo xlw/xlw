@@ -17,6 +17,9 @@
 #include <clw/Dispatcher.h>
 
 #include <xlw/ArgList.h>
+
+#ifdef USE_CLW_CODE
+
 namespace
 clw
 {
@@ -28,8 +31,7 @@ clw
     xlw::MakeLowerCase(Id);
     if  (DispatchMap.find(Id) == DispatchMap.end())
     {
-      std::string message(Id+" is an unknown function. Known functions are "+KnownFunctions);
-      throw message;
+      THROW_XLW(Id << " is an unknown function. Known functions are " << KnownFunctions);
     }
 
     return (DispatchMap.find(Id)->second)(args);
@@ -48,8 +50,17 @@ clw
 
   DispatcherHelper::DispatcherHelper(const std::string& id, FunctionToCall function)
   {
-   Dispatcher::Instance().RegisterFunction(id,function); 
+   Dispatcher::Instance().RegisterFunction(id,function);
   }
 
 
 }
+#else
+#ifdef _MSC_VER
+// avoid linker warnings
+namespace
+{
+    char dummy = 0;
+}
+#endif
+#endif

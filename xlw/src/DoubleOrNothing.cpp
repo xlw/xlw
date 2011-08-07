@@ -24,10 +24,10 @@
 xlw::DoubleOrNothing::DoubleOrNothing(const CellMatrix& cells, const std::string& identifier)
 {
     if (cells.ColumnsInStructure() != 1 || cells.RowsInStructure() != 1)
-        throw("Multiple values given where one expected for DoubleOrNothing " +identifier);
+        THROW_XLW("Multiple values given where one expected for DoubleOrNothing " << identifier);
 
     if (!cells(0,0).IsEmpty() && !cells(0,0).IsANumber() )
-        throw("expected a double or nothing, got something else "+identifier);
+        THROW_XLW("expected a double or nothing, got something else " << identifier);
 
     Empty = cells(0,0).IsEmpty();
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -21,7 +21,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <gdconfig>-gd</gdconfig>
+    <xlwversion>5_0_0a0</xlwversion><gdconfig>-gd</gdconfig>
+    <dir64></dir64>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -32,8 +33,9 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <gdconfig>
+    <xlwversion>5_0_0a0</xlwversion><gdconfig>
     </gdconfig>
+    <dir64></dir64>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Release\</OutputPath>
@@ -41,10 +43,32 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <xlwversion>5_0_0a0</xlwversion><gdconfig>-gd</gdconfig>
+    <dir64>x64/</dir64>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\x64_Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <xlwversion>5_0_0a0</xlwversion><gdconfig></gdconfig>
+    <dir64>x64/</dir64>
+    <OutputPath>..\x64_Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="xlwDotNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e6c495227a9be340, processorArchitecture=x86">
-      <HintPath>$(XLW)\xlwDotNet\lib\xlwDotNet-vc80-mt$(gdconfig)-5DEV.dll</HintPath>
+      <HintPath>$(XLW)\xlwDotNet\lib\$(dir64)xlwDotNet-vc80-mt$(gdconfig)-$(xlwversion).dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
@@ -64,7 +88,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"$(DevEnvDir)..\..\VC\vcpackages\vcbuild"  "$(SolutionDir)Addin\$(SolutionName).sln"    "$(Configuration)|Win32"</PostBuildEvent>
+    <PostBuildEvent>if $(PlatformName) == x64 "$(DevEnvDir)..\..\VC\vcpackages\vcbuild"  "$(SolutionDir)Addin\$(SolutionName).sln"    "$(Configuration)|x64"
+if $(PlatformName) == x86 "$(DevEnvDir)..\..\VC\vcpackages\vcbuild"  "$(SolutionDir)Addin\$(SolutionName).sln"    "$(Configuration)|Win32"</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>

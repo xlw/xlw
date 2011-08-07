@@ -2,6 +2,8 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2011 John Adcock
+ Copyright (C) 2011 Narinder S Claire
 
  This file is part of xlw, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -15,22 +17,19 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-// $Id: xlwExample.cpp,v 1.12 2003/03/08 22:21:02 jlecomte Exp $
+// $Id$
 
 #include <xlw/xlw.h>
-#include <sstream>
 #include <vector>
-
-// Force export of functions implemented in XlOpenClose.h and required by Excel
-#pragma comment (linker, "/export:_xlAutoOpen")
-#pragma comment (linker, "/export:_xlAutoClose")
-
+#include <xlw/XlfServices.h>
 using namespace xlw;
+
 
 extern "C" {
 
-    LPXLFOPER EXCEL_EXPORT xlCirc(XlfOper xlDiam) {
+    LPXLFOPER EXCEL_EXPORT xlCirc(LPXLFOPER inDiam) {
         EXCEL_BEGIN;
+        XlfOper xlDiam(inDiam);
         // Converts d to a double.
         double ret = xlDiam.AsDouble();
         // Multiplies it.
@@ -40,8 +39,11 @@ extern "C" {
         EXCEL_END;
     }
 
-    LPXLFOPER EXCEL_EXPORT xlConcat(XlfOper xlStr1, XlfOper xlStr2) {
+    LPXLFOPER EXCEL_EXPORT xlConcat(LPXLFOPER inStr1, LPXLFOPER inStr2) {
         EXCEL_BEGIN;
+        XlfOper xlStr1(inStr1);
+        XlfOper xlStr2(inStr2);
+
         // Converts the 2 strings.
         std::wstring str1 = xlStr1.AsWstring();
         std::wstring str2 = xlStr2.AsWstring();
@@ -51,8 +53,11 @@ extern "C" {
         EXCEL_END;
     }
 
-    LPXLOPER EXCEL_EXPORT xlConcat4(XlfOper4 xlStr1, XlfOper4 xlStr2) {
+    LPXLOPER EXCEL_EXPORT xlConcat4(LPXLOPER inStr1, LPXLOPER inStr2) {
         EXCEL_BEGIN;
+        XlfOper4 xlStr1(inStr1);
+        XlfOper4 xlStr2(inStr2);
+
         // Converts the 2 strings.
         std::string str1 = xlStr1.AsString();
         std::string str2 = xlStr2.AsString();
@@ -62,8 +67,11 @@ extern "C" {
         EXCEL_END_4;
     }
 
-    LPXLOPER12 EXCEL_EXPORT xlConcat12(XlfOper12 xlStr1, XlfOper12 xlStr2) {
+    LPXLOPER12 EXCEL_EXPORT xlConcat12(LPXLOPER12 inStr1, LPXLOPER12 inStr2) {
         EXCEL_BEGIN;
+        XlfOper12 xlStr1(inStr1);
+        XlfOper12 xlStr2(inStr2);
+
         // Converts the 2 strings.
         std::wstring str1 = xlStr1.AsWstring();
         std::wstring str2 = xlStr2.AsWstring();
@@ -73,44 +81,46 @@ extern "C" {
         EXCEL_END_12;
     }
 
-    LPXLFOPER EXCEL_EXPORT xlStats(XlfOper xlTargetRange) {
+    LPXLFOPER EXCEL_EXPORT xlStats(LPXLFOPER inTargetRange) {
         EXCEL_BEGIN;
+        XlfOper xlTargetRange(inTargetRange);
 
         // Temporary variables.
         double averageTmp = 0.0;
         double varianceTmp = 0.0;
 
-        // XlfExcel::Coerce method (internally called) will return to Excel
-        // if one of the cells was invalidated and needs to be recalculated.
-        // Excel will calculate this cell and call our function again.
-        // Thus we first copy all the data to avoid partially computing the
-        // average for no reason since one of the cells might be uncalculated.
-        std::vector<double> temp = xlTargetRange.AsDoubleVector(XlfOperImpl::RowMajor);
-
-        // All cells are copied. We do the actual work.
-        size_t popSize = temp.size();
-        for (size_t i = 0; i < popSize; ++i)
+        // Iterate over the cells in the incoming matrix.
+        for (RW i = 0; i < xlTargetRange.rows(); ++i)
         {
-            // sums the values.
-            averageTmp += temp[i];
-            // sums the squared values.
-            varianceTmp += temp[i] * temp[i];
+            for (RW j = 0; j < xlTargetRange.columns(); ++j)
+            {
+                // sums the values.
+                double value(xlTargetRange(i,j).AsDouble());
+                averageTmp += value;
+                // sums the squared values.
+                varianceTmp += value * value;
+            }
         }
-        // Initialization of the resultArray.
-        double resultArray[2];
-        // compute average.
-        double& average = resultArray[0];
-        average = averageTmp / popSize;
-        // compute variance
-        double& variance = resultArray[1];
-        variance = varianceTmp / popSize - average * average;
-        // Create the XlfOper returned with the resultArray containing the values.
-        return XlfOper(1, 2, resultArray);
+        size_t popSize = xlTargetRange.rows() * xlTargetRange.columns();
 
+        // avoid divide by zero
+        if(popSize == 0)
+        {
+            THROW_XLW("Can't calculate stats on empty range");
+        }
+
+        // Initialization of the results Array oper.
+        XlfOper result(1, 2);
+        // compute average.
+        double average = averageTmp / popSize;
+        result(0, 0) = average;
+        // compute variance
+        result(0, 1) = varianceTmp / popSize - average * average;
+        return result;
         EXCEL_END;
     }
 
-    /*! 
+    /*!
      * Demonstrates how to detect that the function is called by
      * the function wizard, and how to retrieve the coordinates
      * of the caller cell
@@ -123,24 +133,20 @@ extern "C" {
             return XlfOper(true);
 
         // Gets reference of the called cell
-        XlfOper res;
-        XlfExcel::Instance().Call(xlfCaller,res,0);
-        XlfRef ref = res.AsRef();
+        XlfRef ref = XlfServices.Information.GetCallingCell().AsRef();
 
         // Returns the reference in A1 format
-        std::ostringstream ostr;
-        char colChar = 'A' + ref.GetColBegin();
-        ostr << colChar << ref.GetRowBegin() + 1 << std::ends;
-        std::string address = ostr.str();
-
-        return XlfOper(address.c_str());
+        // note that we avoid using the functions in XlfServices
+        // to do this as most of them require the function to be defined
+        // as a macro sheet function
+        return XlfOper(ref.GetTextA1());
 
         EXCEL_END;
     }
 
     /*!
-     * Registered as volatile to demonstrate how functions can be 
-     * recalculated automatically even if none of the arguments 
+     * Registered as volatile to demonstrate how functions can be
+     * recalculated automatically even if none of the arguments
      * has changed.
      *
      * \return the number of times the function has been called.
@@ -156,7 +162,8 @@ extern "C" {
     }
 }
 
-namespace {
+namespace 
+{
 
     // Register the function Circ.
 

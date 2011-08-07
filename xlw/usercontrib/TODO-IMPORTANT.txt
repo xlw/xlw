@@ -1,0 +1,1 @@
+In each Visual Studio solution file each of the project files has the same unique idea which cauises problems when Rebuilding projects. These need to be made different before release

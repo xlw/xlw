@@ -11,11 +11,6 @@
 **
 */
 
-#ifndef _WINDOWS_
-#include <windows.h>
-#endif
-
-//#include <xlw/xlcall.h>
 #include <xlw/xlcall32.h>
 
 /*
@@ -29,15 +24,11 @@
 #define cxloper12Max 255
 #define EXCEL12ENTRYPT "MdCallBack12"
 
-typedef int (PASCAL *EXCEL12PROC) (int xlfn, int coper, LPXLOPER12 *rgpxloper12, LPXLOPER12 xloper12Res);
+typedef int (PASCAL *EXCEL12PROC) (int xlfn, int coper, const LPXLOPER12 *rgpxloper12, LPXLOPER12 xloper12Res);
 
 HMODULE hmodule;
 EXCEL12PROC pexcel12;
 
-//__forceinline void FetchExcel12EntryPt(void)
-#if defined(_MSC_VER)
-__forceinline
-#endif
 void FetchExcel12EntryPt(void)
 {
     if (pexcel12 == NULL)
@@ -52,13 +43,6 @@ void FetchExcel12EntryPt(void)
 
 int _cdecl Excel12(int xlfn, LPXLOPER12 operRes, int count, ...)
 {
-
-#ifdef _WIN64
-
-    return(xlretFailed);
-
-#else
-
     LPXLOPER12 rgxloper12[cxloper12Max];
     va_list ap;
     int ioper;
@@ -84,18 +68,10 @@ int _cdecl Excel12(int xlfn, LPXLOPER12 operRes, int count, ...)
         }
     }
     return(mdRet);
-
-#endif
 }
 
-int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 opers[])
+int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, const LPXLOPER12 opers[])
 {
-#ifdef _WIN64
-
-    return(xlretFailed);
-
-#else
-
     int mdRet;
 
     FetchExcel12EntryPt();
@@ -108,6 +84,4 @@ int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 opers[])
         mdRet = (pexcel12)(xlfn, count, &opers[0], operRes);
     }
     return(mdRet);
-
-#endif
 }

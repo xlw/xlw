@@ -1,5 +1,0 @@
-
-BUILD=RELEASE
-
-include ./Makefile
-	

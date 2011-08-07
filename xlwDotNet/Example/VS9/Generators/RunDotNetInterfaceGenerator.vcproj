@@ -6,10 +6,14 @@
 	ProjectGUID="{1115BBB6-8140-40EF-8805-DF2E41D1330E}"
 	RootNamespace="RunInterfaceGenerator"
 	Keyword="MakeFileProj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform
 			Name="Win32"
+		/>
+		<Platform
+			Name="x64"
 		/>
 	</Platforms>
 	<ToolFiles>
@@ -46,6 +50,46 @@
 				BuildCommandLine="NMAKE /f ..\..\..\vc_common\RunDotNetInterfaceGenerator.nmake ENVIRON=Release   LibraryName=$(SolutionName)   SolutionDir=&quot;$(SolutionDir)../&quot;  VSVERSION=VS9 ALL"
 				ReBuildCommandLine="NMAKE /f ..\..\..\vc_common\RunDotNetInterfaceGenerator.nmake ENVIRON=Release   LibraryName=$(SolutionName)   SolutionDir=&quot;$(SolutionDir)../&quot;  VSVERSION=VS9 REBUILD "
 				CleanCommandLine="NMAKE /f ..\..\..\vc_common\RunDotNetInterfaceGenerator.nmake ENVIRON=Release   LibraryName=$(SolutionName)    SolutionDir=&quot;$(SolutionDir)../&quot;  VSVERSION=VS9 CLEAN "
+				Output=""
+				PreprocessorDefinitions="WIN32;NDEBUG"
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="NMAKE /f ..\..\..\vc_common\RunDotNetInterfaceGenerator.nmake  ENVIRON=$(PlatformName)_$(ConfigurationName)  LibraryName=$(SolutionName)  SolutionDir=&quot;$(SolutionDir)../&quot; VSVERSION=VS9 ALL"
+				ReBuildCommandLine="NMAKE /f ..\..\..\vc_common\RunDotNetInterfaceGenerator.nmake  ENVIRON=$(PlatformName)_$(ConfigurationName)  LibraryName=$(SolutionName)  SolutionDir=&quot;$(SolutionDir)../&quot; VSVERSION=VS9 REBUILD"
+				CleanCommandLine="NMAKE /f ..\..\..\vc_common\RunDotNetInterfaceGenerator.nmake  ENVIRON=$(PlatformName)_$(ConfigurationName)  LibraryName=$(SolutionName)  SolutionDir=&quot;$(SolutionDir)../&quot; VSVERSION=VS9 CLEAN"
+				Output=""
+				PreprocessorDefinitions="WIN32;_DEBUG"
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged="1"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="NMAKE /f ..\..\..\vc_common\RunDotNetInterfaceGenerator.nmake  ENVIRON=$(PlatformName)_$(ConfigurationName)  LibraryName=$(SolutionName)  SolutionDir=&quot;$(SolutionDir)../&quot; VSVERSION=VS9 ALL"
+				ReBuildCommandLine="NMAKE /f ..\..\..\vc_common\RunDotNetInterfaceGenerator.nmake  ENVIRON=$(PlatformName)_$(ConfigurationName)  LibraryName=$(SolutionName)  SolutionDir=&quot;$(SolutionDir)../&quot; VSVERSION=VS9 REBUILD"
+				CleanCommandLine="NMAKE /f ..\..\..\vc_common\RunDotNetInterfaceGenerator.nmake  ENVIRON=$(PlatformName)_$(ConfigurationName)  LibraryName=$(SolutionName)  SolutionDir=&quot;$(SolutionDir)../&quot; VSVERSION=VS9 CLEAN"
 				Output=""
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				IncludeSearchPath=""

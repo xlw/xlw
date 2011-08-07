@@ -12,6 +12,9 @@
 		<Platform
 			Name="Win32"
 		/>
+		<Platform
+			Name="x64"
+		/>
 	</Platforms>
 	<ToolFiles>
 	</ToolFiles>
@@ -22,7 +25,7 @@
 			IntermediateDirectory="$(OutDir)/obj"
 			ConfigurationType="2"
 			CharacterSet="1"
-			ManagedExtensions="0"
+			ManagedExtensions="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -51,6 +54,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc90-mt-gd-5_0_0a0.dll;$(OutDir)/$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -64,11 +68,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="xlw-vc90-mt-gd-5DEV.lib $(SolutionName)C.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0a0.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib;../$(ConfigurationName)"
-				DelayLoadDLLs="$(SolutionName)C.dll"
+				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="2"
@@ -99,11 +103,96 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="$(SolutionDir)../$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory="$(OutDir)/obj"
+			ConfigurationType="2"
+			CharacterSet="1"
+			ManagedExtensions="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine=""
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="$(XLW)/xlw/include;$(XLW)\xlwDotNet/xlwDotNet"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;EXAMPLEXLL_EXPORTS"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc90-mt-gd-5_0_0a0.dll;$(OutDir)/$(SolutionName).NET.dll"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0a0.lib"
+				OutputFile="$(OutDir)\$(SolutionName).xll"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="$(XLW)/xlw/lib/x64;../$(PlatformName)_$(ConfigurationName)"
+				DelayLoadDLLs=""
+				GenerateDebugInformation="true"
+				AssemblyDebug="1"
+				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)../$(ConfigurationName)"
 			IntermediateDirectory="$(OutDir)/obj"
 			ConfigurationType="2"
 			CharacterSet="1"
+			ManagedExtensions="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -132,6 +221,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc90-mt-5_0_0a0.dll;$(OutDir)/$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -144,11 +234,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-5DEV.lib $(SolutionName)C.lib"
+				AdditionalDependencies="xlw-vc90-mt-5_0_0a0.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib;../$(ConfigurationName)"
-				DelayLoadDLLs="$(SolutionName)C.dll"
+				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -179,14 +269,146 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			OutputDirectory="$(SolutionDir)../$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory="$(OutDir)/obj"
+			ConfigurationType="2"
+			CharacterSet="1"
+			ManagedExtensions="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="$(XLW)/xlw/include;$(XLW)\xlwDotNet/xlwDotNet"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEXLL_EXPORTS"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc90-mt-5_0_0a0.dll;$(OutDir)/$(SolutionName).NET.dll"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="xlw-vc90-mt-5_0_0a0.lib"
+				OutputFile="$(OutDir)\$(SolutionName).xll"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="$(XLW)/xlw/lib/x64;../$(PlatformName)_$(ConfigurationName)"
+				DelayLoadDLLs=""
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath="..\AutoGeneratedSource\xlwXLL.cpp"
+		<Filter
+			Name="AutoGeneratesSource"
 			>
-		</File>
+			<File
+				RelativePath="..\AutoGeneratedSource\AssembleyFinder.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\AutoGeneratedSource\DLL.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\AutoGeneratedSource\DLL.h"
+				>
+			</File>
+			<File
+				RelativePath="..\AutoGeneratedSource\xlwXLL.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAsManaged="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAsManaged="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAsManaged="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						CompileAsManaged="0"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

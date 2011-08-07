@@ -6,6 +6,7 @@
 	ProjectGUID="{40F203F3-56D0-42ED-A2E9-27E84EABD0B2}"
 	RootNamespace="RunInterfaceGenerator"
 	Keyword="MakeFileProj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform

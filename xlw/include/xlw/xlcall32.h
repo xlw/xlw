@@ -17,13 +17,10 @@
 
 //#pragma once
 
-#ifndef INC_excel32_H
-#define INC_excel32_H
+#ifndef INC_xlcall32_H
+#define INC_xlcall32_H
 
-#ifndef STRICT
-#define STRICT 1
-#endif
-#include "windows.h"
+#include <xlw/XlfWindows.h>
 
 /*
 ** XL 12 Basic Datatypes
@@ -301,15 +298,17 @@ typedef struct xloper12
 ** These values can be returned from Excel4(), Excel4v(), Excel12() or Excel12v().
 */
 
-#define xlretSuccess        0    /* success */
-#define xlretAbort          1    /* macro halted */
-#define xlretInvXlfn        2    /* invalid function number */
-#define xlretInvCount       4    /* invalid number of arguments */
-#define xlretInvXloper      8    /* invalid OPER structure */
-#define xlretStackOvfl      16   /* stack overflow */
-#define xlretFailed         32   /* command failed */
-#define xlretUncalced       64   /* uncalced cell */
-#define xlretNotThreadSafe  128  /* not allowed during multi-threaded calc */
+#define xlretSuccess                    0       /* success */
+#define xlretAbort                      1       /* macro halted */
+#define xlretInvXlfn                    2       /* invalid function number */
+#define xlretInvCount                   4       /* invalid number of arguments */
+#define xlretInvXloper                  8       /* invalid OPER structure */
+#define xlretStackOvfl                  16      /* stack overflow */
+#define xlretFailed                     32      /* command failed */
+#define xlretUncalced                   64      /* uncalced cell */
+#define xlretNotThreadSafe              128     /* not allowed during multi-threaded calc */
+#define xlRetInvAsynchronousContext     256     /* the async handle is invalid */
+#define xlretNotClusterSafe             512     /* The call is not supported on clusters */
 
 
 /*
@@ -331,7 +330,7 @@ extern int (_cdecl *Excel4)(int xlfn, LPXLOPER operRes, int count,... );
 /* followed by count LPXLOPERs */
 
 //int pascal Excel4v(int xlfn, LPXLOPER operRes, int count, LPXLOPER opers[]);
-extern int (pascal *Excel4v)(int xlfn, LPXLOPER operRes, int count, LPXLOPER opers[]);
+extern int (pascal *Excel4v)(int xlfn, LPXLOPER operRes, int count, const LPXLOPER opers[]);
 
 int pascal XLCallVer(void);
 
@@ -341,7 +340,7 @@ int _cdecl Excel12(int xlfn, LPXLOPER12 operRes, int count,... );
 //extern int (_cdecl *Excel12)(int xlfn, LPXLOPER12 operRes, int count,... );
 /* followed by count LPXLOPER12s */
 
-int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 opers[]);
+int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, const LPXLOPER12 opers[]);
 //extern int (pascal *Excel12v)(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 opers[]);
 
 #ifdef __cplusplus
@@ -383,6 +382,9 @@ int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, LPXLOPER12 opers[])
 /* GetFooInfo are valid only for calls to LPenHelper */
 #define xlGetFmlaInfo    (14 | xlSpecial)
 #define xlGetMouseInfo    (15 | xlSpecial)
+#define xlAsyncReturn     (16 | xlSpecial)
+#define xlEventRegister    (17 | xlSpecial)
+#define xlRunningOnCluster (18 | xlSpecial)
 
 /* edit modes */
 #define xlModeReady    0    // not in edit mode

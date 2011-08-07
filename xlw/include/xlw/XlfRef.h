@@ -24,21 +24,18 @@
 \brief Class XlfRef - Encapsulate a range of cells
 */
 
-// $Id: XlfRef.h 474 2008-03-05 15:40:40Z ericehlers $
+// $Id$
 
 #include <xlw/EXCEL32_API.h>
 #include <xlw/xlcall32.h>
 #include <iostream>
+#include <string>
 
 #if defined(_MSC_VER)
 #pragma once
 #endif
 
 namespace xlw {
-
-    // Forward declaration.
-    //! Wrapper around XLOPER Excel data type.
-    class EXCEL32_API XlfOper;
 
     //! Encapsulate a range of cells.
     /*!
@@ -97,6 +94,10 @@ namespace xlw {
         void SetColEnd(INT32 colend);
         //! Sets MS Excel sheet identifier of the range.
         void SetSheetId(DWORD);
+        //! get the reference as a string in A1 notation
+        std::string GetTextA1();
+        //! get the reference as a string in R1C1 notation
+        std::string GetTextR1C1();
         //@}
 
         //! \name Access operator
@@ -131,9 +132,7 @@ namespace xlw {
 
 }
 
-#ifdef NDEBUG
 #include <xlw/XlfRef.inl>
-#endif
 
 #endif
 

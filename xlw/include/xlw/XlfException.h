@@ -22,23 +22,24 @@
 \brief Class XlfException - Excel emergency exceptions
 */
 
-// $Id: XlfException.h 474 2008-03-05 15:40:40Z ericehlers $
+// $Id$
 
-#include <xlw/XlfOper.h>
+#include <xlw/EXCEL32_API.h>
 #include <string>
 #include <exception>
+#include <stdexcept>
+#include <iostream>
+#include <sstream>
 
 #if defined(_MSC_VER)
 #pragma once
 #endif
 
-#if defined(DEBUG_HEADERS)
-#pragma DEBUG_HEADERS
-#endif
+#define XLW__HERE__ __FILE__ "(" _MAKESTRING(__LINE__) "): "
+#define _MAKESTRING(a) __MAKESTRING(a)
+#define __MAKESTRING(a) #a
 
 namespace xlw {
-
-    class EXCEL32_API XlfOper;
 
     //! Excel emergency exceptions
     /*!
@@ -53,15 +54,15 @@ namespace xlw {
     */
     class EXCEL32_API XlfException : public std::exception
     {
-    public:
-        //! Message string ctor.
-        XlfException(const std::string& what = "");
-        //! std::exception interface
-        const char* what () const throw ();
-        //! the automatically generated destructor would not have the throw specifier.
-        ~XlfException () throw () {}
     private:
         std::string what_;
+    public:
+        //! Message string ctor.
+        XlfException(const std::string& what = "") : what_(what) {};
+        //! std::exception interface
+        const char* what () const throw () { return what_.c_str(); }
+        //! the automatically generated destructor would not have the throw specifier.
+        ~XlfException () throw () {}
     };
 
     //! Argument cell not calculated.
@@ -96,11 +97,50 @@ namespace xlw {
         XlfExceptionStackOverflow(): XlfException("stack overflow") {}
     };
 
+    //! Never get here, allows us to tell the compiler that we should have exited already
+    class EXCEL32_API XlfNeverGetHere: public std::runtime_error
+    {
+    public:
+        XlfNeverGetHere(): std::runtime_error("Reached a never get here point") {}
+    };
+
+    //! User attempted to access an array out of bounds
+    class EXCEL32_API XlfOutOfBounds: public std::runtime_error
+    {
+    public:
+        XlfOutOfBounds(): std::runtime_error("Out of bounds array access detected") {}
+    };
+
+    //! Other Xlw Exceptions
+    /*!
+        These error can be thrown from anywhere
+        in the code.
+        This is a proposal for replacing use of raw strings,
+        std:strings, CellMatrix as exception types in the code
+    */
+    class XlfGeneralException : public std::runtime_error
+    {
+    public:
+        XlfGeneralException(const std::string& what) :
+                std::runtime_error(what)
+        {
+        }
+
+        XlfGeneralException(const std::ostringstream& what) :
+                std::runtime_error(what.str())
+        {
+        }
+    };
 }
 
-#ifdef NDEBUG
-#include <xlw/XlfException.inl>
-#endif
+//! Used to simplify the throwing of formatted exceptions
+#define THROW_XLW(ERROR_MSG_PARTS) \
+    do { \
+        std::ostringstream ostr; \
+        ostr << ERROR_MSG_PARTS; \
+        std::cerr << XLW__HERE__ << ostr.str() << std::endl; \
+        throw xlw::XlfGeneralException(ostr); \
+    } while(0)
 
 #endif
 

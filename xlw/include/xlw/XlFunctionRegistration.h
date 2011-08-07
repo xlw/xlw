@@ -2,6 +2,7 @@
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2011 Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -23,6 +24,11 @@
 #include <vector>
 #include <list>
 #include <xlw/XlfExcel.h>
+#include <xlw/Singleton.h>
+#include <xlw/eshared_ptr.h>
+#include <xlw/XlfFuncDesc.h>
+#include <xlw/XlfCmdDesc.h>
+
 
 namespace xlw {
 
@@ -30,6 +36,39 @@ namespace xlw {
     {
 
     struct Arg { const char * ArgumentName; const char * ArgumentDescription; const char * ArgumentType; };
+
+    class XLCommandRegistrationData
+    {
+    public:
+        XLCommandRegistrationData(const std::string& CommandName_,
+                                  const std::string& ExcelCommandName_,
+                                  const std::string& Comment_,
+                                  const std::string& Menu_,
+                                  const std::string& MenuText_):
+                                  CommandName(CommandName_),
+                                  ExcelCommandName(ExcelCommandName_),
+                                  Comment(Comment_),
+                                  Menu(Menu_),
+                                  MenuText(MenuText_){}
+        
+
+        const std::string& GetCommandName() const;
+        const std::string& GetExcelCommandName() const;
+        const std::string& GetCommandComment() const;
+        const std::string& GetMenu() const;
+        const std::string& GetMenuText() const;
+
+
+    private:
+        std::string CommandName;
+        std::string ExcelCommandName;
+        std::string Comment;
+        std::string Menu;
+        std::string MenuText;
+
+    
+    };
+    
 
     class XLFunctionRegistrationData
     {
@@ -42,16 +81,20 @@ namespace xlw {
                          int NoOfArguments_,
                          bool Volatile_,
                          bool Threadsafe_,
-                         const std::string &ReturnTypeCode_);
+                         const std::string &ReturnTypeCode_,
+                         const std::string &HelpID_,
+                         bool Asynchronous_,
+                         bool MacroSheetEquivalent_,
+                         bool ClusterSafe_);
 
-        std::string GetFunctionName() const;
-        std::string GetExcelFunctionName() const;
-        std::string GetFunctionDescription() const;
-        std::string GetLibrary() const;
+        const std::string&  GetFunctionName() const;
+        const std::string&  GetExcelFunctionName() const;
+        const std::string&  GetFunctionDescription() const;
+        const std::string&  GetLibrary() const;
         int GetNoOfArguments() const;
-        std::vector<std::string> GetArgumentNames() const;
-        std::vector<std::string> GetArgumentDescriptions() const;
-        std::vector<std::string> GetArgumentTypes() const;
+        const std::vector<std::string>&  GetArgumentNames() const;
+        const std::vector<std::string>&  GetArgumentDescriptions() const;
+        const std::vector<std::string>&  GetArgumentTypes() const;
 
         bool GetVolatile() const
         {
@@ -63,7 +106,23 @@ namespace xlw {
             return Threadsafe;
         }
 
-        std::string GetReturnTypeCode() const;
+        bool GetAsynchronous() const
+        {
+            return Asynchronous;
+        }
+
+        bool GetMacroSheetEquivalent() const
+        {
+            return MacroSheetEquivalent;
+        }
+
+        bool GetClusterSafe() const
+        {
+            return ClusterSafe;
+        }
+
+        const std::string & GetReturnTypeCode() const;
+        const std::string & GetHelpID() const;
     private:
 
         std::string FunctionName;
@@ -77,8 +136,10 @@ namespace xlw {
         bool Volatile;
         bool Threadsafe;
         std::string ReturnTypeCode;
-
-
+        std::string helpID;
+        bool Asynchronous;
+        bool MacroSheetEquivalent;
+        bool ClusterSafe;
     };
 
     class XLFunctionRegistrationHelper
@@ -93,28 +154,45 @@ namespace xlw {
                          int NoOfArguments = 0,
                          bool Volatile = false,
                          bool Threadsafe = false,
-                         const std::string &ReturnTypeCode_ = "");
+                         const std::string &ReturnTypeCode_ = "",
+                         const std::string &HelpID = "",
+                         bool Asynchronous = false,
+                         bool MacroSheetEquivalent = false,
+                         bool ClusterSafe = false);
 
-    private:
+    };
+
+     class XLCommandRegistrationHelper
+    {
+    public:
+
+        XLCommandRegistrationHelper(const std::string& CommandName_,
+                                  const std::string& ExcelCommandName_,
+                                  const std::string& Comment_,
+                                  const std::string& Menu_,
+                                  const std::string& MenuText_);
 
     };
 
 
     // singleton pattern, cf the Factory
-    class ExcelFunctionRegistrationRegistry
+    class ExcelFunctionRegistrationRegistry: public singleton<ExcelFunctionRegistrationRegistry>
     {
+    friend class singleton<ExcelFunctionRegistrationRegistry>;
     public:
-
-        static ExcelFunctionRegistrationRegistry& Instance();
-
         void DoTheRegistrations() const;
+        void DoTheDeregistrations() const;
         void AddFunction(const XLFunctionRegistrationData&);
-
+        void AddCommand(const XLCommandRegistrationData&);
+        void GenerateDocumentation(const std::string& outputDir);
     private:
-        ExcelFunctionRegistrationRegistry();
-        ExcelFunctionRegistrationRegistry(const ExcelFunctionRegistrationRegistry& original);
-
-        std::list<XLFunctionRegistrationData> RegistrationData;
+        typedef std::map<std::string,xlw_tr1::shared_ptr<xlw::XlfFuncDesc> > functionCache;
+        typedef std::map<std::string,xlw_tr1::shared_ptr<XlfCmdDesc> > commandCache;
+        ExcelFunctionRegistrationRegistry(){}
+        void GenerateChmBuilderConfig(const std::string& fileName);
+        void GenerateToc(const std::string& outputDir);
+        std::map<std::string,xlw_tr1::shared_ptr<XlfFuncDesc> > Functions;
+        std::map<std::string,xlw_tr1::shared_ptr<XlfCmdDesc> >  Commands;
 
     };
 

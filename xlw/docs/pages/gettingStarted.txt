@@ -1,97 +1,30 @@
 
 /*! 
 
-\page gettingstarted Getting Started
+\page a02_gettingstarted Getting Started
 
-You will find in the example project the file xlwExample.cpp. Let us look at
-the code it contains. It will give you a good idea of the way you are supposed
-to use the package.
+\section DEVELOPMENT SNAPSHOT 5DEV
 
-Don't forget to start by including the following header.
+For the latest documentation and news visit <a href="http://xlw.sourceforge.net/" target="_blank">http://xlw.sourceforge.net/</a>
 
-\dontinclude xlwExample.cpp
-\skipline include
+Please post feedback to xlw-users@sourceforge.net
 
-Our program relies on the xlAutoOpen and xlAutoClose functions which are
-implemented in XlOpenClose.cpp.  The lines below serve to export these
-functions to Excel.
+\section gettingstarted Getting Started
 
-\skipline pragma
-\until pragma
+At this stage the most important factor to a speedy release version is feedback from the users.
 
-Enclose the interface function in a extern "C" block as you are going to
-expose \ref IsItCpp "only C functions" to Excel. This is linked to the C
-nature of the Excel API used by the framework. You might want to consider
-using the more complicated \ref WhenCom "COM interface" if it is too much of a
-problem for you. Note however that nothing prohibits you to forward (as I
-normally do) the call to your C API towards an other library written in C++.
+Please email xlw-users@lists.sourceforge.net.
 
-\skipline extern
+\section modes Ways to Use Xlw
 
-Let us start with the function you integrate in Excel. You should start by
-checking that these four recommendations hold for any C function to be
-registered into Excel:
-- Flag the function with the preprocessor macro EXCEL_EXPORT which currently
-  evaluates to __declspec(dllexport). It tells the linker to export the
-  function. Excel won't see it if you fail to do so.
-- Enclose the function body between the two macros EXCEL_BEGIN and EXCEL_END.
-  They hide a little memory management (see XlfExcel::FreeMemory) and catch
-  any exception that may be thrown by your function.
-- Declare all function arguments (passed by Excel) as XlfOper or one of the
-  standard POD types of C (long, double, char *...).
-- Prototype your function as returning an LPXLFOPER.
+There are 4 main ways to use Xlw
 
-The following function takes the diameter of a circle as an argument and
-computes the circumference of this circle.
+- \subpage a01_cppxll "C++ Native Xlls"
+- \subpage a02_cppwrappedxll "C++ Wrapped Xlls"
+- \subpage a03_csharpxll "C# Xlls"
+- \subpage a04_clixll "C++/CLI Hybrid Xlls"
 
-\until }
-
-Here is an other example of function to be registered. This one takes two
-strings as input and returns their concatenation.
-
-\until }
-
-This function is a little longer. It shows how to deal with range references
-and return numeric arrays. It takes a range reference and computes the average
-and the variance of the population and returns it in a (1x2) array.
-
-\skipline xlStats
-\until EXCEL_END
-\until }
-
-Some functions can take a long time to compute and one might not want to give
-the user interface provided by the function wizard. In order for your function
-to know if it is being called from the function wizard, one can call
-XlfExcel::IsCalledByFuncWiz as shown below. This last function also
-demonstrates how to call a regular excel routine like xlfCall (see the file
-xlcall32.h for an exhaustive list) using XLW classes. Here the function will
-return the coordinates of the calling cell.
-
-\until EXCEL_END
-\until }
-
-Here is a function which increments a counter each time it is called:
-
-\until EXCEL_END
-\until }
-
-Finally we close the extern "C" block.
-
-\until }
-
-The code below demonstrates how to register your functions with Excel.
-
-\skipline namespace
-\until registerNbCalls
-\until }
-
-Compile and link the DLL in multi-threaded mode and load the DLL from the file
-menu of Microsoft Excel or by putting it in the start directory.  You might
-eventually rename your DLL as XLL to make the type of the file more explicit.
-A demo Excel spreadsheet that uses the functions described above is enclosed
-with the project.
-
-Enjoy !
+For first time users of Xlw if you want to use C++ we suggest \ref a02_cppwrappedxll "C++ Wrapped Xlls" 
+or if you use .NET try \ref a03_csharpxll "C# Xlls".
 
 */
-

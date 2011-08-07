@@ -1,5 +1,5 @@
 
-#	Copyright (C) 2009 Narinder S Claire
+#	Copyright (C) 2009 2010 2011 Narinder S Claire
 #
 #	This file is part of XLW, a free-software/open-source C++ wrapper of the
 #	Excel C API - http://xlw.sourceforge.net/
@@ -30,7 +30,7 @@ def dirwalk(dir):
     print "Searching ",os.path.abspath(dir)
     for f in os.listdir(dir):
         fullpath = os.path.join(dir,f)
-        if os.path.isdir(fullpath) and not os.path.islink(fullpath):
+        if os.path.isdir(fullpath) and not os.path.islink(fullpath) and not f==".svn":
             for x in dirwalk(fullpath):  # recurse into subdir
                 yield x
         else:

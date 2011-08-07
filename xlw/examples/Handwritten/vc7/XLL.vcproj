@@ -39,7 +39,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc71-mt-gd-5DEV.lib"
+				AdditionalDependencies="xlw-vc71-mt-gd-5_0_0a0.lib"
 				OutputFile=".\$(ConfigurationName)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -106,7 +106,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc71-mt-5DEV.lib"
+				AdditionalDependencies="xlw-vc71-mt-5_0_0a0.lib"
 				OutputFile=".\$(ConfigurationName)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -148,7 +148,19 @@
 	</References>
 	<Files>
 		<File
+			RelativePath="..\common_source\xlwAsynchExample.cpp">
+		</File>
+		<File
+			RelativePath="..\common_source\xlwCommands.cpp">
+		</File>
+		<File
 			RelativePath="..\common_source\xlwExample.cpp">
+		</File>
+		<File
+			RelativePath="..\common_source\xlwMatrixTest.cpp">
+		</File>
+		<File
+			RelativePath="..\common_source\xlwXlmMacros.cpp">
 		</File>
 	</Files>
 	<Globals>

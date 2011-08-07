@@ -12,6 +12,8 @@ Copyright &copy; 2006 Mark Joshi
 Copyright &copy; 2007 Tim Brunne
 Copyright &copy; 2007, 2008 Eric Ehlers
 Copyright &copy; 2008 Winfried Kromen
+Copyright &copy; 2009, 2010, 2011 Narinder S Claire
+Copyright &copy; 2011 John Adcock
 
 All rights reserved.
 \endverbatim

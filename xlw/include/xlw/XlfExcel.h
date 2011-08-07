@@ -2,6 +2,7 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2011 John Adcock
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -24,13 +25,14 @@
 \brief Declares class XlfExcel.
 */
 
-// $Id: XlfExcel.h 478 2008-03-06 11:43:12Z ericehlers $
+// $Id$
 
 #include <xlw/EXCEL32_API.h>
 #include <xlw/xlcall32.h>
 #include <list>
 #include <map>
 #include <string>
+#include <xlw/TempMemory.h>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -39,7 +41,16 @@
 namespace xlw {
 
     //! Interpreted as LPXLOPER (Excel 4) or LPXLOPER12 (Excel 12).
-    typedef void* LPXLFOPER;
+    typedef struct
+    {
+        union
+        {
+            XLOPER oper4;
+            XLOPER12 oper12;
+        };
+    } XLFOPER;
+
+    typedef XLFOPER* LPXLFOPER;
 
     //! Interface between excel and the framework.
     /*!
@@ -54,44 +65,86 @@ namespace xlw {
         //@{
         //! Used to obtain instance on XlfExcel object.
         static XlfExcel& Instance();
-        //! Sends an Excel message box
-        static void MsgBox(const char *, const char *title = 0);
-        //! Dtor.
-        ~XlfExcel();
-        //@}
-
-        //! \name Memory management
-        //@{
-        //! Allocates memory in the framework temporary buffer
-        LPSTR GetMemory(size_t bytes);
-        //! Frees temporary memory used by the XLL
-        void FreeMemory(bool finished=false);
+        //! Used to delete instance in xlAutoClose.
+        static void DeleteInstance();
+       
         //@}
 
         //! \name Inspectors
         //@{
-        //! Gets XLL name
-        std::string GetName() const;
+        //! Gets XLL file name
+        const std::string& GetName() const;
+        //! Gets help file name or empty string
+        const std::string& GetHelpName() const;
+        //! Gets XLL directory
+        std::string GetXllDirectory() const;
         //@}
 
         /** \name Wrappers for Excel Call function
-        Interface to Excel (perform ERR_CHECKs before passing XlfOper to Excel).\n
-        The Call() functions accept a variable length argument list,
-        the Callv() functions accept an argument array.
+            The Call() functions accept up to 10 arguments
+            the Callv() functions accept an argument array.
+            \par Version 5 Changes
+            In version 4 call was exported with the signature:
+            \code
+            int Call(int xlfn, LPXLFOPER pxResult, int count, ...);
+            \endcode
+
+            This function was used internally and externally with both
+            LPXLOPER parameters and XlfOper object and relied on the calling
+            convention passing the class in the same way as the pointer.
+            In 64-bit the calling convention does it differently so this 
+            approach no long works with XlfOper parameters, so
+            we now supply typed versions for up to 10 arguments.
+
+            The count parameter is mostly redundant in the new versions but is kept
+            for backwards compatibility.
         */
         //@{
-        //! Wrap the Call function for Excel version 4.
-        int __cdecl Call4(int xlfn, LPXLOPER pxResult, int count, ...) const;
-        //! Wrap the Call function for Excel version 12.
-        int __cdecl Call12(int xlfn, LPXLOPER12 pxResult, int count, ...) const;
-        //! Invoke Call4 or Call12 depending on which version of Excel is running.
-        int __cdecl Call(int xlfn, LPXLFOPER pxResult, int count, ...) const;
+        //! Wrap the Callv4 or Callv12 depending on which version of Excel is running that take no parameters
+        int Call(int xlfn, LPXLFOPER pxResult, int count) const;
+        //! Wrap the Callv4 or Callv12 depending on which version of Excel is running that takes 1 parameter
+        int Call(int xlfn, LPXLFOPER pxResult, int count,const LPXLFOPER param1) const;
+        //! Wrap the Callv4 or Callv12 depending on which version of Excel is running that takes 2 parameters
+        int Call(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER param1, const LPXLFOPER param2) const;
+        //! Wrap the Callv4 or Callv12 depending on which version of Excel is running that takes 3 parameters
+        int Call(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER param1, const LPXLFOPER param2, const LPXLFOPER param3) const;
+        //! Wrap the Callv4 or Callv12 depending on which version of Excel is running that takes 4 parameters
+        int Call(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER param1, const LPXLFOPER param2, const LPXLFOPER param3, const LPXLFOPER param4) const;
+        //! Wrap the Callv4 or Callv12 depending on which version of Excel is running that takes 5-10 parameters
+        int Call(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER param1, const LPXLFOPER param2, const LPXLFOPER param3, const LPXLFOPER param4, 
+                 const LPXLFOPER param5, const LPXLFOPER param6 = 0, const LPXLFOPER param7 = 0, const LPXLFOPER param8 = 0, const LPXLFOPER param9 = 0, const LPXLFOPER param10 = 0) const;
+        //! Wrap the Call function for Excel version 4 functions that take no parameters
+        int Call4(int xlfn, LPXLOPER pxResult, int count) const;
+        //! Wrap the Call function for Excel version 4 functions that takes 1 parameter
+        int Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1) const;
+        //! Wrap the Call function for Excel version 4 functions that takes 2 parameters
+        int Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1, const LPXLOPER param2) const;
+        //! Wrap the Call function for Excel version 4 functions that takes 3 parameters
+        int Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1, const LPXLOPER param2, const LPXLOPER param3) const;
+        //! Wrap the Call function for Excel version 4 functions that takes 4 parameters
+        int Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1, const LPXLOPER param2, const LPXLOPER param3, const LPXLOPER param4) const;
+        //! Wrap the Call function for Excel version 4 functions that takes 5-10 parameters
+        int Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1, const LPXLOPER param2, const LPXLOPER param3, const LPXLOPER param4, 
+                 const LPXLOPER param5, const LPXLOPER param6 = 0, const LPXLOPER param7 = 0, const LPXLOPER param8 = 0, const LPXLOPER param9 = 0, const LPXLOPER param10 = 0) const;
+        //! Wrap the Call function for Excel version 12 functions that take no parameters
+        int Call12(int xlfn, LPXLOPER12 pxResult, int count) const;
+        //! Wrap the Call function for Excel version 12 functions that takes 1 parameter
+        int Call12(int xlfn, LPXLOPER12 pxResult, int count, const LPXLOPER12 param1) const;
+        //! Wrap the Call function for Excel version 12 functions that takes 2 parameters
+        int Call12(int xlfn, LPXLOPER12 pxResult, int count, const LPXLOPER12 param1, const LPXLOPER12 param2) const;
+        //! Wrap the Call function for Excel version 12 functions that takes 3 parameters
+        int Call12(int xlfn, LPXLOPER12 pxResult, int count, const LPXLOPER12 param1, const LPXLOPER12 param2, const LPXLOPER12 param3) const;
+        //! Wrap the Call function for Excel version 12 functions that takes 4 parameters
+        int Call12(int xlfn, LPXLOPER12 pxResult, int count, const LPXLOPER12 param1, const LPXLOPER12 param2, const LPXLOPER12 param3, const LPXLOPER12 param4) const;
+        //! Wrap the Call function for Excel version 12 functions that takes 5-10 parameters
+        int Call12(int xlfn, LPXLOPER12 pxResult, int count, const LPXLOPER12 param1, const LPXLOPER12 param2, const LPXLOPER12 param3, const LPXLOPER12 param4, 
+                 const LPXLOPER12 param5, const LPXLOPER12 param6 = 0, const LPXLOPER12 param7 = 0, const LPXLOPER12 param8 = 0, const LPXLOPER12 param9 = 0, const LPXLOPER12 param10 = 0) const;
         //! Wrap the Callv function for Excel version 4.
-        int Call4v(int xlfn, LPXLOPER pxResult, int count, LPXLOPER pxdata[]) const;
+        int Call4v(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER pxdata[]) const;
         //! Wrap the Callv function for Excel version 12.
-        int Call12v(int xlfn, LPXLOPER12 pxResult, int count, LPXLOPER12 pxdata[]) const;
+        int Call12v(int xlfn, LPXLOPER12 pxResult, int count, const LPXLOPER12 pxdata[]) const;
         //! Invoke Callv4 or Callv12 depending on which version of Excel is running.
-        int Callv(int xlfn, LPXLFOPER pxResult, int count, LPXLFOPER pxdata[]) const;
+        int Callv(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER pxdata[]) const;
         //@}
 
         //! \name Wrappers for selected Excel operations
@@ -99,64 +152,46 @@ namespace xlw {
         /*!
         Wrapped functions that are often needed and/or painful to code
         */
-        //! Sends a message in Excel status bar.
-        void SendMessage(const char * msg=0);
+
         //! Was the Esc key pressed ?
         bool IsEscPressed() const;
         //! Is the function being calculated currently called by the Function Wizard ?
         bool IsCalledByFuncWiz() const;
+        //! Gets the HWND of excel's main window
+        HWND GetMainWindow();
+        //! Gets the instance of Excel we are running under
+        HINSTANCE GetExcelInstance();
         //@}
 
         //! \name Information about the running version of Excel
         //@{
-        //! Boolean differentiating Excel 12 (2007) from previous versions
-        bool excel12() const { return excel12_; }
+        //! Boolean differentiating Excel 12 (2007) and above from previous versions
+        bool excel12() const { return (excelVersion_ >= 12); }
+        //! Boolean differentiating Excel 14 (2010) from previous versions
+        bool excel14() const { return (excelVersion_ >= 14); }
+        //! Returns Excel version number e.g. 12 is 2007
+        int excelVersion() const { return excelVersion_; }
         //! The OPER type in use by this version of Excel
-        std::string xlfOperType() const { return xlfOperType_; }
+        const std::string & xlfOperType() const { return xlfOperType_; }
         //! The XLOPER type in use by this version of Excel
-        std::string xlfXloperType() const { return xlfXloperType_; }
+        const std::string & xlfXloperType() const { return xlfXloperType_; }
         //! The string type in use by this version of Excel
-        std::string wStrType() const { return wStrType_; }
+        const std::string & wStrType() const { return wStrType_; }
+        //! The double array type use by this version of Excel
+        const std::string & fpType() const { return fpArrayType_; }
         //@}
+
     private:
         //! Static pointer to the unique instance of XlfExcel object.
         static XlfExcel *this_;
-
-        //! Memory buffer used to store data that are passed to Excel
-        /*!
-        When we pass XLOPER from the XLL towards Excel we should not use
-        XLL local variables as it would be freed before MSExcel could get
-        the data.
-
-        Therefore the framework C library that comes with \ref XLSDK97 "Excel
-        97 developer's kit" suggests to use a static area where the XlfOper
-        are stored (see XlfExcel::GetMemory) and still available to
-        Excel when we exit the XLL routine. This array is then reset
-        by a call to XlfExcel::FreeMemory at the begining of each new
-        call of one of the XLL functions.
-
-        \sa XlfExcel::GetMemory, XlfExcel::FreeMemory
-        */
-        struct XlfBuffer
-        {
-            //! Size of the buffer.
-            size_t size;
-            //! Start address.
-            char * start;
-        };
-
-        //! A list of buffers.
-        typedef std::list<XlfBuffer> BufferList;
-        //! Internal memory buffer holding memory to be referenced by Excel (excluded from the pimpl to allow inlining).
-        BufferList freeList_;
-        //! Pointer to next free area (excluded from the pimpl to allow inlining).
-        size_t offset_;
 
         //! Pointer to internal implementation (pimpl idiom, see \ref HS).
         struct XlfExcelImpl * impl_;
 
         //! Ctor.
         XlfExcel();
+        //! Dtor.
+        ~XlfExcel();
         //! Copy ctor is not defined.
         XlfExcel(const XlfExcel&);
         //! Assignment operator is not defined.
@@ -165,18 +200,18 @@ namespace xlw {
         void InitLibrary();
         //! Create a new static buffer and add it to the free list.
         void PushNewBuffer(size_t);
+        //! looks for a help file and sets helpFileName_ if we find one
+        void LookForHelp();
 
-        bool excel12_;
+        int excelVersion_;
         std::string xlfOperType_;
         std::string xlfXloperType_;
         std::string wStrType_;
+        std::string fpArrayType_;
+        std::string xllFileName_;
+        std::string helpFileName_;
     };
 
 }
-
-#ifdef NDEBUG
-#include <xlw/XlfExcel.inl>
-#endif
-
 #endif
 

@@ -1,5 +1,6 @@
 
 #	Copyright (C) 2009 Narinder S Claire
+#	Copyright (C) 2011 John Adcock
 #
 #	This file is part of XLW, a free-software/open-source C++ wrapper of the
 #	Excel C API - http://xlw.sourceforge.net/
@@ -19,14 +20,16 @@ import os
 
 destinationPaths = ['../xlw/examples',
 					'../xlw/Template_Projects',
+					'../xlw/usercontrib',
 					'../xlwDotNet/Build/VS8',
 					'../xlwDotNet/Build/VS9',
-					'../xlwDotNet/XtraExamples',
+					'../xlwDotNet/Build/VS10',
+					'../xlwDotNet/UserContrib',
 					'../xlwDotNet/Template_Projects',
 					'../xlwDotNet/Example'
 				   ]
 
-effectedFiles = ['.vcproj','.mak','.dev','.cbp']
+effectedFiles = ['.vcproj','.vcxproj','.mak','.cbp']
 
 with open("./XLWVERSION",'r') as versionfile:
 	xlwversion = versionfile.readlines()
@@ -55,7 +58,7 @@ reObject = re.compile('xlw-[a-zA-Z0-9_]*?-gcc-s-[a-zA-Z0-9,_]*?(?=_@@_)|xlw-.*?-
 									'xlw-gcc-s-[a-zA-Z0-9,_]*?(?=_@@_)|xlw-gcc-s-gd-[a-zA-Z0-9_]*?(?=_@@_)|'
 				                    'xlw-gcc-s-[a-zA-Z0-9,_]*?(?=\s)|xlw-gcc-s-gd-[a-zA-Z0-9_]*?(?=\s)|'
 									'xlw-gcc-s-[a-zA-Z0-9,_]*?(?=\.a)|xlw-gcc-s-gd-[a-zA-Z0-9_]*?(?=\.a)|'
-									'xlw-vc[7-9][0-9]-mt.*?(?=\.lib)')# stupid devcpp with the _@@_
+									'xlw-vc[0-9]{2,3}-mt.*?(?=\.lib)')# stupid devcpp with the _@@_
 
 with open("UpdateClients.log",'w') as theLogFile:
 	for  f in allfiles:

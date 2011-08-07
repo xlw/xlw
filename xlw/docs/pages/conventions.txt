@@ -18,7 +18,7 @@ Rxxyyzzsn-branch, where R stands for release.  For example, here is the link
 to the branch in the subversion repository that corresponds to XLW release
 2.0.0f0:
 
-<a href="http://xlw.svn.sourceforge.net/viewvc/xlw/branches/R020000f0-branch/">http://xlw.svn.sourceforge.net/viewvc/xlw/branches/R020000f0-branch/</a>
+<a href="http://xlw.svn.sourceforge.net/viewvc/xlw/branches/R020000f0-branch/"  target="_blank">http://xlw.svn.sourceforge.net/viewvc/xlw/branches/R020000f0-branch/</a>
 
 \section conv_binaries Binary Names
 

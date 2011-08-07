@@ -1,31 +1,52 @@
-"C:\Python26\python.exe" prepareDotNetTemplateProject.py
+@SETLOCAL
+@IF NOT DEFINED XLW_FOUND_PROGRAMS CALL FindPrograms.bat
+@IF ERRORLEVEL 1 ECHO Can't find all required programs & exit /b 1
 
-REM Debug
+%PYTHON% prepareDotNetTemplateProject.py
 
-set DevEnvDir=C:\Program Files\Microsoft Visual Studio 8\Common7\IDE\
+CALL BuildProjectNet.bat "C:\Temp\xlwDotNetTemplate Projects" xlwDotNetTemplate
+CALL BuildProjectNet.bat "C:\Temp\xlwDotNetTemplate Projects\VisualBasic" xlwDotNetTemplateVB
 
-"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild"   "C:\Temp\xlwDotNetTemplate Projects\VS8\Template.sln"  /t:rebuild  /property:Configuration=Debug   /property:Platform=x86   >> xlwDotNetTemplate_Debug_8.log 2>&1 
-"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild"   "C:\Temp\xlwDotNetTemplate Projects\VisualBasic\VB2005\Template.sln"  /t:rebuild  /property:Configuration=Debug   /property:Platform=x86   >> xlwDotNetTemplate_VB_Debug_8.log 2>&1 
+REM Special Code for Hybrid at the moment
+
+@SET LOG_ROOT=%CD%\xlwDotNetTemplateHybrid-VS8-
+@SET VSPROJ="C:\Temp\xlwDotNetTemplate Projects\Hybrid_Cpp_CSharp_XLLs\VS8_PRO\HybridTemplate.sln"
+SET DevEnvDir=%VS8DEVENVDIR%
+SET vcbuildtoolpath=%VS8TOOLS%
+%NET35BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
 
 
+@SET LOG_ROOT=%CD%\xlwDotNetTemplateHybrid-VS9-
+@SET VSPROJ="C:\Temp\xlwDotNetTemplate Projects\Hybrid_Cpp_CSharp_XLLs\VS9_PRO\HybridTemplate.sln"
+SET DevEnvDir=%VS9DEVENVDIR%
+SET vcbuildtoolpath=%VS9TOOLS%
+%NET35BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET35BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
 
-set DevEnvDir=C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\
+@SET LOG_ROOT=%CD%\xlwDotNetTemplateHybrid-VS10-
+@SET VSPROJ="C:\Temp\xlwDotNetTemplate Projects\Hybrid_Cpp_CSharp_XLLs\VS10_PRO\HybridTemplate.sln"
+SET DevEnvDir=%VS10DEVENVDIR%
+SET vcbuildtoolpath=%VS10TOOLS%
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
 
-"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild"   "C:\Temp\xlwDotNetTemplate Projects\VS9\Template.sln"  /t:rebuild  /property:Configuration=Debug   /property:Platform=x86   >> xlwDotNetTemplate_Debug_9.log 2>&1 
-"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild"   "C:\Temp\xlwDotNetTemplate Projects\VisualBasic\VB2008\Template.sln"  /t:rebuild  /property:Configuration=Debug   /property:Platform=x86   >> xlwDotNetTemplate_VB_Debug_9.log 2>&1 
-
-
-
-
-REM Release
-
-set DevEnvDir=C:\Program Files\Microsoft Visual Studio 8\Common7\IDE\
-
-"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild"   "C:\Temp\xlwDotNetTemplate Projects\VS8\Template.sln"  /t:rebuild  /property:Configuration=Release   /property:Platform=x86   >> xlwDotNetTemplate_Release_8.log 2>&1 
-"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild"   "C:\Temp\xlwDotNetTemplate Projects\VisualBasic\VB2005\Template.sln"  /t:rebuild  /property:Configuration=Release   /property:Platform=x86   >> xlwDotNetTemplate_VB_Release_8.log 2>&1 
-
-set DevEnvDir=C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\
-
-"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild"   "C:\Temp\xlwDotNetTemplate Projects\VS9\Template.sln"  /t:rebuild  /property:Configuration=Release   /property:Platform=x86   >> xlwDotNetTemplate_Release_9.log 2>&1 
-"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild"   "C:\Temp\xlwDotNetTemplate Projects\VisualBasic\VB2008\Template.sln"  /t:rebuild  /property:Configuration=Release   /property:Platform=x86   >> xlwDotNetTemplate_VB_Release_9.log 2>&1 
-
+@ENDLOCAL

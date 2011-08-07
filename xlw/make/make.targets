@@ -61,11 +61,13 @@ LIBOBJ := $(LIBSRC:%.cpp=$(INSTALL_OBJ)/%.o)
 OBJECTS += $(LIBSRC:%.cpp=$(INSTALL_OBJ)/%.o)
 TARGET = $(IDIR)/$(LIBPREFIX)$(LIBRARY).$(LIBP) 
 
-
+ifndef DEFFILE
+DEFFILE="$(XLW)/xlw/include/xlw/xlw.def"
+endif
 
 $(IDIR)/lib$(LIBRARY).a : $(LIBOBJ)
 	@-$(RM) $@
-	ar -rs $@  $(LIBOBJ) 
+	$(CROSS_PREFIX)ar $(ARTARGET) -rs $@  $(LIBOBJ) 
 	
 #$(TARGET)::$(LIBOBJ)
 #	$(DLLWRAP) --output-def $(IDIR)/$(LIBPREFIX)$(LIBRARY).def \
@@ -76,11 +78,11 @@ $(IDIR)/lib$(LIBRARY).a : $(LIBOBJ)
 $(IDIR)/$(LIBPREFIX)$(LIBRARY).%ll  : $(LIBOBJ)
 	@-$(RM) $@	
 	$(CXXSO) $(CXXPIC) -o  $@ \
-    -Wl,--out-implib=$(IDIR)/$(LIBPREFIX)$(LIBRARY).lib \
-   	-Wl,--export-all-symbols \
-   	-Wl,--enable-auto-import \
+   	-Wl,$(DEFFILE) \
+      -Wl,-static \
+      -static-libgcc \
 	 $(LIBOBJ)\
-   	-Wl,--no-whole-archive $(LDFLAGS)
+   	 $(LDFLAGS)
 
 #$(IDIR)/lib$(LIBRARY).so::$(LIBOBJ)
 #	@-$(RM) $@	
@@ -122,7 +124,7 @@ endif
 
 $(TARGET):: $(PRGOBJ)  
 	$(RM) $@ 
-	$(LINK)  $(PRGOBJ)  $(LDFLAGS) -o $(TARGET)
+	$(LINK)  $(PRGOBJ)  $(LDFLAGS) -static -o $(TARGET)
 	
 endif
 

@@ -11,5 +11,7 @@ Eric Ehlers added support for Excel 2007.
 
 Narinder Claire added support for .NET & C# enabling the building
 of xlls in C#. Also added Template projects for easy creating of new
-projects by users. Created new installer fro extract of 
+projects by users. Created new installer for extraction of 
 template projects
+
+John Adcock added 64 bit support and Automatic Help Generation

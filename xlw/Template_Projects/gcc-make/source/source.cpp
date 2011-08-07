@@ -1,7 +1,4 @@
-
-
-#pragma warning (disable : 4996)
-
+#include<cppinterface.h>
 
 short // echoes a short
 EchoShort(short x // number to be echoed

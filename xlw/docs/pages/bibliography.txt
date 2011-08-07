@@ -32,17 +32,17 @@ Addison-Wesley, 2000.
 Baarns Consulting Group.
 <I>Microsoft Excel 97 Developer's kit</I>,
 Microsoft Press, 1997. This book is available online at
-<a href="http://msdn.microsoft.com/archive/default.asp?url=/archive/en-us/office97/html/SF7D9.asp">http://msdn.microsoft.com/archive/default.asp?url=/archive/en-us/office97/html/SF7D9.asp</a>.
+<a href="http://msdn.microsoft.com/archive/default.asp?url=/archive/en-us/office97/html/SF7D9.asp"  target="_blank">http://msdn.microsoft.com/archive/default.asp?url=/archive/en-us/office97/html/SF7D9.asp</a>.
 
 \section CppFaqLite C++ FAQ LITE
 Marshall Cline.
 <I>C++ FAQ LITE</I>,
-<a href="http://www.parashift.com/c++-faq-lite/">http://www.parashift.com/c++-faq-lite/</a>.
+<a href="http://www.parashift.com/c++-faq-lite/" target="_blank">http://www.parashift.com/c++-faq-lite/</a>.
 
 \section longre Macros XLL et programmation de l'API-C
 Laurent Longre.
 <I>Macros XLL et programmation de l'API-C</I>,
-<a href="http://xcell05.free.fr/pages/prog/api-c.htm">http://xcell05.free.fr/pages/prog/api-c.htm</a>.
+<a href="http://xcell05.free.fr/pages/prog/api-c.htm" target="_blank">http://xcell05.free.fr/pages/prog/api-c.htm</a>.
 
 */
 

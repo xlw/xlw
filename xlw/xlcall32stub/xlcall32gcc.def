@@ -1,0 +1,6 @@
+LIBRARY XLCALL32
+EXPORTS
+   XLCallVer=XLCallVer@0    @1
+   Excel4       @2
+   Excel4v=Excel4v@16      @3
+   LPenHelper=LPenHelper@8   @4

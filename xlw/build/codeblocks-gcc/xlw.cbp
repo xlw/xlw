@@ -1,7 +1,7 @@
 <?xml version="1.0" ?><CodeBlocks_project_file>
 	<FileVersion major="1" minor="6"/>
 	<Project>
-		<Option title="5DEV"/>
+		<Option title="5_0_0a0"/>
 		<Option pch_mode="2"/>
 		<Option compiler="gcc"/>
 		<Build>
@@ -15,6 +15,7 @@
 				<Compiler>
 					<Add option="-Wall"/>
 					<Add option="-g"/>
+					<Add option="-D_DEBUG"/>
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -25,8 +26,9 @@
 				<Option compiler="gcc"/>
 				<Option createDefFile="1"/>
 				<Compiler>
-					<Add option="-Wall"/>
 					<Add option="-O2"/>
+					<Add option="-Wall"/>
+					<Add option="-DNDEBUG"/>
 				</Compiler>
 				<Linker>
 					<Add option="-s"/>
@@ -37,14 +39,21 @@
 			<Add directory="..\..\include"/>
 		</Compiler>
 		<Unit filename="..\..\include\xlw\ArgList.h"/>
-		<Unit filename="..\..\include\xlw\ArgListFactory.h"/>
-		<Unit filename="..\..\include\xlw\ArgListFactoryHelper.h"/>
 		<Unit filename="..\..\include\xlw\CellMatrix.h"/>
+		<Unit filename="..\..\include\xlw\CellMatrixPimpl.h"/>
+		<Unit filename="..\..\include\xlw\CellValue.h"/>
+		<Unit filename="..\..\include\xlw\CriticalSection.h"/>
 		<Unit filename="..\..\include\xlw\DoubleOrNothing.h"/>
-		<Unit filename="..\..\include\xlw\ERR_Macros.h"/>
 		<Unit filename="..\..\include\xlw\EXCEL32_API.h"/>
+		<Unit filename="..\..\include\xlw\HiResTimer.h"/>
+		<Unit filename="..\..\include\xlw\IXlfoperShared.h"/>
+		<Unit filename="..\..\include\xlw\MJCellMatrix.h"/>
 		<Unit filename="..\..\include\xlw\MJmatrices.h"/>
 		<Unit filename="..\..\include\xlw\MyContainers.h"/>
+		<Unit filename="..\..\include\xlw\NCmatrices.h"/>
+		<Unit filename="..\..\include\xlw\PascalStringConversions.h"/>
+		<Unit filename="..\..\include\xlw\TempMemory.h"/>
+		<Unit filename="..\..\include\xlw\ThreadLocalStorage.h"/>
 		<Unit filename="..\..\include\xlw\Win32StreamBuf.h"/>
 		<Unit filename="..\..\include\xlw\Win32StreamBuf.inl"/>
 		<Unit filename="..\..\include\xlw\XlFunctionRegistration.h"/>
@@ -55,35 +64,39 @@
 		<Unit filename="..\..\include\xlw\XlfArgDescList.h"/>
 		<Unit filename="..\..\include\xlw\XlfCmdDesc.h"/>
 		<Unit filename="..\..\include\xlw\XlfExcel.h"/>
-		<Unit filename="..\..\include\xlw\XlfExcel.inl"/>
 		<Unit filename="..\..\include\xlw\XlfException.h"/>
-		<Unit filename="..\..\include\xlw\XlfException.inl"/>
 		<Unit filename="..\..\include\xlw\XlfFuncDesc.h"/>
-		<Unit filename="..\..\include\xlw\XlfMutex.h"/>
 		<Unit filename="..\..\include\xlw\XlfOper.h"/>
-		<Unit filename="..\..\include\xlw\XlfOper.inl"/>
 		<Unit filename="..\..\include\xlw\XlfOper12.h"/>
-		<Unit filename="..\..\include\xlw\XlfOper12.inl"/>
 		<Unit filename="..\..\include\xlw\XlfOper4.h"/>
-		<Unit filename="..\..\include\xlw\XlfOper4.inl"/>
 		<Unit filename="..\..\include\xlw\XlfOperImpl.h"/>
-		<Unit filename="..\..\include\xlw\XlfOperImpl12.h"/>
-		<Unit filename="..\..\include\xlw\XlfOperImpl4.h"/>
+		<Unit filename="..\..\include\xlw\XlfOperProperties.h"/>
+		<Unit filename="..\..\include\xlw\XlfOperProperties12.inl"/>
+		<Unit filename="..\..\include\xlw\XlfOperProperties4.inl"/>
+		<Unit filename="..\..\include\xlw\XlfOperPropertiesDynamic.inl"/>
 		<Unit filename="..\..\include\xlw\XlfRef.h"/>
 		<Unit filename="..\..\include\xlw\XlfRef.inl"/>
-		<Unit filename="..\..\include\xlw\XlfStr.h"/>
+		<Unit filename="..\..\include\xlw\XlfServices.h"/>
+		<Unit filename="..\..\include\xlw\XlfWindows.h"/>
+		<Unit filename="..\..\include\xlw\eshared_ptr.h"/>
+		<Unit filename="..\..\include\xlw\eshared_ptr_details.h"/>
 		<Unit filename="..\..\include\xlw\macros.h"/>
-		<Unit filename="..\..\include\xlw\wrapper.h"/>
 		<Unit filename="..\..\include\xlw\xlarray.h"/>
 		<Unit filename="..\..\include\xlw\xlcall32.h"/>
 		<Unit filename="..\..\include\xlw\xlw.h"/>
+		<Unit filename="..\..\include\xlw\xlwshared_ptr.h"/>
+		<Unit filename="..\..\include\xlw\xlwshared_ptr_details.h"/>
 		<Unit filename="..\..\src\ArgList.cpp"/>
-		<Unit filename="..\..\src\CellMatrix.cpp"/>
 		<Unit filename="..\..\src\Dispatcher.cpp"/>
 		<Unit filename="..\..\src\DoubleOrNothing.cpp"/>
 		<Unit filename="..\..\src\FileConverter.cpp"/>
-		<Unit filename="..\..\src\MJmatrices.cpp"/>
-		<Unit filename="..\..\src\MyContainers.cpp"/>
+		<Unit filename="..\..\src\HiResTimer.cpp"/>
+		<Unit filename="..\..\src\MJCellMatrix.cpp"/>
+		<Unit filename="..\..\src\NCmatrices.cpp"/>
+		<Unit filename="..\..\src\PascalStringConversions.cpp"/>
+		<Unit filename="..\..\src\PathUpdater.cpp"/>
+		<Unit filename="..\..\src\PathUpdater.h"/>
+		<Unit filename="..\..\src\TempMemory.cpp"/>
 		<Unit filename="..\..\src\Win32StreamBuf.cpp"/>
 		<Unit filename="..\..\src\XlFunctionRegistration.cpp"/>
 		<Unit filename="..\..\src\XlOpenClose.cpp"/>
@@ -92,17 +105,11 @@
 		<Unit filename="..\..\src\XlfArgDescList.cpp"/>
 		<Unit filename="..\..\src\XlfCmdDesc.cpp"/>
 		<Unit filename="..\..\src\XlfExcel.cpp"/>
-		<Unit filename="..\..\src\XlfException.cpp"/>
 		<Unit filename="..\..\src\XlfFuncDesc.cpp"/>
-		<Unit filename="..\..\src\XlfOper.cpp"/>
-		<Unit filename="..\..\src\XlfOper12.cpp"/>
-		<Unit filename="..\..\src\XlfOper4.cpp"/>
 		<Unit filename="..\..\src\XlfOperImpl.cpp"/>
-		<Unit filename="..\..\src\XlfOperImpl12.cpp"/>
-		<Unit filename="..\..\src\XlfOperImpl4.cpp"/>
+		<Unit filename="..\..\src\XlfOperProperties.cpp"/>
 		<Unit filename="..\..\src\XlfRef.cpp"/>
-		<Unit filename="..\..\src\XlfStr.cpp"/>
-		<Unit filename="..\..\src\xlarray.cpp"/>
+		<Unit filename="..\..\src\XlfServices.cpp"/>
 		<Unit filename="..\..\src\xlcall.cpp"/>
 		<Extensions>
 			<code_completion/>

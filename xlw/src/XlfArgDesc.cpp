@@ -20,16 +20,12 @@
 \brief Implements the XlfArgDesc class.
 */
 
-// $Id: XlfArgDesc.cpp 474 2008-03-05 15:40:40Z ericehlers $
+// $Id$
 
 #include <xlw/XlfArgDesc.h>
 #include <xlw/XlfExcel.h>
 #include <iostream>
 #include <xlw/macros.h>
-// Stop header precompilation
-#ifdef _MSC_VER
-#pragma hdrstop
-#endif
 
 void xlw::XlfArgDesc::CheckNameLength()
 {
@@ -97,6 +93,8 @@ std::string xlw::XlfArgDesc::GetType() const
         return XlfExcel::Instance().xlfXloperType();
     } else if (type_ == "XLW_WSTR") {
         return XlfExcel::Instance().wStrType();
+    } else if (type_ == "XLW_FP") {
+        return XlfExcel::Instance().fpType();
     } else {
         return type_;
     }

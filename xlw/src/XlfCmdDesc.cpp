@@ -2,7 +2,7 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
- Copyright (C) 2009 Narinder S Claire
+ Copyright (C) 2009 2011 Narinder S Claire
 
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -22,22 +22,28 @@
 \brief Implements the XlfCmdDesc class.
 */
 
-// $Id: XlfCmdDesc.cpp 474 2008-03-05 15:40:40Z ericehlers $
+// $Id$
 
 #include <xlw/XlfCmdDesc.h>
+#include <xlw/XlfOper.h>
 #include <xlw/XlfOper4.h>
 #include <xlw/XlfException.h>
 #include <iostream>
 #include <xlw/macros.h>
-// Stop header precompilation
-#ifdef _MSC_VER
-#pragma hdrstop
-#endif
+#include <xlw/xlwshared_ptr.h>
 
 /*! \e see XlfAbstractCmdDesc::XlfAbstractCmdDesc(const std::string&, const std::string&, const std::string&)
 */
-xlw::XlfCmdDesc::XlfCmdDesc(const std::string& name, const std::string& alias, const std::string& comment, const bool hidden)
-    :XlfAbstractCmdDesc(name, alias, comment), menu_(), hidden_(hidden)
+xlw::XlfCmdDesc::XlfCmdDesc(const std::string& name,
+                            const std::string& alias,
+                            const std::string& comment,
+                            const std::string& menu,
+                            const std::string& menuText,
+                            bool hidden) :
+       XlfAbstractCmdDesc(name, alias, comment), 
+       menu_(menu),
+       text_(menuText),
+       hidden_(hidden)
 {}
 
 xlw::XlfCmdDesc::~XlfCmdDesc()
@@ -49,39 +55,52 @@ bool xlw::XlfCmdDesc::IsAddedToMenuBar()
 }
 
 /// This function is using a naked XLOPER
-/// It needs updating for Excel 2007 - nc
-int xlw::XlfCmdDesc::AddToMenuBar(const std::string& menu, const std::string& text)
+int xlw::XlfCmdDesc::AddToMenuBar(const char* menu, const char* text)
 {
-    XLOPER xMenu;
-    LPXLOPER pxMenu;
-    LPXLOPER px;
+    // allow user to override stored values
+    if(menu)
+    {
+        menu_ = menu;
+    }
+    if(text)
+    {
+        text_ = text;
+    }
 
-    menu_ = menu;
-    text_ = text;
+    // we can only proceed if we have both
+    if(menu_.empty() || text_.empty())
+    {
+        return 0;
+    }
 
-    // This is a small trick to allocate an array of XlfOpers
-    // One must first allocate the array with XLOPERs...
-    //px = pxMenu = (LPXLOPER)new XLOPER[5];
-    px = pxMenu = new XLOPER[5];
-    // ...and then assign the XLOPERs to XlfOpers, specifying false to tell the
-    // Framework that the data is not owned by Excel and not to call xlFree
-    // during destruction
-    XlfOper(px++).Set(text_.c_str());
-    XlfOper(px++).Set(GetAlias().c_str());
-    XlfOper(px++).Set("");
-    XlfOper(px++).Set(GetComment().c_str());
-    XlfOper(px++).Set("");
+    //first check that the menu exists
+    XlfOper barNum(10);
+    XlfOper menuLocation;
+    XlfOper missingValue;
+    XlfOper menuOper(menu_);
+    int err = XlfExcel::Instance().Call(xlfGetBar, menuLocation, 3, barNum, menuOper, XlfOper(0));
+    if (err || menuLocation.IsError())
+    {
+        XlfOper menuDesc(1,5);
+        menuDesc(0,0) = menuOper;
+        menuDesc(0,1) = missingValue;
+        menuDesc(0,2) = missingValue;
+        menuDesc(0,3) = missingValue;
+        menuDesc(0,4) = missingValue;
+        err = XlfExcel::Instance().Call(xlfAddMenu, menuLocation, 2, barNum, menuDesc);
+        if(err != xlretSuccess)
+            std::cerr << XLW__HERE__ << "Add Menu " <<  menu_.c_str() << " failed" << std::endl;
+    }
 
-    xMenu.xltype = xltypeMulti;
-    xMenu.val.array.lparray = pxMenu;
-    xMenu.val.array.rows = 1;
-    xMenu.val.array.columns = 5;
+    XlfOper command(1,4);
+    command(0,0) = text_;
+    command(0,1) = GetAlias();
+    command(0,2) = "";
+    command(0,3) = GetComment();
 
-    //int err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)&xMenu);
-    int err = XlfExcel::Instance().Call4(xlfAddCommand, 0, 3, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_), (LPXLFOPER)&xMenu);
+    err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, barNum, menuOper, command);
     if (err != xlretSuccess)
-    std::cerr << XLW__HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
-    delete[] pxMenu;
+        std::cerr << XLW__HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
     return err;
 }
 
@@ -92,8 +111,7 @@ int xlw::XlfCmdDesc::Check(bool ERR_CHECK) const
         std::cerr << XLW__HERE__ << "No menu specified for the command \"" << GetName().c_str() << "\"" << std::endl;
         return xlretFailed;
     }
-    //int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLOPER)XlfOper(1.0), (LPXLOPER)XlfOper(menu_.c_str()), (LPXLOPER)XlfOper(text_.c_str()), (LPXLOPER)XlfOper(ERR_CHECK));
-    int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, (LPXLFOPER)XlfOper(1.0), (LPXLFOPER)XlfOper(menu_), (LPXLFOPER)XlfOper(text_), (LPXLFOPER)XlfOper(ERR_CHECK));
+    int err = XlfExcel::Instance().Call(xlfCheckCommand, 0, 4, XlfOper(10), XlfOper(menu_), XlfOper(text_), XlfOper(ERR_CHECK));
     if (err != xlretSuccess)
     {
         std::cerr << XLW__HERE__ << "Registration of " << GetAlias().c_str() << " failed" << std::endl;
@@ -102,11 +120,38 @@ int xlw::XlfCmdDesc::Check(bool ERR_CHECK) const
     return xlretSuccess;
 }
 
+void xlw::XlfCmdDesc::RemoveFromMenuBar()
+{
+    // first check that the menu exists and then delete this command
+    XlfOper barNum(10);
+    XlfOper menu(menu_);
+    XlfOper menuLocation;
+    int err = XlfExcel::Instance().Call(xlfGetBar, menuLocation, 3, barNum, menu, XlfOper(0));
+    if (!err && !menuLocation.IsError())
+    {
+        err = XlfExcel::Instance().Call(xlfDeleteCommand, 0, 3, barNum, menu, XlfOper(text_));
+        if(err != xlretSuccess) 
+            std::cerr << XLW__HERE__ << "Delete Command " << GetName().c_str() << " from " << menu_.c_str() <<  " failed" << std::endl;
+
+        // check if the menu is now empty, if it is then delete it
+        // if it is empty then the first item won't exist
+        XlfOper firstItemLocation;
+        err = XlfExcel::Instance().Call(xlfGetBar, firstItemLocation, 3, XlfOper(10), menu, XlfOper(1));
+        if(!err && firstItemLocation.IsError())
+        {
+            err = XlfExcel::Instance().Call(xlfDeleteMenu, 0, 2, barNum, menu);
+            if(err != xlretSuccess)
+                std::cerr << XLW__HERE__ << "Delete Menu " << menu_.c_str() <<  " failed" << std::endl;
+        }
+    }
+}
+
+
 /*!
 Registers the command as a macro in excel.
 \sa XlfExcel, XlfFuncDesc.
 */
-int xlw::XlfCmdDesc::DoRegister(const std::string& dllName) const
+int xlw::XlfCmdDesc::DoRegister(const std::string& dllName, const std::string& suggestedHelpId) const
 {
 
     XlfArgDescList arguments = GetArguments();
@@ -151,7 +196,8 @@ int xlw::XlfCmdDesc::DoRegister(const std::string& dllName) const
             argnames+=", ";
     }
 
-    LPXLFOPER *rgx = new LPXLFOPER[10 + nbargs];
+    xlw_tr1::shared_ptr<LPXLFOPER> smart_px(new LPXLFOPER[10 + nbargs],CustomArrayDeleter<LPXLFOPER>());
+    LPXLFOPER *rgx = smart_px.get();
     LPXLFOPER *px = rgx;
 
     (*px++) = XlfOper(dllName);
@@ -164,13 +210,24 @@ int xlw::XlfCmdDesc::DoRegister(const std::string& dllName) const
     (*px++) = XlfOper("");
     (*px++) = XlfOper("");
     (*px++) = XlfOper(GetComment());
+    int counter(0);
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
-        (*px++) = XlfOper((*it).GetComment());
+        ++counter;
+        if(counter < nbargs)
+        {
+            (*px++) = XlfOper((*it).GetComment());
+        }
+        else
+        {
+            // add spaces to last comment to work around known excel bug
+            // see http://msdn.microsoft.com/en-us/library/bb687841.aspx
+            (*px++) = XlfOper((*it).GetComment() + "  ");
+        }
     }
 
     int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, NULL, 10 + nbargs, rgx));
-    delete[] rgx;
+    // delete[] rgx; no thankyou .. not anymore 
     return err;
 
 }
@@ -180,3 +237,9 @@ int xlw::XlfCmdDesc::DoUnregister(const std::string& dllName) const
     return xlretSuccess;
 }
 
+void xlw::XlfCmdDesc::DoMamlDocs(std::ostream& ostr) const
+{
+    ostr << "<introduction>" << std::endl;
+    ostr << "<para>" << GetComment() << "</para>" << std::endl;
+    ostr << "</introduction>" << std::endl;
+}

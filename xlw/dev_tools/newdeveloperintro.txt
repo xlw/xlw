@@ -1,5 +1,5 @@
 You could take a look at the TODO.txt list in the source distribution.
-The latest XLW code is available through CVS (more on that below).
+The latest XLW code is available through svn (more on that below).
 
 Feel free to post to xlw-users@lists.sourceforge.net your development
 ideas, contribution and sample code. To submit a patch would be the easiest
@@ -11,10 +11,9 @@ XLW site (http://xlw.sf.net) and project page
 (http://sourceforge.net/projects/xlw).
 
 To keep up with the XLW development - so that your contribution will
-apply to the latest source code tree - you will need to familiarize with
-CVS: it's easy to get started, see http://xlw.sf.net/cvs.html
+apply to the latest source code tree
 
-If you would like CVS developer write access please get yourself a
+If you would like svn developer write access please get yourself a
 SourceForge account/username at http://sourceforge.net/account/register.php,
 then let us know your username.
 You will NEED a SourceForge account if you plan to get really involved.

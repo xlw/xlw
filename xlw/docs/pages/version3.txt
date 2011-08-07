@@ -1,5 +1,5 @@
 
-/*! \page version3 XLW Version 3 - Support for Excel 2007
+/*! \page a02_version3 XLW Version 3 - Support for Excel 2007
 
 \section v3_summary Summary
 

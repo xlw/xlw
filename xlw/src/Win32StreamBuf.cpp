@@ -20,20 +20,15 @@
  * \ingroup utils
  */
 
-// $Id: Win32StreamBuf.cpp 474 2008-03-05 15:40:40Z ericehlers $
+// $Id$
 
 #ifdef _WIN32
 
 #include <xlw/Win32StreamBuf.h>
 
-#ifndef NDEBUG
-#include <xlw/Win32StreamBuf.inl>
-#endif
-
 #include <cassert>
 
-#define STRICT
-#include <windows.h>
+#include <xlw/XlfWindows.h>
 
 #if !(_WIN32_WINNT >= 0x0400) && !(_WIN32_WINDOWS > 0x0400)
 //! Helper method if IsDebuggerPresent is not available.

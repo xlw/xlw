@@ -1,7 +1,8 @@
 
-For 4.0.0 Release
+For 5.0.0 Release
 
-1. Documentatiom
-2. More examples for xlw
+1. Documentation of other examples
+2. Gather user contributed examples
+3. RTD fixes/testing
 
 

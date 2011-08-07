@@ -1,23 +1,17 @@
-
-ifndef BUILD
 BUILD=DEBUG
-endif
-
-ifeq ($(BUILD),DEBUG)
-CXXFLAGS=-g3
-GD=-gd
-else
-CXXFLAGS=-O3
-GD=
-endif
+PLATFORM=WIN32
 
 all:
-	$(MAKE) -f InterfaceGenerator.mak   BUILD=$(BUILD)
-	$(MAKE) -f XLW.mak BUILD=$(BUILD)
+	$(MAKE) -f InterfaceGenerator.mak BUILD=$(BUILD) PLATFORM=$(PLATFORM)
+	$(MAKE) -f XLW.mak BUILD=$(BUILD) PLATFORM=$(PLATFORM)
+	$(MAKE) -f xlcall32stub.mak BUILD=$(BUILD) PLATFORM=$(PLATFORM)
+	$(MAKE) -f XlwDocGen.mak BUILD=$(BUILD) PLATFORM=$(PLATFORM)
 	
 clean:
-	$(MAKE) -f InterfaceGenerator.mak  BUILD=$(BUILD) clean
-	$(MAKE) -f XLW.mak BUILD=$(BUILD) clean
+	$(MAKE) -f InterfaceGenerator.mak  BUILD=$(BUILD) PLATFORM=$(PLATFORM) clean
+	$(MAKE) -f XLW.mak BUILD=$(BUILD)  PLATFORM=$(PLATFORM) clean
+	$(MAKE) -f xlcall32stub.mak BUILD=$(BUILD) PLATFORM=$(PLATFORM) clean
+	$(MAKE) -f XlwDocGen.mak BUILD=$(BUILD) PLATFORM=$(PLATFORM) clean
 	
 rebuild: clean all
 

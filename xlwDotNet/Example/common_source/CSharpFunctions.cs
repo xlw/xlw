@@ -1,5 +1,6 @@
 ﻿/*
  Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2011  John Adcock
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -19,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using xlwDotNet;
 using xlwDotNet.xlwTypes;
 
@@ -56,11 +58,12 @@ namespace Example
         {
             return Echoee;
         }
-        [ExcelExport("echoes a  CellMatrix")]
+        [ExcelExport("echoes a  CellMatrix", timeFlag = true)]
         public static CellMatrix EchoCells(
                              [Parameter(" argument to be echoed")] CellMatrix Echoee
                             )
         {
+            CellValue.ValueTypeEnum type = Echoee[0, 0].ValueType;
             return Echoee;
         }
 
@@ -80,7 +83,7 @@ namespace Example
         {
             return str1+str2;
         }
-        [ExcelExport("computes mean and variance of a range ")]
+        [ExcelExport("computes mean and variance of a range ", timeFlag = true)]
         public static MyArray stats(
                              [Parameter("input for computation")] MyArray data
                             )
@@ -114,14 +117,22 @@ namespace Example
             return "hello " + name;
         }
 
-        [ExcelExport("echoes an unsigned long")]
-        public static double EchoUL(
-                             [Parameter("number to echo")] double b
+        [ExcelExport("echoes an unsigned integer")]
+        public static UInt32 EchoUL(
+                             [Parameter("number to echo")] UInt32 b
                             )
         {
-            throw new Exception("type UInt64 not supported in xlwDotNet");
-            return 0.0;
+            return b;
         }
+
+        [ExcelExport("Echoes an integer")]
+        public static int EchoInt(
+                             [Parameter("number to echo")] int b
+                            )
+        {
+            return b;
+        }
+
         [ExcelExport("tests DoubleOrNothingType")]
         public static double EchoDoubleOrNothing(
                              [Parameter("value to specify")] CellMatrix x, 
@@ -129,11 +140,11 @@ namespace Example
                             )
         {
             throw new Exception("type DoubleOrNothing not supported in xlwDotNet");
-            return 0.0;
         }
 
+        private static long timeAtStart = DateTime.Now.Ticks;
 
-        [ExcelExport("system clock")]
+        [ExcelExport("system clock", timeFlag=true, volatileFlag=true)]
         public static double SystemTime(
                              [Parameter("number to divide by")] CellMatrix ticksPerSecond
                             )
@@ -147,11 +158,12 @@ namespace Example
             bool Empty = ticksPerSecond[0, 0].IsEmpty;
 
             double Value = Empty ? 1000: ticksPerSecond[0, 0].NumericValue();
+            TimeSpan span = new TimeSpan(DateTime.Now.Ticks - timeAtStart);
 
-            return DateTime.Now.Ticks / Value;
-            
+            return span.TotalMilliseconds / Value;
         }
-        [ExcelExport("echoes arg list")]
+
+        [ExcelExport("echoes arg list", timeFlag = true)]
         public static CellMatrix EchoArgList(
                              [Parameter(" arguments to echo")] ArgumentList args
                             )
@@ -166,24 +178,23 @@ namespace Example
                             )
         {
             throw new Exception("type Wrapper<PayOff> not supported in xlwDotNet");
-            return 0.0;
         }
 
         [ExcelExport("checks to see if there's an error")]
-        public static int ContainsError(
+        public static Boolean ContainsError(
                              [Parameter("data to check for errors")] CellMatrix input
                             )
         {
             for (int i = 0; i < input.RowsInStructure; ++i)
                 for (int j = 0; j < input.ColumnsInStructure; ++j)
                     if (input[i, j].IsError)
-                        return 1;
+                        return true;
 
-            return 0;
+            return false;
         }
 
         [ExcelExport("checks to see if there's a div by zero")]
-        public static int ContainsDivByZero(
+        public static Boolean ContainsDivByZero(
                              [Parameter("data to check for errors")] CellMatrix input
                             )
         {
@@ -191,15 +202,15 @@ namespace Example
                 for (int j = 0; j < input.ColumnsInStructure; ++j)
                     if (input[i, j].IsError)
                         if (input[i, j].ErrorValue() == 7)
-                            return 1;
+                            return true;
 
-            return 0;
+            return false;
 
         }
-        [ExcelExport("Gets the thread id", volatileFlag = true)]
+        [ExcelExport("Gets the thread id", volatileFlag = true, threadSafeFlag = true)]
         public static double GetThreadId()
         {
-            return (double)System.AppDomain.GetCurrentThreadId();
+            return (double)Thread.CurrentThread.ManagedThreadId;
 
         }
 
@@ -209,8 +220,6 @@ namespace Example
                             )
         {
             throw new Exception("XlfOper not implemented directly in xlwDotNet");
-            return "";
-
         }
 
         [ExcelExport("return a string indicating datatype of XLOPER/XLOPER12 input")]
@@ -219,8 +228,6 @@ namespace Example
                             )
         {
             throw new Exception("XlfOper not implemented directly in xlwDotNet");
-            return "";
-
         }
 
 
@@ -273,7 +280,6 @@ namespace Example
                             )
         {
             throw(new ArgumentNullException("err",err));
-            return 0;
         }
         [ExcelExport("throws an exception of type cellMatrixException")]
         public static double throwCellMatrix(
@@ -283,7 +289,6 @@ namespace Example
             ArgumentList theContent = new ArgumentList("EXCEPTION");
             theContent.add("Error", "Don't worry, this is a dummy Error :-)");
             throw (new cellMatrixException("WOW its warm up here ",theContent.AllData()));
-            return 0;
         }
 
         [ExcelExport("makes the C Runtime throw an exception")]

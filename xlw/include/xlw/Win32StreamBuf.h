@@ -1,6 +1,7 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
+ Copyright (C) 2011 John Adcock
 
  This file is part of xlw, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -20,12 +21,14 @@
  * \ingroup utils
  */
 
-// $Id: Win32StreamBuf.h 474 2008-03-05 15:40:40Z ericehlers $
+// $Id$
 
 #ifndef INC_Win32StreamBuf_H
 #define INC_Win32StreamBuf_H
 
 #include <streambuf>
+#include <iostream>
+#include "xlw/macros.h"
 
 namespace xlw {
 
@@ -62,11 +65,30 @@ namespace xlw {
         Win32StreamBuf& operator=(const Win32StreamBuf&);
     };
 
+    //! Helper for redirecting cerr
+    /*!
+    Simply create an instance of the object to redirect cerr
+    to the debug output stream
+    */
+    class CerrBufferRedirector
+    {
+    public:
+        CerrBufferRedirector()
+        {
+            m_oldStreamBuf = std::cerr.rdbuf(&m_debuggerStreamBuf);
+            std::cerr << XLW__HERE__ << "Stream redirected to MSVC debugger" << std::endl;
+        }
+        ~CerrBufferRedirector()
+        {
+            std::cerr.rdbuf(m_oldStreamBuf);
+        }
+    private:
+        std::streambuf* m_oldStreamBuf;
+        Win32StreamBuf m_debuggerStreamBuf;
+    };
 }
 
-#ifdef NDEBUG
 #include "Win32StreamBuf.inl"
-#endif
 
 #endif // INC_Win32StreamBuf_H
 

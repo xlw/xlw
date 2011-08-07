@@ -11,16 +11,13 @@
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add option="-DBUILD_DLL" />
+					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="user32" />
-					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-gd-5DEV.a&quot;' />
+					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-gd-5_0_0a0.a&quot;' />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak" />
@@ -32,17 +29,14 @@
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-Wall" />
-					<Add option="-DBUILD_DLL" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="user32" />
-					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-5DEV.a&quot;' />
+					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-5_0_0a0.a&quot;' />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak BUILD=Release" />
@@ -55,6 +49,10 @@
 			<Add directory=".\source" />
 		</Compiler>
 		<Linker>
+			<Add option="-static" />
+			<Add option="-static-libgcc" />
+			<Add library="user32" />
+			<Add library='&quot;$(XLW)\xlw\include\xlw\xlw.def&quot;' />
 			<Add directory="..\..\..\lib" />
 		</Linker>
 		<Unit filename="source\cppinterface.h" />

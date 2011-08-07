@@ -1,18 +1,13 @@
 
 /*!
 
-\page faq Frequently Asked Questions
+\page a07_faq Frequently Asked Questions
 
-\section faq_new New FAQ
+\section faq FAQ
 
-These are FAQs that have arisen since the release of XLW version 3.0.
+These are a collection FAQs that have arisen on the mailing list.
 
 - \ref NumArgs
-
-\section faq_old Old FAQ
-
-This is the original FAQ that accompanied XLW version 1.0.
-
 - \ref WhenCom
 - \ref WhenNotCom
 - \ref IsItCpp
@@ -22,7 +17,7 @@ This is the original FAQ that accompanied XLW version 1.0.
 
 \section NumArgs How Many Arguments Are Supported For Addin Functions?
 
-Excel 2007 (and XLW 3.0) support user defined functions with up to 255
+Excel 2007 (and XLW 5.0) support user defined functions with up to 255
 arguments.
 
 Excel versions up to and including 2003 have a limit of 30 function arguments.

@@ -1,71 +1,309 @@
-<?xml version="1.0" ?><VisualStudioProject Keyword="Win32Proj" Name="5DEV" ProjectGUID="{8DC33132-DEC5-488D-B16F-F5C40C970CBA}" ProjectType="Visual C++" RootNamespace="xlwDotNet" TargetFrameworkVersion="196613" Version="9.00">
-	<Platforms>
-		<Platform Name="Win32"/>
-	</Platforms>
-	<ToolFiles>
-	</ToolFiles>
-	<Configurations>
-		<Configuration CharacterSet="1" ConfigurationType="2" IntermediateDirectory="$(ConfigurationName)" ManagedExtensions="1" Name="Debug|Win32" OutputDirectory="../../../lib">
-			<Tool CommandLine="" Name="VCPreBuildEventTool"/>
-			<Tool Name="VCCustomBuildTool"/>
-			<Tool Name="VCXMLDataGeneratorTool"/>
-			<Tool Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool Name="VCMIDLTool"/>
-			<Tool AdditionalIncludeDirectories="../../../../xlw/include" BasicRuntimeChecks="0" BrowseInformation="0" DebugInformationFormat="3" MinimalRebuild="false" Name="VCCLCompilerTool" Optimization="0" PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS" ProgramDataBaseFileName="$(IntDir)\vc80.pdb" RuntimeLibrary="3" UsePrecompiledHeader="0" WarningLevel="3"/>
-			<Tool Name="VCManagedResourceCompilerTool"/>
-			<Tool Name="VCResourceCompilerTool"/>
-			<Tool Name="VCPreLinkEventTool"/>
-			<Tool AdditionalDependencies="xlw-vc90-mt-gd-5DEV.lib" AdditionalLibraryDirectories="../../../../xlw/lib" AssemblyDebug="1" CLRUnmanagedCodeCheck="false" GenerateDebugInformation="true" KeyFile="../../../xlwDotNet/xlwDotNet.snk" LinkIncremental="2" ModuleDefinitionFile="" Name="VCLinkerTool" OutputFile="$(OutDir)\xlwDotNet-vc90-mt-gd-$(ProjectName).dll" SubSystem="2" TargetMachine="1" Version="0.0.0.0"/>
-			<Tool Name="VCALinkTool"/>
-			<Tool Name="VCManifestTool"/>
-			<Tool Name="VCXDCMakeTool"/>
-			<Tool Name="VCBscMakeTool"/>
-			<Tool Name="VCFxCopTool"/>
-			<Tool Name="VCAppVerifierTool"/>
-			<Tool CommandLine="" Name="VCPostBuildEventTool"/>
-		</Configuration>
-		<Configuration CharacterSet="1" ConfigurationType="2" IntermediateDirectory="$(ConfigurationName)" ManagedExtensions="1" Name="Release|Win32" OutputDirectory="../../../lib" WholeProgramOptimization="1">
-			<Tool CommandLine="" Name="VCPreBuildEventTool"/>
-			<Tool Name="VCCustomBuildTool"/>
-			<Tool Name="VCXMLDataGeneratorTool"/>
-			<Tool Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool Name="VCMIDLTool"/>
-			<Tool AdditionalIncludeDirectories="../../../../xlw/include" DebugInformationFormat="3" EnableFunctionLevelLinking="true" EnableIntrinsicFunctions="true" Name="VCCLCompilerTool" Optimization="2" PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS" RuntimeLibrary="2" UsePrecompiledHeader="0" WarningLevel="3"/>
-			<Tool Name="VCManagedResourceCompilerTool"/>
-			<Tool Name="VCResourceCompilerTool"/>
-			<Tool Name="VCPreLinkEventTool"/>
-			<Tool AdditionalDependencies="xlw-vc90-mt-5DEV.lib" AdditionalLibraryDirectories="../../../../xlw/lib" EnableCOMDATFolding="2" GenerateDebugInformation="false" KeyFile="../../../xlwDotNet/xlwDotNet.snk" LinkIncremental="1" ModuleDefinitionFile="" Name="VCLinkerTool" OptimizeReferences="2" OutputFile="$(OutDir)\xlwDotNet-vc90-mt-$(ProjectName).dll" SubSystem="2" TargetMachine="1" Version="1.0.0.0"/>
-			<Tool Name="VCALinkTool"/>
-			<Tool Name="VCManifestTool"/>
-			<Tool Name="VCXDCMakeTool"/>
-			<Tool Name="VCBscMakeTool"/>
-			<Tool Name="VCFxCopTool"/>
-			<Tool Name="VCAppVerifierTool"/>
-			<Tool CommandLine="" Name="VCPostBuildEventTool"/>
-		</Configuration>
-	</Configurations>
-	<References>
-	</References>
-	<Files>
-		<File RelativePath="..\..\..\xlwDotNet\ExcelExportAttribute.cpp">
-		</File>
-		<File RelativePath="..\..\..\xlwDotNet\managedArgumentList.cpp">
-		</File>
-		<File RelativePath="..\..\..\xlwDotNet\managedCellMatrix.h">
-		</File>
-		<File RelativePath="..\..\..\xlwDotNet\managedMyArray.h">
-		</File>
-		<File RelativePath="..\..\..\xlwDotNet\managedMyMatrix.h">
-		</File>
-		<File RelativePath="..\..\..\xlwDotNet\managedString.cpp">
-		</File>
-		<File RelativePath="..\..\..\xlwDotNet\xdnException.cpp">
-		</File>
-		<File RelativePath="..\..\..\xlwDotNet\xlwDotNet.h">
-		</File>
-		<File RelativePath="..\..\..\xlwDotNet\xlwTypeBaseClass.h">
-		</File>
-	</Files>
-	<Globals>
-	</Globals>
-</VisualStudioProject>
+<?xml version="1.0" encoding="Windows-1252"?>
+	<VisualStudioProject
+			Name="5_0_0a0"
+			RootNamespace="xlwDotNet"
+			ProjectType="Visual C++"
+			Keyword="Win32Proj"
+			TargetFrameworkVersion="196613"
+			Version="9.00"
+			ProjectGUID="{8DC33132-DEC5-488D-B16F-F5C40C970CBA}">
+		<Platforms>
+			<Platform
+					Name="Win32"/>
+			<Platform
+					Name="x64"/>
+		</Platforms>
+		<ToolFiles/>
+		<Configurations>
+			<Configuration
+					Name="Debug|Win32"
+					ManagedExtensions="1"
+					CharacterSet="1"
+					OutputDirectory="../../../lib"
+					IntermediateDirectory="$(ConfigurationName)"
+					ConfigurationType="2">
+				<Tool
+						Name="VCPreBuildEventTool"
+						CommandLine=""/>
+				<Tool
+						Name="VCCustomBuildTool"/>
+				<Tool
+						Name="VCXMLDataGeneratorTool"/>
+				<Tool
+						Name="VCWebServiceProxyGeneratorTool"/>
+				<Tool
+						Name="VCMIDLTool"/>
+				<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS"
+						AdditionalIncludeDirectories="../../../../xlw/include"
+						DebugInformationFormat="3"
+						ProgramDataBaseFileName="$(IntDir)\vc80.pdb"
+						Optimization="0"
+						BrowseInformation="0"
+						MinimalRebuild="false"
+						WarningLevel="3"
+						RuntimeLibrary="3"
+						UsePrecompiledHeader="0"
+						BasicRuntimeChecks="0"/>
+				<Tool
+						Name="VCManagedResourceCompilerTool"/>
+				<Tool
+						Name="VCResourceCompilerTool"/>
+				<Tool
+						Name="VCPreLinkEventTool"/>
+				<Tool
+						Name="VCLinkerTool"
+						SubSystem="2"
+						ModuleDefinitionFile=""
+						OutputFile="$(OutDir)\xlwDotNet-vc90-mt-gd-$(ProjectName).dll"
+						CLRUnmanagedCodeCheck="false"
+						AdditionalLibraryDirectories="../../../../xlw/lib"
+						LinkIncremental="2"
+						GenerateDebugInformation="true"
+						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
+						TargetMachine="1"
+						Version="0.0.0.0"
+						AssemblyDebug="1"
+						AdditionalDependencies="xlw-vc90-mt-gd-$(ProjectName).lib"/>
+				<Tool
+						Name="VCALinkTool"/>
+				<Tool
+						Name="VCManifestTool"/>
+				<Tool
+						Name="VCXDCMakeTool"/>
+				<Tool
+						Name="VCBscMakeTool"/>
+				<Tool
+						Name="VCFxCopTool"/>
+				<Tool
+						Name="VCAppVerifierTool"/>
+				<Tool
+						Name="VCPostBuildEventTool"
+						CommandLine=""/>
+			</Configuration>
+			<Configuration
+					Name="Release|Win32"
+					ManagedExtensions="1"
+					CharacterSet="1"
+					WholeProgramOptimization="1"
+					OutputDirectory="../../../lib"
+					IntermediateDirectory="$(ConfigurationName)"
+					ConfigurationType="2">
+				<Tool
+						Name="VCPreBuildEventTool"
+						CommandLine=""/>
+				<Tool
+						Name="VCCustomBuildTool"/>
+				<Tool
+						Name="VCXMLDataGeneratorTool"/>
+				<Tool
+						Name="VCWebServiceProxyGeneratorTool"/>
+				<Tool
+						Name="VCMIDLTool"/>
+				<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS"
+						AdditionalIncludeDirectories="../../../../xlw/include"
+						DebugInformationFormat="3"
+						EnableFunctionLevelLinking="true"
+						Optimization="2"
+						WarningLevel="3"
+						RuntimeLibrary="2"
+						EnableIntrinsicFunctions="true"
+						UsePrecompiledHeader="0"/>
+				<Tool
+						Name="VCManagedResourceCompilerTool"/>
+				<Tool
+						Name="VCResourceCompilerTool"/>
+				<Tool
+						Name="VCPreLinkEventTool"/>
+				<Tool
+						Name="VCLinkerTool"
+						SubSystem="2"
+						ModuleDefinitionFile=""
+						OutputFile="$(OutDir)\xlwDotNet-vc90-mt-$(ProjectName).dll"
+						AdditionalLibraryDirectories="../../../../xlw/lib"
+						LinkIncremental="1"
+						GenerateDebugInformation="false"
+						TargetMachine="1"
+						OptimizeReferences="2"
+						EnableCOMDATFolding="2"
+						Version="1.0.0.0"
+						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
+						AdditionalDependencies="xlw-vc90-mt-$(ProjectName).lib"/>
+				<Tool
+						Name="VCALinkTool"/>
+				<Tool
+						Name="VCManifestTool"/>
+				<Tool
+						Name="VCXDCMakeTool"/>
+				<Tool
+						Name="VCBscMakeTool"/>
+				<Tool
+						Name="VCFxCopTool"/>
+				<Tool
+						Name="VCAppVerifierTool"/>
+				<Tool
+						Name="VCPostBuildEventTool"
+						CommandLine=""/>
+			</Configuration>
+			<Configuration
+					Name="Debug|x64"
+					ManagedExtensions="1"
+					CharacterSet="1"
+					OutputDirectory="../../../lib/x64"
+					IntermediateDirectory="$(PlatformName)_$(ConfigurationName)"
+					ConfigurationType="2">
+				<Tool
+						Name="VCPreBuildEventTool"
+						CommandLine=""/>
+				<Tool
+						Name="VCCustomBuildTool"/>
+				<Tool
+						Name="VCXMLDataGeneratorTool"/>
+				<Tool
+						Name="VCWebServiceProxyGeneratorTool"/>
+				<Tool
+						Name="VCMIDLTool"
+						TargetEnvironment="3"/>
+				<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS"
+						AdditionalIncludeDirectories="../../../../xlw/include"
+						DebugInformationFormat="3"
+						ProgramDataBaseFileName="$(IntDir)\vc80.pdb"
+						Optimization="0"
+						BrowseInformation="0"
+						MinimalRebuild="false"
+						WarningLevel="3"
+						RuntimeLibrary="3"
+						UsePrecompiledHeader="0"
+						BasicRuntimeChecks="0"/>
+				<Tool
+						Name="VCManagedResourceCompilerTool"/>
+				<Tool
+						Name="VCResourceCompilerTool"/>
+				<Tool
+						Name="VCPreLinkEventTool"/>
+				<Tool
+						Name="VCLinkerTool"
+						SubSystem="2"
+						ModuleDefinitionFile=""
+						OutputFile="$(OutDir)\xlwDotNet-vc90-mt-gd-$(ProjectName).dll"
+						CLRUnmanagedCodeCheck="false"
+						AdditionalLibraryDirectories="../../../../xlw/lib/x64"
+						LinkIncremental="2"
+						GenerateDebugInformation="true"
+						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
+						TargetMachine="17"
+						Version="0.0.0.0"
+						AssemblyDebug="1"
+						AdditionalDependencies="xlw-vc90-mt-gd-$(ProjectName).lib"/>
+				<Tool
+						Name="VCALinkTool"/>
+				<Tool
+						Name="VCManifestTool"/>
+				<Tool
+						Name="VCXDCMakeTool"/>
+				<Tool
+						Name="VCBscMakeTool"/>
+				<Tool
+						Name="VCFxCopTool"/>
+				<Tool
+						Name="VCAppVerifierTool"/>
+				<Tool
+						Name="VCPostBuildEventTool"
+						CommandLine=""/>
+			</Configuration>
+			<Configuration
+					Name="Release|x64"
+					ManagedExtensions="1"
+					CharacterSet="1"
+					WholeProgramOptimization="1"
+					OutputDirectory="../../../lib/x64"
+					IntermediateDirectory="$(PlatformName)_$(ConfigurationName)"
+					ConfigurationType="2">
+				<Tool
+						Name="VCPreBuildEventTool"
+						CommandLine=""/>
+				<Tool
+						Name="VCCustomBuildTool"/>
+				<Tool
+						Name="VCXMLDataGeneratorTool"/>
+				<Tool
+						Name="VCWebServiceProxyGeneratorTool"/>
+				<Tool
+						Name="VCMIDLTool"
+						TargetEnvironment="3"/>
+				<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS"
+						AdditionalIncludeDirectories="../../../../xlw/include"
+						DebugInformationFormat="3"
+						EnableFunctionLevelLinking="true"
+						Optimization="2"
+						WarningLevel="3"
+						RuntimeLibrary="2"
+						EnableIntrinsicFunctions="true"
+						UsePrecompiledHeader="0"/>
+				<Tool
+						Name="VCManagedResourceCompilerTool"/>
+				<Tool
+						Name="VCResourceCompilerTool"/>
+				<Tool
+						Name="VCPreLinkEventTool"/>
+				<Tool
+						Name="VCLinkerTool"
+						SubSystem="2"
+						ModuleDefinitionFile=""
+						OutputFile="$(OutDir)\xlwDotNet-vc90-mt-$(ProjectName).dll"
+						AdditionalLibraryDirectories="../../../../xlw/lib/x64"
+						LinkIncremental="1"
+						GenerateDebugInformation="false"
+						TargetMachine="17"
+						OptimizeReferences="2"
+						EnableCOMDATFolding="2"
+						Version="1.0.0.0"
+						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
+						AdditionalDependencies="xlw-vc90-mt-$(ProjectName).lib"/>
+				<Tool
+						Name="VCALinkTool"/>
+				<Tool
+						Name="VCManifestTool"/>
+				<Tool
+						Name="VCXDCMakeTool"/>
+				<Tool
+						Name="VCBscMakeTool"/>
+				<Tool
+						Name="VCFxCopTool"/>
+				<Tool
+						Name="VCAppVerifierTool"/>
+				<Tool
+						Name="VCPostBuildEventTool"
+						CommandLine=""/>
+			</Configuration>
+		</Configurations>
+		<References/>
+		<Files>
+			<File
+					RelativePath="..\..\..\xlwDotNet\ExcelExportAttribute.cpp"/>
+			<File
+					RelativePath="..\..\..\xlwDotNet\managedArgumentList.cpp"/>
+			<File
+					RelativePath="..\..\..\xlwDotNet\managedCellMatrix.h"/>
+			<File
+					RelativePath="..\..\..\xlwDotNet\managedMyArray.h"/>
+			<File
+					RelativePath="..\..\..\xlwDotNet\managedMyMatrix.h"/>
+			<File
+					RelativePath="..\..\..\xlwDotNet\managedString.cpp"/>
+			<File
+					RelativePath="..\..\..\xlwDotNet\xdnException.cpp"/>
+			<File
+					RelativePath="..\..\..\xlwDotNet\xlwDotNet.h"/>
+			<File
+					RelativePath="..\..\..\xlwDotNet\xlwTypeBaseClass.h"/>
+		</Files>
+		<Globals/>
+	</VisualStudioProject>

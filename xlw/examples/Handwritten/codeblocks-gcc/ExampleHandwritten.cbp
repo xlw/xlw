@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Handwritten" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="source\;headers\;objects\;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\ExampleHandwritten.xll" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj\Debug\" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add library="..\..\..\lib\libxlw-gcc-s-gd-5_0_0a0.a" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\ExampleHandwritten.xll" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj\Release\" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="..\..\..\lib\libxlw-gcc-s-5_0_0a0.a" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="..\..\..\include" />
+			<Add directory="..\common_source" />
+		</Compiler>
+		<Linker>
+			<Add option="-static" />
+			<Add option="-static-libgcc" />
+			<Add library="..\..\..\include\xlw\xlw.def" />
+			<Add library="user32" />
+			<Add directory="..\..\..\lib" />
+		</Linker>
+		<Unit filename="..\common_source\xlwAsynchExample.cpp">
+			<Option virtualFolder="source\" />
+		</Unit>
+		<Unit filename="..\common_source\xlwCommands.cpp">
+			<Option virtualFolder="source\" />
+		</Unit>
+		<Unit filename="..\common_source\xlwExample.cpp">
+			<Option virtualFolder="source\" />
+		</Unit>
+		<Unit filename="..\common_source\xlwMatrixTest.cpp">
+			<Option virtualFolder="source\" />
+		</Unit>
+		<Unit filename="..\common_source\xlwXlmMacros.cpp">
+			<Option virtualFolder="source\" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

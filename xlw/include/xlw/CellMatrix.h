@@ -1,123 +1,149 @@
-//
-//
-//                                  CellMatrix.h
-//
-//
 /*
- Copyright (C) 2006 Mark Joshi
- Copyright (C) 2007, 2008 Eric Ehlers
- Copyright (C) 2009 Narinder S Claire
+Copyright (C) 2006 Mark Joshi
+Copyright (C) 2007, 2008 Eric Ehlers
+Copyright (C) 2009 2011 Narinder S Claire
+Copyright (C) 2011 John Adcock
 
+This file is part of XLW, a free-software/open-source C++ wrapper of the
+Excel C API - http://xlw.sourceforge.net/
 
- This file is part of XLW, a free-software/open-source C++ wrapper of the
- Excel C API - http://xlw.sourceforge.net/
+XLW is free software: you can redistribute it and/or modify it under the
+terms of the XLW license.  You should have received a copy of the
+license along with this program; if not, please email xlw-users@lists.sf.net
 
- XLW is free software: you can redistribute it and/or modify it under the
- terms of the XLW license.  You should have received a copy of the
- license along with this program; if not, please email xlw-users@lists.sf.net
-
- This program is distributed in the hope that it will be useful, but WITHOUT
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE.  See the license for more details.
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
-
 #ifndef CELL_MATRIX_H
 #define CELL_MATRIX_H
 
+
+#include <xlw/CellValue.h>
+#include "xlw/MyContainers.h"
 #include <string>
 #include <vector>
-#include <xlw/MyContainers.h>
 
 namespace xlw {
 
-    class CellValue
-    {
 
-    public:
-        bool IsAString() const;
-        bool IsAWstring() const;
-        bool IsANumber() const;
-        bool IsBoolean() const;
-        bool IsXlfOper() const;
-        bool IsError() const;
-        bool IsEmpty() const;
+	class CellMatrix
+	{
+	public:
 
-        CellValue(const std::string&);
-        CellValue(const std::wstring&);
-        CellValue(double Number);
-        CellValue(unsigned long Code, bool Error=false); //Error = true if you want an error code
-        CellValue(bool TrueFalse);
-        CellValue(const char* values);
-        CellValue(int i);
+		//Copy Constructor
+		CellMatrix(const CellMatrix &theOther):pimpl(theOther.pimpl.copy()){}
 
-        CellValue();
 
-        std::string StringValue() const;
-        const std::wstring& WstringValue() const;
-        const char* CharPtrValue() const;
-        double NumericValue() const;
-        bool BooleanValue() const;
-        unsigned long ErrorValue() const;
+		CellMatrix(size_t rows, size_t columns):pimpl(new CellMatrixImpl(rows, columns)){}
 
-        std::string StringValueLowerCase() const;
-        std::wstring WstringValueLowerCase() const;
+		CellMatrix():pimpl(new CellMatrixImpl()){}
 
-        enum ValueType
-        {
-            string, wstring, number, boolean, xlfoper, error, empty
-        };
 
-        operator std::string() const;
-        operator std::wstring() const;
-        operator bool() const;
-        operator double() const;
-        operator unsigned long() const;
+		CellMatrix(double data):pimpl(new CellMatrixImpl(1,1))
+		{
+			(*pimpl)(0,0)=data;
+		}
 
-        void clear();
+		CellMatrix(const std::string &  data):pimpl(new CellMatrixImpl(1,1))
+		{
+			(*pimpl)(0,0)=data;
+		}
 
-    private:
-        ValueType Type;
+		CellMatrix(const std::wstring &  data):pimpl(new CellMatrixImpl(1,1))
+		{
+			(*pimpl)(0,0)=data;
+		}
+		
+		CellMatrix(const char* data):pimpl(new CellMatrixImpl(1,1))
+		{
+			(*pimpl)(0,0)=std::string(data);
+		}
+		
+		CellMatrix(const MyArray& data):
+		pimpl(new CellMatrixImpl(ArrayTraits<MyArray>::size(data),1))
+		{
+			for(size_t i(0); i < ArrayTraits<MyArray>::size(data); ++i)
+			{
+				(*pimpl)(i,0) = ArrayTraits<MyArray>::getAt(data,i);
+			}
+		}
+		
+		CellMatrix(const MyMatrix& data):
+		pimpl(new CellMatrixImpl(MatrixTraits<MyMatrix>::rows(data),MatrixTraits<MyMatrix>::columns(data)))
+		{
 
-        std::string ValueAsString;
-        std::wstring ValueAsWstring;
-        double ValueAsNumeric;
-        bool ValueAsBool;
-        unsigned long ValueAsErrorCode;
+			for(size_t i(0); i < MatrixTraits<MyMatrix>::rows(data); ++i)
+			{
+				for(size_t j(0); j < MatrixTraits<MyMatrix>::columns(data); ++j)
+				{
+					(*pimpl)(i,j) = MatrixTraits<MyMatrix>::getAt(data,i,j);
+				}
+			}
 
-    };
+		}
+		
+		CellMatrix(unsigned long data):pimpl(new CellMatrixImpl(1,1))
+		{
+			(*pimpl)(0,0)=data;
+		}
+		
+		CellMatrix(int data):pimpl(new CellMatrixImpl(1,1))
+		{
+			(*pimpl)(0,0)=data;
+		}
 
-    class CellMatrix
-    {
-    public:
+		CellMatrix & operator=(const CellMatrix &theOther)
+		{
+            CellMatrix temp(theOther);
+			temp.swap(*this);
+			return *this;
+		}
 
-        CellMatrix(size_t rows, size_t columns);
-        CellMatrix();
-        CellMatrix(double x);
-        CellMatrix(std::string x);
-        CellMatrix(std::wstring x);
-        CellMatrix(const char* x);
-        CellMatrix(const MyArray& data);
-        CellMatrix(const MyMatrix& data);
-        CellMatrix(unsigned long i);
-        CellMatrix(int i);
+		const CellValue& operator()(size_t i, size_t j) const
+		{
+			return pimpl->operator()(i,j);
+		}
+		CellValue& operator()(size_t i, size_t j) 
+		{	
+			return pimpl->operator()(i,j);
+		}
 
-        const CellValue& operator()(size_t i, size_t j) const;
-        CellValue& operator()(size_t i, size_t j);
+		size_t RowsInStructure() const
+		{
+			return pimpl->RowsInStructure();
+		}
+		size_t ColumnsInStructure() const
+		{
+			return pimpl->ColumnsInStructure();
+		}
 
-        size_t RowsInStructure() const;
-        size_t ColumnsInStructure() const;
+		void PushBottom(const CellMatrix & newRows)
+		{
+			CellMatrix temp(*this);
+			temp.pimpl->PushBottom(*(newRows.pimpl));
+			temp.swap(*this);
 
-        void PushBottom(const CellMatrix& newRows);
+		}
 
-    private:
+		void swap(CellMatrix &theOther)
+		{
+			pimpl.swap(theOther.pimpl);
+		}
 
-        std::vector<std::vector<CellValue> > Cells;
-        size_t Rows;
-        size_t Columns;
+	private:
+		eshared_ptr<CellMatrix_pimpl_abstract> pimpl;
 
-    };
+	};
 
-    CellMatrix MergeCellMatrices(const CellMatrix& Top, const CellMatrix& Bottom);
+	inline CellMatrix MergeCellMatrices(const CellMatrix& Top, const CellMatrix& Bottom)
+	{
+		CellMatrix temp(Top);
+		temp.PushBottom(Bottom);
+		return temp;
+	}
+
+
 
 }
 

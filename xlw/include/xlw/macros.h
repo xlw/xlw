@@ -23,11 +23,12 @@
 \brief Some macros to consolidate XLW code.
 */
 
-// $Id: macros.h 514 2008-04-03 15:08:41Z ericehlers $
+// $Id$
 
 #include <xlw/XlfException.h>
 #include <xlw/XlfExcel.h>
 #include <xlw/CellMatrix.h>
+#include <xlw/TempMemory.h>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -48,9 +49,10 @@ If necessary, frees the internal buffer maintained by XlfExcel for heap memory
 that is returned to Excel.
 \sa XlfExcel
 */
-#define EXCEL_BEGIN XlfExcel::Instance().FreeMemory(); \
+#define EXCEL_BEGIN \
 try \
-{
+{ \
+    UsesTempMemory whileInScopeUseTempMemory;
 
 /*! \defgroup cleanup_macros Cleanup Macros
 Use a cleanup macro at the end of each user defined function implemented in the
@@ -125,12 +127,39 @@ functions.
 } catch (...) { \
     return XlfOper12::Error(xlerrValue); \
 }
+//! Cleanup macro for command with return type int
+#define EXCEL_END_CMD \
+} catch (XlfException&) { \
+    return 0; \
+} catch (std::exception&){\
+    return 0;\
+} catch (std::string&){\
+    return 0;\
+} catch (const char*){\
+    return 0;\
+} catch (const CellMatrix&){\
+    return 0;\
+} catch (...) { \
+    return 0; \
+} \
+return 1;
+
+//! Cleanup macro for command with return type LPXLARRAY
+#define EXCEL_END_ARRAY \
+} catch (XlfException&) { \
+    return 0; \
+} catch (std::exception&){\
+    return 0;\
+} catch (std::string&){\
+    return 0;\
+} catch (const char*){\
+    return 0;\
+} catch (const CellMatrix&){\
+    return 0;\
+} catch (...) { \
+    return 0; \
+} \
+
 //@}
-
-
-#define XLW__HERE__ __FILE__ "(" _MAKESTRING(__LINE__) "): "
-#define _MAKESTRING(a) __MAKESTRING(a)
-#define __MAKESTRING(a) #a
-
 #endif
 

@@ -21,10 +21,12 @@
 #define DOUBLE_OR_NOTHING_H
 
 #include <string>
+#include <xlw/CellMatrix.h>
 
 namespace xlw {
 
-    class CellMatrix;
+
+
     class DoubleOrNothing
     {
     public:

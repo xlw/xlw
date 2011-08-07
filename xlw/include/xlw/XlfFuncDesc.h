@@ -1,18 +1,19 @@
 
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
- Copyright (C) 2007, 2008 Eric Ehlers
+Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+Copyright (C) 2007, 2008 Eric Ehlers
+Copyright (C) 2011 Narinder S Claire
 
- This file is part of XLW, a free-software/open-source C++ wrapper of the
- Excel C API - http://xlw.sourceforge.net/
+This file is part of XLW, a free-software/open-source C++ wrapper of the
+Excel C API - http://xlw.sourceforge.net/
 
- XLW is free software: you can redistribute it and/or modify it under the
- terms of the XLW license.  You should have received a copy of the
- license along with this program; if not, please email xlw-users@lists.sf.net
+XLW is free software: you can redistribute it and/or modify it under the
+terms of the XLW license.  You should have received a copy of the
+license along with this program; if not, please email xlw-users@lists.sf.net
 
- This program is distributed in the hope that it will be useful, but WITHOUT
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE.  See the license for more details.
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
 #ifndef INC_XlfFuncDesc_H
@@ -23,10 +24,11 @@
 \brief Class XlfFuncDesc - Encapsulate a function to be registered to Excel
 */
 
-// $Id: XlfFuncDesc.h 523 2008-04-10 16:10:03Z ericehlers $
+// $Id$
 
 #include <xlw/XlfAbstractCmdDesc.h>
 #include <xlw/XlfExcel.h>
+#include <xlw/xlwshared_ptr.h>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -59,9 +61,12 @@ namespace xlw {
         //@{
         //! Ctor
         XlfFuncDesc(const std::string& name, const std::string& alias,
-                    const std::string& comment, const std::string& category,
-                    RecalcPolicy recalcPolicy = NotVolatile, bool Threadsafe = false,
-                    const std::string &returnTypeCode = XlfExcel::Instance().xlfOperType());
+            const std::string& comment, const std::string& category,
+            RecalcPolicy recalcPolicy = NotVolatile, bool Threadsafe = false,
+            const std::string &returnTypeCode = XlfExcel::Instance().xlfOperType(),
+            const std::string &helpID = "",
+            bool Asynchronous = false, bool MacroSheetEquivalent = false,
+            bool ClusterSafe = false);
         //! Dtor.
         ~XlfFuncDesc();
         //@}
@@ -83,27 +88,61 @@ namespace xlw {
         //! \name Concrete implementation of function registration
         //@{
         //! Registers the function.
-        int DoRegister(const std::string& dllName) const;
+        int DoRegister(const std::string& dllName, const std::string& suggestedHelpId) const;
         //! Unregisters the function.
         int DoUnregister(const std::string& dllName) const;
+        //!Generates the documentation in Sandcastle format
+        virtual void DoMamlDocs(std::ostream& ostream) const;
         //@}
 
     private:
+        //! Internal implementation of XlfFuncDesc.
+        struct XlfFuncDescImpl
+        {
+            //! Ctor.
+            XlfFuncDescImpl(xlw::XlfFuncDesc::RecalcPolicy recalcPolicy, bool Threadsafe,
+                const std::string& category, bool Asynchronous, bool MacroSheetEquivalent,
+                bool ClusterSafe) : recalcPolicy_(recalcPolicy), category_(category),
+                Threadsafe_(Threadsafe), Asynchronous_(Asynchronous), MacroSheetEquivalent_(MacroSheetEquivalent),
+                ClusterSafe_(ClusterSafe)
+            {}
+            //! Recalculation policy.
+            xlw::XlfFuncDesc::RecalcPolicy recalcPolicy_;
+            //! Category where the function is displayed in the function wizard.
+            std::string category_;
+            //! List of the argument descriptions of the function.
+            XlfArgDescList arguments_;
+            //! Flag indicating whether this function is threadsafe in Excel 2007.
+            bool Threadsafe_;
+            //! Flag indicating whether this function is can be called Asynchronously in Excel 2010.
+            bool Asynchronous_;
+            //! Flag indicating whether this function get uncaled cells and can call XLM macro functions.
+            bool MacroSheetEquivalent_;
+            //! Flag indicating whether this function is can be called over a cluster in Excel 2010.
+            bool ClusterSafe_;
+        };
         //! Copy ctor is declared private but not defined.
         XlfFuncDesc(const XlfFuncDesc&);
         //! Assignment operator is declared private but not defined.
         XlfFuncDesc& operator=(const XlfFuncDesc&);
-        //! Pointer to implementation (pimpl idiom, see \ref HS).
-        struct XlfFuncDescImpl * impl_;
+
         //! Shared registration code
-        int RegisterAs(const std::string& dllName, double mode_, double* funcId = NULL) const;
+        int RegisterAs(const std::string& dllName, const std::string& suggestedHelpId, double mode_, double* funcId = NULL) const;
         // Is this function currently live, or has it been faux-unregistered?
         // commented out - seems unused, forces DoRegister/DoUnregister to be non-const.
         //bool live_;
         // Index into our list of UDFs (not used?).
         //int index_;
+        std::string helpID_;
         //! Excel code for the datatype of this function's return value.
-        std::string returnTypeCode_;
+        // I know it's mutable .. and it's not angelic BUT we may only
+        // be able to get the returnType AFTER XlfExcel instance has been initialised
+        // so not at the static constructor level.
+        mutable std::string returnTypeCode_;
+        //! Pointer to implementation (pimpl idiom, see \ref HS).
+        xlw_tr1::shared_ptr<XlfFuncDescImpl> impl_;
+
+
     };
 
 }

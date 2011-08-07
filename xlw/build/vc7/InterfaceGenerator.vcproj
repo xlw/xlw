@@ -27,6 +27,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Release/InterfaceGenerator.pch"
 				AssemblerListingLocation="$(IntDir)/"
@@ -83,6 +84,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
+				ForceConformanceInForLoopScope="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Debug/InterfaceGenerator.pch"
 				AssemblerListingLocation="$(IntDir)/"
@@ -141,16 +143,16 @@
 				RelativePath="..\..\InterfaceGenerator\FunctionModel.cpp">
 			</File>
 			<File
-				RelativePath="..\..\InterfaceGenerator\FunctionType.cpp">
-			</File>
-			<File
-				RelativePath="..\..\InterfaceGenerator\IncludeRegister.cpp">
-			</File>
-			<File
 				RelativePath="..\..\InterfaceGenerator\main.cpp">
 			</File>
 			<File
+				RelativePath="..\..\InterfaceGenerator\ManagedOutputter.cpp">
+			</File>
+			<File
 				RelativePath="..\..\InterfaceGenerator\Outputter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\InterfaceGenerator\OutputterHelper.cpp">
 			</File>
 			<File
 				RelativePath="..\..\InterfaceGenerator\ParserData.cpp">
@@ -184,7 +186,13 @@
 				RelativePath="..\..\InterfaceGenerator\IncludeRegister.h">
 			</File>
 			<File
+				RelativePath="..\..\InterfaceGenerator\ManagedOutputter.h">
+			</File>
+			<File
 				RelativePath="..\..\InterfaceGenerator\Outputter.h">
+			</File>
+			<File
+				RelativePath="..\..\InterfaceGenerator\OutputterHelper.h">
 			</File>
 			<File
 				RelativePath="..\..\InterfaceGenerator\ParserData.h">

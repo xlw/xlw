@@ -23,7 +23,7 @@
 \brief Class XlfArgDescList - Encapsulates an argument list
 */
 
-// $Id: XlfArgDescList.h 474 2008-03-05 15:40:40Z ericehlers $
+// $Id$
 
 #include <xlw/XlfArgDesc.h>
 #include <list>

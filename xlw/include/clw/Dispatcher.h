@@ -15,15 +15,15 @@
 
 
   typedef xlw::CellMatrix (*FunctionToCall)( xlw::ArgumentList);
- 
 
-namespace 
+
+namespace
 clw
 {
  typedef xlw::CellMatrix (*FunctionToCall)( xlw::ArgumentList);
 
-  
-  
+
+
 class Dispatcher
 {
 public:

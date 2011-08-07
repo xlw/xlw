@@ -12,6 +12,9 @@
 		<Platform
 			Name="Win32"
 		/>
+		<Platform
+			Name="x64"
+		/>
 	</Platforms>
 	<ToolFiles>
 	</ToolFiles>
@@ -24,9 +27,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) BUILD"
-				ReBuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName)  REBUILD"
-				CleanCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName)  CLEAN"
+				BuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=x86 BUILD"
+				ReBuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=x86 REBUILD"
+				CleanCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=x86 CLEAN"
 				Output=""
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				IncludeSearchPath=""
@@ -44,9 +47,49 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) BUILD"
-				ReBuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) REBUILD"
-				CleanCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) CLEAN"
+				BuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=x86 BUILD"
+				ReBuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=x86 REBUILD"
+				CleanCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=x86 CLEAN"
+				Output=""
+				PreprocessorDefinitions="WIN32;NDEBUG"
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)_$(ConfigurationName)"
+			ConfigurationType="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=$(PlatformName) BUILD"
+				ReBuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=$(PlatformName) REBUILD"
+				CleanCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=$(PlatformName) CLEAN"
+				Output=""
+				PreprocessorDefinitions="WIN32;_DEBUG"
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			OutputDirectory="$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)_$(ConfigurationName)"
+			ConfigurationType="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=$(PlatformName) BUILD"
+				ReBuildCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=$(PlatformName) REBUILD"
+				CleanCommandLine="NMAKE /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=&quot;$(FrameworkDir)v3.5&quot;  ENVIRON=$(ConfigurationName) PLATFORM=$(PlatformName) CLEAN"
 				Output=""
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				IncludeSearchPath=""

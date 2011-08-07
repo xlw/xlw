@@ -32,7 +32,7 @@ namespace DotNetInterfaceGenerator
             IO.StreamWriter assemblyFinder = IO.File.CreateText(theFileName);
             string theSource = @" 
 /*
- Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2008 2009 2010 2011 Narinder S Claire
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -63,8 +63,12 @@ namespace DotNetInterfaceGenerator
 	         String^ thisPath = thisAssembly->Location;    
 	         String^ directory = Path::GetDirectoryName(thisPath); 
 	         String^ pathToManagedAssembly = Path::Combine(directory, args->Name->Split(',')[0]+"".dll"");    
-	         Assembly^ newAssembly = Assembly::LoadFile(pathToManagedAssembly);   
-	         return newAssembly;
+	         if (File::Exists(pathToManagedAssembly)) 
+             {
+                Assembly^ newAssembly = Assembly::LoadFile(pathToManagedAssembly);   
+	            return newAssembly;
+             }
+             return nullptr;
            }
         };
 

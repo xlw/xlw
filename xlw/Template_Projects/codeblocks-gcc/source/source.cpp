@@ -1,7 +1,4 @@
-
-
 #include<cppinterface.h>
-#pragma warning (disable : 4996)
 
 
 short // echoes a short

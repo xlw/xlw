@@ -22,18 +22,15 @@
 \brief Class XlfAbstractCmdDesc - Consolidate some properties common to multiple command classes
 */
 
-// $Id: XlfAbstractCmdDesc.h 474 2008-03-05 15:40:40Z ericehlers $
+// $Id$
 
 #include <xlw/EXCEL32_API.h>
 #include <string>
+#include <ostream>
 #include <xlw/XlfArgDescList.h>
 
 #if defined(_MSC_VER)
 #pragma once
-#endif
-
-#if defined(DEBUG_HEADERS)
-#pragma DEBUG_HEADERS
 #endif
 
 namespace xlw {
@@ -53,7 +50,7 @@ namespace xlw {
         //! \name Registration
         //@{
         //! Registers the command to Excel.
-        void Register() const;
+        void Register(int functionId) const;
         //! Unregister the command from Excel.
         void Unregister() const;
         //@}
@@ -76,12 +73,15 @@ namespace xlw {
         void SetArguments(const XlfArgDescList& arguments);
         //! Gets the arguments definition.
         const XlfArgDescList& GetArguments() const;
+        //!Generates the documentation in Sandcastle format
+        void GenerateMamlDocs(const std::string outputDir, int itemId) const;
         //@}
     protected:
         //! Actually registers the command (see template method in \ref DP)
-        virtual int DoRegister(const std::string& dllName) const = 0;
+        virtual int DoRegister(const std::string& dllName, const std::string& suggestedHelpId) const = 0;
         //! Actually unregisters the command (see template method in \ref DP)
         virtual int DoUnregister(const std::string& dllName) const = 0;
+        virtual void DoMamlDocs(std::ostream& ostream) const = 0;
         //! Name of the command in the XLL.
         std::string name_;
         //! Alias for the command in Excel.

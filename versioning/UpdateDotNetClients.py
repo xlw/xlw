@@ -1,5 +1,6 @@
 
 #	Copyright (C) 2009 Narinder S Claire
+#	Copyright (C) 2011 John Adcock
 #
 #	This file is part of XLW, a free-software/open-source C++ wrapper of the
 #	Excel C API - http://xlw.sourceforge.net/
@@ -20,12 +21,13 @@ import os
 destinationPaths = [
 					'../xlwDotNet/Build/VS8/DotNetInterfaceGenerator',
 					'../xlwDotNet/Build/VS9/DotNetInterfaceGenerator',
-					'../xlwDotNet/XtraExamples',
+					'../xlwDotNet/Build/VS10/DotNetInterfaceGenerator',
+					'../xlwDotNet/UserContrib',
 					'../xlwDotNet/Template_Projects',
 					'../xlwDotNet/Example'
 				   ]
 
-effectedFiles = ['.vcproj','.csproj','.vbproj']
+effectedFiles = ['.vcproj','.csproj','.vbproj','.vcxproj','.csxproj','.vbxproj']
 
 with open("./XLWVERSION",'r') as versionfile:
 	xlwversion = versionfile.readlines()
@@ -48,8 +50,8 @@ allfiles = []
 for dir in destinationPaths:
 	allfiles = allfiles + [f for f in dirwalk(dir)]
 	
-reObject = re.compile('xlwDotNet-vc[8-9][0-9]-mt-.*?(?=\.dll)|xlwDotNet-vc[8-9][0-9]-mt-gd-.*?(?=\.dll)|'
-                      'xlwDotNet-vc[8-9][0-9]-mt\$\(gdconfig\)-.*?(?=\.dll)')
+reObject = re.compile('xlwDotNet-vc[0-9]{2,3}-mt-.*?(?=\.dll)|xlwDotNet-vc[0-9]{2,3}-mt-gd-.*?(?=\.dll)|'
+                      'xlwDotNet-vc[0-9]{2,3}-mt\$\(gdconfig\)-.*?(?=\.dll)')
 
 with open("UpdateDotNetClients.log",'w') as theLogFile:
 	for  f in allfiles:

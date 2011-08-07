@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 	<VisualStudioProject
-			Name="5DEV"
+			Name="5_0_0a0"
 			RootNamespace="dev20090504"
 			ProjectType="Visual C++"
 			Keyword="Win32Proj"
@@ -13,14 +13,14 @@
 		<Configurations>
 			<Configuration
 					Name="Debug|Win32"
+					ConfigurationType="4"
 					CharacterSet="2"
-					OutputDirectory="Debug"
 					IntermediateDirectory="Debug\Objects\$(ProjectName)"
-					ConfigurationType="4">
+					OutputDirectory="Debug">
 				<Tool
 						Name="VCCLCompilerTool"
 						PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
-						RuntimeLibrary="3"
+						Detect64BitPortabilityProblems="TRUE"
 						AdditionalIncludeDirectories="..\..\include"
 						DebugInformationFormat="3"
 						ProgramDataBaseFileName="$(TargetDir)/$(TargetName).pdb"
@@ -28,7 +28,7 @@
 						MinimalRebuild="TRUE"
 						ObjectFile="$(IntDir)/"
 						WarningLevel="3"
-						Detect64BitPortabilityProblems="TRUE"
+						RuntimeLibrary="3"
 						UsePrecompiledHeader="0"
 						BasicRuntimeChecks="3"/>
 				<Tool
@@ -57,18 +57,18 @@
 			</Configuration>
 			<Configuration
 					Name="Release|Win32"
+					ConfigurationType="4"
 					CharacterSet="2"
-					OutputDirectory="Release"
 					IntermediateDirectory="Release\Objects\$(ProjectName)"
-					ConfigurationType="4">
+					OutputDirectory="Release">
 				<Tool
 						Name="VCCLCompilerTool"
 						PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-						RuntimeLibrary="2"
+						Detect64BitPortabilityProblems="TRUE"
 						AdditionalIncludeDirectories="..\..\include"
 						DebugInformationFormat="3"
 						WarningLevel="3"
-						Detect64BitPortabilityProblems="TRUE"
+						RuntimeLibrary="2"
 						UsePrecompiledHeader="0"/>
 				<Tool
 						Name="VCCustomBuildTool"/>
@@ -104,21 +104,25 @@
 				<File
 						RelativePath="..\..\src\ArgList.cpp"/>
 				<File
-						RelativePath="..\..\src\CellMatrix.cpp"/>
-				<File
 						RelativePath="..\..\src\Dispatcher.cpp"/>
 				<File
 						RelativePath="..\..\src\DoubleOrNothing.cpp"/>
 				<File
 						RelativePath="..\..\src\FileConverter.cpp"/>
 				<File
-						RelativePath="..\..\src\MJmatrices.cpp"/>
+						RelativePath="..\..\src\HiResTimer.cpp"/>
 				<File
-						RelativePath="..\..\src\MyContainers.cpp"/>
+						RelativePath="..\..\src\MJCellMatrix.cpp"/>
+				<File
+						RelativePath="..\..\src\NCmatrices.cpp"/>
+				<File
+						RelativePath="..\..\src\PascalStringConversions.cpp"/>
+				<File
+						RelativePath="..\..\src\PathUpdater.cpp"/>
+				<File
+						RelativePath="..\..\src\TempMemory.cpp"/>
 				<File
 						RelativePath="..\..\src\Win32StreamBuf.cpp"/>
-				<File
-						RelativePath="..\..\src\xlarray.cpp"/>
 				<File
 						RelativePath="..\..\src\xlcall.cpp"/>
 				<File
@@ -132,25 +136,15 @@
 				<File
 						RelativePath="..\..\src\XlfExcel.cpp"/>
 				<File
-						RelativePath="..\..\src\XlfException.cpp"/>
-				<File
 						RelativePath="..\..\src\XlfFuncDesc.cpp"/>
-				<File
-						RelativePath="..\..\src\XlfOper.cpp"/>
-				<File
-						RelativePath="..\..\src\XlfOper12.cpp"/>
-				<File
-						RelativePath="..\..\src\XlfOper4.cpp"/>
 				<File
 						RelativePath="..\..\src\XlfOperImpl.cpp"/>
 				<File
-						RelativePath="..\..\src\XlfOperImpl12.cpp"/>
-				<File
-						RelativePath="..\..\src\XlfOperImpl4.cpp"/>
+						RelativePath="..\..\src\XlfOperProperties.cpp"/>
 				<File
 						RelativePath="..\..\src\XlfRef.cpp"/>
 				<File
-						RelativePath="..\..\src\XlfStr.cpp"/>
+						RelativePath="..\..\src\XlfServices.cpp"/>
 				<File
 						RelativePath="..\..\src\XlFunctionRegistration.cpp"/>
 				<File
@@ -163,35 +157,49 @@
 				<File
 						RelativePath="..\..\include\xlw\ArgList.h"/>
 				<File
-						RelativePath="..\..\include\xlw\ArgListFactory.h"/>
-				<File
-						RelativePath="..\..\include\xlw\ArgListFactoryHelper.h"/>
-				<File
 						RelativePath="..\..\include\xlw\CellMatrix.h"/>
+				<File
+						RelativePath="..\..\include\xlw\CellMatrixPimpl.h"/>
+				<File
+						RelativePath="..\..\include\xlw\CellValue.h"/>
+				<File
+						RelativePath="..\..\include\xlw\CriticalSection.h"/>
 				<File
 						RelativePath="..\..\include\xlw\DoubleOrNothing.h"/>
 				<File
-						RelativePath="..\..\include\xlw\ERR_Macros.h"/>
+						RelativePath="..\..\include\xlw\eshared_ptr.h"/>
+				<File
+						RelativePath="..\..\include\xlw\eshared_ptr_details.h"/>
 				<File
 						RelativePath="..\..\include\xlw\EXCEL32_API.h"/>
 				<File
+						RelativePath="..\..\include\xlw\HiResTimer.h"/>
+				<File
+						RelativePath="..\..\include\xlw\IXlfoperShared.h"/>
+				<File
 						RelativePath="..\..\include\xlw\macros.h"/>
 				<File
-						RelativePath="..\..\include\xlw\MJmatrices.h"/>
+						RelativePath="..\..\include\xlw\MJCellMatrix.h"/>
 				<File
 						RelativePath="..\..\include\xlw\MyContainers.h"/>
+				<File
+						RelativePath="..\..\include\xlw\NCmatrices.h"/>
+				<File
+						RelativePath="..\..\include\xlw\PascalStringConversions.h"/>
+				<File
+						RelativePath="..\..\src\PathUpdater.h"/>
+				<File
+						RelativePath="..\..\include\xlw\TempMemory.h"/>
+				<File
+						RelativePath="..\..\include\xlw\ThreadLocalStorage.h"/>
 				<File
 						RelativePath="..\..\include\xlw\Win32StreamBuf.h"/>
 				<File
 						RelativePath="..\..\include\xlw\Win32StreamBuf.inl"/>
 				<File
-						RelativePath="..\..\include\xlw\wrapper.h"/>
-				<File
 						RelativePath="..\..\include\xlw\xlarray.h"/>
 				<File
 						RelativePath="..\..\include\xlw\xlcall32.h"/>
-				<File
-						RelativePath="..\..\include\xlw\XlfAbstractCmdDesc.h"/>
 				<File
 						RelativePath="..\..\include\xlw\XlfAbstractCmdDesc.inl"/>
 				<File
@@ -203,45 +211,45 @@
 				<File
 						RelativePath="..\..\include\xlw\XlfExcel.h"/>
 				<File
-						RelativePath="..\..\include\xlw\XlfExcel.inl"/>
-				<File
 						RelativePath="..\..\include\xlw\XlfException.h"/>
-				<File
-						RelativePath="..\..\include\xlw\XlfException.inl"/>
 				<File
 						RelativePath="..\..\include\xlw\XlfFuncDesc.h"/>
 				<File
-						RelativePath="..\..\include\xlw\XlfMutex.h"/>
-				<File
 						RelativePath="..\..\include\xlw\XlfOper.h"/>
-				<File
-						RelativePath="..\..\include\xlw\XlfOper.inl"/>
 				<File
 						RelativePath="..\..\include\xlw\XlfOper12.h"/>
 				<File
-						RelativePath="..\..\include\xlw\XlfOper12.inl"/>
-				<File
 						RelativePath="..\..\include\xlw\XlfOper4.h"/>
-				<File
-						RelativePath="..\..\include\xlw\XlfOper4.inl"/>
 				<File
 						RelativePath="..\..\include\xlw\XlfOperImpl.h"/>
 				<File
-						RelativePath="..\..\include\xlw\XlfOperImpl12.h"/>
+						RelativePath="..\..\include\xlw\XlfOperProperties.h"/>
 				<File
-						RelativePath="..\..\include\xlw\XlfOperImpl4.h"/>
+						RelativePath="..\..\include\xlw\XlfOperProperties12.inl"/>
+				<File
+						RelativePath="..\..\include\xlw\XlfOperProperties4.inl"/>
+				<File
+						RelativePath="..\..\include\xlw\XlfOperPropertiesDynamic.inl"/>
 				<File
 						RelativePath="..\..\include\xlw\XlfRef.h"/>
 				<File
 						RelativePath="..\..\include\xlw\XlfRef.inl"/>
 				<File
-						RelativePath="..\..\include\xlw\XlfStr.h"/>
+						RelativePath="..\..\include\xlw\XlfServices.h"/>
 				<File
 						RelativePath="..\..\include\xlw\XlFunctionRegistration.h"/>
+				<File
+						RelativePath="..\..\include\xlw\XlfWindows.h"/>
 				<File
 						RelativePath="..\..\include\xlw\XlOpenClose.h"/>
 				<File
 						RelativePath="..\..\include\xlw\xlw.h"/>
+				<File
+						RelativePath="..\..\include\xlw\xlwManaged.h"/>
+				<File
+						RelativePath="..\..\include\xlw\xlwshared_ptr.h"/>
+				<File
+						RelativePath="..\..\include\xlw\xlwshared_ptr_details.h"/>
 			</Filter>
 		</Files>
 		<Globals/>
