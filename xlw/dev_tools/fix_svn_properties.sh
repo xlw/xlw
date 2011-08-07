@@ -10,6 +10,7 @@ find . -name '*.[hc]pp' -o -name '*.[hc]' \
     -o -name '*.i' -o -name '*.py' -o -name '*.rb' -o -name '*.R' \
     -o -iname '*.pl' -o -name '*.scm' -o -name '*.ss' \
     -o -name '*.cs' -o -name '*.java' -o -name '*.nsi' \
+    -o -name '*.nsh' \
     -o -name '*.tpp' -o -name '*.Makefile' -o -name '*.README' \
     -o -name '*.mak' -o -name 'Makefile' -o -name '*.rules' \
     -o -name '*.target' -o -name '*.configure' -o -name '*.nmake' \
