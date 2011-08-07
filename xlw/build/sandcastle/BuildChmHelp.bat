@@ -25,9 +25,9 @@ if exist output rmdir output /s /q
 
 call "%DXROOT%\Presentation\vs2005\copyOutput.bat" > nul
 
-copy %XLW%\xlw\build\sandcastle\*.maml . > nul
+copy "%XLW%\xlw\build\sandcastle\*.maml" . > nul
 
-BuildAssembler /config:%XLW%\xlw\build\sandcastle\conceptual.config .\toc.xml
+BuildAssembler /config:"%XLW%\xlw\build\sandcastle\conceptual.config" .\toc.xml
 
 @if not exist chm mkdir chm
 @if not exist chm\html mkdir chm\html
@@ -39,7 +39,7 @@ BuildAssembler /config:%XLW%\xlw\build\sandcastle\conceptual.config .\toc.xml
 @xcopy output\icons\* chm\icons\ /y /r /q
 @xcopy output\scripts\* chm\scripts\ /y /r /q
 @xcopy output\styles\* chm\styles\ /y /r /q
-@copy %XLW%\xlw\build\sandcastle\alias.h chm\alias.h
+@copy "%XLW%\xlw\build\sandcastle\alias.h" chm\alias.h
 
 ChmBuilder.exe /project:"%~1" /html:Output\html /lcid:1033 /toc:.\toc.xml /out:Chm /config:.\ChmBuilder.config
 
