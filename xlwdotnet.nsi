@@ -1109,13 +1109,13 @@ Function DevEnvironFinder
 	# Visual Studio Express 2010
 	
 	!insertmacro FINDENV HKLM "Software\Microsoft\VCExpress\10.0\InstalledProducts\Microsoft Visual C++" "Package"  "Visual Studio Express 2010 C++"
-	Pop $VS2008EXP_CPP_INST
+	Pop $VS2010EXP_CPP_INST
 	
 	!insertmacro FINDENV HKLM "Software\Microsoft\VCSExpress\10.0\InstalledProducts\Microsoft Visual C#" "Package"  "Visual Studio Express 2010 C#"
-	Pop $VS2008EXP_CSharp_INST
+	Pop $VS2010EXP_CSharp_INST
 	
 	!insertmacro FINDENV HKLM "Software\Microsoft\VBExpress\10.0\InstalledProducts\Microsoft Visual Basic" "Package"  "Visual Studio Express 2010 VisualBasic"
-	Pop $VS2008EXP_VisualBasic_INST
+	Pop $VS2010EXP_VisualBasic_INST
 	
 	
 	# gcc
