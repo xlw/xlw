@@ -15,17 +15,17 @@ includes source code, documentation and examples.
 The following compiler enviroments are supported automatically by the install and no
 further changes are needed
 
-- Visual Studio .NET 2003
+- Visual Studio .NET 2003 (32 bit only)
 - Visual Studio 2005
 - Visual Studio 2008
+- Visual C++ Express 2008 (32 bit only)
 - Visual Studio 2010
+- Visual C++ Express 2010 (32 bit with default install, \subpage a03_vce2010 "instructions for 64 bit here)"
 
-The following compiler enviroments are also supported but there are some changes,
-specific requirements, use the following links to get further instructions
+The following compiler enviroments are also supported but there are some changes required to 
+compile xlls,  use the following links to get further instructions
 
 - \subpage a01_vce2005 "Visual C++ Express 2005"
-- \subpage a02_vce2008 "Visual C++ Express 2008"
-- \subpage a03_vce2010 "Visual C++ Express 2010"
 - \subpage a04_gcc "gcc command line"
 - \subpage a05_codeblocks "Code::Blocks and gcc"
 
