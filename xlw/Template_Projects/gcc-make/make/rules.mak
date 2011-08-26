@@ -81,9 +81,9 @@ $(INSTALL_OBJ)/%.o:$(SRC_DIR)/%.cpp
 
 
 ifeq ($(BUILD),DEBUG)
-XLWLIBS=-lxlw-gcc-s-gd-5_0_0a0
+XLWLIBS=-lxlw-gcc-s-gd-5_0_0a1
 else
-XLWLIBS=-lxlw-gcc-s-5_0_0a0
+XLWLIBS=-lxlw-gcc-s-5_0_0a1
 endif 
 
 ifndef LDLIBS
