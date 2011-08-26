@@ -21,9 +21,6 @@ import os
 destinationPaths = ['../xlw/examples',
 					'../xlw/Template_Projects',
 					'../xlw/usercontrib',
-					'../xlwDotNet/Build/VS8',
-					'../xlwDotNet/Build/VS9',
-					'../xlwDotNet/Build/VS10',
 					'../xlwDotNet/UserContrib',
 					'../xlwDotNet/Template_Projects',
 					'../xlwDotNet/Example'
