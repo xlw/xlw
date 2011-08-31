@@ -91,7 +91,7 @@ namespace xlw
     template<class TYPE>
     const TYPE& ArgumentList::GetArgumentValueInternal(std::string ArgumentName, std::map<std::string, TYPE>& typeMap)
     {
-        StringUtilities::toLower(ArgumentName);
+        StringUtilities::makeLower(ArgumentName);
         typename std::map<std::string, TYPE>::const_iterator it = typeMap.find(ArgumentName);
 
         if (it == typeMap.end())
