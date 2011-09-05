@@ -90,23 +90,27 @@ namespace xlwDotNet
 
             MyArray^ GetArrayArgumentValue(String^ ArgumentName)
             {
-                MyArray^ result =  gcnew MyArray(IntPtr((void*)&theInner->GetArrayArgumentValue(CLR2CPP(ArgumentName))));
+                xlw::MyArray innerArray(theInner->GetArrayArgumentValue(CLR2CPP(ArgumentName)));
+                MyArray^ result =  gcnew MyArray(IntPtr((void*)&innerArray));
                 return gcnew MyArray(result);
             }
             MyMatrix^ GetMatrixArgumentValue(String^ ArgumentName)
             {
-                MyMatrix^ result =  gcnew MyMatrix(IntPtr((void*)&theInner->GetMatrixArgumentValue(CLR2CPP(ArgumentName))));
+                xlw::MyMatrix innerMatrix(theInner->GetMatrixArgumentValue(CLR2CPP(ArgumentName)));
+                MyMatrix^ result =  gcnew MyMatrix(IntPtr((void*)&innerMatrix));
                 return gcnew MyMatrix(result);
             }
 
             CellMatrix^ GetCellsArgumentValue(String^ ArgumentName)
             {
-                CellMatrix^ result =  gcnew CellMatrix(IntPtr((void*)&theInner->GetCellsArgumentValue(CLR2CPP(ArgumentName))));
+                xlw::CellMatrix innerCells(theInner->GetCellsArgumentValue(CLR2CPP(ArgumentName)));
+                CellMatrix^ result =  gcnew CellMatrix(IntPtr((void*)&innerCells));
                 return gcnew CellMatrix(result);
             }
             ArgumentList^ GetArgumentListArgumentValue(String^ ArgumentName)
             {
-                ArgumentList^ result =  gcnew ArgumentList(IntPtr((void*)&theInner->GetArgumentListArgumentValue(CLR2CPP(ArgumentName))));
+                xlw::ArgumentList innerArguments(theInner->GetArgumentListArgumentValue(CLR2CPP(ArgumentName)));
+                ArgumentList^ result =  gcnew ArgumentList(IntPtr((void*)&innerArguments));
                 return gcnew ArgumentList(result);
             }
             double GetDoubleArgumentValue(String^ ArgumentName)
