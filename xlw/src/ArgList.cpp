@@ -301,7 +301,8 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells, std::string ErrorId)
                                     CellValue& theValue(cells(row+3+i,column));
                                     if(theValue.IsANumber())
                                     {
-                                        theArray(i, 0) = cells(row+3+i,column);
+                                        theArray(i, 0) = theValue;
+                                        theValue.clear();
                                     }
                                     else
                                     {
