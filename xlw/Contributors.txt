@@ -7,3 +7,6 @@ José Fonseca
 "Added helpID variable to function registration. This allows to link an excel 
 function to a Context ID in a help file: i.e. clicking on "Help on this function" 
 link in function wizard opens corresponding help file"
+
+
+Mark Owen (mpowen03@yahoo.co.uk) Fixes for bugs #3404230 & #3404232
