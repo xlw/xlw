@@ -73,6 +73,7 @@ namespace DotNetInterfaceGenerator
                     fileName = args[3];
                 }
 
+                IO.Directory.CreateDirectory(dirName); 
                 IO.StreamWriter headerFile = IO.File.CreateText(dirName + "/" + fileName + ".h");
                 IO.StreamWriter sourceFile = IO.File.CreateText(dirName + "/" + fileName + ".cpp");
                 AssemblyFinderGenerator.WriteAssemblyFinder(dirName + "/" + "AssembleyFinder.cpp");
