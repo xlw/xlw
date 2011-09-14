@@ -71,6 +71,10 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
     AddLine(output, "#include "+*it+"\n");
   }
 
+  // add namespace in case user is just suing basic types and hasn't needed
+  // to add this in the header already
+  AddLine(output,"using namespace xlw;");
+  AddLine(output,"");
   AddLine(output,"namespace {");
   AddLine(output,"const char* LibraryName = \""+LibraryName+"\";");
   AddLine(output,"};");
