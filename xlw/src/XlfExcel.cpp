@@ -32,7 +32,6 @@
 #include <xlw/XlfOper.h>
 #include <xlw/macros.h>
 #include <xlw/TempMemory.h>
-#include <sys/stat.h>
 #include <assert.h>
 
 extern "C"
@@ -45,11 +44,11 @@ extern "C"
 
 namespace
 {
-    // wrap up CRT way of checking for file existance
+    // wrap up winapi way of checking for file existance
     bool doesFileExist(const std::string& fileName)
     {
-        struct _stat st;
-        return (_stat(fileName.c_str(), &st) == 0);
+        DWORD attributes(GetFileAttributes(fileName.c_str()));
+        return ((attributes != INVALID_FILE_ATTRIBUTES) && ((attributes & FILE_ATTRIBUTE_DIRECTORY) == 0));
     }
 }
 
