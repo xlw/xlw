@@ -124,7 +124,7 @@ endif
 
 $(TARGET):: $(PRGOBJ)  
 	$(RM) $@ 
-	$(LINK)  $(PRGOBJ)  $(LDFLAGS) -static -o $(TARGET)
+	$(LINK)  $(PRGOBJ)  $(LDFLAGS) -static -static-libgcc -o $(TARGET)
 	
 endif
 

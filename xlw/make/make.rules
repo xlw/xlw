@@ -62,7 +62,7 @@ LIBPREFIX=
 endif
 
 
-LINK_STATIC := -static
+LINK_STATIC := -static -static-libgcc
 LINK_DYNAMIC := -shared
 
 ########################################################
