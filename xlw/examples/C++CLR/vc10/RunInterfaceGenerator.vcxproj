@@ -60,9 +60,9 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10  ALL </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10  REBUILD </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10 CLEAN  </NMakeCleanCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10  ALL </NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10  REBUILD </NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10 CLEAN  </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
@@ -71,9 +71,9 @@
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10  ALL </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10  REBUILD </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10 CLEAN  </NMakeCleanCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10  ALL </NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10  REBUILD </NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Debug LIBRARY=$(SolutionName) VC=vc10 CLEAN  </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
@@ -82,9 +82,9 @@
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10  ALL </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NMAKE /f ".\RunInterfaceGenerator.nmake"  ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10 REBUILD </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10 CLEAN </NMakeCleanCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10  ALL </NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake"  ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10 REBUILD </NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10 CLEAN </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
@@ -93,9 +93,9 @@
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10  ALL </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NMAKE /f ".\RunInterfaceGenerator.nmake"  ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10 REBUILD </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NMAKE /f ".\RunInterfaceGenerator.nmake" ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10 CLEAN </NMakeCleanCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10  ALL </NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake"  ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10 REBUILD </NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ".\RunInterfaceGenerator.nmake" ENVIRON=Release LIBRARY=$(SolutionName) VC=vc10 CLEAN </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
