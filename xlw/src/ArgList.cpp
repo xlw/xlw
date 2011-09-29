@@ -79,9 +79,6 @@ namespace xlw
     template<class TYPE>
     void ArgumentList::addInternal(const std::string& ArgumentName, const TYPE& value, std::map<std::string,TYPE>& typeMap, ArgumentType type)
     {
-        std::pair<std::string, ArgumentType> thisPair(ArgumentName,type);
-        ArgumentNames.push_back(thisPair);
-
         std::pair<std::string, TYPE> valuePair(ArgumentName,value);
         typeMap.insert(valuePair);
 
