@@ -82,6 +82,29 @@ namespace xlw { namespace impl {
         typedef typename XlfOperProperties<LPOPER_TYPE>::OperType OperType;
         typedef xlw::XlfOperImpl XlfOperImpl;
 
+        // we need to be careful if we try and return back to excel memory it
+        // has given us as a return value 
+        // some versions object to the flag we use for memory management.
+        // To avoid this being a problem we 
+        // take a deep copy and free the Excel version
+        // whenever we cast to a LPXLOPER pointer.
+        // This means we only use additional temp memory
+        // and data copy if we pass the result of one excel call
+        // back into excel or return it as a result
+        void prepareForPointerCast() const
+        {
+            XlTypeType type = OperProps::getXlType(lpxloper_);
+            if (type & xlw::XlfOperImpl::xlbitFreeAuxMem)
+            {
+                LPOPER_TYPE result = TempMemory::GetMemory<OperType>();
+                type &= ~xlw::XlfOperImpl::xlbitFreeAuxMem;
+                OperProps::setXlType(lpxloper_, type);
+                OperProps::copy(lpxloper_, result);
+                OperProps::XlFree(lpxloper_);
+                lpxloper_ = result;
+            }
+        }
+
     public:
 
         template <class FwdIt>
@@ -330,24 +353,13 @@ namespace xlw { namespace impl {
         //! Cast to XLOPER *.
         operator LPOPER_TYPE()
         {
-            // need to be careful if we try and return back to excel memory it
-            // has given us as a return value as we will call xlFree in destructor
-            // so take a deep copy and free the Excel version
-            XlTypeType type = OperProps::getXlType(lpxloper_);
-            if (type & xlw::XlfOperImpl::xlbitFreeAuxMem)
-            {
-                LPOPER_TYPE result = TempMemory::GetMemory<OperType>();
-                type &= ~xlw::XlfOperImpl::xlbitFreeAuxMem;
-                OperProps::setXlType(lpxloper_, type);
-                OperProps::copy(lpxloper_, result);
-                OperProps::XlFree(lpxloper_);
-                lpxloper_ = result;
-            }
+            prepareForPointerCast();
             return lpxloper_;
         }
         //! Cast to const XLOPER *.
         operator const LPOPER_TYPE() const
         {
+            prepareForPointerCast();
             return lpxloper_;
         }
         //@}
