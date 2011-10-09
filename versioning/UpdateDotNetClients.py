@@ -27,8 +27,8 @@ destinationPaths = [
                     '../xlwDotNet/Example'
                    ]
 
-effectedFiles = ['.vcproj','.vcxproj']
-effectedFiles2 = ['.csproj','.vbproj','.csxproj','.vbxproj']
+affectedFiles = ['.vcproj','.vcxproj']
+affectedFiles2 = ['.csproj','.fsproj','.vbproj','.csxproj','.vbxproj']
 
 with open("./XLWVERSION",'r') as versionfile:
     xlwversion = versionfile.readlines()
@@ -68,8 +68,8 @@ def processFile(f, reObject, theLogFile, splitChar, xlwversion):
 allfiles = []
 allfiles2 = []
 for dir in destinationPaths:
-    allfiles = allfiles + [f for f in dirwalk(dir, effectedFiles)]
-    allfiles2 = allfiles2 + [f for f in dirwalk(dir, effectedFiles2)]
+    allfiles = allfiles + [f for f in dirwalk(dir, affectedFiles)]
+    allfiles2 = allfiles2 + [f for f in dirwalk(dir, affectedFiles2)]
     
 reObject = re.compile('xlwDotNet-vc[0-9]{2,3}-mt-.*?(?=\.dll)|xlwDotNet-vc[0-9]{2,3}-mt-gd-.*?(?=\.dll)|'
                       'xlwDotNet-vc[0-9]{2,3}-mt\$\(gdconfig\)-.*?(?=\.dll)')
