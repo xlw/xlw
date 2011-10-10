@@ -58,7 +58,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) BUILD</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) PLATFORM=x86 BUILD</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) PLATFORM=$(PlatformName) BUILD</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) PLATFORM=x86 REBUILD</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) PLATFORM=$(PlatformName) REBUILD</NMakeReBuildCommandLine>
@@ -80,7 +80,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) BUILD</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) PLATFORM=x86 BUILD</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) PLATFORM=$(PlatformName) BUILD</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) PLATFORM=x86 REBUILD</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(VS100COMNTOOLS)..\..\VC\bin\NMAKE" /f ../../../vc_common/Build_xlw.Net.cs.nmake MSBUILDPATH=$(MSBuildBinPath)  ENVIRON=$(Configuration) PLATFORM=$(PlatformName) REBUILD</NMakeReBuildCommandLine>
