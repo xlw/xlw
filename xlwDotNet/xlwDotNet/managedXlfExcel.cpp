@@ -47,7 +47,7 @@ namespace xlwDotNet
             xlw::XlfOper resultOper;
             xlw::XlfExcel::Instance().Call(xlfRtd, resultOper, 3, xlw::XlfOper(CLR2CPP(rtdServer)), xlw::XlfOper(), xlw::XlfOper(topicId));
             xlw::CellMatrix* resultMatrix(new xlw::CellMatrix(resultOper.AsCellMatrix()));
-             return gcnew xlwTypes::CellMatrix((IntPtr)resultMatrix, true);
+            return gcnew xlwTypes::CellMatrix((IntPtr)resultMatrix, true);
         }
     };
 }
