@@ -24,8 +24,6 @@ using System.Text;
 using xlwDotNet;
 using xlwDotNet.xlwTypes;
 using System.Windows.Forms;
-using Microsoft.Office.Core;
-using XL = Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -34,24 +32,13 @@ namespace Example
 {
     public class Class1
     {
-  
-        [ExcelExport("Gets the time. Thats ALL !!")]
-        public static double GetTime()
+        // Calls back into Excel macro function so must be set
+        // as a macro command
+        [ExcelExport("Gets the time. Thats ALL !!", xlmCommandFlag = true)]
+        public static CellMatrix GetTime()
         {
-            XL.Application theApp = (XL.Application)  Marshal.GetActiveObject("Excel.Application");
-
-            return (double)theApp.WorksheetFunction.RTD("RTDDemo", null, 1, null,
-                                                 null,null,null,null,null,null,
-                                                 null,null,null,null,null,null,
-                                                 null,null,null,null,null,null,
-                                                 null,null,null,null,null,null,
-                                                 null,null);
-
-
+            return XlwExcel.RTD("RTDDemo", 1);
         }
-
-
-        
     }
 }
 

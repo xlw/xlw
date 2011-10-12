@@ -26,21 +26,8 @@ You may need to remove my references in the project as I may have different vers
 
 
 
-PS THIS WILL NOT WORK WITH TWO INSTANCES OF EXCEL.
-   If you open a second instance of excel, this 
-   addin will only work on the first one. This 
-   is NOT a bug, its a limitation. Maybe someone can 
-   remove this limitation.
-
-
-
-
-
-
-
-
-
  Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2011       John Adcock
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
