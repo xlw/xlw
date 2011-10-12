@@ -168,6 +168,9 @@ namespace xlwDotNet
 			CellMatrix(IntPtr theRealThing):
 			  xlwTypebaseClass<xlw::CellMatrix>(theRealThing,false){}
 
+			CellMatrix(IntPtr theRealThing, bool owned):
+			  xlwTypebaseClass<xlw::CellMatrix>(theRealThing,owned){}
+
 			  CellMatrix(String^ theString):
 			  xlwTypebaseClass<xlw::CellMatrix>
 				  ( new xlw::CellMatrix((const wchar_t*)(Marshal::StringToHGlobalUni(theString)).ToPointer()) ,true){}
