@@ -19,7 +19,7 @@ However this requires that all projects have this set.
 
 To make Visual Studio Express always use the latest Platform SDK edit the following file
 
-%userprofile%\AppData\Local\Microsoft\MSBuild\v4.0\Microsoft.Cpp.x64.user.props
+%userprofile%\\AppData\\Local\\Microsoft\\MSBuild\\v4.0\\Microsoft.Cpp.x64.user.props
 
 to look like
 
