@@ -304,6 +304,8 @@
 			<File
 					RelativePath="..\..\..\xlwDotNet\managedString.cpp"/>
 			<File
+					RelativePath="..\..\..\xlwDotNet\managedXlfExcel.cpp"/>
+			<File
 					RelativePath="..\..\..\xlwDotNet\xdnException.cpp"/>
 			<File
 					RelativePath="..\..\..\xlwDotNet\xlwDotNet.h"/>

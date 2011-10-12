@@ -239,6 +239,7 @@
     <ClCompile Include="..\..\..\xlwDotNet\ExcelExportAttribute.cpp"/>
     <ClCompile Include="..\..\..\xlwDotNet\managedArgumentList.cpp"/>
     <ClCompile Include="..\..\..\xlwDotNet\managedString.cpp"/>
+    <ClCompile Include="..\..\..\xlwDotNet\managedXlfExcel.cpp"/>
     <ClCompile Include="..\..\..\xlwDotNet\xdnException.cpp"/>
   </ItemGroup>
   <ItemGroup>
