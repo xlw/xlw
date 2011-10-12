@@ -28,14 +28,12 @@ public:
     bool volatileFlag;
     bool timeFlag;
     bool threadSafeFlag;
-    bool xlmCommandFlag;
     ExcelExportAttribute(String^ description_)
     {
         description = description_;
         volatileFlag = false;
         timeFlag = false;
         threadSafeFlag = false;
-        xlmCommandFlag = false;
     }
 
     ExcelExportAttribute(String^ description_, bool volatileFlag_)
@@ -44,7 +42,6 @@ public:
         volatileFlag = volatileFlag_;
         timeFlag = false;
         threadSafeFlag = false;
-        xlmCommandFlag = false;
     }
 
     ExcelExportAttribute(String^ description_, bool volatileFlag_, bool timeFlag_)
@@ -53,7 +50,6 @@ public:
         volatileFlag = volatileFlag_;
         timeFlag = timeFlag_;
         threadSafeFlag = false;
-        xlmCommandFlag = false;
     }
 
     ExcelExportAttribute(String^ description_, bool volatileFlag_, bool timeFlag_, bool threadSafeFlag_)
@@ -62,7 +58,6 @@ public:
         volatileFlag = volatileFlag_;
         timeFlag = timeFlag_;
         threadSafeFlag = threadSafeFlag_;
-        xlmCommandFlag = false;
     }
 };
 [AttributeUsage(AttributeTargets::Parameter)]

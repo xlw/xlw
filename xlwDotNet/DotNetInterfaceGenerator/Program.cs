@@ -151,11 +151,6 @@ namespace DotNetInterfaceGenerator
                                         headerFile.WriteLine("//<xlw:threadsafe");
                                     }
 
-                                    if (ExcelExportAttributeArray[0].xlmCommandFlag)
-                                    {
-                                        headerFile.WriteLine("//<xlw:macrosheet");
-                                    }
-
 
                                     headerFile.Write(writeCMethod(method.Name) + "(");
                                     sourceFile.Write(" DLLEXPORT "+writeCMethod(method.Name) + "(");

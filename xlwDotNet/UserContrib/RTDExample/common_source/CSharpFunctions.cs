@@ -34,18 +34,24 @@ namespace Example
 {
     public class Class1
     {
-
-        [ExcelExport("Gets the time. Thats ALL !!", xlmCommandFlag = true)]
-        public static CellMatrix GetTime()
+  
+        [ExcelExport("Gets the time. Thats ALL !!")]
+        public static double GetTime()
         {
-            return XlwExcel.RTD("RTDDemo", 1);
+            XL.Application theApp = (XL.Application)  Marshal.GetActiveObject("Excel.Application");
+
+            return (double)theApp.WorksheetFunction.RTD("RTDDemo", null, 1, null,
+                                                 null,null,null,null,null,null,
+                                                 null,null,null,null,null,null,
+                                                 null,null,null,null,null,null,
+                                                 null,null,null,null,null,null,
+                                                 null,null);
+
+
         }
 
-        [ExcelExport("Gets the version. Thats ALL !!")]
-        public static double ExcelVersion()
-        {
-            return XlwExcel.version;
-        }
+
+        
     }
 }
 
