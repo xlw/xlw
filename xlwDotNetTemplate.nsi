@@ -108,23 +108,23 @@ Function ExtractorPage
 	Pop $VS10_FSHARP
 	nsDialogs::OnClick  $VS10_FSHARP $0
 	
-	${NSD_CreateRadioButton} 40 100 100% 10% "Visual Basic 2008 (VS9)"
+	${NSD_CreateRadioButton} 40 100 100% 10% "Visual Basic 2010 (VS10)"
+	Pop $VS10_VISUALBASIC
+	nsDialogs::OnClick  $VS10_VISUALBASIC $0
+	
+    ${NSD_CreateRadioButton} 40 125 100% 10% "Visual Basic 2008 (VS9)"
 	Pop $VS9_VISUALBASIC
 	nsDialogs::OnClick  $VS9_VISUALBASIC $0
 	
-    ${NSD_CreateRadioButton} 40 125 100% 10% "Visual Basic 2005 (VS8)"
-	Pop $VS8_VISUALBASIC
-	nsDialogs::OnClick  $VS8_VISUALBASIC $0
-	
-	${NSD_CreateRadioButton} 40 150 100% 10% "Visual Studio 2010 (VS10) (Hybrid C++/C# XLL  Not Visual Studio Express)"
+	${NSD_CreateRadioButton} 40 150 100% 10% "Visual Studio 2010 (VS10) (Hybrid C++/C# XLL - Not VS Express)"
 	Pop $VS10_HYBRID
 	nsDialogs::OnClick  $VS10_HYBRID $0
 	
-	${NSD_CreateRadioButton} 40 175 100% 10% "Visual Studio 2008 (VS9) (Hybrid C++/C# XLL  Not Visual Studio Express)"
+	${NSD_CreateRadioButton} 40 175 100% 10% "Visual Studio 2008 (VS9)  (Hybrid C++/C# XLL - Not VS Express)"
 	Pop $VS9_HYBRID
 	nsDialogs::OnClick  $VS9_HYBRID $0
 	
-    ${NSD_CreateRadioButton} 40 200 100% 10% "Visual Studio 2005 (VS8) (Hybrid C++/C# XLL  Not Visual Studio Express)"
+    ${NSD_CreateRadioButton} 40 200 100% 10% "Visual Studio 2005 (VS8)  (Hybrid C++/C# XLL - Not VS Express)"
 	Pop $VS8_HYBRID
 	nsDialogs::OnClick  $VS8_HYBRID $0
 
@@ -147,9 +147,9 @@ Function RadioChanged
 
 	${NSD_GetState} $VS10_FSHARP $VS10_FSHARP_STATE
 	
-	;${NSD_GetState} $VS10_VISUALBASIC $VS10_VISUALBASIC_STATE
+	${NSD_GetState} $VS10_VISUALBASIC $VS10_VISUALBASIC_STATE
 	${NSD_GetState} $VS9_VISUALBASIC $VS9_VISUALBASIC_STATE
-	${NSD_GetState} $VS8_VISUALBASIC $VS8_VISUALBASIC_STATE	
+	;${NSD_GetState} $VS8_VISUALBASIC $VS8_VISUALBASIC_STATE	
 
 	${NSD_GetState} $VS10_HYBRID $VS10_HYBRID_STATE	
 	${NSD_GetState} $VS9_HYBRID $VS9_HYBRID_STATE
@@ -173,11 +173,12 @@ FunctionEnd
 	!macro sourcefiles dir
 		SetOutPath "$INSTDIR"
 		File /nonfatal /r "xlwDotNet\Template_Projects\${dir}\*.cpp"
+		File /nonfatal /r "xlwDotNet\Template_Projects\${dir}\*.h"
 		File /nonfatal /r "xlwDotNet\Template_Projects\${dir}\*.cs"
 		File /nonfatal /r "xlwDotNet\Template_Projects\${dir}\*.fs"
 		File /nonfatal /r "xlwDotNet\Template_Projects\${dir}\*.fsx"
 		File /nonfatal /r "xlwDotNet\Template_Projects\${dir}\*.vb"
-		File /nonfatal /r "xlwDotNet\Template_Projects\${dir}\*.h"
+		File /nonfatal /r "xlwDotNet\Template_Projects\${dir}\*.resx"
 		File /nonfatal /r "xlwDotNet\Template_Projects\${dir}\*.snk"
 	!macroend
 
@@ -202,8 +203,8 @@ Section #
 
 	!insertmacro GETDIR $VS10_FSHARP_STATE "FSharp\VS10"
 	
-	!insertmacro GETDIR $VS9_VISUALBASIC_STATE "VisualBasic\VB2008"
-	!insertmacro GETDIR $VS8_VISUALBASIC_STATE "VisualBasic\VB2005"
+	!insertmacro GETDIR $VS10_VISUALBASIC_STATE "VisualBasic\VS10"
+	!insertmacro GETDIR $VS9_VISUALBASIC_STATE "VisualBasic\VS9"
 	
 	!insertmacro GETDIR $VS10_HYBRID_STATE "Hybrid_Cpp_CSharp_XLLs\VS10_PRO"
 	!insertmacro GETDIR $VS9_HYBRID_STATE "Hybrid_Cpp_CSharp_XLLs\VS9_PRO"
