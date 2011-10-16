@@ -21,7 +21,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <xlwversion>5_0_0a2</xlwversion><gdconfig>-gd</gdconfig>
+    <xlwversion>5_0_0a3</xlwversion><gdconfig>-gd</gdconfig>
     <dir64></dir64>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -33,7 +33,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <xlwversion>5_0_0a2</xlwversion><gdconfig>
+    <xlwversion>5_0_0a3</xlwversion><gdconfig>
     </gdconfig>
     <dir64></dir64>
     <DebugType>pdbonly</DebugType>
@@ -45,7 +45,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DebugSymbols>true</DebugSymbols>
-    <xlwversion>5_0_0a2</xlwversion><gdconfig>-gd</gdconfig>
+    <xlwversion>5_0_0a3</xlwversion><gdconfig>-gd</gdconfig>
     <dir64>x64/</dir64>
     <OutputPath>..\x64_Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -55,7 +55,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>..\x64_Release\</OutputPath>
-    <xlwversion>5_0_0a2</xlwversion><gdconfig></gdconfig>
+    <xlwversion>5_0_0a3</xlwversion><gdconfig></gdconfig>
     <dir64>x64/</dir64>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>

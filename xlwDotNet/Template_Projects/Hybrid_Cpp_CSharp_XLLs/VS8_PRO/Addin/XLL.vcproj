@@ -53,7 +53,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc80-mt-gd-5_0_0a2.dll;$(OutDir)\$(SolutionName).NET.dll"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc80-mt-gd-5_0_0a3.dll;$(OutDir)\$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -67,7 +67,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0a2.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0a3.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)/$(SolutionName).xll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib;../$(ConfigurationName)"
@@ -138,7 +138,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc80-mt-5_0_0a2.dll;$(OutDir)\$(SolutionName).NET.dll"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc80-mt-5_0_0a3.dll;$(OutDir)\$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -152,7 +152,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0a2.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0a3.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)/$(SolutionName).xll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib/x64;$(OutDir)"
@@ -222,7 +222,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc80-mt-5_0_0a2.dll;$(OutDir)\$(SolutionName).NET.dll"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/xlwDotNet-vc80-mt-5_0_0a3.dll;$(OutDir)\$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -235,7 +235,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-5_0_0a2.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc80-mt-5_0_0a3.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)/$(SolutionName).xll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib;../$(ConfigurationName)"
@@ -307,7 +307,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc80-mt-5_0_0a2.dll;$(OutDir)\$(SolutionName).NET.dll"
+				ForcedUsingFiles="$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc80-mt-5_0_0a3.dll;$(OutDir)\$(SolutionName).NET.dll"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -320,7 +320,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-5_0_0a2.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc80-mt-5_0_0a3.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)/$(SolutionName).xll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib/x64;$(OutDir)"
