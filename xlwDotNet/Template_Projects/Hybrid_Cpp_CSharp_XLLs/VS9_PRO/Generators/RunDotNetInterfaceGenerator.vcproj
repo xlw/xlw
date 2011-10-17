@@ -29,7 +29,7 @@
 				Name="VCNMakeTool"
 				BuildCommandLine="NMAKE /f &quot;$(XLW)\xlwDotNet\vc_common\RunDotNetInterfaceGenerator.nmake&quot;  ENVIRON=Debug  LibraryName=$(SolutionName)  SolutionDir=&quot;$(SolutionDir)./&quot; VSVERSION=VS9 ALL "
 				ReBuildCommandLine="NMAKE /f &quot;$(XLW)\xlwDotNet\vc_common\RunDotNetInterfaceGenerator.nmake&quot; ENVIRON=Debug    LibraryName=$(SolutionName)   SolutionDir=&quot;$(SolutionDir)./&quot; VSVERSION=VS9 REBUILD "
-				CleanCommandLine="NMAKE /f &quot;$(XLW)\xlwDotNet\vc_common\RunDotNetInterfaceGenerator.nmake&quot;  ENVIRON=Debug    LibraryName=$(SolutionName)    SolutionDir=&quot;$(SolutionDir)&quot; VSVERSION=VS9 CLEAN "
+				CleanCommandLine="NMAKE /f &quot;$(XLW)\xlwDotNet\vc_common\RunDotNetInterfaceGenerator.nmake&quot;  ENVIRON=Debug    LibraryName=$(SolutionName)    SolutionDir=&quot;$(SolutionDir)./&quot; VSVERSION=VS9 CLEAN "
 				Output=""
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				IncludeSearchPath=""
