@@ -1,5 +1,6 @@
 /*
 Copyright (C) 2008 2009  Narinder S Claire
+Copyright (C) 2011 Mark P Owen
 
 This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
 Excel C API - http://xlw.sourceforge.net/
@@ -230,6 +231,31 @@ namespace xlwDotNet
 
 
 			  static void *getInner (CellMatrix^ theArray){return theArray->theInner;}
+
+			operator array<Object^,2>^()
+			{
+				array<Object^,2>^ theCSMatrix =  gcnew array<Object^,2>(RowsInStructure,ColumnsInStructure);
+				for(int i(0);i<RowsInStructure;++i)
+				{
+					for(int j(0);j<ColumnsInStructure;++j)
+					{
+						CellValue^ cellValue = default[i, j];
+						if (cellValue->IsANumber)
+							theCSMatrix[i, j] = cellValue->NumericValue();
+						else if (cellValue->IsAString)
+							theCSMatrix[i, j] = cellValue->StringValue();
+						else if (cellValue->IsBoolean)
+							theCSMatrix[i, j] = cellValue->BooleanValue();
+						else if (cellValue->IsEmpty)
+							theCSMatrix[i, j] = gcnew Object();
+						else if (cellValue->IsError)
+							throw gcnew Exception("Cell contains an error!");
+						else
+							throw gcnew Exception("Cell contains unknown type");
+					}
+				}
+				return theCSMatrix;
+			}
 
 		};
 

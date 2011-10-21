@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2011 Mark P Owen
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -77,6 +78,62 @@ namespace xlwDotNet
             {
                 return gcnew String(theInner->GetStructureName().c_str());
             }
+
+			Dictionary<String^,Object^>^ GetArgumentDictionary()
+			{
+				Dictionary<String^,Object^>^ argDict = gcnew Dictionary<String^,Object^>();
+				//Dictionary<String^,ArgumentType>^ argNamesAndTypes = GetArgumentNamesAndTypes();
+				const std::vector<std::pair<std::string, xlw::ArgumentList::ArgumentType> >& argNamesAndTypes = theInner->GetArgumentNamesAndTypes();
+
+				for (size_t i = 0; i < argNamesAndTypes.size(); ++i)
+				{
+					String^ argName = gcnew String(argNamesAndTypes[i].first.c_str());
+					ArgumentType argType = ArgumentType(argNamesAndTypes[i].second);
+					switch (argType)
+					{
+						case ArgumentType::string:
+							argDict->Add(argName, GetStringArgumentValue(argName));
+							break;
+						case ArgumentType::number:
+							argDict->Add(argName, GetDoubleArgumentValue(argName));
+							break;
+						case ArgumentType::vector:
+							{
+								MyArray^ myArray = GetArrayArgumentValue(argName);
+								array<double>^ doubleArray = (array<double>^)myArray;
+								argDict->Add(argName, doubleArray);
+							}
+							break;
+						case ArgumentType::matrix:
+							{
+								MyMatrix^ myMatrix = GetMatrixArgumentValue(argName);
+								array<double,2>^ multiArray = (array<double,2>^)myMatrix;
+								argDict->Add(argName, myMatrix);
+							}
+							break;
+						case ArgumentType::boolean:
+							argDict->Add(argName, GetBoolArgumentValue(argName));
+							break;
+						case ArgumentType::list:
+							{
+								ArgumentList^ innerArgList = GetArgumentListArgumentValue(argName);
+								Dictionary<String^, Object^>^ innerArgDict = innerArgList->GetArgumentDictionary();
+								argDict->Add(argName, innerArgDict);
+							}
+							break;
+						case ArgumentType::cells:
+							{
+								CellMatrix^ cellMatrix = GetCellsArgumentValue(argName);
+								array<Object^,2>^ objectMatrix = (array<Object^,2>^)cellMatrix;
+								argDict->Add(argName, objectMatrix);
+							}
+							break;
+//	                    throw "Argument has an unknown XLW type";
+					}
+				}
+
+				return argDict;
+			}
 
             String^ GetStringArgumentValue(String^ ArgumentName)
             {
