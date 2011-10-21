@@ -82,7 +82,6 @@ namespace xlwDotNet
 			Dictionary<String^,Object^>^ GetArgumentDictionary()
 			{
 				Dictionary<String^,Object^>^ argDict = gcnew Dictionary<String^,Object^>();
-				//Dictionary<String^,ArgumentType>^ argNamesAndTypes = GetArgumentNamesAndTypes();
 				const std::vector<std::pair<std::string, xlw::ArgumentList::ArgumentType> >& argNamesAndTypes = theInner->GetArgumentNamesAndTypes();
 
 				for (size_t i = 0; i < argNamesAndTypes.size(); ++i)
