@@ -84,6 +84,8 @@ namespace xlwDotNet
 				Dictionary<String^,Object^>^ argDict = gcnew Dictionary<String^,Object^>();
 				const std::vector<std::pair<std::string, xlw::ArgumentList::ArgumentType> >& argNamesAndTypes = theInner->GetArgumentNamesAndTypes();
 
+				argDict->Add(gcnew String("name"), GetStructureName());
+
 				for (size_t i = 0; i < argNamesAndTypes.size(); ++i)
 				{
 					String^ argName = gcnew String(argNamesAndTypes[i].first.c_str());
@@ -107,7 +109,7 @@ namespace xlwDotNet
 							{
 								MyMatrix^ myMatrix = GetMatrixArgumentValue(argName);
 								array<double,2>^ multiArray = (array<double,2>^)myMatrix;
-								argDict->Add(argName, myMatrix);
+								argDict->Add(argName, multiArray);
 							}
 							break;
 						case ArgumentType::boolean:
