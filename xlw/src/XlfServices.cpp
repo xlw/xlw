@@ -191,6 +191,11 @@ namespace xlw
         return CallFunction(xlfActiveCell, "Get Active Cell");
     }
 
+    void Information_t::SetActiveCell(const XlfOper& ref)
+    {
+        CallCommand(xlcSelect, ref, "Set Active Cell");
+    }
+
     std::string Information_t::GetFormula(const XlfOper& cellRef)
     {
         return CallFunction(xlfGetFormula, cellRef, "Get Formula").AsString();
