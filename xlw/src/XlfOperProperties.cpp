@@ -82,7 +82,7 @@ namespace
         {
             return (LPXLFOPER)XlfOperProperties<LPOPER_TYPE>::getElement((LPOPER_TYPE)oper, row, column);
         }
-        std::string getString(LPXLFOPER oper)
+        char* getString(LPXLFOPER oper)
         {
             return XlfOperProperties<LPOPER_TYPE>::getString((LPOPER_TYPE)oper);
         }

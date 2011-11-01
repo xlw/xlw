@@ -86,7 +86,7 @@ namespace xlw { namespace impl {
         {
             return m_version->getElement(oper, row, column);
         }
-        static std::string getString(LPXLFOPER oper)
+        static char* getString(LPXLFOPER oper)
         {
             return m_version->getString(oper);
         }

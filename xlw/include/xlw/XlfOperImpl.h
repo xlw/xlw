@@ -737,7 +737,7 @@ namespace xlw { namespace impl {
         }
 
         //! Converts to a char * with error identifer.
-        std::string AsString(const char* ErrorId = 0) const
+        char* AsString(const char* ErrorId = 0) const
         {
             XlTypeType type(OperProps::getXlType(lpxloper_) & 0xFFF);
             if(type == xltypeStr)

@@ -43,7 +43,7 @@ namespace xlw { namespace impl {
         virtual void setArraySize(LPXLFOPER oper, RW rows, COL cols) = 0;
         virtual COL getCols(LPXLFOPER oper) = 0;
         virtual LPXLFOPER getElement(LPXLFOPER oper, RW row, COL column) = 0;
-        virtual std::string getString(LPXLFOPER oper) = 0;
+        virtual char* getString(LPXLFOPER oper) = 0;
         virtual void setString(LPXLFOPER oper, const std::string& newValue) = 0;
         virtual std::wstring getWString(LPXLFOPER oper) = 0;
         virtual void setWString(LPXLFOPER oper, const std::wstring& newValue) = 0;

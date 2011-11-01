@@ -26,12 +26,14 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 #endif
 
 
-std::string xlw::PascalStringConversions::PascalStringToString(const char* pascalString)
+char * xlw::PascalStringConversions::PascalStringToString(const char* pascalString)
 {
     // Must use datatype unsigned char (BYTE) to process 0th byte
     // otherwise numbers greater than 128 are incorrect
     size_t n = static_cast<BYTE>(pascalString[0]);
-    std::string result(pascalString + 1, pascalString + 1 + n);
+    char* result = TempMemory::GetMemory<char>(n + 1);
+    memcpy(result, pascalString + 1, n);
+    result[n] = 0;
     return result;
 }
 
@@ -83,18 +85,19 @@ char* xlw::PascalStringConversions::WStringToPascalString(const std::wstring& cS
     return result;
 }
 
-std::string xlw::PascalStringConversions::WPascalStringToString(const wchar_t* pascalString)
+char* xlw::PascalStringConversions::WPascalStringToString(const wchar_t* pascalString)
 {
     size_t n = pascalString[0];
     if(n > 0)
     {
-        std::string result(n, '\0');
-        WideCharToMultiByte(CP_ACP, WC_NO_BEST_FIT_CHARS, pascalString + 1, (int)n, &result[0], (int)n, NULL, NULL);
+        char* result = TempMemory::GetMemory<char>(n + 1);
+        result[n] = 0;
+        WideCharToMultiByte(CP_ACP, WC_NO_BEST_FIT_CHARS, pascalString + 1, (int)n, result, (int)n, NULL, NULL);
         return result;
     }
     else
     {
-        return std::string();
+        return "";
     }
 }
 

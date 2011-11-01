@@ -230,7 +230,7 @@ namespace xlw { namespace impl {
             }
             THROW_XLW("Wrong type for element by element access ");
         }
-        static std::string getString(LPXLOPER oper)
+        static char* getString(LPXLOPER oper)
         {
             return PascalStringConversions::PascalStringToString(oper->val.str);
         }

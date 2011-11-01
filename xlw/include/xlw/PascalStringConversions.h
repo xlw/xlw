@@ -35,11 +35,11 @@ namespace xlw {
     class PascalStringConversions
     {
     public:
-        static std::string PascalStringToString(const char* pascalString);
+        static char* PascalStringToString(const char* pascalString);
         static std::wstring PascalStringToWString(const char* pascalString);
         static char* StringToPascalString(const std::string& cString);
         static char* WStringToPascalString(const std::wstring& cString);
-        static std::string WPascalStringToString(const wchar_t* pascalString);
+        static char* WPascalStringToString(const wchar_t* pascalString);
         static std::wstring WPascalStringToWString(const wchar_t* pascalString);
         static wchar_t* StringToWPascalString(const std::string& cString);
         static wchar_t* WStringToWPascalString(const std::wstring& cString);
