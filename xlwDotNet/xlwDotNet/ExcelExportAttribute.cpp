@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2011 Mark P Owen
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -20,59 +21,76 @@
 using namespace System;
 
 namespace xlwDotNet {
-    [AttributeUsage(AttributeTargets::Method)]
-public ref class ExcelExportAttribute: Attribute
+[AttributeUsage(AttributeTargets::Method)]
+public ref class ExcelExportAttribute : Attribute
 {
+private:
+	initonly String^ _description;
+    initonly bool _volatileFlag;
+    initonly bool _timeFlag;
+    initonly bool _threadSafeFlag;
+    initonly bool _xlmCommandFlag;
+
 public:
-    String^ description;
-    bool volatileFlag;
-    bool timeFlag;
-    bool threadSafeFlag;
-    bool xlmCommandFlag;
-    ExcelExportAttribute(String^ description_)
-    {
-        description = description_;
-        volatileFlag = false;
-        timeFlag = false;
-        threadSafeFlag = false;
-        xlmCommandFlag = false;
-    }
+    property String^ Description
+	{
+		String^ get() { return _description; }
+	}
 
-    ExcelExportAttribute(String^ description_, bool volatileFlag_)
-    {
-        description = description_;
-        volatileFlag = volatileFlag_;
-        timeFlag = false;
-        threadSafeFlag = false;
-        xlmCommandFlag = false;
-    }
+	property bool VolatileFlag
+	{
+		bool get() { return _volatileFlag; }
+	}
 
-    ExcelExportAttribute(String^ description_, bool volatileFlag_, bool timeFlag_)
-    {
-        description = description_;
-        volatileFlag = volatileFlag_;
-        timeFlag = timeFlag_;
-        threadSafeFlag = false;
-        xlmCommandFlag = false;
-    }
+	property bool TimeFlag
+	{
+		bool get() { return _timeFlag; }
+	}
 
-    ExcelExportAttribute(String^ description_, bool volatileFlag_, bool timeFlag_, bool threadSafeFlag_)
+	property bool ThreadSafeFlag
+	{
+		bool get() { return _threadSafeFlag; }
+	}
+
+	property bool XLMCommandFlag
+	{
+		bool get() { return _xlmCommandFlag; }
+	}
+
+	ExcelExportAttribute(String^ description)
+	{
+		_description = description;
+        _volatileFlag = false;
+        _timeFlag = false;
+        _threadSafeFlag = false;
+        _xlmCommandFlag = false;
+	}
+
+	ExcelExportAttribute(String^ description, bool volatileFlag)
+	{
+		_description = description;
+        _volatileFlag = volatileFlag;
+        _timeFlag = false;
+        _threadSafeFlag = false;
+        _xlmCommandFlag = false;
+	}
+
+    ExcelExportAttribute(String^ description, bool volatileFlag, bool timeFlag)
+	{
+		_description = description;
+        _volatileFlag = volatileFlag;
+        _timeFlag = timeFlag;
+        _threadSafeFlag = false;
+        _xlmCommandFlag = false;
+	}
+
+    ExcelExportAttribute(String^ description, bool volatileFlag, bool timeFlag, bool threadSafeFlag)
     {
-        description = description_;
-        volatileFlag = volatileFlag_;
-        timeFlag = timeFlag_;
-        threadSafeFlag = threadSafeFlag_;
-        xlmCommandFlag = false;
-    }
-};
-[AttributeUsage(AttributeTargets::Parameter)]
-public ref class ParameterAttribute: Attribute
-{
-public:
-    String^ description;
-    ParameterAttribute(String^ description_)
-    {
-        description = description_;
+        _description = description;
+        _volatileFlag = volatileFlag;
+        _timeFlag = timeFlag;
+        _threadSafeFlag = threadSafeFlag;
+        _xlmCommandFlag = false;
     }
 };
 }

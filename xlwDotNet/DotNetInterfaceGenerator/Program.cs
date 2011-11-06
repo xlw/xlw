@@ -1,6 +1,7 @@
 ﻿/*
  Copyright (C) 2008 2009 2011 Narinder S Claire
  Copyright (C) 2011 John Adcock
+ Copyright (C) 2011 Mark P Owen
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -47,13 +48,13 @@ namespace DotNetInterfaceGenerator
             {
                 if (args.Length > 4 || args.Length < 2)
                 {
-                    Console.WriteLine("Usage: DotNetInterfaceGenerator <input assembley> <output library name> <output directory> <outputfilename>");
+                    Console.WriteLine("Usage: DotNetInterfaceGenerator <input assembly> <output library name> <output directory> <outputfilename>");
                     return 0;
                 }
-                Assembly sourceAssembley = Assembly.LoadFrom(args[0]);
-                Assembly xlwAssembley = Assembly.GetAssembly(typeof(ExcelExportAttribute));
-                Type[] sourceTypes = sourceAssembley.GetExportedTypes();
-                Type[] xlwCandidateTypes = xlwAssembley.GetExportedTypes();
+                Assembly sourceAssembly = Assembly.LoadFrom(args[0]);
+                Assembly xlwAssembly = Assembly.GetAssembly(typeof(ExcelExportAttribute));
+                Type[] sourceTypes = sourceAssembly.GetExportedTypes();
+                Type[] xlwCandidateTypes = xlwAssembly.GetExportedTypes();
                 List<Type> xlwTypes = new List<Type>();
                 foreach (Type t in xlwCandidateTypes)
                 {
@@ -131,27 +132,27 @@ namespace DotNetInterfaceGenerator
                                     string basicReturnType = writeCType(method.ReturnType,false,true);
                                     ExcelExportAttribute[] ExcelExportAttributeArray =
                                                (ExcelExportAttribute[])method.GetCustomAttributes(typeof(ExcelExportAttribute), false);
-                                    if (ExcelExportAttributeArray.Length != 1) throw new Exception("Method must have exactly one  ExcelExportAttribute");
+                                    if (ExcelExportAttributeArray.Length != 1) throw new Exception("Method must have exactly one ExcelExportAttribute");
 
-                                    headerFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].description);
-                                    sourceFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].description);
+                                    headerFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].Description);
+                                    sourceFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].Description);
 
-                                    if (ExcelExportAttributeArray[0].volatileFlag)
+                                    if (ExcelExportAttributeArray[0].VolatileFlag)
                                     {
                                         headerFile.WriteLine("//<xlw:volatile");
                                     }
 
-                                    if (ExcelExportAttributeArray[0].timeFlag)
+                                    if (ExcelExportAttributeArray[0].TimeFlag)
                                     {
                                         headerFile.WriteLine("//<xlw:time");
                                     }
 
-                                    if (ExcelExportAttributeArray[0].threadSafeFlag)
+                                    if (ExcelExportAttributeArray[0].ThreadSafeFlag)
                                     {
                                         headerFile.WriteLine("//<xlw:threadsafe");
                                     }
 
-                                    if (ExcelExportAttributeArray[0].xlmCommandFlag)
+                                    if (ExcelExportAttributeArray[0].XLMCommandFlag)
                                     {
                                         headerFile.WriteLine("//<xlw:macrosheet");
                                     }
@@ -175,7 +176,7 @@ namespace DotNetInterfaceGenerator
                                             sourceFile.Write(",");
                                         }
                                         ++i;
-                                        headerFile.WriteLine(" // " + ParameterAttributeArray[0].description);
+                                        headerFile.WriteLine(" // " + ParameterAttributeArray[0].Description);
                                     }
                                     headerFile.WriteLine(");");
                                     headerFile.WriteLine();

@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -23,7 +24,7 @@
     <ProjectGuid>{8DC33132-DEC5-488D-B16F-F5C40C970CBA}</ProjectGuid>
     <RootNamespace>xlwDotNet</RootNamespace>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
@@ -46,22 +47,22 @@
     <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>true</CLRSupport>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"/>
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"/>
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"/>
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"/>
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
   </ImportGroup>
-  <PropertyGroup Label="UserMacros"/>
+  <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
@@ -236,20 +237,21 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\xlwDotNet\ExcelExportAttribute.cpp"/>
-    <ClCompile Include="..\..\..\xlwDotNet\managedArgumentList.cpp"/>
-    <ClCompile Include="..\..\..\xlwDotNet\managedString.cpp"/>
-    <ClCompile Include="..\..\..\xlwDotNet\managedXlfExcel.cpp"/>
-    <ClCompile Include="..\..\..\xlwDotNet\xdnException.cpp"/>
+    <ClCompile Include="..\..\..\xlwDotNet\ExcelExportAttribute.cpp" />
+    <ClCompile Include="..\..\..\xlwDotNet\managedArgumentList.cpp" />
+    <ClCompile Include="..\..\..\xlwDotNet\managedString.cpp" />
+    <ClCompile Include="..\..\..\xlwDotNet\managedXlfExcel.cpp" />
+    <ClCompile Include="..\..\..\xlwDotNet\ParameterAttribute.cpp" />
+    <ClCompile Include="..\..\..\xlwDotNet\xdnException.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\xlwDotNet\managedCellMatrix.h"/>
-    <ClInclude Include="..\..\..\xlwDotNet\managedMyArray.h"/>
-    <ClInclude Include="..\..\..\xlwDotNet\managedMyMatrix.h"/>
-    <ClInclude Include="..\..\..\xlwDotNet\xlwDotNet.h"/>
-    <ClInclude Include="..\..\..\xlwDotNet\xlwTypeBaseClass.h"/>
+    <ClInclude Include="..\..\..\xlwDotNet\managedCellMatrix.h" />
+    <ClInclude Include="..\..\..\xlwDotNet\managedMyArray.h" />
+    <ClInclude Include="..\..\..\xlwDotNet\managedMyMatrix.h" />
+    <ClInclude Include="..\..\..\xlwDotNet\xlwDotNet.h" />
+    <ClInclude Include="..\..\..\xlwDotNet\xlwTypeBaseClass.h" />
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
