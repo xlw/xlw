@@ -107,84 +107,84 @@ namespace DotNetInterfaceGenerator
                     MethodInfo[] classMethods = t.GetMethods();
                     foreach (MethodInfo method in classMethods)
                     {
-                        if (method.IsStatic && method.IsPublic)
+                        if (!method.IsStatic || !method.IsPublic)
+                            continue;
+
+                        object[] attributes = method.GetCustomAttributes(false);
+                        bool isExcel = false;
+                        foreach (object att in attributes) isExcel = (isExcel | (att is ExcelExportAttribute));
+                        if (!isExcel)
+                            continue;
+
+                        ParameterInfo[] paramInfo = method.GetParameters();
+                        bool isParamOk = true;
+                        foreach (ParameterInfo param in paramInfo)
                         {
-                            object[] attributes = method.GetCustomAttributes(false);
-                            bool isExcel = false;
-                            foreach (object att in attributes) isExcel = (isExcel | (att is ExcelExportAttribute));
-                            if (isExcel)
+                            isParamOk =
+                                isParamOk && ((xlwTypes.Contains(method.ReturnType)) || (primitives.Contains(method.ReturnType)) || (semiprimitives.Contains(method.ReturnType)));
+                        }
+                        isParamOk =
+                                isParamOk && ((xlwTypes.Contains(method.ReturnType)) || (primitives.Contains(method.ReturnType)) || (semiprimitives.Contains(method.ReturnType)));
+                        if (!isParamOk)
+                        {
+                            throw(new Exception("Not exporting  " + method.Name + " : Unknown Parameter"));
+                        }
+                        else
+                        {
+                            string basicReturnType = writeCType(method.ReturnType,false,true);
+                            ExcelExportAttribute[] ExcelExportAttributeArray =
+                                        (ExcelExportAttribute[])method.GetCustomAttributes(typeof(ExcelExportAttribute), false);
+                            if (ExcelExportAttributeArray.Length != 1) throw new Exception("Method must have exactly one ExcelExportAttribute");
+
+                            headerFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].Description);
+                            sourceFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].Description);
+
+                            if (ExcelExportAttributeArray[0].VolatileFlag)
                             {
-                                ParameterInfo[] paramInfo = method.GetParameters();
-                                bool isParamOk = true;
-                                foreach (ParameterInfo param in paramInfo)
-                                {
-                                    isParamOk =
-                                        isParamOk && ((xlwTypes.Contains(method.ReturnType)) || (primitives.Contains(method.ReturnType)) || (semiprimitives.Contains(method.ReturnType)));
-                                }
-                                isParamOk =
-                                        isParamOk && ((xlwTypes.Contains(method.ReturnType)) || (primitives.Contains(method.ReturnType)) || (semiprimitives.Contains(method.ReturnType)));
-                                if (!isParamOk)
-                                {
-                                    throw(new Exception("Not exporting  " + method.Name + " : Unknown Parameter"));
-                                }
-                                else
-                                {
-                                    string basicReturnType = writeCType(method.ReturnType,false,true);
-                                    ExcelExportAttribute[] ExcelExportAttributeArray =
-                                               (ExcelExportAttribute[])method.GetCustomAttributes(typeof(ExcelExportAttribute), false);
-                                    if (ExcelExportAttributeArray.Length != 1) throw new Exception("Method must have exactly one ExcelExportAttribute");
-
-                                    headerFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].Description);
-                                    sourceFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].Description);
-
-                                    if (ExcelExportAttributeArray[0].VolatileFlag)
-                                    {
-                                        headerFile.WriteLine("//<xlw:volatile");
-                                    }
-
-                                    if (ExcelExportAttributeArray[0].TimeFlag)
-                                    {
-                                        headerFile.WriteLine("//<xlw:time");
-                                    }
-
-                                    if (ExcelExportAttributeArray[0].ThreadSafeFlag)
-                                    {
-                                        headerFile.WriteLine("//<xlw:threadsafe");
-                                    }
-
-                                    if (ExcelExportAttributeArray[0].XLMCommandFlag)
-                                    {
-                                        headerFile.WriteLine("//<xlw:macrosheet");
-                                    }
-
-
-                                    headerFile.Write(writeCMethod(method.Name) + "(");
-                                    sourceFile.Write(" DLLEXPORT "+writeCMethod(method.Name) + "(");
-                                    int i = 1;
-                                    foreach (ParameterInfo param in paramInfo)
-                                    {
-                                        ParameterAttribute[] ParameterAttributeArray =
-                                               (ParameterAttribute[])param.GetCustomAttributes(typeof(ParameterAttribute), false);
-                                        if (ParameterAttributeArray.Length != 1) throw new Exception("Method Parameters must have exactly one  ParameterAttribute");
-                                        headerFile.Write(writeCType(param.ParameterType,true) +
-                                                              " " + param.Name);
-                                        sourceFile.Write(writeCType(param.ParameterType,true) +
-                                                              " " + param.Name);
-                                        if (i != paramInfo.Length)
-                                        {
-                                            headerFile.Write(",");
-                                            sourceFile.Write(",");
-                                        }
-                                        ++i;
-                                        headerFile.WriteLine(" // " + ParameterAttributeArray[0].Description);
-                                    }
-                                    headerFile.WriteLine(");");
-                                    headerFile.WriteLine();
-                                    sourceFile.WriteLine(")");
-                                    writeFunctionBody(sourceFile, method);
-
-                                }
+                                headerFile.WriteLine("//<xlw:volatile");
                             }
+
+                            if (ExcelExportAttributeArray[0].TimeFlag)
+                            {
+                                headerFile.WriteLine("//<xlw:time");
+                            }
+
+                            if (ExcelExportAttributeArray[0].ThreadSafeFlag)
+                            {
+                                headerFile.WriteLine("//<xlw:threadsafe");
+                            }
+
+                            if (ExcelExportAttributeArray[0].XLMCommandFlag)
+                            {
+                                headerFile.WriteLine("//<xlw:macrosheet");
+                            }
+
+
+                            headerFile.Write(writeCMethod(method.Name) + "(");
+                            sourceFile.Write(" DLLEXPORT "+writeCMethod(method.Name) + "(");
+                            int i = 1;
+                            foreach (ParameterInfo param in paramInfo)
+                            {
+                                ParameterAttribute[] ParameterAttributeArray =
+                                        (ParameterAttribute[])param.GetCustomAttributes(typeof(ParameterAttribute), false);
+                                if (ParameterAttributeArray.Length != 1) throw new Exception("Method Parameters must have exactly one  ParameterAttribute");
+                                headerFile.Write(writeCType(param.ParameterType,true) +
+                                                        " " + param.Name);
+                                sourceFile.Write(writeCType(param.ParameterType,true) +
+                                                        " " + param.Name);
+                                if (i != paramInfo.Length)
+                                {
+                                    headerFile.Write(",");
+                                    sourceFile.Write(",");
+                                }
+                                ++i;
+                                headerFile.WriteLine(" // " + ParameterAttributeArray[0].Description);
+                            }
+                            headerFile.WriteLine(");");
+                            headerFile.WriteLine();
+                            sourceFile.WriteLine(")");
+                            writeFunctionBody(sourceFile, method);
+
                         }
                     }
                 }
