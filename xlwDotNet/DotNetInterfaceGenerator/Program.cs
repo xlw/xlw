@@ -139,22 +139,22 @@ namespace DotNetInterfaceGenerator
                             headerFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].Description);
                             sourceFile.WriteLine(basicReturnType + " //" + ExcelExportAttributeArray[0].Description);
 
-                            if (ExcelExportAttributeArray[0].VolatileFlag)
+                            if (ExcelExportAttributeArray[0].volatileFlag)
                             {
                                 headerFile.WriteLine("//<xlw:volatile");
                             }
 
-                            if (ExcelExportAttributeArray[0].TimeFlag)
+                            if (ExcelExportAttributeArray[0].timeFlag)
                             {
                                 headerFile.WriteLine("//<xlw:time");
                             }
 
-                            if (ExcelExportAttributeArray[0].ThreadSafeFlag)
+                            if (ExcelExportAttributeArray[0].threadSafeFlag)
                             {
                                 headerFile.WriteLine("//<xlw:threadsafe");
                             }
 
-                            if (ExcelExportAttributeArray[0].XLMCommandFlag)
+                            if (ExcelExportAttributeArray[0].xlmCommandFlag)
                             {
                                 headerFile.WriteLine("//<xlw:macrosheet");
                             }

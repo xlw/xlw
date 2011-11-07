@@ -25,36 +25,41 @@ namespace xlwDotNet {
 public ref class ExcelExportAttribute : Attribute
 {
 private:
-	initonly String^ _description;
-    initonly bool _volatileFlag;
-    initonly bool _timeFlag;
-    initonly bool _threadSafeFlag;
-    initonly bool _xlmCommandFlag;
+	String^ _description;
+    bool _volatileFlag;
+    bool _timeFlag;
+    bool _threadSafeFlag;
+    bool _xlmCommandFlag;
 
 public:
     property String^ Description
 	{
 		String^ get() { return _description; }
+		void set(String^ description) { _description = description; }
 	}
 
-	property bool VolatileFlag
+	property bool volatileFlag
 	{
 		bool get() { return _volatileFlag; }
+		void set(bool flag) { _volatileFlag = flag; }
 	}
 
-	property bool TimeFlag
+	property bool timeFlag
 	{
 		bool get() { return _timeFlag; }
+		void set(bool flag) { _timeFlag = flag; }
 	}
 
-	property bool ThreadSafeFlag
+	property bool threadSafeFlag
 	{
 		bool get() { return _threadSafeFlag; }
+		void set(bool flag) { _threadSafeFlag = flag; }
 	}
 
-	property bool XLMCommandFlag
+	property bool xlmCommandFlag
 	{
 		bool get() { return _xlmCommandFlag; }
+		void set(bool flag) { _xlmCommandFlag = flag; }
 	}
 
 	ExcelExportAttribute(String^ description)
