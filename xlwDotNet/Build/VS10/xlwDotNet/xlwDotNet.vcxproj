@@ -242,6 +242,7 @@
     <ClCompile Include="..\..\..\xlwDotNet\managedString.cpp" />
     <ClCompile Include="..\..\..\xlwDotNet\managedXlfExcel.cpp" />
     <ClCompile Include="..\..\..\xlwDotNet\ParameterAttribute.cpp" />
+    <ClCompile Include="..\..\..\xlwDotNet\TypeRegisterAttribute.cpp" />
     <ClCompile Include="..\..\..\xlwDotNet\xdnException.cpp" />
   </ItemGroup>
   <ItemGroup>

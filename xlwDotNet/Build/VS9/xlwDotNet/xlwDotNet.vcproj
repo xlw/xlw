@@ -396,6 +396,10 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\xlwDotNet\TypeRegisterAttribute.cpp"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\xlwDotNet\xdnException.cpp"
 			>
 		</File>
