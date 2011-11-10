@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2011 Mark P Owen
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -62,12 +63,13 @@ namespace xlwDotNet
                 }
             }
 
-           operator array<double>^()
+           static operator array<double>^(MyArray^ myArray)
            {
-               array<double>^ theCSArray =  gcnew array<double>(size);
-               for(int i(0);i<size;++i)theCSArray[i]=theInner->operator[](i);
+               array<double>^ theCSArray =  gcnew array<double>(myArray->size);
+               for(int i(0);i<myArray->size;++i)theCSArray[i]=myArray->theInner->operator[](i);
                return theCSArray;
            }
+
            static operator MyArray^(array<double>^ theCSArray)
            {
                MyArray^ theXLWArray =  gcnew MyArray(theCSArray->Length);

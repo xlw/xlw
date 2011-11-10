@@ -232,14 +232,14 @@ namespace xlwDotNet
 
 			  static void *getInner (CellMatrix^ theArray){return theArray->theInner;}
 
-			operator array<Object^,2>^()
+			static operator array<Object^,2>^(CellMatrix^ cellMatrix)
 			{
-				array<Object^,2>^ theCSMatrix =  gcnew array<Object^,2>(RowsInStructure,ColumnsInStructure);
-				for(int i(0);i<RowsInStructure;++i)
+				array<Object^,2>^ theCSMatrix =  gcnew array<Object^,2>(cellMatrix->RowsInStructure,cellMatrix->ColumnsInStructure);
+				for(int i(0);i<cellMatrix->RowsInStructure;++i)
 				{
-					for(int j(0);j<ColumnsInStructure;++j)
+					for(int j(0);j<cellMatrix->ColumnsInStructure;++j)
 					{
-						CellValue^ cellValue = default[i, j];
+						CellValue^ cellValue = cellMatrix->default[i, j];
 						if (cellValue->IsANumber)
 							theCSMatrix[i, j] = cellValue->NumericValue();
 						else if (cellValue->IsAString)

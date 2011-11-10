@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2011 Mark P Owen
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -72,13 +73,13 @@ namespace xlwDotNet
                 }
             }
 
-           operator array<double,2>^()
+           static operator array<double,2>^(MyMatrix^ myMatrix)
            {
-               array<double,2>^ theCSMatrix =  gcnew array<double,2>(rows,columns);
-               for(int i(0);i<rows;++i)
+               array<double,2>^ theCSMatrix =  gcnew array<double,2>(myMatrix->rows, myMatrix->columns);
+               for(int i(0);i<myMatrix->rows;++i)
                {
-                   for(int j(0);j<columns;++j)
-                        theCSMatrix[i,j]=theInner->operator[](i)[j];
+                   for(int j(0);j<myMatrix->columns;++j)
+                        theCSMatrix[i,j]=myMatrix->theInner->operator[](i)[j];
                }
                return theCSMatrix;
            }

@@ -289,15 +289,9 @@ namespace DotNetInterfaceGenerator
                  {
                      /////// A String
                      if (param.ParameterType == typeof(String))
-                     {
-                         sourceFile.Write(tabString + tabString + " gcnew String(" + param.Name + ".c_str())");
-                     }
+                         sourceFile.Write(tabString + tabString + "gcnew String(" + param.Name + ".c_str())");
                      else
-                     {
-                         string gcnew = "gcnew";
-                         if (semiprimitives.Contains(param.ParameterType)) gcnew = "";
-                         sourceFile.Write(tabString + tabString + gcnew + " xlwTypes::" + writeCType(param.ParameterType, false) + "(IntPtr((void*)&" + param.Name + "))");
-                     }
+                         sourceFile.Write(tabString + tabString + "gcnew xlwTypes::" + writeCType(param.ParameterType, false) + "(IntPtr((void*)&" + param.Name + "))");
                  }
               
                  if (i != paramInfo.Length)

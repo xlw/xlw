@@ -35,13 +35,12 @@ namespace xlwDotNet
         {
 
         public:
-            ArgumentList(IntPtr theRealThing):
-              xlwTypebaseClass<xlw::ArgumentList>(theRealThing,false){}
+			ArgumentList(IntPtr theRealThing):
+			  xlwTypebaseClass<xlw::ArgumentList>(theRealThing,false){}
 
-           ArgumentList(CellMatrix^ cells,String^ ErrorIdentifier):
+			ArgumentList(CellMatrix^ cells,String^ ErrorIdentifier):
               xlwTypebaseClass<xlw::ArgumentList>(new xlw::ArgumentList(*(cells->theInner),
                           (const char*)(Marshal::StringToHGlobalAnsi(ErrorIdentifier)).ToPointer()),true){}
-
 
             ArgumentList(String^ name):
               xlwTypebaseClass<xlw::ArgumentList>(new xlw::ArgumentList(
@@ -50,41 +49,41 @@ namespace xlwDotNet
             ArgumentList(ArgumentList^ theArgumentList):
               xlwTypebaseClass<xlw::ArgumentList>(new xlw::ArgumentList(*theArgumentList->theInner),true){}
 
-
               //const std::vector<std::pair<std::string, ArgumentType> >& GetArgumentNamesAndTypes() const;
 
-        enum class ArgumentType
-             {
-                 string  = xlw::ArgumentList::string,
-                 number  = xlw::ArgumentList::number,
-                 vector  = xlw::ArgumentList::vector,
-                 matrix  = xlw::ArgumentList::matrix,
-                 boolean = xlw::ArgumentList::boolean,
-                 list    = xlw::ArgumentList::list,
-                 cells   = xlw::ArgumentList::cells
-            };
-        Dictionary<String^,ArgumentType>^ GetArgumentNamesAndTypes()
-        {
-            const std::vector<std::pair<std::string, xlw::ArgumentList::ArgumentType> >& theRawDict = theInner->GetArgumentNamesAndTypes();
-            Dictionary<String^,ArgumentType>^ theDict =  gcnew Dictionary<String^,ArgumentType>();
-            for(size_t i(0); i<theRawDict.size(); ++i)
-            {
-                theDict->Add(gcnew String(theRawDict[i].first.c_str()),ArgumentType(theRawDict[i].second));
-            }
-            return theDict;
-        }
+			enum class ArgumentType
+			{
+				string  = xlw::ArgumentList::string,
+				number  = xlw::ArgumentList::number,
+				vector  = xlw::ArgumentList::vector,
+				matrix  = xlw::ArgumentList::matrix,
+				boolean = xlw::ArgumentList::boolean,
+				list    = xlw::ArgumentList::list,
+				cells   = xlw::ArgumentList::cells
+			};
 
-            String^ GetStructureName()
-            {
-                return gcnew String(theInner->GetStructureName().c_str());
-            }
+			Dictionary<String^,ArgumentType>^ GetArgumentNamesAndTypes()
+			{
+				const std::vector<std::pair<std::string, xlw::ArgumentList::ArgumentType> >& theRawDict = theInner->GetArgumentNamesAndTypes();
+				Dictionary<String^,ArgumentType>^ theDict =  gcnew Dictionary<String^,ArgumentType>();
+				for(size_t i(0); i<theRawDict.size(); ++i)
+				{
+					theDict->Add(gcnew String(theRawDict[i].first.c_str()),ArgumentType(theRawDict[i].second));
+				}
+				return theDict;
+	        }
 
-			Dictionary<String^,Object^>^ GetArgumentDictionary()
+			String^ GetStructureName()
+			{
+				return gcnew String(theInner->GetStructureName().c_str());
+			}
+
+			static operator Dictionary<String^,Object^>^(ArgumentList^ argList)
 			{
 				Dictionary<String^,Object^>^ argDict = gcnew Dictionary<String^,Object^>();
-				const std::vector<std::pair<std::string, xlw::ArgumentList::ArgumentType> >& argNamesAndTypes = theInner->GetArgumentNamesAndTypes();
+				const std::vector<std::pair<std::string, xlw::ArgumentList::ArgumentType> >& argNamesAndTypes = argList->theInner->GetArgumentNamesAndTypes();
 
-				argDict->Add(gcnew String("name"), GetStructureName());
+				argDict->Add(gcnew String("name"), argList->GetStructureName());
 
 				for (size_t i = 0; i < argNamesAndTypes.size(); ++i)
 				{
@@ -93,46 +92,45 @@ namespace xlwDotNet
 					switch (argType)
 					{
 						case ArgumentType::string:
-							argDict->Add(argName, GetStringArgumentValue(argName));
+							argDict->Add(argName, argList->GetStringArgumentValue(argName));
 							break;
 						case ArgumentType::number:
-							argDict->Add(argName, GetDoubleArgumentValue(argName));
+							argDict->Add(argName, argList->GetDoubleArgumentValue(argName));
 							break;
 						case ArgumentType::vector:
 							{
-								MyArray^ myArray = GetArrayArgumentValue(argName);
+								MyArray^ myArray = argList->GetArrayArgumentValue(argName);
 								array<double>^ doubleArray = (array<double>^)myArray;
 								argDict->Add(argName, doubleArray);
 							}
 							break;
 						case ArgumentType::matrix:
 							{
-								MyMatrix^ myMatrix = GetMatrixArgumentValue(argName);
+								MyMatrix^ myMatrix = argList->GetMatrixArgumentValue(argName);
 								array<double,2>^ multiArray = (array<double,2>^)myMatrix;
 								argDict->Add(argName, multiArray);
 							}
 							break;
 						case ArgumentType::boolean:
-							argDict->Add(argName, GetBoolArgumentValue(argName));
+							argDict->Add(argName, argList->GetBoolArgumentValue(argName));
 							break;
 						case ArgumentType::list:
 							{
-								ArgumentList^ innerArgList = GetArgumentListArgumentValue(argName);
-								Dictionary<String^, Object^>^ innerArgDict = innerArgList->GetArgumentDictionary();
+								ArgumentList^ innerArgList = argList->GetArgumentListArgumentValue(argName);
+								Dictionary<String^, Object^>^ innerArgDict = (Dictionary<String^, Object^>^)innerArgList; // innerArgList->GetArgumentDictionary();
 								argDict->Add(argName, innerArgDict);
 							}
 							break;
 						case ArgumentType::cells:
 							{
-								CellMatrix^ cellMatrix = GetCellsArgumentValue(argName);
+								CellMatrix^ cellMatrix = argList->GetCellsArgumentValue(argName);
 								array<Object^,2>^ objectMatrix = (array<Object^,2>^)cellMatrix;
 								argDict->Add(argName, objectMatrix);
 							}
 							break;
-//	                    throw "Argument has an unknown XLW type";
+	//	                    throw "Argument has an unknown XLW type";
 					}
 				}
-
 				return argDict;
 			}
 
