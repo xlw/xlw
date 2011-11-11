@@ -175,8 +175,8 @@ namespace DotNetInterfaceGenerator
                                 parameterType = customInputTypes[customTypes.IndexOf(parameterType)]; // substitute the parameterType for its custom conversion
 
                             string CType = writeCType(parameterType, true);
-                            headerFile.Write(CType + param.Name);
-                            sourceFile.Write(CType + param.Name);
+                            headerFile.Write(CType + " " + param.Name);
+                            sourceFile.Write(CType + " " + param.Name);
                             if (i != paramInfo.Length)
                             {
                                 headerFile.Write(",");
@@ -239,7 +239,7 @@ namespace DotNetInterfaceGenerator
             else if (returnType && customTypes.Contains(CSType))
                 throw new Exception("Exported function cannot return a custom type");
 
-            if (constRef) return "const " + basicType + "& ";
+            if (constRef) return "const " + basicType + "&";
 
             return basicType;
         }
