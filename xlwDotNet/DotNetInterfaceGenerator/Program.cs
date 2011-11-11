@@ -20,7 +20,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
 using IO = System.IO;
 using xlwDotNet;
@@ -29,27 +28,28 @@ namespace DotNetInterfaceGenerator
 {
     public static class Program
     {
-        static List<Type> primitives = new List<Type>();
-        static List<Type> semiprimitives = new List<Type>();
-        static List<Type> xlwTypes = new List<Type>();
-        static List<Type> customTypes = new List<Type>();
-        static List<Type> customInputTypes = new List<Type>();
-        static List<String> customConversionMethodNames = new List<String>();
+        private static readonly List<Type> Primitives = new List<Type>();
+        private static readonly List<Type> Semiprimitives = new List<Type>();
+        private static readonly List<Type> XLWTypes = new List<Type>();
+        private static readonly List<Type> CustomTypes = new List<Type>();
+        private static readonly List<Type> CustomInputTypes = new List<Type>();
+        private static readonly List<String> CustomConversionMethodNames = new List<String>();
 
         static Program()
         {
-            primitives.Add(typeof(double));
-            primitives.Add(typeof(short));
-            primitives.Add(typeof(int));
-            primitives.Add(typeof(UInt32));
-            primitives.Add(typeof(Boolean));
-            semiprimitives.Add(typeof(string));
-            semiprimitives.Add(typeof(double[]));
-            semiprimitives.Add(typeof(double[,]));
+            Primitives.Add(typeof (double));
+            Primitives.Add(typeof (short));
+            Primitives.Add(typeof (int));
+            Primitives.Add(typeof (UInt32));
+            Primitives.Add(typeof (Boolean));
+            Semiprimitives.Add(typeof (string));
+            Semiprimitives.Add(typeof (double[]));
+            Semiprimitives.Add(typeof (double[,]));
             Assembly xlwAssembly = Assembly.GetAssembly(typeof(ExcelExportAttribute));
             Type[] xlwCandidateTypes = xlwAssembly.GetExportedTypes();
             foreach (Type t in xlwCandidateTypes)
-                if (t.Namespace == "xlwDotNet.xlwTypes") xlwTypes.Add(t);
+                if (t.Namespace == "xlwDotNet.xlwTypes")
+                    XLWTypes.Add(t);
         }
 
         static int Main(string[] args)
@@ -66,15 +66,11 @@ namespace DotNetInterfaceGenerator
 
                 string dirName = "";
                 if (args.Length >= 3)
-                {
                     dirName = args[2];
-                }
 
                 string fileName = args[1];
                 if (args.Length == 4)
-                {
                     fileName = args[3];
-                }
 
                 IO.Directory.CreateDirectory(dirName);
                 IO.StreamWriter headerFile = IO.File.CreateText(dirName + "/" + fileName + ".h");
@@ -108,27 +104,25 @@ namespace DotNetInterfaceGenerator
                     MethodInfo[] classMethods = t.GetMethods();
                     foreach (MethodInfo method in classMethods)
                     {
-                        TypeRegisterAttribute[] typeConversionAttributeArray =
-                            (TypeRegisterAttribute[])method.GetCustomAttributes(typeof(TypeRegisterAttribute), false);
+                        TypeRegisterAttribute[] typeConversionAttributeArray = (TypeRegisterAttribute[]) method.GetCustomAttributes(typeof (TypeRegisterAttribute), false);
                         if (typeConversionAttributeArray.Length == 0) continue;
-
                         if (!method.IsStatic || !method.IsPublic)
-                            throw new Exception ("Type conversions should be public static methods");
+                            throw new Exception("Type conversions should be public static methods");
 
                         Type customType = method.ReturnType;
-                        if (primitives.Contains(customType) || semiprimitives.Contains(customType) || xlwTypes.Contains(customType))
+                        if (Primitives.Contains(customType) || Semiprimitives.Contains(customType) || XLWTypes.Contains(customType))
                             throw new Exception("Type conversion method " + method.Name + " not permitted: The custom type " + customType + " is already a valid xlw input type");
 
                         ParameterInfo[] paramInfos = method.GetParameters();
                         if (paramInfos.Length != 1)
                             throw new Exception("Type conversion method " + method.Name + " should have exactly one parameter");
                         Type customInputType = paramInfos[0].ParameterType;
-                        if (!primitives.Contains(customInputType) && !semiprimitives.Contains(customInputType) && !xlwTypes.Contains(customInputType))
+                        if (!Primitives.Contains(customInputType) && !Semiprimitives.Contains(customInputType) && !XLWTypes.Contains(customInputType))
                             throw new Exception("Type conversion method " + method.Name + " not permitted: The input type " + customInputType + " should be a valid xlw type");
 
-                        customConversionMethodNames.Add(cppify(method.DeclaringType.FullName + "." + method.Name));
-                        customTypes.Add(customType);
-                        customInputTypes.Add(customInputType);
+                        CustomConversionMethodNames.Add(cppify(method.DeclaringType.FullName + "." + method.Name));
+                        CustomTypes.Add(customType);
+                        CustomInputTypes.Add(customInputType);
                     }
                 }
 
@@ -142,15 +136,16 @@ namespace DotNetInterfaceGenerator
                         ExcelExportAttribute[] excelExportAttributeArray = (ExcelExportAttribute[])method.GetCustomAttributes(typeof(ExcelExportAttribute), false);
 
                         if (excelExportAttributeArray.Length == 0) continue;
-                        if (excelExportAttributeArray.Length > 1) throw new Exception("Method must have exactly one ExcelExportAttribute");
+                        if (excelExportAttributeArray.Length > 1)
+                            throw new Exception("Method must have exactly one ExcelExportAttribute");
                         ExcelExportAttribute excelExportAttribute = excelExportAttributeArray[0];
 
-                        if (!primitives.Contains(method.ReturnType) &&
-                            !semiprimitives.Contains(method.ReturnType) &&
-                            !xlwTypes.Contains(method.ReturnType))
+                        if (!Primitives.Contains(method.ReturnType) &&
+                            !Semiprimitives.Contains(method.ReturnType) &&
+                            !XLWTypes.Contains(method.ReturnType))
                             throw new Exception("Not exporting  " + method.Name + ": Unknown return type");
 
-                        string basicReturnType = writeCType(method.ReturnType, false, true);
+                        string basicReturnType = WriteCType(method.ReturnType, false, true);
                         headerFile.WriteLine(basicReturnType + " // " + excelExportAttribute.Description);
                         sourceFile.WriteLine(basicReturnType + " // " + excelExportAttribute.Description);
 
@@ -159,8 +154,8 @@ namespace DotNetInterfaceGenerator
                         if (excelExportAttribute.threadSafeFlag) headerFile.WriteLine("//<xlw:threadsafe");
                         if (excelExportAttribute.xlmCommandFlag) headerFile.WriteLine("//<xlw:macrosheet");
 
-                        headerFile.Write(writeCMethod(method.Name) + "(");
-                        sourceFile.Write("DLLEXPORT " + writeCMethod(method.Name) + "(");
+                        headerFile.Write(WriteCMethod(method.Name) + "(");
+                        sourceFile.Write("DLLEXPORT " + WriteCMethod(method.Name) + "(");
                         int i = 1;
                         ParameterInfo[] paramInfo = method.GetParameters();
                         foreach (ParameterInfo param in paramInfo)
@@ -171,12 +166,12 @@ namespace DotNetInterfaceGenerator
                                 throw new Exception("Method Parameters must have exactly one ParameterAttribute");
 
                             Type parameterType = param.ParameterType;
-                            if (customTypes.Contains(parameterType))
-                                parameterType = customInputTypes[customTypes.IndexOf(parameterType)]; // substitute the parameterType for its custom conversion
+                            if (CustomTypes.Contains(parameterType))
+                                parameterType = CustomInputTypes[CustomTypes.IndexOf(parameterType)]; // substitute the parameterType for its custom conversion
 
-                            string CType = writeCType(parameterType, true);
-                            headerFile.Write(CType + " " + param.Name);
-                            sourceFile.Write(CType + " " + param.Name);
+                            string cType = WriteCType(parameterType, true);
+                            headerFile.Write(cType + " " + param.Name);
+                            sourceFile.Write(cType + " " + param.Name);
                             if (i != paramInfo.Length)
                             {
                                 headerFile.Write(",");
@@ -188,7 +183,7 @@ namespace DotNetInterfaceGenerator
                         headerFile.WriteLine(");");
                         headerFile.WriteLine();
                         sourceFile.WriteLine(")");
-                        writeFunctionBody(sourceFile, method);
+                        WriteFunctionBody(sourceFile, method);
                         sourceFile.WriteLine();
                     }
                 }
@@ -203,40 +198,34 @@ namespace DotNetInterfaceGenerator
                 return -1;
             }
         }
-        static string writeCType(Type CSType, bool constRef)
+
+        static string WriteCType(Type csType, bool constRef)
         {
-            return writeCType(CSType, constRef, false);
+            return WriteCType(csType, constRef, false);
         }
 
-        static string writeCType(Type CSType, bool constRef, bool returnType) // returnType is unused at the moment
+        static string WriteCType(Type csType, bool constRef, bool returnType)
         {
-            string[] tokens = CSType.Name.Split('.');
+            string[] tokens = csType.Name.Split('.');
             string basicType = tokens[tokens.Length - 1];
 
-            if (primitives.Contains(CSType))
+            if (Primitives.Contains(csType))
             {
                 basicType = basicType.ToLower();
-                if (basicType == "int32")
-                    basicType = "int";
-                if (basicType == "int16")
-                    basicType = "short";
-                if (basicType == "uint32")
-                    basicType = "unsigned long";
-                if (basicType == "boolean")
-                    basicType = "bool";
+                if (basicType == "int32")   basicType = "int";
+                if (basicType == "int16")   basicType = "short";
+                if (basicType == "uint32")  basicType = "unsigned long";
+                if (basicType == "boolean") basicType = "bool";
                 return basicType; // no need for "const & " qualifier
             }
-            else if (semiprimitives.Contains(CSType))
+            else if (Semiprimitives.Contains(csType))
             {
                 basicType = basicType.ToLower();
-                if (basicType == "string")
-                    basicType = "std::wstring";
-                if (basicType == "double[]")
-                    basicType = "MyArray";
-                if (basicType == "double[,]")
-                    basicType = "MyMatrix";
+                if (basicType == "string")      basicType = "std::wstring";
+                if (basicType == "double[]")    basicType = "MyArray";
+                if (basicType == "double[,]")   basicType = "MyMatrix";
             }
-            else if (returnType && customTypes.Contains(CSType))
+            else if (returnType && CustomTypes.Contains(csType))
                 throw new Exception("Exported function cannot return a custom type");
 
             if (constRef) return "const " + basicType + "&";
@@ -244,14 +233,14 @@ namespace DotNetInterfaceGenerator
             return basicType;
         }
 
-        static string writeCMethod(string CSName)
+        static string WriteCMethod(string csName)
         {
-            string[] tokens = CSName.Split('.');
+            string[] tokens = csName.Split('.');
             return tokens[tokens.Length - 1];
 
         }
 
-        static void writeFunctionBody(IO.StreamWriter sourceFile, MethodInfo theMethod)
+        static void WriteFunctionBody(IO.StreamWriter sourceFile, MethodInfo theMethod)
         {
 
             sourceFile.WriteLine("{");
@@ -259,53 +248,50 @@ namespace DotNetInterfaceGenerator
 
             string castString = "";
 
-            if (!primitives.Contains(theMethod.ReturnType))
-                castString = "*(" + writeCType(theMethod.ReturnType, false) +
-                             "*)(xlwTypes::" + writeCType(theMethod.ReturnType, false) + "::getInner(";
+            if (!Primitives.Contains(theMethod.ReturnType))
+                castString = "*(" + WriteCType(theMethod.ReturnType, false) +
+                             "*)(xlwTypes::" + WriteCType(theMethod.ReturnType, false) + "::getInner(";
 
             if (theMethod.ReturnType == typeof(String))
                 castString = "(CLR2WCPP(";
 
-            string tabString = "        ";
+            const string tabString = "        ";
             sourceFile.WriteLine(tabString + "return " + castString + cppify(theMethod.DeclaringType.FullName + "." + theMethod.Name) + "(");
 
             ParameterInfo[] paramInfo = theMethod.GetParameters();
-            int i = 1;
-            foreach (ParameterInfo param in paramInfo)
+            for (int index = 0; index < paramInfo.Length; ++index)
             {
+                ParameterInfo param = paramInfo[index];
                 sourceFile.Write(tabString + tabString);
                 Type parameterType = param.ParameterType;
                 bool isCustomType = false;
-                if (customTypes.Contains(parameterType))
+                if (CustomTypes.Contains(parameterType))
                 {
-                    int j = customTypes.IndexOf(parameterType);
-                    parameterType = customInputTypes[j]; // substitute the parameterType for its custom conversion
+                    int j = CustomTypes.IndexOf(parameterType);
+                    parameterType = CustomInputTypes[j]; // substitute the parameterType for its custom conversion
                     isCustomType = true;
-                    sourceFile.Write(customConversionMethodNames[j] + "(");
+                    sourceFile.Write(CustomConversionMethodNames[j] + "(");
                 }
 
                 /////// Primitive Type
-                if (primitives.Contains(parameterType))
+                if (Primitives.Contains(parameterType))
                     sourceFile.Write(param.Name);
                 else
                 {
                     /////// A String
-                    if (param.ParameterType == typeof(String))
+                    if (param.ParameterType == typeof (String))
                         sourceFile.Write("gcnew String(" + param.Name + ".c_str())");
                     else
-                        sourceFile.Write("gcnew xlwTypes::" + writeCType(parameterType, false) + "(IntPtr((void*)&" + param.Name + "))");
+                        sourceFile.Write("gcnew xlwTypes::" + WriteCType(parameterType, false) + "(IntPtr((void*)& " + param.Name + "))");
                 }
 
-                if (isCustomType)
-                    sourceFile.Write(")");
-                if (i != paramInfo.Length)
-                    sourceFile.Write(",");
-                i++;
+                if (isCustomType) sourceFile.Write(")");
+                if (index + 1 != paramInfo.Length) sourceFile.Write(",");
                 sourceFile.WriteLine();
             }
             sourceFile.Write(tabString + ")");
 
-            if (!primitives.Contains(theMethod.ReturnType))
+            if (!Primitives.Contains(theMethod.ReturnType))
                 sourceFile.Write("))");
 
             sourceFile.WriteLine(";");
