@@ -20,13 +20,9 @@
 #ifndef XLW_DOT_NET_MYMATRIX_H
 #define XLW_DOT_NET_MYMATRIX_H
 
-
-
-
 using namespace System;
 #include<xlw/MyContainers.h>
 #include"xlwTypeBaseClass.h"
-
 
 namespace xlwDotNet
 {
@@ -36,15 +32,11 @@ namespace xlwDotNet
         {
 
         public:
-            MyMatrix(IntPtr theRealThing):
-              xlwTypebaseClass<xlw::MyMatrix>(theRealThing,false){}
+            MyMatrix(IntPtr theRealThing) : xlwTypebaseClass<xlw::MyMatrix>(theRealThing,false) {}
 
-            MyMatrix(const MyMatrix^ theOther):
-                xlwTypebaseClass<xlw::MyMatrix>(new xlw::MyMatrix(*(theOther->theInner)),true){}
+            MyMatrix(const MyMatrix^ theOther) : xlwTypebaseClass<xlw::MyMatrix>(new xlw::MyMatrix(*(theOther->theInner)),true) {}
 
-            MyMatrix(int rows_, int cols_):
-                xlwTypebaseClass<xlw::MyMatrix>(new xlw::MyMatrix(rows_,cols_),true){}
-
+            MyMatrix(int rows_, int cols_) : xlwTypebaseClass<xlw::MyMatrix>(new xlw::MyMatrix(rows_,cols_),true) {}
 
             property double default[int,int]
             {
@@ -58,46 +50,137 @@ namespace xlwDotNet
                 }
             }
 
-           property int rows
-            {
-                int get()
-                {
-                    return (int)theInner->rows();
-                }
-            }
-           property int columns
-            {
-                int get()
-                {
-                    return (int)theInner->columns();
-                }
-            }
+			property int rows
+			{
+				int get()
+				{
+					return (int)theInner->rows();
+				}
+			}
 
-           static operator array<double,2>^(MyMatrix^ myMatrix)
-           {
-               array<double,2>^ theCSMatrix =  gcnew array<double,2>(myMatrix->rows, myMatrix->columns);
-               for(int i(0);i<myMatrix->rows;++i)
-               {
-                   for(int j(0);j<myMatrix->columns;++j)
-                        theCSMatrix[i,j]=myMatrix->theInner->operator[](i)[j];
-               }
-               return theCSMatrix;
-           }
+			property int columns
+			{
+				int get()
+				{
+					return (int)theInner->columns();
+				}
+			}
 
-           static operator MyMatrix^(array<double,2>^ theCSMatrix)
-           {
-               MyMatrix^ theXLWMatrix =  gcnew MyMatrix(theCSMatrix->GetLength(0),theCSMatrix->GetLength(1));
-                for(int i(0);i<theCSMatrix->GetLength(0);++i)
-               {
-                   for(int j(0);j<theCSMatrix->GetLength(1);++j)
-                       theXLWMatrix->theInner->operator[](i)[j]=theCSMatrix[i,j];
-               }
-                return theXLWMatrix;
+			// support for inputting double[,] into ExcelExport function
+			static operator array<double,2>^(MyMatrix^ myMatrix)
+			{
+				array<double,2>^ theCSMatrix = gcnew array<double,2>(myMatrix->rows, myMatrix->columns);
+				for(int i(0); i<myMatrix->rows; ++i)
+					for(int j(0); j<myMatrix->columns; ++j)
+						theCSMatrix[i,j] = myMatrix->theInner->operator[](i)[j];
+				return theCSMatrix;
+			}
 
-           }
-            static void *getInner (MyMatrix^ theArray){return theArray->theInner;}
+			// support for outputting double[,] from ExcelExport function
+			static operator MyMatrix^(array<double,2>^ theCSMatrix)
+			{
+				MyMatrix^ theXLWMatrix = gcnew MyMatrix(theCSMatrix->GetLength(0), theCSMatrix->GetLength(1));
+				for(int i(0); i<theCSMatrix->GetLength(0); ++i)
+					for(int j(0); j<theCSMatrix->GetLength(1); ++j)
+						theXLWMatrix->theInner->operator[](i)[j] = theCSMatrix[i,j];
+				return theXLWMatrix;
+			}
+
+			// support for inputting double[][] into ExcelExport function
+			static operator array<array<double>^>^(MyMatrix^ myMatrix)
+			{
+				array<array<double>^>^ theCSMatrix = gcnew array<array<double>^>(myMatrix->rows);
+				for(int i(0); i<myMatrix->rows; ++i)
+				{
+					theCSMatrix[i] = gcnew array<double>(myMatrix->columns);
+					for(int j(0); j<myMatrix->columns; ++j)
+						theCSMatrix[i][j] = myMatrix->theInner->operator[](i)[j];
+				}
+				return theCSMatrix;
+			}
+
+			// support for outputting double[][] from ExcelExport function
+			static operator MyMatrix^(array<array<double>^>^ theCSMatrix)
+			{
+				if (theCSMatrix == nullptr)
+					throw gcnew Exception("Array is uninitialised");
+				int rows = theCSMatrix->Length;
+				int columns = 0;
+				for (int i(0); i < rows; ++i)
+				{
+					if (theCSMatrix[i] == nullptr)
+						throw gcnew Exception("Array is uninitialised");
+					if (columns < theCSMatrix[i]->Length)
+						columns = theCSMatrix[i]->Length;
+				}
+
+				MyMatrix^ theXLWMatrix = gcnew MyMatrix(rows, columns);
+				for(int i(0); i<rows; ++i)
+					for(int j(0); j<columns; ++j)
+						theXLWMatrix->theInner->operator[](i)[j] = theCSMatrix[i][j];
+				return theXLWMatrix;
+			}
+
+			// support for inputting int[,] into ExcelExport function
+			static operator array<int,2>^(MyMatrix^ myMatrix)
+			{
+				array<int,2>^ theCSMatrix = gcnew array<int,2>(myMatrix->rows, myMatrix->columns);
+				for(int i(0); i<myMatrix->rows; ++i)
+					for(int j(0); j<myMatrix->columns; ++j)
+						theCSMatrix[i,j] = (int) myMatrix->theInner->operator[](i)[j];
+				return theCSMatrix;
+			}
+
+			// support for outputting int[,] from ExcelExport function
+			static operator MyMatrix^(array<int,2>^ theCSMatrix)
+			{
+				MyMatrix^ theXLWMatrix = gcnew MyMatrix(theCSMatrix->GetLength(0), theCSMatrix->GetLength(1));
+				for(int i(0); i<theCSMatrix->GetLength(0); ++i)
+					for(int j(0); j<theCSMatrix->GetLength(1); ++j)
+						theXLWMatrix->theInner->operator[](i)[j] = (double)theCSMatrix[i,j];
+				return theXLWMatrix;
+			}
+
+			// support for inputting int[][] into ExcelExport function
+			static operator array<array<int>^>^(MyMatrix^ myMatrix)
+			{
+				array<array<int>^>^ theCSMatrix = gcnew array<array<int>^>(myMatrix->rows);
+				for(int i(0); i<myMatrix->rows; ++i)
+				{
+					theCSMatrix[i] = gcnew array<int>(myMatrix->columns);
+					for(int j(0); j<myMatrix->columns; ++j)
+						theCSMatrix[i][j] = (int) myMatrix->theInner->operator[](i)[j];
+				}
+				return theCSMatrix;
+			}
+
+			// support for outputting int[][] from ExcelExport function
+			static operator MyMatrix^(array<array<int>^>^ theCSMatrix)
+			{
+				if (theCSMatrix == nullptr)
+					throw gcnew Exception("Array is uninitialised");
+				int rows = theCSMatrix->Length;
+				int columns = 0;
+				for (int i(0); i < rows; ++i)
+				{
+					if (theCSMatrix[i] == nullptr)
+						throw gcnew Exception("Array is uninitialised");
+					if (columns < theCSMatrix[i]->Length)
+						columns = theCSMatrix[i]->Length;
+				}
+
+				MyMatrix^ theXLWMatrix = gcnew MyMatrix(rows, columns);
+				for(int i(0); i<rows; ++i)
+					for(int j(0); j<columns; ++j)
+						theXLWMatrix->theInner->operator[](i)[j] = (double)theCSMatrix[i][j];
+				return theXLWMatrix;
+			}
+
+            static void *getInner (MyMatrix^ theArray)
+			{
+				return theArray->theInner;
+			}
         };
-
     }
 }
 

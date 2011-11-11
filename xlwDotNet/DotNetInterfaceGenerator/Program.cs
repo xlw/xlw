@@ -37,14 +37,18 @@ namespace DotNetInterfaceGenerator
 
         static Program()
         {
-            Primitives.Add(typeof (double));
-            Primitives.Add(typeof (short));
-            Primitives.Add(typeof (int));
-            Primitives.Add(typeof (UInt32));
-            Primitives.Add(typeof (Boolean));
-            Semiprimitives.Add(typeof (string));
-            Semiprimitives.Add(typeof (double[]));
-            Semiprimitives.Add(typeof (double[,]));
+            Primitives.Add(typeof(double));
+            Primitives.Add(typeof(short));
+            Primitives.Add(typeof(int));
+            Primitives.Add(typeof(UInt32));
+            Primitives.Add(typeof(Boolean));
+            Semiprimitives.Add(typeof(string));
+            Semiprimitives.Add(typeof(double[]));
+            Semiprimitives.Add(typeof(double[,]));
+            Semiprimitives.Add(typeof(double[][]));
+            Semiprimitives.Add(typeof(int[]));
+            Semiprimitives.Add(typeof(int[,]));
+            Semiprimitives.Add(typeof(int[][]));
             Assembly xlwAssembly = Assembly.GetAssembly(typeof(ExcelExportAttribute));
             Type[] xlwCandidateTypes = xlwAssembly.GetExportedTypes();
             foreach (Type t in xlwCandidateTypes)
@@ -212,18 +216,25 @@ namespace DotNetInterfaceGenerator
             if (Primitives.Contains(csType))
             {
                 basicType = basicType.ToLower();
+
                 if (basicType == "int32")   basicType = "int";
                 if (basicType == "int16")   basicType = "short";
                 if (basicType == "uint32")  basicType = "unsigned long";
                 if (basicType == "boolean") basicType = "bool";
+
                 return basicType; // no need for "const & " qualifier
             }
             else if (Semiprimitives.Contains(csType))
             {
                 basicType = basicType.ToLower();
+
                 if (basicType == "string")      basicType = "std::wstring";
                 if (basicType == "double[]")    basicType = "MyArray";
                 if (basicType == "double[,]")   basicType = "MyMatrix";
+                if (basicType == "double[][]")  basicType = "MyMatrix";
+                if (basicType == "int[]")       basicType = "MyArray";
+                if (basicType == "int[,]")      basicType = "MyMatrix";
+                if (basicType == "int[][]")     basicType = "MyMatrix";
             }
             else if (returnType && CustomTypes.Contains(csType))
                 throw new Exception("Exported function cannot return a custom type");

@@ -28,7 +28,7 @@ namespace xlwDotNet
 {
     namespace xlwTypes
     {
-        public ref class MyArray :public xlwTypebaseClass<xlw::MyArray>
+        public ref class MyArray : public xlwTypebaseClass<xlw::MyArray>
         {
 
         public:
@@ -55,7 +55,7 @@ namespace xlwDotNet
                 }
             }
 
-           property int size
+            property int size
             {
                 int get()
                 {
@@ -63,23 +63,47 @@ namespace xlwDotNet
                 }
             }
 
-           static operator array<double>^(MyArray^ myArray)
-           {
-               array<double>^ theCSArray =  gcnew array<double>(myArray->size);
-               for(int i(0);i<myArray->size;++i)theCSArray[i]=myArray->theInner->operator[](i);
-               return theCSArray;
-           }
+			// support for inputting double[] into ExcelExport function
+			static operator array<double>^(MyArray^ myArray)
+			{
+				array<double>^ theCSArray = gcnew array<double>(myArray->size);
+				for(int i(0); i<myArray->size; ++i)
+					theCSArray[i] = myArray->theInner->operator[](i);
+				return theCSArray;
+			}
 
-           static operator MyArray^(array<double>^ theCSArray)
-           {
-               MyArray^ theXLWArray =  gcnew MyArray(theCSArray->Length);
-               for(int i(0);i<theCSArray->Length;++i)theXLWArray->theInner->operator[](i)=theCSArray[i];
-               return theXLWArray;
+			// support for outputting double[] from ExcelExport function
+			static operator MyArray^(array<double>^ theCSArray)
+			{
+				MyArray^ theXLWArray = gcnew MyArray(theCSArray->Length);
+				for (int i(0); i<theCSArray->Length; ++i)
+					theXLWArray->theInner->operator[](i) = theCSArray[i];
+				return theXLWArray;
+			}
 
-           }
-           static void *getInner (MyArray^ theArray){return theArray->theInner;}
-        };
+			// support for inputting int[] into ExcelExport function
+			static operator array<int>^(MyArray^ myArray)
+			{
+				array<int>^ theCSArray = gcnew array<int>(myArray->size);
+				for (int i(0); i<myArray->size; ++i)
+					theCSArray[i] = (int) myArray->theInner->operator[](i);
+				return theCSArray;
+			}
 
+			// support for outputting int[] from ExcelExport function
+			static operator MyArray^(array<int>^ theCSArray)
+			{
+				MyArray^ theXLWArray = gcnew MyArray(theCSArray->Length);
+				for (int i(0); i<theCSArray->Length; ++i)
+					theXLWArray->theInner->operator[](i) = (double) theCSArray[i];
+				return theXLWArray;
+			}
+
+			static void *getInner (MyArray^ theArray)
+			{
+				return theArray->theInner;
+			}
+		};
     }
 }
 #endif
