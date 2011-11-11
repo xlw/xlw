@@ -115,8 +115,8 @@ namespace xlwDotNet
 				}
 
 				MyMatrix^ theXLWMatrix = gcnew MyMatrix(rows, columns);
-				for(int i(0); i<rows; ++i)
-					for(int j(0); j<columns; ++j)
+				for(int i(0); i < rows; ++i)
+					for(int j(0); j < theCSMatrix[i]->Length; ++j)
 						theXLWMatrix->theInner->operator[](i)[j] = theCSMatrix[i][j];
 				return theXLWMatrix;
 			}
@@ -170,8 +170,8 @@ namespace xlwDotNet
 				}
 
 				MyMatrix^ theXLWMatrix = gcnew MyMatrix(rows, columns);
-				for(int i(0); i<rows; ++i)
-					for(int j(0); j<columns; ++j)
+				for(int i(0); i < rows; ++i)
+					for(int j(0); j < theCSMatrix[i]->Length; ++j)
 						theXLWMatrix->theInner->operator[](i)[j] = (double)theCSMatrix[i][j];
 				return theXLWMatrix;
 			}
