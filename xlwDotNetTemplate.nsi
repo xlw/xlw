@@ -197,9 +197,9 @@ FunctionEnd
 
 Section #
 
-	!insertmacro GETDIR $VS10_CSHARP_STATE "VS10"
-	!insertmacro GETDIR $VS9_CSHARP_STATE "VS9"
-	!insertmacro GETDIR $VS8_CSHARP_STATE "VS8"
+	!insertmacro GETDIR $VS10_CSHARP_STATE "CSharp\VS10"
+	!insertmacro GETDIR $VS9_CSHARP_STATE "CSharp\VS9"
+	!insertmacro GETDIR $VS8_CSHARP_STATE "CSharp\VS8"
 
 	!insertmacro GETDIR $VS10_FSHARP_STATE "FSharp\VS10"
 	

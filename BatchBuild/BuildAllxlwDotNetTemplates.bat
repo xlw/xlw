@@ -4,7 +4,8 @@
 
 %PYTHON% prepareDotNetTemplateProject.py
 
-CALL BuildProjectNet.bat "C:\Temp\xlwDotNetTemplate Projects" xlwDotNetTemplate
+CALL BuildProjectNet.bat "C:\Temp\xlwDotNetTemplate Projects\CSharp" xlwDotNetTemplateCS
+CALL BuildProjectNet.bat "C:\Temp\xlwDotNetTemplate Projects\FSharp" xlwDotNetTemplateFS
 CALL BuildProjectNet.bat "C:\Temp\xlwDotNetTemplate Projects\VisualBasic" xlwDotNetTemplateVB
 
 REM Special Code for Hybrid at the moment
