@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <xlwversion>5_0_0a3</xlwversion>
+    <gdconfig />
+    <dir64 />
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DE80173C-316B-4AA4-A452-4BE296CD3426}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -15,56 +18,46 @@
     <StartupObject>
     </StartupObject>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>KeyFile.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <TargetFrameworkSubset>
     </TargetFrameworkSubset>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <xlwversion>5_0_0a3</xlwversion>
-<gdconfig>-gd</gdconfig>
-    <dir64></dir64>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\Debug\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <gdconfig>-gd</gdconfig>
     <DefineDebug>true</DefineDebug>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
     <DefineTrace>true</DefineTrace>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <gdconfig />
+    <DefineDebug>false</DefineDebug>
+    <DebugType>pdbonly</DebugType>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$Platform' == 'x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <dir64 />
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$Platform' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <dir64>x64\</dir64>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>..\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <xlwversion>5_0_0a3</xlwversion>
-<gdconfig>
-    </gdconfig>
-    <dir64></dir64>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
     <OutputPath>..\Release\</OutputPath>
-    <DefineDebug>false</DefineDebug>
-    <DefineTrace>true</DefineTrace>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <xlwversion>5_0_0a3</xlwversion>
-<gdconfig>-gd</gdconfig>
-    <dir64>x64/</dir64>
-    <DebugSymbols>true</DebugSymbols>
-    <DefineDebug>true</DefineDebug>
-    <DefineTrace>true</DefineTrace>
     <OutputPath>..\x64_Debug\</OutputPath>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <xlwversion>5_0_0a3</xlwversion>
-<gdconfig></gdconfig>
-    <dir64>x64/</dir64>
-    <DefineTrace>true</DefineTrace>
     <OutputPath>..\x64_Release\</OutputPath>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -77,13 +70,12 @@
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
-    <Import Include="xlwDotNet" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="KeyFile.snk" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="VBFunctions.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="KeyFile.snk" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

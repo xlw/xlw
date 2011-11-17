@@ -1,4 +1,5 @@
-﻿
+﻿Imports xlwDotNet
+Imports xlwDotNet.xlwTypes
 
 Namespace Example
     Public Class Class1
@@ -8,9 +9,9 @@ Namespace Example
             Return "Hello World!"
         End Function
 
-        <ExcelExport("Special Hello from the VB world")> _
-       Public Shared Function SpecialHelloWorld( _
-            <Parameter("Go on throw me a matrix !")> ByVal theMatrix As xlwTypes.CellMatrix) As xlwTypes.CellMatrix
+        <ExcelExport("Echo a matrix")> _
+       Public Shared Function EchoMatrix( _
+            <Parameter("Matrix")> ByVal theMatrix As CellMatrix) As CellMatrix
             Return theMatrix
         End Function
     End Class
