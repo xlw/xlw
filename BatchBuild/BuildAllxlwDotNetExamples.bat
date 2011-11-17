@@ -3,10 +3,10 @@
 @IF ERRORLEVEL 1 ECHO Can't find all required programs & exit /b 1
 
 CALL BuildProjectNet.bat ..\xlwDotNet\Example xlwDotNetExample
-CALL BuildProjectNet.bat ..\xlwDotNet\UserContrib\VisualBasic xlwDotNetVisualBasic
-CALL BuildProjectNet.bat ..\xlwDotNet\XtraExamples\NonPassive xlwDotNetNonPassive
-CALL BuildProjectNet.bat ..\xlwDotNet\XtraExamples\Python xlwDotNetPython
-CALL BuildProjectNet.bat ..\xlwDotNet\XtraExamples\RTDExample xlwDotNetRTDExample
+CALL BuildProjectNet.bat ..\xlwDotNet\UserContrib\VisualBasic xlwDotNetExampleVisualBasic
+CALL BuildProjectNet.bat ..\xlwDotNet\XtraExamples\NonPassive xlwDotNetExampleNonPassive
+CALL BuildProjectNet.bat ..\xlwDotNet\XtraExamples\Python xlwDotExampleNetPython
+CALL BuildProjectNet.bat ..\xlwDotNet\XtraExamples\RTDExample xlwDotNetExampleRTD
 
 @ENDLOCAL
 

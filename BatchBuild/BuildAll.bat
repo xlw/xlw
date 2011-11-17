@@ -21,7 +21,7 @@ CALL BuildProjectCpp.bat ..\xlw\build xlw
 @ECHO BUILD: Build Xlw Examples
 @ECHO %SEPERATOR%
 
-CALL BuildAllExamples.bat
+CALL BuildAllxlwExamples.bat
 
 @ECHO BUILD: Build Xlw Templates
 @ECHO %SEPERATOR%
