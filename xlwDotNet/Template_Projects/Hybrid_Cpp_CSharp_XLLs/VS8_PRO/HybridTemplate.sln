@@ -9,8 +9,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet", "csharp_source\DotNet.csproj", "{8679824E-0E59-4620-AFAB-3E201D045BC3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_RunHybridInterfaceGenerator", "Generators\RunHybridInterfaceGenerator.vcproj", "{40F203F3-56D0-42ED-A2E9-27E84EABD0B2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1115BBB6-8140-40EF-8805-DF2E41D1330E} = {1115BBB6-8140-40EF-8805-DF2E41D1330E}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC943}") = "XLL", "Addin\XLL.vcproj", "{DE8A087D-EF7B-4777-A464-F47096EE968C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XLL", "Addin\XLL.vcproj", "{DE8A087D-EF7B-4777-A464-F47096EE968C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{40F203F3-56D0-42ED-A2E9-27E84EABD0B2} = {40F203F3-56D0-42ED-A2E9-27E84EABD0B2}
 	EndProjectSection
