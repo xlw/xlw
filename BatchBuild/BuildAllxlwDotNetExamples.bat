@@ -6,7 +6,7 @@ CALL BuildProjectNet.bat ..\xlwDotNet\Example xlwDotNetExample
 CALL BuildProjectNet.bat ..\xlwDotNet\UserContrib\VisualBasic xlwDotNetExampleVisualBasic
 REM CALL BuildProjectNet.bat ..\xlwDotNet\UserContrib\NonPassive xlwDotNetExampleNonPassive
 REM CALL BuildProjectNet.bat ..\xlwDotNet\UserContrib\Python xlwDotNetExamplePython
-CALL BuildProjectNet.bat ..\xlwDotNet\UserContrib\RTDExample xlwDotNetExampleRTD
+REM CALL BuildProjectNet.bat ..\xlwDotNet\UserContrib\RTDExample xlwDotNetExampleRTD
 
 @ENDLOCAL
 
