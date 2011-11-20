@@ -19,34 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <Keyword>Win32Proj</Keyword>
-    <ProjectName>5_0_0a3</ProjectName>
     <ProjectGuid>{8DC33132-DEC5-488D-B16F-F5C40C970CBA}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
     <RootNamespace>xlwDotNet</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProjectName>5_0_0a3</ProjectName>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
-    <CLRSupport>true</CLRSupport>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
-    <CLRSupport>true</CLRSupport>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
-    <CLRSupport>true</CLRSupport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
-    <CLRSupport>true</CLRSupport>
-  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -81,15 +67,13 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">xlwDotNet-vc100-mt-gd-$(ProjectName)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xlwDotNet-vc100-mt-$(ProjectName)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">xlwDotNet-vc100-mt-$(ProjectName)</TargetName>
-    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</EmbedManifest>
-    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</EmbedManifest>
-    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</EmbedManifest>
-    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</EmbedManifest>
+    <EmbedManifest>false</EmbedManifest>
+    <LinkKeyFile>../../../xlwDotNet/xlwDotNet.snk</LinkKeyFile>
+    <LinkDelaySign>false</LinkDelaySign>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command />
     </PreBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>../../../../xlw/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -102,8 +86,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(IntDir)vc80.pdb</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
@@ -112,7 +95,6 @@
       <AssemblyDebug>true</AssemblyDebug>
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <KeyFile>../../../xlwDotNet/xlwDotNet.snk</KeyFile>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <OutputFile>$(OutDir)xlwDotNet-vc100-mt-gd-$(ProjectName).dll</OutputFile>
@@ -121,14 +103,12 @@
       <Version>0.0.0.0</Version>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command />
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command />
     </PreBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>../../../../xlw/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -141,8 +121,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(IntDir)vc80.pdb</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
@@ -151,9 +130,7 @@
       <AssemblyDebug>true</AssemblyDebug>
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <KeyFile>../../../xlwDotNet/xlwDotNet.snk</KeyFile>
-      <ModuleDefinitionFile>
-      </ModuleDefinitionFile>
+      <ModuleDefinitionFile />
       <OutputFile>$(OutDir)xlwDotNet-vc100-mt-gd-$(ProjectName).dll</OutputFile>
       <SubSystem>Windows</SubSystem>
       <Version>0.0.0.0</Version>
@@ -176,8 +153,7 @@
       <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
@@ -185,9 +161,7 @@
       <AdditionalLibraryDirectories>../../../../xlw/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <KeyFile>../../../xlwDotNet/xlwDotNet.snk</KeyFile>
-      <ModuleDefinitionFile>
-      </ModuleDefinitionFile>
+      <ModuleDefinitionFile />
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)xlwDotNet-vc100-mt-$(ProjectName).dll</OutputFile>
       <SubSystem>Windows</SubSystem>
@@ -196,14 +170,12 @@
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command />
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command />
     </PreBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>../../../../xlw/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -213,8 +185,7 @@
       <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
@@ -222,9 +193,7 @@
       <AdditionalLibraryDirectories>../../../../xlw/lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <KeyFile>../../../xlwDotNet/xlwDotNet.snk</KeyFile>
-      <ModuleDefinitionFile>
-      </ModuleDefinitionFile>
+      <ModuleDefinitionFile />
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)xlwDotNet-vc100-mt-$(ProjectName).dll</OutputFile>
       <SubSystem>Windows</SubSystem>
