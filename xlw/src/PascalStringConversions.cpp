@@ -88,17 +88,13 @@ char* xlw::PascalStringConversions::WStringToPascalString(const std::wstring& cS
 char* xlw::PascalStringConversions::WPascalStringToString(const wchar_t* pascalString)
 {
     size_t n = pascalString[0];
+    char* result = TempMemory::GetMemory<char>(n + 1);
+    result[n] = 0;
     if(n > 0)
     {
-        char* result = TempMemory::GetMemory<char>(n + 1);
-        result[n] = 0;
         WideCharToMultiByte(CP_ACP, WC_NO_BEST_FIT_CHARS, pascalString + 1, (int)n, result, (int)n, NULL, NULL);
-        return result;
     }
-    else
-    {
-        return "";
-    }
+    return result;
 }
 
 std::wstring xlw::PascalStringConversions::WPascalStringToWString(const wchar_t* pascalString)
