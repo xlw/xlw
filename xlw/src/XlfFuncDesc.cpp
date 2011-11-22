@@ -120,14 +120,9 @@ int xlw::XlfFuncDesc::DoUnregister(const std::string& dllName) const
     return err;
 }
 
-// VERY Important :
-// In the following function we are using Excel4 instead of Excel12 ( hence also
-// using XLOPER4 instead of XLOPER12. This is deliberate. Registering functions
-// Excel12(..) when the arguments add up to more then 255 char is problematic. the functions
-// will not register see  see BUG ID: 2834715 on sourceforge - nc
+// function Excel4 calls always as using XLOPER12 seem problematic
 int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& suggestedHelpId, double mode_, double* funcId) const
 {
-
     // alias arguments
     XlfArgDescList& arguments = impl_->arguments_;
 
@@ -149,6 +144,13 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
         ++it;
         if (it != arguments.end())
             argnames+=", ";
+    }
+    
+    // When the arguments add up to more then 255 char is problematic. the functions
+    // will not register see  see BUG ID: 2834715 on sourceforge - nc
+    if(argnames.length() > 255)
+    {
+        argnames = "Too many arguments for Function Wizard";
     }
 
     // the synchronous part of an asynchronous function have an extra 
@@ -176,9 +178,8 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
 
     args+='\0'; // null termination for C string
 
-    xlw_tr1::shared_ptr<LPXLOPER> smart_px(new LPXLOPER[10 + nbargs],CustomArrayDeleter<LPXLOPER>());
-    LPXLOPER *rgx = smart_px.get();
-    LPXLOPER *px = rgx;
+    std::vector<LPXLOPER> argArray(10 + nbargs);
+    LPXLOPER *px = &argArray[0];
     std::string functionName(GetName());
 
     // We need to have 2 functions exposed one for less than
@@ -219,21 +220,32 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
         }
         else
         {
-            // add spaces to last comment to work around known excel bug
+            // add dot space to last comment to work around known excel bug
             // see http://msdn.microsoft.com/en-us/library/bb687841.aspx
-            (*px++) = XlfOper4((*it).GetComment() + "  ");
+            (*px++) = XlfOper4((*it).GetComment() + ". ");
         }
     }
 
+    if(XlfExcel::Instance().excel12())
+    {
+        // total number of arguments limited to 255
+        // so we can't send more than 245 argument comments
+        nbargs = std::min(nbargs, 245);
+    }
+    else
+    {
+        // you can't send more than 30 arguments to the register function
+        // in up to version 2003, so just only send help for up to the first 20 parameters
+        nbargs = std::min(nbargs, 20);
+    }
+
     XlfOper4 res;
-    int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, static_cast<LPXLOPER>(res), 10 + nbargs, rgx));
+    int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, res, 10 + nbargs, &argArray[0]));
 
     if(funcId != NULL)
     {
         *funcId = res.AsDouble();
     }
-
-    // delete[] rgx; using shared_ptr now .. .don't need it anymore
     return err;
 }
 
