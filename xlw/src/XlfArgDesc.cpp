@@ -34,14 +34,6 @@ void xlw::XlfArgDesc::CheckNameLength()
         << "\" may be too long to fit the in the function wizard" << std::endl;
 };
 
-void xlw::XlfArgDesc::CheckDescEnd()
-{
-    std::string::size_type n = comment_.length();
-    static std::string mandatoryEnding(". ");
-    if (comment_.length() < 2 || comment_.substr(n-2) != mandatoryEnding)
-        comment_ += mandatoryEnding;
-}
-
 xlw::XlfArgDesc::XlfArgDesc()
 {}
 
@@ -57,7 +49,6 @@ xlw::XlfArgDesc::XlfArgDesc(const std::string& name,
     : name_(name), comment_(comment), type_(type)
 {
     CheckNameLength();
-    CheckDescEnd();
 }
 
 xlw::XlfArgDesc::~XlfArgDesc()
@@ -77,7 +68,6 @@ const std::string& xlw::XlfArgDesc::GetName() const
 void xlw::XlfArgDesc::SetComment(const std::string& comment)
 {
     comment_ = comment;
-    CheckDescEnd();
 }
 
 const std::string& xlw::XlfArgDesc::GetComment() const

@@ -79,8 +79,6 @@ namespace xlw {
         std::string type_;
         //! Controls the name is valid to be used properly by the function wizard.
         void CheckNameLength();
-        //! Controls that the comment associated to the argument ends is not truncated.
-        void CheckDescEnd();
     };
 
 }
