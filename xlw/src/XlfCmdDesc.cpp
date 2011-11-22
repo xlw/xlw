@@ -153,34 +153,10 @@ Registers the command as a macro in excel.
 */
 int xlw::XlfCmdDesc::DoRegister(const std::string& dllName, const std::string& suggestedHelpId) const
 {
-
     XlfArgDescList arguments = GetArguments();
 
     // 2 = normal macro, 0 = hidden command
     double type = hidden_ ? 0 : 2;
-
-    /*
-    //ERR_LOG("Registering command \"" << alias_.c_str() << "\" from \"" << name_.c_str() << "\" in \"" << dllname.c_str() << "\"");
-    int err = XlfExcel::Instance().Call(
-        xlfRegister, NULL, 7,
-        (LPXLOPER)XlfOper(dllName.c_str()),
-        (LPXLOPER)XlfOper(GetName().c_str()),
-        (LPXLOPER)XlfOper("A"),
-        (LPXLOPER)XlfOper(GetAlias().c_str()),
-        (LPXLOPER)XlfOper(""),
-        (LPXLOPER)XlfOper(type),
-        (LPXLOPER)XlfOper(""));
-    int err = XlfExcel::Instance().Call(
-        xlfRegister, NULL, 7,
-        (LPXLFOPER)XlfOper(dllName.c_str()),
-        (LPXLFOPER)XlfOper(GetName().c_str()),
-        (LPXLFOPER)XlfOper("A"),
-        (LPXLFOPER)XlfOper(GetAlias().c_str()),
-        (LPXLFOPER)XlfOper(""),
-        (LPXLFOPER)XlfOper(type),
-        (LPXLFOPER)XlfOper(""));
-    return err;
-    */
 
     int nbargs = static_cast<int>(arguments.size());
     std::string args("A");
@@ -196,40 +172,57 @@ int xlw::XlfCmdDesc::DoRegister(const std::string& dllName, const std::string& s
             argnames+=", ";
     }
 
-    xlw_tr1::shared_ptr<LPXLFOPER> smart_px(new LPXLFOPER[10 + nbargs],CustomArrayDeleter<LPXLFOPER>());
-    LPXLFOPER *rgx = smart_px.get();
-    LPXLFOPER *px = rgx;
+    // When the arguments add up to more then 255 char is problematic. the functions
+    // will not register see  see BUG ID: 2834715 on sourceforge - nc
+    if(argnames.length() > 255)
+    {
+        argnames = "Too many arguments for Function Wizard";
+    }
 
-    (*px++) = XlfOper(dllName);
-    (*px++) = XlfOper(GetName());
-    (*px++) = XlfOper(args);
-    (*px++) = XlfOper(GetAlias());
-    (*px++) = XlfOper(argnames);
-    (*px++) = XlfOper(type);
-    (*px++) = XlfOper("");
-    (*px++) = XlfOper("");
-    (*px++) = XlfOper("");
-    (*px++) = XlfOper(GetComment());
+    std::vector<LPXLOPER> argArray(10 + nbargs);
+    LPXLOPER *px = &argArray[0];
+
+    (*px++) = XlfOper4(dllName);
+    (*px++) = XlfOper4(GetName());
+    (*px++) = XlfOper4(args);
+    (*px++) = XlfOper4(GetAlias());
+    (*px++) = XlfOper4(argnames);
+    (*px++) = XlfOper4(type);
+    (*px++) = XlfOper4("");
+    (*px++) = XlfOper4("");
+    (*px++) = XlfOper4("");
+    (*px++) = XlfOper4(GetComment());
     int counter(0);
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
         ++counter;
         if(counter < nbargs)
         {
-            (*px++) = XlfOper((*it).GetComment());
+            (*px++) = XlfOper4((*it).GetComment());
         }
         else
         {
-            // add spaces to last comment to work around known excel bug
+            // add dot space to last comment to work around known excel bug
             // see http://msdn.microsoft.com/en-us/library/bb687841.aspx
-            (*px++) = XlfOper((*it).GetComment() + "  ");
+            (*px++) = XlfOper4((*it).GetComment() + ". ");
         }
     }
 
-    int err = static_cast<int>(XlfExcel::Instance().Callv(xlfRegister, NULL, 10 + nbargs, rgx));
-    // delete[] rgx; no thankyou .. not anymore 
-    return err;
+    if(XlfExcel::Instance().excel12())
+    {
+        // total number of arguments limited to 255
+        // so we can't send more than 245 argument comments
+        nbargs = std::min(nbargs, 245);
+    }
+    else
+    {
+        // you can't send more than 30 arguments to the register function
+        // in up to version 2003, so just only send help for up to the first 20 parameters
+        nbargs = std::min(nbargs, 20);
+    }
 
+    int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, NULL, 10 + nbargs, &argArray[0]));
+    return err;
 }
 
 int xlw::XlfCmdDesc::DoUnregister(const std::string& dllName) const
