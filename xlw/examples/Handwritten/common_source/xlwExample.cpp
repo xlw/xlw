@@ -160,6 +160,115 @@ extern "C" {
 
         EXCEL_END;
     }
+
+    LPXLFOPER EXCEL_EXPORT xlManyArguments(LPXLFOPER inVal1,
+                                           LPXLFOPER inVal2,
+                                           LPXLFOPER inVal3,
+                                           LPXLFOPER inVal4,
+                                           LPXLFOPER inVal5,
+                                           LPXLFOPER inVal6,
+                                           LPXLFOPER inVal7,
+                                           LPXLFOPER inVal8,
+                                           LPXLFOPER inVal9,
+                                           LPXLFOPER inVal10,
+                                           LPXLFOPER inVal11,
+                                           LPXLFOPER inVal12,
+                                           LPXLFOPER inVal13,
+                                           LPXLFOPER inVal14,
+                                           LPXLFOPER inVal15,
+                                           LPXLFOPER inVal16,
+                                           LPXLFOPER inVal17,
+                                           LPXLFOPER inVal18,
+                                           LPXLFOPER inVal19,
+                                           LPXLFOPER inVal20,
+                                           LPXLFOPER inVal21,
+                                           LPXLFOPER inVal22,
+                                           LPXLFOPER inVal23,
+                                           LPXLFOPER inVal24,
+                                           LPXLFOPER inVal25,
+                                           LPXLFOPER inVal26,
+                                           LPXLFOPER inVal27,
+                                           LPXLFOPER inVal28,
+                                           LPXLFOPER inVal29,
+                                           LPXLFOPER inVal30,
+                                           LPXLFOPER inVal31,
+                                           LPXLFOPER inVal32,
+                                           LPXLFOPER inVal33,
+                                           LPXLFOPER inVal34,
+                                           LPXLFOPER inVal35,
+                                           LPXLFOPER inVal36,
+                                           LPXLFOPER inVal37,
+                                           LPXLFOPER inVal38,
+                                           LPXLFOPER inVal39,
+                                           LPXLFOPER inVal40,
+                                           LPXLFOPER inVal41,
+                                           LPXLFOPER inVal42,
+                                           LPXLFOPER inVal43,
+                                           LPXLFOPER inVal44,
+                                           LPXLFOPER inVal45,
+                                           LPXLFOPER inVal46,
+                                           LPXLFOPER inVal47,
+                                           LPXLFOPER inVal48,
+                                           LPXLFOPER inVal49,
+                                           LPXLFOPER inVal50) {
+        EXCEL_BEGIN;
+        XlfOper xlVal1(inVal1);
+        XlfOper xlVal2(inVal2);
+        XlfOper xlVal3(inVal3);
+        XlfOper xlVal4(inVal4);
+        XlfOper xlVal5(inVal5);
+        XlfOper xlVal6(inVal6);
+        XlfOper xlVal7(inVal7);
+        XlfOper xlVal8(inVal8);
+        XlfOper xlVal9(inVal9);
+        XlfOper xlVal10(inVal10);
+        XlfOper xlVal11(inVal11);
+        XlfOper xlVal12(inVal12);
+        XlfOper xlVal13(inVal13);
+        XlfOper xlVal14(inVal14);
+        XlfOper xlVal15(inVal15);
+        XlfOper xlVal16(inVal16);
+        XlfOper xlVal17(inVal17);
+        XlfOper xlVal18(inVal18);
+        XlfOper xlVal19(inVal19);
+        XlfOper xlVal20(inVal20);
+        XlfOper xlVal21(inVal21);
+        XlfOper xlVal22(inVal22);
+        XlfOper xlVal23(inVal23);
+        XlfOper xlVal24(inVal24);
+        XlfOper xlVal25(inVal25);
+        XlfOper xlVal26(inVal26);
+        XlfOper xlVal27(inVal27);
+        XlfOper xlVal28(inVal28);
+        XlfOper xlVal29(inVal29);
+        XlfOper xlVal30(inVal30);
+        XlfOper xlVal31(inVal31);
+        XlfOper xlVal32(inVal32);
+        XlfOper xlVal33(inVal33);
+        XlfOper xlVal34(inVal34);
+        XlfOper xlVal35(inVal35);
+        XlfOper xlVal36(inVal36);
+        XlfOper xlVal37(inVal37);
+        XlfOper xlVal38(inVal38);
+        XlfOper xlVal39(inVal39);
+        XlfOper xlVal40(inVal40);
+        XlfOper xlVal41(inVal41);
+        XlfOper xlVal42(inVal42);
+        XlfOper xlVal43(inVal43);
+        XlfOper xlVal44(inVal44);
+        XlfOper xlVal45(inVal45);
+        XlfOper xlVal46(inVal46);
+        XlfOper xlVal47(inVal47);
+        XlfOper xlVal48(inVal48);
+        XlfOper xlVal49(inVal49);
+        XlfOper xlVal50(inVal50);
+
+        // Converts the 2 strings.
+        double result = xlVal1.AsDouble();
+
+        return XlfOper(result);
+        EXCEL_END;
+    }
 }
 
 namespace 
@@ -232,4 +341,66 @@ namespace
         "xlNbCalls", "NbCalls", "Return the number of times the function "
         "has been calculated since the xll was loaded (volatile)",
         "xlw Example", 0, 0, true);
+
+    // Register the function xlManyArguments.
+    // note that the parameter names are deliberately long to
+    // trigger the code that truncates the argument list string
+    // and prevents the forumla wizard from working properly
+    XLRegistration::Arg ManyArgumentsArgs[] = {
+        { "numbervalue1", "A parameter", "XLF_OPER" },
+        { "numbervalue2", "A parameter", "XLF_OPER" },
+        { "numbervalue3", "A parameter", "XLF_OPER" },
+        { "numbervalue4", "A parameter", "XLF_OPER" },
+        { "numbervalue5", "A parameter", "XLF_OPER" },
+        { "numbervalue6", "A parameter", "XLF_OPER" },
+        { "numbervalue7", "A parameter", "XLF_OPER" },
+        { "numbervalue8", "A parameter", "XLF_OPER" },
+        { "numbervalue9", "A parameter", "XLF_OPER" },
+        { "numbervalue10", "A parameter", "XLF_OPER" },
+        { "numbervalue11", "A parameter", "XLF_OPER" },
+        { "numbervalue12", "A parameter", "XLF_OPER" },
+        { "numbervalue13", "A parameter", "XLF_OPER" },
+        { "numbervalue14", "A parameter", "XLF_OPER" },
+        { "numbervalue15", "A parameter", "XLF_OPER" },
+        { "numbervalue16", "A parameter", "XLF_OPER" },
+        { "numbervalue17", "A parameter", "XLF_OPER" },
+        { "numbervalue18", "A parameter", "XLF_OPER" },
+        { "numbervalue19", "A parameter", "XLF_OPER" },
+        { "numbervalue20", "A parameter", "XLF_OPER" },
+        { "numbervalue21", "A parameter", "XLF_OPER" },
+        { "numbervalue22", "A parameter", "XLF_OPER" },
+        { "numbervalue23", "A parameter", "XLF_OPER" },
+        { "numbervalue24", "A parameter", "XLF_OPER" },
+        { "numbervalue25", "A parameter", "XLF_OPER" },
+        { "numbervalue26", "A parameter", "XLF_OPER" },
+        { "numbervalue27", "A parameter", "XLF_OPER" },
+        { "numbervalue28", "A parameter", "XLF_OPER" },
+        { "numbervalue29", "A parameter", "XLF_OPER" },
+        { "numbervalue30", "A parameter", "XLF_OPER" },
+        { "numbervalue31", "A parameter", "XLF_OPER" },
+        { "numbervalue32", "A parameter", "XLF_OPER" },
+        { "numbervalue33", "A parameter", "XLF_OPER" },
+        { "numbervalue34", "A parameter", "XLF_OPER" },
+        { "numbervalue35", "A parameter", "XLF_OPER" },
+        { "numbervalue36", "A parameter", "XLF_OPER" },
+        { "numbervalue37", "A parameter", "XLF_OPER" },
+        { "numbervalue38", "A parameter", "XLF_OPER" },
+        { "numbervalue39", "A parameter", "XLF_OPER" },
+        { "numbervalue40", "A parameter", "XLF_OPER" },
+        { "numbervalue41", "A parameter", "XLF_OPER" },
+        { "numbervalue42", "A parameter", "XLF_OPER" },
+        { "numbervalue43", "A parameter", "XLF_OPER" },
+        { "numbervalue44", "A parameter", "XLF_OPER" },
+        { "numbervalue45", "A parameter", "XLF_OPER" },
+        { "numbervalue46", "A parameter", "XLF_OPER" },
+        { "numbervalue47", "A parameter", "XLF_OPER" },
+        { "numbervalue48", "A parameter", "XLF_OPER" },
+        { "numbervalue49", "A parameter", "XLF_OPER" },
+        { "numbervalue50", "A parameter", "XLF_OPER" },
+    };
+
+    XLRegistration::XLFunctionRegistrationHelper registerManyArguments(
+        "xlManyArguments", "ManyArguments", "Uses 50 arguments and breaks function wizard",
+        "xlw Example", ManyArgumentsArgs, 50);
+
 }
