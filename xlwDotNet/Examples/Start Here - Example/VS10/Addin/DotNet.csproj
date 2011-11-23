@@ -70,16 +70,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisLogFile>..\Debug\Example.NET.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
-    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>..\x64_Release\</OutputPath>
@@ -89,16 +80,7 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisLogFile>..\Release\Example.NET.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
-    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -114,8 +96,6 @@
     <Compile Include="..\..\common_source\Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\common_source\CSharpFunctions.cs" />
     <Compile Include="..\..\common_source\Historic.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\common_source\Example.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -144,8 +124,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if $(PlatformName) == x64 "$(MSBuildBinPath)\msbuild.exe"  /p:Configuration=$(Configuration) /p:Platform=x64  $(SolutionDir)Addin\$(SolutionName).sln"
-if $(PlatformName) == x86 "$(MSBuildBinPath)\msbuild.exe"  /p:Configuration=$(Configuration) /p:Platform=Win32  $(SolutionDir)Addin\$(SolutionName).sln"</PostBuildEvent>
+    <PostBuildEvent>if $(PlatformName) == x64 "$(MSBuildBinPath)\msbuild.exe"  /p:Configuration=$(Configuration) /p:Platform=x64  "$(SolutionDir)Addin\$(SolutionName).sln"
+if $(PlatformName) == x86 "$(MSBuildBinPath)\msbuild.exe"  /p:Configuration=$(Configuration) /p:Platform=Win32  "$(SolutionDir)Addin\$(SolutionName).sln"</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>

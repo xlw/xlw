@@ -94,7 +94,7 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\xlw\include;..\..\..\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XLW)/xlw/include;$(XLW)\xlwDotNet/xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;EXAMPLEXLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -103,12 +103,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>../../../lib/xlwDotNet-vc100-mt-gd-5_0_0a3.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc100-mt-gd-5_0_0a3.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a3.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\xlw\lib;..\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(XLW)/xlw/lib;../$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -124,7 +124,7 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\xlw\include;..\..\..\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XLW)/xlw/include;$(XLW)\xlwDotNet/xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;EXAMPLEXLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -133,12 +133,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>../../../lib/x64/xlwDotNet-vc100-mt-gd-5_0_0a3.dll;%(ForcedUsingFiles);$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc100-mt-gd-5_0_0a3.dll;%(ForcedUsingFiles);$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a3.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\xlw\lib\x64;..\$(PlatformName)_$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(XLW)/xlw/lib\x64;..\$(PlatformName)_$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -150,7 +150,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\..\xlw/include;..\..\..\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XLW)/xlw/include;$(XLW)\xlwDotNet/xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEXLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -158,12 +158,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>../../../lib/xlwDotNet-vc100-mt-5_0_0a3.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc100-mt-5_0_0a3.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>xlw-vc100-mt-5_0_0a3.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\xlw\lib;..\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(XLW)/xlw/lib;..\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -177,7 +177,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\..\xlw/include;..\..\..\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XLW)/xlw/include;$(XLW)\xlwDotNet/xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEXLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -185,12 +185,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>../../../lib/x64/xlwDotNet-vc100-mt-5_0_0a3.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc100-mt-5_0_0a3.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>xlw-vc100-mt-5_0_0a3.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\xlw\lib\x64;..\$(PlatformName)_$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(XLW)/xlw/lib\x64;..\$(PlatformName)_$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>

@@ -24,9 +24,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f ..\..\..\vc_common\RunInterfaceGenerator.nmake ENVIRON=Debug  LibraryName=$(SolutionName)  SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 ALL"
-				ReBuildCommandLine="NMAKE /f ..\..\..\vc_common\RunInterfaceGenerator.nmake ENVIRON=Debug   LibraryName=$(SolutionName)    SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 REBUILD "
-				CleanCommandLine="NMAKE /f  ..\..\..\vc_common\RunInterfaceGenerator.nmake ENVIRON=Debug   LibraryName=$(SolutionName)   SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 CLEAN "
+				BuildCommandLine="NMAKE /f &quot;$(XLW)\xlwDotNet\vc_common\RunInterfaceGenerator.nmake&quot; ENVIRON=Debug  LibraryName=$(SolutionName)  SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 ALL"
+				ReBuildCommandLine="NMAKE /f &quot;$(XLW)\xlwDotNet\vc_common\RunInterfaceGenerator.nmake&quot; ENVIRON=Debug   LibraryName=$(SolutionName)    SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 REBUILD "
+				CleanCommandLine="NMAKE /f  &quot;$(XLW)\xlwDotNet\vc_common\RunInterfaceGenerator.nmake&quot; ENVIRON=Debug   LibraryName=$(SolutionName)   SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 CLEAN "
 				Output=""
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				IncludeSearchPath=""
@@ -44,9 +44,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="NMAKE /f ..\..\..\vc_common\RunInterfaceGenerator.nmake ENVIRON=Release   LibraryName=$(SolutionName)    SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 ALL"
-				ReBuildCommandLine="NMAKE /f ..\..\..\vc_common\RunInterfaceGenerator.nmake ENVIRON=Release   LibraryName=$(SolutionName)   SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 REBUILD "
-				CleanCommandLine="NMAKE /f ..\..\..\vc_common\RunInterfaceGenerator.nmake  ENVIRON=Release   LibraryName=$(SolutionName)   SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 CLEAN "
+				BuildCommandLine="NMAKE /f &quot;$(XLW)\xlwDotNet\vc_common\RunInterfaceGenerator.nmake&quot; ENVIRON=Release   LibraryName=$(SolutionName)    SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 ALL"
+				ReBuildCommandLine="NMAKE /f &quot;$(XLW)\xlwDotNet\vc_common\RunInterfaceGenerator.nmake&quot; ENVIRON=Release   LibraryName=$(SolutionName)   SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 REBUILD "
+				CleanCommandLine="NMAKE /f &quot;$(XLW)\xlwDotNet\vc_common\RunInterfaceGenerator.nmake&quot;  ENVIRON=Release   LibraryName=$(SolutionName)   SolutionDir=&quot;$(SolutionDir)../&quot; VCVERSION=vc9 CLEAN "
 				Output=""
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				IncludeSearchPath=""

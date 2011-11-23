@@ -69,7 +69,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="xlwDotNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e6c495227a9be340, processorArchitecture=x86">
-      <HintPath>..\..\..\lib\$(dir64)xlwDotNet-vc80-mt$(gdconfig)-$(xlwversion).dll</HintPath>
+      <HintPath>$(XLW)\xlwDotNet\lib\$(dir64)xlwDotNet-vc80-mt$(gdconfig)-$(xlwversion).dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
