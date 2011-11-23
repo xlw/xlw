@@ -23,7 +23,7 @@ destinationPaths = ['../xlw/examples',
 					'../xlw/usercontrib',
 					'../xlwDotNet/UserContrib',
 					'../xlwDotNet/Template_Projects',
-					'../xlwDotNet/Example'
+					'../xlwDotNet/Examples'
 				   ]
 
 effectedFiles = ['.vcproj','.vcxproj','.mak','.cbp']
