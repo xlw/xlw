@@ -753,6 +753,7 @@ SubSection "xlwDotNet" xlwDotNet
 	
 		!insertmacro xlwDotNetReadMes
 		!insertmacro doDotNetExample "xlwDotNet\Examples\Start Here - Example" 
+		!insertmacro doDotNetExample "xlwDotNet\Examples\TypeRegister" 
 		!insertmacro doDotNetExample "xlwDotNet\Examples\VisualBasic" 
 		!insertmacro doDotNetExample "xlwDotNet\UserContrib\NonPassive"
 		!insertmacro doDotNetExample "xlwDotNet\UserContrib\Python"

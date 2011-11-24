@@ -24,7 +24,7 @@ destinationPaths = [
                     '../xlwDotNet/Build/VS10/DotNetInterfaceGenerator',
                     '../xlwDotNet/UserContrib',
                     '../xlwDotNet/Template_Projects',
-                    '../xlwDotNet/Example'
+                    '../xlwDotNet/Examples'
                    ]
 
 affectedFiles = ['.vcproj','.vcxproj']
