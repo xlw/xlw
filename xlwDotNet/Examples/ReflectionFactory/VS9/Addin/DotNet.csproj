@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,25 +8,24 @@
     <ProjectGuid>{8679824E-0E59-4620-AFAB-3E201D045BC3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReflectionFactory.NET</RootNamespace>
+    <RootNamespace>$(SolutionName)</RootNamespace>
     <AssemblyName>$(SolutionName).NET</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\common_source\KeyFile.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <FileUpgradeFlags />
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <TargetFrameworkProfile />
-    <xlwversion>5_0_0a3</xlwversion>
-    <gdconfig />
-    <dir64 />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
+    <xlwversion>5_0_0a3</xlwversion>
     <gdconfig>-gd</gdconfig>
+    <dir64>
+    </dir64>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -37,6 +36,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
+    <xlwversion>5_0_0a3</xlwversion>
+    <gdconfig>
+    </gdconfig>
+    <dir64>
+    </dir64>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Release\</OutputPath>
@@ -45,6 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <xlwversion>5_0_0a3</xlwversion>
     <gdconfig>-gd</gdconfig>
     <dir64>x64/</dir64>
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +60,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <xlwversion>5_0_0a3</xlwversion>
+    <gdconfig>
+    </gdconfig>
     <dir64>x64/</dir64>
     <OutputPath>..\x64_Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -69,7 +77,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="xlwDotNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e6c495227a9be340, processorArchitecture=x86">
-      <HintPath>$(XLW)\xlwDotNet\lib\$(dir64)xlwDotNet-vc100-mt$(gdconfig)-$(xlwversion).dll</HintPath>
+      <HintPath>$(XLW)\xlwDotNet\lib\$(dir64)xlwDotNet-vc90-mt$(gdconfig)-$(xlwversion).dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
@@ -84,19 +92,21 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReflectionFactory\ReflectionFactory.csproj">
-      <Project>{1F22E424-00C6-4B11-A2D9-1C071E633528}</Project>
+      <Project>{1475D07F-A26D-40BA-A402-BB5818A1AE77}</Project>
       <Name>ReflectionFactory</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild" />
-  <Target Name="AfterBuild" />
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if $(PlatformName) == x64 "$(MSBuildBinPath)\msbuild.exe"  /p:Configuration=$(Configuration) /p:Platform=x64  "$(SolutionDir)Addin\$(SolutionName).sln"
-if $(PlatformName) == x86 "$(MSBuildBinPath)\msbuild.exe"  /p:Configuration=$(Configuration) /p:Platform=Win32 "$(SolutionDir)Addin\$(SolutionName).sln"</PostBuildEvent>
+    <PostBuildEvent>if $(PlatformName) == x64 "$(DevEnvDir)..\..\VC\vcpackages\vcbuild"  "$(SolutionDir)Addin\$(SolutionName).sln"    "$(Configuration)|x64"
+if $(PlatformName) == x86 "$(DevEnvDir)..\..\VC\vcpackages\vcbuild"  "$(SolutionDir)Addin\$(SolutionName).sln"    "$(Configuration)|Win32"</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>

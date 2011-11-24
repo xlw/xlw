@@ -29,9 +29,12 @@ namespace TypeRegDemo
             [Parameter("PayOff")] ArgumentList payOff,
             [Parameter("Point for evaluation")] double spot)
         {
-            Dictionary<String, Object> payOffDictionary = payOff;
-            PayOffBase payOffBase = Factory.GetInstance<PayOffBase>(payOffDictionary);
-
+            PayOffBase payOffBase = Factory.GetInstance<PayOffBase>(payOff);
+            // Note: In the above line there is an implicit conversion of payOff
+            // from type ArgumentList to type Dictionary<String, Object>.
+            // We could write this conversion explicitly in two steps:
+            // Dictionary<String, Object> payOffDictionary = payOff;
+            // PayOffBase payOffBase = Factory.GetInstance<PayOffBase>(payOffDictionary);
             return payOffBase.Payoff(spot);
         }
 
