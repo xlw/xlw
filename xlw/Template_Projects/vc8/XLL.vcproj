@@ -78,7 +78,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0a3.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0a4.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -174,7 +174,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0a3.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0a4.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -271,7 +271,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-5_0_0a3.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc80-mt-5_0_0a4.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -367,7 +367,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-5_0_0a3.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc80-mt-5_0_0a4.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"

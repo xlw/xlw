@@ -103,10 +103,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc100-mt-gd-5_0_0a3.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc100-mt-gd-5_0_0a4.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a3.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a4.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib;../$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>
@@ -133,10 +133,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc100-mt-gd-5_0_0a3.dll;%(ForcedUsingFiles);$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc100-mt-gd-5_0_0a4.dll;%(ForcedUsingFiles);$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a3.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a4.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib\x64;..\$(PlatformName)_$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>
@@ -158,10 +158,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc100-mt-5_0_0a3.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc100-mt-5_0_0a4.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc100-mt-5_0_0a3.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc100-mt-5_0_0a4.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib;..\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>
@@ -185,10 +185,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc100-mt-5_0_0a3.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc100-mt-5_0_0a4.dll;$(OutDir)$(SolutionName).NET.dll</ForcedUsingFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc100-mt-5_0_0a3.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc100-mt-5_0_0a4.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib\x64;..\$(PlatformName)_$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>
