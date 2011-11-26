@@ -57,15 +57,15 @@
 						SubSystem="2"
 						ModuleDefinitionFile=""
 						OutputFile="$(OutDir)\xlwDotNet-vc90-mt-gd-$(ProjectName).dll"
-						CLRUnmanagedCodeCheck="false"
-						AdditionalLibraryDirectories="../../../../xlw/lib"
 						LinkIncremental="2"
 						GenerateDebugInformation="true"
-						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
+						AssemblyDebug="1"
+						AdditionalLibraryDirectories="../../../../xlw/lib"
 						TargetMachine="1"
 						Version="0.0.0.0"
-						AssemblyDebug="1"
-						AdditionalDependencies="xlw-vc90-mt-gd-$(ProjectName).lib"/>
+						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
+						AdditionalDependencies="xlw-vc90-mt-gd-$(ProjectName).lib"
+						CLRUnmanagedCodeCheck="false"/>
 				<Tool
 						Name="VCALinkTool"/>
 				<Tool
@@ -123,7 +123,6 @@
 						SubSystem="2"
 						ModuleDefinitionFile=""
 						OutputFile="$(OutDir)\xlwDotNet-vc90-mt-$(ProjectName).dll"
-						AdditionalLibraryDirectories="../../../../xlw/lib"
 						LinkIncremental="1"
 						GenerateDebugInformation="false"
 						TargetMachine="1"
@@ -131,7 +130,8 @@
 						EnableCOMDATFolding="2"
 						Version="1.0.0.0"
 						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
-						AdditionalDependencies="xlw-vc90-mt-$(ProjectName).lib"/>
+						AdditionalDependencies="xlw-vc90-mt-$(ProjectName).lib"
+						AdditionalLibraryDirectories="../../../../xlw/lib"/>
 				<Tool
 						Name="VCALinkTool"/>
 				<Tool
@@ -191,15 +191,15 @@
 						SubSystem="2"
 						ModuleDefinitionFile=""
 						OutputFile="$(OutDir)\xlwDotNet-vc90-mt-gd-$(ProjectName).dll"
-						AdditionalLibraryDirectories="../../../../xlw/lib/x64"
+						CLRUnmanagedCodeCheck="false"
 						LinkIncremental="2"
 						GenerateDebugInformation="true"
-						AssemblyDebug="1"
+						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
 						TargetMachine="17"
 						Version="0.0.0.0"
+						AssemblyDebug="1"
 						AdditionalDependencies="xlw-vc90-mt-gd-$(ProjectName).lib"
-						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
-						CLRUnmanagedCodeCheck="false"/>
+						AdditionalLibraryDirectories="../../../../xlw/lib/x64"/>
 				<Tool
 						Name="VCALinkTool"/>
 				<Tool
