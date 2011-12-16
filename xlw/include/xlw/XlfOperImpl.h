@@ -544,7 +544,7 @@ namespace xlw { namespace impl {
             }
         }
 
-        XlfRef AsRef(const char* ErrorId = 0)
+        XlfRef AsRef(const char* ErrorId = 0) const
         {
             XlTypeType type(OperProps::getXlType(lpxloper_) & 0xFFF);
             if(type == xltypeRef)
@@ -853,7 +853,7 @@ namespace xlw { namespace impl {
             return result;
         }
 
-        MyMatrix AsMatrix(const char* ErrorId = 0)
+        MyMatrix AsMatrix(const char* ErrorId = 0) const
         {
             MultiRowType nbRows(OperProps::getRows(lpxloper_));
             MultiColType nbCols(OperProps::getCols(lpxloper_));
@@ -869,7 +869,7 @@ namespace xlw { namespace impl {
             return result;
         }
 
-        CellMatrix AsCellMatrix(const char* ErrorId = 0)
+        CellMatrix AsCellMatrix(const char* ErrorId = 0) const
         {
             if(IsMissing() || IsNil())
             {
