@@ -40,6 +40,9 @@ namespace xlw { namespace impl {
         }
         static double getDouble(LPXLFOPER oper)
         {
+            // optimization: since the position of the double value is always in
+            // the same place we can avoid a level of indirection for this operation
+            // confirmed working across all bitnesses and compilers
             return oper->oper4.val.num;
         }
         static void setDouble(LPXLFOPER oper, double newValue)
