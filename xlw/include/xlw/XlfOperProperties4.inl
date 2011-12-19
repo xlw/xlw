@@ -294,7 +294,7 @@ namespace xlw { namespace impl {
                     toOper->val.array.lparray = TempMemory::GetMemory<XLOPER>(fromOper->val.array.rows * fromOper->val.array.columns);
                     for(size_t item(0) ; item < (size_t)(fromOper->val.array.rows * fromOper->val.array.columns); ++item)
                     {
-                        copy(toOper->val.array.lparray + item, toOper->val.array.lparray + item);
+                        copy(fromOper->val.array.lparray + item, toOper->val.array.lparray + item);
                     }
                     toOper->val.array.rows = fromOper->val.array.rows;
                     toOper->val.array.columns = fromOper->val.array.columns;
