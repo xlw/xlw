@@ -90,25 +90,23 @@
 	   untgz::extract  -d "$INSTDIR\MinGW" "$INSTDIR\Download\$Mirror\${DLFile}"
 !macroend
 
-!macro Download DLFile DLDir
-	 NSISdl::download "http://downloads.sourceforge.net/project/mingw/${DLDir}/${DLFile}?use_mirror=$Mirror" "$INSTDIR\Download\$Mirror\${DLFile}"
-	 DetailPrint "Downloading ${DLFile}"
-     Pop $R0 ;Get the return value
-       StrCmp $R0 "success" +3
-       MessageBox MB_OK "Download failed: $R0"
-       Quit
-
-!macroend 
-
 
 	Var Dialog
 	Var Label
 	Var DropList
 	Var Mirror
-	
-	
-	
-	
+
+
+!macro Download DLFile DLDir
+	 NSISdl::download "http://sourceforge.net/projects/mingw/files/${DLDir}/${DLFile}/download?use_mirror=$Mirror" "$INSTDIR\Download\$Mirror\${DLFile}"
+	 DetailPrint "Downloading $Mirror"
+     Pop $R0 ;Get the return value
+       StrCmp $R0 "success" +3
+       MessageBox MB_OK "Download of http://sourceforge.net/projects/mingw/files/${DLDir}/${DLFile}/download?use_mirror=$Mirror failed: $R0"
+       Quit
+
+!macroend 	
+
 	
 Function GetMirror
 
