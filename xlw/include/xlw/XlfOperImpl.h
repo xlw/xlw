@@ -107,6 +107,14 @@ namespace xlw { namespace impl {
 
     public:
 
+        //! \name Array settor
+        //@{
+        /// Set the underlying XLOPER from a forward iterator.
+        ///
+        /// The iterator must point to a value that can be set
+        /// using an equality operator, that is one of
+        /// XlfOper LPXLFOPER, double, int, bool, char* wchar_t*
+        /// std::string std::wstring
         template <class FwdIt>
         void Set(RW rows, COL cols, FwdIt start)
         {
@@ -117,11 +125,13 @@ namespace xlw { namespace impl {
             {
                 for(MultiRowType col(0); col < actualcols; ++col)
                 {
-                    OperProps::setDouble(OperProps::getElement(lpxloper_, row, col), *start++);
+                    XlfOper<LPOPER_TYPE> cellToSet(OperProps::getElement(lpxloper_, row, col));
+                    cellToSet = *start++;
                 }
                 start += (cols - actualcols);
             }
         }
+        //@}
 
         //! \name Structors and static members
         //@{
@@ -1011,6 +1021,13 @@ namespace xlw { namespace impl {
         XlfOper<LPOPER_TYPE>& operator=(const XlfOper<LPOPER_TYPE>& rhs)
         {
             OperProps::copy(rhs.lpxloper_, lpxloper_);
+            return *this;
+        }
+
+        //! equals operator from a pointer to the same type
+        XlfOper<LPOPER_TYPE>& operator=(const LPOPER_TYPE rhs)
+        {
+            OperProps::copy(rhs, lpxloper_);
             return *this;
         }
 
