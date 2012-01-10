@@ -494,9 +494,9 @@ namespace xlw { namespace impl {
                 break;
 
             default:
+                THROW_XLW("Wrong type for element by element access ");
                 break;
             }
-            THROW_XLW("Wrong type for element by element access ");
         }
         //@}
 
