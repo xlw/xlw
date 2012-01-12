@@ -558,6 +558,7 @@ SubSection "xlw" xlw
 		!insertmacro doExample "xlw\examples\Handwritten" 1 1
 		!insertmacro doExample "xlw\examples\MJ - Design Patterns" 1 1
 		!insertmacro doExample "xlw\examples\LoggerDemo" 1 1
+		!insertmacro doExample "xlw\examples\Typeregister" 1 1
 		!insertmacro doExample "xlw\examples\C++CLR" 0 0
 		!insertmacro doExample "xlw\examples\C++CLR_password" 0 0
 		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlw\Examples.lnk" "$INSTDIR\xlw\Examples"
