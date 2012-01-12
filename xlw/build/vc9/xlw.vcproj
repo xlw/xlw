@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 	<VisualStudioProject
-			Name="5_0_0a4"
+			Name="5_0_0a5"
 			RootNamespace="xlw"
 			ProjectType="Visual C++"
 			TargetFrameworkVersion="131072"
@@ -16,9 +16,9 @@
 		<Configurations>
 			<Configuration
 					Name="Debug|Win32"
-					OutputDirectory="..\..\lib\"
+					ConfigurationType="4"
 					IntermediateDirectory="$(ConfigurationName)\Objects\$(ProjectName)"
-					ConfigurationType="4">
+					OutputDirectory="..\..\lib\">
 				<Tool
 						Name="VCPreBuildEventTool"/>
 				<Tool
@@ -60,9 +60,9 @@
 			</Configuration>
 			<Configuration
 					Name="Debug|x64"
-					OutputDirectory="..\..\lib\x64"
+					ConfigurationType="4"
 					IntermediateDirectory="$(PlatformName)_$(ConfigurationName)\Objects\$(ProjectName)"
-					ConfigurationType="4">
+					OutputDirectory="..\..\lib\x64">
 				<Tool
 						Name="VCPreBuildEventTool"/>
 				<Tool
@@ -104,9 +104,9 @@
 			</Configuration>
 			<Configuration
 					Name="Release|Win32"
-					OutputDirectory="..\..\lib\"
+					ConfigurationType="4"
 					IntermediateDirectory="$(ConfigurationName)\Objects\$(ProjectName)"
-					ConfigurationType="4">
+					OutputDirectory="..\..\lib\">
 				<Tool
 						Name="VCPreBuildEventTool"/>
 				<Tool
@@ -145,9 +145,9 @@
 			</Configuration>
 			<Configuration
 					Name="Release|x64"
-					OutputDirectory="..\..\lib\x64"
+					ConfigurationType="4"
 					IntermediateDirectory="$(PlatformName)_$(ConfigurationName)\Objects\$(ProjectName)"
-					ConfigurationType="4">
+					OutputDirectory="..\..\lib\x64">
 				<Tool
 						Name="VCPreBuildEventTool"/>
 				<Tool
