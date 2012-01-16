@@ -57,13 +57,11 @@ namespace {
 } catch (const char* theError){\
     throw(theError); \
 } catch (System::Exception^ theError ) { \
-    String^ ErrorType = theError->GetType()->ToString() + " : ";\
-        String^ ErrorMessage = theError->Message;\
-        String^ StackTrace = theError->StackTrace;\
-        xlw::ArgumentList theArg = xlw::ArgumentList((const char*)(Marshal::StringToHGlobalAnsi(ErrorType).ToPointer()));\
-        theArg.add("ErrorMessage",std::string((const char*)(Marshal::StringToHGlobalAnsi(ErrorMessage).ToPointer())));\
-        theArg.add("StackTrace",std::string((const char*)(Marshal::StringToHGlobalAnsi(StackTrace).ToPointer())));\
-        errCells = theArg.AllData();\
+    String^ ErrorType = theError->GetType()->ToString() + " : " + theError->Message ;\
+    String^ StackTrace = theError->StackTrace;\
+    xlw::ArgumentList theArg = xlw::ArgumentList((const char*)(Marshal::StringToHGlobalAnsi(ErrorType).ToPointer()));\
+    theArg.add("StackTrace",std::string((const char*)(Marshal::StringToHGlobalAnsi(StackTrace).ToPointer())));\
+    errCells = theArg.AllData();\
     throw(errCells);\
 }
 
