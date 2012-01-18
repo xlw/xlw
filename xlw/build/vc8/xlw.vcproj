@@ -30,7 +30,7 @@
 						Name="VCMIDLTool"/>
 				<Tool
 						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE"
+						PreprocessorDefinitions="WIN32, _DEBUG, _LIB, _CRT_SECURE_NO_DEPRECATE"
 						AdditionalIncludeDirectories="..\..\include"
 						DebugInformationFormat="3"
 						ProgramDataBaseFileName="$(TargetDir)\$(TargetName).pdb"
@@ -76,7 +76,7 @@
 						TargetEnvironment="3"/>
 				<Tool
 						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE"
+						PreprocessorDefinitions="WIN32, _DEBUG, _LIB, _CRT_SECURE_NO_DEPRECATE"
 						AdditionalIncludeDirectories="..\..\include"
 						DebugInformationFormat="3"
 						ProgramDataBaseFileName="$(TargetDir)\$(TargetName).pdb"
@@ -121,7 +121,7 @@
 						Name="VCMIDLTool"/>
 				<Tool
 						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="NDEBUG, _CRT_SECURE_NO_DEPRECATE"
+						PreprocessorDefinitions="WIN32, NDEBUG, _LIB, _CRT_SECURE_NO_DEPRECATE"
 						RuntimeLibrary="2"
 						WarningLevel="3"
 						AdditionalIncludeDirectories="..\..\include"/>
@@ -163,7 +163,7 @@
 						TargetEnvironment="3"/>
 				<Tool
 						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="NDEBUG, _CRT_SECURE_NO_DEPRECATE"
+						PreprocessorDefinitions="WIN32, NDEBUG, _LIB, _CRT_SECURE_NO_DEPRECATE"
 						RuntimeLibrary="2"
 						WarningLevel="3"
 						AdditionalIncludeDirectories="..\..\include"/>
