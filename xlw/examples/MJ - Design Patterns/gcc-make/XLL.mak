@@ -11,9 +11,9 @@ else
 LIBDIRS = ../../../lib
 endif
 ifeq ($(BUILD),DEBUG)
-LIBS=xlw-gcc-s-gd-5_0_0a5
+LIBS=xlw-gcc-s-gd-5_0_0a6
 else
-LIBS=xlw-gcc-s-5_0_0a5
+LIBS=xlw-gcc-s-5_0_0a6
 endif 
 
 #Describes the Compiler details

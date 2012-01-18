@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 	<VisualStudioProject
-			Name="5_0_0a5"
+			Name="5_0_0a6"
 			RootNamespace="xlwDotNet"
 			ProjectType="Visual C++"
 			Keyword="Win32Proj"
@@ -55,15 +55,15 @@
 						SubSystem="2"
 						ModuleDefinitionFile=""
 						OutputFile="$(OutDir)\xlwDotNet-vc80-mt-gd-$(ProjectName).dll"
-						CLRUnmanagedCodeCheck="false"
 						LinkIncremental="2"
 						GenerateDebugInformation="true"
-						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
+						AssemblyDebug="1"
+						AdditionalLibraryDirectories="../../../../xlw/lib"
 						TargetMachine="1"
 						Version="0.0.0.0"
-						AssemblyDebug="1"
+						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
 						AdditionalDependencies="xlw-vc80-mt-gd-$(ProjectName).lib odbc32.lib odbccp32.lib User32.lib"
-						AdditionalLibraryDirectories="../../../../xlw/lib"/>
+						CLRUnmanagedCodeCheck="false"/>
 				<Tool
 						Name="VCALinkTool"/>
 				<Tool
@@ -192,15 +192,15 @@
 						SubSystem="2"
 						ModuleDefinitionFile=""
 						OutputFile="$(OutDir)\xlwDotNet-vc80-mt-gd-$(ProjectName).dll"
-						CLRUnmanagedCodeCheck="false"
 						LinkIncremental="2"
 						GenerateDebugInformation="true"
-						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
+						AssemblyDebug="1"
+						AdditionalLibraryDirectories="../../../../xlw/lib/x64"
 						TargetMachine="17"
 						Version="0.0.0.0"
-						AssemblyDebug="1"
+						KeyFile="../../../xlwDotNet/xlwDotNet.snk"
 						AdditionalDependencies="xlw-vc80-mt-gd-$(ProjectName).lib odbc32.lib odbccp32.lib User32.lib"
-						AdditionalLibraryDirectories="../../../../xlw/lib/x64"/>
+						CLRUnmanagedCodeCheck="false"/>
 				<Tool
 						Name="VCALinkTool"/>
 				<Tool

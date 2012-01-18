@@ -20,7 +20,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
-    <xlwversion>5_0_0a5</xlwversion>
+    <xlwversion>5_0_0a6</xlwversion>
     <gdconfig />
     <dir64 />
   </PropertyGroup>
