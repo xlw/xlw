@@ -6,7 +6,7 @@
 \section inst_download Download and Installation
 
 Get the source code installer from the
-<a href="http://sourceforge.net/projects/xlw/files/xlw/xlw%205DEV/" target="_blank">downloads page</a>.
+<a href="http://sourceforge.net/projects/xlw/files/xlw/xlw%205.0/" target="_blank">downloads page</a>.
 Run the installer to uncompress XLW to your hard drive.  The installation
 includes source code, documentation and examples.
 
