@@ -27,8 +27,8 @@
 
 // attempt to detect situation where user is using VS 2008
 // and doesn't have TR1 headers, this will cause crashes
-// anytime shared pointers are allocated in user code
-// Problem encountered by Mark Joshi during Version 5 testing
+// anytime shared pointers are allocated in user code.
+// Alert users to problem encountered by Mark Joshi during Version 5 testing
 #if defined(_MSC_VER)
   #if (_MSC_VER >= 1500 && _MSC_VER < 1600)
     #if !defined(_HAS_TR1)
