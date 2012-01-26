@@ -17,8 +17,8 @@ further changes are needed
 
 - Visual Studio .NET 2003 (32 bit only)
 - Visual Studio 2005
-- Visual Studio 2008
-- Visual C++ Express 2008 (32 bit only)
+- Visual Studio 2008 \subpage a02_vs2008 "(SP1 Required)"
+- Visual C++ Express 2008 (32 bit only) \subpage a02_vs2008 "(SP1 Required)"
 - Visual Studio 2010
 - Visual C++ Express 2010 (32 bit with default install, \subpage a03_vce2010 "instructions for 64 bit here)"
 

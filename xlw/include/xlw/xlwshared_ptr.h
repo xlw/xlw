@@ -1,6 +1,6 @@
 /* 
  Copyright (C) 2011 Narinder S Claire
- Copyright (C) 2011 John Adcock
+ Copyright (C) 2011, 2012 John Adcock
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -23,8 +23,19 @@
   #endif
 #endif
 
-
 #include<memory>
+
+// attempt to detect situation where user is using VS 2008
+// and doesn't have TR1 headers, this will cause crashes
+// anytime shared pointers are allocated in user code
+// Problem encountered by Mark Joshi during Version 5 testing
+#if defined(_MSC_VER)
+  #if (_MSC_VER >= 1500 && _MSC_VER < 1600)
+    #if !defined(_HAS_TR1)
+      #error Header mismatch - Correctly installed VS 2008 SP1 required (See the Visual Studio 2008 Installation note in the Xlw help for more details)
+    #endif
+  #endif 
+#endif
 
 // use tr1 version of shared_ptr if we have it
 // MSVC headers define _HAS_TR1
