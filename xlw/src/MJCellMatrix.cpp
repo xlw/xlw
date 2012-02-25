@@ -8,6 +8,7 @@
  Copyright (C) 2007 Tim Brunne
  Copyright (C) 2007, 2008 Eric Ehlers
  Copyright (C) 2009 2011 Narinder S Claire
+ Copyright (C) 2012 John Adcock
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -58,16 +59,12 @@ bool xlw::impl::MJCellValue::IsEmpty() const
 
 xlw::impl::MJCellValue::operator std::string() const
 {
-    if (Type != string)
-        THROW_XLW("non string cell asked to be a string");
-    return *ValueAsString;
+    return StringValue();
 }
 
 xlw::impl::MJCellValue::operator std::wstring() const
 {
-    if (Type != wstring)
-        THROW_XLW("non string cell asked to be a string");
-    return *ValueAsWstring;
+    return WstringValue();
 }
 
 xlw::impl::MJCellValue::operator bool() const
@@ -97,11 +94,11 @@ xlw::impl::MJCellValue::MJCellValue(const MJCellValue & value) : Type(value.Type
 {
 	if(Type==xlw::impl::MJCellValue::string)
 	{
-		ValueAsString = xlw_tr1::shared_ptr<std::string>(new std::string(*value.ValueAsString));
+		ValueAsString.reset(new std::string(*value.ValueAsString));
 	}
 	if(Type==xlw::impl::MJCellValue::wstring)
 	{
-		ValueAsWstring = xlw_tr1::shared_ptr<std::wstring>(new std::wstring(*value.ValueAsWstring));
+		ValueAsWstring.reset(new std::wstring(*value.ValueAsWstring));
 	}
 
 }
@@ -153,8 +150,8 @@ const  std::string & xlw::impl::MJCellValue::StringValue() const
     if (Type == string) {
         return *ValueAsString;
     } else if (Type == wstring) {
-        TempString = std::string(ValueAsWstring->begin(), ValueAsWstring->end());
-        return TempString;
+        ValueAsString.reset(new std::string(ValueAsWstring->begin(), ValueAsWstring->end()));
+        return *ValueAsString;
     } else {
         THROW_XLW("non string cell asked to be a string");
     }
@@ -162,9 +159,14 @@ const  std::string & xlw::impl::MJCellValue::StringValue() const
 
 const std::wstring& xlw::impl::MJCellValue::WstringValue() const
 {
-    if (Type != wstring)
-        THROW_XLW("non wstring cell asked to be a wstring");
-    return *ValueAsWstring;
+    if (Type == wstring) {
+        return *ValueAsWstring;
+    } else if (Type == string) {
+        ValueAsWstring.reset(new std::wstring(ValueAsString->begin(), ValueAsString->end()));
+        return *ValueAsWstring;
+    } else {
+        THROW_XLW("non string cell asked to be a string");
+    }
 }
 
 double xlw::impl::MJCellValue::NumericValue() const

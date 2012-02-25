@@ -44,8 +44,8 @@ namespace xlw {
 			};
 			ValueType Type;
 
-			xlw_tr1::shared_ptr<std::string>  ValueAsString;
-			xlw_tr1::shared_ptr<std::wstring> ValueAsWstring;
+			mutable xlw_tr1::shared_ptr<std::string>  ValueAsString;
+			mutable xlw_tr1::shared_ptr<std::wstring> ValueAsWstring;
 			double ValueAsNumeric;
 			bool ValueAsBool;
 
@@ -139,11 +139,6 @@ namespace xlw {
 				MJCellValue(e.value,true).swap(*this);
 				return *this;
 			}
-
-		private:
-
-			mutable std::string  TempString;
-
 		};
 
 		class MJCellMatrix : public CellMatrix_pimpl_abstract
