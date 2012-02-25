@@ -52,7 +52,11 @@ namespace xlw {
 			unsigned long ValueAsErrorCode;
 
 		public:
+			/// is an ascii string type
 			bool IsAString() const;
+			// is either an ascii or unicode string
+			bool IsString() const;
+			// is a unicode string
 			bool IsAWstring() const;
 			bool IsANumber() const;
 			bool IsBoolean() const;

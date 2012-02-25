@@ -25,6 +25,12 @@
 #include <xlw/XlfException.h>
 #include <algorithm>
 
+
+bool xlw::impl::MJCellValue::IsString() const
+{
+    return (Type == string) || (Type == wstring);
+}
+
 bool xlw::impl::MJCellValue::IsAString() const
 {
     return Type == string;
