@@ -49,5 +49,20 @@ namespace xlwDotNet
             xlw::CellMatrix* resultMatrix(new xlw::CellMatrix(resultOper.AsCellMatrix()));
             return gcnew xlwTypes::CellMatrix((IntPtr)resultMatrix, true);
         }
+
+		static ref class StatusBar
+		{
+		public:
+			static property String^ message
+			{
+			      void set(String ^message)
+				  {
+					  xlw::XlfExcel::Instance();
+					  xlw::XlfOper resultOper;
+					  xlw::XlfServices.StatusBar = CLR2CPP(message);
+				  }
+			}
+
+		};
     };
 }
