@@ -33,14 +33,20 @@ namespace xlw {
 				error_type(unsigned long v_):value(v_){}
 				unsigned long value;
 			};
+			/// is value an ascii string type
 			virtual bool IsAString() const=0;
+			/// is value a unicode string
 			virtual bool IsAWstring() const=0;
+			/// is value either an ascii or unicode string
+			virtual bool IsString() const=0;
 			virtual bool IsANumber() const=0;
 			virtual bool IsBoolean() const=0;
 			virtual bool IsEmpty() const=0;
 			virtual bool IsError() const=0;
 
+			/// should convert wide strings to narrow strings automatically
 			virtual const std::string & StringValue() const=0;
+			/// should convert narrow strings to wide strings automatically
 			virtual const std::wstring& WstringValue() const=0;
 			virtual double NumericValue() const=0;
 			virtual bool BooleanValue() const=0;
