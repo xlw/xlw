@@ -17,6 +17,7 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
 #include"OutputterHelper.h"
+#include <iostream>
 
 void WriteMacrosInitialisation(std::vector<char> &output, 
                               const std::string & policy, 
@@ -139,6 +140,12 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
             {
                 std::string thisLine = "{ \"";
                 thisLine+= functionDescriptions[i].GetArgument(j).GetArgumentName();
+                if(functionDescriptions[i].GetArgument(j).GetArgumentName().length() >= 19)
+                {
+                    std::cerr << "XLW Warning - Argument name \"" << functionDescriptions[i].GetArgument(j).GetArgumentName()
+                                << "\" for function \"" << functionDescriptions[i].GetFunctionName()
+                                << "\" may be too long to fit the in the function wizard" << std::endl;
+                }
                 thisLine+= "\",\"";
                 thisLine+= functionDescriptions[i].GetArgument(j).GetArgumentDescription();
                 thisLine+= " \",\"";
