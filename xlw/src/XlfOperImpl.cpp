@@ -65,6 +65,17 @@ namespace xlw
             THROW_XLW(CombineErrorString("function not cluster safe" , ErrorId, Identifier));
     }
 
+	void XlfOperImpl::MissingOrEmptyError(int xltype, const char* ErrorId, const char* identifier)
+    {
+        if (xltype == xltypeMissing)
+            THROW_XLW(CombineErrorString("parameter is missing" , ErrorId, identifier));
+        if (xltype == xltypeErr)
+            THROW_XLW(CombineErrorString("parameter is error" , ErrorId, identifier));
+        if (xltype == xltypeNil)
+            THROW_XLW(CombineErrorString("parameter is nil" , ErrorId, identifier));
+		ThrowOnError(xlretInvXloper, ErrorId, identifier);
+	}
+
     std::string XlfOperImpl::XlTypeToString(int xlType)
     {
         DWORD type = xlType & 0xFFF;

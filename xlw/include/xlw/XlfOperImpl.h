@@ -57,6 +57,7 @@ namespace xlw {
 
         //! Used to throw informative error messages
         static void ThrowOnError(int, const char* ErrorId = 0, const char* identifier = 0);
+        static void MissingOrEmptyError(int xlType, const char* ErrorId = 0, const char* identifier = 0);
         static std::string XlTypeToString(int xlType);
     };
 }
@@ -533,7 +534,7 @@ namespace xlw { namespace impl {
             case xltypeMissing:
             case xltypeErr:
             case xltypeNil:
-                xlw::XlfOperImpl::ThrowOnError(xlretInvXloper, ErrorId, "Conversion to Double");
+                xlw::XlfOperImpl::MissingOrEmptyError(type, ErrorId, "Conversion to Double");
                 throw XlfNeverGetHere();
                 break;
 
@@ -572,7 +573,7 @@ namespace xlw { namespace impl {
                 }
                 else
                 {
-                    xlw::XlfOperImpl::ThrowOnError(xlret, ErrorId, "Conversion to String");
+                    xlw::XlfOperImpl::ThrowOnError(xlret, ErrorId, "Conversion to Ref");
                     throw XlfNeverGetHere();
                 }
             }
@@ -599,7 +600,7 @@ namespace xlw { namespace impl {
             case xltypeMissing:
             case xltypeErr:
             case xltypeNil:
-                xlw::XlfOperImpl::ThrowOnError(xlretInvXloper, ErrorId, "Conversion to Short");
+                xlw::XlfOperImpl::MissingOrEmptyError(type, ErrorId, "Conversion to Short");
                 throw XlfNeverGetHere();
                 break;
 
@@ -641,7 +642,7 @@ namespace xlw { namespace impl {
             case xltypeMissing:
             case xltypeErr:
             case xltypeNil:
-                xlw::XlfOperImpl::ThrowOnError(xlretInvXloper, ErrorId, "Conversion to Bool");
+                xlw::XlfOperImpl::MissingOrEmptyError(type, ErrorId, "Conversion to Bool");
                 throw XlfNeverGetHere();
                 break;
 
@@ -683,7 +684,7 @@ namespace xlw { namespace impl {
             case xltypeMissing:
             case xltypeErr:
             case xltypeNil:
-                xlw::XlfOperImpl::ThrowOnError(xlretInvXloper, ErrorId, "Conversion to int");
+                xlw::XlfOperImpl::MissingOrEmptyError(type, ErrorId, "Conversion to int");
                 throw XlfNeverGetHere();
                 break;
 
@@ -725,7 +726,7 @@ namespace xlw { namespace impl {
             case xltypeMissing:
             case xltypeErr:
             case xltypeNil:
-                xlw::XlfOperImpl::ThrowOnError(xlretInvXloper, ErrorId, "Conversion to unsigned long");
+                xlw::XlfOperImpl::MissingOrEmptyError(type, ErrorId, "Conversion to unsigned long");
                 throw XlfNeverGetHere();
                 break;
 
