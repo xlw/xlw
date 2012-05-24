@@ -197,6 +197,7 @@ namespace xlw { namespace impl {
                     result->val.sref.ref.rwLast = result->val.sref.ref.rwFirst;
                     result->val.sref.ref.colFirst += column;
                     result->val.sref.ref.colLast = result->val.sref.ref.colFirst;
+                    return result;
                 }
                 break;
 
@@ -212,6 +213,7 @@ namespace xlw { namespace impl {
                     result->val.mref.lpmref->reftbl[0].rwLast = result->val.mref.lpmref->reftbl[0].rwFirst;
                     result->val.mref.lpmref->reftbl[0].colFirst += column;
                     result->val.mref.lpmref->reftbl[0].colLast = result->val.mref.lpmref->reftbl[0].colFirst;
+                    return result;
                 }
                 else
                 {
