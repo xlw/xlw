@@ -227,7 +227,7 @@ namespace xlw { namespace impl {
                     }
                     else
                     {
-                        OperProps::setXlType(elementOper, xltypeNil);
+                        OperProps::setString(elementOper, "");
                     }
                 }
             }
