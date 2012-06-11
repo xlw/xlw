@@ -62,6 +62,7 @@ namespace xlw {
 			CellValue & operator=(const std::string &value){return assign(value);}
 			CellValue & operator=(const char * value){return assign(std::string(value));}
 			CellValue & operator=(const std::wstring &value){return assign(value);}
+			CellValue & operator=(const wchar_t * value){return assign(std::wstring(value));}
 			CellValue & operator=(double value){return assign(value);}
 			CellValue & operator=(unsigned long  value){return assign(value);}
 			CellValue & operator=(bool value){return assign(value);}
