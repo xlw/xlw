@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2008 2009  Narinder S Claire
+ Copyright (C) 2008 2009 2012 Narinder S Claire
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -44,13 +44,26 @@ namespace xlwDotNet
                     return (void *)theInner;
                 }
             }
-             ~xlwTypebaseClass()
+			~xlwTypebaseClass()
             {
-                if(owned)delete theInner;
+				this->!xlwTypebaseClass();
+			}
+
+			// This is the FINALIZER !!! The GC calls THIS NOT the destructor
+			// trying to clean up in the destructor will lead to momeory leaks
+
+            !xlwTypebaseClass()
+            {
+                if(owned)
+				{
+				 
+					delete theInner;
+				}
                 theInner = 0;owned = false;
             }
             T * theInner;
             bool owned;
+
 
 
         };

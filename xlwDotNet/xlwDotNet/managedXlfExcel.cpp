@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2011 John Adcock
+ Copyright (C) 2012 Narinder S Claire
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - http://xlw.sourceforge.net/
@@ -64,5 +65,16 @@ namespace xlwDotNet
 			}
 
 		};
+
+			static property bool IsEscPressed
+		{
+			bool get()
+			{
+				xlw::XlfExcel::Instance();
+				xlw::XlfOper ret;
+				xlw::XlfExcel::Instance().Call(xlAbort, ret, 1, xlw::XlfOper(false));
+				return ret.AsBool();
+			}
+		}
     };
 }

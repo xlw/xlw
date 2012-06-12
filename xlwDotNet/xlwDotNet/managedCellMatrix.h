@@ -149,7 +149,7 @@ namespace xlwDotNet
 			  }
 
 			  /////   Get the Value
-			  String^ StringValue(){return gcnew String((theInner->StringValue()).c_str())  ;}
+			  String^ StringValue(){return gcnew String((theInner->StringValue()).c_str());}
 			  double NumericValue(){return theInner->NumericValue();}
 			  bool BooleanValue(){return theInner->BooleanValue();}
 			  UInt64 ErrorValue(){return theInner->ErrorValue();}
@@ -205,7 +205,6 @@ namespace xlwDotNet
 				  CellValue^ get(int i,int j)
 				  {
 					  CellValue^ result =  gcnew CellValue(IntPtr((void*)(&theInner->operator()(i,j))));
-					  owned = true;
 					  return result;
 				  }
 				  void set(int i, int j, CellValue^ value)
@@ -257,6 +256,7 @@ namespace xlwDotNet
 				return theCSMatrix;
 			}
 
+			virtual  ~CellMatrix(){}
 		};
 
 
