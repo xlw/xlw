@@ -105,7 +105,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a6.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a7.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -139,7 +139,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a6.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc100-mt-gd-5_0_0a7.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib/x64;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -166,7 +166,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc100-mt-5_0_0a6.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc100-mt-5_0_0a7.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -197,7 +197,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc100-mt-5_0_0a6.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc100-mt-5_0_0a7.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib/x64;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
