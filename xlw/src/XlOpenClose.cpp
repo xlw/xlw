@@ -67,34 +67,60 @@ extern "C"
         }
     }
 
+    static bool autoRemoveCalled = false;
+
     long EXCEL_EXPORT xlAutoClose()
     {
-        std::cerr << XLW__HERE__ << "Releasing resources" << std::endl;
-        xlw::MacroCache<xlw::Close>::Instance().ExecuteMacros();
-        // note that we don't unregister the functions here
-        // excel has some strange behaviour when exiting and can
-        // call xlAutoClose before the user has been asked about the close
-        // if the user then cancels the close then we need to ensure we
-        // have enough state to come back to life
-        xlw::XlfExcel::DeleteInstance();
+        try
+        {
+            std::cerr << XLW__HERE__ << "Releasing resources" << std::endl;
+            xlw::MacroCache<xlw::Close>::Instance().ExecuteMacros();
 
-        
-        // clear up any temporary memory used
-        // but keep enough alive so that exel can still use
-        // the functions
-        xlw::TempMemory::TerminateProcess();
+            if(autoRemoveCalled)
+            {
+                // we can safely unregister the functions here as the user has unloaded the
+                // xll and so won't expect to be able to use the functions
+                xlw::XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheDeregistrations();
+            }
+            else
+            {
+                // note that we don't unregister the functions here
+                // excel has some strange behaviour when exiting and can
+                // call xlAutoClose before the user has been asked about the close
+            }
+
+
+            // if the user then cancels the close then we need to ensure we
+            // have enough state to come back to life
+            xlw::XlfExcel::DeleteInstance();
+
+            // clear up any temporary memory used
+            // but keep enough alive so that excel can still use
+            // the functions
+            xlw::TempMemory::TerminateProcess();
+        }
+        catch(...)
+        {
+            std::cerr << XLW__HERE__ << "Something bad happened in xlAutoClose" << std::endl;
+        }
         return 1;
     }
 
     long EXCEL_EXPORT xlAutoRemove()
     {
-        std::cerr << XLW__HERE__ << "Addin being unloaded" << std::endl;
+        try
+        {
+            std::cerr << XLW__HERE__ << "Addin being unloaded" << std::endl;
 
-        // we can safely unregister the functions here as the user has unloaded the
-        // xll and so won't expect to be able to use the functions
-        xlw::XLRegistration::ExcelFunctionRegistrationRegistry::Instance().DoTheDeregistrations();
+            xlw::MacroCache<xlw::Remove>::Instance().ExecuteMacros();
 
-        xlw::MacroCache<xlw::Remove>::Instance().ExecuteMacros();
+            // tell auto close we've been called so that we can call deregister
+            autoRemoveCalled = true;
+        }
+        catch(...)
+        {
+            std::cerr << XLW__HERE__ << "Something bad happened in xlAutoRemove" << std::endl;
+        }
 
         return 1;
     }

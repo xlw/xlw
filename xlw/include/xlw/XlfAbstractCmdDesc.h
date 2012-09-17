@@ -86,7 +86,8 @@ namespace xlw {
         std::string name_;
         //! Alias for the command in Excel.
         std::string alias_;
-
+        //!used to check if registation has happened
+        static const double InvalidFunctionId;
     private:
         //! Comment associated to the command.
         std::string comment_;

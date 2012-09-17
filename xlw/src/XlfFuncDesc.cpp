@@ -51,7 +51,8 @@ xlw::XlfFuncDesc::XlfFuncDesc(const std::string& name, const std::string& alias,
                          bool Asynchronous, bool MacroSheetEquivalent,
                          bool ClusterSafe)
     : XlfAbstractCmdDesc(name, alias, comment),helpID_(helpID),returnTypeCode_(returnTypeCode),
-    impl_(new XlfFuncDescImpl(recalcPolicy,Threadsafe,category, Asynchronous, MacroSheetEquivalent, ClusterSafe))
+    impl_(new XlfFuncDescImpl(recalcPolicy,Threadsafe,category, Asynchronous, MacroSheetEquivalent, ClusterSafe)),
+    funcId_(InvalidFunctionId)
 {
 }
 
@@ -84,8 +85,6 @@ Registers the function as a function in excel.
 */
 int xlw::XlfFuncDesc::DoRegister(const std::string& dllName, const std::string& suggestedHelpId) const
 {
-    //live_ = true;
-
     if (returnTypeCode_.empty())
         returnTypeCode_= XlfExcel::Instance().xlfOperType();
     if(returnTypeCode_ == "XLW_FP")
@@ -95,33 +94,24 @@ int xlw::XlfFuncDesc::DoRegister(const std::string& dllName, const std::string& 
 
 int xlw::XlfFuncDesc::DoUnregister(const std::string& dllName) const
 {
-    //live_ = false;
-
-    XlfArgDescList arguments = GetArguments();
-    std::string args(XlfExcel::Instance().xlfOperType());
-    std::string argnames;
-
-    XlfArgDescList::const_iterator it = arguments.begin();
-    while (it != arguments.end())
+    if(funcId_ != InvalidFunctionId)
     {
-        argnames += (*it).GetName();
-        args += (*it).GetType();
-        ++it;
-        if (it != arguments.end())
-            argnames+=", ";
+        // slightly pointless as it doesn't work but we're supposed to deregister
+        // the name as well as the function
+        XlfExcel::Instance().Call(xlfSetName, NULL, 1, XlfOper(GetAlias()));
+
+        XlfOper unreg;
+        int err = XlfExcel::Instance().Call(xlfUnregister, unreg, 1, XlfOper(funcId_));
+        return err;
     }
-
-    double funcId;
-    int err = RegisterAs(dllName, "", 0, &funcId);
-
-    XlfOper unreg;
-    err = XlfExcel::Instance().Call(xlfUnregister, unreg, 1, XlfOper(funcId));
-
-    return err;
+    else
+    {
+        return xlretSuccess;
+    }
 }
 
 // function Excel4 calls always as using XLOPER12 seem problematic
-int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& suggestedHelpId, double mode_, double* funcId) const
+int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& suggestedHelpId, double mode_) const
 {
     // alias arguments
     XlfArgDescList& arguments = impl_->arguments_;
@@ -240,12 +230,16 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
     }
 
     XlfOper4 res;
-    int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, res, 10 + nbargs, &argArray[0]));
-
-    if(funcId != NULL)
+    int err = XlfExcel::Instance().Call4v(xlfRegister, res, 10 + nbargs, &argArray[0]);
+    if(err == xlretSuccess && res.IsNumber())
     {
-        *funcId = res.AsDouble();
+        funcId_ = res.AsDouble();
     }
+    else
+    {
+        funcId_ = InvalidFunctionId;
+    }
+
     return err;
 }
 

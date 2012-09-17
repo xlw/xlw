@@ -31,6 +31,9 @@
 #include <stdexcept>
 #include <xlw/macros.h>
 
+const double xlw::XlfAbstractCmdDesc::InvalidFunctionId = -1.0;
+
+
 /*!
 \param name Name of the command.
 \param alias Alias in Excel for the command.

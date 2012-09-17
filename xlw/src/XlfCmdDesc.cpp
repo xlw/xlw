@@ -43,7 +43,8 @@ xlw::XlfCmdDesc::XlfCmdDesc(const std::string& name,
        XlfAbstractCmdDesc(name, alias, comment), 
        menu_(menu),
        text_(menuText),
-       hidden_(hidden)
+       hidden_(hidden),
+       funcId_(InvalidFunctionId)
 {}
 
 xlw::XlfCmdDesc::~XlfCmdDesc()
@@ -221,13 +222,35 @@ int xlw::XlfCmdDesc::DoRegister(const std::string& dllName, const std::string& s
         nbargs = std::min(nbargs, 20);
     }
 
-    int err = static_cast<int>(XlfExcel::Instance().Call4v(xlfRegister, NULL, 10 + nbargs, &argArray[0]));
+    XlfOper4 res;
+    int err = XlfExcel::Instance().Call4v(xlfRegister, res, 10 + nbargs, &argArray[0]);
+    if(err == xlretSuccess && res.IsNumber())
+    {
+        funcId_ = res.AsDouble();
+    }
+    else
+    {
+        funcId_ = InvalidFunctionId;
+    }
     return err;
 }
 
 int xlw::XlfCmdDesc::DoUnregister(const std::string& dllName) const
 {
-    return xlretSuccess;
+    if(funcId_ != InvalidFunctionId)
+    {
+        // slightly pointless as it doesn't work but we're supposed to deregister
+        // the name as well as the function
+        XlfExcel::Instance().Call(xlfSetName, NULL, 1, XlfOper(GetAlias()));
+
+        XlfOper unreg;
+        int err = XlfExcel::Instance().Call(xlfUnregister, unreg, 1, XlfOper(funcId_));
+        return err;
+    }
+    else
+    {
+        return xlretSuccess;
+    }
 }
 
 void xlw::XlfCmdDesc::DoMamlDocs(std::ostream& ostr) const

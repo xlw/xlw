@@ -74,12 +74,14 @@ namespace xlw {
         virtual void DoMamlDocs(std::ostream& ostream) const;
         //@}
     private:
-      //! Menu in which the command is to be displayed.
-      std::string menu_;
-      //! Text in the menu.
-      std::string text_;
-      //! Hidden flag
-      bool hidden_;
+        //! Menu in which the command is to be displayed.
+        std::string menu_;
+        //! Text in the menu.
+        std::string text_;
+        //! Hidden flag
+        bool hidden_;
+        //! function ID returned from register
+        mutable double funcId_;
     };
 
 }

@@ -127,12 +127,7 @@ namespace xlw {
         XlfFuncDesc& operator=(const XlfFuncDesc&);
 
         //! Shared registration code
-        int RegisterAs(const std::string& dllName, const std::string& suggestedHelpId, double mode_, double* funcId = NULL) const;
-        // Is this function currently live, or has it been faux-unregistered?
-        // commented out - seems unused, forces DoRegister/DoUnregister to be non-const.
-        //bool live_;
-        // Index into our list of UDFs (not used?).
-        //int index_;
+        int RegisterAs(const std::string& dllName, const std::string& suggestedHelpId, double mode_) const;
         std::string helpID_;
         //! Excel code for the datatype of this function's return value.
         // I know it's mutable .. and it's not angelic BUT we may only
@@ -141,6 +136,8 @@ namespace xlw {
         mutable std::string returnTypeCode_;
         //! Pointer to implementation (pimpl idiom, see \ref HS).
         xlw_tr1::shared_ptr<XlfFuncDescImpl> impl_;
+        //! function ID returned from register
+        mutable double funcId_;
 
 
     };
