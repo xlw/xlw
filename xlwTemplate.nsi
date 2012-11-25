@@ -67,6 +67,7 @@ Var FREESPACE
 Var HEADLINE_FONT
 Var STATE
 	
+Var VC11
 Var VC10
 Var VC9
 Var VC8
@@ -75,6 +76,7 @@ Var CODEBLOCKS
 
 Var GCC
 
+Var VC11_STATE
 Var VC10_STATE
 Var VC9_STATE
 Var VC8_STATE
@@ -98,25 +100,28 @@ Function ExtractorPage
 
 	GetFunctionAddress $0 RadioChanged
 	
-	${NSD_CreateRadioButton} 100 30 100% 10% "Visual C++ 2010 (VC10)"    
+    ${NSD_CreateRadioButton} 100 30 100% 10% "Visual C++ 2012 (VC11)"    
+	Pop $VC11
+	nsDialogs::OnClick  $VC11 $0
+	${NSD_CreateRadioButton} 100 60 100% 10% "Visual C++ 2010 (VC10)"    
 	Pop $VC10
 	nsDialogs::OnClick  $VC10 $0
-	${NSD_CreateRadioButton} 100 60 100% 10% "Visual C++ 2008 (VC9)"    
+	${NSD_CreateRadioButton} 100 90 100% 10% "Visual C++ 2008 (VC9)"    
 	Pop $VC9
 	nsDialogs::OnClick  $VC9 $0
-    ${NSD_CreateRadioButton} 100 90 100% 10% "Visual C++ 2005 (VC8)" 
+    ${NSD_CreateRadioButton} 100 120 100% 10% "Visual C++ 2005 (VC8)" 
 	Pop $VC8
 	nsDialogs::OnClick  $VC8 $0
-	${NSD_CreateRadioButton} 100 120 100% 10% "Visual C++ 2003 (VC7.1)" 
+	${NSD_CreateRadioButton} 100 150 100% 10% "Visual C++ 2003 (VC7.1)" 
 	Pop $VC71
 	nsDialogs::OnClick  $VC71 $0
-	${NSD_CreateRadioButton} 100 150 100% 10% "Code::Blocks(MingW)"
+	${NSD_CreateRadioButton} 100 180 100% 10% "Code::Blocks(MingW)"
 	Pop $CODEBLOCKS
 	nsDialogs::OnClick  $CODEBLOCKS $0
 	;${NSD_CreateRadioButton} 100 150 100% 10% "Dev-C++"
 	;Pop $DEVCPP
 	;nsDialogs::OnClick  $DEVCPP $0
-	${NSD_CreateRadioButton} 100 180 100% 10% "GCC/Make"
+	${NSD_CreateRadioButton} 100 210 100% 10% "GCC/Make"
 	Pop $GCC
 	nsDialogs::OnClick  $GCC $0
 	
@@ -135,6 +140,7 @@ Function RadioChanged
 	${NSD_GetState} $GCC $GCC_STATE
 	${NSD_GetState} $VC9 $VC9_STATE
 	${NSD_GetState} $VC10 $VC10_STATE
+	${NSD_GetState} $VC11 $VC11_STATE
 	${NSD_GetState} $VC8 $VC8_STATE
 	${NSD_GetState} $VC71 $VC71_STATE
 	${NSD_GetState} $CODEBLOCKS $CODEBLOCKS_STATE
@@ -187,6 +193,7 @@ Var DIR
 !macroend
 
 Section #
+	!insertmacro GETDIR $VC11_STATE "vc11"
 	!insertmacro GETDIR $VC10_STATE "vc10"
 	!insertmacro GETDIR $VC9_STATE "vc9"
 	!insertmacro GETDIR $VC8_STATE "vc8"

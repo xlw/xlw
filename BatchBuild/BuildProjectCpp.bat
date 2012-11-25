@@ -5,6 +5,8 @@
 @if exist "%~1\vc8" for %%f in ("%~1\vc8\*.sln") do CALL BuildVS8CppProject.bat "%%f" %2
 @if exist "%~1\vc9" for %%f in ("%~1\vc9\*.sln") do CALL BuildVS9CppProject.bat "%%f" %2
 @if exist "%~1\vc10" for %%f in ("%~1\vc10\*.sln") do CALL BuildVS10Project.bat "%%f" %2
+@if exist "%~1\vc11" for %%f in ("%~1\vc11\*.sln") do CALL BuildVS10Project.bat "%%f" %2
 @if exist "%~1\VS8" for %%f in ("%~1\VS8\*.sln") do CALL BuildVS8CppProject.bat "%%f" %2
 @if exist "%~1\VS9" for %%f in ("%~1\VS9\*.sln") do CALL BuildVS9CppProject.bat "%%f" %2
 @if exist "%~1\VS10" for %%f in ("%~1\VS10\*.sln") do CALL BuildVS10Project.bat "%%f" %2
+@if exist "%~1\VS11" for %%f in ("%~1\VS11\*.sln") do CALL BuildVS10Project.bat "%%f" %2

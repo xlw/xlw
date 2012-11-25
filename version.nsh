@@ -1,1 +1,1 @@
-!define XLW_VERSION "5.0.0a7"
+!define XLW_VERSION "5.0.0a8"
