@@ -26,7 +26,9 @@ vcprojects = ['../xlw/build/vc7/xlw.vcproj',
                           ]
 
 vcxprojects = ['../xlw/build/vc10/xlw.vcxproj',
-                          '../xlwDotNet/Build/VS10/xlwDotNet/xlwDotNet.vcxproj'
+               '../xlwDotNet/Build/VS10/xlwDotNet/xlwDotNet.vcxproj',
+			   '../xlw/build/vc11/xlw.vcxproj',
+               '../xlwDotNet/Build/VS11/xlwDotNet/xlwDotNet.vcxproj'
                           ]
                 
 cbprojects = ['../xlw/build/codeblocks-gcc/xlw.cbp']

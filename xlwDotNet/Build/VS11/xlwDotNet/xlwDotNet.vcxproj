@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" ?><Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -22,7 +21,7 @@
     <ProjectGuid>{8DC33132-DEC5-488D-B16F-F5C40C970CBA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>xlwDotNet</RootNamespace>
-    <ProjectName>5_0_0a7</ProjectName>
+    <ProjectName>5_0_0a8</ProjectName>
   </PropertyGroup>
   <PropertyGroup>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -32,35 +31,35 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"/>
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"/>
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"/>
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"/>
   </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Label="UserMacros"/>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
@@ -85,7 +84,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
-      <Command />
+      <Command/>
     </PreBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>../../../../xlw/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -98,7 +97,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(IntDir)vc110.pdb</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader />
+      <PrecompiledHeader/>
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
@@ -116,12 +115,12 @@
       </Version>
     </Link>
     <PostBuildEvent>
-      <Command />
+      <Command/>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PreBuildEvent>
-      <Command />
+      <Command/>
     </PreBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>../../../../xlw/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -134,7 +133,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(IntDir)vc80.pdb</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader />
+      <PrecompiledHeader/>
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
@@ -143,7 +142,7 @@
       <AssemblyDebug>true</AssemblyDebug>
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile />
+      <ModuleDefinitionFile/>
       <OutputFile>$(OutDir)xlwDotNet-vc110-mt-gd-$(ProjectName).dll</OutputFile>
       <SubSystem>Windows</SubSystem>
       <Version>
@@ -167,7 +166,7 @@
       <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeader />
+      <PrecompiledHeader/>
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
@@ -175,7 +174,7 @@
       <AdditionalLibraryDirectories>../../../../xlw/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <ModuleDefinitionFile />
+      <ModuleDefinitionFile/>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)xlwDotNet-vc110-mt-$(ProjectName).dll</OutputFile>
       <SubSystem>Windows</SubSystem>
@@ -185,12 +184,12 @@
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
-      <Command />
+      <Command/>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PreBuildEvent>
-      <Command />
+      <Command/>
     </PreBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>../../../../xlw/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -200,7 +199,7 @@
       <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeader />
+      <PrecompiledHeader/>
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
@@ -208,7 +207,7 @@
       <AdditionalLibraryDirectories>../../../../xlw/lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <ModuleDefinitionFile />
+      <ModuleDefinitionFile/>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)xlwDotNet-vc110-mt-$(ProjectName).dll</OutputFile>
       <SubSystem>Windows</SubSystem>
@@ -222,22 +221,22 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\xlwDotNet\ExcelExportAttribute.cpp" />
-    <ClCompile Include="..\..\..\xlwDotNet\managedArgumentList.cpp" />
-    <ClCompile Include="..\..\..\xlwDotNet\managedString.cpp" />
-    <ClCompile Include="..\..\..\xlwDotNet\managedXlfExcel.cpp" />
-    <ClCompile Include="..\..\..\xlwDotNet\ParameterAttribute.cpp" />
-    <ClCompile Include="..\..\..\xlwDotNet\TypeRegisterAttribute.cpp" />
-    <ClCompile Include="..\..\..\xlwDotNet\xdnException.cpp" />
+    <ClCompile Include="..\..\..\xlwDotNet\ExcelExportAttribute.cpp"/>
+    <ClCompile Include="..\..\..\xlwDotNet\managedArgumentList.cpp"/>
+    <ClCompile Include="..\..\..\xlwDotNet\managedString.cpp"/>
+    <ClCompile Include="..\..\..\xlwDotNet\managedXlfExcel.cpp"/>
+    <ClCompile Include="..\..\..\xlwDotNet\ParameterAttribute.cpp"/>
+    <ClCompile Include="..\..\..\xlwDotNet\TypeRegisterAttribute.cpp"/>
+    <ClCompile Include="..\..\..\xlwDotNet\xdnException.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\xlwDotNet\managedCellMatrix.h" />
-    <ClInclude Include="..\..\..\xlwDotNet\managedMyArray.h" />
-    <ClInclude Include="..\..\..\xlwDotNet\managedMyMatrix.h" />
-    <ClInclude Include="..\..\..\xlwDotNet\xlwDotNet.h" />
-    <ClInclude Include="..\..\..\xlwDotNet\xlwTypeBaseClass.h" />
+    <ClInclude Include="..\..\..\xlwDotNet\managedCellMatrix.h"/>
+    <ClInclude Include="..\..\..\xlwDotNet\managedMyArray.h"/>
+    <ClInclude Include="..\..\..\xlwDotNet\managedMyMatrix.h"/>
+    <ClInclude Include="..\..\..\xlwDotNet\xlwDotNet.h"/>
+    <ClInclude Include="..\..\..\xlwDotNet\xlwTypeBaseClass.h"/>
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>

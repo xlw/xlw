@@ -75,7 +75,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0a7.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0a8.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				AdditionalLibraryDirectories="$(XLW)\xlw\lib"
 				GenerateDebugInformation="true"
@@ -163,7 +163,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0a7.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0a8.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="0"
 				SuppressStartupBanner="true"
@@ -255,7 +255,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-5_0_0a7.lib"
+				AdditionalDependencies="xlw-vc90-mt-5_0_0a8.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="0"
 				SuppressStartupBanner="true"
@@ -346,7 +346,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-5_0_0a7.lib"
+				AdditionalDependencies="xlw-vc90-mt-5_0_0a8.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="0"
 				SuppressStartupBanner="true"
