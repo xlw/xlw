@@ -68,7 +68,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0a8.lib $(SolutionName)C.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0f0.lib $(SolutionName)C.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib;..\$(ConfigurationName)"
@@ -147,7 +147,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-5_0_0a8.lib $(SolutionName)C.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc90-mt-5_0_0f0.lib $(SolutionName)C.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)/$(SolutionName).xll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib;..\$(ConfigurationName)"
@@ -230,7 +230,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0a8.lib $(SolutionName)C.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0f0.lib $(SolutionName)C.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib/x64;..\$(PlatformName)_$(ConfigurationName)"
@@ -310,7 +310,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-5_0_0a8.lib $(SolutionName)C.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc90-mt-5_0_0f0.lib $(SolutionName)C.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)/$(SolutionName).xll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(XLW)/xlw/lib/x64;..\$(PlatformName)_$(ConfigurationName)"

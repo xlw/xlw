@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <xlwversion>5_0_0a8</xlwversion>
+    <xlwversion>5_0_0f0</xlwversion>
     <gdconfig>
     </gdconfig>
     <ProductVersion>8.0.30703</ProductVersion>
