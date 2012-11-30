@@ -1,5 +1,5 @@
 
-#   Copyright (C) 2009 Narinder S Claire
+#   Copyright (C) 2009 2012 Narinder S Claire
 #   Copyright (C) 2011 John Adcock
 #
 #   This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -22,6 +22,7 @@ destinationPaths = [
                     '../xlwDotNet/Build/VS8/DotNetInterfaceGenerator',
                     '../xlwDotNet/Build/VS9/DotNetInterfaceGenerator',
                     '../xlwDotNet/Build/VS10/DotNetInterfaceGenerator',
+					'../xlwDotNet/Build/VS11/DotNetInterfaceGenerator',
                     '../xlwDotNet/UserContrib',
                     '../xlwDotNet/Template_Projects',
                     '../xlwDotNet/Examples'
