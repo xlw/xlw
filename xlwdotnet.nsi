@@ -107,6 +107,8 @@
 	Var ListBox
 	
 	
+	Var VS2012_INST
+	
 	Var VS2010PRO_CPP_INST
 	Var VS2010PRO_CSharp_INST
 	Var VS2010PRO_VisualBasic_INST
@@ -114,18 +116,6 @@
 	Var VS2010EXP_CPP_INST
 	Var VS2010EXP_CSharp_INST
 	Var VS2010EXP_VisualBasic_INST
-	
-	
-	
-	Var VS2012PRO_CPP_INST
-	Var VS2012PRO_CSharp_INST
-	Var VS2012PRO_VisualBasic_INST
-	
-	Var VS2012EXP_CPP_INST
-	Var VS2012EXP_CSharp_INST
-	Var VS2012EXP_VisualBasic_INST
-	
-	
 	
 	Var VS2008PRO_CPP_INST
 	Var VS2008PRO_CSharp_INST
@@ -876,8 +866,6 @@ SubSection "xlwDotNet" xlwDotNet
 			!insertmacro dotNetInterfaceGenSource
 			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS11"
 			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS11"
-		;	!insertmacro projectfiles "xlwDotNet\Template_Projects\VisualBasic\VB2010"
-		;	!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VisualBasic\VB2010"
 			${If} VS2012PRO_CSharp_INST != ""  
 				!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS11_PRO"
 				!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS11_PRO"
@@ -1145,6 +1133,9 @@ Function DevEnvironFinder
 	Pop $VS2008PRO_VisualBasic_INST
 	
 	
+	# Visual Studio 2012
+	RegKeyExists HKLM "Software\Microsoft\VisualStudio\10.0"
+	Pop $VS2012_INST
 	
 	# Visual Studio 2010
 	
@@ -1156,9 +1147,6 @@ Function DevEnvironFinder
 	
 	!insertmacro FINDENV HKLM "Software\Microsoft\VisualStudio\10.0\InstalledProducts\Microsoft Visual Basic" "Package"  "Visual Studio 2010 VisualBasic"
 	Pop $VS2010PRO_VisualBasic_INST
-	
-	
-	
 	
 	
 	# Visual Studio Express 2005 
@@ -1243,19 +1231,22 @@ Function SetUpInfo
 	SectionSetFlags ${VS2003_SRC} 0
 	SectionSetFlags ${VS2005_SRC} 0
 	SectionSetFlags ${VS2008_SRC} 0
-	SectionSetFlags ${VS2010_SRC} 0	
- 	SectionSetFlags ${CODEBLOCKS_SRC} 0
+	SectionSetFlags ${VS2010_SRC} 0
+	SectionSetFlags ${VS2012_SRC} 0
+	SectionSetFlags ${CODEBLOCKS_SRC} 0
 	SectionSetFlags ${GCCMAKE_SRC} 0
 	
 	SectionSetFlags ${VS2005DotNet_SRC} 0
 	SectionSetFlags ${VS2008DotNet_SRC} 0
 	SectionSetFlags ${VS2010DotNet_SRC} 0
+	SectionSetFlags ${VS2012DotNet_SRC} 0
 	
 	SectionSetFlags ${VS2003} 0
 	SectionSetFlags ${VS2005} 0
 	SectionSetFlags ${VS2008} 0
 	SectionSetFlags ${VS2010} 0	
- 	SectionSetFlags ${CODEBLOCKS} 0
+	SectionSetFlags ${VS2012} 0	
+	SectionSetFlags ${CODEBLOCKS} 0
 	SectionSetFlags ${GCCMAKE} 0
 	
 	SectionSetFlags ${VS2005DotNet} 0
@@ -1265,9 +1256,9 @@ Function SetUpInfo
 	SectionSetFlags ${sandcastle} 0
 
 	
-	${If} $VS2010PRO_CPP_INST != "" 
+	${If} $VS2012_INST != "" 
 		StrCpy $CPP_DETECTED  "1"
-		SectionSetFlags ${VS2010} 1
+		SectionSetFlags ${VS2012} 1
 	${EndIf}
 	
 	${If} $VS2010EXP_CPP_INST != ""  
@@ -1310,7 +1301,11 @@ Function SetUpInfo
 	SectionSetFlags ${VS2008DotNet} 1
 	SectionSetFlags ${VS2005DotNet} 1
 	SectionSetFlags ${VS2010DotNet} 1
+	SectionSetFlags ${VS2012DotNet} 1
 	
+	${If} $VS2012_INST == "" 
+		SectionSetFlags ${VS2012DotNet} 0
+	${EndIf}
 	
 	${If} $VS2010PRO_CSharp_INST == "" 
 		${If} $VS2010EXP_CSharp_INST == ""  
