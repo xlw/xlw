@@ -5,6 +5,7 @@
 CALL BuildProjectNet.bat "..\xlwDotNet\Examples\Start Here - Example" xlwDotNetExampleStartHere
 CALL BuildProjectNet.bat "..\xlwDotNet\Examples\TypeRegister" xlwDotNetExampleTypeRegister
 CALL BuildProjectNet.bat "..\xlwDotNet\Examples\ReflectionFactory" xlwDotNetExampleReflectionFactory
+CALL BuildProjectNet.bat "..\xlwDotNet\Examples\ObjectCacheDemo" xlwDotNetExampleObjectCacheDemo
 CALL BuildProjectNet.bat ..\xlwDotNet\Examples\VisualBasic xlwDotNetExampleVisualBasic
 REM CALL BuildProjectNet.bat ..\xlwDotNet\UserContrib\NonPassive xlwDotNetExampleNonPassive
 REM CALL BuildProjectNet.bat ..\xlwDotNet\UserContrib\Python xlwDotNetExamplePython

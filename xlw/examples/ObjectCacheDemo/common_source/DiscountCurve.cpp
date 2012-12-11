@@ -77,8 +77,8 @@ Discount(const std::string &theName   // The Name of the Discount Curve
 
     const MyMatrix &theCurve = DiscountCurveCache::instance()[theKey];
     size_t n(theCurve.rows());
-    if(theDate<=theCurve[0][0]) return theDate<theCurve[0][1];
-    if(theDate>=theCurve[n-1][0]) return theDate<theCurve[n-1][1];
+    if(theDate<=theCurve[0][0]) return theCurve[0][1];
+    if(theDate>=theCurve[n-1][0]) return theCurve[n-1][1];
 
     size_t i=1;
     while(theCurve[i][0]<theDate)
