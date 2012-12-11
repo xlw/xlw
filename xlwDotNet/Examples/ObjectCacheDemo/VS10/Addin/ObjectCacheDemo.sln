@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XLL", "XLL.vcxproj", "{DE8A087D-EF7B-4777-A464-F47096EE968C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1115BBB6-8140-40EF-8805-DF2E41D1330E} = {1115BBB6-8140-40EF-8805-DF2E41D1330E}
