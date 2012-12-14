@@ -233,14 +233,6 @@
 		Push $X
 	!macroend
 	
-	!macro ENVVAR root key subkey env
-		ReadRegStr $X  ${root} "${key}"  "${subkey}" 
-		${If} $X != ""
-			${NSD_LB_AddString} $ListBox_right "Detected ${env}"
-			!insertmacro insertline
-		${EndIf}
-		Push $X
-	!macroend	
 	!macro DotNetbuildfiles  dir
 		SetOutPath "$INSTDIR\xlwDotNet\xlwDotNet"
 		File  "xlwDotNet\xlwDotNet\*.cpp"
@@ -1140,7 +1132,7 @@ Function DevEnvironFinder
 	
 	
 	# Visual Studio 2012
-	ReadRegStr $VS2012_INST  "VS110COMNTOOLS"  
+	ReadEnvStr $VS2012_INST  "VS110COMNTOOLS"  
 	
 	# Visual Studio 2010
 	
