@@ -1130,10 +1130,7 @@ Function DevEnvironFinder
 	!insertmacro FINDENV HKLM "Software\Microsoft\VisualStudio\9.0\InstalledProducts\Microsoft Visual Basic" "Package"  "Visual Studio 2008 VisualBasic"
 	Pop $VS2008PRO_VisualBasic_INST
 	
-	
-	# Visual Studio 2012
-	ReadEnvStr $VS2012_INST  "VS110COMNTOOLS"  
-	
+
 	# Visual Studio 2010
 	
 	!insertmacro FINDENV HKLM "Software\Microsoft\VisualStudio\10.0\InstalledProducts\Microsoft Visual C++" "Package"  "Visual Studio 2010 C++"
@@ -1185,6 +1182,13 @@ Function DevEnvironFinder
 	!insertmacro FINDENV HKLM "Software\Microsoft\VBExpress\10.0\InstalledProducts\Microsoft Visual Basic" "Package"  "Visual Studio Express 2010 VisualBasic"
 	Pop $VS2010EXP_VisualBasic_INST
 	
+	# Visual Studio 2012
+	ReadEnvStr $VS2012_INST  "VS110COMNTOOLS"  
+	${If} $VS2012_INST != ""
+		${NSD_LB_AddString} $ListBox_right "Detected Visual Studio 2012"
+		!insertmacro insertline
+	${EndIf}
+
 	
 	# gcc
 	
@@ -1258,6 +1262,11 @@ Function SetUpInfo
 		SectionSetFlags ${VS2012} 1
 	${EndIf}
 	
+	${If} $VS2010PRO_CPP_INST != ""  
+		SectionSetFlags ${VS2010} 1
+		StrCpy $CPP_DETECTED  "1"
+	${EndIf}
+
 	${If} $VS2010EXP_CPP_INST != ""  
 		SectionSetFlags ${VS2010} 1
 		StrCpy $CPP_DETECTED  "1"
