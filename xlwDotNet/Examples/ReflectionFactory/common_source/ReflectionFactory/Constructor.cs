@@ -81,7 +81,7 @@ namespace ReflectionFactory
                 if (parameterDictionary.ContainsKey(parameterName))
                 {
                     parameterValue = parameterDictionary[parameterName];
-                    if (parameterValue.GetType() != parameterType) // Parameter parameterName has the wrong type
+                    if (!parameterType.IsInstanceOfType(parameterValue)) // Parameter parameterName has the wrong type
                     {
                         if (parameterValue.GetType() == typeof(Dictionary<string, object>))
                         {
