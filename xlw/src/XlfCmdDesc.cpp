@@ -74,7 +74,7 @@ int xlw::XlfCmdDesc::AddToMenuBar(const char* menu, const char* text)
         return 0;
     }
 
-    //first check that the menu exists
+    //first check to see if the menu already exists
     XlfOper barNum(10);
     XlfOper menuLocation;
     XlfOper missingValue;
@@ -82,26 +82,54 @@ int xlw::XlfCmdDesc::AddToMenuBar(const char* menu, const char* text)
     int err = XlfExcel::Instance().Call(xlfGetBar, menuLocation, 3, barNum, menuOper, XlfOper(0));
     if (err || menuLocation.IsError())
     {
-        XlfOper menuDesc(1,5);
-        menuDesc(0,0) = menuOper;
-        menuDesc(0,1) = missingValue;
-        menuDesc(0,2) = missingValue;
-        menuDesc(0,3) = missingValue;
-        menuDesc(0,4) = missingValue;
-        err = XlfExcel::Instance().Call(xlfAddMenu, menuLocation, 2, barNum, menuDesc);
+		// if it doesn't then we have to find the id of the last menu item on the worksheet bar
+		// usually this is Help but we need to cope with internation versions so we find it by
+		// searching over the bars until we get an error.
+		// we skip the search at 1 as we want to fail safe and always exit with something that will work
+		int menuPosition(1);
+		XlfOper menuName;
+		err = XlfExcel::Instance().Call(xlfGetBar, menuName, 3, barNum, XlfOper(menuPosition + 1), XlfOper(0));
+		while(!err && !menuName.IsError())
+		{
+			++menuPosition;
+			err = XlfExcel::Instance().Call(xlfGetBar, menuName, 3, barNum, XlfOper(menuPosition + 1), XlfOper(0));
+		}
+
+		// now add the menu and the first command in a single request
+        XlfOper menuDesc(2,5);
+        menuDesc(0,0) = menu_;
+        menuDesc(0,1) = "";
+        menuDesc(0,2) = "";
+        menuDesc(0,3) = "";
+        menuDesc(0,4) = "";
+        menuDesc(1,0) = text_;
+        menuDesc(1,1) = GetAlias();
+        menuDesc(1,2) = "";
+        menuDesc(1,3) = GetComment();
+        menuDesc(1,4) = "";
+        err = XlfExcel::Instance().Call(xlfAddMenu, 0, 3, barNum, menuDesc, XlfOper(menuPosition));
         if(err != xlretSuccess)
+		{
+			// continue on failure but would be good to get reports if this happens
             std::cerr << XLW__HERE__ << "Add Menu " <<  menu_.c_str() << " failed" << std::endl;
+		}
     }
+	else
+	{
+		// if the bar is already there then add the current commamnd
+		XlfOper command(1,4);
+		command(0,0) = text_;
+		command(0,1) = GetAlias();
+		command(0,2) = "";
+		command(0,3) = GetComment();
 
-    XlfOper command(1,4);
-    command(0,0) = text_;
-    command(0,1) = GetAlias();
-    command(0,2) = "";
-    command(0,3) = GetComment();
-
-    err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, barNum, menuOper, command);
-    if (err != xlretSuccess)
-        std::cerr << XLW__HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
+		err = XlfExcel::Instance().Call(xlfAddCommand, 0, 3, barNum, menuOper, command);
+		if (err != xlretSuccess)
+		{
+			// continue on failure but would be good to get reports if this happens
+			std::cerr << XLW__HERE__ << "Add command " << GetName().c_str() << " to " << menu_.c_str() << " failed" << std::endl;
+		}
+	}
     return err;
 }
 
