@@ -340,25 +340,6 @@ namespace xlw { namespace impl {
         }
         //@}
 
-        //! \name Memory management
-        //@{
-        //! Free auxiliary memory associated with the XLOPER
-        void SetFreeOnDelete() const
-        {
-            XlTypeType type = OperProps::getXlType(lpxloper_);
-
-            if (type & xltypeStr ||
-                type & xltypeRef ||
-                type & xltypeMulti ||
-                type & xltypeBigData)
-            {
-                // switch back the bit as it was originally
-                type |= xlw::XlfOperImpl::xlbitFreeAuxMem;
-                OperProps::setXlType(lpxloper_, type);
-            }
-        }
-        //@}
-
         //! \name Operators
         //@{
         //! Cast to XLOPER *.
