@@ -469,8 +469,10 @@ int xlw::XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER
     if (pxResult) {
         int type = pxResult->xltype;
 
+		// special case for ref type because of sheetid function uses an non-freeable oper
+		// and Excel 2013 now checks for odd bit flags
         bool hasAuxMem = (type & xltypeStr ||
-                        type & xltypeRef ||
+                        ((type & xltypeRef) && pxResult->val.mref.lpmref) ||
                         type & xltypeMulti ||
                         type & xltypeBigData);
         if (hasAuxMem)
@@ -498,8 +500,10 @@ int xlw::XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, const LPXLO
     if (pxResult) {
         int type = pxResult->xltype;
 
+		// special case for ref type because of sheetid function uses an non-freeable oper
+		// and Excel 2013 now checks for odd bit flags
         bool hasAuxMem = (type & xltypeStr ||
-                          type & xltypeRef ||
+                          ((type & xltypeRef) && pxResult->val.mref.lpmref) ||
                           type & xltypeMulti ||
                           type & xltypeBigData);
         if (hasAuxMem)
