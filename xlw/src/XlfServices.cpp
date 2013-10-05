@@ -2,7 +2,8 @@
 Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
 Copyright (C) 2007, 2008 Eric Ehlers
 Copyright (C) 2009 2011 Narinder S Claire
-Copyright (C) 2011 John Adcock
+Copyright (C) 2011, 2013 John Adcock
+Copyright (C) 2013 Anjum Raheel
 
 This file is part of XLW, a free-software/open-source C++ wrapper of the
 Excel C API - http://xlw.sourceforge.net/
@@ -191,6 +192,11 @@ namespace xlw
         return CallFunction(xlfActiveCell, "Get Active Cell");
     }
 
+	XlfOper Information_t::GetActiveRange()
+    {
+        return CallFunction(xlfSelection, "Get Active Range");
+    }
+
     void Information_t::SetActiveCell(const XlfOper& ref)
     {
         CallCommand(xlcSelect, ref, "Set Active Cell");
@@ -339,34 +345,34 @@ namespace xlw
         CallCommand(xlcAlert, message, "Alert Command");
     }
 
-    std::string Commands_t::InputFormula(const std::string& message, const std::string& title)
+    std::string Commands_t::InputFormula(const std::string& message, const std::string& title, const std::string& defaultValue)
     {
-        return CallFunction(xlfInput, message, 0, title, "Input").AsString();
+        return CallFunction(xlfInput, message, 0, title, defaultValue, "Input Formula").AsString();
     }
 
-    double Commands_t::InputNumber(const std::string& message, const std::string& title)
+    double Commands_t::InputNumber(const std::string& message, const std::string& title, double defaultValue)
     {
-        return CallFunction(xlfInput, message, 1, title, "Input").AsDouble();
+        return CallFunction(xlfInput, message, 1, title, defaultValue, "Input Number").AsDouble();
     }
 
-    std::string Commands_t::InputText(const std::string& message, const std::string& title)
+    std::string Commands_t::InputText(const std::string& message, const std::string& title, const std::string& defaultValue)
     {
-        return CallFunction(xlfInput, message, 2, title, "Input").AsString();
+        return CallFunction(xlfInput, message, 2, title, defaultValue, "Input Text").AsString();
     }
 
     bool Commands_t::InputBool(const std::string& message, const std::string& title)
     {
-        return CallFunction(xlfInput, message, 4, title, "Input").AsBool();
+        return CallFunction(xlfInput, message, 4, title, "Input Bool").AsBool();
     }
 
-    XlfOper Commands_t::InputReference(const std::string& message, const std::string& title)
+    XlfOper Commands_t::InputReference(const std::string& message, const std::string& title, const std::string& defaultValue)
     {
-        return CallFunction(xlfInput, message, 8, title, "Input");
+        return CallFunction(xlfInput, message, 8, title, defaultValue, "Input Reference");
     }
 
     XlfOper Commands_t::InputArray(const std::string& message, const std::string& title)
     {
-        return CallFunction(xlfInput, message, 64, title, "Input");
+        return CallFunction(xlfInput, message, 64, title, "Input Array");
     }
 
     void Commands_t::Select(const XlfOper& ref)

@@ -1,6 +1,7 @@
 /*
 Copyright (C) 2011 Narinder S Claire
 Copyright (C) 2011 John Adcock
+Copyright (C) 2013 Anjum Raheel
 
 This file is part of XLW, a free-software/open-source C++ wrapper of the
 Excel C API - http://xlw.sourceforge.net/
@@ -66,6 +67,8 @@ namespace xlw
         std::string GetSheetName(const XlfOper& ref);
         //! get current sheet id
         int GetCurrentSheetId();
+        //! gets the reference of the active range
+		XlfOper GetActiveRange();
     };
 
     struct Cell_t
@@ -97,15 +100,15 @@ namespace xlw
         //! Sends an Excel alert message box
         void Alert(const std::string& message);
         //! Asks the user to input a forumla
-        std::string InputFormula(const std::string& message, const std::string& title);
+        std::string InputFormula(const std::string& message, const std::string& title, const std::string& defaultValue = "");
         //! Asks the user to input a number
-        double InputNumber(const std::string& message, const std::string& title);
+        double InputNumber(const std::string& message, const std::string& title, double defaultValue = 0);
         //! Asks the user to input a string
-        std::string InputText(const std::string& message, const std::string& title);
+        std::string InputText(const std::string& message, const std::string& title, const std::string& defaultValue = "");
         //! Asks the user to input a boolean
         bool InputBool(const std::string& message, const std::string& title);
         //! Asks the user to input a reference
-        XlfOper InputReference(const std::string& message, const std::string& title);
+        XlfOper InputReference(const std::string& message, const std::string& title, const std::string& defaultValue = "");
         //! Sets the current selection
         void Select(const XlfOper& ref);
         //! Asks the user to input an array
