@@ -25,8 +25,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <xlwversion>5_0_0f0</xlwversion>
-    <xlwversion>5_0_0f0</xlwversion><gdconfig>-gd</gdconfig>
+    <xlwversion>5_0_1f0</xlwversion>
+    <xlwversion>5_0_1f0</xlwversion><gdconfig>-gd</gdconfig>
     <dir64>
     </dir64>
     <DebugSymbols>true</DebugSymbols>
@@ -40,8 +40,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <xlwversion>5_0_0f0</xlwversion>
-    <xlwversion>5_0_0f0</xlwversion><gdconfig>
+    <xlwversion>5_0_1f0</xlwversion>
+    <xlwversion>5_0_1f0</xlwversion><gdconfig>
     </gdconfig>
     <dir64>
     </dir64>
@@ -53,8 +53,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <xlwversion>5_0_0f0</xlwversion>
-    <xlwversion>5_0_0f0</xlwversion><gdconfig>-gd</gdconfig>
+    <xlwversion>5_0_1f0</xlwversion>
+    <xlwversion>5_0_1f0</xlwversion><gdconfig>-gd</gdconfig>
     <dir64>x64/</dir64>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\x64_Debug\</OutputPath>
@@ -65,8 +65,8 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <xlwversion>5_0_0f0</xlwversion>
-    <xlwversion>5_0_0f0</xlwversion><gdconfig>
+    <xlwversion>5_0_1f0</xlwversion>
+    <xlwversion>5_0_1f0</xlwversion><gdconfig>
     </gdconfig>
     <dir64>x64/</dir64>
     <OutputPath>..\x64_Release\</OutputPath>

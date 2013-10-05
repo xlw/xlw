@@ -18,7 +18,7 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\lib\libxlw-gcc-s-gd-5_0_0f0.a" />
+					<Add library="..\..\..\lib\libxlw-gcc-s-gd-5_0_1f0.a" />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak" />
@@ -37,7 +37,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="..\..\..\lib\libxlw-gcc-s-5_0_0f0.a" />
+					<Add library="..\..\..\lib\libxlw-gcc-s-5_0_1f0.a" />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak BUILD=Release" />

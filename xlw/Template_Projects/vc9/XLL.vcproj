@@ -74,7 +74,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0f0.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-5_0_1f0.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				AdditionalLibraryDirectories="$(XLW)\xlw\lib"
 				GenerateDebugInformation="true"
@@ -160,7 +160,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-gd-5_0_0f0.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc90-mt-gd-5_0_1f0.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				AdditionalLibraryDirectories="$(XLW)\xlw\lib\x64"
 				GenerateDebugInformation="true"
@@ -248,7 +248,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-5_0_0f0.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc90-mt-5_0_1f0.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				AdditionalLibraryDirectories="$(XLW)\xlw\lib"
 				ProgramDatabaseFile="$(OutDir)\$(SolutionName).pdb"
@@ -334,7 +334,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc90-mt-5_0_0f0.lib odbc32.lib odbccp32.lib User32.lib"
+				AdditionalDependencies="xlw-vc90-mt-5_0_1f0.lib odbc32.lib odbccp32.lib User32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				AdditionalLibraryDirectories="$(XLW)\xlw\lib\x64"
 				ProgramDatabaseFile="$(OutDir)\$(SolutionName).pdb"

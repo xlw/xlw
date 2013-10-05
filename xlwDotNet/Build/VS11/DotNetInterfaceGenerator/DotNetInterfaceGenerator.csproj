@@ -36,7 +36,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <PlatformTarget>x86</PlatformTarget>
-    <xlwversion>5_0_0f0</xlwversion>
+    <xlwversion>5_0_1f0</xlwversion>
     <gdconfig>-gd</gdconfig>
     <dir64>
     </dir64>
@@ -51,7 +51,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <xlwversion>5_0_0f0</xlwversion>
+    <xlwversion>5_0_1f0</xlwversion>
     <gdconfig>
     </gdconfig>
     <dir64>
@@ -64,7 +64,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <xlwversion>5_0_0f0</xlwversion>
+    <xlwversion>5_0_1f0</xlwversion>
     <gdconfig>-gd</gdconfig>
     <dir64>x64/</dir64>
     <DebugSymbols>true</DebugSymbols>
@@ -85,7 +85,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <xlwversion>5_0_0f0</xlwversion>
+    <xlwversion>5_0_1f0</xlwversion>
     <gdconfig>
     </gdconfig>
     <dir64>x64/</dir64>

@@ -107,10 +107,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc110-mt-gd-5_0_0f0.dll;$(OutDir)$(SolutionName).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc110-mt-gd-5_0_1f0.dll;$(OutDir)$(SolutionName).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc110-mt-gd-5_0_0f0.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc110-mt-gd-5_0_1f0.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib;../$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -139,10 +139,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc110-mt-gd-5_0_0f0.dll;$(OutDir)$(SolutionName).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc110-mt-gd-5_0_1f0.dll;$(OutDir)$(SolutionName).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc110-mt-gd-5_0_0f0.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc110-mt-gd-5_0_1f0.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib/x64;../$(PlatformName)_$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -166,10 +166,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc110-mt-5_0_0f0.dll;$(OutDir)$(SolutionName).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/xlwDotNet-vc110-mt-5_0_1f0.dll;$(OutDir)$(SolutionName).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc110-mt-5_0_0f0.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc110-mt-5_0_1f0.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib;../$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -195,10 +195,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc110-mt-5_0_0f0.dll;$(OutDir)$(SolutionName).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet/lib/x64/xlwDotNet-vc110-mt-5_0_1f0.dll;$(OutDir)$(SolutionName).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc110-mt-5_0_0f0.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc110-mt-5_0_1f0.lib;odbc32.lib;odbccp32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib/x64;../$(PlatformName)_$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>

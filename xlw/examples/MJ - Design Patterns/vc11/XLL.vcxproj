@@ -120,7 +120,7 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc110-mt-gd-5_0_0f0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc110-mt-gd-5_0_1f0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)\$(SolutionName).xll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(XLW)\xlw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -165,7 +165,7 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc110-mt-gd-5_0_0f0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc110-mt-gd-5_0_1f0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)\$(SolutionName).xll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(XLW)\xlw\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -211,7 +211,7 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc110-mt-5_0_0f0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc110-mt-5_0_1f0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)\$(SolutionName).xll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(XLW)\xlw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -256,7 +256,7 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc110-mt-5_0_0f0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc110-mt-5_0_1f0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)\$(SolutionName).xll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(XLW)\xlw\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

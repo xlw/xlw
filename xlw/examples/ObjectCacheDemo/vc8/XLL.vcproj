@@ -77,7 +77,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0f0.lib user32.lib"
+				AdditionalDependencies="xlw-vc80-mt-gd-5_0_1f0.lib user32.lib"
 				OutputFile=".\$(ConfigurationName)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -174,7 +174,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-5_0_0f0.lib user32.lib $(NOINHERIT)"
+				AdditionalDependencies="xlw-vc80-mt-5_0_1f0.lib user32.lib $(NOINHERIT)"
 				OutputFile=".\$(ConfigurationName)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -265,7 +265,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-gd-5_0_0f0.lib user32.lib"
+				AdditionalDependencies="xlw-vc80-mt-gd-5_0_1f0.lib user32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -358,7 +358,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xlw-vc80-mt-5_0_0f0.lib user32.lib $(NOINHERIT)"
+				AdditionalDependencies="xlw-vc80-mt-5_0_1f0.lib user32.lib $(NOINHERIT)"
 				OutputFile="$(OutDir)\$(SolutionName).xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"

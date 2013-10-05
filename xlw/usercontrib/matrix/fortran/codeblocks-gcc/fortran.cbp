@@ -17,7 +17,7 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="$(XLW)\xlw\lib\libxlw-gcc-s-gd-5_0_0f0.a" />
+					<Add library="$(XLW)\xlw\lib\libxlw-gcc-s-gd-5_0_1f0.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -32,7 +32,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="$(XLW)\xlw\lib\libxlw-gcc-s-5_0_0f0.a" />
+					<Add library="$(XLW)\xlw\lib\libxlw-gcc-s-5_0_1f0.a" />
 				</Linker>
 			</Target>
 		</Build>

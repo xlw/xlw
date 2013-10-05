@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <xlwversion>5_0_0f0</xlwversion>
+    <xlwversion>5_0_1f0</xlwversion>
 	<gdconfig />
 	<dir64 />
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
