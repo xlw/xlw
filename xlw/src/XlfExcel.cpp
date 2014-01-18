@@ -524,7 +524,7 @@ EnumStruct, FAR * LPEnumStruct;
 
 //! Needed by IsCalledByFuncWiz.
 bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
-    const size_t CLASS_NAME_BUFFER = 50;
+    const size_t CLASS_NAME_BUFFER = 256;
 
     // first check the class of the window.  Will be szXLDialogClass
     // if function wizard dialog is up in Excel
@@ -535,19 +535,15 @@ bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
         (LPSTR)rgsz,  (lstrlen((LPSTR)rgsz)>lstrlen("bosa_sdm_XL"))
         ? lstrlen("bosa_sdm_XL"):-1, "bosa_sdm_XL", -1)) {
 
-        char WindowTitle[256];
-        if(GetWindowText(hwnd, WindowTitle, 256)) {
+        if(GetWindowText(hwnd, rgsz, CLASS_NAME_BUFFER)) {
             // we know it is an excel window but we don't yet know if it is the 
             // function wizard, we need to avoid find and replace and
             // the paste and collect windows (we don't just look for Function so that
             // international versions at least get the function wizard working
-            if (!strstr(WindowTitle, "Replace") && !strstr(WindowTitle, "Paste"))
-            {
+            if (!strstr(rgsz, "Replace") && !strstr(rgsz, "Paste")) {
                 pEnum->bFuncWiz = TRUE;
                 return false;
-            }
-            else
-            {
+            } else {
                 // might as well quit the search
                 return false;
             }
