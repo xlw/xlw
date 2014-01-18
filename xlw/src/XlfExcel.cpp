@@ -254,7 +254,7 @@ void xlw::XlfExcel::InitLibrary() {
 
     LookForHelp();
 
-	m_mainExcelThread = GetCurrentThreadId();
+    m_mainExcelThread = GetCurrentThreadId();
 }
 
 const std::string& xlw::XlfExcel::GetName() const {
@@ -471,8 +471,8 @@ int xlw::XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER
     if (pxResult) {
         int type = pxResult->xltype;
 
-		// special case for ref type because of sheetid function uses an non-freeable oper
-		// and Excel 2013 now checks for odd bit flags
+        // special case for ref type because of sheetid function uses an non-freeable oper
+        // and Excel 2013 now checks for odd bit flags
         bool hasAuxMem = (type & xltypeStr ||
                         ((type & xltypeRef) && pxResult->val.mref.lpmref) ||
                         type & xltypeMulti ||
@@ -502,8 +502,8 @@ int xlw::XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, const LPXLO
     if (pxResult) {
         int type = pxResult->xltype;
 
-		// special case for ref type because of sheetid function uses an non-freeable oper
-		// and Excel 2013 now checks for odd bit flags
+        // special case for ref type because of sheetid function uses an non-freeable oper
+        // and Excel 2013 now checks for odd bit flags
         bool hasAuxMem = (type & xltypeStr ||
                           ((type & xltypeRef) && pxResult->val.mref.lpmref) ||
                           type & xltypeMulti ||
@@ -535,23 +535,23 @@ bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
         (LPSTR)rgsz,  (lstrlen((LPSTR)rgsz)>lstrlen("bosa_sdm_XL"))
         ? lstrlen("bosa_sdm_XL"):-1, "bosa_sdm_XL", -1)) {
 
-		char WindowTitle[256];
-		if(GetWindowText(hwnd, WindowTitle, 256)) {
-			// we know it is an excel window but we don't yet know if it is the 
-			// function wizard, we need to avoid find and replace and
+        char WindowTitle[256];
+        if(GetWindowText(hwnd, WindowTitle, 256)) {
+            // we know it is an excel window but we don't yet know if it is the 
+            // function wizard, we need to avoid find and replace and
             // the paste and collect windows (we don't just look for Function so that
             // international versions at least get the function wizard working
-			if (!strstr(WindowTitle, "Replace") && !strstr(WindowTitle, "Paste"))
-			{
-				pEnum->bFuncWiz = TRUE;
-				return false;
-			}
-			else
-			{
-				// might as well quit the search
-				return false;
-			}
-		}
+            if (!strstr(WindowTitle, "Replace") && !strstr(WindowTitle, "Paste"))
+            {
+                pEnum->bFuncWiz = TRUE;
+                return false;
+            }
+            else
+            {
+                // might as well quit the search
+                return false;
+            }
+        }
     }
     // no luck - continue the enumeration
     return true;
