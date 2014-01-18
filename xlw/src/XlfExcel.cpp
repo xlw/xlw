@@ -253,6 +253,8 @@ void xlw::XlfExcel::InitLibrary() {
     }
 
     LookForHelp();
+
+	m_mainExcelThread = GetCurrentThreadId();
 }
 
 const std::string& xlw::XlfExcel::GetName() const {
@@ -517,7 +519,6 @@ namespace {
 //! Needed by IsCalledByFuncWiz.
 typedef struct _EnumStruct {
     bool bFuncWiz;
-    short hwndXLMain;
 }
 EnumStruct, FAR * LPEnumStruct;
 
@@ -534,10 +535,22 @@ bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
         (LPSTR)rgsz,  (lstrlen((LPSTR)rgsz)>lstrlen("bosa_sdm_XL"))
         ? lstrlen("bosa_sdm_XL"):-1, "bosa_sdm_XL", -1)) {
 
-        if(LOWORD( GetParent(hwnd)) == pEnum->hwndXLMain) {
-            pEnum->bFuncWiz = TRUE;
-            return false;
-        }
+        DWORD windowProcessId;
+		char WindowTitle[256];
+		if(GetWindowText(hwnd, WindowTitle, 256)) {
+			// we know it is an excel window but we don't yet know if it is the 
+			// function wizard, we need to avoid find and replace as paste and collect
+			if (!strstr(WindowTitle, "Replace") && !strstr(WindowTitle, "Paste"))
+			{
+				pEnum->bFuncWiz = TRUE;
+				return false;
+			}
+			else
+			{
+				// might as well quit the search
+				return false;
+			}
+		}
     }
     // no luck - continue the enumeration
     return true;
@@ -549,13 +562,9 @@ bool xlw::XlfExcel::IsCalledByFuncWiz() const {
     XLOPER xHwndMain;
     EnumStruct enm;
 
-    if (Excel4_(xlGetHwnd, &xHwndMain, 0) == xlretSuccess) {
-        enm.bFuncWiz = false;
-        enm.hwndXLMain = xHwndMain.val.w;
-        EnumWindows((WNDENUMPROC) EnumProc,
-            (LPARAM) ((LPEnumStruct)  &enm));
-        return enm.bFuncWiz;
-    }
-    return false;    //safe case: Return false if not sure
+    enm.bFuncWiz = false;
+    EnumThreadWindows(m_mainExcelThread, (WNDENUMPROC) EnumProc,
+        (LPARAM) ((LPEnumStruct)  &enm));
+    return enm.bFuncWiz;
 }
 

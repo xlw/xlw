@@ -210,6 +210,7 @@ namespace xlw {
         std::string fpArrayType_;
         std::string xllFileName_;
         std::string helpFileName_;
+		DWORD m_mainExcelThread;
     };
 
 }
