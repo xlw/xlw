@@ -535,11 +535,12 @@ bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
         (LPSTR)rgsz,  (lstrlen((LPSTR)rgsz)>lstrlen("bosa_sdm_XL"))
         ? lstrlen("bosa_sdm_XL"):-1, "bosa_sdm_XL", -1)) {
 
-        DWORD windowProcessId;
 		char WindowTitle[256];
 		if(GetWindowText(hwnd, WindowTitle, 256)) {
 			// we know it is an excel window but we don't yet know if it is the 
-			// function wizard, we need to avoid find and replace as paste and collect
+			// function wizard, we need to avoid find and replace and
+            // the paste and collect windows (we don't just look for Function so that
+            // international versions at least get the function wizard working
 			if (!strstr(WindowTitle, "Replace") && !strstr(WindowTitle, "Paste"))
 			{
 				pEnum->bFuncWiz = TRUE;
@@ -559,7 +560,6 @@ bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
 } // empty namespace
 
 bool xlw::XlfExcel::IsCalledByFuncWiz() const {
-    XLOPER xHwndMain;
     EnumStruct enm;
 
     enm.bFuncWiz = false;
