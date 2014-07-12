@@ -31,6 +31,7 @@
 #include <iostream>
 #include <xlw/macros.h>
 #include <xlw/xlwshared_ptr.h>
+#include <algorithm>
 
 /*! \e see XlfAbstractCmdDesc::XlfAbstractCmdDesc(const std::string&, const std::string&, const std::string&)
 */

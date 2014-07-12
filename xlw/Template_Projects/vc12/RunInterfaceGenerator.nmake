@@ -1,0 +1,35 @@
+## If you have more then one header file 
+## defining your interface then uncomment 
+## the extra IFACE_INPUT & IFACE_OUTPUT
+## lines below identifying your extra headers and 
+## output .cpp source files.
+## Then add  the line per header
+##             "$(IFACE_EXE)" $(IFACE_INPUTx) $(IFACE_OUTPUTx)
+## to the  $(BUILDFLAG) target below
+
+BUILDFLAG=$(ENVIRON)\buildflag
+IFACE_EXE="$(XLW)\xlw\build\$(VC)\$(ENVIRON)\InterfaceGenerator.exe"
+
+IFACE_INPUT=source\cppinterface.h
+IFACE_OUTPUT=source\xlwWrapper.cpp
+
+#IFACE_INPUT2=source\header2.h
+#IFACE_OUTPUT2=source\xlwWrapper2.cpp
+
+#IFACE_INPUT3=source\header3.h
+#IFACE_OUTPUT3=source\xlwWrapper3.cpp
+
+INPUTS = $(MAKEFILE) $(IFACE_INPUT) # $(IFACE_INPUT2) $(IFACE_INPUT3)
+
+ALL : $(BUILDFLAG)
+
+
+
+$(BUILDFLAG) : $(INPUTS)
+    "$(IFACE_EXE)" $(IFACE_INPUT) $(IFACE_OUTPUT) 
+	ECHO flagged > $@
+
+CLEAN :
+	-@ if EXIST $(BUILDFLAG) del $(BUILDFLAG)
+
+REBUILD : CLEAN ALL

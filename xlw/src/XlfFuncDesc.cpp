@@ -29,6 +29,7 @@
 #include <xlw/XlfException.h>
 #include <xlw/XlfOper4.h>
 #include <xlw/XlfOper.h>
+#include <algorithm>
 
 /*!
 \param name

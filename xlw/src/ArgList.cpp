@@ -24,6 +24,7 @@
 #include <xlw/ArgList.h>
 #include <sstream>
 #include <xlw/PascalStringConversions.h>
+#include <algorithm>
 
 namespace
 {
