@@ -48,6 +48,40 @@ SET vcbuildtoolpath=%VS10TOOLS%
 %NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
 %NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
 %NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+
 %NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
+
+
+
+
+@SET LOG_ROOT=%CD%\xlwDotNetTemplateHybrid-VS11-
+@SET VSPROJ="C:\Temp\xlwDotNetTemplate Projects\Hybrid_Cpp_CSharp_XLLs\VS11_PRO\HybridTemplate.sln"
+SET DevEnvDir=%VS11DEVENVDIR%
+SET vcbuildtoolpath=%VS11TOOLS%
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
+
+
+@SET LOG_ROOT=%CD%\xlwDotNetTemplateHybrid-VS12-
+@SET VSPROJ="C:\Temp\xlwDotNetTemplate Projects\Hybrid_Cpp_CSharp_XLLs\VS12_PRO\HybridTemplate.sln"
+SET DevEnvDir=%VS12DEVENVDIR%
+SET vcbuildtoolpath=%VS12TOOLS%
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:clean /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x86 >> "%LOG_ROOT%x86-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x86 >> "%LOG_ROOT%x86-Release.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Debug /property:Platform=x64 >> "%LOG_ROOT%x64-Debug.log" 2>&1 
+%NET4BUILD% %VSPROJ% /target:XLL /t:build /property:Configuration=Release /property:Platform=x64 >> "%LOG_ROOT%x64-Release.log" 2>&1 
+
+
+
 
 @ENDLOCAL
