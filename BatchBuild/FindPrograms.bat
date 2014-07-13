@@ -57,6 +57,15 @@
 @CALL FindProgram.bat "Microsoft Visual Studio 11.0\vc\bin" VS11BIN NOPATH
 @IF ERRORLEVEL 1 EXIT /b 1
 
+@CALL FindProgram.bat "Microsoft Visual Studio 12.0\Common7\IDE\" VS12DEVENVDIR NOPATH
+@IF ERRORLEVEL 1 EXIT /b 1
+
+@CALL FindProgram.bat "Microsoft Visual Studio 12.0\vc\vcpackages" VS12TOOLS NOPATH
+@IF ERRORLEVEL 1 EXIT /b 1
+
+@CALL FindProgram.bat "Microsoft Visual Studio 12.0\vc\bin" VS12BIN NOPATH
+@IF ERRORLEVEL 1 EXIT /b 1
+
 @echo Looking for .NET 3.5 msbuild
 @CALL CheckFile.bat "C:\WINDOWS\Microsoft.NET\Framework\v3.5\msbuild.exe" NET35BUILD
 @IF "%NET35BUILD%" == "" ECHO Error: Can't Find .NET 3.5 MsBuild & exit /b 1
