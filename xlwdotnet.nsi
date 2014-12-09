@@ -94,6 +94,7 @@
 	 Var VS2008_Saved
 	 Var VS2010_Saved
 	 Var VS2012_Saved
+	 Var VS2013_Saved
 	 Var CODEBLOCKS_Saved
 	 Var GCCMAKE_Saved
 	 
@@ -101,11 +102,14 @@
 	 Var VS2008DotNet_Saved
 	 Var VS2010DotNet_Saved
 	 Var VS2012DotNet_Saved
+	 Var VS2013DotNet_Saved
 	 
 	Var Dialog
 	Var Label
 	Var ListBox
 	
+	
+	Var VS2013_INST
 	
 	Var VS2012_INST
 	
@@ -369,6 +373,11 @@
 			${If} $0 == "1"
 				!insertmacro doExampleVCHelper "${dir}\vc11"
 			${EndIf}
+
+			SectionGetFlags ${VS2013} $0 
+			${If} $0 == "1"
+				!insertmacro doExampleVCHelper "${dir}\vc12"
+			${EndIf}
 			
 			${If} ${gccaswell} == 1
 			
@@ -424,6 +433,11 @@
 			SectionGetFlags ${VS2012DotNet} $0 
 			${If} $0 == "1"
 				!insertmacro doExampleVCHelper "${dir}\VS11"
+			${EndIf}
+
+			SectionGetFlags ${VS2013DotNet} $0 
+			${If} $0 == "1"
+				!insertmacro doExampleVCHelper "${dir}\VS12"
 			${EndIf}
 			
 			Pop $0
@@ -546,6 +560,16 @@ SubSection "xlw" xlw
 			File  "xlw\lib\x64\xlw-vc110*.pdb"
 			!insertmacro InterfaceGenerator vc11
 		SectionEnd
+
+		Section "VS2013" VS2013
+			SetOutPath "$INSTDIR\xlw\lib"
+			File  "xlw\lib\xlw-vc120*.lib"
+			File  "xlw\lib\xlw-vc120*.pdb"
+			SetOutPath "$INSTDIR\xlw\lib\x64"
+			File  "xlw\lib\x64\xlw-vc120*.lib"
+			File  "xlw\lib\x64\xlw-vc120*.pdb"
+			!insertmacro InterfaceGenerator vc12
+		SectionEnd
 		
 		Section "Code::Blocks(mingw)" CODEBLOCKS
 			SetOutPath "$INSTDIR\xlw\lib"
@@ -632,6 +656,12 @@ SubSection "xlw" xlw
 			!insertmacro buildfiles "vc11"
 			!insertmacro projectfiles "xlw\Template_Projects\vc11"
 			!insertmacro sourcefiles  "xlw\Template_Projects\vc11"
+		SectionEnd
+
+		Section "VS2013" VS2013_SRC
+			!insertmacro buildfiles "vc12"
+			!insertmacro projectfiles "xlw\Template_Projects\vc12"
+			!insertmacro sourcefiles  "xlw\Template_Projects\vc12"
 		SectionEnd
 
 		
@@ -785,10 +815,25 @@ SubSection "xlwDotNet" xlwDotNet
 			!insertmacro DotNetInterfaceGenerator64 VS11
 			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS11"
 			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS11"
-		;	!insertmacro projectfiles "xlwDotNet\Template_Projects\VisualBasic\VB2010"
-		;	!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VisualBasic\VB2010"
 			!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS11_PRO"
 			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS11_PRO"
+			CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet"
+			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet\Extract XLW .NET xll template.lnk" "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
+		SectionEnd		
+
+		Section "VS2013" VS2013DotNet
+			SetOutPath "$INSTDIR\xlwDotNet\lib"
+			File "xlwDotNet\lib\xlwDotNet-vc120*.dll"
+			File "xlwDotNet\lib\xlwDotNet-vc120*.pdb"
+			SetOutPath "$INSTDIR\xlwDotNet\lib\x64"
+			File "xlwDotNet\lib\x64\xlwDotNet-vc120*.dll"
+			File "xlwDotNet\lib\x64\xlwDotNet-vc120*.pdb"
+			!insertmacro DotNetInterfaceGenerator VS12
+			!insertmacro DotNetInterfaceGenerator64 VS12
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS12"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS12"
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS12_PRO"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS12_PRO"
 			CreateDirectory "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet"
 			CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlwDotNet\Extract XLW .NET xll template.lnk" "$INSTDIR\TemplateExtractors\xlwDotNetTemplateExtractor.exe"
 		SectionEnd		
@@ -870,6 +915,17 @@ SubSection "xlwDotNet" xlwDotNet
 			${EndIf}
 		SectionEnd
 		
+		Section "VS2013" VS2013DotNet_SRC
+			!insertmacro DotNetbuildfiles_VS10 "VS12"
+			!insertmacro DotNetHeaders
+			!insertmacro dotNetInterfaceGenSource
+			!insertmacro projectfiles "xlwDotNet\Template_Projects\VS12"
+			!insertmacro sourcefiles  "xlwDotNet\Template_Projects\VS12"
+			${If} VS2012PRO_CSharp_INST != ""  
+				!insertmacro projectfiles "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS12_PRO"
+				!insertmacro sourcefiles  "xlwDotNet\Template_Projects\Hybrid_Cpp_CSharp_XLLs\VS12_PRO"
+			${EndIf}
+		SectionEnd
 
 	SectionGroupEnd
 SubSectionEnd
@@ -886,7 +942,8 @@ LangString DESC_VS2003 ${LANG_ENGLISH} "VS2003  xll C++ build enviroment for Vis
 LangString DESC_VS2005 ${LANG_ENGLISH} "VS2005  xll C++ build enviroment for Visual Studio 2005 (VS8)."
 LangString DESC_VS2008 ${LANG_ENGLISH} "VS2008  xll C++ build enviroment for Visual Studio 2008 (VS9)."
 LangString DESC_VS2010 ${LANG_ENGLISH} "VS2010  xll C++ build enviroment for Visual Studio 2010 (VS10)."
-LangString DESC_VS2012 ${LANG_ENGLISH} "VS2010  xll C++ build enviroment for Visual Studio 2012 (VS11)."
+LangString DESC_VS2012 ${LANG_ENGLISH} "VS2012  xll C++ build enviroment for Visual Studio 2012 (VS11)."
+LangString DESC_VS2013 ${LANG_ENGLISH} "VS2013  xll C++ build enviroment for Visual Studio 2013 (VS12)."
 LangString DESC_CODEBLOCKS ${LANG_ENGLISH} "Code::Blocks xll C++ build enviroment Code::Blocks ( MinGW only )."
 LangString DESC_GCCMAKE ${LANG_ENGLISH} "gcc/make xll C++ build enviroment with support of GNU-MAKE. This uses makefiles"
 
@@ -899,6 +956,7 @@ LangString DESC_VS2005_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2005 (
 LangString DESC_VS2008_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2008 (VS9) project files for building the xlw libraries & Tools.."
 LangString DESC_VS2010_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2010 (VS10) project files for building the xlw libraries & Tools.."
 LangString DESC_VS2012_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2012 (VS11) project files for building the xlw libraries & Tools.."
+LangString DESC_VS2013_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2013 (VS12) project files for building the xlw libraries & Tools.."
 
 LangString DESC_CODEBLOCKS_SRC ${LANG_ENGLISH} "Source code and Code::Blocks  project files for building the xlw libraries & Tools."
 LangString DESC_GCCMAKE_SRC ${LANG_ENGLISH} "Source code and and gnu-make makefiles for building the xlw libraries & Tools."
@@ -909,6 +967,7 @@ LangString DESC_VS2005DotNet ${LANG_ENGLISH} "xlwDotNet .NET Assemblies  & Tools
 LangString DESC_VS2008DotNet ${LANG_ENGLISH} "xlwDotNet .NET Assemblies  & Tools to build for xlls with Visual Studio 2008 (VS9)"
 LangString DESC_VS2010DotNet ${LANG_ENGLISH} "xlwDotNet .NET Assemblies  & Tools to build for xlls with Visual Studio 2010 (VS10)"
 LangString DESC_VS2012DotNet ${LANG_ENGLISH} "xlwDotNet .NET Assemblies  & Tools to build for xlls with Visual Studio 2012 (VS11)"
+LangString DESC_VS2013DotNet ${LANG_ENGLISH} "xlwDotNet .NET Assemblies  & Tools to build for xlls with Visual Studio 2013 (VS12)"
 
 
 LangString DESC_DotNetSource ${LANG_ENGLISH} "You can install the source code for the xlwDotNet libraries & Tools including all appropriates project files."
@@ -917,6 +976,7 @@ LangString DESC_VS2005DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 
 LangString DESC_VS2008DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2008 (VS9) project files for building the xlwDotNet Assemblies & Tools."
 LangString DESC_VS2010DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2010 (VS10) project files for building the xlwDotNet Assemblies & Tools."
 LangString DESC_VS2012DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2012 (VS11) project files for building the xlwDotNet Assemblies & Tools."
+LangString DESC_VS2013DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 2013 (VS12) project files for building the xlwDotNet Assemblies & Tools."
 
 
 
@@ -929,6 +989,8 @@ LangString DESC_VS2012DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 
     !insertmacro MUI_DESCRIPTION_TEXT ${VS2005} $(DESC_VS2005)
     !insertmacro MUI_DESCRIPTION_TEXT ${VS2008} $(DESC_VS2008)
 	!insertmacro MUI_DESCRIPTION_TEXT ${VS2010} $(DESC_VS2010)
+	!insertmacro MUI_DESCRIPTION_TEXT ${VS2012} $(DESC_VS2012)
+	!insertmacro MUI_DESCRIPTION_TEXT ${VS2013} $(DESC_VS2013)
     !insertmacro MUI_DESCRIPTION_TEXT ${CODEBLOCKS} $(DESC_CODEBLOCKS)
     !insertmacro MUI_DESCRIPTION_TEXT ${GCCMAKE} $(DESC_GCCMAKE)
 	
@@ -941,6 +1003,8 @@ LangString DESC_VS2012DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 
     !insertmacro MUI_DESCRIPTION_TEXT ${VS2005_SRC} $(DESC_VS2005_SRC)
     !insertmacro MUI_DESCRIPTION_TEXT ${VS2008_SRC} $(DESC_VS2008_SRC)
 	!insertmacro MUI_DESCRIPTION_TEXT ${VS2010_SRC} $(DESC_VS2010_SRC)
+    !insertmacro MUI_DESCRIPTION_TEXT ${VS2012_SRC} $(DESC_VS2012_SRC)
+    !insertmacro MUI_DESCRIPTION_TEXT ${VS2013_SRC} $(DESC_VS2013_SRC)
     !insertmacro MUI_DESCRIPTION_TEXT ${CODEBLOCKS_SRC} $(DESC_CODEBLOCKS_SRC)
     !insertmacro MUI_DESCRIPTION_TEXT ${GCCMAKE_SRC} $(DESC_GCCMAKE_SRC)
 	
@@ -948,11 +1012,17 @@ LangString DESC_VS2012DotNet_SRC ${LANG_ENGLISH} "Source code and Visual Studio 
 	
 	!insertmacro MUI_DESCRIPTION_TEXT ${VS2005DotNet} $(DESC_VS2005DotNet)
     !insertmacro MUI_DESCRIPTION_TEXT ${VS2008DotNet} $(DESC_VS2008DotNet)
+    !insertmacro MUI_DESCRIPTION_TEXT ${VS2010DotNet} $(DESC_VS2010DotNet)
+    !insertmacro MUI_DESCRIPTION_TEXT ${VS2012DotNet} $(DESC_VS2012DotNet)
+    !insertmacro MUI_DESCRIPTION_TEXT ${VS2013DotNet} $(DESC_VS2013DotNet)
 	
 	!insertmacro MUI_DESCRIPTION_TEXT ${DotNetSource} $(DESC_DotNetSource)
 	
 	!insertmacro MUI_DESCRIPTION_TEXT ${VS2005DotNet_SRC} $(DESC_VS2005DotNet_SRC)
     !insertmacro MUI_DESCRIPTION_TEXT ${VS2008DotNet_SRC} $(DESC_VS2008DotNet_SRC)
+    !insertmacro MUI_DESCRIPTION_TEXT ${VS2010DotNet_SRC} $(DESC_VS2010DotNet_SRC)
+    !insertmacro MUI_DESCRIPTION_TEXT ${VS2012DotNet_SRC} $(DESC_VS2012DotNet_SRC)
+    !insertmacro MUI_DESCRIPTION_TEXT ${VS2013DotNet_SRC} $(DESC_VS2013DotNet_SRC)
 	
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
@@ -1189,6 +1259,11 @@ Function DevEnvironFinder
 		!insertmacro insertline
 	${EndIf}
 
+	ReadEnvStr $VS2013_INST  "VS120COMNTOOLS"  
+	${If} $VS2013_INST != ""
+		${NSD_LB_AddString} $ListBox_right "Detected Visual Studio 2013"
+		!insertmacro insertline
+	${EndIf}
 	
 	# gcc
 	
@@ -1234,6 +1309,7 @@ Function SetUpInfo
 	SectionSetFlags ${VS2008_SRC} 0
 	SectionSetFlags ${VS2010_SRC} 0
 	SectionSetFlags ${VS2012_SRC} 0
+	SectionSetFlags ${VS2013_SRC} 0
 	SectionSetFlags ${CODEBLOCKS_SRC} 0
 	SectionSetFlags ${GCCMAKE_SRC} 0
 	
@@ -1241,21 +1317,31 @@ Function SetUpInfo
 	SectionSetFlags ${VS2008DotNet_SRC} 0
 	SectionSetFlags ${VS2010DotNet_SRC} 0
 	SectionSetFlags ${VS2012DotNet_SRC} 0
+	SectionSetFlags ${VS2013DotNet_SRC} 0
 	
 	SectionSetFlags ${VS2003} 0
 	SectionSetFlags ${VS2005} 0
 	SectionSetFlags ${VS2008} 0
 	SectionSetFlags ${VS2010} 0	
 	SectionSetFlags ${VS2012} 0	
+	SectionSetFlags ${VS2013} 0	
 	SectionSetFlags ${CODEBLOCKS} 0
 	SectionSetFlags ${GCCMAKE} 0
 	
-	SectionSetFlags ${VS2005DotNet} 0
-	SectionSetFlags ${VS2008DotNet} 0
+	SectionSetFlags ${VS2005DotNet} 1
+	SectionSetFlags ${VS2008DotNet} 1
+	SectionSetFlags ${VS2010DotNet} 1
+	SectionSetFlags ${VS2012DotNet} 1
+	SectionSetFlags ${VS2013DotNet} 1
 	
 	SectionSetFlags ${xlwExamples} 0
 	SectionSetFlags ${sandcastle} 0
 
+	
+	${If} $VS2013_INST != "" 
+		StrCpy $CPP_DETECTED  "1"
+		SectionSetFlags ${VS2013} 1
+	${EndIf}
 	
 	${If} $VS2012_INST != "" 
 		StrCpy $CPP_DETECTED  "1"
@@ -1303,12 +1389,11 @@ Function SetUpInfo
 		StrCpy $CPP_DETECTED  "1"
 	${EndIf}
 	
-
-	SectionSetFlags ${VS2008DotNet} 1
-	SectionSetFlags ${VS2005DotNet} 1
-	SectionSetFlags ${VS2010DotNet} 1
-	SectionSetFlags ${VS2012DotNet} 1
 	
+	${If} $VS2013_INST == "" 
+		SectionSetFlags ${VS2013DotNet} 0
+	${EndIf}
+
 	${If} $VS2012_INST == "" 
 		SectionSetFlags ${VS2012DotNet} 0
 	${EndIf}

@@ -58,6 +58,7 @@
 
 Var DIALOG
 
+Var VS12_CSHARP
 Var VS11_CSHARP
 Var VS10_CSHARP
 Var VS9_CSHARP
@@ -66,12 +67,13 @@ Var VS11_FSHARP
 Var VS10_FSHARP
 Var VS10_VISUALBASIC
 Var VS9_VISUALBASIC
-Var VS8_VISUALBASIC
+Var VS12_HYBRID
 Var VS11_HYBRID
 Var VS10_HYBRID
 Var VS9_HYBRID
 Var VS8_HYBRID
 
+Var VS12_CSHARP_STATE
 Var VS11_CSHARP_STATE
 Var VS10_CSHARP_STATE
 Var VS9_CSHARP_STATE
@@ -80,7 +82,7 @@ Var VS11_FSHARP_STATE
 Var VS10_FSHARP_STATE
 Var VS10_VISUALBASIC_STATE
 Var VS9_VISUALBASIC_STATE
-Var VS8_VISUALBASIC_STATE
+Var VS12_HYBRID_STATE
 Var VS11_HYBRID_STATE
 Var VS10_HYBRID_STATE
 Var VS9_HYBRID_STATE
@@ -98,6 +100,10 @@ Function ExtractorPage
 
 	GetFunctionAddress $0 RadioChanged
 	
+	${NSD_CreateRadioButton} 40 0 100% 10% "Visual C# 2013 (VS12)"
+	Pop $VS12_CSHARP
+	nsDialogs::OnClick  $VS12_CSHARP $0
+
 	${NSD_CreateRadioButton} 40 0 100% 10% "Visual C# 2012 (VS11)"
 	Pop $VS11_CSHARP
 	nsDialogs::OnClick  $VS11_CSHARP $0
@@ -130,6 +136,10 @@ Function ExtractorPage
 	Pop $VS9_VISUALBASIC
 	nsDialogs::OnClick  $VS9_VISUALBASIC $0
 	
+	${NSD_CreateRadioButton} 40 200 100% 10% "Visual Studio 2013 (VS12) (Hybrid C++/C# XLL - Not VS Express)"
+	Pop $VS12_HYBRID
+	nsDialogs::OnClick  $VS12_HYBRID $0
+	
 	${NSD_CreateRadioButton} 40 200 100% 10% "Visual Studio 2012 (VS11) (Hybrid C++/C# XLL - Not VS Express)"
 	Pop $VS11_HYBRID
 	nsDialogs::OnClick  $VS11_HYBRID $0
@@ -159,6 +169,7 @@ Function RadioChanged
 	GetDlgItem $0 $HWNDPARENT 1
 	EnableWindow $0 1
 
+	${NSD_GetState} $VS12_CSHARP $VS12_CSHARP_STATE
 	${NSD_GetState} $VS11_CSHARP $VS11_CSHARP_STATE
 	${NSD_GetState} $VS10_CSHARP $VS10_CSHARP_STATE
 	${NSD_GetState} $VS9_CSHARP $VS9_CSHARP_STATE
@@ -169,8 +180,8 @@ Function RadioChanged
 	
 	${NSD_GetState} $VS10_VISUALBASIC $VS10_VISUALBASIC_STATE
 	${NSD_GetState} $VS9_VISUALBASIC $VS9_VISUALBASIC_STATE
-	;${NSD_GetState} $VS8_VISUALBASIC $VS8_VISUALBASIC_STATE	
 
+	${NSD_GetState} $VS12_HYBRID $VS12_HYBRID_STATE	
 	${NSD_GetState} $VS11_HYBRID $VS11_HYBRID_STATE	
 	${NSD_GetState} $VS10_HYBRID $VS10_HYBRID_STATE	
 	${NSD_GetState} $VS9_HYBRID $VS9_HYBRID_STATE
@@ -218,6 +229,7 @@ FunctionEnd
 !macroend
 
 Section #
+    !insertmacro GETDIR $VS12_CSHARP_STATE "CSharp\VS12"
     !insertmacro GETDIR $VS11_CSHARP_STATE "CSharp\VS11"
 	!insertmacro GETDIR $VS10_CSHARP_STATE "CSharp\VS10"
 	!insertmacro GETDIR $VS9_CSHARP_STATE "CSharp\VS9"
@@ -229,6 +241,7 @@ Section #
 	!insertmacro GETDIR $VS10_VISUALBASIC_STATE "VisualBasic\VS10"
 	!insertmacro GETDIR $VS9_VISUALBASIC_STATE "VisualBasic\VS9"
 	
+	!insertmacro GETDIR $VS12_HYBRID_STATE "Hybrid_Cpp_CSharp_XLLs\VS12_PRO"
 	!insertmacro GETDIR $VS11_HYBRID_STATE "Hybrid_Cpp_CSharp_XLLs\VS11_PRO"
 	!insertmacro GETDIR $VS10_HYBRID_STATE "Hybrid_Cpp_CSharp_XLLs\VS10_PRO"
 	!insertmacro GETDIR $VS9_HYBRID_STATE "Hybrid_Cpp_CSharp_XLLs\VS9_PRO"

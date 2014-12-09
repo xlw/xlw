@@ -67,6 +67,7 @@ Var FREESPACE
 Var HEADLINE_FONT
 Var STATE
 	
+Var VC12
 Var VC11
 Var VC10
 Var VC9
@@ -76,6 +77,7 @@ Var CODEBLOCKS
 
 Var GCC
 
+Var VC12_STATE
 Var VC11_STATE
 Var VC10_STATE
 Var VC9_STATE
@@ -100,6 +102,9 @@ Function ExtractorPage
 
 	GetFunctionAddress $0 RadioChanged
 	
+    ${NSD_CreateRadioButton} 100 30 100% 10% "Visual C++ 2013 (VC12)"    
+	Pop $VC12
+	nsDialogs::OnClick  $VC12 $0
     ${NSD_CreateRadioButton} 100 30 100% 10% "Visual C++ 2012 (VC11)"    
 	Pop $VC11
 	nsDialogs::OnClick  $VC11 $0
@@ -137,15 +142,14 @@ Function RadioChanged
 	GetDlgItem $0 $HWNDPARENT 1
 	EnableWindow $0 1
 
-	${NSD_GetState} $GCC $GCC_STATE
-	${NSD_GetState} $VC9 $VC9_STATE
-	${NSD_GetState} $VC10 $VC10_STATE
+	${NSD_GetState} $VC12 $VC12_STATE
 	${NSD_GetState} $VC11 $VC11_STATE
+	${NSD_GetState} $VC10 $VC10_STATE
+	${NSD_GetState} $VC9 $VC9_STATE
 	${NSD_GetState} $VC8 $VC8_STATE
 	${NSD_GetState} $VC71 $VC71_STATE
 	${NSD_GetState} $CODEBLOCKS $CODEBLOCKS_STATE
-
-	
+	${NSD_GetState} $GCC $GCC_STATE
 	
 FunctionEnd
 
@@ -193,13 +197,14 @@ Var DIR
 !macroend
 
 Section #
+	!insertmacro GETDIR $VC12_STATE "vc12"
 	!insertmacro GETDIR $VC11_STATE "vc11"
 	!insertmacro GETDIR $VC10_STATE "vc10"
 	!insertmacro GETDIR $VC9_STATE "vc9"
 	!insertmacro GETDIR $VC8_STATE "vc8"
 	!insertmacro GETDIR $VC71_STATE "vc7"
-	!insertmacro GETDIR $GCC_STATE "gcc-make"
 	!insertmacro GETDIR $CODEBLOCKS_STATE "codeblocks-gcc"
+	!insertmacro GETDIR $GCC_STATE "gcc-make"
 
 SectionEnd 
 
