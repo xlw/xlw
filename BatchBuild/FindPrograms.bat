@@ -66,7 +66,7 @@
 @CALL FindProgram.bat "Microsoft Visual Studio 12.0\vc\bin" VS12BIN NOPATH
 @IF ERRORLEVEL 1 EXIT /b 1
 
-@CALL FindProgram.bat "MSBuild\12.0\Bin\MSBuild.exe" MSBUILD12 NOPATH
+@CALL FindProgram.bat "MSBuild\12.0\Bin\MSBuild.exe" MSBUILD12
 @IF ERRORLEVEL 1 EXIT /b 1
 
 @echo Looking for .NET 3.5 msbuild
