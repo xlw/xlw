@@ -22,13 +22,15 @@ vcprojects = ['../xlw/build/vc7/xlw.vcproj',
                           '../xlw/build/vc8/xlw.vcproj',
                           '../xlw/build/vc9/xlw.vcproj',
                           '../xlwDotNet/Build/VS8/xlwDotNet/xlwDotNet.vcproj',
-                          '../xlwDotNet/Build/VS9/xlwDotNet/xlwDotNet.vcproj'
+                          '../xlwDotNet/Build/VS9/xlwDotNet/xlwDotNet.vcproj',
                           ]
 
 vcxprojects = ['../xlw/build/vc10/xlw.vcxproj',
                '../xlwDotNet/Build/VS10/xlwDotNet/xlwDotNet.vcxproj',
 			   '../xlw/build/vc11/xlw.vcxproj',
-               '../xlwDotNet/Build/VS11/xlwDotNet/xlwDotNet.vcxproj'
+               '../xlwDotNet/Build/VS11/xlwDotNet/xlwDotNet.vcxproj',
+			   '../xlw/build/vc12/xlw.vcxproj',
+               '../xlwDotNet/Build/VS12/xlwDotNet/xlwDotNet.vcxproj',
                           ]
                 
 cbprojects = ['../xlw/build/codeblocks-gcc/xlw.cbp']

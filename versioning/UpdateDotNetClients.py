@@ -23,6 +23,7 @@ destinationPaths = [
                     '../xlwDotNet/Build/VS9/DotNetInterfaceGenerator',
                     '../xlwDotNet/Build/VS10/DotNetInterfaceGenerator',
 					'../xlwDotNet/Build/VS11/DotNetInterfaceGenerator',
+					'../xlwDotNet/Build/VS12/DotNetInterfaceGenerator',
                     '../xlwDotNet/UserContrib',
                     '../xlwDotNet/Template_Projects',
                     '../xlwDotNet/Examples'
