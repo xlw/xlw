@@ -241,7 +241,7 @@ void xlw::XlfExcel::InitLibrary() {
 
     // work out if we are running the english version
     XlfOper intlInfo;
-    int err = Call(xlfGetWorkspace, (LPXLFOPER)intlInfo, 37);
+    int err = Call(xlfGetWorkspace, (LPXLFOPER)intlInfo, 1, XlfOper(37));
     if (err == xlretSuccess)
     {
         isEnglish_ = (intlInfo(0,0).AsInt() == 1);
