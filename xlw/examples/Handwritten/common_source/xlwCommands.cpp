@@ -92,7 +92,9 @@ extern "C"
             // last way is to use XlfRef objects
             xlw::XlfServices.Cell.SetContents(XlfRef(i+2, 0), i);
             // can add formulas using relative notation
-            xlw::XlfServices.Cell.SetContents(XlfRef(i+2, 1), "=R[0]C[-1]^2");
+            // not use of sum in formula to test correct handling in
+            // international versions
+            xlw::XlfServices.Cell.SetContents(XlfRef(i+2, 1), "=sum(R[0]C[-1])^2");
         }
         EXCEL_END_CMD;
     }
