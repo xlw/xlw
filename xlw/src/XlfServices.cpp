@@ -204,7 +204,8 @@ namespace xlw
 
     std::string Information_t::GetFormula(const XlfOper& cellRef)
     {
-        return CallFunction(xlfGetFormula, cellRef, "Get Formula").AsString();
+        int flag = (XlfExcel::Instance().isEnglish()?0:xlIntl);
+        return CallFunction(xlfGetFormula | flag, cellRef, "Get Formula").AsString();
     }
 
     std::string Information_t::ConvertA1FormulaToR1C1(std::string a1Formula)
@@ -265,12 +266,14 @@ namespace xlw
 
     XlfOper Cell_t::GetContents(const XlfOper& ref)
     {
-        return CallFunction(xlfGetFormula, ref, "Get Cell Formula");
+        int flag = (XlfExcel::Instance().isEnglish()?0:xlIntl);
+        return CallFunction(xlfGetFormula | flag, "Get Cell Formula");
     }
 
     void Cell_t::SetContents(const XlfOper& ref, const XlfOper& newValue)
     {
-        CallCommand(xlcFormula, newValue, ref, "Set Cell Contents");
+        int flag = (XlfExcel::Instance().isEnglish()?0:xlIntl);
+        CallCommand(xlcFormula | flag, newValue, ref, "Set Cell Contents");
     }
 
     double Cell_t::GetHeight(const XlfOper& ref)

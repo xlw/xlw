@@ -171,6 +171,8 @@ namespace xlw {
         bool excel14() const { return (excelVersion_ >= 14); }
         //! Returns Excel version number e.g. 12 is 2007
         int excelVersion() const { return excelVersion_; }
+        //! Returns true if the version of excel is the english language version
+        bool isEnglish() const { return isEnglish_; }
         //! The OPER type in use by this version of Excel
         const std::string & xlfOperType() const { return xlfOperType_; }
         //! The XLOPER type in use by this version of Excel
@@ -210,7 +212,8 @@ namespace xlw {
         std::string fpArrayType_;
         std::string xllFileName_;
         std::string helpFileName_;
-		DWORD m_mainExcelThread;
+        DWORD m_mainExcelThread;
+        bool isEnglish_;
     };
 
 }

@@ -239,10 +239,22 @@ void xlw::XlfExcel::InitLibrary() {
 
     impl_->handle_ = handle;
 
+    // work out if we are running the english version
+    XlfOper intlInfo;
+    int err = Call(xlfGetWorkspace, (LPXLFOPER)intlInfo, 37);
+    if (err == xlretSuccess)
+    {
+        isEnglish_ = (intlInfo(0,0).AsInt() == 1);
+    }
+    else
+    {
+        isEnglish_ = true;
+        std::cerr << XLW__HERE__ << "Could not get international info, guessing English" << std::endl;
+    }
 
     // get the file name
     XlfOper xName;
-    int err = Call(xlGetName, (LPXLFOPER)xName, 0);
+    err = Call(xlGetName, (LPXLFOPER)xName, 0);
     if (err == xlretSuccess)
     {
         xllFileName_ = xName.AsString();
@@ -467,7 +479,7 @@ int xlw::XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER
         std::cerr << "0 pointer passed as argument #" << i << std::endl;
     }
 #endif
-    int xlret = Excel4v_(xlfn | xlIntl, pxResult, count, pxdata);
+    int xlret = Excel4v_(xlfn, pxResult, count, pxdata);
     if (pxResult) {
         int type = pxResult->xltype;
 
@@ -498,7 +510,7 @@ int xlw::XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, const LPXLO
             std::cerr << "0 pointer passed as argument #" << i << std::endl;
         }
 #endif
-    int xlret = Excel12v(xlfn | xlIntl, pxResult, count, pxdata);
+    int xlret = Excel12v(xlfn, pxResult, count, pxdata);
     if (pxResult) {
         int type = pxResult->xltype;
 
