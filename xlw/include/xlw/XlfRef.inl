@@ -28,11 +28,11 @@ namespace xlw {
         :rowbegin_(0), rowend_(0), colbegin_(0), colend_(0), sheetId_(0)
     {}
 
-    inline XlfRef::XlfRef(INT32 top, INT32 left, INT32 bottom, INT32 right, DWORD sheetId)
+    inline XlfRef::XlfRef(INT32 top, INT32 left, INT32 bottom, INT32 right, IDSHEET sheetId)
         :rowbegin_(top), rowend_(bottom + 1), colbegin_(left), colend_(right + 1), sheetId_(sheetId)
     {}
 
-    inline XlfRef::XlfRef(INT32 row, INT32 col, DWORD sheetId)
+    inline XlfRef::XlfRef(INT32 row, INT32 col, IDSHEET sheetId)
         :rowbegin_(row), rowend_(row + 1), colbegin_(col), colend_(col + 1), sheetId_(sheetId)
     {}
 
@@ -56,7 +56,7 @@ namespace xlw {
         return colend_;
     }
 
-    inline DWORD XlfRef::GetSheetId() const
+    inline IDSHEET XlfRef::GetSheetId() const
     {
         return sheetId_;
     }
@@ -91,7 +91,7 @@ namespace xlw {
         colend_ = colend;
     }
 
-    inline void XlfRef::SetSheetId(DWORD sheetId)
+    inline void XlfRef::SetSheetId(IDSHEET sheetId)
     {
         sheetId_ = sheetId;
     }

@@ -63,9 +63,9 @@ namespace xlw {
         //! Default ctor.
         XlfRef();
         //! Absolute reference ctor.
-        XlfRef(INT32 top, INT32 left, INT32 bottom, INT32 right, DWORD sheetId = 0);
+        XlfRef(INT32 top, INT32 left, INT32 bottom, INT32 right, IDSHEET sheetId = 0);
         //! Absolute reference ctor, to a single cell.
-        XlfRef(INT32 row, INT32 col, DWORD sheetId = 0);
+        XlfRef(INT32 row, INT32 col, IDSHEET sheetId = 0);
         //@}
 
         //! \name Get and set class properties
@@ -83,7 +83,7 @@ namespace xlw {
         //! Gets the number of rows.
         INT32 GetNbRows() const;
         //! Gets MS Excel sheet identifier of the range.
-        DWORD GetSheetId() const;
+        IDSHEET GetSheetId() const;
         //! Sets the first row of the range.
         void SetRowBegin(INT32 rowbegin);
         //! Sets passed the last row of the range.
@@ -93,7 +93,7 @@ namespace xlw {
         //! Sets passed the last column of the range.
         void SetColEnd(INT32 colend);
         //! Sets MS Excel sheet identifier of the range.
-        void SetSheetId(DWORD);
+        void SetSheetId(IDSHEET);
         //! get the reference as a string in A1 notation
         std::string GetTextA1();
         //! get the reference as a string in R1C1 notation
@@ -127,7 +127,7 @@ namespace xlw {
         //! Index of one past the right most column of the range reference.
         INT32 colend_;
         //! Index of the sheet the reference is pointing to.
-        DWORD sheetId_;
+        IDSHEET sheetId_;
     };
 
 }

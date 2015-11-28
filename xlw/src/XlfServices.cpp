@@ -192,7 +192,7 @@ namespace xlw
         return CallFunction(xlfActiveCell, "Get Active Cell");
     }
 
-	XlfOper Information_t::GetActiveRange()
+    XlfOper Information_t::GetActiveRange()
     {
         return CallFunction(xlfSelection, "Get Active Range");
     }
@@ -249,7 +249,7 @@ namespace xlw
         return CallFunction(xlSheetNm, ref, "Get Sheet Name").AsString();
     }
 
-    int Information_t::GetCurrentSheetId()
+    IDSHEET Information_t::GetCurrentSheetId()
     {
 
         XLFOPER result;

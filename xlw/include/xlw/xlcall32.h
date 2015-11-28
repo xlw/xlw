@@ -30,7 +30,7 @@ typedef INT32 BOOL;            /* Boolean */
 typedef WCHAR XCHAR;        /* Wide Character */
 typedef INT32 RW;            /* XL 12 Row */
 typedef INT32 COL;            /* XL 12 Column */
-
+typedef DWORD_PTR IDSHEET;        /* XL12 Sheet ID */
 /*
 ** XLREF structure
 **
@@ -147,7 +147,7 @@ typedef struct xloper
         struct
         {
             XLMREF *lpmref;
-            DWORD idSheet;
+            IDSHEET idSheet;
         } mref;                        /* xltypeRef */
         struct
         {
@@ -161,7 +161,7 @@ typedef struct xloper
             {
                 short int level;        /* xlflowRestart */
                 short int tbctrl;        /* xlflowPause */
-                DWORD idSheet;            /* xlflowGoto */
+                IDSHEET idSheet;            /* xlflowGoto */
             } valflow;
             WORD rw;                /* xlflowGoto */
             BYTE col;                /* xlflowGoto */
@@ -205,7 +205,7 @@ typedef struct xloper12
         struct
         {
             XLMREF12 *lpmref;
-            DWORD idSheet;
+            IDSHEET idSheet;
         } mref;                        /* xltypeRef */
         struct
         {
@@ -219,7 +219,7 @@ typedef struct xloper12
             {
                 int level;            /* xlflowRestart */
                 int tbctrl;            /* xlflowPause */
-                DWORD idSheet;            /* xlflowGoto */
+                IDSHEET idSheet;            /* xlflowGoto */
             } valflow;
             RW rw;                           /* xlflowGoto */
             COL col;                       /* xlflowGoto */

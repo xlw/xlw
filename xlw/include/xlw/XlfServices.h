@@ -66,9 +66,9 @@ namespace xlw
         //! get sheet name for a reference
         std::string GetSheetName(const XlfOper& ref);
         //! get current sheet id
-        int GetCurrentSheetId();
+        IDSHEET GetCurrentSheetId();
         //! gets the reference of the active range
-		XlfOper GetActiveRange();
+        XlfOper GetActiveRange();
     };
 
     struct Cell_t
