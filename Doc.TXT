@@ -1,4 +1,4 @@
-DEVELOPMENT SNAPSHOT 5DEV
+DEVELOPMENT SNAPSHOT 6DEV
 
 For the latest documentation and news visit http://xlw.sourceforge.net/
 
