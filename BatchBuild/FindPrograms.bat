@@ -9,33 +9,6 @@
 @CALL FindProgram.bat "CodeBlocks\codeblocks.exe" CODEBLOCKS
 @IF ERRORLEVEL 1 EXIT /b 1
 
-@CALL FindProgram.bat "Microsoft Visual Studio .NET 2003\Common7\IDE\devenv.exe" VS7DEVENV
-@IF ERRORLEVEL 1 EXIT /b 1
-
-@CALL FindProgram.bat "Microsoft Visual Studio 8\Common7\IDE\devenv.exe" VS8DEVENV
-@IF ERRORLEVEL 1 EXIT /b 1
-
-@CALL FindProgram.bat "Microsoft Visual Studio 8\Common7\IDE\" VS8DEVENVDIR NOPATH
-@IF ERRORLEVEL 1 EXIT /b 1
-
-@CALL FindProgram.bat "Microsoft Visual Studio 8\vc\vcpackages" VS8TOOLS NOPATH
-@IF ERRORLEVEL 1 EXIT /b 1
-
-@CALL FindProgram.bat "Microsoft Visual Studio 8\VC\vcpackages\vcbuild.exe" VS8VSBUILD
-@IF ERRORLEVEL 1 EXIT /b 1
-
-@CALL FindProgram.bat "Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe" VS9DEVENV
-@IF ERRORLEVEL 1 EXIT /b 1
-
-@CALL FindProgram.bat "Microsoft Visual Studio 9.0\Common7\IDE\" VS9DEVENVDIR NOPATH
-@IF ERRORLEVEL 1 EXIT /b 1
-
-@CALL FindProgram.bat "Microsoft Visual Studio 9.0\vc\vcpackages" VS9TOOLS NOPATH
-@IF ERRORLEVEL 1 EXIT /b 1
-
-@CALL FindProgram.bat "Microsoft Visual Studio 9.0\VC\vcpackages\vcbuild.exe" VS9VSBUILD
-@IF ERRORLEVEL 1 EXIT /b 1
-
 @CALL FindProgram.bat "Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe" VS10DEVENV
 @IF ERRORLEVEL 1 EXIT /b 1
 

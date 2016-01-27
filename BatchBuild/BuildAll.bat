@@ -28,21 +28,6 @@ CALL BuildAllxlwExamples.bat
 
 CALL BuildAllxlwTemplates.bat
 
-@ECHO BUILD: Build Xlw .NET 
-@ECHO %SEPERATOR%
-
-CALL BuildProjectCpp.bat ..\xlwDotNet\build xlwDotNet
-
-@ECHO BUILD: Build Xlw .NET Examples
-@ECHO %SEPERATOR%
-
-CALL BuildAllxlwDotNetExamples.bat
-
-@ECHO BUILD: Build Xlw .NET Templates
-@ECHO %SEPERATOR%
-
-CALL BuildAllxlwDotNetTemplates.bat
-
 @ECHO BUILD: Build Xlw Documentation
 @ECHO %SEPERATOR%
 

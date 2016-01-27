@@ -68,13 +68,9 @@ Var STATE
 
 Var VC11	
 Var VC10
-Var VC9
-Var VC8
 
 Var VC11_STATE
 Var VC10_STATE
-Var VC9_STATE
-Var VC8_STATE
 
 
 	
@@ -96,12 +92,6 @@ Function ExtractorPage
 	${NSD_CreateRadioButton} 100 60 100% 10% "Visual C++ 2010 (VC10)"    
 	Pop $VC10
 	nsDialogs::OnClick  $VC10 $0
-	${NSD_CreateRadioButton} 100 90 100% 10% "Visual C++ 2008 (VC9)"    
-	Pop $VC9
-	nsDialogs::OnClick  $VC9 $0
-    ${NSD_CreateRadioButton} 100 120 100% 10% "Visual C++ 2005 (VC8)" 
-	Pop $VC8
-	nsDialogs::OnClick  $VC8 $0
 
 	
 	nsDialogs::Show
@@ -116,10 +106,8 @@ Function RadioChanged
 	GetDlgItem $0 $HWNDPARENT 1
 	EnableWindow $0 1
 
-	${NSD_GetState} $VC9 $VC9_STATE
 	${NSD_GetState} $VC10 $VC10_STATE
 	${NSD_GetState} $VC11 $VC11_STATE
-	${NSD_GetState} $VC8 $VC8_STATE
 
 
 	
@@ -165,8 +153,6 @@ Var DIR
 Section #
     !insertmacro GETDIR $VC11_STATE "vc11"
 	!insertmacro GETDIR $VC10_STATE "vc10"
-	!insertmacro GETDIR $VC9_STATE "vc9"
-	!insertmacro GETDIR $VC8_STATE "vc8"
 SectionEnd 
 
 
