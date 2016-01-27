@@ -1,6 +1,12 @@
 BUILD=DEBUG
 PLATFORM=WIN32
 
+ifeq ($(PLATFORM), x64)
+TOOLS_DIR = $(XLW)/xlw/bin64
+else
+TOOLS_DIR = $(XLW)/xlw/bin
+endif
+
 all: Commands Attributes
 	$(MAKE) -f ./XLL.mak BUILD=$(BUILD) PLATFORM=$(PLATFORM)
 	
@@ -16,9 +22,9 @@ Commands :../common_source/xlwCommands.cpp
 Attributes :../common_source/xlwAttributes.cpp 
 
 ../common_source/xlwCommands.cpp:  ../common_source/Commands.h
-	../../../build/gcc-make/$(BUILD)/BIN/InterfaceGenerator  ../common_source/Commands.h ../common_source/xlwCommands.cpp
+	$(TOOLS_DIR)/InterfaceGenerator  ../common_source/Commands.h ../common_source/xlwCommands.cpp
 		
 ../common_source/xlwAttributes.cpp:  ../common_source/Attributes.h
-	../../../build/gcc-make/$(BUILD)/BIN/InterfaceGenerator  ../common_source/Attributes.h ../common_source/xlwAttributes.cpp
+	$(TOOLS_DIR)/InterfaceGenerator  ../common_source/Attributes.h ../common_source/xlwAttributes.cpp
 	
 rebuild: clean all

@@ -7,9 +7,9 @@ EXT_SHARE=xll
 
 #Describes the Linker details
 ifeq ($(PLATFORM), x64)
-LIBDIRS = ../../../lib/x64
+LIBDIRS = $(XLW)/xlw/lib/x64
 else
-LIBDIRS = ../../../lib
+LIBDIRS = $(XLW)/xlw/lib
 endif
 
 ifeq ($(BUILD),DEBUG)
@@ -19,7 +19,7 @@ LIBS=xlw-gcc-s-6_0_0f0
 endif 
 
 #Describes the Compiler details
-INCLUDE_DIR =../common_source ../Objects ../../../include
+INCLUDE_DIR =../common_source ../Objects $(XLW)/xlw/include
 CXXFLAGS = 
 
 
@@ -29,6 +29,6 @@ LIBSRC = source.cpp \
 		 DiscountCurve.cpp \
 		 xlwWrapper.cpp 
 		
-MAKEDIR = ../../../make
+MAKEDIR = $(XLW)/xlw/make
 include $(MAKEDIR)/make.rules
 include $(MAKEDIR)/make.targets

@@ -72,9 +72,10 @@ private:
 // THE MACROS
 #define LOGHEADER  << "\n\n  " << (xlwLogger::instance().GetTime()) << " - " \
                     __FILE__ << "   " << __LINE__ << "\n"
-  
-#define _LOGGER  xlwLogger::instance() LOGHEADER
 
+#else
+
+#define _LOGGER  std::cout
 
 #endif
 
