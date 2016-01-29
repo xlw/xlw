@@ -22,9 +22,9 @@ Commands :../common_source/xlwCommands.cpp
 Attributes :../common_source/xlwAttributes.cpp 
 
 ../common_source/xlwCommands.cpp:  ../common_source/Commands.h
-	$(TOOLS_DIR)/InterfaceGenerator  ../common_source/Commands.h ../common_source/xlwCommands.cpp
+	"$(TOOLS_DIR)/InterfaceGenerator"  ../common_source/Commands.h ../common_source/xlwCommands.cpp
 		
 ../common_source/xlwAttributes.cpp:  ../common_source/Attributes.h
-	$(TOOLS_DIR)/InterfaceGenerator  ../common_source/Attributes.h ../common_source/xlwAttributes.cpp
+	"$(TOOLS_DIR)/InterfaceGenerator"  ../common_source/Attributes.h ../common_source/xlwAttributes.cpp
 	
 rebuild: clean all

@@ -3,13 +3,18 @@ ifndef BUILD
 BUILD=Debug
 endif
 
-.PHONY : clean
+ifeq ($(PLATFORM), x64)
+TOOLS_DIR = $(XLW)/xlw/bin64
+else
+TOOLS_DIR = $(XLW)/xlw/bin
+endif
 
+.PHONY : clean
 
 all: ../common_source/xlwWrapper.cpp
 
 ../common_source/xlwWrapper.cpp : ../common_source/cppinterface.h
-		../../../build/codeblocks-gcc/bin/$(BUILD)/InterfaceGenerator.exe ../common_source/cppinterface.h ../common_source/xlwWrapper.cpp
+		"$(TOOLS_DIR)/InterfaceGenerator" ../common_source/cppinterface.h ../common_source/xlwWrapper.cpp
 		@echo OK > build_$(BUILD)
 
 clean :

@@ -104,11 +104,11 @@ LINK= $(CXX)
 .cpp:
 	$(LINK) -o $@ $< $(LDLIBS)
 .cpp.o:
-	$(COMPILE) -o $@ $<
+	$(COMPILE) -o $@ $< -I"$(XLW)/xlw/include"
 	
 
 $(INSTALL_OBJ)/%.o:$(SRC_DIR)/%.cpp
-	$(COMPILE)  $(CXXPIC)  $< -o $@ 
+	$(COMPILE)  $(CXXPIC)  $< -o $@ -I"$(XLW)/xlw/include"
 
 ########################################################
 #	Linker section.
@@ -116,8 +116,14 @@ $(INSTALL_OBJ)/%.o:$(SRC_DIR)/%.cpp
 
 ifeq ($(LIBLINK),SHARE)
 export LDL=-L. -L$(INSTALL_DLL)
+ifeq ($(BUILD),DEBUG)
+XLWLIB = -lxlw-gcc-s-gd-6_0_0f0
+else
+XLWLIB = -lxlw-gcc-s-6_0_0f0
+endif 
 else
 export LDL=-L. -L$(INSTALL_LIB)
+XLWLIB =
 endif
 
 ifndef LDLIBS
@@ -132,4 +138,4 @@ ifdef LIBS
 LDLIBS+=$(LIBS:%=-l%)
 endif
 
-export LDFLAGS= $(LDL) $(LDLIBS) $(STRIP)
+LDFLAGS= $(LDL) $(LDLIBS) $(STRIP)

@@ -1,8 +1,9 @@
 #Describes the xll 
-
-
-BUILD=DEBUG
 LIBRARY =Template
+BUILD=DEBUG
+LIBTYPE=SHARE
+LIBPREFIX=
+EXT_SHARE=xll
 
 
 #Describes the Compiler details
@@ -19,6 +20,9 @@ LIBSRC = source.cpp \
          xlwWrapper.cpp
 		
 
-include make/rules.mak
+MAKEDIR = $(XLW)/xlw/make
+include $(MAKEDIR)/make.rules
+include $(MAKEDIR)/make.targets
+
 
 

@@ -82,7 +82,7 @@ $(IDIR)/$(LIBPREFIX)$(LIBRARY).%ll  : $(LIBOBJ)
       -Wl,-static \
       -static-libgcc \
 	 $(LIBOBJ)\
-   	 $(LDFLAGS)
+   	 $(LDFLAGS) $(XLWLIB) -L"$(XLW)/xlw/lib$(LIB_SUBDIR)"
 
 #$(IDIR)/lib$(LIBRARY).so::$(LIBOBJ)
 #	@-$(RM) $@	
@@ -142,16 +142,15 @@ SEP:=$(strip \)
 
 $(INSTALL_ROOT):
 	@echo Creating $@ .....
-	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_ROOT))
+	@-mkdir "$(INSTALL_ROOT)"
 
 $(INSTALL_DIR) :
 	@echo Creating $@ .....
-	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_DIR) )
+	@-mkdir  "$(INSTALL_DIR)"
 
 $(INSTALL_OBJ):
 	@echo Creating $@ .....
-	@-mkdir  $(subst /,$(SEP)$(SEP),$(INSTALL_OBJ) )
-
+	@-mkdir  "$(INSTALL_OBJ)"
 	
 
 

@@ -17,7 +17,7 @@ LIBS=xlw-gcc-s-6_0_0f0
 endif 
 
 #Describes the Compiler details
-INCLUDE_DIR =../common_source  $(XLW)/xlw/include
+INCLUDE_DIR =../common_source  "$(XLW)/xlw/include"
 CXXFLAGS = 
 
 
