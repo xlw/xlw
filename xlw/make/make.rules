@@ -31,9 +31,11 @@ endif
 export SRC_DIR
 
 ifeq ($(PLATFORM), x64)
-BUILD_SUFFIX= _x64
+BUILD_SUFFIX=_x64
+LIB_SUBDIR=/x64
 else
 BUILD_SUFFIX=
+LIB_SUBDIR=
 endif
 
 
