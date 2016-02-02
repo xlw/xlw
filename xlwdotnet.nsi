@@ -101,7 +101,6 @@
 	
 	
 	Var VS2013_INST
-	
 	Var VS2012_INST
 	
 	Var VS2010PRO_CPP_INST
@@ -114,8 +113,6 @@
 	
 	Var CodeBlocks_INST
 
-	Var PSDK
-	
 	Var CPP_DETECTED
 	
 	Var CodeBlocks_FRMWK
@@ -555,13 +552,11 @@ FunctionEnd
 
 Function .onSelChange
 
-	SectionGetFlags ${VS2003} $0 
-	StrCmp $0 1 ThereIs1
-	SectionGetFlags ${VS2005} $0 
-    StrCmp $0 1 ThereIs1
-    SectionGetFlags ${VS2008} $0 
-    StrCmp $0 1 ThereIs1
 	SectionGetFlags ${VS2010} $0 
+    StrCmp $0 1 ThereIs1
+	SectionGetFlags ${VS2012} $0 
+    StrCmp $0 1 ThereIs1
+	SectionGetFlags ${VS2013} $0 
     StrCmp $0 1 ThereIs1
 	SectionGetFlags ${CODEBLOCKS} $0 
     StrCmp $0 1 ThereIs1
@@ -582,41 +577,21 @@ FunctionEnd
 
 
 Function SaveSections 
-    SectionGetFlags ${VS2003}  $VS2003_Saved 
-	SectionGetFlags ${VS2005}  $VS2005_Saved 
-	SectionGetFlags ${VS2008}  $VS2008_Saved 
 	SectionGetFlags ${VS2010}  $VS2010_Saved 
+	SectionGetFlags ${VS2012}  $VS2012_Saved 
+	SectionGetFlags ${VS2013}  $VS2013_Saved 
 	SectionGetFlags ${CODEBLOCKS}  $CODEBLOCKS_Saved 
 	SectionGetFlags ${GCCMAKE}  $GCCMAKE_Saved 
 FunctionEnd
 
 Function ReloadSections 
     
-    SectionSetFlags ${VS2003} $VS2003_Saved 
-	SectionSetFlags ${VS2005} $VS2005_Saved 
-	SectionSetFlags ${VS2008} $VS2008_Saved 
 	SectionSetFlags ${VS2010} $VS2010_Saved 
+	SectionSetFlags ${VS2012} $VS2012_Saved 
+	SectionSetFlags ${VS2013} $VS2013_Saved 
 	SectionSetFlags ${CODEBLOCKS} $CODEBLOCKS_Saved 
 	SectionSetFlags ${GCCMAKE} $GCCMAKE_Saved 
 FunctionEnd
-
-
-!macro GetPlatformSDKs
-	${NSD_LB_AddString} $ListBox_right " Checking for Platform SDK required for Visual Studio Express 2005" 
-	StrCpy $0 0
-	StrCpy $2 ""
-	loop:
-	  EnumRegKey $1 HKLM "SOFTWARE\Microsoft\Microsoft SDKs\Windows" $0
-	  StrCmp $1 "" done
-	  StrCpy $2 $1
-	  IntOp $0 $0 + 1
-	  ${NSD_LB_AddString} $ListBox " ... Detected Microsoft Platform SDK $2 " 
-	  Goto loop
-	done:
-	${NSD_LB_AddString} $ListBox "" 
-	Push $2
-!macroend
-
 
 
 Function DevEnvironFinder
@@ -628,7 +603,6 @@ Function DevEnvironFinder
 	Push $4
 	Push $5
 
-	StrCpy $PSDK  ""
     nsDialogs::Create 1018
 	Pop $Dialog
 
@@ -773,9 +747,6 @@ Function SetUpInfo
 		SectionSetFlags ${xlwExamples} 1
 		SectionSetFlags ${sandcastle} 1
 	${EndIf}
-	
-	
-	StrCpy $PSDK  ""
 	
 	Call SaveSections 
 
