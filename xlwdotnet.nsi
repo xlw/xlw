@@ -317,9 +317,6 @@ Section #
 	SetOutPath "$INSTDIR\xlw\bin"
 	File  "xlw\bin\*.*"
 
-	SetOutPath "$INSTDIR\xlw\bin64"
-	File  "xlw\bin64\*.*"
-	
 	SetOutPath "$INSTDIR\TemplateExtractors"
 	File  ".\xlwTemplateExtractor.exe"
 	File  ".\xlwCppCLITemplateExtractor.exe"

@@ -3,11 +3,7 @@ ifndef BUILD
 BUILD=DEBUG
 endif
 
-ifeq ($(PLATFORM), x64)
-TOOLS_DIR = $(XLW)/xlw/bin64
-else
 TOOLS_DIR = $(XLW)/xlw/bin
-endif
 
 .PHONY : clean
 
