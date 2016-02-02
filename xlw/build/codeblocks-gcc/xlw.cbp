@@ -8,7 +8,7 @@
 			<Target title="Debug">
 				<Option extension_auto="1" output="..\..\lib\libxlw-gcc-s-gd-$(PROJECT_NAME)" prefix_auto="1"/>
 				<Option working_dir=""/>
-				<Option object_output="obj\Debug\"/>
+				<Option object_output="Debug\obj\"/>
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Option createDefFile="1"/>
@@ -21,7 +21,7 @@
 			<Target title="Release">
 				<Option extension_auto="1" output="..\..\lib\libxlw-gcc-s-$(PROJECT_NAME)" prefix_auto="1"/>
 				<Option working_dir=""/>
-				<Option object_output="obj\Release\"/>
+				<Option object_output="Release\obj\"/>
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Option createDefFile="1"/>

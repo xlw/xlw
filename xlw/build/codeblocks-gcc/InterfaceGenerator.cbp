@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\InterfaceGenerator" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+				<Option output="..\..\bin\InterfaceGenerator" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug\obj\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -17,8 +17,8 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\InterfaceGenerator" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Release\" />
+				<Option output="..\..\bin\InterfaceGenerator" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release\obj\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>

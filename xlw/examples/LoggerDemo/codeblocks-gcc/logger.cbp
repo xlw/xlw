@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\LoggerDemo.xll" prefix_auto="0" extension_auto="0" />
-				<Option object_output="obj\Debug\" />
+				<Option output="Debug\LoggerDemo.xll" prefix_auto="0" extension_auto="0" />
+				<Option object_output="Debug\obj\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -17,7 +17,7 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\lib\libxlw-gcc-s-gd-6_0_0f0.a" />
+					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-gd-6_0_0f0.a&quot;' />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak" />
@@ -25,8 +25,8 @@
 				</ExtraCommands>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\LoggerDemo.xll" prefix_auto="0" extension_auto="0" />
-				<Option object_output="obj\Release\" />
+				<Option output="Release\LoggerDemo.xll" prefix_auto="0" extension_auto="0" />
+				<Option object_output="Release\obj\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -36,7 +36,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="..\..\..\lib\libxlw-gcc-s-6_0_0f0.a" />
+					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-6_0_0f0.a&quot;' />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak BUILD=Release" />
@@ -45,14 +45,14 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add directory="..\..\..\include" />
+			<Add directory='&quot;$(XLW)\xlw\include&quot;' />
 		</Compiler>
 		<Linker>
 			<Add option="-static" />
 			<Add option="-static-libgcc" />
-			<Add library="..\..\..\include\xlw\xlw.def" />
+			<Add library='&quot;$(XLW)\xlw\include\xlw\xlw.def&quot;' />
 			<Add library="user32" />
-			<Add directory="..\..\..\lib" />
+			<Add directory='&quot;$(XLW)\xlw\lib&quot;' />
 		</Linker>
 		<Unit filename="..\common_source\Test.cpp" />
 		<Unit filename="..\common_source\Test.h" />

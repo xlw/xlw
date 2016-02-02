@@ -15,7 +15,7 @@ endif
 all: ../common_source/xlwTest.cpp
 
 ../common_source/xlwTest.cpp : ../common_source/Test.h
-		"$(TOOLS_DIR)/InterfaceGenerator.exe" ../common_source/Test.h ../common_source/xlwTest.cpp
+		"$(TOOLS_DIR)/InterfaceGenerator" ../common_source/Test.h ../common_source/xlwTest.cpp
 		@echo OK > build_$(BUILD)
 
 clean :

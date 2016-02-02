@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\Fortran.xll" prefix_auto="0" extension_auto="0" />
-				<Option object_output="obj\Debug\" />
+				<Option output="Debug\Fortran.xll" prefix_auto="0" extension_auto="0" />
+				<Option object_output="Debug\obj\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -21,8 +21,8 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\Fortran.xll" prefix_auto="0" extension_auto="0" />
-				<Option object_output="obj\Release\" />
+				<Option output="Release\Fortran.xll" prefix_auto="0" extension_auto="0" />
+				<Option object_output="Release\obj\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
