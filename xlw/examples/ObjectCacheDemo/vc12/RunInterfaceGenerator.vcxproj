@@ -63,12 +63,12 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(PlatformName)_$(Configuration)</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(PlatformName)_$(Configuration)</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) vc=vc12  ALL </NMakeBuildCommandLine>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) vc=vc12  ALL </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake  ENVIRON=Debug LIBRARY=$(SolutionName) vc=vc12  REBUILD </NMakeReBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake  ENVIRON=Debug LIBRARY=$(SolutionName) vc=vc12  REBUILD </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) vc=vc12  CLEAN </NMakeCleanCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Debug LIBRARY=$(SolutionName) vc=vc12  CLEAN </NMakeCleanCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug ALL </NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug ALL </NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NMAKE /f RunInterfaceGenerator.nmake  ENVIRON=Debug REBUILD </NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NMAKE /f RunInterfaceGenerator.nmake  ENVIRON=Debug REBUILD </NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug CLEAN </NMakeCleanCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Debug CLEAN </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
@@ -85,12 +85,12 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(PlatformName)_$(Configuration)</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(PlatformName)_$(Configuration)</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) vc=vc12 ALL </NMakeBuildCommandLine>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) vc=vc12 ALL </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) vc=vc12 REBUILD </NMakeReBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) vc=vc12 REBUILD </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) vc=vc12 CLEAN </NMakeCleanCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(VS120COMNTOOLS)..\..\VC\bin\NMAKE" /f RunInterfaceGenerator.nmake ENVIRON=Release LIBRARY=$(SolutionName) vc=vc12 CLEAN </NMakeCleanCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release ALL </NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release ALL </NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release REBUILD </NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release REBUILD </NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release CLEAN </NMakeCleanCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NMAKE /f RunInterfaceGenerator.nmake ENVIRON=Release CLEAN </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
