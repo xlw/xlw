@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual C++ Express 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InterfaceGenerator", "InterfaceGenerator.vcxproj", "{E8296A35-DDBD-4CF3-BA6A-2217AE086561}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "5DEV", "xlw.vcxproj", "{B2CA3E14-BD4A-4186-9303-E1B6454630D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlw", "xlw.vcxproj", "{B2CA3E14-BD4A-4186-9303-E1B6454630D5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4A041ADB-60E7-44CB-B8AD-CECFC9C5A257} = {4A041ADB-60E7-44CB-B8AD-CECFC9C5A257}
 	EndProjectSection
