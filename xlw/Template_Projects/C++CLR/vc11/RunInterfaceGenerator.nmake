@@ -4,7 +4,7 @@
 ## lines below identifying your extra headers and 
 ## output .cpp source files.
 ## Then add  the line per header
-##             "$(IFACE_EXE)" $(IFACE_INPUTx) $(IFACE_OUTPUTx)
+##             $(IFACE_EXE) $(IFACE_INPUTx) $(IFACE_OUTPUTx)
 ## to the  $(BUILDFLAG) target below
 
 BUILDFLAG=$(ENVIRON)\buildflag
@@ -22,7 +22,7 @@ ALL : $(BUILDFLAG)
 
 
 $(BUILDFLAG) : $(INPUTS)
-    "$(IFACE_EXE)" $(MANAGED_OPT) $(IFACE_INPUT) $(IFACE_OUTPUTDIR)
+    $(IFACE_EXE) $(MANAGED_OPT) $(IFACE_INPUT) $(IFACE_OUTPUTDIR)
 	ECHO flagged > $@
 
 CLEAN :
