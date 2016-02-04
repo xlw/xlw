@@ -18,7 +18,6 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-gd-6_0_0f0.a&quot;' />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -33,7 +32,6 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-6_0_0f0.a&quot;' />
 				</Linker>
 			</Target>
 		</Build>
@@ -46,7 +44,6 @@
 			<Add option="-static-libgcc" />
 			<Add library='&quot;$(XLW)\xlw\include\xlw\xlw.def&quot;' />
 			<Add library="user32" />
-			<Add directory='&quot;$(XLW)\xlw\lib&quot;' />
 		</Linker>
 		<Unit filename="..\common_source\xlwAsynchExample.cpp">
 			<Option virtualFolder="source\" />
@@ -61,6 +58,9 @@
 			<Option virtualFolder="source\" />
 		</Unit>
 		<Unit filename="..\common_source\xlwXlmMacros.cpp">
+			<Option virtualFolder="source\" />
+		</Unit>
+		<Unit filename="..\common_source\xlwLibrary.cpp">
 			<Option virtualFolder="source\" />
 		</Unit>
 		<Extensions>

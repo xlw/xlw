@@ -377,14 +377,7 @@ SubSection "xlw" xlw
 			File  "xlw\lib\x64\xlw-vc120*.pdb"
 			!insertmacro InterfaceGenerator vc12
 		SectionEnd
-		
-		Section "Code::Blocks(mingw)" CODEBLOCKS
-			SetOutPath "$INSTDIR\xlw\lib"
-			File  "xlw\lib\libxlw-gcc*.a"
-			SetOutPath "$INSTDIR\xlw\lib\x64"
-			File  "xlw\lib\x64\libxlw-gcc*.a"
-		SectionEnd
-		
+	
 	SectionGroupEnd
 
 	Section "Examples" xlwExamples

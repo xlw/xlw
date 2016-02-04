@@ -17,7 +17,6 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-gd-6_0_0f0.a&quot;' />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak" />
@@ -36,7 +35,6 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library='&quot;$(XLW)\xlw\lib\libxlw-gcc-s-6_0_0f0.a&quot;' />
 				</Linker>
 				<ExtraCommands>
 					<Add before="make -f RunInterfaceGenerator.mak BUILD=Release" />
@@ -52,12 +50,12 @@
 			<Add option="-static-libgcc" />
 			<Add library='&quot;$(XLW)\xlw\include\xlw\xlw.def&quot;' />
 			<Add library="user32" />
-			<Add directory='&quot;$(XLW)\xlw\lib&quot;' />
 		</Linker>
 		<Unit filename="..\common_source\Test.cpp" />
 		<Unit filename="..\common_source\Test.h" />
 		<Unit filename="..\common_source\reftest.h" />
 		<Unit filename="..\common_source\xlwTest.cpp" />
+		<Unit filename="..\common_source\xlwLibrary.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
