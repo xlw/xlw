@@ -66,9 +66,11 @@ Var FREESPACE
 Var HEADLINE_FONT
 Var STATE
 
+Var VC12	
 Var VC11	
 Var VC10
 
+Var VC12_STATE
 Var VC11_STATE
 Var VC10_STATE
 
@@ -86,6 +88,9 @@ Function ExtractorPage
 
 	GetFunctionAddress $0 RadioChanged
 	
+	${NSD_CreateRadioButton} 100 30 100% 10% "Visual C++ 2013 (VC12)"    
+	Pop $VC12
+	nsDialogs::OnClick  $VC12 $0
 	${NSD_CreateRadioButton} 100 30 100% 10% "Visual C++ 2012 (VC11)"    
 	Pop $VC11
 	nsDialogs::OnClick  $VC11 $0
@@ -108,9 +113,8 @@ Function RadioChanged
 
 	${NSD_GetState} $VC10 $VC10_STATE
 	${NSD_GetState} $VC11 $VC11_STATE
+	${NSD_GetState} $VC12 $VC12_STATE
 
-
-	
 	
 FunctionEnd
 
@@ -151,6 +155,7 @@ Var DIR
 !macroend
 
 Section #
+    !insertmacro GETDIR $VC12_STATE "vc12"
     !insertmacro GETDIR $VC11_STATE "vc11"
 	!insertmacro GETDIR $VC10_STATE "vc10"
 SectionEnd 
