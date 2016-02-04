@@ -82,7 +82,7 @@ $(IDIR)/$(LIBPREFIX)$(LIBRARY).%ll  : $(LIBOBJ)
       -Wl,-static \
       -static-libgcc \
 	 $(LIBOBJ)\
-   	 $(LDFLAGS) $(XLWLIB) -L"$(XLW)/xlw/lib$(LIB_SUBDIR)"
+   	 $(LDFLAGS)
 
 #$(IDIR)/lib$(LIBRARY).so::$(LIBOBJ)
 #	@-$(RM) $@	

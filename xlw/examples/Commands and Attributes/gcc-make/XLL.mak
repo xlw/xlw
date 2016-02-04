@@ -14,7 +14,8 @@ SRC_DIR=../common_source
 LIBSRC = Attributes.cpp \
          Commands.cpp \
 		 xlwAttributes.cpp \
-         xlwCommands.cpp 
+         xlwCommands.cpp  \
+		 xlwLibrary.cpp
 
 		
 MAKEDIR = $(XLW)/xlw/make

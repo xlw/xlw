@@ -17,7 +17,8 @@ LIBS =
 #The source
 SRC_DIR= source
 LIBSRC = source.cpp \
-         xlwWrapper.cpp
+         xlwWrapper.cpp \
+		 xlwLibrary.cpp
 		
 
 MAKEDIR = $(XLW)/xlw/make

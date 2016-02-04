@@ -26,7 +26,8 @@ CXXFLAGS =
 SRC_DIR=../common_source
 LIBSRC = xlwLogger.cpp \
 		 Test.cpp \
-		 xlwTest.cpp 
+		 xlwTest.cpp  \
+		 xlwLibrary.cpp
 		
 MAKEDIR = $(XLW)/xlw/make
 include $(MAKEDIR)/make.rules

@@ -385,15 +385,6 @@ SubSection "xlw" xlw
 			File  "xlw\lib\x64\libxlw-gcc*.a"
 		SectionEnd
 		
-		Section "make(mingw)" GCCMAKE
-			SetOutPath "$INSTDIR\xlw\lib"
-			File  "xlw\lib\libxlw-gcc*.a"
-			SetOutPath "$INSTDIR\xlw\lib\x64"
-			File  "xlw\lib\x64\libxlw-gcc*.a"
-		SectionEnd
-		
-
-
 	SectionGroupEnd
 
 	Section "Examples" xlwExamples

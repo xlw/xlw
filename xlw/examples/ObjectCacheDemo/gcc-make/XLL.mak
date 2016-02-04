@@ -27,7 +27,8 @@ CXXFLAGS =
 SRC_DIR=../common_source
 LIBSRC = source.cpp \
 		 DiscountCurve.cpp \
-		 xlwWrapper.cpp 
+		 xlwWrapper.cpp  \
+		 xlwLibrary.cpp
 		
 MAKEDIR = $(XLW)/xlw/make
 include $(MAKEDIR)/make.rules

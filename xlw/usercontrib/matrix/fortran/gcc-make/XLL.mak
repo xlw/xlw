@@ -23,7 +23,8 @@ CXXFLAGS =
 
 #The source
 SRC_DIR=../common_source
-LIBSRC = Test.cpp
+LIBSRC = Test.cpp \
+		 xlwLibrary.cpp
 		
 MAKEDIR = $(XLW)/xlw/make
 include $(MAKEDIR)/make.rules

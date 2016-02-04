@@ -32,10 +32,8 @@ export SRC_DIR
 
 ifeq ($(PLATFORM), x64)
 BUILD_SUFFIX=_x64
-LIB_SUBDIR=/x64
 else
 BUILD_SUFFIX=
-LIB_SUBDIR=
 endif
 
 
@@ -118,11 +116,6 @@ $(INSTALL_OBJ)/%.o:$(SRC_DIR)/%.cpp
 
 ifeq ($(LIBLINK),SHARE)
 export LDL=-L. -L$(INSTALL_DLL)
-ifeq ($(BUILD),DEBUG)
-XLWLIB = -lxlw-gcc-s-gd-6_0_0f0
-else
-XLWLIB = -lxlw-gcc-s-6_0_0f0
-endif 
 else
 export LDL=-L. -L$(INSTALL_LIB)
 XLWLIB =
