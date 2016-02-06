@@ -8,7 +8,6 @@ EXT_SHARE=xll
 INCLUDE_DIR =../common_source 
 CXXFLAGS = 
 
-
 #The source
 SRC_DIR=../common_source
 LIBSRC = Attributes.cpp \

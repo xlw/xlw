@@ -5,9 +5,8 @@ LIBPREFIX=
 EXT_SHARE=xll
 
 #Describes the Compiler details
-INCLUDE_DIR =../common_source  "$(XLW)/xlw/include"
+INCLUDE_DIR =../common_source
 CXXFLAGS = 
-
 
 #The source
 SRC_DIR=../common_source
