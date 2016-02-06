@@ -208,18 +208,6 @@
 		Push $X
 	!macroend
 	
-	!macro InterfaceGenerator  dir
-			SetOutPath "$INSTDIR\xlw\build\${dir}\Debug"
-			File  "xlw\build\${dir}\Debug\*.exe"
-			File  "xlw\build\${dir}\Debug\*.pdb"
-			File  "xlw\build\${dir}\Debug\*.dll"
-			
-			SetOutPath "$INSTDIR\xlw\build\${dir}\Release"
-			File  "xlw\build\${dir}\Release\*.exe"
-			File  "xlw\build\${dir}\Release\*.dll"
-			
-	!macroend
-	
 	!macro doExampleVCHelper dir
 	
 			SetOutPath "$INSTDIR\${dir}"
@@ -312,7 +300,8 @@ Section #
 	File  "xlw\make\*.*"
 
 	SetOutPath "$INSTDIR\xlw\bin"
-	File  "xlw\bin\*.*"
+	File  "xlw\bin\*.exe"
+	File  "xlw\bin\*.dll"
 
 	SetOutPath "$INSTDIR\TemplateExtractors"
 	File  ".\xlwTemplateExtractor.exe"
@@ -351,31 +340,22 @@ SubSection "xlw" xlw
 		Section "VS2010" VS2010
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\xlw-vc100*.lib"
-			File  "xlw\lib\xlw-vc100*.pdb"
 			SetOutPath "$INSTDIR\xlw\lib\x64"
 			File  "xlw\lib\x64\xlw-vc100*.lib"
-			File  "xlw\lib\x64\xlw-vc100*.pdb"
-			!insertmacro InterfaceGenerator vc10
 		SectionEnd
 		
 		Section "VS2012" VS2012
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\xlw-vc110*.lib"
-			File  "xlw\lib\xlw-vc110*.pdb"
 			SetOutPath "$INSTDIR\xlw\lib\x64"
 			File  "xlw\lib\x64\xlw-vc110*.lib"
-			File  "xlw\lib\x64\xlw-vc110*.pdb"
-			!insertmacro InterfaceGenerator vc11
 		SectionEnd
 
 		Section "VS2013" VS2013
 			SetOutPath "$INSTDIR\xlw\lib"
 			File  "xlw\lib\xlw-vc120*.lib"
-			File  "xlw\lib\xlw-vc120*.pdb"
 			SetOutPath "$INSTDIR\xlw\lib\x64"
 			File  "xlw\lib\x64\xlw-vc120*.lib"
-			File  "xlw\lib\x64\xlw-vc120*.pdb"
-			!insertmacro InterfaceGenerator vc12
 		SectionEnd
 	
 	SectionGroupEnd
