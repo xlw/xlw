@@ -185,10 +185,10 @@ namespace clw
 }
 #else
 #ifdef _MSC_VER
-// avoid linker warnings
+// avoid linker warnings if compiled as library
 namespace
 {
-    char dummy = 0;
+    char dummyFileConvertor = 0;
 }
 #endif
 #endif
