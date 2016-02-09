@@ -19,9 +19,7 @@
 #define INC_XLWALL_H
 
 #include "../../src/ArgList.cpp"
-#include "../../src/Dispatcher.cpp"
 #include "../../src/DoubleOrNothing.cpp"
-#include "../../src/FileConverter.cpp"
 #include "../../src/HiResTimer.cpp"
 #include "../../src/MJCellMatrix.cpp"
 #include "../../src/NCmatrices.cpp"
