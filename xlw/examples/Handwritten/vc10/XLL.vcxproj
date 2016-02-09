@@ -253,6 +253,7 @@
     <ClCompile Include="..\common_source\xlwExample.cpp" />
     <ClCompile Include="..\common_source\xlwMatrixTest.cpp" />
     <ClCompile Include="..\common_source\xlwXlmMacros.cpp" />
+    <ClCompile Include="..\common_source\xlwLibrary.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
