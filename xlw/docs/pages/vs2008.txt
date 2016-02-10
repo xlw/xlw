@@ -22,11 +22,11 @@ from the sources.
 First check that you have the sources, there should be an xlw\build\vc9\xlw.sln project in the XLW install
 directory.  If this file is not present then reinstall XLW and select sources during the install process.
 
-Remove or comment out the #error line in xlw\include\xlw\xlwshared_ptr.h
+Remove or comment out the \#error line in xlw\include\xlw\xlwshared_ptr.h
 
 Load up the solution xlw\build\vc9\xlw.sln.
 
-Open the Build\Batch Build dialog, press Select All and then press Rebuild
+Open the Build\\Batch Build dialog, press Select All and then press Rebuild
 
 If you are using xlwDotNet repeat this process for the xlwDotNet\Build\VS9\xlw.Net.sln
 
