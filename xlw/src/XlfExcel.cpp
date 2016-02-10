@@ -115,7 +115,7 @@ namespace
             char className[7];
             if(GetClassNameA(hWnd, className, 7) != 0)
             {
-                if (!lstrcmpi(className, "XLMAIN"))
+                if (!lstrcmpiA(className, "XLMAIN"))
                 {
                     // We've found it stop enum.
                     pEnum->hWnd = hWnd;
