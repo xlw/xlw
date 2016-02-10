@@ -1,4 +1,4 @@
-
+	
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
@@ -47,7 +47,7 @@ namespace
     // wrap up winapi way of checking for file existance
     bool doesFileExist(const std::string& fileName)
     {
-        DWORD attributes(GetFileAttributes(fileName.c_str()));
+        DWORD attributes(GetFileAttributesA(fileName.c_str()));
         return ((attributes != INVALID_FILE_ATTRIBUTES) && ((attributes & FILE_ATTRIBUTE_DIRECTORY) == 0));
     }
 }
@@ -113,7 +113,7 @@ namespace
         {
             // then check the class of the window. Must be "XLMAIN".
             char className[7];
-            if(GetClassName(hWnd, className, 7) != 0)
+            if(GetClassNameA(hWnd, className, 7) != 0)
             {
                 if (!lstrcmpi(className, "XLMAIN"))
                 {
@@ -213,7 +213,7 @@ Load \c XlfCALL32.DLL to interface excel (this library is shipped with Excel)
 and link it to the XLL.
 */
 void xlw::XlfExcel::InitLibrary() {
-    HINSTANCE handle = LoadLibrary("XLCALL32.DLL");
+    HINSTANCE handle = LoadLibraryA("XLCALL32.DLL");
     if (handle == 0)
         THROW_XLW("Could not load library XLCALL32.DLL");
     Excel4_ = (int (__cdecl *)(int, struct xloper *, int, ...))GetProcAddress(handle, "Excel4");
@@ -541,13 +541,13 @@ bool CALLBACK EnumProc(HWND hwnd, LPEnumStruct pEnum) {
     // first check the class of the window.  Will be szXLDialogClass
     // if function wizard dialog is up in Excel
     char rgsz[CLASS_NAME_BUFFER];
-    GetClassName(hwnd, (LPSTR)rgsz, CLASS_NAME_BUFFER);
-    if (2 == CompareString(MAKELCID(MAKELANGID(LANG_ENGLISH,
+    GetClassNameA(hwnd, (LPSTR)rgsz, CLASS_NAME_BUFFER);
+    if (2 == CompareStringA(MAKELCID(MAKELANGID(LANG_ENGLISH,
         SUBLANG_ENGLISH_US),SORT_DEFAULT), NORM_IGNORECASE,
-        (LPSTR)rgsz,  (lstrlen((LPSTR)rgsz)>lstrlen("bosa_sdm_XL"))
-        ? lstrlen("bosa_sdm_XL"):-1, "bosa_sdm_XL", -1)) {
+        (LPSTR)rgsz, (lstrlenA((LPSTR)rgsz)>lstrlenA("bosa_sdm_XL"))
+        ? lstrlenA("bosa_sdm_XL"):-1, "bosa_sdm_XL", -1)) {
 
-        if(GetWindowText(hwnd, rgsz, CLASS_NAME_BUFFER)) {
+        if(GetWindowTextA(hwnd, rgsz, CLASS_NAME_BUFFER)) {
             // we know it is an excel window but we don't yet know if it is the 
             // function wizard, we need to avoid find and replace and
             // the paste and collect windows (we don't just look for Function so that

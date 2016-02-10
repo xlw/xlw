@@ -185,11 +185,11 @@ std::string xlw::StringUtilities::getEnvironmentVariable(const std::string& vari
 {
     const DWORD bufferSize=4096;
     std::vector<char> result(bufferSize);
-    DWORD dwRet = GetEnvironmentVariable(variableName.c_str(), &result[0], bufferSize);
+    DWORD dwRet = GetEnvironmentVariableA(variableName.c_str(), &result[0], bufferSize);
     if(bufferSize < dwRet)
     {
         result.resize(dwRet);
-        dwRet = GetEnvironmentVariable(variableName.c_str(), &result[0], dwRet);
+        dwRet = GetEnvironmentVariableA(variableName.c_str(), &result[0], dwRet);
     }
     if(!dwRet)
     {
@@ -202,11 +202,11 @@ std::string xlw::StringUtilities::getEnvironmentVariable(const std::string& vari
 std::string xlw::StringUtilities::getCurrentDirectory()
 {
     std::vector<char> result;
-    DWORD dwRet = GetCurrentDirectory(0, 0);
+    DWORD dwRet = GetCurrentDirectoryA(0, 0);
     if(dwRet)
     {
         result.resize(dwRet);
-        dwRet = GetCurrentDirectory(dwRet, &result[0]);
+        dwRet = GetCurrentDirectoryA(dwRet, &result[0]);
     }
     if(!dwRet)
     {

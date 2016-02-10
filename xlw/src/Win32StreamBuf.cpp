@@ -48,5 +48,5 @@ the put area and send it to the debug window using OutputDebugString.
 void xlw::Win32StreamBuf::SendToDebugWindow()
 {
     if (IsDebuggerPresent() && !buf_.empty())
-        ::OutputDebugString(buf_.c_str());
+        ::OutputDebugStringA(buf_.c_str());
 }

@@ -38,7 +38,7 @@ xlw::PathUpdater::PathUpdater()
     if (dwRet)
     {
         theHandle = ((HMODULE) (theInfo.AllocationBase));
-        GetModuleFileName (theHandle, theDLLPathChar , MAX_PATH);
+        GetModuleFileNameA (theHandle, theDLLPathChar , MAX_PATH);
         xlw::XlfServices.StatusBar = theDLLPathChar;
     }
     else
@@ -53,7 +53,7 @@ xlw::PathUpdater::PathUpdater()
         std::string::size_type pos = theDLLPath.find_last_of("\\");
         newPathValue+= ";"+theDLLPath.substr(0,pos);
 
-        if (!SetEnvironmentVariable("Path", newPathValue.c_str()))
+        if (!SetEnvironmentVariableA("Path", newPathValue.c_str()))
         {
             std::cerr << XLW__HERE__ << " SetEnvironmentVariable failed to set PATH" << std::endl;
             ok = false;
