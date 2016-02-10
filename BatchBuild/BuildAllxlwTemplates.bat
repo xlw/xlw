@@ -6,4 +6,6 @@
 
 CALL BuildProjectCpp.bat "C:\TEMP\xlwTemplate Projects\" xlwTemplate
 
+CALL BuildProjectCpp.bat "C:\TEMP\xlwTemplate Projects\C++CLR\" xlwCppCLRTemplate 
+
 @ENDLOCAL
