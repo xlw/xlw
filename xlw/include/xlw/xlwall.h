@@ -18,6 +18,10 @@
 #ifndef INC_XLWALL_H
 #define INC_XLWALL_H
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "../../src/ArgList.cpp"
 #include "../../src/DoubleOrNothing.cpp"
 #include "../../src/HiResTimer.cpp"
