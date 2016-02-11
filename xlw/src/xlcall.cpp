@@ -41,6 +41,12 @@ void FetchExcel12EntryPt(void)
     }
 }
 
+#if defined(_MSC_VER)
+  #if(_MSC_VER >= 1400)
+    #pragma managed(push, off)
+  #endif
+#endif
+
 int _cdecl Excel12(int xlfn, LPXLOPER12 operRes, int count, ...)
 {
     LPXLOPER12 rgxloper12[cxloper12Max];
@@ -69,6 +75,12 @@ int _cdecl Excel12(int xlfn, LPXLOPER12 operRes, int count, ...)
     }
     return(mdRet);
 }
+
+#if defined(_MSC_VER)
+  #if(_MSC_VER >= 1400)
+    #pragma managed(pop)
+  #endif 
+#endif 
 
 int pascal Excel12v(int xlfn, LPXLOPER12 operRes, int count, const LPXLOPER12 opers[])
 {
