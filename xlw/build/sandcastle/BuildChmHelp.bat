@@ -2,12 +2,7 @@
 @if "%~1" == "" goto usage
 @if not exist "Debug\%~1.xll" goto usage
 @SET DOCGEN=Invalid
-@if "%2"=="codeblocks-gcc" SET SUBDIR=bin\Debug
-@if "%2"=="gcc-make" SET SUBDIR=Debug\bin
-@if "%2"=="vc7" SET SUBDIR=Debug
-@if "%2"=="vc8" SET SUBDIR=Debug
-@if "%2"=="vc9" SET SUBDIR=Debug
-@if "%2"=="vc10" SET SUBDIR=Debug
+SET SUBDIR=Debug
 @if not exist "%SUBDIR%" goto usage
 @REM ********** Set path for .net framework2.0, sandcastle,hhc ****************************
 @REM assumes default install location for Html Help Workshop
@@ -77,10 +72,9 @@ exit /b 2
 @echo **********************************************************************
 @echo Usage
 @echo 
-@echo BuildChmHelp.bat ProjectName BuildEnvironment
+@echo BuildChmHelp.bat ProjectName
 @echo ProjectName: should be the name of the xll without extension
 @echo              and the debug version of the xll must have been built
-@echo BuildEnvironment: one of gcc-make, codeblocks-gcc, vc7, vc8, vc9, vc10
 @echo **********************************************************************
 @ENDLOCAL
 exit /b 1
