@@ -334,32 +334,6 @@ SectionEnd
 ; xlw
 SubSection "xlw" xlw
 
-    ; vanilla xlw
-	SectionGroup "Libraries" Libraries
-		
-		Section "VS2010" VS2010
-			SetOutPath "$INSTDIR\xlw\lib"
-			File  "xlw\lib\xlw-vc100*.lib"
-			SetOutPath "$INSTDIR\xlw\lib\x64"
-			File  "xlw\lib\x64\xlw-vc100*.lib"
-		SectionEnd
-		
-		Section "VS2012" VS2012
-			SetOutPath "$INSTDIR\xlw\lib"
-			File  "xlw\lib\xlw-vc110*.lib"
-			SetOutPath "$INSTDIR\xlw\lib\x64"
-			File  "xlw\lib\x64\xlw-vc110*.lib"
-		SectionEnd
-
-		Section "VS2013" VS2013
-			SetOutPath "$INSTDIR\xlw\lib"
-			File  "xlw\lib\xlw-vc120*.lib"
-			SetOutPath "$INSTDIR\xlw\lib\x64"
-			File  "xlw\lib\x64\xlw-vc120*.lib"
-		SectionEnd
-	
-	SectionGroupEnd
-
 	Section "Examples" xlwExamples
 	
 		!insertmacro doExample "xlw\examples\Start Here - Example" 1
@@ -427,8 +401,6 @@ SubSectionEnd
 ;----------------------------------------------------------------------------------------------------------------------
 ;Section Descriptions
 
-LangString DESC_Libraries ${LANG_ENGLISH} "The static xlw libraries & Tools."
-
 LangString DESC_VS2010 ${LANG_ENGLISH} "VS2010  xll C++ build enviroment for Visual Studio 2010 (VS10)."
 LangString DESC_VS2012 ${LANG_ENGLISH} "VS2012  xll C++ build enviroment for Visual Studio 2012 (VS11)."
 LangString DESC_VS2013 ${LANG_ENGLISH} "VS2013  xll C++ build enviroment for Visual Studio 2013 (VS12)."
@@ -450,8 +422,6 @@ LangString DESC_GCCMAKE_SRC ${LANG_ENGLISH} "Source code and and gnu-make makefi
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
 	
-	!insertmacro MUI_DESCRIPTION_TEXT ${Libraries} $(DESC_Libraries)
-  
 	!insertmacro MUI_DESCRIPTION_TEXT ${VS2010} $(DESC_VS2010)
 	!insertmacro MUI_DESCRIPTION_TEXT ${VS2012} $(DESC_VS2012)
 	!insertmacro MUI_DESCRIPTION_TEXT ${VS2013} $(DESC_VS2013)
