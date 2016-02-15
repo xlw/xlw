@@ -1,11 +1,10 @@
 For 6.0.0 Release
 
 1. Add VS 2015 support for all projects
-2. Remove library
-3. Add missing projects for LoggerDemo
-4. Remove code that supports old compilers
-5. Make all non managedprojects to not require any CRT dlls
+2. Remove code that supports old compilers
+
 
 Maybe:
 
 Add COM support/demo
+
