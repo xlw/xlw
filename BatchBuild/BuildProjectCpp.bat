@@ -7,3 +7,4 @@
 @if exist "%~1\VS10" for %%f in ("%~1\VS10\*.sln") do CALL BuildVS10Project.bat "%%f" %2
 @if exist "%~1\VS11" for %%f in ("%~1\VS11\*.sln") do CALL BuildVS11Project.bat "%%f" %2
 @if exist "%~1\VS12" for %%f in ("%~1\VS12\*.sln") do CALL BuildVS12Project.bat "%%f" %2
+@if exist "%~1\VS14" for %%f in ("%~1\VS14\*.sln") do CALL BuildVS14Project.bat "%%f" %2
