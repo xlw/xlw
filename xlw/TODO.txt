@@ -1,7 +1,7 @@
 For 6.0.0 Release
 
-1. Add VS 2015 support for all projects
-2. Remove code that supports old compilers
+1. Remove code that supports old compilers
+2. Review project GUIDs
 
 
 Maybe:
