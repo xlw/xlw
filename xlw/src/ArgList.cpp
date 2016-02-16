@@ -103,7 +103,7 @@ namespace xlw
 
 void xlw::ArgumentList::add(const std::string& ArgumentName, const char * value)
 {
-	add(ArgumentName, std::string(value));
+    add(ArgumentName, std::string(value));
 }
 
 void xlw::ArgumentList::add(const std::string& ArgumentName, const std::string& value)
@@ -156,13 +156,14 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells, std::string ErrorId)
     if (rows == 0)
         THROW_XLW("Argument List requires non empty cell matix " << ErrorId);
 
-    //if (!cells(0,0).IsAString())
-    if (!cells(0,0).IsAString() && !cells(0,0).IsAWstring())//FIXME
-        THROW_XLW("a structure name must be specified for argument list class " << ErrorId);
+    if (!cells(0,0).IsString())
+    {
+        THROW_XLW("A structure name must be specified for argument list class " << ErrorId);
+    }
     else
     {
         StructureName = StringUtilities::toLower(cells(0,0).StringValue());
-		cells(0,0).clear();
+        cells(0,0).clear();
     }
 
 
@@ -200,9 +201,10 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells, std::string ErrorId)
             }
             else // we have data
             {
-                //if (!cells(row,column).IsAString())
-                if (!cells(row,column).IsAString() && !cells(row,column).IsAWstring())//FIXME
-                    GenerateThrow("data  where name expected.", row, column);
+                if (!cells(row,column).IsString())
+                {
+                    GenerateThrow("Data where name expected.", row, column);
+                }
 
                 std::string thisName(StringUtilities::toLower(cells(row,column).StringValue()));
 
@@ -227,7 +229,7 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells, std::string ErrorId)
 
                     column++;
 
-					cellBelow.clear();
+                    cellBelow.clear();
                 }
                 else
                     if (cellBelow.IsBoolean())
@@ -236,7 +238,7 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells, std::string ErrorId)
 
                         column++;
 
-						cellBelow.clear();
+                        cellBelow.clear();
                     }
                     else // ok it's a string
                     {
@@ -320,7 +322,7 @@ xlw::ArgumentList::ArgumentList(CellMatrix cells, std::string ErrorId)
                                 add(thisName,value);
                                 column++;
 
-								cellBelow.clear();
+                                cellBelow.clear();
                             }
                         }
 
