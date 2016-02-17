@@ -153,8 +153,8 @@
 			!insertmacro projectfiles "${dir}\vc14"
 			
 			${If} ${gccaswell} == 1
-				projectfiles "${dir}\codeblocks-gcc"
-				projectfiles "${dir}\gcc-make"
+				!insertmacro projectfiles "${dir}\codeblocks-gcc"
+				!insertmacro projectfiles "${dir}\gcc-make"
 			${EndIf}
 			
 			Pop $0
@@ -198,6 +198,7 @@ Section #
 	!insertmacro projectfiles "xlw\build\vc10"
 	!insertmacro projectfiles "xlw\build\vc11"
 	!insertmacro projectfiles "xlw\build\vc12"
+	!insertmacro projectfiles "xlw\build\vc14"
 	
 	SetOutPath "$INSTDIR\xlw\bin"
 	File  "xlw\bin\*.exe"
