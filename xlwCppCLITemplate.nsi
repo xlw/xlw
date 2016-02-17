@@ -91,8 +91,6 @@ Function ExtractorPage
 
 FunctionEnd
 
-Var RadioStatus
-
 Function RadioChanged
 	Pop $0 # dir hwnd
 
@@ -106,13 +104,10 @@ Function RadioChanged
 	
 FunctionEnd
 
-Var DIR
-
 !macro projectfiles dir
 		SetOutPath "$INSTDIR"
 		File /nonfatal /r "xlw\Template_Projects\C++CLR\${dir}\*.vcxproj"
 		File /nonfatal /r "xlw\Template_Projects\C++CLR\${dir}\*.vcxproj.filters"
-		File /nonfatal /r "xlw\Template_Projects\C++CLR\${dir}\*.vcproj"
 		File /nonfatal /r "xlw\Template_Projects\C++CLR\${dir}\*.sln"
 		File /nonfatal /r "xlw\Template_Projects\C++CLR\${dir}\*.nmake"
 		File /nonfatal /r "xlw\Template_Projects\C++CLR\${dir}\*.bat"
