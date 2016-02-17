@@ -8,7 +8,6 @@
 	!include "LogicLib.nsh"
 	!include "winmessages.nsh"
 
-
 ;------------------------------------------------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------------------------------------------------
 ;Definitions
@@ -38,14 +37,9 @@
     ;Get installation folder from registry if available
     InstallDirRegKey HKLM "Software\XLW\${XLW_VERSION}" "InstallDir"
 
-	
-	
     ;Request application privileges for Windows Vista
     RequestExecutionLevel admin
 	
-	
-	
-
 ;------------------------------------------------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------------------------------------------------
 ;Interface Settings
@@ -59,10 +53,6 @@
 	!define MUI_WELCOMEFINISHPAGE_BITMAP   "xlw\docs\images\header5.bmp"
 	!define MUI_WELCOMEPAGE_TITLE "Welcome to the installer of xlw ${RELEASE_SHORT}"
 	
-	
-
-
-
 ;------------------------------------------------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------------------------------------------------
 ;Pages
@@ -87,10 +77,6 @@
 ;------------------------------------------------------------------------------------------------------------------------
 ;Global Status Vaiables
 
-	Var Dialog
-	Var Label
-	Var ListBox
-	
 	; Excel Patcher
 	
 	Var DIALOG_PATCH
@@ -130,34 +116,32 @@
 	!macroend
 	
 	!macro doExample dir gccaswell hasobjects
-			Push $0
-			
-			SetOutPath "$INSTDIR\${dir}"
-			File  /nonfatal /r "${dir}\*.xls"
-			File  /nonfatal /r "${dir}\*.txt"
-			
-			SetOutPath "$INSTDIR\${dir}\common_source"
-			File  /nonfatal /r "${dir}\common_source\*.cpp"
-			File  /nonfatal /r "${dir}\common_source\*.h"
-			File  /nonfatal /r "${dir}\common_source\*.resx"
-			
-			${If} ${hasobjects} == 1
-				SetOutPath "$INSTDIR\${dir}\Objects"
-				File  /nonfatal /r "${dir}\Objects\*.cpp"
-				File  /nonfatal /r "${dir}\Objects\*.h"
-			${EndIf}
-			
-			!insertmacro projectfiles "${dir}\vc10"
-			!insertmacro projectfiles "${dir}\vc11"
-			!insertmacro projectfiles "${dir}\vc12"
-			!insertmacro projectfiles "${dir}\vc14"
-			
-			${If} ${gccaswell} == 1
-				!insertmacro projectfiles "${dir}\codeblocks-gcc"
-				!insertmacro projectfiles "${dir}\gcc-make"
-			${EndIf}
-			
-			Pop $0
+
+		SetOutPath "$INSTDIR\${dir}"
+		File  /nonfatal /r "${dir}\*.xls"
+		File  /nonfatal /r "${dir}\*.txt"
+		
+		SetOutPath "$INSTDIR\${dir}\common_source"
+		File  /nonfatal /r "${dir}\common_source\*.cpp"
+		File  /nonfatal /r "${dir}\common_source\*.h"
+		File  /nonfatal /r "${dir}\common_source\*.resx"
+		
+		!insertmacro projectfiles "${dir}\vc10"
+		!insertmacro projectfiles "${dir}\vc11"
+		!insertmacro projectfiles "${dir}\vc12"
+		!insertmacro projectfiles "${dir}\vc14"
+		
+		${If} "${gccaswell}" == "1"
+			!insertmacro projectfiles "${dir}\codeblocks-gcc"
+			!insertmacro projectfiles "${dir}\gcc-make"
+		${EndIf}
+
+		${If} "${hasobjects}" == "1"
+			SetOutPath "$INSTDIR\${dir}\Objects"
+			File  /nonfatal /r "${dir}\Objects\*.cpp"
+			File  /nonfatal /r "${dir}\Objects\*.h"
+		${EndIf}
+
 	!macroend
 	
 
@@ -246,9 +230,9 @@ SubSection "xlw" xlw
 		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlw\Examples.lnk" "$INSTDIR\xlw\Examples"
 		SetOutPath "$INSTDIR\xlw\usercontrib"
 		File  /r "xlw\usercontrib\*.txt"
-		!insertmacro doExample "xlw\usercontrib\matrices\ublas" 1 0
-		!insertmacro doExample "xlw\usercontrib\matrices\dlib" 1 0
-		!insertmacro doExample "xlw\usercontrib\matrices\fortran" 1 0
+		!insertmacro doExample "xlw\usercontrib\matrix\ublas" 1 0
+		!insertmacro doExample "xlw\usercontrib\matrix\dlib" 1 0
+		!insertmacro doExample "xlw\usercontrib\matrix\fortran" 1 0
 		CreateShortCut  "$SMPROGRAMS\XLW\${APP_VER}\xlw\User Contributed Examples.lnk" "$INSTDIR\xlw\usercontrib"
 	SectionEnd
 
@@ -344,68 +328,66 @@ Function ExcelPatchPage
 	
 	${If} $2 != 0
 	
-			GetDlgItem $0 $HWNDPARENT 1
-			EnableWindow $0 1
+		GetDlgItem $0 $HWNDPARENT 1
+		EnableWindow $0 1
 
-			nsDialogs::Create 1018
-			Pop $DIALOG_PATCH
-			
-			
-			${NSD_CreateLabel} 5 2 100% 17% "Detected the following of version(s) of Excel that do not correctly load .NET CLR 2 at startup. Select the Excel(s) that you would like the installer to patch, else leave unselected to either patch manualy later or if you only intend to write C++ xlls."
-			Pop $2
-			${NSD_CreateLabel} 5 50 100% 10% "Note : .NET xlls will not work without the correct CLR being loaded at Excel startup"  
-			Pop $2
-			
-			GetFunctionAddress $0 CheckChanged
-			StrCpy $1 70
-			
-			
-			${If} $EXCEL97 != "" 
-				${NSD_CreateCheckBox} 170 $1 100% 10% "Excel 97"    
-				Pop $EXCEL97_CHECK
-				nsDialogs::OnClick   $EXCEL97_CHECK $0
-				IntOp $1 $1 + 30
-			${EndIF}
+		nsDialogs::Create 1018
+		Pop $DIALOG_PATCH
+		
+		
+		${NSD_CreateLabel} 5 2 100% 17% "Detected the following of version(s) of Excel that do not correctly load .NET CLR 2 at startup. Select the Excel(s) that you would like the installer to patch, else leave unselected to either patch manualy later or if you only intend to write C++ xlls."
+		Pop $2
+		${NSD_CreateLabel} 5 50 100% 10% "Note : .NET xlls will not work without the correct CLR being loaded at Excel startup"  
+		Pop $2
+		
+		GetFunctionAddress $0 CheckChanged
+		StrCpy $1 70
+		
+		
+		${If} $EXCEL97 != "" 
+			${NSD_CreateCheckBox} 170 $1 100% 10% "Excel 97"    
+			Pop $EXCEL97_CHECK
+			nsDialogs::OnClick   $EXCEL97_CHECK $0
+			IntOp $1 $1 + 30
+		${EndIF}
+		
+
+		${If} $EXCEL2000 != "" 
+			${NSD_CreateCheckBox} 170 $1 100% 10% "Excel 2000"     
+			Pop $EXCEL2000_CHECK
+			nsDialogs::OnClick   $EXCEL2000_CHECK $0
+			IntOp $1 $1 + 30
+		${EndIF}
+		
+
+		${If} $EXCEL2002 != "" 
+			${NSD_CreateCheckBox} 170 $1 100% 10% "Excel XP (2002)"     
+			Pop $EXCEL2002_CHECK
+			nsDialogs::OnClick   $EXCEL2002_CHECK $0
+			IntOp $1 $1 + 30
+		${EndIF}
+		
+	 
+		${If} $EXCEL2003 != "" 
+			${NSD_CreateCheckBox} 170 $1 100% 10% "Excel 2003"      
+			Pop $EXCEL2003_CHECK
+			nsDialogs::OnClick   $EXCEL2003_CHECK $0
+			IntOp $1 $1 + 30
+		${EndIF}
 			
 
-			${If} $EXCEL2000 != "" 
-				${NSD_CreateCheckBox} 170 $1 100% 10% "Excel 2000"     
-				Pop $EXCEL2000_CHECK
-				nsDialogs::OnClick   $EXCEL2000_CHECK $0
-				IntOp $1 $1 + 30
-			${EndIF}
-			
-
-			${If} $EXCEL2002 != "" 
-				${NSD_CreateCheckBox} 170 $1 100% 10% "Excel XP (2002)"     
-				Pop $EXCEL2002_CHECK
-				nsDialogs::OnClick   $EXCEL2002_CHECK $0
-				IntOp $1 $1 + 30
-			${EndIF}
-			
-		 
-			${If} $EXCEL2003 != "" 
-				${NSD_CreateCheckBox} 170 $1 100% 10% "Excel 2003"      
-				Pop $EXCEL2003_CHECK
-				nsDialogs::OnClick   $EXCEL2003_CHECK $0
-				IntOp $1 $1 + 30
-			${EndIF}
-				
-
-			${NSD_CreateButton} 170 200 30% 10% "Tell Me More ..."
-			Pop $BUTTON_PATCH
-			
-			GetFunctionAddress $0 OnClick_PATCH
-			nsDialogs::OnClick $BUTTON_PATCH $0
+		${NSD_CreateButton} 170 200 30% 10% "Tell Me More ..."
+		Pop $BUTTON_PATCH
+		
+		GetFunctionAddress $0 OnClick_PATCH
+		nsDialogs::OnClick $BUTTON_PATCH $0
 
 
-			nsDialogs::Show
+		nsDialogs::Show
 			
 	${EndIF}
 
 FunctionEnd
-
-
 
 Function CheckChanged
 	Pop $0 # dir hwnd
@@ -439,7 +421,6 @@ Function OnClick_PATCH
 	StrCpy $0 "$0 See MSDN documentation for more information $\r$\n$\r$\n"
 	StrCpy $0 "$0 http://msdn.microsoft.com/en-us/library/w4atty68.aspx $\r$\n"
 	MessageBox MB_OK $0
-  
 
 FunctionEnd
 

@@ -9,8 +9,6 @@
 ; uncomment on release version comment for dev builds
 !define RELEASE_VERSION 1
 
-var DEV_OR_RELEASE
-var RELEASE_SHORT
 !ifndef RELEASE_VERSION
 !define /date LONG_REL_DATE "%d-%b-%Y"
 !define /date SHORT_REL_DATE "%d%b%Y"
