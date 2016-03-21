@@ -80,19 +80,19 @@ Function ExtractorPage
     ${NSD_CreateRadioButton} 100 30 100% 10% "Visual C++ 2015 (VC14)"    
 	Pop $VC14
 	nsDialogs::OnClick  $VC14 $0
-    ${NSD_CreateRadioButton} 100 30 100% 10% "Visual C++ 2013 (VC12)"    
+    ${NSD_CreateRadioButton} 100 60 100% 10% "Visual C++ 2013 (VC12)"    
 	Pop $VC12
 	nsDialogs::OnClick  $VC12 $0
-    ${NSD_CreateRadioButton} 100 30 100% 10% "Visual C++ 2012 (VC11)"    
+    ${NSD_CreateRadioButton} 100 90 100% 10% "Visual C++ 2012 (VC11)"    
 	Pop $VC11
 	nsDialogs::OnClick  $VC11 $0
-	${NSD_CreateRadioButton} 100 60 100% 10% "Visual C++ 2010 (VC10)"    
+	${NSD_CreateRadioButton} 100 120 100% 10% "Visual C++ 2010 (VC10)"    
 	Pop $VC10
 	nsDialogs::OnClick  $VC10 $0
-	${NSD_CreateRadioButton} 100 180 100% 10% "Code::Blocks(MingW)"
+	${NSD_CreateRadioButton} 100 150 100% 10% "Code::Blocks(MingW)"
 	Pop $CODEBLOCKS
 	nsDialogs::OnClick  $CODEBLOCKS $0
-	${NSD_CreateRadioButton} 100 210 100% 10% "GCC/Make"
+	${NSD_CreateRadioButton} 100 180 100% 10% "GCC/Make"
 	Pop $GCC
 	nsDialogs::OnClick  $GCC $0
 	
