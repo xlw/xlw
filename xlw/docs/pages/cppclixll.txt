@@ -1,7 +1,7 @@
 
 /*! 
 
-\page a04_clixll Getting Started with C++/CLI Xlls
+\page a03_clixll Getting Started with C++/CLI Xlls
 
 \section clixll C++/CLI Xlls
 
@@ -13,7 +13,7 @@ Please post feedback to xlw-users@sourceforge.net
 If you have installed this from the self-extracting installer
 the should be in the menu a link to the examples under the xlw sub-meny. 
 
-The \ref a04_examplehybrid "Hybrib example" is probably the best 
+The \ref a03_examplehybrid "Hybrib example" is probably the best 
 place to start.
 
 There are also a menu item for the Hybrid Template Extractors which you can use to create a
@@ -24,17 +24,8 @@ Please email xlw-users@lists.sourceforge.net.
 
 \section prereqs Pre-Requisites
 
-Developing C++/CLI with XLW requires one of the following  environments :
-  
-- MicroSoft Visual Studio 2010 with C++
-- MicroSoft Visual Studio 2008 with C++
-- MicroSoft Visual Studio 2005 with C++
-- Visual Studio 2010 Express Editions C++
-- Visual Studio 2008 Express Editions C++
-- Visual Studio 2005 Express Editions C++
-
-There is no support for Visual Studio 2003 or prior and none is planned
-
+Developing C++/CLI with XLW requires Visual Studio 2010 or later:
+ 
 \section buildclixll Building an XLL with xlw (C++/CLI)
 
 \subsection template Obtaining the Template Project

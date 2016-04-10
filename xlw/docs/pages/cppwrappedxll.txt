@@ -1,7 +1,7 @@
 
 /*! 
 
-\page a02_cppwrappedxll Getting Started with C++ Wrapped Xlls
+\page a01_cppwrappedxll Getting Started with C++ Wrapped Xlls
 
 \section cppwrappedxll C++ Wrapped Xlls
 
@@ -23,19 +23,11 @@ Please email xlw-users@lists.sourceforge.net.
 
 Developing C++ Xlls with XLW requires one of the following environments :
   
-- MicroSoft Visual Studio 2010 with C++
-- MicroSoft Visual Studio 2008 with C++
-- MicroSoft Visual Studio 2005 with C++
-- Visual Studio 2010 Express Editions C++
-- Visual Studio 2008 Express Editions C++
-- Visual Studio 2005 Express Editions C++
-- Visual Studio .NET 2003 with C++
+- Microsoft Visual Studio 2010 or later
 - Code::Blocks 10.05 (installer WITHOUT MinGW) + MinGW/GCC4.5.2
 - MSYS/MinGW/GCC/Make enviroment
    
 For more details on setting up the compilers see \ref a01_installation "here".
-
-There is no support for Visual Studio 2002 or Visual Studio 6.0.
 
 \section buildcppxll Building an XLL with xlw (C++)
 

@@ -9,7 +9,6 @@ The following examples are documented in detail
 
 - \subpage a01_examplenative
 - \subpage a02_examplewrapped
-- \subpage a03_examplecsharp
-- \subpage a04_examplehybrid
+- \subpage a03_examplehybrid
 
 */

@@ -1,0 +1,22 @@
+
+/*! \page a03_version6 XLW 6 - What's New
+
+\section v6_summary Summary
+
+XLW has been made easier to use and maintain:
+
+\li Add support for Visual Studio 2015
+\li Remove need for library files
+\li Simplify project installer by removing C# wrapper.
+\li latest bug fixes
+
+\section v6_older Older Version What's New
+
+Here are links to the What's New pages for older versions
+
+- \subpage a00_version5 "XLW 5.0"
+- \subpage a01_version4 "XLW 4.0"
+- \subpage a02_version3 "XLW 3.0"
+
+*/
+

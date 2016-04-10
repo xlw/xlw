@@ -1,7 +1,7 @@
 
-/*! \page a03_version5 XLW 5 - What's New
+/*! \page a00_version5 XLW 5 - What's New
 
-\section v5_summary Summary
+\section v5_summary Summary of Version 5 changes
 
 XLW is upgraded to support new features of Excel 2010 such as
 
@@ -29,13 +29,6 @@ Added Visual Studio 2010 support (including Express Edition)
 Added the ability to generate help files automatically.
 
 Improved documentation and example code.
-
-\section v5_older Older Version What's New
-
-Here are links to the What's New pages for older versions
-
-- \subpage a01_version4 "XLW 4.0"
-- \subpage a02_version3 "XLW 3.0"
 
 */
 

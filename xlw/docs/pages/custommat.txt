@@ -1,5 +1,5 @@
 
-/*! \page a05_custommat XLW 5 - Using Custom Matrices & Arrays
+/*! \page a05_custommat XLW 6 - Using Custom Matrices & Arrays
 
 \section summary Summary
 

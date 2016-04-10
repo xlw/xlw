@@ -6,7 +6,7 @@
 \section inst_download Download and Installation
 
 Get the source code installer from the
-<a href="http://sourceforge.net/projects/xlw/files/xlw/xlw%205.0/" target="_blank">downloads page</a>.
+<a href="http://sourceforge.net/projects/xlw/files/xlw/xlw%206.0/" target="_blank">downloads page</a>.
 Run the installer to uncompress XLW to your hard drive.  The installation
 includes source code, documentation and examples.
 
@@ -15,18 +15,87 @@ includes source code, documentation and examples.
 The following compiler enviroments are supported automatically by the install and no
 further changes are needed
 
-- Visual Studio .NET 2003 (32 bit only)
-- Visual Studio 2005
-- Visual Studio 2008 \subpage a02_vs2008 "(SP1 Required)"
-- Visual C++ Express 2008 (32 bit only) \subpage a02_vs2008 "(SP1 Required)"
 - Visual Studio 2010
 - Visual C++ Express 2010 (32 bit with default install, \subpage a03_vce2010 "instructions for 64 bit here)"
+- Visual Studio 2012
+- Visual Studio 2013
+- Visual Studio 2015
 
 The following compiler enviroments are also supported but there are some changes required to 
 compile xlls,  use the following links to get further instructions
 
-- \subpage a01_vce2005 "Visual C++ Express 2005"
 - \subpage a04_gcc "gcc command line"
 - \subpage a05_codeblocks "Code::Blocks and gcc"
+
+\section CreateNewMSProject Creating a new .xll project from scratch in Visual Studio
+
+If you wish to create a project from scratch ie. without the use of
+project template .sln files, or add XLW to an existing dll the following instructions will you set up
+your project environment to do this.
+
+1.	Create a new Visual Studio project
+	Template: Win32 Project
+	This creates a 32-bit application (or .dll) but you 
+	can use configurations to create a 64-bit .dll from within
+	the project.
+	
+	In the wizard, select the following settings:
+	
+	Application Settings - Application Type = DLL
+	Application Settings - Additional Options = Empty Project
+
+2.	In the project, change the following settings:
+	Configuration Properties
+		General - Target Extension = .xll
+		General - Character Set = Use Unicode Character Set (should be already set)
+		Type Dynamic Library (.dll) (should be already set)
+	C/C++
+		General - Additional Include Directories = $(XLW)\xlw\include;$(IncludePath)
+	Debugging
+		Command = C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE
+		Command Arguments = "$(TargetName)$(TargetExt)"
+		Working Directory = $(OutDir)
+
+	Note: The Include and library file locations are identified in Xlw by the use of the 
+	$(XLW) environment variable. This variable points to the location of
+	your Xlw version (eg. C:\Program Files (x86)\XLW\xlw-6.0.0f0\xlw. 
+	Ensure it is set.
+	
+3.	Create new C++ file to contain .xll code
+	Copy one of the example files to get started (eg. xlwCommands.cpp).
+
+4.	Add a file that incluse the xlw library by including xlwall.h
+	Copy xlwLibrary.cpp from one of the examples.
+	
+5.	Compile
+
+Project settings to debug your .xll
+===================================
+To debug with Excel, change the 'Properties - Debugging' settings to point
+to the  location of the Excel executable, and make use of your output .xll
+file as a command argument. You can also add an additional Excel spreadsheet
+file name to the command arguments if you want to run the add-in with 
+a test spreadsheet by making the spreadsheet file name second parameter.
+
+If your .xll file is the same name as your project, you can use
+	$(TargetDir)$(TargetFileName) as the command argument, otherwise
+you will need to hard-code (ie. type in) the name of your Excel .xll file.
+
+Make the following changes in project settings to debug your .xll file:
+	Configuration Properties - Debugging - Command
+		Enter the location of your EXCEL.EXE file.
+		For Office 2007 this is:
+		C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE
+	Configuration Properties - Debugging - Command arguments
+		"$(TargetDir)\$(TargetName)$(TargetExt)"
+			Or...to run add in against Excel test file...
+		"$(TargetDir)\$(TargetName)$(TargetExt)" "$(SolutionDir)\XlwTemplateTester.xls"		
+		
+Notes:
+* The debugging command (Excel executable file) must be UN-quoted, while all parameters
+  must be separately quoted.
+* Excel 2007 is a 32-bit program: you can only use and debug 32-bit .xll files.
+  Later versions of Excel are available in 64-bit.
+
 
 */

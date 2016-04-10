@@ -3,7 +3,7 @@
 
 \page a02_gettingstarted Getting Started
 
-\section DEVELOPMENT SNAPSHOT 5DEV
+\section XLW Version 6
 
 For the latest documentation and news visit <a href="http://xlw.sourceforge.net/" target="_blank">http://xlw.sourceforge.net/</a>
 
@@ -19,12 +19,11 @@ Please email xlw-users@lists.sourceforge.net.
 
 There are 4 main ways to use Xlw
 
-- \subpage a01_cppxll "C++ Native Xlls"
-- \subpage a02_cppwrappedxll "C++ Wrapped Xlls"
-- \subpage a03_csharpxll "C# Xlls"
-- \subpage a04_clixll "C++/CLI Hybrid Xlls"
+- \subpage a01_cppwrappedxll "C++ Wrapped Xlls"
+- \subpage a02_cppxll "C++ Native Xlls"
+- \subpage a03_clixll "C++/CLI Hybrid Xlls"
 
-For first time users of Xlw if you want to use C++ we suggest \ref a02_cppwrappedxll "C++ Wrapped Xlls" 
-or if you use .NET try \ref a03_csharpxll "C# Xlls".
+For first time users of Xlw we suggest using \ref a01_cppwrappedxll "C++ Wrapped Xlls" as this removes the need to use 
+Excel types and maintain the registrations manually. 
 
 */

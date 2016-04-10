@@ -1,7 +1,7 @@
 
-/*! \page a04_v5upgrade XLW 5 - Upgrading from Previous Versions
+/*! \page a04_v5upgrade XLW 6 - Upgrading from Previous Versions
 
-\section v5_summary Summary
+\section v6_summary Summary
 
 There are some changes required to existing projects that were driven by the need to support both 64 and 32 xlls from the same codebase.
 

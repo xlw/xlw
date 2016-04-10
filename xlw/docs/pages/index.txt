@@ -32,11 +32,11 @@ the software and documentation are always welcome.
 To find out more abut Xlw the following sections should be helpful:
 - \subpage a02_gettingstarted "Getting Started"
 - \subpage a01_installation "Installation & Compiler Setup"
-- \subpage a03_version5 "What's New"
+- \subpage a03_version6 "What's New"
 - \subpage a04_v5upgrade "Upgrading From older versions"
 - \subpage a05_custommat "Using Alternative Matrices & Arrays"
 - \subpage a06_buildhelp "Building Help Files from your xll"
-- \subpage a07_faq "Frequently Answered Questions"
+- \subpage a07_faq "Frequently Asked Questions"
 - \subpage a08_examples "Example Code"
 */
 

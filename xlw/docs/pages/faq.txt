@@ -9,17 +9,17 @@ These are a collection FAQs that have arisen on the mailing list.
 
 - \ref NumArgs
 - \ref FuncWiz
+- \ref FuncRestrict
 - \ref WhenCom
 - \ref WhenNotCom
 - \ref IsItCpp
 - \ref Legacy
 - \ref diffxlldll
 - \ref sr1
-- \ref netdrive
 
 \section NumArgs How Many Arguments Are Supported For Addin Functions?
 
-Excel 2007 (and XLW 5.0) support user defined functions with up to 255
+Excel 2007 (and XLW 6.0) support user defined functions with up to 255
 arguments.
 
 Excel versions up to and including 2003 have a limit of 30 function arguments.
@@ -42,6 +42,17 @@ will truncate the string and display a "Too many arguments for Function Wizard" 
 However your function should still work correctly.
 
 Consider using an ArgList or other method to avoid huge parameter lists. 
+
+\section FuncRestrict What are the naming restrictions for functions?
+
+In addition to normal C++ restrictions for naming functions, you must also avoid
+function names that clash with Excel cell references.
+This means, for instance, that a function name like 'Add2' would be invalid.
+'ADD' is a column reference, and '2' is a row reference meaning 'ADD2' refers to a 
+cell address. In general, avoid naming 1 to 3 character functions with digits on the 
+end as it's quite possible they also represent a valid cell address. When a function is created
+whose name clashes with an Excel cell address, your .xll file will compile, but the new function
+will not be visible or available in Excel.
 
 \section WhenCom When should I use COM?
 The COM interface based on former OLE 2.0 offers a different approach than the
@@ -107,39 +118,6 @@ particular Excel causes a global protection fault after
 
 Special thanks to Laurent Longre for his page: \ref longre.
 
-\section netdrive Running xlwDotNet xlls on a Network Drive
-Due to the default security model of .NET xlwDotNet xlls do not work
-correctly by default when running off a network drive.
-
-It is possible to get fix this using one of the following 2 methods depending 
-on which compiler you are using.
-
-For versions less and including Visual Studio 2008 then you need to trust the
-drive where you wish to place our xlls by running a command similar to the 
-following from an elevated visual studio tools command line prompt:
-
-\code
-Caspol -m -ag 1.2 -url "file://f:\*" FullTrust
-\endcode
-
-replace f: by the drive or unc name of the location of your xlls.
-
-For Visual Studio 2010 and above you must create a file Excel.exe.config
-which contains the following xml 
-
-\code
-<configuration>
- <startup>    
-    <supportedRuntime version="v4.0.30319"/>   
-  </startup>
-  <runtime>
-      <loadFromRemoteSources enabled="true"/>
-  </runtime>
-</configuration>
-\endcode
-
-This file should be placed in the same directory as Excel.exe
- 
 
 */
 

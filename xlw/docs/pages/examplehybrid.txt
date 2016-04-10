@@ -1,7 +1,7 @@
 
 /*! 
 
-\page a04_examplehybrid Hybrid Example
+\page a03_examplehybrid Hybrid Example
 
 \todo document hybrid example
 
