@@ -30,6 +30,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <xlw/macros.h>
+#include <ctype.h>
 
 const double xlw::XlfAbstractCmdDesc::InvalidFunctionId = -1.0;
 
@@ -154,3 +155,32 @@ void xlw::XlfAbstractCmdDesc::GenerateMamlDocs(const std::string outputDir, int 
     outFile << "</developerReferenceWithSyntaxDocument>" << std::endl;
     outFile << "</topic>" << std::endl;
 }
+
+bool xlw::XlfAbstractCmdDesc::isAliasValid() const
+{
+    std::string alias(GetAlias());
+    size_t len(alias.length());
+    size_t numAlpha(0);
+    size_t numNumeric(0);
+    size_t pos(0);
+    
+    while(pos < len && isalpha(alias[pos]))
+    {
+        ++numAlpha;
+        ++pos;
+    }
+    while(pos < len && isdigit(alias[pos]))
+    {
+        ++numNumeric;
+        ++pos;
+    }
+    if(numAlpha < 4 && numNumeric < 8 && pos == len)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+

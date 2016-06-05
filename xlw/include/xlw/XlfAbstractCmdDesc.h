@@ -75,6 +75,8 @@ namespace xlw {
         const XlfArgDescList& GetArguments() const;
         //!Generates the documentation in Sandcastle format
         void GenerateMamlDocs(const std::string outputDir, int itemId) const;
+        //!Checks if the alias will clash with Excel cell or column names
+        bool isAliasValid() const;
         //@}
     protected:
         //! Actually registers the command (see template method in \ref DP)

@@ -217,6 +217,16 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
         }
     }
 
+    if(!isAliasValid())
+    {
+        std::string message("The function name ");
+        message += GetAlias();
+        message += " may clash with Excel cell or column names, do not use names with one, two or three letters followed by zero or more numbers";
+        xlw::XlfServices.Commands.Alert(message);
+        funcId_ = InvalidFunctionId;
+        return 0;
+    }
+
     if(XlfExcel::Instance().excel12())
     {
         // total number of arguments limited to 255
