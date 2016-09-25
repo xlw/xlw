@@ -29,6 +29,8 @@ using namespace Runtime::InteropServices;
 #include"managedMyMatrix.h"
 #include"managedMyArray.h"
 
+std::wstring CLR2WCPP(String^ clrString);
+
 namespace xlwDotNet
 {
 	namespace xlwTypes
@@ -43,7 +45,7 @@ namespace xlwDotNet
 
 			  CellValue(String^ theString):
 			  xlwTypebaseClass<xlw::CellValue>
-				  ( new xlw::impl::MJCellValue(std::wstring((const wchar_t*)(Marshal::StringToHGlobalUni(theString)).ToPointer())) ,true){}
+			  (new xlw::impl::MJCellValue(CLR2WCPP(theString)), true){}
 
 			  CellValue(double Number):
 			  xlwTypebaseClass<xlw::CellValue>( new xlw::impl::MJCellValue(Number) ,true){}

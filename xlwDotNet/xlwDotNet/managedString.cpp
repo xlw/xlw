@@ -28,3 +28,11 @@ std::string CLR2CPP(String^ clrString)
     Marshal::FreeHGlobal(memHandle);
     return result;
 }
+
+std::wstring CLR2WCPP(String^ clrString)
+{
+	System::IntPtr memHandle = Marshal::StringToHGlobalUni(clrString);
+	std::wstring result = (const wchar_t*)(memHandle.ToPointer());
+	Marshal::FreeHGlobal(memHandle);
+	return result;
+}
