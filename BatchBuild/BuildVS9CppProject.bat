@@ -1,4 +1,0 @@
-@SETLOCAL
-@SET LOG_ROOT=%CD%\%2-VS9
-%VS9VSBUILD% %1 /rebuild >> "%LOG_ROOT%.log" 2>&1 
-@ENDLOCAL

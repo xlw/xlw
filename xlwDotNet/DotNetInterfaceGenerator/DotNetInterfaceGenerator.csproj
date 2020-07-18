@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!--<TargetFrameworks>netcoreapp3.1;net472;net5.0</TargetFrameworks>-->
+    <TargetFrameworks>net472;net5.0</TargetFrameworks>
+    <RuntimeIdentifiers>win10-x64;win10-x86</RuntimeIdentifiers>
+    <Platforms>x64;x86</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <cplatform>$(Platform)</cplatform>
+    <cplatform Condition=" '$(Platform)' == 'x86' ">Win32</cplatform>
+    <OutputPath>..\lib\$(Configuration)\$(cplatform)</OutputPath>
+    <WarningLevel>2</WarningLevel>
+    <gd></gd>
+    <gd Condition=" '$(Configuration)' == 'Debug' ">-gd</gd>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Builder\Builder.csproj" />
+  </ItemGroup>
+
+ 
+  <ItemGroup>
+    <Reference Include="xlwDotNet-vc142-mt-6_0_0">
+      <HintPath>..\lib\$(Configuration)\$(cplatform)\$(TargetFramework)\xlwDotNet-vc142-mt$(gd)-6_0_0.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

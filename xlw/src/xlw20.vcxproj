@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{0b88c9f5-d45e-431c-9908-3adf6b516d2f}</ProjectGuid>
+    <RootNamespace>xlw20</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>6_0_0</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\lib\$(PlatformName)\</OutDir>
+    <IntDir>..\obj\$(PlatformName)\$(Configuration)\</IntDir>
+    <TargetName>xlw-vc142-mt-gd-$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\lib\$(PlatformName)\</OutDir>
+    <IntDir>..\obj\$(PlatformName)\$(Configuration)\</IntDir>
+    <TargetName>xlw-vc142-mt-$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>xlw-vc142-mt-gd-$(ProjectName)</TargetName>
+    <OutDir>..\lib\$(PlatformName)\</OutDir>
+    <IntDir>..\obj\$(PlatformName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\lib\$(PlatformName)\</OutDir>
+    <IntDir>..\obj\$(PlatformName)\$(Configuration)\</IntDir>
+    <TargetName>xlw-vc142-mt-$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;WIN32;_DEBUG;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>$(OutDir)\xlw-vc142-mt-gd-$(ProjectName).lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;WIN32;NDEBUG;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>$(OutDir)\xlw-vc142-mt-$(ProjectName).lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>$(OutDir)\xlw-vc142-mt-gd-$(ProjectName).lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;NDEBUG;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>$(OutDir)\xlw-vc142-mt-$(ProjectName).lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ArgList.cpp" />
+    <ClCompile Include="DoubleOrNothing.cpp" />
+    <ClCompile Include="HiResTimer.cpp" />
+    <ClCompile Include="MJCellMatrix.cpp" />
+    <ClCompile Include="NCmatrices.cpp" />
+    <ClCompile Include="PascalStringConversions.cpp" />
+    <ClCompile Include="PathUpdater.cpp" />
+    <ClCompile Include="TempMemory.cpp" />
+    <ClCompile Include="Win32StreamBuf.cpp" />
+    <ClCompile Include="xlcall.cpp" />
+    <ClCompile Include="XlfAbstractCmdDesc.cpp" />
+    <ClCompile Include="XlfArgDesc.cpp" />
+    <ClCompile Include="XlfArgDescList.cpp" />
+    <ClCompile Include="XlfCmdDesc.cpp" />
+    <ClCompile Include="XlfExcel.cpp" />
+    <ClCompile Include="XlfFuncDesc.cpp" />
+    <ClCompile Include="XlfOperImpl.cpp" />
+    <ClCompile Include="XlfOperProperties.cpp" />
+    <ClCompile Include="XlfRef.cpp" />
+    <ClCompile Include="XlfServices.cpp" />
+    <ClCompile Include="XlFunctionRegistration.cpp" />
+    <ClCompile Include="XlOpenClose.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\xlw\ArgList.h" />
+    <ClInclude Include="..\include\xlw\CellMatrix.h" />
+    <ClInclude Include="..\include\xlw\CellMatrixPimpl.h" />
+    <ClInclude Include="..\include\xlw\CellValue.h" />
+    <ClInclude Include="..\include\xlw\CriticalSection.h" />
+    <ClInclude Include="..\include\xlw\DoubleOrNothing.h" />
+    <ClInclude Include="..\include\xlw\eshared_ptr.h" />
+    <ClInclude Include="..\include\xlw\eshared_ptr_details.h" />
+    <ClInclude Include="..\include\xlw\EXCEL32_API.h" />
+    <ClInclude Include="..\include\xlw\HiResTimer.h" />
+    <ClInclude Include="..\include\xlw\IXlfoperShared.h" />
+    <ClInclude Include="..\include\xlw\macros.h" />
+    <ClInclude Include="..\include\xlw\MJCellMatrix.h" />
+    <ClInclude Include="..\include\xlw\MyContainers.h" />
+    <ClInclude Include="..\include\xlw\NCmatrices.h" />
+    <ClInclude Include="..\include\xlw\PascalStringConversions.h" />
+    <ClInclude Include="..\include\xlw\Singleton.h" />
+    <ClInclude Include="..\include\xlw\TempMemory.h" />
+    <ClInclude Include="..\include\xlw\ThreadLocalStorage.h" />
+    <ClInclude Include="..\include\xlw\Win32StreamBuf.h" />
+    <ClInclude Include="..\include\xlw\xlarray.h" />
+    <ClInclude Include="..\include\xlw\xlcall32.h" />
+    <ClInclude Include="..\include\xlw\XlfAbstractCmdDesc.h" />
+    <ClInclude Include="..\include\xlw\XlfArgDesc.h" />
+    <ClInclude Include="..\include\xlw\XlfArgDescList.h" />
+    <ClInclude Include="..\include\xlw\XlfCmdDesc.h" />
+    <ClInclude Include="..\include\xlw\XlfExcel.h" />
+    <ClInclude Include="..\include\xlw\XlfException.h" />
+    <ClInclude Include="..\include\xlw\XlfFuncDesc.h" />
+    <ClInclude Include="..\include\xlw\XlfOper.h" />
+    <ClInclude Include="..\include\xlw\XlfOper12.h" />
+    <ClInclude Include="..\include\xlw\XlfOper4.h" />
+    <ClInclude Include="..\include\xlw\XlfOperImpl.h" />
+    <ClInclude Include="..\include\xlw\XlfOperProperties.h" />
+    <ClInclude Include="..\include\xlw\XlfRef.h" />
+    <ClInclude Include="..\include\xlw\XlfServices.h" />
+    <ClInclude Include="..\include\xlw\XlFunctionRegistration.h" />
+    <ClInclude Include="..\include\xlw\XlfWindows.h" />
+    <ClInclude Include="..\include\xlw\XlOpenClose.h" />
+    <ClInclude Include="..\include\xlw\xlw.h" />
+    <ClInclude Include="..\include\xlw\xlwManaged.h" />
+    <ClInclude Include="..\include\xlw\xlwshared_ptr.h" />
+    <ClInclude Include="..\include\xlw\xlwshared_ptr_details.h" />
+    <ClInclude Include="PathUpdater.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\include\xlw\Win32StreamBuf.inl" />
+    <None Include="..\include\xlw\XlfOperProperties12.inl" />
+    <None Include="..\include\xlw\XlfOperProperties4.inl" />
+    <None Include="..\include\xlw\XlfOperPropertiesDynamic.inl" />
+    <None Include="..\include\xlw\XlfRef.inl" />
+    <None Include="..\include\xlw\xlw.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,29 @@
+﻿<Project DefaultTargets="BuildXLWDotNet;CleanXLWDotNet" Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--<TargetFrameworks>netcoreapp3.1;net472;net5.0</TargetFrameworks>-->
+    <TargetFrameworks>net5.0;net472</TargetFrameworks>
+    <Platforms>x64;x86</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <cplatform>$(Platform)</cplatform>
+    <cplatform Condition=" '$(Platform)' == 'x86' ">Win32</cplatform>
+  </PropertyGroup>
+
+ 
+  <Target Name="BuildXLWDotNet" AfterTargets="Build" Condition=" '$(TargetFramework)' != '' ">
+    <Message Importance="high" Text="Build Config is  : CLRSupport=$(CLRSupport);TargetFramework=$(TF);TargetFrameworkVersion=$(TFV);Platform=$(Platform);Configuration=$(ConfigurationName)" />
+    <MSBuild Condition=" '$(TargetFramework)' != 'net472' " Targets="Build"  Projects="..\xlwDotNet\xlwDotNet_472.vcxproj" Properties="CLRSupport=NetCore;TargetFramework=$(TargetFramework);Platform=$(cplatform);Configuration=$(ConfigurationName)"></MSBuild>
+    <MSBuild Condition=" '$(TargetFramework)' == 'net472' " Targets="Build"  Projects="..\xlwDotNet\xlwDotNet_472.vcxproj" Properties="CLRSupport=true;TargetFrameworkVersion=4.7.2;Platform=$(cplatform);Configuration=$(ConfigurationName)"></MSBuild>
+  </Target>
+
+
+
+  <Target Name="CleanXLWDotNet" AfterTargets="Clean" Condition=" '$(TargetFramework)' != '' ">
+    <Message Importance="high" Text="Build Config is  : CLRSupport=$(CLRSupport);TargetFramework=$(TF);TargetFrameworkVersion=$(TFV);Platform=$(Platform);Configuration=$(ConfigurationName)" />
+    <MSBuild Condition=" '$(TargetFramework)' != 'net472' " Targets="Clean"  Projects="..\xlwDotNet\xlwDotNet_472.vcxproj" Properties="CLRSupport=NetCore;TargetFramework=$(TargetFramework);Platform=$(cplatform);Configuration=$(ConfigurationName)"></MSBuild>
+    <MSBuild Condition=" '$(TargetFramework)' == 'net472' " Targets="Clean"  Projects="..\xlwDotNet\xlwDotNet_472.vcxproj" Properties="CLRSupport=true;TargetFrameworkVersion=4.7.2;Platform=$(cplatform);Configuration=$(ConfigurationName)"></MSBuild>
+  </Target>
+
+</Project>
