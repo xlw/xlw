@@ -71,6 +71,8 @@ The  .NET Template project `\xlw\xlwDotNet\Template_Projects\VS16\Template.sln` 
 ```
 
 To run the .NET 5 xll you have to add the directory containing the the xll to your Path (not so for the .NET Framework version). This needs to be fixed.
+Seems like it's discussed [here](https://github.com/dotnet/runtime/issues/38231)
+
 
 Attempting to build xlwDotNet against .NET Core 3.1 gives the following build error:
 ``` 
