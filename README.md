@@ -1,6 +1,8 @@
 # **XLW 20**
 xlw is being updated.
 
+This repo was originally forked from [John's XLW repo](https://github.com/JohnAdders/xlw) which itself was imported from it's original home at [SourceForge](https://sourceforge.net/projects/xlw/)
+
 
 This version will only support Visual Studio 2019. In this fork all support for previous Visual Studio versions has been dropped. All support for gcc has also been dropped.\
 Support is being added for building xlls against .NET CORE & .NET Framework 4.7.2 simultaneously
