@@ -27,7 +27,7 @@ namespace Example
         [ExcelExport("Get's .NET Version")]
         public static String dotnetversion()
         {
-            return Environment.Version.ToString();
+            return System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
         }
 
 

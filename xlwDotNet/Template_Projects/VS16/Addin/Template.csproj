@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!--<TargetFrameworks>net472;net5.0;netcoreapp3.1</TargetFrameworks>-->
-    <TargetFrameworks>net472;net5.0</TargetFrameworks>
+    <TargetFrameworks>net472;net5.0;netcoreapp3.1</TargetFrameworks>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>
 
