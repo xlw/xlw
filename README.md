@@ -36,33 +36,33 @@ It doesn't currently  work with .NET Core 3.1 and this is being investigated.
       Debug ->
             Win32 ->
                   net5.0 ->
-                        xlwDotNet-vc142-mt-gd-6_0_0.lib
-                        DotNetInterfaceGenerator.dll
+                        xlwDotNet-vc142-mt-gd-6_0_0.dll
+                        DotNetInterfaceGenerator.exe
                   net472 ->
-                        xlwDotNet-vc142-mt-gd-6_0_0.lib
-                        DotNetInterfaceGenerator.dll
+                        xlwDotNet-vc142-mt-gd-6_0_0.dll
+                        DotNetInterfaceGenerator.exe
             x64 ->
                   net5.0 ->
-                        xlwDotNet-vc142-mt-gd-6_0_0.lib
-                        DotNetInterfaceGenerator.dll
+                        xlwDotNet-vc142-mt-gd-6_0_0.dll
+                        DotNetInterfaceGenerator.exe
                   net472 ->
-                        xlwDotNet-vc142-mt-gd-6_0_0.lib
-                        DotNetInterfaceGenerator.dll
+                        xlwDotNet-vc142-mt-gd-6_0_0.dll
+                        DotNetInterfaceGenerator.exe
       Release ->
             Win32 ->
                   net5.0 ->
-                        xlwDotNet-vc142-mt-6_0_0.lib
-                        DotNetInterfaceGenerator.dll
+                        xlwDotNet-vc142-mt-6_0_0.dll
+                        DotNetInterfaceGenerator.exe
                   net472 ->
-                        xlwDotNet-vc142-mt-6_0_0.lib
-                        DotNetInterfaceGenerator.dll
+                        xlwDotNet-vc142-mt-6_0_0.dll
+                        DotNetInterfaceGenerator.exe
             x64 ->
                   net5.0 ->
-                        xlwDotNet-vc142-mt-6_0_0.lib
-                        DotNetInterfaceGenerator.dll
+                        xlwDotNet-vc142-mt-6_0_0.dll
+                        DotNetInterfaceGenerator.exe
                   net472 ->
-                        xlwDotNet-vc142-mt-6_0_0.lib
-                        DotNetInterfaceGenerator.dll
+                        xlwDotNet-vc142-mt-6_0_0.dll
+                        DotNetInterfaceGenerator.exe
 ```
 
 The  .NET Template project `\xlw\xlwDotNet\Template_Projects\VS16\Template.sln` is setup to built an xll for .NET Framework 4.7.2 and .NET 5.0.0
@@ -72,8 +72,8 @@ The  .NET Template project `\xlw\xlwDotNet\Template_Projects\VS16\Template.sln` 
   </PropertyGroup>
 ```
 
-To run the .NET 5 xll you have to add the directory containing the the xll to your Path (not so for the .NET Framework version). This needs to be fixed.
-Seems like it's discussed [here](https://github.com/dotnet/runtime/issues/38231)
+~~To run the .NET 5 xll you have to add the directory containing the the xll to your Path (not so for the .NET Framework version). This needs to be fixed.
+Seems like it's discussed [here](https://github.com/dotnet/runtime/issues/38231)~~
 
 
 Attempting to build xlwDotNet against .NET Core 3.1 gives the following build error:
