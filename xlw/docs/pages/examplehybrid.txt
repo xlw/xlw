@@ -1,9 +1,0 @@
-
-/*! 
-
-\page a04_examplehybrid Hybrid Example
-
-\todo document hybrid example
-
-*/
-

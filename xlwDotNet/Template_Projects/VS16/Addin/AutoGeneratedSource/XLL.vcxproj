@@ -69,10 +69,10 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\$(Configuration)\$(PlatformName)\$(XLWTF)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\$(Configuration)\$(PlatformName)\$(XLWTF)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\$(Configuration)\$(PlatformName)\$(XLWTF)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\obj\$(Configuration)\$(PlatformName)\$(XLWTF)\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\obj\$(Configuration)\$(PlatformName)\$(XLWTF)\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\obj\$(Configuration)\$(PlatformName)\$(XLWTF)\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\obj\$(Configuration)\$(PlatformName)\$(XLWTF)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\obj\$(Configuration)\$(PlatformName)\$(XLWTF)\xll\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\obj\$(Configuration)\$(PlatformName)\$(XLWTF)\xll\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\obj\$(Configuration)\$(PlatformName)\$(XLWTF)\xll\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\obj\$(Configuration)\$(PlatformName)\$(XLWTF)\xll\</IntDir>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
@@ -83,10 +83,10 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.xll</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.xll</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.xll</TargetExt>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(XLLNAME)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(XLLNAME)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(XLLNAME)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(XLLNAME)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
@@ -104,12 +104,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet\lib\$(Configuration)\$(PlatformName)\$(XLWTF)\xlwDotNet-vc142-mt-gd-6_0_0.dll;$(OutDir)Template.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet\lib\$(Configuration)\$(PlatformName)\$(XLWTF)\xlwDotNet-vc142-mt-gd-6_0_0.dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <ProgramDataBaseFileName>$(TargetDir)$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalDependencies>xlw-vc142-mt-gd-6_0_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\$(Configuration)\$(PlatformName)\$(XLWTF)\$(ProjectName).xll</OutputFile>
+      <OutputFile>..\$(Configuration)\$(PlatformName)\$(XLWTF)\$(XLLName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib/$(PlatformName)/;../..$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -118,6 +118,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>app.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -135,12 +136,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet\lib\$(Configuration)\$(PlatformName)\$(XLWTF)\xlwDotNet-vc142-mt-6_0_0.dll;$(OutDir)Template.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet\lib\$(Configuration)\$(PlatformName)\$(XLWTF)\xlwDotNet-vc142-mt-6_0_0.dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <ProgramDataBaseFileName>$(TargetDir)$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalDependencies>xlw-vc142-mt-6_0_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\$(Configuration)\$(PlatformName)\$(XLWTF)\$(ProjectName).xll</OutputFile>
+      <OutputFile>..\$(Configuration)\$(PlatformName)\$(XLWTF)\$(XLLName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib/$(PlatformName)/;../..$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -150,6 +151,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>app.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -171,12 +173,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet\lib\$(Configuration)\$(PlatformName)\$(XLWTF)\xlwDotNet-vc142-mt-gd-6_0_0.dll;$(OutDir)Template.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet\lib\$(Configuration)\$(PlatformName)\$(XLWTF)\xlwDotNet-vc142-mt-gd-6_0_0.dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <ProgramDataBaseFileName>$(TargetDir)$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalDependencies>xlw-vc142-mt-gd-6_0_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\$(Configuration)\$(PlatformName)\$(XLWTF)\$(ProjectName).xll</OutputFile>
+      <OutputFile>..\$(Configuration)\$(PlatformName)\$(XLWTF)\$(XLLName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib/$(PlatformName)/;../..$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -184,6 +186,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>app.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -201,12 +204,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedUsingFiles>$(XLW)\xlwDotNet\lib\$(Configuration)\$(PlatformName)\$(XLWTF)\xlwDotNet-vc142-mt-6_0_0.dll;$(OutDir)Template.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>$(XLW)\xlwDotNet\lib\$(Configuration)\$(PlatformName)\$(XLWTF)\xlwDotNet-vc142-mt-6_0_0.dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <ProgramDataBaseFileName>$(TargetDir)$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalDependencies>xlw-vc142-mt-6_0_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\$(Configuration)\$(PlatformName)\$(XLWTF)\$(ProjectName).xll</OutputFile>
+      <OutputFile>..\$(Configuration)\$(PlatformName)\$(XLWTF)\$(XLLName).xll</OutputFile>
       <AdditionalLibraryDirectories>$(XLW)/xlw/lib/$(PlatformName)/;../..$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -215,6 +218,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>app.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -234,7 +238,6 @@
     <ClInclude Include="..\AutoGeneratedSource\DLL.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RunDotNetInterfaceGenerator.nmake" />
     <None Include="RunInterfaceGenerator.nmake" />
   </ItemGroup>
   <ItemGroup>
