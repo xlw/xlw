@@ -1,0 +1,35 @@
+﻿<Project InitialTargets="BuildXLW" Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <SolutionDir>$(MSBuildProjectDirectory)\..\src\</SolutionDir>
+    <nuget>nuget.exe</nuget>
+  </PropertyGroup>
+
+ 
+
+  <Target Name="BuildXLW">
+    <!--<MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Debug;PlatformName=Win32" Targets="Rebuild" />
+    <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Debug;PlatformName=x64" Targets="Rebuild" />
+    <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Release;PlatformName=Win32" Targets="Rebuild" />
+    <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Release;PlatformName=x64" Targets="Rebuild" />
+    
+    <MSBuild Projects="$(SolutionDir)\InterfaceGenerator\InterfaceGenerator.vcxproj" Properties="Configuration=Debug;PlatformName=Win32" Targets="Rebuild" />-->
+
+    <Exec Command="$(nuget) pack xlw.nuspec -OutputDirectory nuget_pack" WorkingDirectory="$(SolutionDir)">
+      
+      
+    </Exec>
+
+  </Target>
+
+ 
+
+  <ItemGroup>
+    <None Include="..\xlw.Cpp.props" Link="xlw.Cpp.props" />
+    <None Include="..\xlw.nuspec" Link="xlw.nuspec" />
+    <None Include="..\xlw.props" Link="xlw.props" />
+  </ItemGroup>
+
+
+</Project>
