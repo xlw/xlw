@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <None Include="..\xlw.Cpp.props" Link="xlw.Cpp.props" />
+    <None Include="..\xlw.Cpp.targets" Link="xlw.Cpp.targets" />
     <None Include="..\xlw.nuspec" Link="xlw.nuspec" />
     <None Include="..\xlw.props" Link="xlw.props" />
   </ItemGroup>

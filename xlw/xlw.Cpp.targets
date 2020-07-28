@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
+
+  <Target Name="XLWCheck" BeforeTargets="PrepareForBuild">
+    <Message Text="Project Type =  $(ConfigurationType) " Importance="high"/>
+    <Error   Condition=" '$(ConfigurationType)' != 'DynamicLibrary' " Text="PROJECT TYPE MUST BE DynamicLibrary (dll) NOT $(ConfigurationType) " /> 
+  </Target>
+
+
+  <Target Name="BeforeClean">
+    <Message Text="Deleting xlwWrapper.cpp" Importance="high"/>
+    <Delete Files="xlwWrapper.cpp"/>
+  </Target>
+
+  <Target Name="XLWGenerateInterface" BeforeTargets="PrepareForBuild" Inputs="cppinterface.h" Outputs="xlwWrapper.cpp">
+    <Message Text="Generating Interface" Importance="high"/>
+    <Exec Command="$(_XLW2704_)native\lib\InterfaceGenerator.exe  cppinterface.h xlwWrapper.cpp">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
+    </Exec>
+    <Message   Text="$(ErrorCode)" Importance="high" />
+    <ItemGroup  Condition="Exists('$(MSBuildProjectDirectory)\xlwWrapper.cpp')"  >
+      <ClCompile Include="xlwWrapper.cpp" />
+    </ItemGroup>
+  </Target>
+  
+</Project>

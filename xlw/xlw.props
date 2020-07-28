@@ -7,6 +7,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ForceImportAfterCppProps Condition="Exists('$(MSBuildThisFileDirectory)native\xlw.Cpp.props')">$(MSBuildThisFileDirectory)native\xlw.Cpp.props;$(ForceImportAfterCppProps)</ForceImportAfterCppProps>
-    <ForceImportAfterCppTargets Condition="Exists('$(MSBuildThisFileDirectory)native\xlw.targets')">$(MSBuildThisFileDirectory)native\xlw.targets;$(ForceImportAfterCppTargets)</ForceImportAfterCppTargets>
+    <ForceImportAfterCppTargets Condition="Exists('$(MSBuildThisFileDirectory)native\xlw.Cpp.targets')">$(MSBuildThisFileDirectory)native\xlw.Cpp.targets;$(ForceImportAfterCppTargets)</ForceImportAfterCppTargets>
   </PropertyGroup>
+
 </Project>

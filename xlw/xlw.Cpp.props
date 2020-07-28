@@ -3,6 +3,7 @@
         ToolsVersion="16.0">
 
   <PropertyGroup>
+    <TargetExt>.xll</TargetExt>
     <gd></gd>
     <gd Condition=" '$(Configuration)' == 'Debug' ">-gd</gd>
   </PropertyGroup>

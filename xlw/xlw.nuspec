@@ -13,5 +13,6 @@
         <file src="include\xlw\*.*"  target="build\native\include\xlw\" />
         <file src="xlw.props"        target="build\" />
         <file src="xlw.Cpp.props"    target="build\native" />
+        <file src="xlw.Cpp.targets"  target="build\native" />
     </files>
 </package>

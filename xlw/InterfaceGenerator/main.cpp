@@ -243,21 +243,22 @@ int main(int argc, char *argv[])
 
 
 		std::cout << "all done\n";
+		return 0;
 
 	}
 	catch (const char *c)
 	{
-		std::cout << "***ERROR***\n" << c << "\n***ERROR***\n";
+		std::cerr << "***ERROR***\n" << c << "\n***ERROR***\n";
 	}
 	catch (std::string c)
 	{
-		std::cout << "***ERROR***\n" << c << "\n***ERROR***\n";
+		std::cerr << "***ERROR***\n" << c << "\n***ERROR***\n";
 	}
 	catch (...)
 	{
-		std::cout << "***ERROR***\n" << "exception thrown" << "\n***ERROR***\n";
+		std::cerr << "***ERROR***\n" << "exception thrown" << "\n***ERROR***\n";
 	}
-	//char d;
-	//std::cin >> d;
-	return 0;
+	return -1;
+	
+	
 }
