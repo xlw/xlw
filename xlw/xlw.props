@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Project>
+
+  <Import Project="$(MSBuildProjectDirectory)\xlwInterfaceDef.props"/>
+  
   <PropertyGroup>
     <xlwPkgBuildDir>$(MSBuildThisFileDirectory)</xlwPkgBuildDir>
     <_XLW2704_>$(MSBuildThisFileDirectory)</_XLW2704_>

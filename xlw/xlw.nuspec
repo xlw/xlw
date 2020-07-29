@@ -2,14 +2,18 @@
 <package >
     <metadata>
         <id>xlw</id>
-        <version>6.0.0</version>
-        <description>XLW</description>
-        <tags>Native, native</tags>
-        <authors>XLW</authors>
-
+        <version>6.0.0-DEV</version>
+        <description>xlw - Excel xlls made easy</description>
+        <tags>Native Excel xll C API</tags>
+        <authors>https://github.com/xlw</authors>
+        <license type="file">LICENSE.TXT</license>
+        <repository type="git" url="https://github.com/xlw/xlw.git" />
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <icon>images\logo.jpg</icon>
       <contentFiles>
-        <files include="*.cpp" buildAction="Compile" />
-        <files include="*.h"   buildAction="None" />
+        <files include="*.cpp"     buildAction="Compile" />
+        <files include="*.h"       buildAction="None" />
+        <files include="*.props"   buildAction="None" />
       </contentFiles>
     </metadata>
      
@@ -22,6 +26,8 @@
         <file src="xlw.Cpp.props"    target="build\native" />
         <file src="xlw.Cpp.targets"  target="build\native" />
         <file src="nuget_content\**" target="content" />
+        <file src="..\logo.jpg"      target="images\" />
+        <file src="..\LICENSE.TXT"   target="" />
     </files>
 
  

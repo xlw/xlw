@@ -2,25 +2,23 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
 
   <Target Name="XLWCheck" BeforeTargets="PrepareForBuild">
-    <Message Text="Project Type =  $(ConfigurationType) " Importance="high"/>
     <Error   Condition=" '$(ConfigurationType)' != 'DynamicLibrary' " Text="PROJECT TYPE MUST BE DynamicLibrary (dll) NOT $(ConfigurationType) " /> 
   </Target>
 
 
   <Target Name="BeforeClean">
-    <Message Text="Deleting xlwWrapper.cpp" Importance="high"/>
-    <Delete Files="xlwWrapper.cpp"/>
+    <Message Text="Deleting @(XLWInterface->'%(RelativeDir)_xlw%(Filename).cpp')" Importance="high"/>
+    <Delete Files="@(XLWInterface->'%(RelativeDir)_xlw%(Filename).cpp')"/>
   </Target>
 
-  <Target Name="XLWGenerateInterface" BeforeTargets="PrepareForBuild" Inputs="cppinterface.h" Outputs="xlwWrapper.cpp">
-    <Message Text="Generating Interface" Importance="high"/>
-    <Exec Command="$(_XLW2704_)native\lib\InterfaceGenerator.exe  cppinterface.h xlwWrapper.cpp">
+  <Target Name="XLWGenerateInterface" BeforeTargets="PrepareForBuild" Inputs="%(XLWInterface.Identity)" Outputs="@(XLWInterface->'%(RelativeDir)_xlw%(Filename).cpp')">
+    <Message Text="Generating from interface  [%(XLWInterface.Identity)]  boiler plate source file  [ %(XLWInterface.RelativeDir)_xlw%(XLWInterface.Filename).cpp]" Importance="high"/>
+    <Exec Command="$(_XLW2704_)native\lib\InterfaceGenerator.exe  %(XLWInterface.Identity)  %(XLWInterface.RelativeDir)_xlw%(XLWInterface.Filename).cpp">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>
-    <Message   Text="$(ErrorCode)" Importance="high" />
-    <ItemGroup  Condition="Exists('$(MSBuildProjectDirectory)\xlwWrapper.cpp')"  >
-      <ClCompile Include="xlwWrapper.cpp" />
+    <ItemGroup>
+      <ClCompile Include="%(XLWInterface.RelativeDir)_xlw%(XLWInterface.Filename).cpp" />
     </ItemGroup>
   </Target>
-  
+
 </Project>
