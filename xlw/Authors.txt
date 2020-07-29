@@ -1,5 +1,0 @@
-Jérôme Lecomte (xlw@ifrance.com) - xlw creator
-Mark Joshi (mark@markjoshi.com) - extender
-Eric Ehlers (eric.ehlers@nazcatech.be) - extender
-Narinder Claire (narinder-claire@users.sourceforge.net) extender & xlwDotNet creator 
-John Adcock (adcockj@users.sourceforge.net) extender & 64 bit & Automated Help Generation

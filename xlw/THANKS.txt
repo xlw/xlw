@@ -1,9 +1,0 @@
-The developers would like to thank everybody who has helped us test developement versions or provide detailed bug reports, this support is invaluable.
-
-A sadly incomplete list of those who deserve particular mention:
-
-Jérôme Tredez
-Stefano Mancarella
-Matthew Fletcher
-Tony Marshall
-Anjum Raheel

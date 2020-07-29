@@ -1,8 +1,0 @@
-
-For 5.0.0 Release
-
-1. Documentation of other examples
-2. Gather user contributed examples
-3. RTD fixes/testing
-
-
