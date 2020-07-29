@@ -26,10 +26,19 @@
  
 
   <ItemGroup>
-    <None Include="..\xlw.Cpp.props" Link="xlw.Cpp.props" />
-    <None Include="..\xlw.Cpp.targets" Link="xlw.Cpp.targets" />
+    <None Include="..\nuget_content\cppinterface.h" Link="contents\cppinterface.h" />
+    <None Include="..\nuget_content\source.cpp" Link="contents\source.cpp" />
+    <None Include="..\xlw.Cpp.props" Link="build\native\xlw.Cpp.props" />
+    <None Include="..\xlw.Cpp.targets" Link="build\native\xlw.Cpp.targets" />
     <None Include="..\xlw.nuspec" Link="xlw.nuspec" />
-    <None Include="..\xlw.props" Link="xlw.props" />
+    <None Include="..\xlw.props" Link="build\xlw.props" />
+  </ItemGroup>
+
+ 
+
+  <ItemGroup>
+    <Folder Include="build\native\" />
+    <Folder Include="contents\" />
   </ItemGroup>
 
 
