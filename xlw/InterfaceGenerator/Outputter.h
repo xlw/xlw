@@ -28,10 +28,6 @@ std::vector<char> OutputFileCreator(const std::vector<FunctionDescription>& func
                                     const std::vector<std::string> &closeMethods);
 
 
-std::vector<char> OutputFileCreatorCL(const std::vector<FunctionDescription>& functionDescriptions,
-                                    std::string inputfileName
-                                    );
-
 
 #endif
 

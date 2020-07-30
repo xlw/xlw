@@ -6,11 +6,11 @@
   
   <PropertyGroup>
     <xlwPkgBuildDir>$(MSBuildThisFileDirectory)</xlwPkgBuildDir>
-    <_XLW2704_>$(MSBuildThisFileDirectory)</_XLW2704_>
+    <_XLW2704_>$(MSBuildThisFileDirectory)..\</_XLW2704_>
   </PropertyGroup>
   <PropertyGroup>
-    <ForceImportAfterCppProps Condition="Exists('$(MSBuildThisFileDirectory)native\xlw.Cpp.props')">$(MSBuildThisFileDirectory)native\xlw.Cpp.props;$(ForceImportAfterCppProps)</ForceImportAfterCppProps>
-    <ForceImportAfterCppTargets Condition="Exists('$(MSBuildThisFileDirectory)native\xlw.Cpp.targets')">$(MSBuildThisFileDirectory)native\xlw.Cpp.targets;$(ForceImportAfterCppTargets)</ForceImportAfterCppTargets>
+    <ForceImportAfterCppProps Condition="Exists('$(MSBuildThisFileDirectory)xlw.Cpp.props')">$(MSBuildThisFileDirectory)xlw.Cpp.props;$(ForceImportAfterCppProps)</ForceImportAfterCppProps>
+    <ForceImportAfterCppTargets Condition="Exists('$(MSBuildThisFileDirectory)xlw.Cpp.targets')">$(MSBuildThisFileDirectory)xlw.Cpp.targets;$(ForceImportAfterCppTargets)</ForceImportAfterCppTargets>
   </PropertyGroup>
 
 </Project>

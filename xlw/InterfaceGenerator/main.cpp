@@ -34,7 +34,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	cout << "XLW InterfaceGenerator" << endl;
-	cout << "Copyright (c) XLW Project 2006-2011. All Rights Reserved" << endl;
+	cout << "Copyright (c) XLW Project 2006-2020. All Rights Reserved" << endl;
 	try
 	{
 
@@ -55,8 +55,8 @@ int main(int argc, char *argv[])
 			throw("usage is :\n "
 			"          inputfile \n"
 			"          inputfile outputfile \n"
-			"      -m  inputfile "
-			"      -m  inputfile outputdirectory");
+			"      -m  inputfile \n"
+			"      -m  inputfile outputdirectory\n");
 		std::string inputfile(args[0]);
 
 		bool clw = false;
@@ -209,14 +209,14 @@ int main(int argc, char *argv[])
 
 			// use input file name as default library name
 
-			std::vector<FunctionModel> modelVector(ConvertToFunctionModel(tokenVector2,LibraryName,openMethods,closeMethods));
+			std::vector<FunctionModel> modelVector(ConvertToFunctionModel(tokenVector2, LibraryName, openMethods, closeMethods));
 
 
 			std::cout << "file has been function modeled\n";
 
 			std::vector<FunctionDescription> functionVector(FunctionTyper<native>(modelVector));
 
-			if(managed_flag)
+			if (managed_flag)
 			{
 				FunctionDescription::Transit(managedFunctionVector, functionVector);
 			}
@@ -228,15 +228,12 @@ int main(int argc, char *argv[])
 			std::vector<char> outputVector_cpp;
 
 
-			if (clw)
-				outputVector_cpp = OutputFileCreatorCL(functionVector,
-				inputfile);
-			else
-				outputVector_cpp = OutputFileCreator(functionVector,
-				inputfile,LibraryName,openMethods,closeMethods);
+
+			outputVector_cpp = OutputFileCreator(functionVector,
+				inputfile, LibraryName, openMethods, closeMethods);
 
 			std::cout << " .. writing " << outputfile << "\n";
-			writeOutputFile(outputfile,outputVector_cpp);
+			writeOutputFile(outputfile, outputVector_cpp);
 		}
 
 		std::cout << "new file is a vector\n";
