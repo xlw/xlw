@@ -1,4 +1,4 @@
-﻿<Project InitialTargets="BuildXLW" Sdk="Microsoft.NET.Sdk">
+﻿<Project  InitialTargets="Build" Sdk="Microsoft.NET.Sdk">
  
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -22,6 +22,11 @@
     </VersionPropsContent>
        
   </PropertyGroup>
+  
+  
+   <Target Name="ForceRefresh">
+    <Delete Files="$(MSBuildProjectDirectory)\..\xlw.version.props" />
+  </Target>
 
   <Target Name="CleanXLW" BeforeTargets="Clean">
     <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Debug;Platform=Win32;XLWVersion=$(XLWVersion)" Targets="Clean" />
@@ -31,7 +36,9 @@
     <MSBuild Projects="$(SolutionDir)\InterfaceGenerator\InterfaceGenerator.vcxproj" Properties="Configuration=Debug;PlatformName=Win32" Targets="Clean" />
   </Target>
 
-  <Target Name="BuildXLW" BeforeTargets="Build">
+   
+  <Target Name="BuildNuget" BeforeTargets="Build">
+    <Touch Files="Class1.cs" />
     <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Debug;Platform=Win32;XLWVersion=$(XLWVersion)" Targets="Build" />
     <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Debug;Platform=x64;XLWVersion=$(XLWVersion)" Targets="Build" />
     <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Release;Platform=Win32;XLWVersion=$(XLWVersion)" Targets="Build" />
@@ -53,18 +60,14 @@
     <PropertyGroup>
       <GitShaShort>00000</GitShaShort>
       <GitShaShort Condition=" '$(GitDirty)'== '0'  ">$GitShaLong.SubString(0,5))</GitShaShort>
-      <NugetProperties Condition=" '$(GitDirty)'!= '0'  ">version=99.99.99-DEV$([System.DateTime]::Now.ToString(MMddhhmm))</NugetProperties>
+      <NugetProperties Condition=" '$(GitDirty)'!= '0'  ">version=99.99.99-DEV$([System.DateTime]::Now.ToString(MMddHHmm))</NugetProperties>
       <NugetProperties Condition=" '$(GitDirty)' == '0'  and  '$(GitBranch)' != 'master' ">version=$(Version)-DEV$(GitShaShort)</NugetProperties>
       <NugetProperties Condition=" '$(GitDirty)' == '0'  and  '$(GitBranch)' == 'master' ">version=$(Version)</NugetProperties>
 
     </PropertyGroup>
 
 
-    <WriteLinesToFile
-        File="$(MSBuildProjectDirectory)\..\xlw.version.props"
-        Lines="$(VersionPropsContent)"
-        Overwrite="true"
-        Encoding="Unicode"/>
+    <WriteLinesToFile File="$(MSBuildProjectDirectory)\..\xlw.version.props" Lines="$(VersionPropsContent)" Overwrite="true" Encoding="Unicode" />
 
     <Exec Command="$(nuget) pack xlw.nuspec -OutputDirectory nuget_pack  -properties $(NugetProperties)" WorkingDirectory="$(SolutionDir)">
 
