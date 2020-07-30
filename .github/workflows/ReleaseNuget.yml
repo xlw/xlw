@@ -1,0 +1,42 @@
+name: Test Push
+
+on:
+  push:
+    branches: [preparexlwnuget]
+  pull_request:
+    branches: [preparexlwnuget]
+
+jobs:
+  if: github.ref == 'refs/heads/preparexlwnuget'
+  build:
+    runs-on: windows-latest
+    if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.1
+      - name: Setup Nuget.exe
+        uses: warrenbuckley/Setup-Nuget@v1
+      - name: Run NugetPackager
+        run : |
+              msbuild xlw\NugetPackager\NugetPackager.csproj
+      #- name: Tag commit
+      #  uses: tvdias/github-tagger@v0.0.1
+      #  with:
+      #    repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      #    tag: "${{ steps.Build_Package.outputs.version }}"
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "xlw/xlw/nuget_pack/*.nupkg"
+          prerelease: ${{ github.ref ==  'refs/heads/prerelease'}}
+          draft: false
+          tag: "${{ steps.Build_Package.outputs.version }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Github Package
+        uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+        with:
+          nupkg-path:  "package_output/*.nupkg"
+          repo-owner:  'Ninds'
+          gh-user:  'Ninds'
+          token:  ${{ secrets.GITHUB_TOKEN }}
