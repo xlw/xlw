@@ -1,15 +1,17 @@
-﻿<Project  InitialTargets="Build" Sdk="Microsoft.NET.Sdk">
+﻿<Project  InitialTargets="BuildNuget" Sdk="Microsoft.NET.Sdk">
  
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <SolutionDir>$(MSBuildProjectDirectory)\..\src\</SolutionDir>
+    <TargetFramework>net472</TargetFramework>
+    <SolutionDir>$(MSBuildProjectDirectory)\..\</SolutionDir>
     <nuget>nuget.exe</nuget>
     <GitDirectory>$(MSBuildProjectDirectory)\..\..\</GitDirectory>
-    <GitBranchCommand>git rev-parse --abbrev-ref HEAD --revs-only</GitBranchCommand>
-    <GitDirtyCommand>git diff-index --quiet HEAD</GitDirtyCommand>
-    <GitShaCommand>git rev-parse  HEAD</GitShaCommand>
+  </PropertyGroup>
+  
+    
+  <PropertyGroup>
     <Version>$([System.DateTime]::Now.ToString(yy.MM.dd))</Version>
     <XLWVersion>$(Version.Replace('.','_'))</XLWVersion>
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck> 
     <VersionPropsContent>
       <![CDATA[
 <?xml version="1.0" encoding="utf-8"?>
@@ -24,56 +26,37 @@
   </PropertyGroup>
   
   
-   <Target Name="ForceRefresh">
-    <Delete Files="$(MSBuildProjectDirectory)\..\xlw.version.props" />
-  </Target>
-
-  <Target Name="CleanXLW" BeforeTargets="Clean">
-    <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Debug;Platform=Win32;XLWVersion=$(XLWVersion)" Targets="Clean" />
-    <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Debug;Platform=x64;XLWVersion=$(XLWVersion)" Targets="Clean" />
-    <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Release;Platform=Win32;XLWVersion=$(XLWVersion)" Targets="Clean" />
-    <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Release;Platform=x64;XLWVersion=$(XLWVersion)" Targets="Clean" />
-    <MSBuild Projects="$(SolutionDir)\InterfaceGenerator\InterfaceGenerator.vcxproj" Properties="Configuration=Debug;PlatformName=Win32" Targets="Clean" />
+  <Target Name="CleanBuild" AfterTargets="Clean">
+     <RemoveDir  Directories="$(SolutionDir)\lib;$(SolutionDir)\obj"/>
   </Target>
 
    
-  <Target Name="BuildNuget" BeforeTargets="Build">
-    <Touch Files="Class1.cs" />
+  <Target Name="BuildNuget" BeforeTargets="BeforeBuild">
+    <Message Text="Building..."  Importance="high"/>
     <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Debug;Platform=Win32;XLWVersion=$(XLWVersion)" Targets="Build" />
     <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Debug;Platform=x64;XLWVersion=$(XLWVersion)" Targets="Build" />
     <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Release;Platform=Win32;XLWVersion=$(XLWVersion)" Targets="Build" />
     <MSBuild Projects="$(SolutionDir)\src\xlw20.vcxproj" Properties="Configuration=Release;Platform=x64;XLWVersion=$(XLWVersion)" Targets="Build" />
-    <MSBuild Projects="$(SolutionDir)\InterfaceGenerator\InterfaceGenerator.vcxproj" Properties="Configuration=Debug;PlatformName=Win32" Targets="Build" />
-
-    <Exec Command="$(GitDirtyCommand)" IgnoreExitCode="true" ContinueOnError="true" WorkingDirectory="$(GitDirectory)">
-      <Output TaskParameter="ExitCode" PropertyName="GitDirty" />
-    </Exec> 
-
-    <Exec Condition=" '$(_GitDirty)'== '0'  " Command="$(GitBranchCommand)" IgnoreExitCode="true" ContinueOnError="true" WorkingDirectory="$(GitDirectory)">
-      <Output TaskParameter="ExitCode" PropertyName="GitBranch" />
-    </Exec>
-
-    <Exec Condition=" '$(_GitDirty)'== '0'  " Command="$(GitShaCommand)" IgnoreExitCode="true" ContinueOnError="true" WorkingDirectory="$(GitDirectory)">
-      <Output TaskParameter="ExitCode" PropertyName="GitShaLong" />
-    </Exec>
+    <MSBuild Projects="$(SolutionDir)\InterfaceGenerator\InterfaceGenerator.vcxproj" Properties="Configuration=Debug;Platform=Win32" Targets="Build" />
+    
+   
 
     <PropertyGroup>
-      <GitShaShort>00000</GitShaShort>
-      <GitShaShort Condition=" '$(GitDirty)'== '0'  ">$GitShaLong.SubString(0,5))</GitShaShort>
-      <NugetProperties Condition=" '$(GitDirty)'!= '0'  ">version=99.99.99-DEV$([System.DateTime]::Now.ToString(MMddHHmm))</NugetProperties>
-      <NugetProperties Condition=" '$(GitDirty)' == '0'  and  '$(GitBranch)' != 'master' ">version=$(Version)-DEV$(GitShaShort)</NugetProperties>
-      <NugetProperties Condition=" '$(GitDirty)' == '0'  and  '$(GitBranch)' == 'master' ">version=$(Version)</NugetProperties>
-
+      <NugetProperties>version=0.0.0-DEV$([System.DateTime]::Now.ToString(MMddHHmm))</NugetProperties>
+     </PropertyGroup>
+    
+     <PropertyGroup  Condition=" '$(GITHUB_REF)' == 'refs/heads/release' and '$(CI)' == 'true' ">
+      <NugetProperties>version=$(Version)</NugetProperties>
+    </PropertyGroup>
+    
+     <PropertyGroup  Condition=" '$(GITHUB_REF)' == 'refs/heads/prerelease' and '$(CI)' == 'true' ">
+       <GitShaShort>$(GITHUB_SHA.Substring(0,4))</GitShaShort>
+      <NugetProperties>version=$(Version)-DEV$(GitShaShort)</NugetProperties>
     </PropertyGroup>
 
-
     <WriteLinesToFile File="$(MSBuildProjectDirectory)\..\xlw.version.props" Lines="$(VersionPropsContent)" Overwrite="true" Encoding="Unicode" />
-
-    <Exec Command="$(nuget) pack xlw.nuspec -OutputDirectory nuget_pack  -properties $(NugetProperties)" WorkingDirectory="$(SolutionDir)">
-
-
-    </Exec>
-
+    <Exec Command="$(nuget) pack xlw.nuspec -OutputDirectory nuget_pack  -Properties $(NugetProperties)" WorkingDirectory="$(SolutionDir)" />
+    <Message Text="::set-output name=version::$(Version)" Importance="high" />
   </Target>
 
 

@@ -1,0 +1,63 @@
+name: Test Push
+ 
+on:
+  push:
+    branches: [ master, release, prerelease]
+  pull_request:
+    branches: [ master ]
+ 
+jobs:
+  build:
+    runs-on: windows-latest
+    outputs:
+        output1: ${{ steps.Build_Package.outputs.version }}
+    if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease' || github.ref ==  'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.1
+      - name: Setup Nuget.exe
+        uses: warrenbuckley/Setup-Nuget@v1
+      - name: Restore
+        run : |
+              cd xlw 
+              # nuget restore
+      - name: Run NugetPackager
+        run : |
+              msbuild xlw\NugetPackager\NugetPackager.csproj
+        id  : Build_Package
+      - uses: actions/upload-artifact@v2
+        with:
+            name: nuget-artifact
+            path: xlw/nuget_pack/*.nupkg
+  release:
+    runs-on: windows-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease'
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+            name: nuget-artifact
+      - name: Tag commit
+        uses: tvdias/github-tagger@v0.0.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          tag: "${{ needs.build.outputs.output1   }}"
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "*.nupkg"
+          prerelease: ${{ github.ref ==  'refs/heads/prerelease'}}
+          draft: false
+          tag: "${{  needs.build.outputs.output1  }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push Nuget to Github
+        uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+        with:
+          nupkg-path:  "*.nupkg"
+          repo-owner:  'xlw'
+          gh-user:  'xlw'
+          token:  ${{ secrets.GITHUB_TOKEN }}       
+      - name: Push Nuget to Nuget.org
+        run: dotnet nuget push *.nupkg --api-key ${{ secrets.XLWNUGET }} --source https://api.nuget.org/v3/index.json
+      
