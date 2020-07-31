@@ -1,13 +1,22 @@
+
+![master](https://github.com/xlw/xlw/workflows/Test%20Push/badge.svg?branch=master)   ![prerelease](https://github.com/xlw/xlw/workflows/Test%20Push/badge.svg?branch=prerelease) ![release](https://github.com/xlw/xlw/workflows/Test%20Push/badge.svg?branch=release)
+
+
+# [xlw nuget](https://www.nuget.org/packages/xlw/)
+
+
 # **XLW 20**
 xlw is being updated.
 
 This repo was originally forked from [John's XLW repo](https://github.com/JohnAdders/xlw) which itself was imported from it's original home at [SourceForge](https://sourceforge.net/projects/xlw/)
 
 
-This version will only support Visual Studio 2019. In this fork all support for previous Visual Studio versions has been dropped. All support for gcc has also been dropped.\
+This version will only support Visual Studio 2019 for now. In this fork all support for previous Visual Studio versions has been dropped. All support for gcc has also been dropped.\
 Support is being added for building xlls against .NET CORE & .NET Framework 4.7.2 simultaneously
 
-Going forward the target of the  project will be to produce two nuget packages. One for building native xlls and one for building C# xlls targeting .NET Framework 4.7.2, .NET 5 and .NET Core 3.1
+Going forward the target of the project will be to produce two nuget packages. One for building native xlls and one for building C# xlls targeting .NET Framework 4.7.2, .NET 5 and .NET Core 3.1
+
+An initial dev nuget package  for building C/C++ xlls is avaialable at [nuget](https://www.nuget.org/packages/xlw/). C# support will follow.
 
 Currently the template projects have only be tested against 64bit Excel not 32bit.
 
@@ -89,10 +98,6 @@ The  .NET Template project `\xlw\xlwDotNet\Template_Projects\VS16\Template.sln` 
   </PropertyGroup>
 ```
 
-~~To run the .NET 5 xll you have to add the directory containing the the xll to your Path (not so for the .NET Framework version). This needs to be fixed.
-Seems like it's discussed [here](https://github.com/dotnet/runtime/issues/38231)~~ 
-
-To run the .NET 5 & .NET Core 3.1  xlls you will need to rename XLL.runtimeconfig.json to Template.runtimeconfig.json in the target directory. This seems like an issue with VS and needs to be resolved.
 
 The Template project exposes the following Excel function
 
