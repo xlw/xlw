@@ -60,7 +60,9 @@
 
     <WriteLinesToFile File="$(MSBuildProjectDirectory)\..\..\xlw.version.props" Lines="$(VersionPropsContent)" Overwrite="true" Encoding="Unicode" />
     <WriteLinesToFile File="$(MSBuildProjectDirectory)\..\..\packages.config" Lines="$(PackageConfig)" Overwrite="true" Encoding="Unicode" />
-    <Exec Command="$(nuget) pack xlw.nuspec -OutputDirectory nuget_pack  -Properties $(NugetProperties)" WorkingDirectory="$(SolutionDir)" />
+    
+    <MakeDir Directories="$(GitDirectory)nuget_pack"/>
+    <Exec Command="$(nuget) pack xlw.nuspec -OutputDirectory $(GitDirectory)nuget_pack  -Properties $(NugetProperties)" WorkingDirectory="$(SolutionDir)" />
     <Message Text="::set-output name=version::$(Version)" Importance="high" />
   </Target>
 

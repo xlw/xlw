@@ -28,7 +28,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\WorkSpace\\xlw\\xlw\\nuget_pack": {},
+        "C:\\WorkSpace\\xlw\\nuget_pack": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
