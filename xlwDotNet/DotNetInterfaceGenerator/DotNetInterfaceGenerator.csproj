@@ -1,29 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)../../xlw.version.props" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <!--<TargetFrameworks>netcoreapp3.1;net472;net5.0</TargetFrameworks>-->
     <TargetFrameworks>netcoreapp3.1;net472;net5.0</TargetFrameworks>
-    <RuntimeIdentifiers>win10-x64;win10-x86</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win10-x64;win10-x86;win7-x64;win7-x86</RuntimeIdentifiers>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>
 
   <PropertyGroup>
     <cplatform>$(Platform)</cplatform>
     <cplatform Condition=" '$(Platform)' == 'x86' ">Win32</cplatform>
-    <OutputPath>..\lib\$(Configuration)\$(cplatform)</OutputPath>
-    <WarningLevel>2</WarningLevel>
+    <OutputPath>..\lib\$(cplatform)\$(Configuration)\</OutputPath>
+    <WarningLevel>0</WarningLevel>
     <gd></gd>
     <gd Condition=" '$(Configuration)' == 'Debug' ">-gd</gd>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Builder\Builder.csproj" />
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="obj\**" />
   </ItemGroup>
 
- 
   <ItemGroup>
-    <Reference Include="xlwDotNet-vc142-mt-6_0_0">
-      <HintPath>..\lib\$(Configuration)\$(cplatform)\$(TargetFramework)\xlwDotNet-vc142-mt$(gd)-6_0_0.dll</HintPath>
+    <Reference Include="xlwDotNet-vc142-mt$(gd)-$(XLWVersion).dll">
+      <HintPath>..\lib\$(cplatform)\$(Configuration)\$(TargetFramework)\xlwDotNet-vc142-mt$(gd)-$(XLWVersion).dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildThisFileDirectory)../../xlw.version.props" />
+  <PropertyGroup Condition=" '$(BuildConfig)' != 'true' ">
+    <CLRSupport>true</CLRSupport>
+    <TargetFrameworkVersion>4.7.2</TargetFrameworkVersion>
+    <Configuration>Debug</Configuration>
+    <Platform>Win32</Platform>
+    <TF>net472</TF>
+  </PropertyGroup>
+  <PropertyGroup>
+    <gd>
+    </gd>
+    <gd Condition=" '$(Configuration)' == 'Debug' ">-gd</gd>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ExcelExportAttribute.cpp" />
+    <ClCompile Include="managedArgumentList.cpp" />
+    <ClCompile Include="managedString.cpp" />
+    <ClCompile Include="managedXlfExcel.cpp" />
+    <ClCompile Include="ParameterAttribute.cpp" />
+    <ClCompile Include="TypeRegisterAttribute.cpp" />
+    <ClCompile Include="xdnException.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\xlwDotNet\managedCellMatrix.h" />
+    <ClInclude Include="..\include\xlwDotNet\managedMyArray.h" />
+    <ClInclude Include="..\include\xlwDotNet\managedMyMatrix.h" />
+    <ClInclude Include="..\include\xlwDotNet\xlwDotNet.h" />
+    <ClInclude Include="..\include\xlwDotNet\xlwTypeBaseClass.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{8DC33132-DEC5-488D-B16F-F5C40C970CBA}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>xlwDotNet</RootNamespace>
+    <ProjectName>xlwDotNet</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)'== 'Release' " Label="Configuration">
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir>..\lib\$(Platform)\$(Configuration)\$(TF)\</OutDir>
+    <IntDir>..\obj\$(Platform)\$(Configuration)\$(TF)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>xlwDotNet-vc142-mt$(gd)-$(XLWVersion)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition=" '$(Configuration)'== 'Debug' ">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\xlw\include;..\include\xlwDotNet\%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MinimalRebuild>false</MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ProgramDataBaseFileName>$(IntDir)vc142.pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <ConformanceMode>false</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>xlw-vc142-mt-gd-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../../xlw/lib/$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AssemblyDebug>true</AssemblyDebug>
+      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+      <OutputFile>$(OutDir)xlwDotNet-vc142-mt-gd-$(XLWVersion).dll</OutputFile>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine Condition=" '$(Platform)' == 'Win32' ">MachineX86</TargetMachine>
+      <Version>
+      </Version>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release' ">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\xlw\include;..\include\xlwDotNet\%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <ConformanceMode>false</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>xlw-vc142-mt-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../../xlw/lib/$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ModuleDefinitionFile />
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)xlwDotNet-vc142-mt-$(XLWVersion).dll</OutputFile>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine Condition=" '$(Platform)' == 'Win32' ">MachineX86</TargetMachine>
+      <Version>
+      </Version>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

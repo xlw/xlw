@@ -29,3 +29,6 @@
 /xlwDotNet/Builder/obj
 obj
 lib
+*.nupkg
+xlw/nuget.exe
+xlw/xlw.version.props

@@ -11,7 +11,7 @@
     "C:\\Users\\narin\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "20.7.30",
+    "version": "1.0.0",
     "restore": {
       "projectUniqueName": "C:\\WorkSpace\\xlw\\xlw\\NugetPackager\\NugetPackager.csproj",
       "projectName": "NugetPackager",

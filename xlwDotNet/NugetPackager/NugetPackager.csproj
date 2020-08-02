@@ -1,0 +1,39 @@
+﻿<Project  DefaultTargets="BuildNuget"  Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)../../xlw.version.props" />
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <SolutionDir>$(MSBuildProjectDirectory)\..\</SolutionDir>
+    <GitDirectory>$(MSBuildProjectDirectory)\..\..\</GitDirectory>
+    <nuget>$(GitDirectory)nuget.exe</nuget>
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+  </PropertyGroup>
+
+
+  <Target Name="CleanBuild" AfterTargets="Clean">
+    <RemoveDir  Directories="$(SolutionDir)\lib;$(SolutionDir)\obj;$(SolutionDir)\DotNetInterfaceGenerator\obj"/>
+  </Target>
+
+
+  <Target Name="BuildNuget" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <Version>0.0.0-DEV$([System.DateTime]::Now.ToString(MMddHHmm))</Version>
+      <Version   Condition=" '$(GITHUB_REF)' == 'refs/heads/release' and '$(CI)' == 'true' ">$(BaseVersion)</Version>
+      <Version   Condition=" '$(GITHUB_REF)' == 'refs/heads/prerelease' and '$(CI)' == 'true' ">$(BaseVersion)-DEV$(GITHUB_SHA.Substring(0,4))</Version>
+
+
+      <NugetProperties>version=$(Version)</NugetProperties>
+
+    </PropertyGroup>
+
+    <Message Text="Building...$(XLWVersion) "  Importance="high"/>
+    <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Debug;Platform=Win32" Targets="Build" />
+    <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Debug;Platform=x64" Targets="Build" />
+    <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Release;Platform=Win32" Targets="Build" />
+    <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Release;Platform=x64" Targets="Build" />
+    
+   
+  </Target>
+
+
+</Project>

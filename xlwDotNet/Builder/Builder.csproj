@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="BuildXLWDotNet;CleanXLWDotNet" Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFrameworks>netcoreapp3.1;net472;net5.0</TargetFrameworks>-->
+    <SolutionDir>$(MSBuildProjectDirectory)\..\</SolutionDir>
     <TargetFrameworks>netcoreapp3.1;net472;net5.0</TargetFrameworks>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>
@@ -13,17 +13,21 @@
 
  
   <Target Name="BuildXLWDotNet" AfterTargets="Build" Condition=" '$(TargetFramework)' != '' ">
-    <Message Importance="high" Text="Build Config is  : CLRSupport=$(CLRSupport);TargetFramework=$(TF);TargetFrameworkVersion=$(TFV);Platform=$(Platform);Configuration=$(ConfigurationName)" />
-    <MSBuild Condition=" '$(TargetFramework)' != 'net472' " Targets="Build"  Projects="..\xlwDotNet\xlwDotNet_472.vcxproj" Properties="CLRSupport=NetCore;TargetFramework=$(TargetFramework);Platform=$(cplatform);Configuration=$(ConfigurationName)"></MSBuild>
-    <MSBuild Condition=" '$(TargetFramework)' == 'net472' " Targets="Build"  Projects="..\xlwDotNet\xlwDotNet_472.vcxproj" Properties="CLRSupport=true;TargetFrameworkVersion=4.7.2;Platform=$(cplatform);Configuration=$(ConfigurationName)"></MSBuild>
+    <Message Importance="high" Text="BuildXLWDotNet" />
+    <MSBuild Condition=" '$(TargetFramework)' != 'net472' " Targets="Build"  Projects="..\src\xlwDotNet.vcxproj" 
+             Properties="TF=$(TargetFramework);BuildConfig=true;CLRSupport=NetCore;TargetFramework=$(TargetFramework);Platform=$(cplatform);Configuration=$(Configuration)"></MSBuild>
+    
+    <MSBuild Condition=" '$(TargetFramework)' == 'net472' " Targets="Build"  Projects="..\src\xlwDotNet.vcxproj" 
+             Properties="TF=$(TargetFramework);BuildConfig=true;CLRSupport=true;TargetFrameworkVersion=4.7.2;Platform=$(cplatform);Configuration=$(Configuration)"></MSBuild>
+    
+    <MSBuild  Targets="Build"  Projects="..\DotNetInterfaceGenerator\DotNetInterfaceGenerator.csproj" 
+              Properties="BuildConfig=true;Platform=$(Platform);Configuration=$(Configuration)"></MSBuild>
   </Target>
 
 
 
   <Target Name="CleanXLWDotNet" AfterTargets="Clean" Condition=" '$(TargetFramework)' != '' ">
-    <Message Importance="high" Text="Build Config is  : CLRSupport=$(CLRSupport);TargetFramework=$(TF);TargetFrameworkVersion=$(TFV);Platform=$(Platform);Configuration=$(ConfigurationName)" />
-    <MSBuild Condition=" '$(TargetFramework)' != 'net472' " Targets="Clean"  Projects="..\xlwDotNet\xlwDotNet_472.vcxproj" Properties="CLRSupport=NetCore;TargetFramework=$(TargetFramework);Platform=$(cplatform);Configuration=$(ConfigurationName)"></MSBuild>
-    <MSBuild Condition=" '$(TargetFramework)' == 'net472' " Targets="Clean"  Projects="..\xlwDotNet\xlwDotNet_472.vcxproj" Properties="CLRSupport=true;TargetFrameworkVersion=4.7.2;Platform=$(cplatform);Configuration=$(ConfigurationName)"></MSBuild>
+    <RemoveDir  Directories="$(SolutionDir)lib;$(SolutionDir)obj"/>
   </Target>
 
 </Project>
