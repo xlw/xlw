@@ -2,6 +2,7 @@
 <Project InitialTargets="Debug" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
   <PropertyGroup Condition=" '$(BuildConfig)' != 'true' ">
     <XLWTF>net5.0</XLWTF>
+    <XLLNAME>xlwDemo</XLLNAME>
 <!--<TargetFrameworkVersion>4.7.2</TargetFrameworkVersion>
     <CLRSupport>true</CLRSupport> -->
     <CLRSupport>NetCore</CLRSupport>
@@ -42,7 +43,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{a4777050-9fb9-4fb8-becf-339b1d3c454f}</ProjectGuid>
-    <RootNamespace>TestxlwNuget</RootNamespace>
+    <RootNamespace>$(XLLNAME)</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -65,19 +66,10 @@
     <TargetExt>.xll</TargetExt>
     <OutDir>..\$(OutputPath)</OutDir>
     <IntDir>..\obj\$(Configuration)\$(Platform)\$(XLWTF)\</IntDir>
-    <TargetName>Template</TargetName>
+    <TargetName>xlw$(XLLNAME)</TargetName>
     <AssemblyName>$(TargetName)</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" />
@@ -89,14 +81,14 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(XLWROOT)\native\include;$(XLWROOT)\mixed\include\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(XLWROOT)\mixed\lib\$(Platform)\Debug\$(XLWTF)</AdditionalUsingDirectories>
-      <ForcedUsingFiles>xlwDotNet-vc142-mt-gd-$(XLWVersion).dll;$(OutDir)$(XLLName).dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>xlwDotNet-vc142-mt-gd-$(XLWVersion).dll;$(OutDir)$(XLLNAME).dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)Template.xll</OutputFile>
+      <OutputFile>$(OutDir)xlw$(XLLNAME).xll</OutputFile>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>xlw-vc142-mt-gd-20_08_01.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc142-mt-gd-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(XLWROOT)\native\lib\$(Platform)</AdditionalLibraryDirectories>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <TargetMachine Condition=" '$(Platform)' == 'Win32' ">MachineX86</TargetMachine>
@@ -115,17 +107,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(XLWROOT)\native\include;$(XLWROOT)\mixed\include\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>$(XLWROOT)\mixed\lib\$(Platform)\Debug\$(XLWTF)</AdditionalUsingDirectories>
-      <ForcedUsingFiles>xlwDotNet-vc142-mt-gd-20_08_01.dll;$(OutDir)$(XLLName).dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <AdditionalUsingDirectories>$(XLWROOT)\mixed\lib\$(Platform)\Release\$(XLWTF)</AdditionalUsingDirectories>
+      <ForcedUsingFiles>xlwDotNet-vc142-mt-$(XLWVersion).dll;$(OutDir)$(XLLNAME).dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)Template.xll</OutputFile>
+      <OutputFile>$(OutDir)xlw$(XLLNAME).xll</OutputFile>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>xlw-vc142-mt-20_08_01.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc142-mt-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(XLWROOT)\native\lib\$(Platform)</AdditionalLibraryDirectories>
       <TargetMachine Condition=" '$(Platform)' == 'Win32' ">MachineX86</TargetMachine>
     </Link>
