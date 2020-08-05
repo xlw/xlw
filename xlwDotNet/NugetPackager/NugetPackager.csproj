@@ -27,9 +27,9 @@
     </PropertyGroup>
 
     <Message Text="Building...$(XLWVersion) " Importance="high" />
-    <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Debug;Platform=Win32" Targets="Build" />
+    <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Debug;Platform=x86" Targets="Build" />
     <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Debug;Platform=x64" Targets="Build" />
-    <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Release;Platform=Win32" Targets="Build" />
+    <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Release;Platform=x86" Targets="Build" />
     <MSBuild Projects="$(SolutionDir)\Builder\Builder.csproj" Properties="Configuration=Release;Platform=x64" Targets="Build" />
 
     <Exec Command="$(nuget) pack xlwDotNet.nuspec -OutputDirectory $(GitDirectory)nuget_pack   -Properties $(NugetProperties)" WorkingDirectory="$(SolutionDir)" />

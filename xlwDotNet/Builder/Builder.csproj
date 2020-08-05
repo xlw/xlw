@@ -20,6 +20,7 @@
     <MSBuild Condition=" '$(TargetFramework)' == 'net472' " Targets="Build"  Projects="..\src\xlwDotNet.vcxproj" 
              Properties="TF=$(TargetFramework);BuildConfig=true;CLRSupport=true;TargetFrameworkVersion=4.7.2;Platform=$(cplatform);Configuration=$(Configuration)"></MSBuild>
     
+    
     <MSBuild  Targets="Build"  Projects="..\DotNetInterfaceGenerator\DotNetInterfaceGenerator.csproj" 
               Properties="BuildConfig=true;Platform=$(Platform);Configuration=$(Configuration)"></MSBuild>
   </Target>
