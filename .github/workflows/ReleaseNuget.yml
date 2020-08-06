@@ -1,17 +1,17 @@
-name: Test Push
+name: Build Nuget
  
 on:
   push:
-    branches: [ master, release, prerelease]
+    branches: [ master, release, prerelease , dev]
   pull_request:
-    branches: [ master ]
+    branches: [ dev ]
  
 jobs:
   build:
     runs-on: windows-latest
     outputs:
         output1: ${{ steps.Build_Package.outputs.version }}
-    if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease' || github.ref ==  'refs/heads/master'
+    if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease' || github.ref ==  'refs/heads/master' || github.ref ==  'refs/heads/dev'
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET Core 3.1

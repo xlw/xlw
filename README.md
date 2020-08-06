@@ -1,4 +1,8 @@
 
+| dev | master | prerelease | release |
+|:----------:|:----------:|:----------:|:--------------:|
+|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=dev)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=master) |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=prerelease)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=release)|
+
 
 ### [xlw nuget](https://www.nuget.org/packages/xlw/)
 ### [xlwDotNet nuget](https://www.nuget.org/packages/xlwDotNet/)
