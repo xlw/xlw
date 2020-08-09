@@ -3,6 +3,8 @@
 |:----------:|:----------:|:----------:|:--------------:|
 |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=dev)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=master) |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=prerelease)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=release)|
 
+__Possible [regression](https://github.com/dotnet/msbuild/issues/5637) in VS2019 is causing build problems__ 
+
 
 ### [xlw nuget](https://www.nuget.org/packages/xlw/)
 ### [xlwDotNet nuget](https://www.nuget.org/packages/xlwDotNet/)
