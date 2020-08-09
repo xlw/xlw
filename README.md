@@ -6,9 +6,12 @@
 __Possible [regression](https://github.com/dotnet/msbuild/issues/5637) in VS2019 is causing build problems__ 
 
 
-### [xlw nuget](https://www.nuget.org/packages/xlw/)
-### [xlwDotNet nuget](https://www.nuget.org/packages/xlwDotNet/)
+#### [xlw nuget](https://www.nuget.org/packages/xlw/)   
+#### [xlwDotNet nuget](https://www.nuget.org/packages/xlwDotNet/)
 
+
+### [Creating a C++ XLL for Excel with XLW ](https://www.youtube.com/watch?v=k0V6nvWjMnI)      
+### [Creating a C\# XLL for Excel with XLW ](https://www.youtube.com/watch?v=GH0Phpo5S7k)
 
 # **XLW**
 xlw is being updated.
