@@ -3,7 +3,7 @@
  Copyright (C) 1998, 1999, 2001, 2002, 2003 Jérôme Lecomte
 
  This file is part of xlw, a free-software/open-source C++ wrapper of the
- Excel C API - http://xlw.sourceforge.net/
+ Excel C API - https://xlw.github.io/
 
  xlw is free software: you can redistribute it and/or modify it under the
  terms of the xlw license.  You should have received a copy of the

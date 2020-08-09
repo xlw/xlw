@@ -81,11 +81,23 @@
         "warn": true,
         "downloadDependencies": [
           {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.2, 3.1.2]"
+          },
+          {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
             "version": "[3.1.2, 3.1.2]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
+            "version": "[3.1.2, 3.1.2]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.2, 3.1.2]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x86",
             "version": "[3.1.2, 3.1.2]"
           },
           {

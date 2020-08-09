@@ -2,11 +2,11 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildThisFileDirectory)../../xlw.version.props" />
   <PropertyGroup Condition=" '$(BuildConfig)' != 'true' ">
-    <CLRSupport>true</CLRSupport>
-    <TargetFrameworkVersion>4.7.2</TargetFrameworkVersion>
+    <CLRSupport>NetCore</CLRSupport>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Configuration>Debug</Configuration>
     <Platform>Win32</Platform>
-    <TF>net472</TF>
+    <TF>netcoreapp3.1</TF>
   </PropertyGroup>
   <PropertyGroup>
     <gd>

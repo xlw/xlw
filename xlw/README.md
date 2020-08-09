@@ -16,6 +16,10 @@ template projects
 
 John Adcock added 64 bit support and Automatic Help Generation
 
+Narinder Claire moved the project to https://github.com/xlw 
+for further development
+
+
 
 # Authors
 
@@ -32,7 +36,7 @@ John Adcock added 64 bit support and Automatic Help Generation
 - Copyright © 2006 Mark Joshi
 - Copyright © 2007 Tim Brunne
 - Copyright © 2007, 2008 Eric Ehlers
-- Copyright © 2008, 2009 , 2011 Narinder S Claire
+- Copyright © 2008, 2009 , 2011 , 2020  Narinder S Claire
 - Copyright © 2011 John Adcock
 
 All rights reserved.
@@ -63,7 +67,7 @@ A sadly incomplete list of those who deserve particular mention:
 
 # History
 For more info visit
-http://xlw.sourceforge.net/history.shtml
+https://xlw.github.io/
 
 - 2014-12-13 version 5.0.2
 - 2013-02-04 version 5.0.0

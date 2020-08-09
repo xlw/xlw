@@ -4,7 +4,7 @@ Copyright (C) 2011 John Adcock
 Copyright (C) 2013 Anjum Raheel
 
 This file is part of XLW, a free-software/open-source C++ wrapper of the
-Excel C API - http://xlw.sourceforge.net/
+Excel C API - https://xlw.github.io/
 
 XLW is free software: you can redistribute it and/or modify it under the
 terms of the XLW license.  You should have received a copy of the
