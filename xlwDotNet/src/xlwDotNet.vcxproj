@@ -34,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExcelExportAttribute.cpp" />
+    <ClCompile Include="ExcelOpenCloseAttribute.cpp" />
     <ClCompile Include="managedArgumentList.cpp" />
     <ClCompile Include="managedString.cpp" />
     <ClCompile Include="managedXlfExcel.cpp" />

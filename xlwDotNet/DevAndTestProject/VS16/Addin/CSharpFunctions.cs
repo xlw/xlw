@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using xlwDotNet;
@@ -28,6 +29,20 @@ namespace Example
         public static String dotnetversion()
         {
             return System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
+        }
+
+        [ExcelOnOpen]
+        public static void MyOpen()
+        {
+            XlwExcel.StatusBar.message = "YOYOYOYOYO";
+           
+        }
+
+        [ExcelOnClose]
+        public static void MyClose()
+        {
+            File.WriteAllText(@"C:\WorkSpace\xlw\xlwDotNet\DevAndTestProject\VS16\Addin\Debug\x64\net5.0\bye.txt", "BYE BYE");
+
         }
 
 

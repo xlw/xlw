@@ -1,5 +1,5 @@
 ﻿/*
- Copyright (C) 2008 2009 2011 Narinder S Claire
+ Copyright (C) 2008 2009 2011 2020 Narinder S Claire
  Copyright (C) 2011 John Adcock
  Copyright (C) 2011 Mark P Owen
 
@@ -191,6 +191,50 @@ namespace DotNetInterfaceGenerator
                         sourceFile.WriteLine();
                     }
                 }
+
+
+
+                foreach (Type t in sourceTypes) // search for public static methods exported using an ExcelExportAttribute
+                {
+                    MethodInfo[] classMethods = t.GetMethods();
+                    foreach (MethodInfo method in classMethods)
+                    {
+                        if (!method.IsStatic || !method.IsPublic) continue;
+                       
+                        ExcelOnOpenAttribute[] excelOnOpenAttributeArray = (ExcelOnOpenAttribute[])method.GetCustomAttributes(typeof(ExcelOnOpenAttribute), false);
+                        ExcelOnCloseAttribute[] excelOnCloseAttributeArray = (ExcelOnCloseAttribute[])method.GetCustomAttributes(typeof(ExcelOnCloseAttribute), false);
+                        if (excelOnOpenAttributeArray.Length + excelOnCloseAttributeArray .Length > 0)
+                        {
+                            ParameterInfo[] paramInfo = method.GetParameters();
+                            if(paramInfo.Length>0) 
+                                throw new Exception("Not exporting  " + method.Name + ": Should have no parameters");
+
+                            if (method.ReturnType != typeof(void))
+                                throw new Exception("Not exporting  " + method.Name + ": Return type should be void");
+
+                            if (excelOnOpenAttributeArray.Length > 0)
+                            {
+                                headerFile.WriteLine("//<xlw:onopen( " + method.Name + " )");
+                            }
+
+                            if (excelOnCloseAttributeArray.Length > 0)
+                            {
+                                headerFile.WriteLine("//<xlw:onclose( " + method.Name + " )");
+                            }
+
+                            sourceFile.Write("void DLLEXPORT " + WriteCMethod(method.Name) + "()");
+                            sourceFile.WriteLine("{");
+                            sourceFile.WriteLine("DOT_NET_EXCEL_BEGIN");
+                            sourceFile.WriteLine(cppify(method.DeclaringType.FullName + "." + method.Name) + "();");
+                            sourceFile.WriteLine("DOT_NET_EXCEL_END");
+                            sourceFile.WriteLine("}");
+                            headerFile.WriteLine();
+                            sourceFile.WriteLine();
+                        }
+                    }
+                }
+
+
                 headerFile.WriteLine("#endif ");
                 headerFile.Close();
                 sourceFile.Close();
