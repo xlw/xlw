@@ -133,7 +133,7 @@ namespace xlwDotNet
 					  {
 						  return ValueTypeEnum::Empty;
 					  }
-					  if( theInner->IsAString())
+					  if( theInner->IsString())
 					  {
 						  return ValueTypeEnum::String;
 					  }

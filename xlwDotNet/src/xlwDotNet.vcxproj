@@ -3,10 +3,10 @@
   <Import Project="$(MSBuildThisFileDirectory)../../xlw.version.props" />
   <PropertyGroup Condition=" '$(BuildConfig)' != 'true' ">
     <CLRSupport>NetCore</CLRSupport>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Configuration>Debug</Configuration>
     <Platform>Win32</Platform>
-    <TF>netcoreapp3.1</TF>
+    <TF>net5.0</TF>
   </PropertyGroup>
   <PropertyGroup>
     <gd>
