@@ -3,15 +3,15 @@
 |:----------:|:----------:|:----------:|:--------------:|
 |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=dev)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=master) |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=prerelease)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=release)|
 
-__Possible [regression](https://github.com/dotnet/msbuild/issues/5637) in VS2019 is causing build problems__ 
+<sub><sup>If you have .NET 5 Preview installed but would also like to build xlls for .NET Core 3.1 then you must have .NET Core **3.1.2** installed. See dotnet/sdk#12911</sup></sub> 
 
 
 #### [xlw nuget](https://www.nuget.org/packages/xlw/)   
 #### [xlwDotNet nuget](https://www.nuget.org/packages/xlwDotNet/)
 
 
-### [Creating a C++ XLL for Excel with XLW ](https://www.youtube.com/watch?v=k0V6nvWjMnI)      
-### [Creating a C\# XLL for Excel with XLW ](https://www.youtube.com/watch?v=GH0Phpo5S7k)
+
+
 
 # **XLW**
 xlw is being updated.
@@ -37,6 +37,9 @@ To build a C++ xll :
 
 *Required MSVC Toolset v142
 
+#### Creating a C++ XLL for Excel with XLW
+[![Creating a C++ XLL for Excel with XLW](https://img.youtube.com/vi/k0V6nvWjMnI/0.jpg)](https://www.youtube.com/watch?v=k0V6nvWjMnI)      
+
 ---
 
 ## xlwDotNet
@@ -53,50 +56,8 @@ To build a C# xll :
 </Project>
 ```
 3. Add the xlwDotNet nuget package.
-4. Add a C# source file, for example :
-```csharp
-using System;
-using xlwDotNet;
 
-namespace TestxlwDotNetNuget
-{
-    public class Class1
-    {
-        [ExcelExport("Hello World")]
-        public static String HelloWorld()
-        {
-            return "Hello World!";
-        }
-
-        [ExcelExport("Bye World")]
-        public static String byeWorld()
-        {
-            return "Bye World!";
-        }
-
-        [ExcelExport("Get's .NET Version")]
-        public static String dotnetversion()
-        {
-            return System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
-        }
-    }
-}
-```
-5. Build the project. If your project was named MyProject then you will see in the output directory xlwMyProject.xll. You can open the xll and call the function `dotnetversion`
-
-_Note : You can set the TargetFramework to net472, netcoreapp3.1 or net5.0._
-_You must set the platform to x64 or x86 and you should delete the configuration for AnyCPU from your solution_
-
-![](dncss.jpg)
-
-<sup>*Excel 2019</sup>
-
-The output are:
-
-| TargetFramework  | xll  | Output  |
-| ------------- |:-------------:|:-------------:|
-| net472        |xlw\xlwDotNet\Template_Projects\VS16\Addin\Debug\x64\net472\Template.xll |.NET Framework 4.8.4084.0 |
-| netcoreapp3.1        |xlw\xlwDotNet\Template_Projects\VS16\Addin\Debug\x64\netcoreapp3.1\Template.xll |.NET Core 3.1.2|
-| net5.0        |xlw\xlwDotNet\Template_Projects\VS16\Addin\Debug\x64\net5.0\Template.xll |.NET 5.0.0-preview.7.20364.11|
+#### Creating a C\# XLL for Excel with XLW
+[![Creating a C\# XLL for Excel with XLW](https://img.youtube.com/vi/GH0Phpo5S7k/0.jpg)](https://www.youtube.com/watch?v=GH0Phpo5S7k)
 
 

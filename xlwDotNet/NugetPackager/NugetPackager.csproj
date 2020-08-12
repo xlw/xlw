@@ -5,7 +5,7 @@
     <TargetFramework>net472</TargetFramework>
     <SolutionDir>$(MSBuildProjectDirectory)\..\</SolutionDir>
     <GitDirectory>$(MSBuildProjectDirectory)\..\..\</GitDirectory>
-    <nuget>$(GitDirectory)nuget.exe</nuget>
+    <nuget>nuget.exe</nuget>
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
   </PropertyGroup>
 
