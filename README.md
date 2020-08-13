@@ -3,7 +3,7 @@
 |:----------:|:----------:|:----------:|:--------------:|
 |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=dev)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=master) |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=prerelease)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=release)|
 
-<sub><sup>If you have .NET 5 Preview installed but would also like to build xlls for .NET Core 3.1 then you must have .NET Core **3.1.2** installed. See dotnet/sdk#12911</sup></sub> 
+<sub><sup>If you have .NET 5 Preview installed but would also like to build xlls for .NET Core 3.1 then you must have .NET Core **3.1.2** installed. See</sup></sub>  dotnet/sdk#12911
 
 
 #### [xlw nuget](https://www.nuget.org/packages/xlw/)   
@@ -59,5 +59,12 @@ To build a C# xll :
 
 #### Creating a C\# XLL for Excel with XLW
 [![Creating a C\# XLL for Excel with XLW](https://img.youtube.com/vi/GH0Phpo5S7k/0.jpg)](https://www.youtube.com/watch?v=GH0Phpo5S7k)
+
+
+## ... And Just Because We Can
+
+#### Embedding ASP.NET Core (kestrel) in an xll 
+
+[![XLL with Embedded ASP.NET Core (Kestrel) - Built with XLW against .NET 5 Preview](https://img.youtube.com/vi/mQyRnNpG2C4/0.jpg)](https://www.youtube.com/watch?v=mQyRnNpG2C4)
 
 
