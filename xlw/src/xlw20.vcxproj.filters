@@ -176,9 +176,6 @@
     <ClInclude Include="..\include\xlw\XlfOper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\xlw\XlfOper4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\xlw\XlfOper12.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -218,9 +215,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\xlw\Win32StreamBuf.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="..\include\xlw\XlfOperProperties4.inl">
       <Filter>Header Files</Filter>
     </None>
     <None Include="..\include\xlw\XlfOperProperties12.inl">
