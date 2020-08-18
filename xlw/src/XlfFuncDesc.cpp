@@ -27,7 +27,7 @@
 
 #include <xlw/XlfFuncDesc.h>
 #include <xlw/XlfException.h>
-#include <xlw/XlfOper4.h>
+#include <xlw/XlfOper12.h>
 #include <xlw/XlfOper.h>
 #include <algorithm>
 
@@ -167,10 +167,8 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
         args+="#";
     }
 
-    args+='\0'; // null termination for C string
-
-    std::vector<LPXLOPER> argArray(10 + nbargs);
-    LPXLOPER *px = &argArray[0];
+    std::vector<LPXLOPER12> argArray(10 + nbargs);
+    LPXLOPER12 *px = &argArray[0];
     std::string functionName(GetName());
 
     // We need to have 2 functions exposed one for less than
@@ -183,37 +181,37 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
         functionName += "Sync";
     }
 
-    (*px++) = XlfOper4(dllName);
-    (*px++) = XlfOper4(functionName);
-    (*px++) = XlfOper4(args);
-    (*px++) = XlfOper4(GetAlias());
-    (*px++) = XlfOper4(argnames);
-    (*px++) = XlfOper4(mode_);
-    (*px++) = XlfOper4(impl_->category_);
-    (*px++) = XlfOper4(""); // shortcut
+    (*px++) = XlfOper12(dllName);
+    (*px++) = XlfOper12(functionName);
+    (*px++) = XlfOper12(args);
+    (*px++) = XlfOper12(GetAlias());
+    (*px++) = XlfOper12(argnames);
+    (*px++) = XlfOper12(mode_);
+    (*px++) = XlfOper12(impl_->category_);
+    (*px++) = XlfOper12(""); // shortcut
     // use best help context
     if(!helpID_.empty() && helpID_ != "auto")
     {
-        (*px++) = XlfOper4(helpID_);
+        (*px++) = XlfOper12(helpID_);
     }
     else
     {
-        (*px++) = XlfOper4(suggestedHelpId); 
+        (*px++) = XlfOper12(suggestedHelpId); 
     }
-    (*px++) = XlfOper4(GetComment());
+    (*px++) = XlfOper12(GetComment());
     int counter(0);
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
         ++counter;
         if(counter < nbargs)
         {
-            (*px++) = XlfOper4((*it).GetComment());
+            (*px++) = XlfOper12((*it).GetComment());
         }
         else
         {
             // add dot space to last comment to work around known excel bug
             // see http://msdn.microsoft.com/en-us/library/bb687841.aspx
-            (*px++) = XlfOper4((*it).GetComment() + ". ");
+            (*px++) = XlfOper12((*it).GetComment() + ". ");
         }
     }
 
@@ -230,8 +228,8 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
         nbargs = std::min(nbargs, 20);
     }
 
-    XlfOper4 res;
-    int err = XlfExcel::Instance().Call4v(xlfRegister, res, 10 + nbargs, &argArray[0]);
+    XlfOper12 res;
+    int err = XlfExcel::Instance().Call12v(xlfRegister, res, 10 + nbargs, &argArray[0]);
     if(err == xlretSuccess && res.IsNumber())
     {
         funcId_ = res.AsDouble();

@@ -3,6 +3,7 @@
 <Import Project="$(MSBuildThisFileDirectory)..\..\xlw.version.props"/>
   <PropertyGroup>
     <XLW>$(MSBuildThisFileDirectory)..\..\</XLW>
+    <XLWVersion>0_0_0</XLWVersion>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">

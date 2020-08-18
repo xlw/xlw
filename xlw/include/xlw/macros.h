@@ -97,21 +97,7 @@ functions.
 } catch (...) { \
     return XlfOper::Error(xlerrValue); \
 }
-//! Cleanup macro for function with return type XlfOper4
-#define EXCEL_END_4 \
-} catch (XlfException&) { \
-    return 0; \
-} catch (std::exception& error){\
-    return XlfOper4(error.what());\
-} catch (std::string& error){\
-    return XlfOper4(error);\
-} catch (const char* error){\
-    return XlfOper4(error);\
-} catch (const CellMatrix& error){\
-    return XlfOper4(error);\
-} catch (...) { \
-    return XlfOper4::Error(xlerrValue); \
-}
+
 //! Cleanup macro for function with return type XlfOper12
 #define EXCEL_END_12 \
 } catch (XlfException&) { \

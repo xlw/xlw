@@ -39,7 +39,7 @@ namespace xlw { namespace impl {
 
 } }
 
-#include <xlw/XlfOperProperties4.inl>
+
 #include <xlw/XlfOperProperties12.inl>
 #include <xlw/XlfOperPropertiesDynamic.inl>
 

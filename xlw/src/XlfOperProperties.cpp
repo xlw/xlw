@@ -133,14 +133,8 @@ xlw::impl::IXlfOperShared* xlw::impl::XlfOperProperties<LPXLFOPER>::m_version = 
 
 void xlw::impl::XlfOperProperties<LPXLFOPER>::setExcel12(bool isExcel12)
 {
-    if(isExcel12)
-    {
-        m_version = new XlfOperSharedImpl<LPXLOPER12>;
-    }
-    else
-    {
-        m_version = new XlfOperSharedImpl<LPXLOPER>;
-    }
+    m_version = new XlfOperSharedImpl<LPXLOPER12>;
+
 }
 
 void xlw::impl::XlfOperProperties<LPXLFOPER>::clearMemory()

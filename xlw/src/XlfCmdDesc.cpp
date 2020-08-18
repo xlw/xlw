@@ -26,7 +26,7 @@
 
 #include <xlw/XlfCmdDesc.h>
 #include <xlw/XlfOper.h>
-#include <xlw/XlfOper4.h>
+#include <xlw/XlfOper12.h>
 #include <xlw/XlfException.h>
 #include <iostream>
 #include <xlw/macros.h>
@@ -209,32 +209,32 @@ int xlw::XlfCmdDesc::DoRegister(const std::string& dllName, const std::string& s
         argnames = "Too many arguments for Function Wizard";
     }
 
-    std::vector<LPXLOPER> argArray(10 + nbargs);
-    LPXLOPER *px = &argArray[0];
+    std::vector<LPXLOPER12> argArray(10 + nbargs);
+    LPXLOPER12 *px = &argArray[0];
 
-    (*px++) = XlfOper4(dllName);
-    (*px++) = XlfOper4(GetName());
-    (*px++) = XlfOper4(args);
-    (*px++) = XlfOper4(GetAlias());
-    (*px++) = XlfOper4(argnames);
-    (*px++) = XlfOper4(type);
-    (*px++) = XlfOper4("");
-    (*px++) = XlfOper4("");
-    (*px++) = XlfOper4("");
-    (*px++) = XlfOper4(GetComment());
+    (*px++) = XlfOper12(dllName);
+    (*px++) = XlfOper12(GetName());
+    (*px++) = XlfOper12(args);
+    (*px++) = XlfOper12(GetAlias());
+    (*px++) = XlfOper12(argnames);
+    (*px++) = XlfOper12(type);
+    (*px++) = XlfOper12("");
+    (*px++) = XlfOper12("");
+    (*px++) = XlfOper12("");
+    (*px++) = XlfOper12(GetComment());
     int counter(0);
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
         ++counter;
         if(counter < nbargs)
         {
-            (*px++) = XlfOper4((*it).GetComment());
+            (*px++) = XlfOper12((*it).GetComment());
         }
         else
         {
             // add dot space to last comment to work around known excel bug
             // see http://msdn.microsoft.com/en-us/library/bb687841.aspx
-            (*px++) = XlfOper4((*it).GetComment() + ". ");
+            (*px++) = XlfOper12((*it).GetComment() + ". ");
         }
     }
 
@@ -251,8 +251,8 @@ int xlw::XlfCmdDesc::DoRegister(const std::string& dllName, const std::string& s
         nbargs = std::min(nbargs, 20);
     }
 
-    XlfOper4 res;
-    int err = XlfExcel::Instance().Call4v(xlfRegister, res, 10 + nbargs, &argArray[0]);
+    XlfOper12 res;
+    int err = XlfExcel::Instance().Call12v(xlfRegister, res, 10 + nbargs, &argArray[0]);
     if(err == xlretSuccess && res.IsNumber())
     {
         funcId_ = res.AsDouble();

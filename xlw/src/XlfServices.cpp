@@ -258,10 +258,7 @@ namespace xlw
         {
             THROW_XLW("xlSheetId failed with result code " << err);
         }
-        if (XlfExcel::Instance().excel12())
             return result.oper12.val.mref.idSheet;
-        else
-            return result.oper4.val.mref.idSheet;
     }
 
     XlfOper Cell_t::GetContents(const XlfOper& ref)

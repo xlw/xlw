@@ -2,7 +2,7 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
- Copyright (C) 2009 Narinder S Claire
+ Copyright (C) 2009 2020 Narinder S Claire
  Copyright (C) 2011 John Adcock
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -34,13 +34,7 @@
 #include <xlw/TempMemory.h>
 #include <assert.h>
 
-extern "C"
-{
-    //! Main API function to Excel.
-    static int (__cdecl *Excel4_)(int xlfn, LPXLOPER operRes, int count, ...);
-    //! Main API function to Excel, passing the argument as an array.
-    static int (__stdcall *Excel4v_)(int xlfn, LPXLOPER operRes, int count, const LPXLOPER far opers[]);
-}
+
 
 namespace
 {
@@ -135,8 +129,8 @@ HWND xlw::XlfExcel::GetMainWindow()
     // so we have to faff about to find the real handle
     // On excel 12 we do get an int back but this doesn't help
     // with 64 bit so always do the search
-    XLOPER ret;
-    if(Call4(xlGetHwnd, &ret, 0) == xlretSuccess)
+    XLOPER12 ret;
+    if(Call12(xlGetHwnd, &ret, 0) == xlretSuccess)
     {
         GetMainWindowStruct getMainWindowStruct = { NULL, ret.val.w};
         EnumWindows(GetMainWindowProc, (LPARAM) &getMainWindowStruct);
@@ -156,11 +150,7 @@ HWND xlw::XlfExcel::GetMainWindow()
     }
 }
 
-// tell VS7 to shut up
-#if defined(_MSC_VER) && _MSC_VER < 1400
-#pragma warning(push)
-#pragma warning(disable:4312)
-#endif
+
 
 HINSTANCE xlw::XlfExcel::GetExcelInstance()
 {
@@ -184,12 +174,12 @@ xlw::XlfExcel::~XlfExcel() {
 
 int get_excel_version() {
     int version(10);
-    XLOPER xRet1, xRet2, xTemp1, xTemp2;
+    XLOPER12 xRet1, xRet2, xTemp1, xTemp2;
     xTemp1.xltype = xTemp2.xltype = xltypeInt;
     xTemp1.val.w = 2;
     xTemp2.val.w = xltypeInt;
-    Excel4_(xlfGetWorkspace, &xRet1, 1, &xTemp1);
-    Excel4_(xlCoerce, &xRet2, 2, &xRet1, &xTemp2);
+    Excel12(xlfGetWorkspace, &xRet1, 1, &xTemp1);
+    Excel12(xlCoerce, &xRet2, 2, &xRet1, &xTemp2);
     // need to check for errors here
     // French excel doesn't like the decimal point
     // in the version string, fall back to the unsafe looking
@@ -202,9 +192,9 @@ int get_excel_version() {
     }
     else if(xRet1.xltype == xltypeStr)
     {
-        version = atoi(xRet1.val.str + 1);
+        version = _wtoi(xRet1.val.str + 1);
     }
-    Excel4_(xlFree, 0, 1, &xRet1);
+    Excel12(xlFree, 0, 1, &xRet1);
     return version;
 }
 
@@ -216,26 +206,16 @@ void xlw::XlfExcel::InitLibrary() {
     HINSTANCE handle = LoadLibrary("XLCALL32.DLL");
     if (handle == 0)
         THROW_XLW("Could not load library XLCALL32.DLL");
-    Excel4_ = (int (__cdecl *)(int, struct xloper *, int, ...))GetProcAddress(handle, "Excel4");
-    if (Excel4_ == 0)
-        THROW_XLW("Could not get address of Excel4 callback");
-    Excel4v_ = (int (__stdcall *)(int, LPXLOPER, int, const LPXLOPER[]))GetProcAddress(handle, "Excel4v");
-    if (Excel4v_ == 0)
-        THROW_XLW("Could not get address of Excel4v callback");
+  
 
     excelVersion_ = get_excel_version();
     impl::XlfOperProperties<LPXLFOPER>::setExcel12(excel12());
-    if (excel12()) {
+   
         xlfOperType_ = "Q";
         xlfXloperType_ = "U";
         wStrType_ = "C%";
         fpArrayType_ = "K%";
-    } else {
-        xlfOperType_ = "P";
-        xlfXloperType_ = "R";
-        wStrType_ = "C";
-        fpArrayType_ = "K";
-    }
+   
 
     impl_->handle_ = handle;
 
@@ -325,46 +305,6 @@ void xlw::XlfExcel::LookForHelp() {
     }
 }
 
-int xlw::XlfExcel::Call4(int xlfn, LPXLOPER pxResult, int count) const
-{
-    assert(count == 0);
-    return Call4v(xlfn, pxResult, 0, 0);
-}
-
-int xlw::XlfExcel::Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1) const
-{
-    assert(count == 1);
-    return Call4v(xlfn, pxResult, 1, &param1);
-}
-
-int xlw::XlfExcel::Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1, const LPXLOPER param2) const
-{
-    assert(count == 2);
-    const LPXLOPER paramArray[2] = {param1, param2};
-    return Call4v(xlfn, pxResult, 2, paramArray);
-}
-
-int xlw::XlfExcel::Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1, const LPXLOPER param2, const LPXLOPER param3) const
-{
-    assert(count == 3);
-    const LPXLOPER paramArray[3] = {param1, param2, param3};
-    return Call4v(xlfn, pxResult, 3, paramArray);
-}
-
-int xlw::XlfExcel::Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1, const LPXLOPER param2, const LPXLOPER param3, const LPXLOPER param4) const
-{
-    assert(count == 4);
-    const LPXLOPER paramArray[4] = {param1, param2, param3, param4};
-    return Call4v(xlfn, pxResult, 4, paramArray);
-}
-
-int xlw::XlfExcel::Call4(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER param1, const LPXLOPER param2, const LPXLOPER param3, const LPXLOPER param4, 
-         const LPXLOPER param5, const LPXLOPER param6, const LPXLOPER param7, const LPXLOPER param8, const LPXLOPER param9, const LPXLOPER param10) const
-{
-    assert(count >= 5 && count <= 10);
-    const LPXLOPER paramArray[10] = {param1, param2, param3, param4, param5, param6, param7, param8, param9, param10};
-    return Call4v(xlfn, pxResult, count, paramArray);
-}
 
 int xlw::XlfExcel::Call12(int xlfn, LPXLOPER12 pxResult, int count) const
 {
@@ -458,42 +398,11 @@ with XlfOper::xlbitCallFreeAuxMem.
 \sa XlfOper::~XlfOper
 */
 int xlw::XlfExcel::Callv(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER pxdata[]) const {
-    if (excel12())
         return Call12v(xlfn, (LPXLOPER12)pxResult, count, (const LPXLOPER12*)pxdata);
-    else
-        return Call4v(xlfn, (LPXLOPER)pxResult, count, (const LPXLOPER*)pxdata);
+   
 }
 
-int xlw::XlfExcel::Call4v(int xlfn, LPXLOPER pxResult, int count, const LPXLOPER pxdata[]) const {
-#ifndef NDEBUG
-    for (int i = 0; i<count;++i)
-    if (!pxdata[i]) {
-        if (xlfn & xlCommand)
-            std::cerr << XLW__HERE__ << "xlCommand | " << (xlfn & 0x0FFF) << std::endl;
-        if (xlfn & xlSpecial)
-            std::cerr << "xlSpecial | " << (xlfn & 0x0FFF) << std::endl;
-        if (xlfn & xlIntl)
-            std::cerr << "xlIntl | " << (xlfn & 0x0FFF) << std::endl;
-        if (xlfn & xlPrompt)
-            std::cerr << "xlPrompt | " << (xlfn & 0x0FFF) << std::endl;
-        std::cerr << "0 pointer passed as argument #" << i << std::endl;
-    }
-#endif
-    int xlret = Excel4v_(xlfn, pxResult, count, pxdata);
-    if (pxResult) {
-        int type = pxResult->xltype;
 
-        // special case for ref type because of sheetid function uses an non-freeable oper
-        // and Excel 2013 now checks for odd bit flags
-        bool hasAuxMem = (type & xltypeStr ||
-                        ((type & xltypeRef) && pxResult->val.mref.lpmref) ||
-                        type & xltypeMulti ||
-                        type & xltypeBigData);
-        if (hasAuxMem)
-            pxResult->xltype |= XlfOperImpl::xlbitFreeAuxMem;
-    }
-    return xlret;
-}
 
 int xlw::XlfExcel::Call12v(int xlfn, LPXLOPER12 pxResult, int count, const LPXLOPER12 pxdata[]) const {
 #ifndef NDEBUG
