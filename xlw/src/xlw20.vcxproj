@@ -194,7 +194,6 @@
     <ClCompile Include="XlfExcel.cpp" />
     <ClCompile Include="XlfFuncDesc.cpp" />
     <ClCompile Include="XlfOperImpl.cpp" />
-    <ClCompile Include="XlfOperProperties.cpp" />
     <ClCompile Include="XlfRef.cpp" />
     <ClCompile Include="XlfServices.cpp" />
     <ClCompile Include="XlFunctionRegistration.cpp" />
@@ -248,7 +247,6 @@
   <ItemGroup>
     <None Include="..\include\xlw\Win32StreamBuf.inl" />
     <None Include="..\include\xlw\XlfOperProperties12.inl" />
-    <None Include="..\include\xlw\XlfOperPropertiesDynamic.inl" />
     <None Include="..\include\xlw\XlfRef.inl" />
     <None Include="..\include\xlw\xlw.def" />
   </ItemGroup>

@@ -41,6 +41,5 @@ namespace xlw { namespace impl {
 
 
 #include <xlw/XlfOperProperties12.inl>
-#include <xlw/XlfOperPropertiesDynamic.inl>
 
 #endif

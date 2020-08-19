@@ -29,7 +29,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cstdlib>
-#include <xlw/XlfOper.h>
+#include <xlw/XlfOper12.h>
 #include <xlw/macros.h>
 #include <xlw/TempMemory.h>
 #include <assert.h>
@@ -85,7 +85,7 @@ void xlw::XlfExcel::DeleteInstance() {
 
 bool xlw::XlfExcel::IsEscPressed() const {
     XlfOper ret;
-    Call(xlAbort, ret, 1, XlfOper(false));
+    Call12(xlAbort, ret, 1, XlfOper(false));
     return ret.AsBool();
 }
 
@@ -206,25 +206,24 @@ void xlw::XlfExcel::InitLibrary() {
     HINSTANCE handle = LoadLibrary("XLCALL32.DLL");
     if (handle == 0)
         THROW_XLW("Could not load library XLCALL32.DLL");
-  
+
 
     excelVersion_ = get_excel_version();
-    impl::XlfOperProperties<LPXLFOPER>::setExcel12(excel12());
-   
-        xlfOperType_ = "Q";
-        xlfXloperType_ = "U";
-        wStrType_ = "C%";
-        fpArrayType_ = "K%";
-   
+
+    xlfOperType_ = "Q";
+    xlfXloperType_ = "U";
+    wStrType_ = "C%";
+    fpArrayType_ = "K%";
+
 
     impl_->handle_ = handle;
 
     // work out if we are running the english version
     XlfOper intlInfo;
-    int err = Call(xlfGetWorkspace, (LPXLFOPER)intlInfo, 1, XlfOper(37));
+    int err = Call12(xlfGetWorkspace, (LPXLFOPER)intlInfo, 1, XlfOper(37));
     if (err == xlretSuccess)
     {
-        isEnglish_ = (intlInfo(0,0).AsInt() == 1);
+        isEnglish_ = (intlInfo(0, 0).AsInt() == 1);
     }
     else
     {
@@ -234,7 +233,7 @@ void xlw::XlfExcel::InitLibrary() {
 
     // get the file name
     XlfOper xName;
-    err = Call(xlGetName, (LPXLFOPER)xName, 0);
+    err = Call12(xlGetName, (LPXLFOPER)xName, 0);
     if (err == xlretSuccess)
     {
         xllFileName_ = xName.AsString();
@@ -347,46 +346,6 @@ int xlw::XlfExcel::Call12(int xlfn, LPXLOPER12 pxResult, int count, const LPXLOP
     return Call12v(xlfn, pxResult, count, paramArray);
 }
 
-int xlw::XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count) const
-{
-    assert(count == 0);
-    return Callv(xlfn, pxResult, 0, 0);
-}
-
-int xlw::XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER param1) const
-{
-    assert(count == 1);
-    return Callv(xlfn, pxResult, 1, &param1);
-}
-
-int xlw::XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER param1, const LPXLFOPER param2) const
-{
-    assert(count == 2);
-    const LPXLFOPER paramArray[2] = {param1, param2};
-    return Callv(xlfn, pxResult, 2, paramArray);
-}
-
-int xlw::XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER param1, const LPXLFOPER param2, const LPXLFOPER param3) const
-{
-    assert(count == 3);
-    const LPXLFOPER paramArray[3] = {param1, param2, param3};
-    return Callv(xlfn, pxResult, 3, paramArray);
-}
-
-int xlw::XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER param1, const LPXLFOPER param2, const LPXLFOPER param3, const LPXLFOPER param4) const
-{
-    assert(count == 4);
-    const LPXLFOPER paramArray[4] = {param1, param2, param3, param4};
-    return Callv(xlfn, pxResult, 4, paramArray);
-}
-
-int xlw::XlfExcel::Call(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER param1, const LPXLFOPER param2, const LPXLFOPER param3, const LPXLFOPER param4, 
-         const LPXLFOPER param5, const LPXLFOPER param6, const LPXLFOPER param7, const LPXLFOPER param8, const LPXLFOPER param9, const LPXLFOPER param10) const
-{
-    assert(count >= 5 && count <= 10);
-    const LPXLFOPER paramArray[10] = {param1, param2, param3, param4, param5, param6, param7, param8, param9, param10};
-    return Callv(xlfn, pxResult, count, paramArray);
-}
 
 /*!
 If one (or more) cells referred as argument is(are) uncalculated, the framework
@@ -397,10 +356,6 @@ with XlfOper::xlbitCallFreeAuxMem.
 
 \sa XlfOper::~XlfOper
 */
-int xlw::XlfExcel::Callv(int xlfn, LPXLFOPER pxResult, int count, const LPXLFOPER pxdata[]) const {
-        return Call12v(xlfn, (LPXLOPER12)pxResult, count, (const LPXLOPER12*)pxdata);
-   
-}
 
 
 

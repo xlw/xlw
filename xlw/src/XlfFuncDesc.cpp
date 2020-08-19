@@ -28,7 +28,6 @@
 #include <xlw/XlfFuncDesc.h>
 #include <xlw/XlfException.h>
 #include <xlw/XlfOper12.h>
-#include <xlw/XlfOper.h>
 #include <algorithm>
 
 /*!
@@ -99,10 +98,10 @@ int xlw::XlfFuncDesc::DoUnregister(const std::string& dllName) const
     {
         // slightly pointless as it doesn't work but we're supposed to deregister
         // the name as well as the function
-        XlfExcel::Instance().Call(xlfSetName, NULL, 1, XlfOper(GetAlias()));
+        XlfExcel::Instance().Call12(xlfSetName, NULL, 1, XlfOper(GetAlias()));
 
         XlfOper unreg;
-        int err = XlfExcel::Instance().Call(xlfUnregister, unreg, 1, XlfOper(funcId_));
+        int err = XlfExcel::Instance().Call12(xlfUnregister, unreg, 1, XlfOper(funcId_));
         return err;
     }
     else

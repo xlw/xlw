@@ -66,9 +66,6 @@
     <ClCompile Include="XlfOperImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XlfOperProperties.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="XlfRef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -218,9 +215,6 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="..\include\xlw\XlfOperProperties12.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="..\include\xlw\XlfOperPropertiesDynamic.inl">
       <Filter>Header Files</Filter>
     </None>
     <None Include="..\include\xlw\XlfRef.inl">

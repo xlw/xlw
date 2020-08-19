@@ -19,7 +19,7 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 
 #include <xlw/XlfServices.h>
 #include <xlw/XlfExcel.h>
-#include <xlw/XlfOper.h>
+#include <xlw/XlfOper12.h>
 #include <string>
 #include <cstdio>
 #include <stdexcept>
@@ -37,7 +37,7 @@ namespace xlw
         inline XlfOper CallFunction(int xlfn, const char* errorString)
         {
             XlfOper result;
-            int err = XlfExcel::Instance().Callv(xlfn, result, 0, 0);
+            int err = XlfExcel::Instance().Call12v(xlfn, result, 0, 0);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -49,7 +49,7 @@ namespace xlw
         {
             XlfOper result;
             const LPXLFOPER params[] = {param1};
-            int err = XlfExcel::Instance().Callv(xlfn, result, 1, params);
+            int err = XlfExcel::Instance().Call12v(xlfn, result, 1, params);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -61,7 +61,7 @@ namespace xlw
         {
             XlfOper result;
             const LPXLFOPER params[] = {param1, param2};
-            int err = XlfExcel::Instance().Callv(xlfn, result, 2, params);
+            int err = XlfExcel::Instance().Call12v(xlfn, result, 2, params);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -73,7 +73,7 @@ namespace xlw
         {
             XlfOper result;
             const LPXLFOPER params[] = {param1, param2, param3};
-            int err = XlfExcel::Instance().Callv(xlfn, result, 3, params);
+            int err = XlfExcel::Instance().Call12v(xlfn, result, 3, params);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -85,7 +85,7 @@ namespace xlw
         {
             XlfOper result;
             const LPXLFOPER params[] = {param1, param2, param3, param4};
-            int err = XlfExcel::Instance().Callv(xlfn, result, 4, params);
+            int err = XlfExcel::Instance().Call12v(xlfn, result, 4, params);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -96,7 +96,7 @@ namespace xlw
         inline void CallCommand(int xlcmd, const char* errorString)
         {
             XlfOper result;
-            int err = XlfExcel::Instance().Callv(xlcmd, result, 0, 0);
+            int err = XlfExcel::Instance().Call12v(xlcmd, result, 0, 0);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -107,7 +107,7 @@ namespace xlw
         {
             XlfOper result;
             const LPXLFOPER params[] = {param1};
-            int err = XlfExcel::Instance().Callv(xlcmd, result, 1, params);
+            int err = XlfExcel::Instance().Call12v(xlcmd, result, 1, params);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -118,7 +118,7 @@ namespace xlw
         {
             XlfOper result;
             const LPXLFOPER params[] = {param1, param2};
-            int err = XlfExcel::Instance().Callv(xlcmd, result, 2, params);
+            int err = XlfExcel::Instance().Call12v(xlcmd, result, 2, params);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -129,7 +129,7 @@ namespace xlw
         {
             XlfOper result;
             const LPXLFOPER params[] = {param1, param2, param3};
-            int err = XlfExcel::Instance().Callv(xlcmd, result, 3, params);
+            int err = XlfExcel::Instance().Call12v(xlcmd, result, 3, params);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -140,7 +140,7 @@ namespace xlw
         {
             XlfOper result;
             const LPXLFOPER params[] = {param1, param2, param3, param4};
-            int err = XlfExcel::Instance().Callv(xlcmd, result, 4, params);
+            int err = XlfExcel::Instance().Call12v(xlcmd, result, 4, params);
             if(err != xlretSuccess)
             {
                 THROW_XLW(errorString << " failed with result code " << err);
@@ -252,13 +252,14 @@ namespace xlw
     IDSHEET Information_t::GetCurrentSheetId()
     {
 
-        XLFOPER result;
-        int err = XlfExcel::Instance().Callv(xlSheetId, &result, 0, 0);
+        XlfOper12 result;
+        int err = XlfExcel::Instance().Call12v(xlSheetId, (LPXLFOPER)&result, 0, 0);
         if(err != xlretSuccess)
         {
             THROW_XLW("xlSheetId failed with result code " << err);
         }
-            return result.oper12.val.mref.idSheet;
+        return result.AsShort();
+         //   return result.mref.idSheet;
     }
 
     XlfOper Cell_t::GetContents(const XlfOper& ref)
@@ -316,7 +317,7 @@ namespace xlw
                                     missingValue, missingValue, missingValue, missingValue,
                                     missingValue, missingValue, missingValue, missingValue
                                  };
-            int err = XlfExcel::Instance().Callv(xlcFontProperties, 0, 14, params);
+            int err = XlfExcel::Instance().Call12v(xlcFontProperties, 0, 14, params);
             XlfServices.Commands.Select(currentCell);
             if(err != xlretSuccess)
             {
