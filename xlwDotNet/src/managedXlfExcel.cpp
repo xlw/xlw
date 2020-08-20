@@ -46,7 +46,7 @@ namespace xlwDotNet
             // make sure everything is set up inside the library
             xlw::XlfExcel::Instance();
             xlw::XlfOper resultOper;
-            xlw::XlfExcel::Instance().Call(xlfRtd, resultOper, 3, xlw::XlfOper(CLR2CPP(rtdServer)), xlw::XlfOper(), xlw::XlfOper(topicId));
+            xlw::XlfExcel::Instance().Call12(xlfRtd, resultOper, 3, xlw::XlfOper(CLR2CPP(rtdServer)), xlw::XlfOper(), xlw::XlfOper(topicId));
             xlw::CellMatrix* resultMatrix(new xlw::CellMatrix(resultOper.AsCellMatrix()));
             return gcnew xlwTypes::CellMatrix((IntPtr)resultMatrix, true);
         }
@@ -72,7 +72,7 @@ namespace xlwDotNet
 			{
 				xlw::XlfExcel::Instance();
 				xlw::XlfOper ret;
-				xlw::XlfExcel::Instance().Call(xlAbort, ret, 1, xlw::XlfOper(false));
+				xlw::XlfExcel::Instance().Call12(xlAbort, ret, 1, xlw::XlfOper(false));
 				return ret.AsBool();
 			}
 		}

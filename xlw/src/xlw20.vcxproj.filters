@@ -113,9 +113,6 @@
     <ClInclude Include="..\include\xlw\HiResTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\xlw\IXlfoperShared.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\xlw\macros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -189,12 +186,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\xlw\xlwManaged.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\xlw\xlwshared_ptr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\xlw\xlwshared_ptr_details.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\xlw\XlfOper.h">

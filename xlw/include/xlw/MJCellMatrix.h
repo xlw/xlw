@@ -6,7 +6,7 @@
 /*
 Copyright (C) 2006 Mark Joshi
 Copyright (C) 2007, 2008 Eric Ehlers
-Copyright (C) 2009 2011 Narinder S Claire
+Copyright (C) 2009 2011 2020 Narinder S Claire
 
 
 This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -44,8 +44,8 @@ namespace xlw {
 			};
 			ValueType Type;
 
-			mutable xlw_tr1::shared_ptr<std::string>  ValueAsString;
-			mutable xlw_tr1::shared_ptr<std::wstring> ValueAsWstring;
+			mutable std::shared_ptr<std::string>  ValueAsString;
+			mutable std::shared_ptr<std::wstring> ValueAsWstring;
 			double ValueAsNumeric;
 			bool ValueAsBool;
 

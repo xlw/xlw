@@ -69,7 +69,7 @@ namespace xlw
         // fails on VC7.1 for no obvious reason
         // probbaly to do with earlier VC versions issues 
         // with partial templates
-        typedef xlw_tr1::shared_ptr<IMacro> IMacroPtr;
+        typedef std::shared_ptr<IMacro> IMacroPtr;
         //typedef eshared_ptr<IMacro> IMacroPtr;
 
         struct MacroRegistra

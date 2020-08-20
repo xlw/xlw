@@ -28,7 +28,6 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 
 #include <xlw/XlfAbstractCmdDesc.h>
 #include <xlw/XlfExcel.h>
-#include <xlw/xlwshared_ptr.h>
 
 #if defined(_MSC_VER)
 #pragma once
@@ -135,7 +134,7 @@ namespace xlw {
         // so not at the static constructor level.
         mutable std::string returnTypeCode_;
         //! Pointer to implementation (pimpl idiom, see \ref HS).
-        xlw_tr1::shared_ptr<XlfFuncDescImpl> impl_;
+        std::shared_ptr<XlfFuncDescImpl> impl_;
         //! function ID returned from register
         mutable double funcId_;
 

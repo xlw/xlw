@@ -233,7 +233,7 @@ void ExcelFunctionRegistrationRegistry::AddFunction(const XLFunctionRegistration
 {
     
     XlfFuncDesc::RecalcPolicy policy = data.GetVolatile() ? XlfFuncDesc::Volatile : XlfFuncDesc::NotVolatile;
-    xlw_tr1::shared_ptr<XlfFuncDesc>  xlFunction( new XlfFuncDesc(
+    std::shared_ptr<XlfFuncDesc>  xlFunction( new XlfFuncDesc(
             data.GetFunctionName(),
             data.GetExcelFunctionName(),
             data.GetFunctionDescription(),
@@ -262,7 +262,7 @@ void ExcelFunctionRegistrationRegistry::AddFunction(const XLFunctionRegistration
 void ExcelFunctionRegistrationRegistry::AddCommand(const XLCommandRegistrationData& data)
 {
     
-        xlw_tr1::shared_ptr<XlfCmdDesc>  
+        std::shared_ptr<XlfCmdDesc>  
             theCommand(new XlfCmdDesc(data.GetCommandName(),
             data.GetExcelCommandName(),
             data.GetCommandComment(),

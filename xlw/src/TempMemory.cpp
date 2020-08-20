@@ -2,7 +2,7 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
- Copyright (C) 2009 2011 Narinder S Claire
+ Copyright (C) 2009 2011 2020 Narinder S Claire
  Copyright (C) 2011 John Adcock
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -25,7 +25,7 @@
 #include <algorithm>
 #include <xlw/XlfWindows.h>
 
-typedef xlw_tr1::shared_ptr<xlw::TempMemory> TempMemoryPtr;
+typedef std::shared_ptr<xlw::TempMemory> TempMemoryPtr;
 
 
 namespace 
@@ -44,6 +44,18 @@ namespace
 }
 
 namespace xlw {
+
+    template<class T>
+    struct CustomArrayDeleter
+    {
+        void operator()(T* ptr)const
+        {
+            delete[] ptr;
+        }
+
+    };
+
+
 
     char* TempMemory::GetBytes(size_t bytes)
     {

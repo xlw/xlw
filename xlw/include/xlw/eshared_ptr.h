@@ -1,4 +1,4 @@
-/* Copyright (C) 2011 Narinder S Claire
+/* Copyright (C) 2011 2020 Narinder S Claire
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
  Excel C API - https://xlw.github.io/
@@ -36,10 +36,10 @@ namespace xlw
 
 
         template<class U>
-        friend bool operator==(xlw::eshared_ptr<T> const & a, xlw_tr1::shared_ptr<U> const & b);
+        friend bool operator==(xlw::eshared_ptr<T> const & a, std::shared_ptr<U> const & b);
 
         template<class U>
-        friend bool operator<(xlw::eshared_ptr<T> const & a, xlw_tr1::shared_ptr<U> const & b);
+        friend bool operator<(xlw::eshared_ptr<T> const & a, std::shared_ptr<U> const & b);
 
         template<class E, class Y>
             friend std::basic_ostream<E, Y> & operator<< (std::basic_ostream<E, Y> & os, xlw::eshared_ptr<T> const & p);
@@ -158,10 +158,10 @@ namespace xlw
 
             // Call the cloner ( which has knowledge about the type of the derived class)
             // to make a copy by calling the copy constructor
-            xlw_tr1::shared_ptr<void> the_inner_void_ptr( xlw_tr1::static_pointer_cast<void,T>( ptr_imp ) );
+            std::shared_ptr<void> the_inner_void_ptr(std::static_pointer_cast<void,T>( ptr_imp ) );
 
             // Statically cast it to the Base pointer (T*)
-            the_copy.ptr_imp = xlw_tr1::static_pointer_cast<T,void>( the_cloner->operator()( the_inner_void_ptr ));
+            the_copy.ptr_imp = std::static_pointer_cast<T,void>( the_cloner->operator()( the_inner_void_ptr ));
 
             // remember to set the cloner in the copy
             the_copy.the_cloner = the_cloner;
@@ -172,16 +172,16 @@ namespace xlw
 
         //// casting operators
         // We want to be able to behave like a standard shared pointer
-        operator xlw_tr1::shared_ptr<T>()const
+        operator std::shared_ptr<T>()const
         {
             return ptr_imp;
         }
 
         // T* must be convertable to Y*
         template<class Y>
-        operator xlw_tr1::shared_ptr<Y>()const
+        operator std::shared_ptr<Y>()const
         {
-            return xlw_tr1::shared_ptr<Y>(ptr_imp);
+            return std::shared_ptr<Y>(ptr_imp);
         }
 
 
@@ -229,26 +229,26 @@ namespace xlw
 
 
     private:
-        xlw_tr1::shared_ptr<T> ptr_imp;
-        xlw_tr1::shared_ptr<impl::details::eshared_ptr_new> the_cloner;
+        std::shared_ptr<T> ptr_imp;
+        std::shared_ptr<impl::details::eshared_ptr_new> the_cloner;
 
 
     };
 
     template<class T, class U>
-    bool operator==(eshared_ptr<T> const & a, xlw_tr1::shared_ptr<U> const & b)
+    bool operator==(eshared_ptr<T> const & a, std::shared_ptr<U> const & b)
     {
         return a.ptr_imp == b ;
     }
 
     template<class T, class U>
-    bool operator!=(eshared_ptr<T> const & a, xlw_tr1::shared_ptr<U> const & b)
+    bool operator!=(eshared_ptr<T> const & a, std::shared_ptr<U> const & b)
     {
         return !(a == b) ;
     }
 
     template<class T, class U>
-    bool operator<(eshared_ptr<T> const & a, xlw_tr1::shared_ptr<U> const & b)
+    bool operator<(eshared_ptr<T> const & a, std::shared_ptr<U> const & b)
     {
         return a.ptr_imp < b ;
     }
@@ -287,19 +287,19 @@ namespace std
     {
 
         template<class T, class U>
-        bool operator==(xlw_tr1::shared_ptr<U> const & b,xlw::eshared_ptr<T> const & a )
+        bool operator==(std::shared_ptr<U> const & b,xlw::eshared_ptr<T> const & a )
         {
             return a == b ;
         }
 
         template<class T, class U>
-        bool operator!=(xlw_tr1::shared_ptr<U> const & b,xlw::eshared_ptr<T> const & a )
+        bool operator!=(std::shared_ptr<U> const & b,xlw::eshared_ptr<T> const & a )
         {
             return !(b==a) ;
         }
 
         template<class T, class U>
-        bool operator<(xlw_tr1::shared_ptr<U> const & b, xlw::eshared_ptr<T> const & a)
+        bool operator<(std::shared_ptr<U> const & b, xlw::eshared_ptr<T> const & a)
         {
             return ! ( (a < b) || (b==a) ) ;
         }

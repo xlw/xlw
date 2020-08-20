@@ -210,7 +210,6 @@
     <ClInclude Include="..\include\xlw\eshared_ptr_details.h" />
     <ClInclude Include="..\include\xlw\EXCEL32_API.h" />
     <ClInclude Include="..\include\xlw\HiResTimer.h" />
-    <ClInclude Include="..\include\xlw\IXlfoperShared.h" />
     <ClInclude Include="..\include\xlw\macros.h" />
     <ClInclude Include="..\include\xlw\MJCellMatrix.h" />
     <ClInclude Include="..\include\xlw\MyContainers.h" />
@@ -237,8 +236,6 @@
     <ClInclude Include="..\include\xlw\XlOpenClose.h" />
     <ClInclude Include="..\include\xlw\xlw.h" />
     <ClInclude Include="..\include\xlw\xlwManaged.h" />
-    <ClInclude Include="..\include\xlw\xlwshared_ptr.h" />
-    <ClInclude Include="..\include\xlw\xlwshared_ptr_details.h" />
     <ClInclude Include="PathUpdater.h" />
   </ItemGroup>
   <ItemGroup>

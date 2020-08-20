@@ -186,13 +186,13 @@ namespace xlw {
         void AddCommand(const XLCommandRegistrationData&);
         void GenerateDocumentation(const std::string& outputDir);
     private:
-        typedef std::map<std::string,xlw_tr1::shared_ptr<xlw::XlfFuncDesc> > functionCache;
-        typedef std::map<std::string,xlw_tr1::shared_ptr<XlfCmdDesc> > commandCache;
+        typedef std::map<std::string, std::shared_ptr<xlw::XlfFuncDesc> > functionCache;
+        typedef std::map<std::string, std::shared_ptr<XlfCmdDesc> > commandCache;
         ExcelFunctionRegistrationRegistry(){}
         void GenerateChmBuilderConfig(const std::string& fileName);
         void GenerateToc(const std::string& outputDir);
-        std::map<std::string,xlw_tr1::shared_ptr<XlfFuncDesc> > Functions;
-        std::map<std::string,xlw_tr1::shared_ptr<XlfCmdDesc> >  Commands;
+        std::map<std::string, std::shared_ptr<XlfFuncDesc> > Functions;
+        std::map<std::string, std::shared_ptr<XlfCmdDesc> >  Commands;
 
     };
 

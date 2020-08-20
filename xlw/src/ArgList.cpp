@@ -1,8 +1,3 @@
-//
-//
-//                        ArgList.cpp
-//
-//
 /*
  Copyright (C) 2006 Mark Joshi
  Copyright (C) 2007 Tim Brunne

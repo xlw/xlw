@@ -28,11 +28,6 @@
 #define NOMINMAX
 #endif
 
-#ifndef _MSC_VER
-// need to undefine for mingw
-#undef  UNICODE
-#undef _UNICODE
-#endif
 
 // only include the important stuff
 #ifndef WIN32_LEAN_AND_MEAN

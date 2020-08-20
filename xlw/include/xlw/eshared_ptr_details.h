@@ -17,8 +17,6 @@
 
 
 #include<memory>
-#include<xlw/xlwshared_ptr.h>
-
 
 
 namespace xlw
@@ -40,22 +38,22 @@ namespace xlw
 
     struct eshared_ptr_new
     {
-        virtual xlw_tr1::shared_ptr<void> operator()( const xlw_tr1::shared_ptr<void> &p)=0;
+        virtual std::shared_ptr<void> operator()( const std::shared_ptr<void> &p)=0;
         virtual ~eshared_ptr_new(){}
     };
 
     template<class Y>
     struct vanilla_new:public eshared_ptr_new
     {
-        xlw_tr1::shared_ptr<void> operator()( const xlw_tr1::shared_ptr<void> &p)
+        std::shared_ptr<void> operator()( const std::shared_ptr<void> &p)
         {
-            if(!p) return xlw_tr1::shared_ptr<void>();
+            if(!p) return std::shared_ptr<void>();
 
             const Y * ptr  = static_cast<const Y *>(p.get());
 
             // use the standard, global new operator to allocate and construct the
             // object
-            return  xlw_tr1::shared_ptr<void>(new Y(*ptr));
+            return  std::shared_ptr<void>(new Y(*ptr));
         }
     };
 
@@ -73,22 +71,22 @@ namespace xlw
         typedef typename A::value_type Y;
         allocator_new(A a_):a(a_){}
 
-        xlw_tr1::shared_ptr<void> operator()( const xlw_tr1::shared_ptr<void> &p)
+        std::shared_ptr<void> operator()( const std::shared_ptr<void> &p)
         {
-            if(!p) return xlw_tr1::shared_ptr<void>();
+            if(!p) return std::shared_ptr<void>();
 
             const Y * ptr  = static_cast<const Y *>(p.get());
 
             // Going to request the memory from the allocator for the new object
             // but give ownership to a shared_ptr IMMEDITIALEY. Also need to tell
             // the shared_ptr about our designated destroyer
-            xlw_tr1::shared_ptr<Y>  clone_ptr(a.allocate(1),allocator_delete<A>(a));
+            std::shared_ptr<Y>  clone_ptr(a.allocate(1),allocator_delete<A>(a));
 
             // If we had left the pointer received from the allocator above, naked, then
             // if the following threw we would have a leak.
             a.construct(clone_ptr.get(),*ptr);
 
-            return xlw_tr1::static_pointer_cast<void,Y>(clone_ptr);
+            return std::static_pointer_cast<void,Y>(clone_ptr);
         }
     private:
         A a;
@@ -99,9 +97,9 @@ namespace xlw
     // is called to construct the eshared_ptr
     struct null_new:public eshared_ptr_new
     {
-        xlw_tr1::shared_ptr<void> operator()( const xlw_tr1::shared_ptr<void> &p)
+        std::shared_ptr<void> operator()( const std::shared_ptr<void> &p)
         {
-            return xlw_tr1::shared_ptr<void>();
+            return std::shared_ptr<void>();
         }
     };
 
@@ -114,30 +112,30 @@ namespace xlw
     struct constructors {
 
         template<class A>
-        static xlw_tr1::shared_ptr<U> construct(A a)
+        static std::shared_ptr<U> construct(A a)
         {
             typedef typename A::value_type T;
-            xlw_tr1::shared_ptr<T>  clone_ptr(a.allocate(1),allocator_delete<A>(a));
+            std::shared_ptr<T>  clone_ptr(a.allocate(1),allocator_delete<A>(a));
             new ((void*)clone_ptr.get()) T ();
-            return xlw_tr1::static_pointer_cast<U,T>(clone_ptr);
+            return std::static_pointer_cast<U,T>(clone_ptr);
         }
 
         template<class A,class T1>
-        static xlw_tr1::shared_ptr<U> construct(A a,const T1 &p1)
+        static std::shared_ptr<U> construct(A a,const T1 &p1)
         {
             typedef typename A::value_type T;
-            xlw_tr1::shared_ptr<T>  clone_ptr(a.allocate(1),allocator_delete<A>(a));
+            std::shared_ptr<T>  clone_ptr(a.allocate(1),allocator_delete<A>(a));
             new ((void*)clone_ptr.get()) T (p1);
-            return xlw_tr1::static_pointer_cast<U,T>(clone_ptr);
+            return std::static_pointer_cast<U,T>(clone_ptr);
         }
 
         template<class A,class T1,class T2>
-        static xlw_tr1::shared_ptr<U> construct(A a,const T1 &p1,const T2 &p2)
+        static std::shared_ptr<U> construct(A a,const T1 &p1,const T2 &p2)
         {
             typedef typename A::value_type T;
-            xlw_tr1::shared_ptr<T>  clone_ptr(a.allocate(1),allocator_delete<A>(a));
+            std::shared_ptr<T>  clone_ptr(a.allocate(1),allocator_delete<A>(a));
             new ((void*)clone_ptr.get()) T (p1,p2);
-            return xlw_tr1::static_pointer_cast<U,T>(clone_ptr);
+            return std::static_pointer_cast<U,T>(clone_ptr);
         }
     };
 

@@ -29,7 +29,7 @@
 #include <xlw/XlfException.h>
 #include <iostream>
 #include <xlw/macros.h>
-#include <xlw/xlwshared_ptr.h>
+#include <memory>
 #include <algorithm>
 
 /*! \e see XlfAbstractCmdDesc::XlfAbstractCmdDesc(const std::string&, const std::string&, const std::string&)
