@@ -16,7 +16,7 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-#include <xlw/XlfOperImpl.h>
+#include <xlw/XlfOper.h>
 #include <xlw/XlfExcel.h>
 #include <xlw/XlfException.h>
 #include <stdexcept>

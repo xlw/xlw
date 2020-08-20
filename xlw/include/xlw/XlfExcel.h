@@ -40,9 +40,8 @@
 
 namespace xlw {
 
-
-    typedef XLOPER12 XLOPER;
-    typedef XLOPER12* LPXLFOPER;
+   
+    typedef LPXLOPER12 LPXLFOPER;
 
     //! Interface between excel and the framework.
     /*!

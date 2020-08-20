@@ -17,7 +17,7 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 #ifndef XLFSERVICES_HEADER_GUARD
 #define XLFSERVICES_HEADER_GUARD 
 #include<string>
-#include <xlw/XlfOper12.h>
+#include<xlw/XlfOper.h>
 
 namespace xlw
 {
@@ -32,11 +32,11 @@ namespace xlw
     struct Notes_t
     {
         //! gets the text of the note attached to the cell from startCharacter (zero-based)
-        XlfOper12 GetNote(const XlfOper12& cellRef, int startCharacter = 0, int numChars = 0);
+        XlfOper GetNote(const XlfOper& cellRef, int startCharacter = 0, int numChars = 0);
         //! sets the text of the note attached to the cell
-        void SetNote(const XlfOper12& cellRef, const std::string& note);
+        void SetNote(const XlfOper& cellRef, const std::string& note);
         //! clears the note attached to the cell
-        void ClearNote(const XlfOper12& cellRef);
+        void ClearNote(const XlfOper& cellRef);
     };
 
     struct Information_t

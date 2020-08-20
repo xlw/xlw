@@ -29,7 +29,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cstdlib>
-#include <xlw/XlfOper12.h>
+#include <xlw/XlfOper.h>
 #include <xlw/macros.h>
 #include <xlw/TempMemory.h>
 #include <assert.h>

@@ -37,13 +37,6 @@ typedef DWORD_PTR IDSHEET;        /* XL12 Sheet ID */
 ** Describes a single rectangular reference.
 */
 
-typedef struct xlref
-{
-    WORD rwFirst;
-    WORD rwLast;
-    BYTE colFirst;
-    BYTE colLast;
-} XLREF, *LPXLREF;
 
 
 /*
@@ -53,13 +46,6 @@ typedef struct xlref
 ** This is a variable size structure, default
 ** size is 1 reference.
 */
-
-typedef struct xlmref
-{
-    WORD count;
-    XLREF reftbl[1];                    /* actually reftbl[count] */
-} XLMREF, *LPXLMREF;
-
 
 /*
 ** XLREF12 structure
@@ -97,13 +83,6 @@ typedef struct xlmref12
 ** Describes FP structure.
 */
 
-typedef struct _FP
-{
-    unsigned short int rows;
-    unsigned short int columns;
-    double array[1];        /* Actually, array[rows][columns] */
-} FP;
-
 /*
 ** FP12 structure
 **
@@ -126,59 +105,7 @@ typedef struct _FP12
 ** REGISTER function.
 **/
 
-typedef struct xloper
-{
-    union
-    {
-        double num;                    /* xltypeNum */
-        LPSTR str;                    /* xltypeStr */
-#ifdef __cplusplus
-        WORD xbool;                    /* xltypeBool */
-#else
-        WORD bool;                    /* xltypeBool */
-#endif
-        WORD err;                    /* xltypeErr */
-        short int w;                    /* xltypeInt */
-        struct
-        {
-            WORD count;                /* always = 1 */
-            XLREF ref;
-        } sref;                        /* xltypeSRef */
-        struct
-        {
-            XLMREF *lpmref;
-            IDSHEET idSheet;
-        } mref;                        /* xltypeRef */
-        struct
-        {
-            struct xloper *lparray;
-            WORD rows;
-            WORD columns;
-        } array;                    /* xltypeMulti */
-        struct
-        {
-            union
-            {
-                short int level;        /* xlflowRestart */
-                short int tbctrl;        /* xlflowPause */
-                IDSHEET idSheet;            /* xlflowGoto */
-            } valflow;
-            WORD rw;                /* xlflowGoto */
-            BYTE col;                /* xlflowGoto */
-            BYTE xlflow;
-        } flow;                        /* xltypeFlow */
-        struct
-        {
-            union
-            {
-                BYTE *lpbData;            /* data passed to XL */
-                HANDLE hdata;            /* data returned from XL */
-            } h;
-            long cbData;
-        } bigdata;                    /* xltypeBigData */
-    } val;
-    WORD xltype;
-} XLOPER, *LPXLOPER;
+
 
 /*
 ** XLOPER12 structure
@@ -325,12 +252,7 @@ typedef struct xloper12
 extern "C" {
 #endif
 
-//int _cdecl Excel4(int xlfn, LPXLOPER operRes, int count,... );
-extern int (_cdecl *Excel4)(int xlfn, LPXLOPER operRes, int count,... );
-/* followed by count LPXLOPERs */
 
-//int pascal Excel4v(int xlfn, LPXLOPER operRes, int count, LPXLOPER opers[]);
-extern int (pascal *Excel4v)(int xlfn, LPXLOPER operRes, int count, const LPXLOPER opers[]);
 
 int pascal XLCallVer(void);
 

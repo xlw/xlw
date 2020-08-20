@@ -230,9 +230,6 @@
     <ClInclude Include="..\include\xlw\XlfException.h" />
     <ClInclude Include="..\include\xlw\XlfFuncDesc.h" />
     <ClInclude Include="..\include\xlw\XlfOper.h" />
-    <ClInclude Include="..\include\xlw\XlfOper12.h" />
-    <ClInclude Include="..\include\xlw\XlfOperImpl.h" />
-    <ClInclude Include="..\include\xlw\XlfOperProperties.h" />
     <ClInclude Include="..\include\xlw\XlfRef.h" />
     <ClInclude Include="..\include\xlw\XlfServices.h" />
     <ClInclude Include="..\include\xlw\XlFunctionRegistration.h" />
@@ -246,7 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\xlw\Win32StreamBuf.inl" />
-    <None Include="..\include\xlw\XlfOperProperties12.inl" />
+    <None Include="..\include\xlw\XlfOperProperties.h" />
     <None Include="..\include\xlw\XlfRef.inl" />
     <None Include="..\include\xlw\xlw.def" />
   </ItemGroup>

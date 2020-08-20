@@ -25,7 +25,7 @@
 // $Id$
 
 #include <xlw/XlfCmdDesc.h>
-#include <xlw/XlfOper12.h>
+#include <xlw/XlfOper.h>
 #include <xlw/XlfException.h>
 #include <iostream>
 #include <xlw/macros.h>
@@ -211,29 +211,29 @@ int xlw::XlfCmdDesc::DoRegister(const std::string& dllName, const std::string& s
     std::vector<LPXLOPER12> argArray(10 + nbargs);
     LPXLOPER12 *px = &argArray[0];
 
-    (*px++) = XlfOper12(dllName);
-    (*px++) = XlfOper12(GetName());
-    (*px++) = XlfOper12(args);
-    (*px++) = XlfOper12(GetAlias());
-    (*px++) = XlfOper12(argnames);
-    (*px++) = XlfOper12(type);
-    (*px++) = XlfOper12("");
-    (*px++) = XlfOper12("");
-    (*px++) = XlfOper12("");
-    (*px++) = XlfOper12(GetComment());
+    (*px++) = XlfOper(dllName);
+    (*px++) = XlfOper(GetName());
+    (*px++) = XlfOper(args);
+    (*px++) = XlfOper(GetAlias());
+    (*px++) = XlfOper(argnames);
+    (*px++) = XlfOper(type);
+    (*px++) = XlfOper("");
+    (*px++) = XlfOper("");
+    (*px++) = XlfOper("");
+    (*px++) = XlfOper(GetComment());
     int counter(0);
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
         ++counter;
         if(counter < nbargs)
         {
-            (*px++) = XlfOper12((*it).GetComment());
+            (*px++) = XlfOper((*it).GetComment());
         }
         else
         {
             // add dot space to last comment to work around known excel bug
             // see http://msdn.microsoft.com/en-us/library/bb687841.aspx
-            (*px++) = XlfOper12((*it).GetComment() + ". ");
+            (*px++) = XlfOper((*it).GetComment() + ". ");
         }
     }
 
@@ -250,7 +250,7 @@ int xlw::XlfCmdDesc::DoRegister(const std::string& dllName, const std::string& s
         nbargs = std::min(nbargs, 20);
     }
 
-    XlfOper12 res;
+    XlfOper res;
     int err = XlfExcel::Instance().Call12v(xlfRegister, res, 10 + nbargs, &argArray[0]);
     if(err == xlretSuccess && res.IsNumber())
     {

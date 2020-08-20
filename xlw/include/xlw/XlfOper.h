@@ -2,7 +2,7 @@
 /*
  Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
- Copyright (C) 2009 2011 Narinder S Claire
+ Copyright (C) 2009 2011 2020 Narinder S Claire
  Copyright (C) 2011 John Adcock
 
  This file is part of XLW, a free-software/open-source C++ wrapper of the
@@ -17,8 +17,8 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-#ifndef INC_XlfOperImpl_H
-#define INC_XlfOperImpl_H
+#ifndef XlfOper_HEADER_GUARD
+#define XlfOper_HEADER_GUARD
 
 /*!
 \file XlfOper.h
@@ -62,25 +62,25 @@ namespace xlw {
     };
 }
 
-namespace xlw { namespace impl {
+namespace xlw {
 
-    template<typename LPOPER_TYPE>
+
     class EXCEL32_API XlfOper
     {
     private:
         //! \name Manage reference to the underlying XLOPER
         //@{
         //! Internal LPXLFOPER/LPXLOPER/LPXLOPER12.
-        mutable LPOPER_TYPE lpxloper_;
+        mutable LPXLOPER12 lpxloper_;
         //@}
 
-        typedef XlfOperProperties<LPOPER_TYPE> OperProps;
-        typedef typename XlfOperProperties<LPOPER_TYPE>::ErrorType ErrorType;
-        typedef typename XlfOperProperties<LPOPER_TYPE>::IntType IntType;
-        typedef typename XlfOperProperties<LPOPER_TYPE>::MultiRowType MultiRowType;
-        typedef typename XlfOperProperties<LPOPER_TYPE>::MultiColType MultiColType;
-        typedef typename XlfOperProperties<LPOPER_TYPE>::XlTypeType XlTypeType;
-        typedef typename XlfOperProperties<LPOPER_TYPE>::OperType OperType;
+        typedef XlfOperProperties OperProps;
+        typedef typename OperProps::ErrorType ErrorType;
+        typedef typename OperProps::IntType IntType;
+        typedef typename OperProps::MultiRowType MultiRowType;
+        typedef typename OperProps::MultiColType MultiColType;
+        typedef typename OperProps::XlTypeType XlTypeType;
+        typedef typename OperProps::OperType OperType;
         typedef xlw::XlfOperImpl XlfOperImpl;
 
         // we need to be careful if we try and return back to excel memory it
@@ -97,7 +97,7 @@ namespace xlw { namespace impl {
             XlTypeType type = OperProps::getXlType(lpxloper_);
             if (type & xlw::XlfOperImpl::xlbitFreeAuxMem)
             {
-                LPOPER_TYPE result = TempMemory::GetMemory<OperType>();
+                LPXLOPER12 result = TempMemory::GetMemory<OperType>();
                 type &= ~xlw::XlfOperImpl::xlbitFreeAuxMem;
                 OperProps::setXlType(lpxloper_, type);
                 OperProps::copy(lpxloper_, result);
@@ -126,7 +126,7 @@ namespace xlw { namespace impl {
             {
                 for(MultiRowType col(0); col < actualcols; ++col)
                 {
-                    XlfOper<LPOPER_TYPE> cellToSet(OperProps::getElement(lpxloper_, row, col));
+                    XlfOper cellToSet(OperProps::getElement(lpxloper_, row, col));
                     cellToSet = *start++;
                 }
                 start += (cols - actualcols);
@@ -143,14 +143,14 @@ namespace xlw { namespace impl {
             OperProps::setXlType(lpxloper_, xltypeMissing);
         }
         //! Copy ctor.
-        XlfOper(const XlfOper<LPOPER_TYPE>& oper) :
+        XlfOper(const XlfOper& oper) :
             lpxloper_(TempMemory::GetMemory<OperType>())
         {
             OperProps::copy(oper.lpxloper_, lpxloper_);
         }
 
         //! LPXLOPER/LPXLOPER12 ctor.
-        XlfOper(LPOPER_TYPE lpxloper) :
+        XlfOper(LPXLOPER12 lpxloper) :
             lpxloper_(lpxloper)
         {
         }
@@ -203,7 +203,7 @@ namespace xlw { namespace impl {
             {
                 for (COL col(0); col < nbCols; ++col)
                 {
-                    LPOPER_TYPE elementOper = OperProps::getElement(lpxloper_, row, col);
+                    LPXLOPER12 elementOper = OperProps::getElement(lpxloper_, row, col);
                     const CellValue& cellValue(cellmatrix(row,col));
                     if (cellValue.IsANumber())
                     {
@@ -250,7 +250,7 @@ namespace xlw { namespace impl {
             {
                 for (COL col(0); col < nbCols; ++col)
                 {
-                    LPOPER_TYPE elementOper = OperProps::getElement(lpxloper_, row, col);
+                    LPXLOPER12 elementOper = OperProps::getElement(lpxloper_, row, col);
                     OperProps::setDouble(elementOper, MatrixTraits<MyMatrix>::getAt(matrix, row, col));
                 }
             }
@@ -269,7 +269,7 @@ namespace xlw { namespace impl {
 
             for (RW row(0); row < nbRows; ++row)
             {
-                LPOPER_TYPE elementOper = OperProps::getElement(lpxloper_, row, 0);
+                LPXLOPER12 elementOper = OperProps::getElement(lpxloper_, row, 0);
                 OperProps::setDouble(elementOper, ArrayTraits<MyArray>::getAt(values, row));
             }
         }
@@ -332,9 +332,9 @@ namespace xlw { namespace impl {
         }
 
         //! Constructs an Excel error.
-        static XlfOper<LPOPER_TYPE> Error(ErrorType errorCode)
+        static XlfOper Error(ErrorType errorCode)
         {
-            XlfOper<LPOPER_TYPE> result;
+            XlfOper result;
             result.SetError(errorCode);
             return result;
         }
@@ -343,13 +343,13 @@ namespace xlw { namespace impl {
         //! \name Operators
         //@{
         //! Cast to XLOPER *.
-        operator LPOPER_TYPE()
+        operator LPXLOPER12()
         {
             prepareForPointerCast();
             return lpxloper_;
         }
         //! Cast to const XLOPER *.
-        operator const LPOPER_TYPE() const
+        operator const LPXLOPER12() const
         {
             prepareForPointerCast();
             return lpxloper_;
@@ -464,13 +464,13 @@ namespace xlw { namespace impl {
         }
 
         //! Function call operator, used here to subscript a two dimensional array.
-        XlfOper<LPOPER_TYPE> operator()(MultiRowType row, MultiColType col)
+        XlfOper operator()(MultiRowType row, MultiColType col)
         {
-            return XlfOper<LPOPER_TYPE>(OperProps::getElement(lpxloper_, row, col));
+            return XlfOper(OperProps::getElement(lpxloper_, row, col));
         }
 
         //! Set the value of array element with specified subscript.
-        void SetElement(MultiRowType r, MultiColType c, const XlfOper<LPOPER_TYPE> &value)
+        void SetElement(MultiRowType r, MultiColType c, const XlfOper &value)
         {
             switch(OperProps::getXlType(lpxloper_) & 0xFFF)
             {
@@ -526,7 +526,7 @@ namespace xlw { namespace impl {
             int xlret = OperProps::coerce(lpxloper_, xltypeNum, &stackMem);
             if(xlret == xlretSuccess)
             {
-                XlfOper<LPOPER_TYPE> result(&stackMem);
+                XlfOper result(&stackMem);
                 return result.AsDouble(ErrorId);
             }
             else
@@ -549,7 +549,7 @@ namespace xlw { namespace impl {
                 int xlret = OperProps::coerce(lpxloper_, xltypeRef, &stackMem);
                 if(xlret == xlretSuccess)
                 {
-                    XlfOper<LPOPER_TYPE> result(&stackMem);
+                    XlfOper result(&stackMem);
                     return result.AsRef(ErrorId);
                 }
                 else
@@ -592,7 +592,7 @@ namespace xlw { namespace impl {
             int xlret = OperProps::coerce(lpxloper_, xltypeNum, &stackMem);
             if(xlret == xlretSuccess)
             {
-                XlfOper<LPOPER_TYPE> result(&stackMem);
+                XlfOper result(&stackMem);
                 return result.AsShort(ErrorId);
             }
             else
@@ -634,7 +634,7 @@ namespace xlw { namespace impl {
             int xlret = OperProps::coerce(lpxloper_, xltypeBool, &stackMem);
             if(xlret == xlretSuccess)
             {
-                XlfOper<LPOPER_TYPE> result(&stackMem);
+                XlfOper result(&stackMem);
                 return result.AsBool(ErrorId);
             }
             else
@@ -676,7 +676,7 @@ namespace xlw { namespace impl {
             int xlret = OperProps::coerce(lpxloper_, xltypeNum, &stackMem);
             if(xlret == xlretSuccess)
             {
-                XlfOper<LPOPER_TYPE> result(&stackMem);
+                XlfOper result(&stackMem);
                 return result.AsInt(ErrorId);
             }
             else
@@ -718,7 +718,7 @@ namespace xlw { namespace impl {
             int xlret = OperProps::coerce(lpxloper_, xltypeNum, &stackMem);
             if(xlret == xlretSuccess)
             {
-                XlfOper<LPOPER_TYPE> result(&stackMem);
+                XlfOper result(&stackMem);
                 return result.AsULong(ErrorId);
             }
             else
@@ -742,7 +742,7 @@ namespace xlw { namespace impl {
                 int xlret = OperProps::coerce(lpxloper_, xltypeStr, &stackMem);
                 if(xlret == xlretSuccess)
                 {
-                    XlfOper<LPOPER_TYPE> result(&stackMem);
+                    XlfOper result(&stackMem);
                     return result.AsString(ErrorId);
                 }
                 else
@@ -767,7 +767,7 @@ namespace xlw { namespace impl {
                 int xlret = OperProps::coerce(lpxloper_, xltypeStr, &stackMem);
                 if(xlret == xlretSuccess)
                 {
-                    XlfOper<LPOPER_TYPE> result(&stackMem);
+                    XlfOper result(&stackMem);
                     return result.AsWstring(ErrorId);
                 }
                 else
@@ -798,7 +798,7 @@ namespace xlw { namespace impl {
             {
                 for(MultiRowType col(0); col < nbCols; ++col)
                 {
-                    XlfOper<LPOPER_TYPE> element(OperProps::getElement(lpxloper_, row, col));
+                    XlfOper element(OperProps::getElement(lpxloper_, row, col));
                     if(policy == XlfOperImpl::RowMajor)
                     {
                         result[row * nbCols + col] = element.AsDouble(ErrorId);
@@ -831,7 +831,7 @@ namespace xlw { namespace impl {
             {
                 for(MultiRowType col(0); col < nbCols; ++col)
                 {
-                    XlfOper<LPOPER_TYPE> element(OperProps::getElement(lpxloper_, row, col));
+                    XlfOper element(OperProps::getElement(lpxloper_, row, col));
                     if(policy == XlfOperImpl::RowMajor)
                     {
                         ArrayTraits<MyArray>::setAt(result, row * nbCols + col, element.AsDouble(ErrorId));
@@ -854,7 +854,7 @@ namespace xlw { namespace impl {
             {
                 for(MultiRowType col(0); col < nbCols; ++col)
                 {
-                    XlfOper<LPOPER_TYPE> element(OperProps::getElement(lpxloper_, row, col));
+                    XlfOper element(OperProps::getElement(lpxloper_, row, col));
                     MatrixTraits<MyMatrix>::setAt(result, row, col, element.AsDouble(ErrorId));
                 }
             }
@@ -881,7 +881,7 @@ namespace xlw { namespace impl {
             {
                 for(MultiRowType col(0); col < nbCols; ++col)
                 {
-                    XlfOper<LPOPER_TYPE> element(OperProps::getElement(lpxloper_, row, col));
+                    XlfOper element(OperProps::getElement(lpxloper_, row, col));
                     if(element.IsNumber())
                     {
                         result(row, col) = element.AsDouble(ErrorId);
@@ -921,7 +921,7 @@ namespace xlw { namespace impl {
         //! \name Set the value of the underlying reference
         //@{
         //! Set the underlying XLOPER * to lpxloper.
-        void Set(LPOPER_TYPE lpxloper)
+        void Set(LPXLOPER12 lpxloper)
         {
             OperProps::copy(lpxloper, lpxloper_);
         }
@@ -972,22 +972,22 @@ namespace xlw { namespace impl {
         }
         void Set(const CellMatrix& cells)
         {
-            XlfOper<LPOPER_TYPE> temp(cells);
+            XlfOper temp(cells);
             std::swap(temp, *this);
         }
         void Set(const MyMatrix& matrix)
         {
-            XlfOper<LPOPER_TYPE> temp(matrix);
+            XlfOper temp(matrix);
             std::swap(temp, *this);
         }
         void Set(const MyArray& values)
         {
-            XlfOper<LPOPER_TYPE> temp(values);
+            XlfOper temp(values);
             std::swap(temp, *this);
         }
         void Set(const XlfRef& range)
         {
-            XlfOper<LPOPER_TYPE> temp(range);
+            XlfOper temp(range);
             std::swap(temp, *this);
         }
         //! Set to an error code
@@ -1000,70 +1000,70 @@ namespace xlw { namespace impl {
         //! \name Equality operators
         //@{
         //! equals operator from same type
-        XlfOper<LPOPER_TYPE>& operator=(const XlfOper<LPOPER_TYPE>& rhs)
+        XlfOper& operator=(const XlfOper& rhs)
         {
             OperProps::copy(rhs.lpxloper_, lpxloper_);
             return *this;
         }
 
         //! equals operator from a pointer to the same type
-        XlfOper<LPOPER_TYPE>& operator=(const LPOPER_TYPE rhs)
+        XlfOper& operator=(const LPXLOPER12 rhs)
         {
             OperProps::copy(rhs, lpxloper_);
             return *this;
         }
 
         //! equals operator from double
-        XlfOper<LPOPER_TYPE>& operator=(double rhs)
+        XlfOper& operator=(double rhs)
         {
             OperProps::setDouble(lpxloper_, rhs);
             return *this;
         }
 
         //! equals operator from bool
-        XlfOper<LPOPER_TYPE>& operator=(bool rhs)
+        XlfOper& operator=(bool rhs)
         {
             OperProps::setBool(lpxloper_, rhs);
             return *this;
         }
 
         //! equals operator from int
-        XlfOper<LPOPER_TYPE>& operator=(int rhs)
+        XlfOper& operator=(int rhs)
         {
             OperProps::setInt(lpxloper_, rhs);
             return *this;
         }
 
         //! equals operator from unsigned long
-        XlfOper<LPOPER_TYPE>& operator=(unsigned long rhs)
+        XlfOper& operator=(unsigned long rhs)
         {
             OperProps::setDouble(lpxloper_, static_cast<double>(rhs));
             return *this;
         }
 
         //! equals operator from string
-        XlfOper<LPOPER_TYPE>& operator=(const std::string& rhs)
+        XlfOper& operator=(const std::string& rhs)
         {
             OperProps::setString(lpxloper_, rhs);
             return *this;
         }
 
         //! equals operator from wide string
-        XlfOper<LPOPER_TYPE>& operator=(const std::wstring& rhs)
+        XlfOper& operator=(const std::wstring& rhs)
         {
             OperProps::setWString(lpxloper_, rhs);
             return *this;
         }
 
         //! equals operator from c string
-        XlfOper<LPOPER_TYPE>& operator=(const char* rhs)
+        XlfOper& operator=(const char* rhs)
         {
             OperProps::setString(lpxloper_, rhs);
             return *this;
         }
 
         //! equals operator from wide c string
-        XlfOper<LPOPER_TYPE>& operator=(const wchar_t* rhs)
+        XlfOper& operator=(const wchar_t* rhs)
         {
             OperProps::setWString(lpxloper_, rhs);
             return *this;
@@ -1071,7 +1071,7 @@ namespace xlw { namespace impl {
         //@}
     };
 
-} }
+} 
 
-#endif
+#endif //XlfOper_HEADER_GUARD
 

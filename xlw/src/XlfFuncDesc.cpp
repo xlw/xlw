@@ -27,7 +27,7 @@
 
 #include <xlw/XlfFuncDesc.h>
 #include <xlw/XlfException.h>
-#include <xlw/XlfOper12.h>
+#include <xlw/XlfOper.h>
 #include <algorithm>
 
 /*!
@@ -180,37 +180,37 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
         functionName += "Sync";
     }
 
-    (*px++) = XlfOper12(dllName);
-    (*px++) = XlfOper12(functionName);
-    (*px++) = XlfOper12(args);
-    (*px++) = XlfOper12(GetAlias());
-    (*px++) = XlfOper12(argnames);
-    (*px++) = XlfOper12(mode_);
-    (*px++) = XlfOper12(impl_->category_);
-    (*px++) = XlfOper12(""); // shortcut
+    (*px++) = XlfOper(dllName);
+    (*px++) = XlfOper(functionName);
+    (*px++) = XlfOper(args);
+    (*px++) = XlfOper(GetAlias());
+    (*px++) = XlfOper(argnames);
+    (*px++) = XlfOper(mode_);
+    (*px++) = XlfOper(impl_->category_);
+    (*px++) = XlfOper(""); // shortcut
     // use best help context
     if(!helpID_.empty() && helpID_ != "auto")
     {
-        (*px++) = XlfOper12(helpID_);
+        (*px++) = XlfOper(helpID_);
     }
     else
     {
-        (*px++) = XlfOper12(suggestedHelpId); 
+        (*px++) = XlfOper(suggestedHelpId); 
     }
-    (*px++) = XlfOper12(GetComment());
+    (*px++) = XlfOper(GetComment());
     int counter(0);
     for (it = arguments.begin(); it != arguments.end(); ++it)
     {
         ++counter;
         if(counter < nbargs)
         {
-            (*px++) = XlfOper12((*it).GetComment());
+            (*px++) = XlfOper((*it).GetComment());
         }
         else
         {
             // add dot space to last comment to work around known excel bug
             // see http://msdn.microsoft.com/en-us/library/bb687841.aspx
-            (*px++) = XlfOper12((*it).GetComment() + ". ");
+            (*px++) = XlfOper((*it).GetComment() + ". ");
         }
     }
 
@@ -227,7 +227,7 @@ int xlw::XlfFuncDesc::RegisterAs(const std::string& dllName, const std::string& 
         nbargs = std::min(nbargs, 20);
     }
 
-    XlfOper12 res;
+    XlfOper res;
     int err = XlfExcel::Instance().Call12v(xlfRegister, res, 10 + nbargs, &argArray[0]);
     if(err == xlretSuccess && res.IsNumber())
     {

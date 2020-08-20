@@ -19,7 +19,7 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 
 #include <xlw/XlfServices.h>
 #include <xlw/XlfExcel.h>
-#include <xlw/XlfOper12.h>
+#include <xlw/XlfOper.h>
 #include <string>
 #include <cstdio>
 #include <stdexcept>
@@ -252,7 +252,7 @@ namespace xlw
     IDSHEET Information_t::GetCurrentSheetId()
     {
 
-        XlfOper12 result;
+        XlfOper result;
         int err = XlfExcel::Instance().Call12v(xlSheetId, (LPXLFOPER)&result, 0, 0);
         if(err != xlretSuccess)
         {

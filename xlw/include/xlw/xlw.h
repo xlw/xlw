@@ -31,7 +31,7 @@
 #include <xlw/XlfArgDescList.h>
 #include <xlw/XlfCmdDesc.h>
 #include <xlw/XlfFuncDesc.h>
-#include <xlw/XlfOper12.h>
+#include <xlw/XlfOper.h>
 #include <xlw/XlfRef.h>
 #include <xlw/CellMatrix.h>
 #include <xlw/XlFunctionRegistration.h>
