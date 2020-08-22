@@ -81,4 +81,13 @@ jobs:
           token:  ${{ secrets.GITHUB_TOKEN }}       
       - name: Push Nuget to Nuget.org
         run: dotnet nuget push *.nupkg --api-key ${{ secrets.XLWNUGET }} --source https://api.nuget.org/v3/index.json
-      
+  Push2Feedz:
+    runs-on: windows-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease'  || github.ref ==  'refs/heads/master' 
+    steps:   
+      - uses: actions/download-artifact@v2
+        with:
+            name: nuget-artifact
+      - name: Push Nuget to f.feedz.io
+        run: dotnet nuget push *.nupkg --api-key ${{ secrets.FEEDZIO }} --source https://f.feedz.io/xlw/xlw/nuget

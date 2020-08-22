@@ -21,7 +21,8 @@
       <XLWVersion>$(BaseVersion.Replace('.','_'))</XLWVersion>
       <Version>0.0.0-DEV$([System.DateTime]::Now.ToString(MMddHHmm))</Version>
       <Version   Condition=" '$(GITHUB_REF)' == 'refs/heads/release' and '$(CI)' == 'true' ">$(BaseVersion)</Version>
-      <Version   Condition=" '$(GITHUB_REF)' == 'refs/heads/prerelease' and '$(CI)' == 'true' ">$(BaseVersion)-DEV$(GITHUB_SHA.Substring(0,4))</Version>
+      <Version   Condition=" '$(GITHUB_REF)' == 'refs/heads/prerelease' and '$(CI)' == 'true' ">$(BaseVersion)-rc</Version>
+      <Version   Condition=" '$(GITHUB_REF)' == 'refs/heads/master' and '$(CI)' == 'true' ">$(BaseVersion)-DEV$(GITHUB_SHA.Substring(0,4))</Version>
 
       <VersionPropsContent>
 <![CDATA[
