@@ -135,7 +135,7 @@ namespace xlw {
                     rows = 1048576;
                 }
 
-                oper->val.array.lparray = TempMemory::GetMemory<XLOPER12>(rows * cols);
+                oper->val.array.lparray = TempMemory::GetMemory<XLOPER12>((size_t)rows * (size_t)cols);
                 oper->val.array.rows = rows;
                 oper->val.array.columns = cols;
                 oper->xltype = xltypeMulti;
@@ -342,8 +342,8 @@ namespace xlw {
                 case xltypeMulti:
                     // need to do a deep copy of each element
                     toOper->xltype = xltypeMulti;
-                    toOper->val.array.lparray = TempMemory::GetMemoryUsingNew<XLOPER12>(fromOper->val.array.rows * fromOper->val.array.columns);
-                    for(size_t item(0) ; item < (size_t)(fromOper->val.array.rows * fromOper->val.array.columns); ++item)
+                    toOper->val.array.lparray = TempMemory::GetMemoryUsingNew<XLOPER12>((size_t)fromOper->val.array.rows * (size_t)fromOper->val.array.columns);
+                    for(size_t item(0) ; item < ((size_t)fromOper->val.array.rows * (size_t)fromOper->val.array.columns); ++item)
                     {
                         copyUsingNew(toOper->val.array.lparray + item, toOper->val.array.lparray + item);
                     }

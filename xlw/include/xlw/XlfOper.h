@@ -1070,7 +1070,7 @@ namespace xlw {
         }
         //@}
     };
-
+    typedef XlfOper XlfOper12;
 } 
 
 #endif //XlfOper_HEADER_GUARD
