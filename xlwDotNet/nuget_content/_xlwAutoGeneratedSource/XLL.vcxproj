@@ -66,7 +66,7 @@
     <TargetExt>.xll</TargetExt>
     <OutDir>..\$(OutputPath)</OutDir>
     <IntDir>..\obj\$(Configuration)\$(Platform)\$(XLWTF)\</IntDir>
-    <TargetName>xlw$(XLLNAME)</TargetName>
+    <TargetName>$(XLLNAME)</TargetName>
     <AssemblyName>$(TargetName)</AssemblyName>
   </PropertyGroup>
   <PropertyGroup>
@@ -81,12 +81,12 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(XLWROOT)\native\include;$(XLWROOT)\mixed\include\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(XLWROOT)\mixed\lib\$(Platform)\Debug\$(XLWTF)</AdditionalUsingDirectories>
-      <ForcedUsingFiles>xlwDotNet-vc142-mt-gd-$(XLWVersion).dll;$(OutDir)$(XLLNAME).dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>xlwDotNet-vc142-mt-gd-$(XLWVersion).dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)xlw$(XLLNAME).xll</OutputFile>
+      <OutputFile>$(OutDir)$(XLLNAME).xll</OutputFile>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>xlw-vc142-mt-gd-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(XLWROOT)\native\lib\$(Platform)</AdditionalLibraryDirectories>
@@ -108,11 +108,11 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(XLWROOT)\native\include;$(XLWROOT)\mixed\include\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(XLWROOT)\mixed\lib\$(Platform)\Release\$(XLWTF)</AdditionalUsingDirectories>
-      <ForcedUsingFiles>xlwDotNet-vc142-mt-$(XLWVersion).dll;$(OutDir)$(XLLNAME).dll;%(ForcedUsingFiles)</ForcedUsingFiles>
+      <ForcedUsingFiles>xlwDotNet-vc142-mt-$(XLWVersion).dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)xlw$(XLLNAME).xll</OutputFile>
+      <OutputFile>$(OutDir)$(XLLNAME).xll</OutputFile>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
