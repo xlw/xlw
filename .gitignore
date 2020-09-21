@@ -27,6 +27,7 @@
 /xlwDotNet/xlwDotNet/*.user
 /xlwDotNet/Builder/bin
 /xlwDotNet/Builder/obj
+docs
 obj
 lib
 *.nupkg
