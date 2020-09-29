@@ -115,8 +115,9 @@ namespace xlw
         XlfOper InputArray(const std::string& message, const std::string& title);
         /** Display a Dialog Box
             Uses array in the format required for the Xlm DIALOG.BOX function.
-            For more details on this function see MacroFun.hlp 
-            http://support.microsoft.com/kb/128185
+            For more details on this function see
+            https://xlladdins.github.io/Excel4Macros/dialog.box.html
+            (note that DIALOG.BOX is not supported in 64-bit Excel).
             The value in the dialog items are returned in the 7th column
         */
         XlfOper ShowDialogBox(const XlfOper& dialogData);
