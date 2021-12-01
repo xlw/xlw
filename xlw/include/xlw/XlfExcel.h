@@ -1,6 +1,6 @@
 
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 JÃ©rÃ´me Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
  Copyright (C) 2011 John Adcock
 
@@ -97,7 +97,7 @@ namespace xlw {
         //! Wrap the Call function for Excel version 12 functions that take no parameters
         int Call(int xlfn, LPXLOPER12 pxResult, int count) const 
         {
-            return Call(xlfn, pxResult, count);
+            return Call12(xlfn, pxResult, count);
         }
         int Call12(int xlfn, LPXLOPER12 pxResult, int count) const;
 
