@@ -37,7 +37,7 @@ namespace Example
         [ExcelOnClose]
         public static void MyClose()
         {
-            File.WriteAllText(@"C:\WorkSpace\xlw\xlwDotNet\DevAndTestProject\VS16\Addin\Debug\x64\net5.0\bye.txt", "BYE BYE");
+            File.WriteAllText(@"C:\WorkSpace\xlw\xlwDotNet\DevAndTestProject\VS16\Addin\Debug\x64\net6.0\bye.txt", "BYE BYE");
 
         }
 

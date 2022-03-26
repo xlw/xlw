@@ -17,15 +17,18 @@ jobs:
       - name: Setup .NET 6.0
         uses: actions/setup-dotnet@v1
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.0.1
+        uses: microsoft/setup-msbuild@v1.1
       - name: Setup Nuget.exe
-        uses: warrenbuckley/Setup-Nuget@v1
-      - name: Run Natic NugetPackager
+        uses: nuget/setup-nuget@v1
+      - name: Run Native NugetPackager
         run : |
               msbuild xlw\NugetPackager\NugetPackager.csproj
         id  : Build_Package
       - name: Run .NET NugetPackager
         run : |
+              dotnet restore xlwDotNet\Builder\Builder.csproj
+              dotnet restore xlwDotNet\DotNetInterfaceGenerator\DotNetInterfaceGenerator.csproj
+              dotnet restore xlwDotNet\NugetPackager\NugetPackager.csproj
               msbuild xlwDotNet\NugetPackager\NugetPackager.csproj
       - uses: actions/upload-artifact@v2
         with:

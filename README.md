@@ -4,6 +4,7 @@
 |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=dev)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=master) |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=prerelease)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=release)|
 
 
+# **This project is looking for developers to maintain and take the project forward** #
 
 #### [xlw nuget](https://www.nuget.org/packages/xlw/)   
 #### [xlwDotNet nuget](https://www.nuget.org/packages/xlwDotNet/)
@@ -32,7 +33,7 @@ xlw is being updated.
 This repo was originally forked from [John's XLW repo](https://github.com/JohnAdders/xlw) which itself was imported from it's original home at [SourceForge](https://sourceforge.net/projects/xlw/)
 
 
-This version will only support Visual Studio 2019 for now. Support for all previous Visual Studio versions has been dropped. All support for gcc has also been dropped.
+This version will only support Visual Studio 2020 for now. Support for all previous Visual Studio versions has been dropped. All support for gcc has also been dropped.
 
 Support is being added for building xlls against .NET 6 & .NET Framework 4.7.2
 
@@ -56,7 +57,7 @@ To build a C++ xll :
 ---
 
 ## xlwDotNet
-Only VS2019 is supported right now. 
+Only VS2020 is supported right now. 
 To build a C# xll :
 1. Create a new .NET Core library project. 
 2. Open the .csproj file with a text editor and set the  `TargetFramework` and  `Platform` for example

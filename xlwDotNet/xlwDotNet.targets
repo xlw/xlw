@@ -11,8 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="$(XLWDOTNETBIN)\xlwDotNet-vc142-mt$(gd)-$(XLWVersion).dll">
-      <HintPath>$(XLWDOTNETBIN)\xlwDotNet-vc142-mt$(gd)-$(XLWVersion).dll</HintPath>
+    <Reference Include="$(XLWDOTNETBIN)\xlwDotNet-vc143-mt$(gd)-$(XLWVersion).dll">
+      <HintPath>$(XLWDOTNETBIN)\xlwDotNet-vc143-mt$(gd)-$(XLWVersion).dll</HintPath>
     </Reference>
   </ItemGroup>
 
