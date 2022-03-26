@@ -33,26 +33,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
@@ -78,17 +78,17 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\lib\$(Platform)\</OutDir>
     <IntDir>..\obj\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>xlw-vc142-mt-gd-$(XLWVersion)</TargetName>
+    <TargetName>xlw-vc143-mt-gd-$(XLWVersion)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\lib\$(Platform)\</OutDir>
     <IntDir>..\obj\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>xlw-vc142-mt-$(XLWVersion)</TargetName>
+    <TargetName>xlw-vc143-mt-$(XLWVersion)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>xlw-vc142-mt-gd-$(XLWVersion)</TargetName>
+    <TargetName>xlw-vc143-mt-gd-$(XLWVersion)</TargetName>
     <OutDir>..\lib\$(Platform)\</OutDir>
     <IntDir>..\obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -96,7 +96,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\lib\$(Platform)\</OutDir>
     <IntDir>..\obj\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>xlw-vc142-mt-$(XLWVersion)</TargetName>
+    <TargetName>xlw-vc143-mt-$(XLWVersion)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -113,7 +113,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <OutputFile>$(OutDir)\xlw-vc142-mt-gd-$(XLWVersion).lib</OutputFile>
+      <OutputFile>$(OutDir)\xlw-vc143-mt-gd-$(XLWVersion).lib</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,7 +134,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <OutputFile>$(OutDir)\xlw-vc142-mt-$(XLWVersion).lib</OutputFile>
+      <OutputFile>$(OutDir)\xlw-vc143-mt-$(XLWVersion).lib</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,7 +152,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <OutputFile>$(OutDir)\xlw-vc142-mt-gd-$(XLWVersion).lib</OutputFile>
+      <OutputFile>$(OutDir)\xlw-vc143-mt-gd-$(XLWVersion).lib</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -173,7 +173,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <OutputFile>$(OutDir)\xlw-vc142-mt-$(XLWVersion).lib</OutputFile>
+      <OutputFile>$(OutDir)\xlw-vc143-mt-$(XLWVersion).lib</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

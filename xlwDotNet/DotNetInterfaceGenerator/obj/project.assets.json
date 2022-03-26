@@ -1,27 +1,21 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {},
-    ".NETCoreApp,Version=v3.1/win10-x64": {},
-    ".NETCoreApp,Version=v3.1/win10-x86": {},
-    ".NETCoreApp,Version=v3.1/win7-x64": {},
-    ".NETCoreApp,Version=v3.1/win7-x86": {},
-    ".NETCoreApp,Version=v5.0": {},
-    ".NETCoreApp,Version=v5.0/win10-x64": {},
-    ".NETCoreApp,Version=v5.0/win10-x86": {},
-    ".NETCoreApp,Version=v5.0/win7-x64": {},
-    ".NETCoreApp,Version=v5.0/win7-x86": {},
     ".NETFramework,Version=v4.7.2": {},
     ".NETFramework,Version=v4.7.2/win10-x64": {},
     ".NETFramework,Version=v4.7.2/win10-x86": {},
     ".NETFramework,Version=v4.7.2/win7-x64": {},
-    ".NETFramework,Version=v4.7.2/win7-x86": {}
+    ".NETFramework,Version=v4.7.2/win7-x86": {},
+    "net6.0": {},
+    "net6.0/win10-x64": {},
+    "net6.0/win10-x86": {},
+    "net6.0/win7-x64": {},
+    "net6.0/win7-x86": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [],
-    ".NETCoreApp,Version=v5.0": [],
-    ".NETFramework,Version=v4.7.2": []
+    ".NETFramework,Version=v4.7.2": [],
+    "net6.0": []
   },
   "packageFolders": {
     "C:\\Users\\narin\\.nuget\\packages\\": {}
@@ -29,11 +23,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\WorkSpace\\xlw\\xlwDotNet\\DotNetInterfaceGenerator\\DotNetInterfaceGenerator.csproj",
+      "projectUniqueName": "D:\\github\\xlw\\xlwDotNet\\DotNetInterfaceGenerator\\DotNetInterfaceGenerator.csproj",
       "projectName": "DotNetInterfaceGenerator",
-      "projectPath": "C:\\WorkSpace\\xlw\\xlwDotNet\\DotNetInterfaceGenerator\\DotNetInterfaceGenerator.csproj",
+      "projectPath": "D:\\github\\xlw\\xlwDotNet\\DotNetInterfaceGenerator\\DotNetInterfaceGenerator.csproj",
       "packagesPath": "C:\\Users\\narin\\.nuget\\packages\\",
-      "outputPath": "C:\\WorkSpace\\xlw\\xlwDotNet\\DotNetInterfaceGenerator\\obj\\",
+      "outputPath": "D:\\github\\xlw\\xlwDotNet\\DotNetInterfaceGenerator\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "configFilePaths": [
@@ -42,22 +36,19 @@
       ],
       "originalTargetFrameworks": [
         "net472",
-        "net5.0",
-        "netcoreapp3.1"
+        "net6.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\WorkSpace\\xlw\\nuget_pack": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "projectReferences": {}
-        },
-        "net5.0": {
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {}
         },
         "net472": {
+          "targetAlias": "net472",
           "projectReferences": {}
         }
       },
@@ -68,7 +59,8 @@
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
+      "net6.0": {
+        "targetAlias": "net6.0",
         "imports": [
           "net461",
           "net462",
@@ -82,27 +74,27 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[3.1.2, 3.1.2]"
+            "version": "[6.0.3, 6.0.3]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-            "version": "[3.1.2, 3.1.2]"
+            "version": "[6.0.3, 6.0.3]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[3.1.2, 3.1.2]"
+            "version": "[6.0.3, 6.0.3]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x86",
-            "version": "[3.1.2, 3.1.2]"
+            "version": "[6.0.3, 6.0.3]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[3.1.2, 3.1.2]"
+            "version": "[6.0.3, 6.0.3]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-            "version": "[3.1.2, 3.1.2]"
+            "version": "[6.0.3, 6.0.3]"
           }
         ],
         "frameworkReferences": {
@@ -110,54 +102,11 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.7.20366.6\\RuntimeIdentifierGraph.json"
-      },
-      "net5.0": {
-        "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48"
-        ],
-        "assetTargetFallback": true,
-        "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[5.0.0-preview.7.20365.19, 5.0.0-preview.7.20365.19]"
-          },
-          {
-            "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-            "version": "[5.0.0-preview.7.20365.19, 5.0.0-preview.7.20365.19]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[5.0.0-preview.7.20364.11, 5.0.0-preview.7.20364.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Runtime.win-x86",
-            "version": "[5.0.0-preview.7.20364.11, 5.0.0-preview.7.20364.11]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[5.0.0-preview.7.20366.1, 5.0.0-preview.7.20366.1]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-            "version": "[5.0.0-preview.7.20366.1, 5.0.0-preview.7.20366.1]"
-          }
-        ],
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.7.20366.6\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       },
       "net472": {
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.7.20366.6\\RuntimeIdentifierGraph.json"
+        "targetAlias": "net472",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

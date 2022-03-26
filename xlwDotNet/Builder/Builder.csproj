@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <SolutionDir>$(MSBuildProjectDirectory)\..\</SolutionDir>
-    <TargetFrameworks>net5.0;net472;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net6.0;net472</TargetFrameworks>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>
 

@@ -3,16 +3,16 @@
   <Import Project="$(MSBuildThisFileDirectory)../../xlw.version.props" />
   <PropertyGroup Condition=" '$(BuildConfig)' != 'true' ">
     <CLRSupport>NetCore</CLRSupport>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Configuration>Debug</Configuration>
     <Platform>Win32</Platform>
-    <TF>net5.0</TF>
+    <TF>net6.0</TF>
   </PropertyGroup>
   <PropertyGroup>
     <gd>
     </gd>
     <gd Condition=" '$(Configuration)' == 'Debug' ">-gd</gd>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -76,7 +76,7 @@
     <OutDir>..\lib\$(Platform)\$(Configuration)\$(TF)\</OutDir>
     <IntDir>..\obj\$(Platform)\$(Configuration)\$(TF)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>xlwDotNet-vc142-mt$(gd)-$(XLWVersion)</TargetName>
+    <TargetName>xlwDotNet-vc143-mt$(gd)-$(XLWVersion)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition=" '$(Configuration)'== 'Debug' ">
     <ClCompile>
@@ -86,21 +86,21 @@
       <MinimalRebuild>false</MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;XLWDOTNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ProgramDataBaseFileName>$(IntDir)vc142.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(IntDir)vc143.pdb</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc142-mt-gd-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc143-mt-gd-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../xlw/lib/$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AssemblyDebug>true</AssemblyDebug>
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
-      <OutputFile>$(OutDir)xlwDotNet-vc142-mt-gd-$(XLWVersion).dll</OutputFile>
+      <OutputFile>$(OutDir)xlwDotNet-vc143-mt-gd-$(XLWVersion).dll</OutputFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine Condition=" '$(Platform)' == 'Win32' ">MachineX86</TargetMachine>
       <Version>
@@ -121,13 +121,13 @@
       <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xlw-vc142-mt-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xlw-vc143-mt-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../xlw/lib/$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <ModuleDefinitionFile />
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)xlwDotNet-vc142-mt-$(XLWVersion).dll</OutputFile>
+      <OutputFile>$(OutDir)xlwDotNet-vc143-mt-$(XLWVersion).dll</OutputFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine Condition=" '$(Platform)' == 'Win32' ">MachineX86</TargetMachine>
       <Version>

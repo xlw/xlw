@@ -2,7 +2,7 @@
   <Import Project="$(MSBuildThisFileDirectory)../../xlw.version.props" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net5.0;net472;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net6.0;net472</TargetFrameworks>
     <RuntimeIdentifiers>win10-x64;win10-x86;win7-x64;win7-x86</RuntimeIdentifiers>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>
@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="xlwDotNet-vc142-mt$(gd)-$(XLWVersion).dll">
-      <HintPath>..\lib\$(cplatform)\$(Configuration)\$(TargetFramework)\xlwDotNet-vc142-mt$(gd)-$(XLWVersion).dll</HintPath>
+    <Reference Include="xlwDotNet-vc143-mt$(gd)-$(XLWVersion).dll">
+      <HintPath>..\lib\$(cplatform)\$(Configuration)\$(TargetFramework)\xlwDotNet-vc143-mt$(gd)-$(XLWVersion).dll</HintPath>
     </Reference>
   </ItemGroup>
 

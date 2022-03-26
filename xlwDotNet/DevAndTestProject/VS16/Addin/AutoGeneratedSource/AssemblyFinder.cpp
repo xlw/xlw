@@ -1,6 +1,6 @@
  
 /*
- Copyright (C) 2008 2009 2010 2011 2020 Narinder S Claire
+ Copyright (C) 2008 2009 2010 2011 Narinder S Claire
 
  This file is part of XLWDOTNET, a free-software/open-source C# wrapper of the
  Excel C API - https://xlw.github.io/

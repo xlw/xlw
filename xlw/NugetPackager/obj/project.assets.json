@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\WorkSpace\\xlw\\xlw\\NugetPackager\\NugetPackager.csproj",
+      "projectUniqueName": "D:\\github\\xlw\\xlw\\NugetPackager\\NugetPackager.csproj",
       "projectName": "NugetPackager",
-      "projectPath": "C:\\WorkSpace\\xlw\\xlw\\NugetPackager\\NugetPackager.csproj",
+      "projectPath": "D:\\github\\xlw\\xlw\\NugetPackager\\NugetPackager.csproj",
       "packagesPath": "C:\\Users\\narin\\.nuget\\packages\\",
-      "outputPath": "C:\\WorkSpace\\xlw\\xlw\\NugetPackager\\obj\\",
+      "outputPath": "D:\\github\\xlw\\xlw\\NugetPackager\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\narin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,11 +28,11 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\WorkSpace\\xlw\\nuget_pack": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net472": {
+          "targetAlias": "net472",
           "projectReferences": {}
         }
       },
@@ -44,7 +44,8 @@
     },
     "frameworks": {
       "net472": {
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.7.20366.6\\RuntimeIdentifierGraph.json"
+        "targetAlias": "net472",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
