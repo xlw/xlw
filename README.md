@@ -4,7 +4,10 @@
 |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=dev)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=master) |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=prerelease)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=release)|
 
 
-# **This project is looking for developers to maintain and take the project forward** #
+# *This project is looking for developers to maintain and take the project forward* #
+
+
+
 
 #### [xlw nuget](https://www.nuget.org/packages/xlw/)   
 #### [xlwDotNet nuget](https://www.nuget.org/packages/xlwDotNet/)
@@ -25,9 +28,24 @@ To use CI builds add the following nuget feed:
 ```
 
 
-
-
 # **XLW**
+
+XLW aims to facilitate the development of Excel addins with ease. It attempts to do this by wrapping the old Excel XLL C API in essentially a facade which is simplier to consume hence leaving the developer 
+to focus on the buisness logic. To this end it hides away intricacies of interfacing with the low level Excel C API.
+
+The concept behind XLW's approach is simplicity. There is nothing clever here !
+#### **C++**
+- You write your C++ functions
+- The interface genertor generates the Excel C API bindings from your C++ header files. 
+
+#### **C#**
+- You write your C# functions
+- The Dotnet Interface generator uses reflection to generate C++/CLI bindings for your C#
+- The (C++) interface genertor generates the  Excel C API bindings from your C++/CLI header files
+
+It's really not more complicated than that. Moreover, the process should be very transparent and the entry cost for any developer to modify, update or fix XLW should be extremely low. 
+
+
 xlw is being updated.
 
 This repo was originally forked from [John's XLW repo](https://github.com/JohnAdders/xlw) which itself was imported from it's original home at [SourceForge](https://sourceforge.net/projects/xlw/)
