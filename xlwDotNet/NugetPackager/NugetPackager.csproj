@@ -2,7 +2,7 @@
   <Import Project="$(MSBuildThisFileDirectory)../../xlw.version.props" />
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <SolutionDir>$(MSBuildProjectDirectory)\..\</SolutionDir>
     <GitDirectory>$(MSBuildProjectDirectory)\..\..\</GitDirectory>
     <nuget>nuget.exe</nuget>

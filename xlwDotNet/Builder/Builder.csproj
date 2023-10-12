@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <SolutionDir>$(MSBuildProjectDirectory)\..\</SolutionDir>
-    <TargetFrameworks>net6.0;net472</TargetFrameworks>
+    <TargetFrameworks>net6.0;net48</TargetFrameworks>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>
 
@@ -14,11 +14,11 @@
  
   <Target Name="BuildXLWDotNet" AfterTargets="Build" Condition=" '$(TargetFramework)' != '' ">
     <Message Importance="high" Text="BuildXLWDotNet" />
-    <MSBuild Condition=" '$(TargetFramework)' != 'net472' " Targets="Build"  Projects="..\src\xlwDotNet.vcxproj" 
+    <MSBuild Condition=" '$(TargetFramework)' != 'net48' " Targets="Build"  Projects="..\src\xlwDotNet.vcxproj" 
              Properties="TF=$(TargetFramework);BuildConfig=true;CLRSupport=NetCore;TargetFramework=$(TargetFramework);Platform=$(cplatform);Configuration=$(Configuration)"></MSBuild>
     
-    <MSBuild Condition=" '$(TargetFramework)' == 'net472' " Targets="Build"  Projects="..\src\xlwDotNet.vcxproj" 
-             Properties="TF=$(TargetFramework);BuildConfig=true;CLRSupport=true;TargetFrameworkVersion=4.7.2;Platform=$(cplatform);Configuration=$(Configuration)"></MSBuild>
+    <MSBuild Condition=" '$(TargetFramework)' == 'net48' " Targets="Build"  Projects="..\src\xlwDotNet.vcxproj" 
+             Properties="TF=$(TargetFramework);BuildConfig=true;CLRSupport=true;TargetFrameworkVersion=4.8;Platform=$(cplatform);Configuration=$(Configuration)"></MSBuild>
     
     
     <MSBuild  Targets="Build"  Projects="..\DotNetInterfaceGenerator\DotNetInterfaceGenerator.csproj" 
