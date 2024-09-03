@@ -39,7 +39,7 @@ jobs:
     needs: [build]
     if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease'
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
             name: nuget-artifact
       - name: Tag commit
@@ -69,7 +69,7 @@ jobs:
     needs: [build]
     if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease'  || github.ref ==  'refs/heads/master' 
     steps:   
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         with:
             name: nuget-artifact
       - name: Push Nuget to f.feedz.io
