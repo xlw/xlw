@@ -1,0 +1,14 @@
+[package]
+name = "rust_xlw"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rust_xlw"
+crate-type = ["cdylib"] # Critical for XLLs
+
+[dependencies]
+lazy_static = "1.4.0"
+rust_xlw_macros = { path = "../rust_xlw_macros" }
+# We might need winapi or windows-sys later for FFI types like HWND, HINSTANCE
+# but not strictly for XLOPER12 itself.
