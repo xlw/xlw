@@ -13,9 +13,9 @@ jobs:
         output1: ${{ steps.Build_Package.outputs.version }}
     if: github.ref == 'refs/heads/release' || github.ref == 'refs/heads/prerelease' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/2026-update'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup .NET 11 SDK
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 11.0.x
           dotnet-quality: preview

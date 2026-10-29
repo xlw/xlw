@@ -107,6 +107,7 @@ try {
 
     Write-Host "Step 3/4: restore the .NET 11 projects."
     Invoke-CheckedCommand "dotnet" @("restore", "xlwDotNet\Builder\Builder.csproj")
+    Invoke-CheckedCommand "dotnet" @("restore", "xlwDotNet\Attributes\Attributes.csproj")
     Invoke-CheckedCommand "dotnet" @("restore", "xlwDotNet\DotNetInterfaceGenerator\DotNetInterfaceGenerator.csproj")
     Invoke-CheckedCommand "dotnet" @("restore", "xlwDotNet\NugetPackager\NugetPackager.csproj")
 
