@@ -1,6 +1,6 @@
 
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jï¿½rï¿½me Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
  Copyright (C) 2009 2011 Narinder S Claire
  Copyright (C) 2011 John Adcock
@@ -21,7 +21,9 @@
 #ifndef INC_TempMemory_H
 #define INC_TempMemory_H
 #include<memory>
-#include<xlw/XlfWindows.h>
+#include <limits>
+#include <new>
+#include <xlw/XlfWindows.h>
 /*!
 \file TempMemory.h
 \brief Declares class TempMemory.
@@ -57,6 +59,8 @@ namespace xlw {
         template<typename TYPE>
         static TYPE* GetMemory(size_t numItems = 1)
         {
+            if (numItems > (std::numeric_limits<size_t>::max)() / sizeof(TYPE))
+                throw std::bad_array_new_length();
             return reinterpret_cast<TYPE*>(GetBytes(numItems * sizeof(TYPE)));
         }
 

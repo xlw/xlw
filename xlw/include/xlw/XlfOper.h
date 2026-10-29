@@ -808,7 +808,7 @@ namespace xlw {
                 throw XlfNeverGetHere();
             }
 
-            result.resize(nbRows * nbCols);
+            result.resize(OperProps::getArrayElementCount(nbRows, nbCols));
 
             for(MultiRowType row(0); row < nbRows; ++row)
             {
@@ -817,11 +817,13 @@ namespace xlw {
                     XlfOper element(OperProps::getElement(lpxloper_, row, col));
                     if(policy == XlfOperImpl::RowMajor)
                     {
-                        result[row * nbCols + col] = element.AsDouble(ErrorId);
+                        result[static_cast<size_t>(row) * static_cast<size_t>(nbCols) +
+                               static_cast<size_t>(col)] = element.AsDouble(ErrorId);
                     }
                     else
                     {
-                        result[col * nbRows + row] = element.AsDouble(ErrorId);
+                        result[static_cast<size_t>(col) * static_cast<size_t>(nbRows) +
+                               static_cast<size_t>(row)] = element.AsDouble(ErrorId);
                     }
                 }
             }
@@ -841,7 +843,7 @@ namespace xlw {
                 throw XlfNeverGetHere();
             }
 
-            MyArray result(ArrayTraits<MyArray>::create(nbRows * nbCols));
+            MyArray result(ArrayTraits<MyArray>::create(OperProps::getArrayElementCount(nbRows, nbCols)));
 
             for(MultiRowType row(0); row < nbRows; ++row)
             {
@@ -850,11 +852,15 @@ namespace xlw {
                     XlfOper element(OperProps::getElement(lpxloper_, row, col));
                     if(policy == XlfOperImpl::RowMajor)
                     {
-                        ArrayTraits<MyArray>::setAt(result, row * nbCols + col, element.AsDouble(ErrorId));
+                        ArrayTraits<MyArray>::setAt(result,
+                            static_cast<size_t>(row) * static_cast<size_t>(nbCols) +
+                            static_cast<size_t>(col), element.AsDouble(ErrorId));
                     }
                     else
                     {
-                        ArrayTraits<MyArray>::setAt(result, col * nbRows + row, element.AsDouble(ErrorId));
+                        ArrayTraits<MyArray>::setAt(result,
+                            static_cast<size_t>(col) * static_cast<size_t>(nbRows) +
+                            static_cast<size_t>(row), element.AsDouble(ErrorId));
                     }
                 }
             }

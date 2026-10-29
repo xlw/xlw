@@ -165,11 +165,20 @@ namespace xlw {
         if (freeList_.empty())
             PushNewBuffer(8192);
         XlfBuffer& buffer = freeList_.front();
-        if (offset_ + bytes > buffer.size) {
+        if (bytes > (std::numeric_limits<size_t>::max)() - offset_)
+            throw std::bad_alloc();
+        size_t required = offset_ + bytes;
+        if (required > buffer.size) {
             // if we need more space allocate either 50% more than last time
             // or enough to hold all the of data used on previous buffer and this data and a bit of spare
             // space, whichever is greater
-            PushNewBuffer(std::max((buffer.size * 3) / 2, (offset_ + bytes) + 4096));
+            size_t growth = buffer.size > (std::numeric_limits<size_t>::max)() - buffer.size / 2
+                ? (std::numeric_limits<size_t>::max)()
+                : buffer.size + buffer.size / 2;
+            size_t minimum = required > (std::numeric_limits<size_t>::max)() - 4096
+                ? required
+                : required + 4096;
+            PushNewBuffer(std::max(growth, minimum));
             // buffer no longer valid
             memset(freeList_.front().start.get(), 0, bytes);
             offset_ = bytes;

@@ -18,6 +18,7 @@
 #include <xlw/XlfExcel.h>
 #include <xlw/XlfRef.h>
 #include <xlw/XlfException.h>
+#include <limits>
 #include <string>
 
 
@@ -35,6 +36,20 @@ namespace xlw {
         typedef COL MultiColType;
         typedef DWORD XlTypeType;
         typedef XLOPER12 OperType;
+
+        static size_t getArrayElementCount(RW rows, COL columns)
+        {
+            if (rows < 0 || columns < 0)
+                throw std::length_error("Negative XLOPER array dimensions");
+
+            size_t rowCount = static_cast<size_t>(rows);
+            size_t columnCount = static_cast<size_t>(columns);
+            size_t maxCount = (std::numeric_limits<size_t>::max)() / sizeof(XLOPER12);
+            if (columnCount != 0 && rowCount > maxCount / columnCount)
+                throw std::length_error("XLOPER array dimensions exceed available memory");
+
+            return rowCount * columnCount;
+        }
 
         static XlTypeType getXlType(LPXLOPER12 oper)
         {
@@ -135,7 +150,7 @@ namespace xlw {
                     rows = 1048576;
                 }
 
-                oper->val.array.lparray = TempMemory::GetMemory<XLOPER12>((size_t)rows * (size_t)cols);
+                oper->val.array.lparray = TempMemory::GetMemory<XLOPER12>(getArrayElementCount(rows, cols));
                 oper->val.array.rows = rows;
                 oper->val.array.columns = cols;
                 oper->xltype = xltypeMulti;
@@ -197,7 +212,9 @@ namespace xlw {
             switch(oper->xltype & 0xFFF)
             {
             case xltypeMulti:
-                return oper->val.array.lparray + row * oper->val.array.columns + column;
+                return oper->val.array.lparray +
+                    static_cast<size_t>(row) * static_cast<size_t>(oper->val.array.columns) +
+                    static_cast<size_t>(column);
                 break;
 
             case xltypeSRef:
@@ -307,16 +324,19 @@ namespace xlw {
             switch(fromOper->xltype & 0xFFF)
             {
                 case xltypeMulti:
+                {
                     // need to do a deep copy of each element
                     toOper->xltype = xltypeMulti;
-                    toOper->val.array.lparray = TempMemory::GetMemory<XLOPER12>(fromOper->val.array.rows * fromOper->val.array.columns);
-                    for(size_t item(0) ; item < (size_t)(fromOper->val.array.rows * fromOper->val.array.columns); ++item)
+                    size_t elementCount = getArrayElementCount(fromOper->val.array.rows, fromOper->val.array.columns);
+                    toOper->val.array.lparray = TempMemory::GetMemory<XLOPER12>(elementCount);
+                    for(size_t item(0) ; item < elementCount; ++item)
                     {
                         copy(fromOper->val.array.lparray + item, toOper->val.array.lparray + item);
                     }
                     toOper->val.array.rows = fromOper->val.array.rows;
                     toOper->val.array.columns = fromOper->val.array.columns;
                     break;
+                }
                 case xltypeRef:
                     {
                         toOper->xltype = xltypeRef;
@@ -347,16 +367,19 @@ namespace xlw {
             switch(fromOper->xltype & 0xFFF)
             {
                 case xltypeMulti:
+                {
                     // need to do a deep copy of each element
                     toOper->xltype = xltypeMulti;
-                    toOper->val.array.lparray = TempMemory::GetMemoryUsingNew<XLOPER12>((size_t)fromOper->val.array.rows * (size_t)fromOper->val.array.columns);
-                    for(size_t item(0) ; item < ((size_t)fromOper->val.array.rows * (size_t)fromOper->val.array.columns); ++item)
+                    size_t elementCount = getArrayElementCount(fromOper->val.array.rows, fromOper->val.array.columns);
+                    toOper->val.array.lparray = TempMemory::GetMemoryUsingNew<XLOPER12>(elementCount);
+                    for(size_t item(0) ; item < elementCount; ++item)
                     {
                         copyUsingNew(fromOper->val.array.lparray + item, toOper->val.array.lparray + item);
                     }
                     toOper->val.array.rows = fromOper->val.array.rows;
                     toOper->val.array.columns = fromOper->val.array.columns;
                     break;
+                }
                 case xltypeRef:
                     {
                         toOper->xltype = xltypeRef;
@@ -381,7 +404,7 @@ namespace xlw {
             switch(oper->xltype & 0xFFF)
             {
                 case xltypeMulti:
-                    for(size_t item(0) ; item < (size_t)(oper->val.array.rows * oper->val.array.columns); ++item)
+                    for(size_t item(0) ; item < getArrayElementCount(oper->val.array.rows, oper->val.array.columns); ++item)
                     {
                         freeCreatedUsingNew(oper->val.array.lparray + item);
                     }
