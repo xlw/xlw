@@ -368,14 +368,27 @@ namespace xlw {
             {
                 case xltypeMulti:
                 {
-                    // need to do a deep copy of each element
-                    toOper->xltype = xltypeMulti;
                     size_t elementCount = getArrayElementCount(fromOper->val.array.rows, fromOper->val.array.columns);
-                    toOper->val.array.lparray = TempMemory::GetMemoryUsingNew<XLOPER12>(elementCount);
-                    for(size_t item(0) ; item < elementCount; ++item)
+                    XLOPER12* elements = new XLOPER12[elementCount]();
+                    try
                     {
-                        copyUsingNew(fromOper->val.array.lparray + item, toOper->val.array.lparray + item);
+                        for(size_t item(0) ; item < elementCount; ++item)
+                        {
+                            copyUsingNew(fromOper->val.array.lparray + item, elements + item);
+                        }
                     }
+                    catch (...)
+                    {
+                        for(size_t item(0) ; item < elementCount; ++item)
+                        {
+                            freeCreatedUsingNew(elements + item);
+                        }
+                        TempMemory::FreeMemoryCreatedUsingNew(elements);
+                        throw;
+                    }
+
+                    toOper->xltype = xltypeMulti;
+                    toOper->val.array.lparray = elements;
                     toOper->val.array.rows = fromOper->val.array.rows;
                     toOper->val.array.columns = fromOper->val.array.columns;
                     break;
@@ -392,6 +405,9 @@ namespace xlw {
                 case xltypeStr:
                     toOper->xltype = xltypeStr;
                     toOper->val.str = PascalStringConversions::WPascalStringCopyUsingNew(fromOper->val.str);
+                    break;
+                case xltypeBigData:
+                    THROW_XLW("can't copy a big data oper");
                     break;
                 default:
                     // just straight copy is fine
