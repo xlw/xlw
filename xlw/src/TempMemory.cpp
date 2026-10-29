@@ -1,6 +1,6 @@
 // $Id$
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jï¿½rï¿½me Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
  Copyright (C) 2009 2011 2020 Narinder S Claire
  Copyright (C) 2011 John Adcock
@@ -134,8 +134,16 @@ namespace xlw {
             // create the new memory object
             TempMemoryPtr smartThreadStorage(new TempMemory);
             threadStorage = smartThreadStorage.get();
-            tls.SetValue(threadStorage);
             tempMemoryInstances.push_back(smartThreadStorage);
+            try
+            {
+                tls.SetValue(threadStorage);
+            }
+            catch (...)
+            {
+                tempMemoryInstances.pop_back();
+                throw;
+            }
         }
         return threadStorage;
     }

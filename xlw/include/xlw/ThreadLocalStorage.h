@@ -55,7 +55,10 @@ public:
     }
     void SetValue(T* newValue)
     {
-        TlsSetValue(m_tlsIndex, reinterpret_cast<void*>(newValue));
+        if (!TlsSetValue(m_tlsIndex, reinterpret_cast<void*>(newValue)))
+        {
+            THROW_XLW("Could not set TLS value");
+        }
     }
 
 private:
