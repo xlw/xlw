@@ -17,6 +17,7 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 using namespace System;
+#include <memory>
 #include<xlw/xlw.h>
 #include<xlw/managedString.h>
 #include"managedCellMatrix.h"
@@ -46,8 +47,10 @@ namespace xlwDotNet
             xlw::XlfExcel::Instance();
             xlw::XlfOper resultOper;
             xlw::XlfExcel::Instance().Call12(xlfRtd, resultOper, 3, xlw::XlfOper(CLR2CPP(rtdServer)), xlw::XlfOper(), xlw::XlfOper(topicId));
-            xlw::CellMatrix* resultMatrix(new xlw::CellMatrix(resultOper.AsCellMatrix()));
-            return gcnew xlwTypes::CellMatrix((IntPtr)resultMatrix, true);
+            std::unique_ptr<xlw::CellMatrix> resultMatrix(new xlw::CellMatrix(resultOper.AsCellMatrix()));
+            xlwTypes::CellMatrix^ result = gcnew xlwTypes::CellMatrix((IntPtr)resultMatrix.get(), true);
+            resultMatrix.release();
+            return result;
         }
 
 		static ref class StatusBar
