@@ -106,13 +106,6 @@ namespace DotNetInterfaceGenerator
                 sourceFile.WriteLine("using namespace Runtime::InteropServices;");
                 sourceFile.WriteLine("using namespace xlwDotNet;"); sourceFile.WriteLine();
 
-                sourceFile.WriteLine("inline std::wstring CLR2WCPP(String^ clrString) {");
-                sourceFile.WriteLine("    System::IntPtr memHandle = Marshal::StringToHGlobalUni(clrString);");
-                sourceFile.WriteLine("    std::wstring result =  (const wchar_t*)(memHandle.ToPointer());");
-                sourceFile.WriteLine("    Marshal::FreeHGlobal(memHandle);");
-                sourceFile.WriteLine("    return result;");
-                sourceFile.WriteLine("}"); sourceFile.WriteLine();
-
                 foreach (Type t in sourceTypes) // search for public static type conversion methods identified by a TypeConversionAttribute
                 {
                     MethodInfo[] classMethods = t.GetMethods();
