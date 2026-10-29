@@ -1,6 +1,6 @@
 
 /*
- Copyright (C) 1998, 1999, 2001, 2002 Jérôme Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002 Jï¿½rï¿½me Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
  Copyright (C) 2009 2011 2020 Narinder S Claire
  Copyright (C) 2011 John Adcock
@@ -98,9 +98,11 @@ namespace xlw {
             if (type & xlw::XlfOperImpl::xlbitFreeAuxMem)
             {
                 LPXLOPER12 result = TempMemory::GetMemory<OperType>();
+                OperProps::copy(lpxloper_, result);
+                OperProps::setXlType(result,
+                    OperProps::getXlType(result) & ~xlw::XlfOperImpl::xlbitFreeAuxMem);
                 type &= ~xlw::XlfOperImpl::xlbitFreeAuxMem;
                 OperProps::setXlType(lpxloper_, type);
-                OperProps::copy(lpxloper_, result);
                 OperProps::XlFree(lpxloper_);
                 lpxloper_ = result;
             }
@@ -1074,4 +1076,3 @@ namespace xlw {
 } 
 
 #endif //XlfOper_HEADER_GUARD
-
