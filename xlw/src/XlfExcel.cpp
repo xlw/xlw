@@ -1,6 +1,6 @@
 
 /*
- Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jérôme Lecomte
+ Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Jï¿½rï¿½me Lecomte
  Copyright (C) 2007, 2008 Eric Ehlers
  Copyright (C) 2009 2020 Narinder S Claire
  Copyright (C) 2011 John Adcock
@@ -67,7 +67,14 @@ xlw::XlfExcel& xlw::XlfExcel::Instance() {
         this_ = new XlfExcel;
         // intialize library first because log displays
         // XLL name in header of log window
-        this_->InitLibrary();
+        try {
+            this_->InitLibrary();
+        }
+        catch (...) {
+            delete this_;
+            this_ = 0;
+            throw;
+        }
     }
     return *this_;
 }
@@ -167,6 +174,8 @@ xlw::XlfExcel::XlfExcel(): impl_(0) {
 }
 
 xlw::XlfExcel::~XlfExcel() {
+    if (impl_->handle_)
+        FreeLibrary(impl_->handle_);
     delete impl_;
     this_ = 0;
     return;
@@ -206,6 +215,7 @@ void xlw::XlfExcel::InitLibrary() {
     HINSTANCE handle = LoadLibrary("XLCALL32.DLL");
     if (handle == 0)
         THROW_XLW("Could not load library XLCALL32.DLL");
+    impl_->handle_ = handle;
 
 
     excelVersion_ = get_excel_version();
@@ -215,8 +225,6 @@ void xlw::XlfExcel::InitLibrary() {
     wStrType_ = "C%";
     fpArrayType_ = "K%";
 
-
-    impl_->handle_ = handle;
 
     // work out if we are running the english version
     XlfOper intlInfo;
@@ -439,4 +447,3 @@ bool xlw::XlfExcel::IsCalledByFuncWiz() const {
         (LPARAM) ((LPEnumStruct)  &enm));
     return enm.bFuncWiz;
 }
-
