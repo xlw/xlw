@@ -183,26 +183,29 @@ xlw::XlfExcel::~XlfExcel() {
 
 int get_excel_version() {
     int version(10);
-    XLOPER12 xRet1, xRet2, xTemp1, xTemp2;
+    XLOPER12 xRet1 = {}, xRet2 = {}, xTemp1 = {}, xTemp2 = {};
     xTemp1.xltype = xTemp2.xltype = xltypeInt;
     xTemp1.val.w = 2;
     xTemp2.val.w = xltypeInt;
-    Excel12(xlfGetWorkspace, &xRet1, 1, &xTemp1);
-    Excel12(xlCoerce, &xRet2, 2, &xRet1, &xTemp2);
-    // need to check for errors here
+    int workspaceResult = Excel12(xlfGetWorkspace, &xRet1, 1, &xTemp1);
+    int coerceResult = xlretFailed;
+    if (workspaceResult == xlretSuccess)
+        coerceResult = Excel12(xlCoerce, &xRet2, 2, &xRet1, &xTemp2);
+
     // French excel doesn't like the decimal point
     // in the version string, fall back to the unsafe looking
     // atoi, not too bad as Excel always seems to NULL terminate the
     // version string, if we can't get anything make sure we don't
     // return a version greater than 12
-    if(xRet2.xltype == xltypeInt)
+    if(coerceResult == xlretSuccess && xRet2.xltype == xltypeInt)
     {
         version = xRet2.val.w;
     }
-    else if(xRet1.xltype == xltypeStr)
+    else if(workspaceResult == xlretSuccess && xRet1.xltype == xltypeStr && xRet1.val.str)
     {
         version = _wtoi(xRet1.val.str + 1);
     }
+    Excel12(xlFree, 0, 1, &xRet2);
     Excel12(xlFree, 0, 1, &xRet1);
     return version;
 }
