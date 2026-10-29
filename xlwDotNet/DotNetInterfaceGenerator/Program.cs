@@ -49,7 +49,7 @@ namespace DotNetInterfaceGenerator
             Semiprimitives.Add(typeof(int[]));
             Semiprimitives.Add(typeof(int[,]));
             Semiprimitives.Add(typeof(int[][]));
-            Assembly xlwAssembly = Assembly.GetAssembly(typeof(ExcelExportAttribute));
+            Assembly xlwAssembly = Assembly.GetAssembly(typeof(xlwDotNet.xlwTypes.MyArray));
             Type[] xlwCandidateTypes = xlwAssembly.GetExportedTypes();
             foreach (Type t in xlwCandidateTypes)
                 if (t.Namespace == "xlwDotNet.xlwTypes")
@@ -60,12 +60,22 @@ namespace DotNetInterfaceGenerator
         {
             try
             {
-                if (args.Length > 4 || args.Length < 2)
+                if (args.Length > 5 || args.Length < 2)
                 {
-                    Console.WriteLine("Usage: DotNetInterfaceGenerator <input assembly> <output library name> <output directory> <outputfilename>");
+                    Console.WriteLine("Usage: DotNetInterfaceGenerator <input assembly> <output library name> <output directory> <outputfilename> [AOT]");
                     return 0;
                 }
                 Assembly sourceAssembly = Assembly.LoadFrom(args[0]);
+                if (args.Length == 5 && String.Equals(args[4], "AOT", StringComparison.OrdinalIgnoreCase))
+                {
+                    AotInterfaceGenerator.Generate(
+                        sourceAssembly,
+                        args[1],
+                        args.Length >= 3 ? args[2] : "",
+                        args.Length >= 4 ? args[3] : args[1]);
+                    return 0;
+                }
+
                 Type[] sourceTypes = sourceAssembly.GetExportedTypes();
 
                 string dirName = "";
@@ -203,10 +213,10 @@ namespace DotNetInterfaceGenerator
                        
                         ExcelOnOpenAttribute[] excelOnOpenAttributeArray = (ExcelOnOpenAttribute[])method.GetCustomAttributes(typeof(ExcelOnOpenAttribute), false);
                         ExcelOnCloseAttribute[] excelOnCloseAttributeArray = (ExcelOnCloseAttribute[])method.GetCustomAttributes(typeof(ExcelOnCloseAttribute), false);
-                        if (excelOnOpenAttributeArray.Length + excelOnCloseAttributeArray .Length > 0)
+                        if (excelOnOpenAttributeArray.Length + excelOnCloseAttributeArray.Length > 0)
                         {
                             ParameterInfo[] paramInfo = method.GetParameters();
-                            if(paramInfo.Length>0) 
+                            if(paramInfo.Length > 0)
                                 throw new Exception("Not exporting  " + method.Name + ": Should have no parameters");
 
                             if (method.ReturnType != typeof(void))
@@ -242,7 +252,7 @@ namespace DotNetInterfaceGenerator
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.Error.WriteLine(e);
                 return -1;
             }
         }
@@ -362,4 +372,3 @@ namespace DotNetInterfaceGenerator
 
     }
 }
-

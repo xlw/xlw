@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project InitialTargets="Debug" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
   <PropertyGroup Condition=" '$(BuildConfig)' != 'true' ">
-    <XLWTF>net6.0</XLWTF>
+    <XLWTF>net11.0</XLWTF>
     <XLLNAME>xlwDemo</XLLNAME>
-<!--<TargetFrameworkVersion>4.7.2</TargetFrameworkVersion>
-    <CLRSupport>true</CLRSupport> -->
-    <CLRSupport>NetCore</CLRSupport>
+    <XLWNativeAot>true</XLWNativeAot>
+    <CLRSupport Condition=" '$(XLWNativeAot)' != 'true' ">NetCore</CLRSupport>
     <TargetFramework>$(XLWTF)</TargetFramework> 
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
@@ -33,8 +32,10 @@
     <ClCompile Include="ag\xlwXLL.cpp">
       <CompileAsManaged>false</CompileAsManaged>
     </ClCompile>
-    <ClCompile Include="AssemblyFinder.cpp" />
-    <ClCompile Include="DLL.cpp" />
+    <ClCompile Include="AssemblyFinder.cpp" Condition=" '$(XLWNativeAot)' != 'true' " />
+    <ClCompile Include="DLL.cpp">
+      <CompileAsManaged Condition=" '$(XLWNativeAot)' == 'true' ">false</CompileAsManaged>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DLL.h" />
@@ -49,7 +50,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
+    <UseDebugLibraries Condition=" '$(Configuration)' == 'Debug' ">true</UseDebugLibraries>
+    <UseDebugLibraries Condition=" '$(Configuration)' == 'Release' ">false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -78,10 +80,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalUsingDirectories Condition=" '$(XLWNativeAot)' != 'true' ">$(XLWROOT)\mixed\lib\$(Platform)\Debug\$(XLWTF)</AdditionalUsingDirectories>
+      <ForcedUsingFiles Condition=" '$(XLWNativeAot)' != 'true' ">xlwDotNet-vc143-mt-gd-$(XLWVersion).dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(XLWROOT)\native\include;$(XLWROOT)\mixed\include\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>$(XLWROOT)\mixed\lib\$(Platform)\Debug\$(XLWTF)</AdditionalUsingDirectories>
-      <ForcedUsingFiles>xlwDotNet-vc143-mt-gd-$(XLWVersion).dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -89,10 +91,9 @@
       <OutputFile>$(OutDir)$(XLLNAME).xll</OutputFile>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>xlw-vc143-mt-gd-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(XLWROOT)\native\lib\$(Platform)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(XLWROOT)\native\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <TargetMachine Condition=" '$(Platform)' == 'Win32' ">MachineX86</TargetMachine>
-      <AssemblyDebug>true</AssemblyDebug>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>app.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
@@ -105,10 +106,10 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <Optimization>MaxSpeed</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalUsingDirectories Condition=" '$(XLWNativeAot)' != 'true' ">$(XLWROOT)\mixed\lib\$(Platform)\Release\$(XLWTF)</AdditionalUsingDirectories>
+      <ForcedUsingFiles Condition=" '$(XLWNativeAot)' != 'true' ">xlwDotNet-vc143-mt-$(XLWVersion).dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(XLWROOT)\native\include;$(XLWROOT)\mixed\include\xlwDotNet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>$(XLWROOT)\mixed\lib\$(Platform)\Release\$(XLWTF)</AdditionalUsingDirectories>
-      <ForcedUsingFiles>xlwDotNet-vc143-mt-$(XLWVersion).dll;$(OutDir)$(XLLNAME).NET.dll;%(ForcedUsingFiles)</ForcedUsingFiles>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -118,7 +119,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>xlw-vc143-mt-$(XLWVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(XLWROOT)\native\lib\$(Platform)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(XLWROOT)\native\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine Condition=" '$(Platform)' == 'Win32' ">MachineX86</TargetMachine>
     </Link>
     <Manifest>

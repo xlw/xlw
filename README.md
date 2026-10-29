@@ -40,8 +40,8 @@ The concept behind XLW's approach is simplicity. There is nothing clever here !
 
 #### **C#**
 - You write your C# functions
-- The Dotnet Interface generator uses reflection to generate C++/CLI bindings for your C#
-- The (C++) interface genertor generates the  Excel C API bindings from your C++/CLI header files
+- `DotNetInterfaceGenerator` reflects over your C# assembly and emits C++/CLI wrappers.
+- `InterfaceGenerator` converts those wrappers into Excel registration code. Native C++ XLLs use this generator directly on their C++ interface header.
 
 It's really not more complicated than that. Moreover, the process should be very transparent and the entry cost for any developer to modify, update or fix XLW should be extremely low. 
 
@@ -51,10 +51,12 @@ xlw is being updated.
 This repo was originally forked from [John's XLW repo](https://github.com/JohnAdders/xlw) which itself was imported from it's original home at [SourceForge](https://sourceforge.net/projects/xlw/)
 
 
-This version will only support Visual Studio 2020 for now. Support for all previous Visual Studio versions has been dropped. All support for gcc has also been dropped.
+Native XLLs use the Visual C++ 14.3 toolset (VC143). Support for older Visual Studio versions and GCC has been dropped.
 
-Support is being added for building xlls against .NET 6 & .NET Framework 4.7.2
+The C# XLL build targets .NET 11. The native XLL component remains built with VC143.
 
+For repository build prerequisites, package ordering, and the two generator roles, see [BUILDING.md](BUILDING.md).
+For step-by-step beginner instructions for creating C++ and C# XLLs, see [GETTING_STARTED.md](GETTING_STARTED.md).
 
 An initial dev nuget package  for building C/C++ xlls is avaialable at [xlw@nuget](https://www.nuget.org/packages/xlw/).\
 And a nuget package for building C# xlls is available at [xlwDotNet@nuget](https://www.nuget.org/packages/xlwDotNet).
@@ -67,7 +69,7 @@ To build a C++ xll :
 1. Create an empty C++ DLL project.
 2. Add the xlw nuget package.
 
-*Required MSVC Toolset v143
+*Requires MSVC toolset v143 (VC143).
 
 #### Creating a C++ XLL for Excel with XLW
 [![Creating a C++ XLL for Excel with XLW](https://img.youtube.com/vi/k0V6nvWjMnI/0.jpg)](https://www.youtube.com/watch?v=k0V6nvWjMnI)      
@@ -75,19 +77,22 @@ To build a C++ xll :
 ---
 
 ## xlwDotNet
-Only VS2020 is supported right now. 
+Use a current Visual Studio/MSVC installation with the VC143 toolset and the .NET 11 SDK. C# XLLs use Native AOT by default, compiling C# exports into a native library. The XLL loads this companion library from its own directory when a C# export is called, so keep the generated `*.NET.dll` beside the `.xll`. Set `XLWNativeAot=false` to use the legacy C++/CLI wrapper pipeline.
+
 To build a C# xll :
-1. Create a new .NET Core library project. 
+1. Create a new .NET 11 class library project.
 2. Open the .csproj file with a text editor and set the  `TargetFramework` and  `Platform` for example
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFramework>net11.0</TargetFramework>
     <Platforms>x64</Platforms>
   </PropertyGroup>
 </Project>
 ```
 3. Add the xlwDotNet nuget package.
+
+The package targets generate both wrapper layers and build the XLL automatically. Native AOT output includes the `.xll` and companion native `*.NET.dll` in the project output directory. See [BUILDING.md](BUILDING.md) for the generator sequence and a repository test-add-in build command.
 
 #### Creating a C\# XLL for Excel with XLW
 [![Creating a C\# XLL for Excel with XLW](https://img.youtube.com/vi/GH0Phpo5S7k/0.jpg)](https://www.youtube.com/watch?v=GH0Phpo5S7k)
@@ -97,6 +102,4 @@ To build a C# xll :
 
 #### Embedding ASP.NET Core (kestrel) in an xll 
 
-[![XLL with Embedded ASP.NET Core (Kestrel) - Built with XLW against .NET 5 Preview](https://img.youtube.com/vi/mQyRnNpG2C4/0.jpg)](https://www.youtube.com/watch?v=mQyRnNpG2C4)
-
-
+[![Historical XLL with Embedded ASP.NET Core demo built against .NET 5 Preview](https://img.youtube.com/vi/mQyRnNpG2C4/0.jpg)](https://www.youtube.com/watch?v=mQyRnNpG2C4)

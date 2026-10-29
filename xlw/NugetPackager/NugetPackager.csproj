@@ -1,7 +1,7 @@
-﻿<Project  InitialTargets="BuildNuget" Sdk="Microsoft.NET.Sdk">
+﻿<Project DefaultTargets="Build" Sdk="Microsoft.NET.Sdk">
  
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <SolutionDir>$(MSBuildProjectDirectory)\..\</SolutionDir>
     <GitDirectory>$(MSBuildProjectDirectory)\..\..\</GitDirectory>
     <nuget>nuget.exe</nuget>

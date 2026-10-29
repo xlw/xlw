@@ -3,12 +3,13 @@
   <Import Project="$(MSBuildThisFileDirectory)../../xlw.version.props" />
   <PropertyGroup Condition=" '$(BuildConfig)' != 'true' ">
     <CLRSupport>NetCore</CLRSupport>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net11.0</TargetFramework>
     <Configuration>Debug</Configuration>
     <Platform>Win32</Platform>
-    <TF>net6.0</TF>
+    <TF>net11.0</TF>
   </PropertyGroup>
   <PropertyGroup>
+    <UseAppHost>false</UseAppHost>
     <gd>
     </gd>
     <gd Condition=" '$(Configuration)' == 'Debug' ">-gd</gd>
@@ -33,13 +34,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ExcelExportAttribute.cpp" />
-    <ClCompile Include="ExcelOpenCloseAttribute.cpp" />
     <ClCompile Include="managedArgumentList.cpp" />
     <ClCompile Include="managedString.cpp" />
     <ClCompile Include="managedXlfExcel.cpp" />
-    <ClCompile Include="ParameterAttribute.cpp" />
-    <ClCompile Include="TypeRegisterAttribute.cpp" />
     <ClCompile Include="xdnException.cpp" />
   </ItemGroup>
   <ItemGroup>

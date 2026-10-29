@@ -14,22 +14,25 @@ jobs:
     if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease' || github.ref ==  'refs/heads/master' || github.ref ==  'refs/heads/dev'
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .NET 6.0
-        uses: actions/setup-dotnet@v1
+      - name: Setup .NET 11 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 11.0.x
+          include-prerelease: true
+      - name: Setup .NET 11 x86 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 11.0.x
+          architecture: x86
+          include-prerelease: true
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Setup Nuget.exe
         uses: nuget/setup-nuget@v1
-      - name: Run Native NugetPackager
-        run : |
-              msbuild xlw\NugetPackager\NugetPackager.csproj
-        id  : Build_Package
-      - name: Run .NET NugetPackager
-        run : |
-              dotnet restore xlwDotNet\Builder\Builder.csproj
-              dotnet restore xlwDotNet\DotNetInterfaceGenerator\DotNetInterfaceGenerator.csproj
-              dotnet restore xlwDotNet\NugetPackager\NugetPackager.csproj
-              msbuild xlwDotNet\NugetPackager\NugetPackager.csproj
+      - name: Build native and .NET packages
+        shell: pwsh
+        run: .\Build-Libraries.ps1
+        id: Build_Package
       - uses: actions/upload-artifact@v2
         with:
             name: nuget-artifact

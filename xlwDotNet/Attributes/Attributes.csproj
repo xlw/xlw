@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <AssemblyName>xlwDotNet.Attributes</AssemblyName>
+    <Platforms>x86;x64</Platforms>
+    <cplatform>$(Platform)</cplatform>
+    <cplatform Condition=" '$(Platform)' == 'x86' ">Win32</cplatform>
+    <OutputPath>..\lib\$(cplatform)\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+</Project>
