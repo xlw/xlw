@@ -31,9 +31,17 @@ jobs:
           $installScript = Join-Path $env:RUNNER_TEMP "dotnet-install.ps1"
           Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile $installScript
           & $installScript -Version $sdkVersion -Architecture x86 -InstallDir $installDir -NoPath
-          $hostPack = Join-Path $installDir "packs\Microsoft.NETCore.App.Host.win-x86\$sdkVersion"
+          $referencePackRoot = Join-Path $env:DOTNET_ROOT "packs\Microsoft.NETCore.App.Ref"
+          $runtimePack = Get-ChildItem $referencePackRoot -Directory |
+            Where-Object { $_.Name -like "11.*" } |
+            Sort-Object Name -Descending |
+            Select-Object -First 1
+          if (-not $runtimePack) {
+            throw "Could not determine the installed .NET 11 runtime pack version."
+          }
+          $hostPack = Join-Path $installDir "packs\Microsoft.NETCore.App.Host.win-x86\$($runtimePack.Name)"
           if (-not (Test-Path $hostPack)) {
-            throw "The .NET $sdkVersion x86 host pack was not installed."
+            throw "The .NET $($runtimePack.Name) x86 host pack was not installed."
           }
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
