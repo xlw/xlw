@@ -52,6 +52,13 @@ NuGet package source:
 </configuration>
 ```
 
+## Example projects
+
+For complete projects to learn from, see the [C++ examples](https://github.com/xlw/xlw-Examples)
+and [C# examples](https://github.com/xlw/xlwDotNet-Examples). They show how XLW
+is used in real add-ins and complement the step-by-step
+[getting-started guide](GETTING_STARTED.md).
+
 ## Building or contributing to XLW
 
 Most add-in developers only need the NuGet package and the
