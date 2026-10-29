@@ -209,6 +209,7 @@ namespace DotNetInterfaceGenerator
             output.AppendLine("#include \"" + fileName + ".h\"");
             output.AppendLine("#include <windows.h>");
             output.AppendLine("#include <cwchar>");
+            output.AppendLine("#include <memory>");
             output.AppendLine("#include <stdexcept>");
             output.AppendLine("#include <string>");
             output.AppendLine("#include <vector>");
@@ -266,7 +267,8 @@ namespace DotNetInterfaceGenerator
             output.AppendLine();
             output.AppendLine("static void XlwCheckAotStatus(int status, wchar_t* error)");
             output.AppendLine("{");
-            output.AppendLine("    if (status == 0) { if (error) XlwAotFree(error); return; }");
+            output.AppendLine("    std::unique_ptr<void, void (*)(void*)> errorOwner(error, &XlwAotFree);");
+            output.AppendLine("    if (status == 0) return;");
             output.AppendLine("    std::string message(\"Native AOT C# call failed.\");");
             output.AppendLine("    if (error)");
             output.AppendLine("    {");
@@ -277,7 +279,6 @@ namespace DotNetInterfaceGenerator
             output.AppendLine("            WideCharToMultiByte(CP_UTF8, 0, error, -1, utf8.data(), length, nullptr, nullptr);");
             output.AppendLine("            message.assign(utf8.data());");
             output.AppendLine("        }");
-            output.AppendLine("        XlwAotFree(error);");
             output.AppendLine("    }");
             output.AppendLine("    throw std::runtime_error(message);");
             output.AppendLine("}");
@@ -620,20 +621,20 @@ namespace DotNetInterfaceGenerator
                     .Concat(new[] { outArguments, "&error" }));
             output.AppendLine("    int status = XlwAotCall_" + export.EntryPoint + "()(" + arguments + ");");
             output.AppendLine("    XlwCheckAotStatus(status, error);");
+            if (!scalarResult)
+                output.AppendLine("    std::unique_ptr<void, void (*)(void*)> resultOwner(result, &XlwAotFree);");
             if (scalarResult)
                 output.AppendLine("    return " + (export.Method.ReturnType == typeof(bool) ? "result != 0" : "result") + ";");
             else if (export.Method.ReturnType == typeof(string))
             {
                 output.AppendLine("    if (result == nullptr) throw std::runtime_error(\"The exported function returned a null string.\");");
                 output.AppendLine("    std::wstring value(result);");
-                output.AppendLine("    XlwAotFree(result);");
                 output.AppendLine("    return value;");
             }
             else if (export.Method.ReturnType == typeof(double[]) || export.Method.ReturnType == typeof(int[]))
             {
                 output.AppendLine("    MyArray value = ArrayTraits<MyArray>::create(static_cast<size_t>(resultLength));");
                 output.AppendLine("    for (int i = 0; i < resultLength; ++i) ArrayTraits<MyArray>::setAt(value, static_cast<size_t>(i), static_cast<double>(result[i]));");
-                output.AppendLine("    if (result) XlwAotFree(result);");
                 output.AppendLine("    return value;");
             }
             else
@@ -642,7 +643,6 @@ namespace DotNetInterfaceGenerator
                 output.AppendLine("    for (int row = 0; row < resultRows; ++row)");
                 output.AppendLine("        for (int column = 0; column < resultColumns; ++column)");
                 output.AppendLine("            MatrixTraits<MyMatrix>::setAt(value, static_cast<size_t>(row), static_cast<size_t>(column), static_cast<double>(result[row * resultColumns + column]));");
-                output.AppendLine("    if (result) XlwAotFree(result);");
                 output.AppendLine("    return value;");
             }
         }
