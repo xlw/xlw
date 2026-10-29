@@ -1,105 +1,63 @@
+# XLW
 
-| dev | master | prerelease | release |
-|:----------:|:----------:|:----------:|:--------------:|
-|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=dev)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=master) |![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=prerelease)|![Build Nuget](https://github.com/xlw/xlw/workflows/Build%20Nuget/badge.svg?branch=release)|
+XLW helps you build Excel add-ins (`.xll` files) in **C++** or **C#**. It
+generates the Excel registration code and integrates with Visual Studio, so you
+can focus on writing worksheet functions.
 
+> **New to XLW? Start here:** [Getting started: build your first C++ or C# XLL](GETTING_STARTED.md).
+> The guide walks through setup, installing the package, writing a function,
+> building the add-in, and loading it in Excel.
 
-# *This project is looking for developers to maintain and take the project forward* #
+## Choose your language
 
+| | C++ | C# |
+|---|---|---|
+| NuGet package | [`xlw`](https://www.nuget.org/packages/xlw/) | [`xlwDotNet`](https://www.nuget.org/packages/xlwDotNet/) |
+| Project type | Visual Studio C++ Dynamic-Link Library | .NET class library |
+| Requirements | Windows, desktop Excel, Visual Studio with the **VC143** C++ toolset | Same, plus the **.NET 11 SDK** |
 
+Build for the same architecture as Excel: usually `x64`; use `Win32`/`x86`
+for 32-bit Excel. The C# build also uses the VC143 compiler to produce the
+native XLL. It uses Native AOT by default, so end users do not need the .NET
+runtime.
 
+### Quick start
 
-#### [xlw nuget](https://www.nuget.org/packages/xlw/)   
-#### [xlwDotNet nuget](https://www.nuget.org/packages/xlwDotNet/)
+1. Install the package for your language from NuGet using the links above.
+2. Add worksheet functions to your project:
+   - **C++:** declare functions in the XLW interface header and implement them
+     in a `.cpp` file.
+   - **C#:** write public static methods and mark them with `[ExcelExport]`.
+3. Build the project in Visual Studio.
+4. In Excel, load the generated `.xll` from **File > Options > Add-ins**.
+   For C# add-ins, keep the generated companion `*.NET.dll` beside the `.xll`.
 
-## Using CI builds
+Follow [the getting-started guide](GETTING_STARTED.md) for a complete example
+in each language, including the code, project settings, and Excel loading
+steps.
 
-To use CI builds add the following nuget feed:
+## Using CI packages
+
+For packages that are not yet published on NuGet.org, add the XLW CI feed as a
+NuGet package source:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
-    <packageSources>
-        <clear />
-        <add key="XLW" value="https://f.feedz.io/xlw/xlw/nuget/index.json" />
-        <add key="NuGet.org" value="https://api.nuget.org/v3/index.json" />
-    </packageSources>
+  <packageSources>
+    <clear />
+    <add key="XLW" value="https://f.feedz.io/xlw/xlw/nuget/index.json" />
+    <add key="NuGet.org" value="https://api.nuget.org/v3/index.json" />
+  </packageSources>
 </configuration>
 ```
 
+## Building or contributing to XLW
 
-# **XLW**
+Most add-in developers only need the NuGet package and the
+[getting-started guide](GETTING_STARTED.md). To build the libraries in this
+repository, see [BUILDING.md](BUILDING.md).
 
-XLW aims to facilitate the development of Excel addins with ease. It attempts to do this by wrapping the old Excel XLL C API in essentially a facade which is simplier to consume hence leaving the developer 
-to focus on the buisness logic. To this end it hides away intricacies of interfacing with the low level Excel C API.
-
-The concept behind XLW's approach is simplicity. There is nothing clever here !
-#### **C++**
-- You write your C++ functions
-- The interface genertor generates the Excel C API bindings from your C++ header files. 
-
-#### **C#**
-- You write your C# functions
-- `DotNetInterfaceGenerator` reflects over your C# assembly and emits C++/CLI wrappers.
-- `InterfaceGenerator` converts those wrappers into Excel registration code. Native C++ XLLs use this generator directly on their C++ interface header.
-
-It's really not more complicated than that. Moreover, the process should be very transparent and the entry cost for any developer to modify, update or fix XLW should be extremely low. 
-
-
-xlw is being updated.
-
-This repo was originally forked from [John's XLW repo](https://github.com/JohnAdders/xlw) which itself was imported from it's original home at [SourceForge](https://sourceforge.net/projects/xlw/)
-
-
-Native XLLs use the Visual C++ 14.3 toolset (VC143). Support for older Visual Studio versions and GCC has been dropped.
-
-The C# XLL build targets .NET 11. The native XLL component remains built with VC143.
-
-For repository build prerequisites, package ordering, and the two generator roles, see [BUILDING.md](BUILDING.md).
-For step-by-step beginner instructions for creating C++ and C# XLLs, see [GETTING_STARTED.md](GETTING_STARTED.md).
-
-An initial dev nuget package  for building C/C++ xlls is avaialable at [xlw@nuget](https://www.nuget.org/packages/xlw/).\
-And a nuget package for building C# xlls is available at [xlwDotNet@nuget](https://www.nuget.org/packages/xlwDotNet).
-
----
-
-## xlw
-xlw for building C++/C xlls has not changed much at this point.
-To build a C++ xll :
-1. Create an empty C++ DLL project.
-2. Add the xlw nuget package.
-
-*Requires MSVC toolset v143 (VC143).
-
-#### Creating a C++ XLL for Excel with XLW
-[![Creating a C++ XLL for Excel with XLW](https://img.youtube.com/vi/k0V6nvWjMnI/0.jpg)](https://www.youtube.com/watch?v=k0V6nvWjMnI)      
-
----
-
-## xlwDotNet
-Use a current Visual Studio/MSVC installation with the VC143 toolset and the .NET 11 SDK. C# XLLs use Native AOT by default, compiling C# exports into a native library. The XLL loads this companion library from its own directory when a C# export is called, so keep the generated `*.NET.dll` beside the `.xll`. Set `XLWNativeAot=false` to use the legacy C++/CLI wrapper pipeline.
-
-To build a C# xll :
-1. Create a new .NET 11 class library project.
-2. Open the .csproj file with a text editor and set the  `TargetFramework` and  `Platform` for example
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net11.0</TargetFramework>
-    <Platforms>x64</Platforms>
-  </PropertyGroup>
-</Project>
-```
-3. Add the xlwDotNet nuget package.
-
-The package targets generate both wrapper layers and build the XLL automatically. Native AOT output includes the `.xll` and companion native `*.NET.dll` in the project output directory. See [BUILDING.md](BUILDING.md) for the generator sequence and a repository test-add-in build command.
-
-#### Creating a C\# XLL for Excel with XLW
-[![Creating a C\# XLL for Excel with XLW](https://img.youtube.com/vi/GH0Phpo5S7k/0.jpg)](https://www.youtube.com/watch?v=GH0Phpo5S7k)
-
-
-## ... And Just Because We Can
-
-#### Embedding ASP.NET Core (kestrel) in an xll 
-
-[![Historical XLL with Embedded ASP.NET Core demo built against .NET 5 Preview](https://img.youtube.com/vi/mQyRnNpG2C4/0.jpg)](https://www.youtube.com/watch?v=mQyRnNpG2C4)
+XLW is looking for developers to help maintain and develop the project. This
+repository was forked from [John's XLW repository](https://github.com/JohnAdders/xlw),
+originally imported from [SourceForge](https://sourceforge.net/projects/xlw/).
