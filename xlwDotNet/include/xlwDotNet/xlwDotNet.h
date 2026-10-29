@@ -26,6 +26,9 @@
 #include<xlw/MyContainers.h>
 #include<xlw/CellMatrix.h>
 #include<xlw/ArgList.h>
+#ifdef _MANAGED
+#include<xlw/managedString.h>
+#endif
 #include<string>
 #include<xlw/XlfException.h>
 
@@ -45,7 +48,7 @@ namespace {
 #define DOT_NET_EXCEL_END \
 } catch (xlwDotNet::cellMatrixException^ theError ) { \
    String^ ErrorMessage = theError->Message;\
-   errCells = CellMatrix(std::string((const char*)(Marshal::StringToHGlobalAnsi(ErrorMessage).ToPointer())));\
+   errCells = CellMatrix(CLR2CPP(ErrorMessage));\
    errCells.PushBottom ( *(xlw::CellMatrix*)((theError->inner).ToPointer()));\
    throw(errCells);\
 } catch (XlfException& theError) { \
@@ -59,8 +62,8 @@ namespace {
 } catch (System::Exception^ theError ) { \
     String^ ErrorType = theError->GetType()->ToString() + " : " + theError->Message ;\
     String^ StackTrace = theError->StackTrace;\
-    xlw::ArgumentList theArg = xlw::ArgumentList((const char*)(Marshal::StringToHGlobalAnsi(ErrorType).ToPointer()));\
-    theArg.add("StackTrace",std::string((const char*)(Marshal::StringToHGlobalAnsi(StackTrace).ToPointer())));\
+    xlw::ArgumentList theArg = xlw::ArgumentList(CLR2CPP(ErrorType));\
+    theArg.add("StackTrace",CLR2CPP(StackTrace));\
     errCells = theArg.AllData();\
     throw(errCells);\
 }

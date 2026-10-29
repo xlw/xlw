@@ -22,10 +22,9 @@ using namespace System;
 using namespace System::Collections::Generic;
 using namespace Runtime::InteropServices;
 #include<xlw/ArgList.h>
+#include<xlw/managedString.h>
 #include"xlwTypeBaseClass.h"
 #include"managedCellMatrix.h"
-
-std::string CLR2CPP(String^ clrString);
 
 namespace xlwDotNet
 {
@@ -40,11 +39,11 @@ namespace xlwDotNet
 
 			ArgumentList(CellMatrix^ cells,String^ ErrorIdentifier):
               xlwTypebaseClass<xlw::ArgumentList>(new xlw::ArgumentList(*(cells->theInner),
-                          (const char*)(Marshal::StringToHGlobalAnsi(ErrorIdentifier)).ToPointer()),true){}
+                          CLR2CPP(ErrorIdentifier)),true){}
 
             ArgumentList(String^ name):
               xlwTypebaseClass<xlw::ArgumentList>(new xlw::ArgumentList(
-                          (const char*)(Marshal::StringToHGlobalAnsi(name)).ToPointer()),true){}
+                          CLR2CPP(name)),true){}
 
             ArgumentList(ArgumentList^ theArgumentList):
               xlwTypebaseClass<xlw::ArgumentList>(new xlw::ArgumentList(*theArgumentList->theInner),true){}
@@ -226,4 +225,3 @@ namespace xlwDotNet
         };
     }
 }
-

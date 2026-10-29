@@ -24,12 +24,11 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 using namespace System;
 using namespace Runtime::InteropServices;
 #include<xlw/CellMatrix.h>
+#include<xlw/managedString.h>
 #include"xlwTypeBaseClass.h"
 
 #include"managedMyMatrix.h"
 #include"managedMyArray.h"
-
-std::wstring CLR2WCPP(String^ clrString);
 
 namespace xlwDotNet
 {
@@ -176,7 +175,7 @@ namespace xlwDotNet
 
 			  CellMatrix(String^ theString):
 			  xlwTypebaseClass<xlw::CellMatrix>
-				  ( new xlw::CellMatrix((const wchar_t*)(Marshal::StringToHGlobalUni(theString)).ToPointer()) ,true){}
+			  (new xlw::CellMatrix(CLR2WCPP(theString)), true){}
 
 			  CellMatrix(double Number):
 			  xlwTypebaseClass<xlw::CellMatrix>( new xlw::CellMatrix(Number) ,true){}

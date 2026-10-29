@@ -13,6 +13,7 @@
 #ifndef MANAGED_XLW_H
 #define MANAGED_XLW_H
 
+#include <xlw/managedString.h>
 
 namespace {
     std::string errMessage;
@@ -28,9 +29,9 @@ catch (System::Exception^ theError ) { \
     String^ ErrorType = theError->GetType()->ToString() + " : ";\
         String^ ErrorMessage = theError->Message;\
         String^ StackTrace = theError->StackTrace;\
-        xlw::ArgumentList theArg = xlw::ArgumentList((const char*)(Marshal::StringToHGlobalAnsi(ErrorType).ToPointer()));\
-        theArg.add("ErrorMessage",std::string((const char*)(Marshal::StringToHGlobalAnsi(ErrorMessage).ToPointer())));\
-        theArg.add("StackTrace",std::string((const char*)(Marshal::StringToHGlobalAnsi(StackTrace).ToPointer())));\
+        xlw::ArgumentList theArg = xlw::ArgumentList(CLR2CPP(ErrorType));\
+    theArg.add("ErrorMessage",CLR2CPP(ErrorMessage));\
+    theArg.add("StackTrace",CLR2CPP(StackTrace));\
         errCells = theArg.AllData();\
     throw(errCells);\
 }
@@ -38,5 +39,3 @@ catch (System::Exception^ theError ) { \
 
 
 #endif //  MANAGED_XLW_H
-
-

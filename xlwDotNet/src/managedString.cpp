@@ -16,23 +16,4 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
-using namespace System;
-using namespace Runtime::InteropServices;
-
-#include<string>
-
-std::string CLR2CPP(String^ clrString)
-{
-    System::IntPtr memHandle = Marshal::StringToHGlobalAnsi(clrString);
-    std::string result =  (const char*)(memHandle.ToPointer());
-    Marshal::FreeHGlobal(memHandle);
-    return result;
-}
-
-std::wstring CLR2WCPP(String^ clrString)
-{
-	System::IntPtr memHandle = Marshal::StringToHGlobalUni(clrString);
-	std::wstring result = (const wchar_t*)(memHandle.ToPointer());
-	Marshal::FreeHGlobal(memHandle);
-	return result;
-}
+#include <xlw/managedString.h>

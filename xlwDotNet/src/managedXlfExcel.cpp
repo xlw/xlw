@@ -18,9 +18,8 @@
 */
 using namespace System;
 #include<xlw/xlw.h>
+#include<xlw/managedString.h>
 #include"managedCellMatrix.h"
-
-std::string CLR2CPP(String^ clrString);
 
 namespace xlwDotNet
 {
