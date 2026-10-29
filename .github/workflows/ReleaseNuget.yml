@@ -2,7 +2,7 @@ name: Build Nuget
  
 on:
   push:
-    branches: [ master, release, prerelease , dev]
+    branches: [ master, release, prerelease, dev, 2026-update ]
   pull_request:
     branches: [ dev ]
  
@@ -11,26 +11,47 @@ jobs:
     runs-on: windows-latest
     outputs:
         output1: ${{ steps.Build_Package.outputs.version }}
-    if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease' || github.ref ==  'refs/heads/master' || github.ref ==  'refs/heads/dev'
+    if: github.ref == 'refs/heads/release' || github.ref == 'refs/heads/prerelease' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/2026-update'
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup .NET 6.0
-        uses: actions/setup-dotnet@v1
+      - uses: actions/checkout@v5
+      - name: Setup .NET 11 SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 11.0.x
+          dotnet-quality: preview
+      - name: Install matching .NET 11 x86 SDK
+        shell: pwsh
+        run: |
+          $sdkLine = dotnet --list-sdks | Where-Object { $_ -match '^11\.' } | Select-Object -Last 1
+          if (-not $sdkLine -or $sdkLine -notmatch '^(?<Version>\S+)') {
+            throw "Could not determine the installed .NET 11 SDK version."
+          }
+          $sdkVersion = $Matches.Version
+          $installDir = Join-Path $env:LOCALAPPDATA "dotnet-sdk-x86"
+          $installScript = Join-Path $env:RUNNER_TEMP "dotnet-install.ps1"
+          Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile $installScript
+          & $installScript -Version $sdkVersion -Architecture x86 -InstallDir $installDir -NoPath
+          $referencePackRoot = Join-Path $env:DOTNET_ROOT "packs\Microsoft.NETCore.App.Ref"
+          $runtimePack = Get-ChildItem $referencePackRoot -Directory |
+            Where-Object { $_.Name -like "11.*" } |
+            Sort-Object Name -Descending |
+            Select-Object -First 1
+          if (-not $runtimePack) {
+            throw "Could not determine the installed .NET 11 runtime pack version."
+          }
+          $hostPack = Join-Path $installDir "packs\Microsoft.NETCore.App.Host.win-x86\$($runtimePack.Name)"
+          if (-not (Test-Path $hostPack)) {
+            throw "The .NET $($runtimePack.Name) x86 host pack was not installed."
+          }
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Setup Nuget.exe
         uses: nuget/setup-nuget@v1
-      - name: Run Native NugetPackager
-        run : |
-              msbuild xlw\NugetPackager\NugetPackager.csproj
-        id  : Build_Package
-      - name: Run .NET NugetPackager
-        run : |
-              dotnet restore xlwDotNet\Builder\Builder.csproj
-              dotnet restore xlwDotNet\DotNetInterfaceGenerator\DotNetInterfaceGenerator.csproj
-              dotnet restore xlwDotNet\NugetPackager\NugetPackager.csproj
-              msbuild xlwDotNet\NugetPackager\NugetPackager.csproj
-      - uses: actions/upload-artifact@v2
+      - name: Build native and .NET packages
+        shell: pwsh
+        run: .\Build-Libraries.ps1
+        id: Build_Package
+      - uses: actions/upload-artifact@v4
         with:
             name: nuget-artifact
             path: nuget_pack/*.nupkg
@@ -39,7 +60,7 @@ jobs:
     needs: [build]
     if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease'
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
             name: nuget-artifact
       - name: Tag commit
@@ -69,7 +90,7 @@ jobs:
     needs: [build]
     if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease'  || github.ref ==  'refs/heads/master' 
     steps:   
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
             name: nuget-artifact
       - name: Push Nuget to f.feedz.io
