@@ -301,6 +301,9 @@ namespace xlw {
         }
         static void copy(LPXLOPER12 fromOper, LPXLOPER12 toOper)
         {
+            if(fromOper == toOper)
+                return;
+
             switch(fromOper->xltype & 0xFFF)
             {
                 case xltypeMulti:
@@ -338,6 +341,9 @@ namespace xlw {
         }
         static void copyUsingNew(LPXLOPER12 fromOper, LPXLOPER12 toOper)
         {
+            if(fromOper == toOper)
+                return;
+
             switch(fromOper->xltype & 0xFFF)
             {
                 case xltypeMulti:
