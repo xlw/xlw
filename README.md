@@ -1,5 +1,7 @@
 # XLW
 
+[![Build Nuget](https://github.com/xlw/xlw/actions/workflows/ReleaseNuget.yml/badge.svg?branch=dev)](https://github.com/xlw/xlw/actions/workflows/ReleaseNuget.yml)
+
 XLW helps you build Excel add-ins (`.xll` files) in **C++** or **C#**. It
 generates the Excel registration code and integrates with Visual Studio, so you
 can focus on writing worksheet functions.
