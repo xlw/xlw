@@ -18,13 +18,23 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 11.0.x
-          include-prerelease: true
-      - name: Setup .NET 11 x86 SDK
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 11.0.x
-          architecture: x86
-          include-prerelease: true
+          dotnet-quality: preview
+      - name: Install matching .NET 11 x86 SDK
+        shell: pwsh
+        run: |
+          $sdkLine = dotnet --list-sdks | Where-Object { $_ -match '^11\.' } | Select-Object -Last 1
+          if (-not $sdkLine -or $sdkLine -notmatch '^(?<Version>\S+)') {
+            throw "Could not determine the installed .NET 11 SDK version."
+          }
+          $sdkVersion = $Matches.Version
+          $installDir = Join-Path $env:LOCALAPPDATA "dotnet-sdk-x86"
+          $installScript = Join-Path $env:RUNNER_TEMP "dotnet-install.ps1"
+          Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile $installScript
+          & $installScript -Version $sdkVersion -Architecture x86 -InstallDir $installDir -NoPath
+          $hostPack = Join-Path $installDir "packs\Microsoft.NETCore.App.Host.win-x86\$sdkVersion"
+          if (-not (Test-Path $hostPack)) {
+            throw "The .NET $sdkVersion x86 host pack was not installed."
+          }
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Setup Nuget.exe
