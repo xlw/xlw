@@ -2,7 +2,7 @@ name: Build Nuget
  
 on:
   push:
-    branches: [ master, release, prerelease , dev]
+    branches: [ master, release, prerelease, dev, 2026-update ]
   pull_request:
     branches: [ dev ]
  
@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
     outputs:
         output1: ${{ steps.Build_Package.outputs.version }}
-    if: github.ref == 'refs/heads/release'  || github.ref ==  'refs/heads/prerelease' || github.ref ==  'refs/heads/master' || github.ref ==  'refs/heads/dev'
+    if: github.ref == 'refs/heads/release' || github.ref == 'refs/heads/prerelease' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/2026-update'
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET 11 SDK
