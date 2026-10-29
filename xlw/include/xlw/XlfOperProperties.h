@@ -220,6 +220,7 @@ namespace xlw {
                     result->val.mref.idSheet = oper->val.mref.idSheet;
                     result->val.mref.lpmref = TempMemory::GetMemory<XLMREF12>();
                     result->val.mref.lpmref->count = 1;
+                    result->val.mref.lpmref->reftbl[0] = oper->val.mref.lpmref->reftbl[0];
                     result->val.mref.lpmref->reftbl[0].rwFirst += row;
                     result->val.mref.lpmref->reftbl[0].rwLast = result->val.mref.lpmref->reftbl[0].rwFirst;
                     result->val.mref.lpmref->reftbl[0].colFirst += column;
