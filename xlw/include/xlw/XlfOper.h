@@ -83,6 +83,27 @@ namespace xlw {
         typedef typename OperProps::OperType OperType;
         typedef xlw::XlfOperImpl XlfOperImpl;
 
+        void releaseAuxMemory()
+        {
+            XlTypeType type = OperProps::getXlType(lpxloper_);
+            if (type & XlfOperImpl::xlbitFreeAuxMem)
+            {
+                type &= ~XlfOperImpl::xlbitFreeAuxMem;
+                OperProps::setXlType(lpxloper_, type);
+                OperProps::XlFree(lpxloper_);
+            }
+        }
+
+        void setFrom(LPXLOPER12 fromOper)
+        {
+            XlfOper copy;
+            OperProps::copy(fromOper, copy.lpxloper_);
+            OperProps::setXlType(copy.lpxloper_,
+                OperProps::getXlType(copy.lpxloper_) & ~XlfOperImpl::xlbitFreeAuxMem);
+            releaseAuxMemory();
+            OperProps::copy(copy.lpxloper_, lpxloper_);
+        }
+
         // we need to be careful if we try and return back to excel memory it
         // has given us as a return value 
         // some versions object to the flag we use for memory management.
@@ -121,6 +142,7 @@ namespace xlw {
         template <class FwdIt>
         void Set(RW rows, COL cols, FwdIt start)
         {
+            releaseAuxMemory();
             OperProps::setArraySize(lpxloper_, rows, cols);
             RW actualrows = OperProps::getRows(lpxloper_);
             COL actualcols = OperProps::getCols(lpxloper_);
@@ -322,15 +344,7 @@ namespace xlw {
         //! Destructor
         ~XlfOper()
         {
-            XlTypeType type = OperProps::getXlType(lpxloper_);
-
-            if (type & xlw::XlfOperImpl::xlbitFreeAuxMem)
-            {
-                // switch back the bit as it was originally
-                type &= ~xlw::XlfOperImpl::xlbitFreeAuxMem;
-                OperProps::setXlType(lpxloper_, type);
-                OperProps::XlFree(lpxloper_);
-            }
+            releaseAuxMemory();
         }
 
         //! Constructs an Excel error.
@@ -925,76 +939,86 @@ namespace xlw {
         //! Set the underlying XLOPER * to lpxloper.
         void Set(LPXLOPER12 lpxloper)
         {
-            OperProps::copy(lpxloper, lpxloper_);
+            setFrom(lpxloper);
         }
         //! Set to a string.value
         void Set(const std::string& value)
         {
+            releaseAuxMemory();
             OperProps::setString(lpxloper_, value);
         }
         //! Set to a wide string.value
         void Set(const std::wstring& value)
         {
+            releaseAuxMemory();
             OperProps::setWString(lpxloper_, value);
         }
         //! Set to a double
         void Set(double value)
         {
+            releaseAuxMemory();
             OperProps::setDouble(lpxloper_, value);
         }
         //! Set to a short
         void Set(short value)
         {
+            releaseAuxMemory();
             OperProps::setInt(lpxloper_, value);
         }
         //! Set to an int
         void Set(int value)
         {
+            releaseAuxMemory();
             OperProps::setInt(lpxloper_, value);
         }
         //! Set to an unsigned long
         void Set(unsigned long value)
         {
+            releaseAuxMemory();
             OperProps::setDouble(lpxloper_, static_cast<double>(value));
         }
         //! Set to a bool
         void Set(bool value)
         {
+            releaseAuxMemory();
             OperProps::setBool(lpxloper_, value);
         }
         //! Set to a c string
         void Set(const char *value)
         {
+            releaseAuxMemory();
             OperProps::setString(lpxloper_, value);
         }
         //! Set to a c wide string
         void Set(const wchar_t* value)
         {
+            releaseAuxMemory();
             OperProps::setWString(lpxloper_, value);
         }
         void Set(const CellMatrix& cells)
         {
             XlfOper temp(cells);
-            std::swap(temp, *this);
+            setFrom(temp.lpxloper_);
         }
         void Set(const MyMatrix& matrix)
         {
             XlfOper temp(matrix);
-            std::swap(temp, *this);
+            setFrom(temp.lpxloper_);
         }
         void Set(const MyArray& values)
         {
             XlfOper temp(values);
-            std::swap(temp, *this);
+            setFrom(temp.lpxloper_);
         }
         void Set(const XlfRef& range)
         {
             XlfOper temp(range);
-            std::swap(temp, *this);
+            setFrom(temp.lpxloper_);
         }
         //! Set to an error code
         void SetError(ErrorType errorCode)
         {
+            releaseAuxMemory();
             OperProps::setError(lpxloper_, errorCode);
         }
         //@}
@@ -1004,70 +1028,70 @@ namespace xlw {
         //! equals operator from same type
         XlfOper& operator=(const XlfOper& rhs)
         {
-            OperProps::copy(rhs.lpxloper_, lpxloper_);
+            setFrom(rhs.lpxloper_);
             return *this;
         }
 
         //! equals operator from a pointer to the same type
         XlfOper& operator=(const LPXLOPER12 rhs)
         {
-            OperProps::copy(rhs, lpxloper_);
+            setFrom(rhs);
             return *this;
         }
 
         //! equals operator from double
         XlfOper& operator=(double rhs)
         {
-            OperProps::setDouble(lpxloper_, rhs);
+            Set(rhs);
             return *this;
         }
 
         //! equals operator from bool
         XlfOper& operator=(bool rhs)
         {
-            OperProps::setBool(lpxloper_, rhs);
+            Set(rhs);
             return *this;
         }
 
         //! equals operator from int
         XlfOper& operator=(int rhs)
         {
-            OperProps::setInt(lpxloper_, rhs);
+            Set(rhs);
             return *this;
         }
 
         //! equals operator from unsigned long
         XlfOper& operator=(unsigned long rhs)
         {
-            OperProps::setDouble(lpxloper_, static_cast<double>(rhs));
+            Set(rhs);
             return *this;
         }
 
         //! equals operator from string
         XlfOper& operator=(const std::string& rhs)
         {
-            OperProps::setString(lpxloper_, rhs);
+            Set(rhs);
             return *this;
         }
 
         //! equals operator from wide string
         XlfOper& operator=(const std::wstring& rhs)
         {
-            OperProps::setWString(lpxloper_, rhs);
+            Set(rhs);
             return *this;
         }
 
         //! equals operator from c string
         XlfOper& operator=(const char* rhs)
         {
-            OperProps::setString(lpxloper_, rhs);
+            Set(rhs);
             return *this;
         }
 
         //! equals operator from wide c string
         XlfOper& operator=(const wchar_t* rhs)
         {
-            OperProps::setWString(lpxloper_, rhs);
+            Set(rhs);
             return *this;
         }
         //@}
